@@ -63,7 +63,7 @@
             <td>{{ item.ReasonForPayment}}</td>
             <td>{{ item.Amount}}</td>
             <td><a href="{% url 'expensereceipt' item.id %}" target="_new"><button class="btn btn-info">Print Receipt</button></a> |
-            <a href="{% url 'edit_payment' item.id %}" ><button class="btn btn-warning">Edit Payment</button></a></td>
+            <a href="{% url 'edit_payment' pk=item.id %}" ><button class="btn btn-warning">Edit Payment</button></a></td>
          {% endfor %}
 
          </tr>

@@ -171,7 +171,7 @@ def Pledgesreport(request):
     items =Pledges.objects.all()
     context = {
         'total_amount':total_amount,
-        'items': items,
+        'items':items,
         'months':months,
         'years':years,
     }

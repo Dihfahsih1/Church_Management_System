@@ -2,53 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c592e5a8-719c-4810-ae5b-ffd9f299b4e6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dashboard/templates/messages.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dashboard/templates/offeringsarchive.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dashboard/templates/offeringsarchivepdf.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dashboard/templates/offeringsindex.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dashboard/templates/offeringspdf.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dashboard/templates/offeringsreceipt.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dashboard/templates/pledgesarchive.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dashboard/templates/pledgesarchivepdf.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dashboard/templates/pledgesindex.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dashboard/templates/pledgespdf.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dashboard/templates/pledgesreceipt.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dashboard/templates/registration/offeringsarchive.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dashboard/templates/tithesarchive.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dashboard/templates/tithesarchivepdf.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dashboard/templates/tithesindex.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dashboard/templates/tithespdf.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dashboard/templates/tithesreceipt.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dashboard/templates/archiveexpenses.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/media/canonlogo.jpg" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/accountant" afterPath="$PROJECT_DIR$/accountant" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/admin.py" afterPath="$PROJECT_DIR$/dashboard/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/forms.py" afterPath="$PROJECT_DIR$/dashboard/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/models.py" afterPath="$PROJECT_DIR$/dashboard/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/templates/Accprofile.html" afterPath="$PROJECT_DIR$/dashboard/templates/Accprofile.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/templates/add_new.html" afterPath="$PROJECT_DIR$/dashboard/templates/add_new.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/templates/base.html" afterPath="$PROJECT_DIR$/dashboard/templates/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/templates/display_staff.html" afterPath="$PROJECT_DIR$/dashboard/templates/display_staff.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/templates/expenditurearchive.html" afterPath="$PROJECT_DIR$/dashboard/templates/expenditurearchive.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/templates/expenditurearchivepdf.html" afterPath="$PROJECT_DIR$/dashboard/templates/expenditurearchivepdf.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/templates/expenditureindex.html" afterPath="$PROJECT_DIR$/dashboard/templates/expenditureindex.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/templates/expenditurepdf.html" afterPath="$PROJECT_DIR$/dashboard/templates/expenditurepdf.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/templates/expensereceipt.html" afterPath="$PROJECT_DIR$/dashboard/templates/expensereceipt.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/templates/pay_expenditure.html" afterPath="$PROJECT_DIR$/dashboard/templates/pay_expenditure.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/templates/pdf.html" afterPath="$PROJECT_DIR$/dashboard/templates/pdf.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/templates/salaryarchive.html" afterPath="$PROJECT_DIR$/dashboard/templates/salaryarchive.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/templates/salaryarchivepdf.html" afterPath="$PROJECT_DIR$/dashboard/templates/salaryarchivepdf.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/templates/salaryindex.html" afterPath="$PROJECT_DIR$/dashboard/templates/salaryindex.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/templates/salaryreceipt.html" afterPath="$PROJECT_DIR$/dashboard/templates/salaryreceipt.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/templates/sundryarchive.html" afterPath="$PROJECT_DIR$/dashboard/templates/sundryarchive.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/templates/sundryarchivepdf.html" afterPath="$PROJECT_DIR$/dashboard/templates/sundryarchivepdf.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/templates/sundryindex.html" afterPath="$PROJECT_DIR$/dashboard/templates/sundryindex.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/templates/sundrypdf.html" afterPath="$PROJECT_DIR$/dashboard/templates/sundrypdf.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/templates/sundryreceipt.html" afterPath="$PROJECT_DIR$/dashboard/templates/sundryreceipt.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/urls.py" afterPath="$PROJECT_DIR$/dashboard/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/views.py" afterPath="$PROJECT_DIR$/dashboard/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -90,7 +44,7 @@
         <entry file="file://$PROJECT_DIR$/dashboard/templates/expenditureindex.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-289">
-              <caret line="10" column="18" lean-forward="true" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+              <caret line="10" column="18" lean-forward="false" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -100,7 +54,7 @@
         <entry file="file://$PROJECT_DIR$/dashboard/templates/Accprofile.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-49">
-              <caret line="12" column="14" lean-forward="true" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+              <caret line="12" column="14" lean-forward="false" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -120,7 +74,7 @@
         <entry file="file://$PROJECT_DIR$/dashboard/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-595">
-              <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="20" />
+              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -130,7 +84,7 @@
         <entry file="file://$PROJECT_DIR$/dashboard/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
-              <caret line="30" column="32" lean-forward="true" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="67" />
+              <caret line="30" column="32" lean-forward="false" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -687,8 +641,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="2" width="1378" height="733" extended-state="1" />
-    <editor active="true" />
+    <frame x="-7" y="2" width="1378" height="733" extended-state="0" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32473445" sideWeight="0.83073497" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1072,7 +1025,7 @@
     <entry file="file://$PROJECT_DIR$/dashboard/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-595">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="20" />
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="20" />
           <folding />
         </state>
       </provider>
@@ -1088,7 +1041,7 @@
     <entry file="file://$PROJECT_DIR$/dashboard/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="30" column="32" lean-forward="true" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="67" />
+          <caret line="30" column="32" lean-forward="false" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="32" />
           <folding />
         </state>
       </provider>
@@ -1096,7 +1049,7 @@
     <entry file="file://$PROJECT_DIR$/dashboard/templates/expenditureindex.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-289">
-          <caret line="10" column="18" lean-forward="true" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+          <caret line="10" column="18" lean-forward="false" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
           <folding />
         </state>
       </provider>
@@ -1104,7 +1057,7 @@
     <entry file="file://$PROJECT_DIR$/dashboard/templates/Accprofile.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-49">
-          <caret line="12" column="14" lean-forward="true" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+          <caret line="12" column="14" lean-forward="false" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
           <folding />
         </state>
       </provider>
