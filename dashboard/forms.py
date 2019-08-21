@@ -29,7 +29,7 @@ class OfferingsForm(forms.ModelForm):
 class PledgesForm(forms.ModelForm):
     class Meta:
         model=Pledges
-        fields = ('Date','DayOfTheWeek','PledgeMadeBy','Reason','Amount','AmountInWords')
+        fields = ('Date','DayOfTheWeek','PledgeMadeBy','Contact_Number','Reason','Amount','AmountInWords')
 class TithesForm(forms.ModelForm):
     class Meta:
         model=Tithes

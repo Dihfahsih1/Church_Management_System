@@ -67,6 +67,7 @@ class Pledges(Model):
     DayOfTheWeek = models.CharField(max_length=100, blank=False)
     PledgeMadeBy = models.CharField(max_length=100, blank=False)
     Reason = models.CharField(max_length=100, null=True)
+    Contact_Number = models.CharField(max_length=100, null=True)
     Amount = models.IntegerField(default=0)
     AmountInWords = models.CharField(max_length=500, blank=False)
     def __str__(self):

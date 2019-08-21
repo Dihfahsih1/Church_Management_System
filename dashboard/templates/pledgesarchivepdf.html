@@ -80,6 +80,7 @@
                 <th>Name</th>
                 <th>Reason</th>
                 <th>Amount</th>
+                <th>Phone Number</th>
             </tr>
             </thead>
             <tbody>
@@ -90,10 +91,11 @@
                     <td>{{ pledges.Name }}</td>
                     <td>{{ pledges.Reason }}</td>
                     <td>Shs:{{ pledges.Amount }}</td>
+                    <td>{{ Contact_Number.Name }}</td>
 
                 </tr>
             {% endfor %}
-            <tr><td><b>Total Amount:</b> </td> <td>______________ </td><td>______________  </td> <td>______________  </td><td><b>{{ total_amount}}</b></td></tr>
+            <tr><td><b>Total Amount:</b> </td><td>______________ </td> <td>______________ </td><td>______________  </td> <td>______________  </td><td><b>{{ total_amount}}</b></td></tr>
             </tbody>
         </table>
     </div>
