@@ -37,7 +37,7 @@ def Enter_Offerings(request):
     else:
         form=OfferingsForm()
         return render(request, 'add_new.html',{'form':form})
-
+@login_required
 def Enter_Tithes(request):
     if request.method=="POST":
         form=TithesForm(request.POST)
@@ -47,7 +47,7 @@ def Enter_Tithes(request):
     else:
         form=TithesForm()
         return render(request, 'add_new.html',{'form':form})
-
+@login_required
 def Enter_Pledges(request):
     if request.method=="POST":
         form=PledgesForm(request.POST)
@@ -57,7 +57,7 @@ def Enter_Pledges(request):
     else:
         form=PledgesForm()
         return render(request, 'add_new.html',{'form':form})
-
+@login_required
 def enter_expenditure(request):
     if request.method=="POST":
         form=SpendForm(request.POST)
@@ -69,7 +69,7 @@ def enter_expenditure(request):
         items = Spend.objects.all()
         context = {'items': items, 'form': form, }
         return render(request, 'pay_expenditure.html',context)
-
+@login_required
 def enter_sundryexpense(request):
     if request.method == "POST":
         form = SundryForm(request.POST)
@@ -439,6 +439,7 @@ class sundryreceipt(View):
 #####################
 # EXPENSES ARCHIVING#
 #####################
+@login_required
 def expenditurereport (request):
     if request.method=='POST':
         archived_year=request.POST['archived_year']
@@ -495,7 +496,7 @@ def expenditurereport (request):
 
     }
     return render(request, 'expenditureindex.html', context)
-
+@login_required
 def salaryreport (request):
     if request.method=='POST':
         archived_year=request.POST['archived_year']
@@ -543,7 +544,7 @@ def salaryreport (request):
         'years':years,
     }
     return render(request, 'salaryindex.html', context)
-
+@login_required
 def sundryreport (request):
     if request.method=='POST':
         archived_year=request.POST['archived_year']
@@ -592,6 +593,7 @@ def sundryreport (request):
         'years':years,
     }
     return render(request, 'sundryindex.html', context)
+@login_required    
 def Offeringsreport (request):
     if request.method=='POST':
         archived_year=request.POST['archived_year']
@@ -638,7 +640,7 @@ def Offeringsreport (request):
     }
     return render(request, 'offeringsindex.html', context)
 
-
+@login_required
 def Tithesreport (request):
     if request.method=='POST':
         archived_year=request.POST['archived_year']
@@ -681,6 +683,7 @@ def Tithesreport (request):
     }
     return render(request, 'tithesindex.html', context)
 # searching for the archives
+@login_required
 def expensesarchivessearch(request):
     if request.method == 'POST':
         report_year = request.POST['report_year']
@@ -709,6 +712,7 @@ def expensesarchivessearch(request):
                'years': years,
                'expenses': expenses}
     return render(request, "expenditurearchive.html", context)
+@login_required    
 def salaryarchivessearch(request):
     if request.method == 'POST':
         report_year = request.POST['report_year']
@@ -744,7 +748,7 @@ def salaryarchivessearch(request):
                'years': years,
                'salary': salary}
     return render(request, "salaryarchive.html", context)
-
+@login_required
 def sundryarchivessearch(request):
     if request.method == 'POST':
         report_year = request.POST['report_year']
@@ -780,7 +784,7 @@ def sundryarchivessearch(request):
                'years': years,
                'sundry': sundry}
     return render(request, "sundryarchive.html", context)
-
+@login_required
 def pledgesarchivessearch(request):
     if request.method == 'POST':
         report_year = request.POST['report_year']
@@ -815,7 +819,7 @@ def pledgesarchivessearch(request):
                'years': years,
                'pledges': pledges}
     return render(request, "pledgesarchive.html", context)
-
+@login_required
 def offeringsarchivessearch(request):
     if request.method == 'POST':
         report_year = request.POST['report_year']
@@ -850,7 +854,7 @@ def offeringsarchivessearch(request):
                'years': years,
                'offerings': offerings}
     return render(request, "offeringsarchive.html", context)
-
+@login_required
 def tithesarchivessearch(request):
     if request.method == 'POST':
         report_year = request.POST['report_year']
