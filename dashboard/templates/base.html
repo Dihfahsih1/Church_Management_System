@@ -74,7 +74,13 @@
        <a class="nav-link" href="{% url 'logout' %}">LOG OUT</a>
     </li>
 </nav>
-
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-success">
+     <h1> {{ message }} </h1>
+    </div>
+  {% endfor %}
+{% endif %}
 
 {% block body %}
 {% endblock %}
