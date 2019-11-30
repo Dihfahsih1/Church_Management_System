@@ -2,13 +2,18 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div  class="container">
+	<div class="row">
+	<div class="col-lg-2"></div>
+	<div class="col-lg-6">
 	<form method="POST">
 		{% csrf_token %}
 		<fieldset class="form-group">
-			<legend class="border-bottom">Register for account</legend>
-			{{ form.as_p }}
-			
+			<legend class="border-bottom">Register for account</legend>	
+			<div class="form-group">
+			{{ form|crispy}}
+		    </div>		
 		</fieldset>
+	
 		<div class="form-group">
 			<button class="btn btn-outline-info" type="submit"> Sign up</button> 			 
 		</div>
@@ -19,5 +24,8 @@
 			Already have an account?<a class="ml-2" href="#">Sign In</a>
 		</small>
 	</div>
+   </div>
+	<div class="col-lg-2">	</div>
+  </div>	
 </div>
 {% endblock %}
