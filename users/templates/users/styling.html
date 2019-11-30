@@ -19,7 +19,13 @@
 <body><br>
 
 
-
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-success">
+     <h1> {{ message }} </h1>
+    </div>
+  {% endfor %}
+{% endif %}
 {% block content %}
 
 {% endblock %}
