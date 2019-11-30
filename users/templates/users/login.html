@@ -3,7 +3,29 @@
 {% block content %}
 <div  class="container">
 	<div class="row">
-	<div class="col-lg-2"></div>
+	<div class="col-lg-6">
+		<div class=" container">
+
+              <h3> Welcome To UCC Bwaise Church System</h3>
+                {% load static %}
+                <img width="100%" src="{% static 'media/uccchurch.jpg' %}">
+                <h6> The Roles in Accounts Department</h6>
+                <ul class="list-group">
+                    <li class="list-group-item-info"> Receive Pledgess</li>
+                    <li class="list-group-item-info"> Generate Receipts </li>
+                    <li class="list-group-item-info"> Make Main Expenses</li>
+                    <li class="list-group-item-info"> Make petty cash</li>
+                    <li class="list-group-item-info">Issue Allowances </li>
+                    <li class="list-group-item-info">Generate Financial report</li>
+                     <li class="list-group-item-info"> Record Tithes, offerings and church donations</li>
+                    <li class="list-group-item-info"> Submit Monthly Reports to the Church Admin</li>
+                    <li class="list-group-item-info"> Monitor Church Finances</li>
+                    <li class="list-group-item-info">Archiving of financial records</li>
+                </ul>
+
+            </div>
+        </div>       
+	
 	<div class="col-lg-6">
 	<form method="POST">
 		{% csrf_token %}
@@ -25,7 +47,7 @@
 		</small>
 	</div>
    </div>
-	<div class="col-lg-2">	</div>
+	
   </div>	
 </div>
 {% endblock %}

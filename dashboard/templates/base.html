@@ -69,10 +69,18 @@
         <input class="form-control " type="text">
       </form>-->
     </div>
-
-    <li class="nav-item active float-lg-right" >
-       <a class="nav-link" href="{% url 'logout' %}">LOG OUT</a>
+  {% if user.is_authenticated %}
+  <li class="nav-item active float-lg-right" >
+       <a class="nav-link" href="{% url 'logout' %}">Logout</a>
     </li>
+   {% else %} 
+   <li class="nav-item active float-lg-right" >
+       <a class="nav-link" href="{% url 'login' %}">Login</a>
+    </li>
+    <li class="nav-item active float-lg-right" >
+       <a class="nav-link" href="{% url 'register' %}">Register</a>
+    </li>
+  {% endif %}
 </nav>
 {% if messages %}
   {% for message in messages %}
