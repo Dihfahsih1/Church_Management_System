@@ -9,15 +9,15 @@ from django.contrib.auth.decorators import login_required
 from .forms import *
 from .models import *
 from .render import Render
+@login_required
 def index(request):
-    return render(request,'Accprofile.html')
+    return render(request,'index.html')
 
     ####################################################
     #        ENTERING RECORDS INTO THE DATABASE        #
     ####################################################
 # Adding Staff
  # payment of salaries
-@login_required 
 def pay_salary(request):
     if request.method=="POST":
         form=SalaryForm(request.POST)
@@ -27,7 +27,7 @@ def pay_salary(request):
     else:
         form=SalaryForm()
         return render(request, 'add_new.html',{'form':form})
-@login_required 
+
 def Enter_Offerings(request):
     if request.method=="POST":
         form=OfferingsForm(request.POST)
@@ -37,7 +37,7 @@ def Enter_Offerings(request):
     else:
         form=OfferingsForm()
         return render(request, 'add_new.html',{'form':form})
-@login_required 
+
 def Enter_Tithes(request):
     if request.method=="POST":
         form=TithesForm(request.POST)
@@ -57,7 +57,7 @@ def Enter_Pledges(request):
     else:
         form=PledgesForm()
         return render(request, 'add_new.html',{'form':form})
-@login_required 
+
 def enter_expenditure(request):
     if request.method=="POST":
         form=SpendForm(request.POST)
@@ -82,7 +82,7 @@ def enter_sundryexpense(request):
 #####################################################################
 # EDITING, DELETING AND PRINTING OF RECEIPT OF EACH TRANSACTION MADE #
 #####################################################################
-@login_required 
+
 def edit_payment(request, pk):
     item = get_object_or_404(Spend, pk=pk)
     if request.method == "POST":
@@ -108,7 +108,7 @@ def edit_salary(request, pk):
     else:
         form = SalaryForm(instance=item)
     return render(request, 'add_new.html', {'form': form})
-@login_required 
+
 def edit_offerings(request, pk):
     item = get_object_or_404(Offerings, pk=pk)
     if request.method == "POST":
@@ -130,7 +130,7 @@ def edit_tithes(request, pk):
     else:
         form = TithesForm(instance=item)
     return render(request, 'add_new.html', {'form': form})
-@login_required 
+
 def edit_pledges(request, pk):
     item = get_object_or_404(Pledges, pk=pk)
     if request.method == "POST":
@@ -141,7 +141,7 @@ def edit_pledges(request, pk):
     else:
         form = PledgesForm(instance=item)
     return render(request, 'add_new.html', {'form': form})
-@login_required 
+
 def Pledgesreport(request):
     if request.method=='POST':
         archived_year=request.POST['archived_year']
@@ -180,12 +180,12 @@ def Pledgesreport(request):
     return render(request, 'pledgesindex.html', context)
 
 
-@login_required 
+
 def delete_salary(request,pk):
     items= Spend.objects.filter(id=pk).delete()
     context = { 'items':items}
     return render(request, 'salaryindex.html', context)
-@login_required 
+
 def edit_sundry(request, pk):
     item = get_object_or_404(Sundry, pk=pk)
     if request.method == "POST":
@@ -196,7 +196,7 @@ def edit_sundry(request, pk):
     else:
         form = SundryForm(instance=item)
     return render(request, 'add_new.html', {'form': form, })
-@login_required 
+
 def delete_sundry(request, pk):
     items = Sundry.objects.filter(id=pk).delete()
     context = {'items': items}
@@ -207,7 +207,6 @@ def delete_sundry(request, pk):
       ####################################################
 
 #Printing Expenditure Report
-
 class expenditurepdf(View):
     def get(self, request):
         current_month = datetime.now().month
@@ -328,7 +327,7 @@ class offeringspdf(View):
             'totalexpense': totalexpense,
         }
         return Render.render('offeringspdf.html', context)
-@login_required 
+
 def salaryarchive(request):
     salaryarchived = SalaryReportArchive.objects.all().order_by('-Date')
     total = SalaryReportArchive.objects.aggregate(totals=models.Sum("Amount"))
@@ -338,7 +337,7 @@ def salaryarchive(request):
         'salaryarchived': salaryarchived
                }
     return render(request, 'salaryarchive.html', context)
-@login_required 
+
 def expenditurearchive(request):
     expensesarchived = ExpensesReportArchive.objects.all().order_by('-Date')
     total = SalaryReportArchive.objects.aggregate(totals=models.Sum("Amount"))
@@ -350,7 +349,6 @@ def expenditurearchive(request):
     return render(request, 'expenditurearchive.html', context)
 
 
- @login_required 
         # calculating totals in sundryexpense report
 def sundryarchive(request):
     sundryarchived = SundryReportArchive.objects.all().order_by('-Date')
@@ -369,7 +367,7 @@ def sundryarchive(request):
  ####################################################
 #       PRINTING THE RECEIPTS                        #
  ####################################################
-@login_required 
+
 class expensereceipt(View):
     def get(self, request, pk):
         expense = get_object_or_404(Spend,pk=pk)
@@ -380,7 +378,7 @@ class expensereceipt(View):
             'request': request,
         }
         return Render.render('expensereceipt.html', expensecontext)
-@login_required 
+
 class salaryreceipt(View):
     def get(self, request, pk):
         salary= get_object_or_404(Salary,pk=pk)
@@ -391,7 +389,7 @@ class salaryreceipt(View):
             'request': request,
         }
         return Render.render('salaryreceipt.html', salarycontext)
-@login_required 
+
 class offeringsreceipt(View):
     def get(self, request, pk):
         offerings= get_object_or_404(Offerings,pk=pk)
@@ -402,8 +400,6 @@ class offeringsreceipt(View):
             'request': request,
         }
         return Render.render('offeringsreceipt.html', context)
-
-@login_required         
 class tithesreceipt(View):
     def get(self, request, pk):
         tithes= get_object_or_404(Tithes,pk=pk)
@@ -443,8 +439,6 @@ class sundryreceipt(View):
 #####################
 # EXPENSES ARCHIVING#
 #####################
-
-@login_required 
 def expenditurereport (request):
     if request.method=='POST':
         archived_year=request.POST['archived_year']
@@ -501,7 +495,7 @@ def expenditurereport (request):
 
     }
     return render(request, 'expenditureindex.html', context)
-@login_required 
+
 def salaryreport (request):
     if request.method=='POST':
         archived_year=request.POST['archived_year']
@@ -549,7 +543,7 @@ def salaryreport (request):
         'years':years,
     }
     return render(request, 'salaryindex.html', context)
-@login_required 
+
 def sundryreport (request):
     if request.method=='POST':
         archived_year=request.POST['archived_year']
@@ -598,8 +592,6 @@ def sundryreport (request):
         'years':years,
     }
     return render(request, 'sundryindex.html', context)
-
-@login_required     
 def Offeringsreport (request):
     if request.method=='POST':
         archived_year=request.POST['archived_year']
@@ -646,7 +638,7 @@ def Offeringsreport (request):
     }
     return render(request, 'offeringsindex.html', context)
 
-@login_required 
+
 def Tithesreport (request):
     if request.method=='POST':
         archived_year=request.POST['archived_year']
@@ -689,8 +681,6 @@ def Tithesreport (request):
     }
     return render(request, 'tithesindex.html', context)
 # searching for the archives
-
-@login_required 
 def expensesarchivessearch(request):
     if request.method == 'POST':
         report_year = request.POST['report_year']
@@ -719,8 +709,6 @@ def expensesarchivessearch(request):
                'years': years,
                'expenses': expenses}
     return render(request, "expenditurearchive.html", context)
-
-@login_required     
 def salaryarchivessearch(request):
     if request.method == 'POST':
         report_year = request.POST['report_year']
@@ -756,7 +744,7 @@ def salaryarchivessearch(request):
                'years': years,
                'salary': salary}
     return render(request, "salaryarchive.html", context)
-@login_required 
+
 def sundryarchivessearch(request):
     if request.method == 'POST':
         report_year = request.POST['report_year']
@@ -792,7 +780,7 @@ def sundryarchivessearch(request):
                'years': years,
                'sundry': sundry}
     return render(request, "sundryarchive.html", context)
-@login_required 
+
 def pledgesarchivessearch(request):
     if request.method == 'POST':
         report_year = request.POST['report_year']
@@ -827,7 +815,7 @@ def pledgesarchivessearch(request):
                'years': years,
                'pledges': pledges}
     return render(request, "pledgesarchive.html", context)
-@login_required 
+
 def offeringsarchivessearch(request):
     if request.method == 'POST':
         report_year = request.POST['report_year']
@@ -862,7 +850,7 @@ def offeringsarchivessearch(request):
                'years': years,
                'offerings': offerings}
     return render(request, "offeringsarchive.html", context)
-@login_required 
+
 def tithesarchivessearch(request):
     if request.method == 'POST':
         report_year = request.POST['report_year']
@@ -905,7 +893,6 @@ def tithesarchivessearch(request):
 
 
 # Printing Expenditure archived Report
-@login_required 
 class expenditurearchivepdf(View):
     def get(self, request, report_month, report_year):
         archived_expenses = ExpensesReportArchive.objects.filter(month=report_month, year=report_year)
@@ -941,7 +928,6 @@ class salaryarchivepdf(View):
 
 
 # Printing Sundry Expenses archived Report
-@login_required 
 class sundryarchivepdf(View):
     def get(self, request, report_month, report_year):
         archived_sundry = SundryReportArchive.objects.filter(month=report_month, year=report_year)
@@ -969,8 +955,6 @@ class offeringsarchivepdf(View):
             'archived_offerings': archived_offerings,
         }
         return Render.render('offeringsarchivepdf.html', offeringscontext)
-
-@login_required         
 class tithesarchivepdf(View):
     def get(self, request, report_month, report_year):
         archived_tithes = TithesReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
@@ -984,7 +968,7 @@ class tithesarchivepdf(View):
             'archived_tithes': archived_tithes,
         }
         return Render.render('tithesarchivepdf.html', tithescontext)
-@login_required 
+
 class pledgesarchivepdf(View):
     def get(self, request, report_month, report_year):
         archived_pledges = PledgesReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
