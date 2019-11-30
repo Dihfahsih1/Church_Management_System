@@ -27,7 +27,7 @@ def pay_salary(request):
     else:
         form=SalaryForm()
         return render(request, 'add_new.html',{'form':form})
-
+@login_required
 def Enter_Offerings(request):
     if request.method=="POST":
         form=OfferingsForm(request.POST)
