@@ -14,7 +14,7 @@ def index(request):
     return render(request,'index.html')
 
     ####################################################
-    #        ENTERING RECORDS INTO THE DATABASE        #
+    #        ENTERING RECORDS INTO THE DATABASE        
     ####################################################
 # Adding Staff
  # payment of salaries
