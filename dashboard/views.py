@@ -285,7 +285,7 @@ class pledgespdf(View):
         return Render.render('pledgespdf.html', context)
 
         ####################################################
-        #        ARCHIVING OF THE MONTHLY REPORTS          #
+        #        ARCHIVING OF THE MONTHLY REPORTS           #
         ####################################################
 class tithespdf(View):
     def get(self, request):

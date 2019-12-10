@@ -64,14 +64,15 @@ class Tithes(Model):
 
 class Pledges(Model):
     Date = models.DateField(default=now())
-    DayOfTheWeek = models.CharField(max_length=100, blank=False)
-    PledgeMadeBy = models.CharField(max_length=100, blank=False)
+    Day_Of_The_Week = models.CharField(max_length=100, blank=False)
+    Pledge_Made_By = models.CharField(max_length=100, blank=False)
     Reason = models.CharField(max_length=100, null=True)
     Contact_Number = models.CharField(max_length=100, null=True)
     Amount = models.IntegerField(default=0)
-    AmountInWords = models.CharField(max_length=500, blank=False)
+    Amount_In_Words = models.CharField(max_length=500, blank=False)
     def __str__(self):
-        return self.PledgeMadeBy
+        return self.Pledge_Made_By
+        
 
 class Spend(models.Model):
     reason=(
@@ -87,7 +88,7 @@ class Spend(models.Model):
         return 'Name:{0}, Reason:{1}, Amount: {2}'.format(self.PaymentMadeTo, self.ReasonForPayment, self.Amount)
 
 ##########################################
-#REPORT ARCHIVING MODELS AFTER SUBMISSION #
+# REPORT ARCHIVING MODELS AFTER SUBMISSION #
 ##########################################
 class ExpensesReportArchive(models.Model):
     Date = models.DateField(default=now())
