@@ -54,7 +54,7 @@ def Enter_Pledges(request):
             return redirect('Pledgesreport')
     else:
         form=PledgesForm()
-        return render(request, 'add_new.html',{'form':form})
+        return render(request, 'enter_pledge.html',{'form':form})
 @login_required
 def enter_expenditure(request):
     if request.method=="POST":
@@ -138,7 +138,7 @@ def edit_pledges(request, pk):
             return redirect('Pledgesreport')
     else:
         form = PledgesForm(instance=item)
-    return render(request, 'add_new.html', {'form': form})
+    return render(request, 'enter_pledge.html', {'form': form})
 
 def Pledgesreport(request):
     if request.method=='POST':
@@ -166,7 +166,7 @@ def Pledgesreport(request):
         return render(request, 'pledgesindex.html', context)
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'August', 'September', 'October', 'November','December']
     years = [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
-    total = Pledges.objects.aggregate(totals=models.Sum("Amount"))
+    total = Pledges.objects.aggregate(totals=models.Sum("Amount_Pledged"))
     total_amount = total["totals"]
     items =Pledges.objects.all()
     context = {

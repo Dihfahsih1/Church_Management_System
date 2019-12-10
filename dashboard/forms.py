@@ -1,5 +1,6 @@
 from django import forms
 from .models import *
+from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput, MonthPickerInput, DateTimePickerInput   
 
 
 class SpendForm(forms.ModelForm):
@@ -29,7 +30,10 @@ class OfferingsForm(forms.ModelForm):
 class PledgesForm(forms.ModelForm):
     class Meta:
         model=Pledges
-        fields = ('Amount_Paid','Balance','Date','Day_Of_The_Week','Pledge_Made_By','Contact_Number','Reason','Amount_Pledged','Amount_In_Words')
+        fields = ('Amount_Paid','Balance','Date','Pledge_Made_By','Contact_Number','Reason','Amount_Pledged','Amount_In_Words')
+        widgets = {
+            'Date': DatePickerInput(),
+        }
 class TithesForm(forms.ModelForm):
     class Meta:
         model=Tithes
