@@ -42,7 +42,7 @@
             <td>Date</td>
             <td>Pledge Made By</td>
             <td>Reason</td>
-            <td>Amount</td>
+            <td>Amount Pledged</td>
             <td>Action</td>
         </tr>
         </thead>
@@ -58,7 +58,7 @@
         <td><a href="{% url 'pledgesreceipt' item.id %}" target="_new"><button class="btn btn-info">Print Receipt</button></a> |
             <a href="{% url 'edit_pledges' item.id  %}" ><button class="btn btn-warning">Edit Pledge</button></a></td>
      {% endfor %}</tr>
-          <tr><td><b>Total Amount:</b> </td> <td>______________ </td><td>______________  </td> <td>______________  </td><td><b>{{ total_amount}}</b></td></tr>
+          <tr><td><b>Total Amount:</b> </td> <td>______________ </td><td>______________  </td><td><b>{{ total_amount}}</b></td></tr>
 
         </tbody>
  <tr><td><a href="{% url 'pledgespdf' %}" target="_new" class="btn btn-info bt-sm" role="button">Print Report</a></td>
