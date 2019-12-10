@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container" style="margin-left:20%">
+
+
+{% load crispy_forms_tags %}
+<form method="POST" enctype="multipart/form-data" >
+{% csrf_token %}
+  <div class="form-row">
+    <div class="col-lg-3">
+	    {{ form.Date|as_crispy_field }}
+	</div>
+	<div class="col-lg-3">
+	    {{ form.Pledge_Made_By|as_crispy_field }}
+	</div>
+
+	<div class="col-lg-3">
+	    {{ form.Reason|as_crispy_field }}
+	</div>
+
+	<div class="col-lg-3">
+	    {{ form.Contact_Number|as_crispy_field }}
+	</div>
+	<div class="col-lg-3">
+	    {{ form.Amount_Pledged|as_crispy_field }}
+	</div>
+	<div class="col-lg-3">
+	    {{ form.Amount_In_Words|as_crispy_field }}
+	</div>
+   </div>
+    <button type="submit" class="btn btn-primary" name="button">Submit</button>
+
+</form>
+{% include 'messages.html' %}
+</div>
+</div>
+{% endblock %}
