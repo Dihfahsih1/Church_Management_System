@@ -62,19 +62,6 @@ class Tithes(Model):
     def __str__(self):
         return self.TitheMadeBy
 
-class Pledges(Model):
-    Date = models.DateField(null=True, blank=True)
-    Pledge_Made_By = models.CharField(max_length=100, blank=False)
-    Reason = models.CharField(max_length=100, null=True)
-    Contact_Number = models.CharField(max_length=100, null=True)
-    Amount_Pledged = models.IntegerField(default=0)
-    Amount_Paid = models.IntegerField(default=0, blank=True, null=True)
-    Balance = models.IntegerField(default=0, blank=True, null=True)
-    Amount_In_Words = models.CharField(max_length=500, blank=False)
-    def __str__(self):
-        return self.Pledge_Made_By
-    
-
 '''class PaidPledges(Model):
     Name = models.CharField(max_length=100, blank=False)
     Member_id = models.CharField(max_length=100, blank=False)
@@ -182,4 +169,14 @@ class Visitors(models.Model):
     Church=models.CharField(max_length=100,null=True, blank=True)
     def __str__(self):
         return self.First_Name + ' ' + self.Second_Name
+class Pledges(Model):
+    Date = models.DateField(null=True, blank=True)
+    Pledge_Made_By = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, blank=False)
+    Reason = models.CharField(max_length=100, null=True)
+    Amount_Pledged = models.IntegerField(default=0)
+    Amount_Paid = models.IntegerField(default=0, blank=True, null=True)
+    Balance = models.IntegerField(default=0, blank=True, null=True)
+    Amount_In_Words = models.CharField(max_length=500, blank=False)
+    def __str__(self):
+        return self.Pledge_Made_By        
 
