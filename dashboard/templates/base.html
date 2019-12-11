@@ -29,31 +29,31 @@
         <ul class="navbar-nav mr-auto">
          {% with url_name=request.resolver_match.url_name %}
              <li class="nav-item {% if url_name == 'members-register' %}active{% endif %}">
-            <a class="nav-link" href="{% url 'members-register'  %}">Reg Members</a>
+            <a class="nav-link" href="{% url 'members-register'  %}">Register Members</a>
             </li>
              <li class="nav-item {% if url_name == 'visitors-register' %}active{% endif %}">
-            <a class="nav-link" href="{% url 'visitors-register'  %}">Reg Visitors</a>
+            <a class="nav-link" href="{% url 'visitors-register'  %}">Register Visitors</a>
             </li>
             <li class="nav-item {% if url_name == 'Enter_Offerings' %}active{% endif %}">
-            <a class="nav-link" href="{% url 'Enter_Offerings'  %}">Offerings</a>
+            <a class="nav-link" href="{% url 'Enter_Offerings'  %}">Record Offerings</a>
             </li>
              <li class="nav-item {% if url_name == 'Enter_Tithes' %}active{% endif %}">
-            <a class="nav-link" href="{% url 'Enter_Tithes'  %}">Tithes</a>
+            <a class="nav-link" href="{% url 'Enter_Tithes'  %}">Record Tithes</a>
             </li>
             <li class="nav-item {% if url_name == 'Enter_Pledges' %}active{% endif %}">
-            <a class="nav-link" href="{% url 'Enter_Pledges'  %}">Pledges</a>
+            <a class="nav-link" href="{% url 'Enter_Pledges'  %}">Record Pledges</a>
             </li>
 
             <li class="nav-item {% if url_name == 'enter_expenditure' %}active{% endif %}">
-            <a class="nav-link" href="{% url 'enter_expenditure'  %}">Main Expenses</a>
+            <a class="nav-link" href="{% url 'enter_expenditure'  %}">Record Main Expenses</a>
             </li>
 
             <li class="nav-item {% if url_name == 'enter_sundryexpense' %}active{% endif %}">
-            <a class="nav-link" href="{% url 'enter_sundryexpense'  %}">Petty Expenses</a>
+            <a class="nav-link" href="{% url 'enter_sundryexpense'  %}"> Record Petty Expenses</a>
             </li>
 
             <li class="nav-item {% if url_name == 'pay_salary' %}active{% endif %}">
-            <a class="nav-link" href="{% url 'pay_salary'  %}">Allowances</a>
+            <a class="nav-link" href="{% url 'pay_salary'  %}">Record Allowances</a>
             </li>
 
 
