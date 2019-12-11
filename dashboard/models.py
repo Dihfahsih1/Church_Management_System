@@ -73,6 +73,15 @@ class Pledges(Model):
     Amount_In_Words = models.CharField(max_length=500, blank=False)
     def __str__(self):
         return self.Pledge_Made_By
+    
+
+'''class PaidPledges(Model):
+    Name = models.CharField(max_length=100, blank=False)
+    Member_id = models.CharField(max_length=100, blank=False)
+    Amount_Paid = models.IntegerField(default=0, blank=True, null=True)'''
+
+
+
 
 
 class Spend(models.Model):
@@ -155,3 +164,22 @@ class PledgesReportArchive(models.Model):
 
     def __str__(self):
         return 'Name: {1}  Amount:{0}'.format(self.Name, self.Amount)
+        
+class Members(models.Model):
+    First_Name=models.CharField(max_length=100,null=True)
+    Second_Name=models.CharField(max_length=100,null=True)
+    Address=models.CharField(max_length=100,null=True)
+    Telephone=models.CharField(max_length=100,null=True)
+
+    def __str__(self):
+        return self.First_Name + ' ' + self.Second_Name
+
+class Visitors(models.Model):
+    First_Name=models.CharField(max_length=100, null=True)
+    Second_Name=models.CharField(max_length=100, null=True)
+    Address=models.CharField(max_length=100, null=True)
+    Telephone=models.CharField(max_length=100, null=True)
+    Church=models.CharField(max_length=100,null=True, blank=True)
+    def __str__(self):
+        return self.First_Name + ' ' + self.Second_Name
+
