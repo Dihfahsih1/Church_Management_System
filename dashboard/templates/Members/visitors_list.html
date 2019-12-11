@@ -15,8 +15,11 @@
 
         <tr>
             
-            <td>First Name</td>
-            <td>Second Name</td>
+            <th>First Name</th>
+            <th>Second Name</th>
+            <th>Address</th>
+            <th>Telephone</th>
+            <th>Church</th>
         </tr>
         </thead>
 
@@ -25,6 +28,9 @@
         <tr>
         <td>{{ visitor.First_Name}}</td>
          <td>{{ visitor.Second_Name}}</td>
+         <td>{{ visitor.Address}}</td>
+         <td>{{ visitor.Telephone}}</td>
+         <td>{{ visitor.Church}}</td>
     {% endfor%}           
 
 
