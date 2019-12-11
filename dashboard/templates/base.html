@@ -28,6 +28,12 @@
 
         <ul class="navbar-nav mr-auto">
          {% with url_name=request.resolver_match.url_name %}
+             <li class="nav-item {% if url_name == 'members-register' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'members-register'  %}">Reg Members</a>
+            </li>
+             <li class="nav-item {% if url_name == 'visitors-register' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'visitors-register'  %}">Reg Visitors</a>
+            </li>
             <li class="nav-item {% if url_name == 'Enter_Offerings' %}active{% endif %}">
             <a class="nav-link" href="{% url 'Enter_Offerings'  %}">Offerings</a>
             </li>
