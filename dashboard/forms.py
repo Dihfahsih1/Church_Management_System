@@ -38,3 +38,13 @@ class TithesForm(forms.ModelForm):
     class Meta:
         model=Tithes
         fields = ('Date','DayOfTheWeek','TitheMadeBy','Amount','AmountInWords')
+
+class MembersForm(forms.ModelForm):
+    class Meta:
+        model= Members
+        fields = ('First_Name','Second_Name','Telephone','Address')
+
+class VisitorsForm(forms.ModelForm):
+    class Meta:
+        model=Visitors
+        fields = ('First_Name','Second_Name','Telephone','Address','Church')        
