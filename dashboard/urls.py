@@ -66,4 +66,10 @@ url(r'^pledgesarchivessearch/', views.pledgesarchivessearch, name='pledgesarchiv
 url(r'^offeringsarchivessearch/', views.offeringsarchivessearch, name='offeringsarchivessearch'),
 url(r'^tithesarchivessearch/', views.tithesarchivessearch, name='tithesarchivessearch'),
 #url(r'^expenditure_report_archive/', views.expenditure_report_archive, name='expenditure_report_archive'),
+#membership
+url(r'^Membership/Register/', views.register_members, name='members-register'),
+url(r'^Visitors/Register/', views.register_visitors, name='visitors-register'),
+url(r'^Membership/List/', views.members_list, name='members-list'),
+url(r'^Visitors/List/', views.visitors_list, name='visitors-list'),
+
 ]
