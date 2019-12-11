@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container">
+    <br><br>
+    <div class="float-lg-right">
+    <a href="{% url 'visitors-register' %}"><button class="btn btn-danger">Enter Another Visitor</button></a>
+    </div>
+    <h4>The List of Visitors</h4>
+    <p>{{ message }}</p>
+
+     <table class="table table-hover" border="2">
+
+        <thead class="table-success">
+
+        <tr>
+            
+            <td>First Name</td>
+            <td>Second Name</td>
+        </tr>
+        </thead>
+
+        <tbody>
+    {% for visitor in visiting %}
+        <tr>
+        <td>{{ visitor.First_Name}}</td>
+         <td>{{ Visitor.Second_Name}}</td>
+    {% endfor%}           
+
+
+  </div>
+
+{% endblock %}

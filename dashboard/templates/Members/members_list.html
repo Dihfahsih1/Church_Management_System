@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container">
+    <br><br>
+    <div class="float-lg-right">
+    <a href="{% url 'members-register' %}"><button class="btn btn-danger">Enter Another Member</button></a>
+    </div>
+    <h4>The List of Members</h4>
+    <p>{{ message }}</p>
+
+     <table class="table table-hover" border="2">
+        <thead class="table-success">
+
+        <tr>
+            
+            <td>First Name</td>
+            <td>Second Name</td>
+        </tr>
+        </thead>
+
+        <tbody>
+    {% for member in membership %}
+        <tr>
+        <td>{{ member.First_Name}}</td>
+         <td>{{ member.Second_Name}}</td>
+    {% endfor%}     
+</div>
+
+{% endblock %}

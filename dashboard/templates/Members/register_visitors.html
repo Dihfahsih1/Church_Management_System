@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container">
+
+
+{% load crispy_forms_tags %}
+<form method="POST" enctype="multipart/form-data" >
+{% csrf_token %}
+  <div class="form-row">
+    <div class="col-lg-6">
+	    {{ form.First_Name|as_crispy_field }}
+	</div>
+	<div class="col-lg-6">
+	    {{ form.Second_Name|as_crispy_field }}
+	</div>
+
+	<div class="col-lg-6">
+	    {{ form.Telephone|as_crispy_field }}
+	</div>
+
+	<div class="col-lg-6">
+	    {{ form.Address|as_crispy_field }}
+	</div>
+
+	<div class="col-lg-6">
+	    {{ form.Church|as_crispy_field }}
+	</div>
+	
+   </div>
+    <button type="submit" class="btn btn-primary" name="button">Submit</button>
+
+</form>
+{% include 'messages.html' %}
+</div>
+</div>
+{% endblock %}
