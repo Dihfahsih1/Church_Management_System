@@ -12,6 +12,42 @@ from .render import Render
 @login_required
 def index(request):
     return render(request,'index.html')
+    ####################################################
+    #       REGISTERING CHURCH MEMBERS AND VISITORS     #
+    ####################################################  
+    #members
+def register_members(request):
+    if request.method=="POST":
+        form=MembersForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('members-list')
+    else:
+        form=MembersForm()
+        return render(request, 'Members/register_members.html',{'form':form}) 
+
+        #visitors
+def register_visitors(request):
+    if request.method=="POST":
+        form=VisitorsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('visitors-list')
+    else:
+        form=VisitorsForm()
+        return render(request, 'Members/register_visitors.html',{'form':form}) 
+
+    #list of church members
+def members_list(request):
+    membership = Members.objects.all()
+    context ={'membership': membership}
+    return render(request, 'Members/members_list.html', context)
+
+    #list of church visitors
+def visitors_list(request):
+    visiting = Visitors.objects.all()
+    context ={'visiting': visiting}
+    return render(request, 'Members/visitors_list.html', context)
 
     ####################################################
     #        ENTERING RECORDS INTO THE DATABASE        #
@@ -55,6 +91,22 @@ def Enter_Pledges(request):
     else:
         form=PledgesForm()
         return render(request, 'enter_pledge.html',{'form':form})
+###############################
+# MEMBERS PAYING THEIR PLEDGES#
+###############################
+'''def paying_pledges(request):
+    items = get_object_or_404(Pledges, student_id=pk) #add a second condition to fetch only school fees exclude other dues
+    if request.method == "POST":
+        form = UpdatePledgesForm(request.POST, request.FILES, instance=items)
+        if form.is_valid():
+            form.save()
+            return redirect('Pledgesreport')
+    else:
+        form = InvoiceForm(instance=items)
+        church_member=Members.objects.filter(id__in=pk)
+        context={'form':form, 'church_member':church_member}
+        return render(request, 'invoices/paying_fees_update.html', context)'''
+
 @login_required
 def enter_expenditure(request):
     if request.method=="POST":
