@@ -34,6 +34,21 @@ class PledgesForm(forms.ModelForm):
         widgets = {
             'Date': DatePickerInput(),
         }
+class UpdatePledgesForm(forms.ModelForm):
+    class Meta:
+        model=Pledges
+        fields = ('Amount_Paid','Date')
+        widgets = {
+            'Date': DatePickerInput(),
+        }  
+
+class PaidPledgesForm(forms.ModelForm):
+    class Meta:
+        model=PaidPledges
+        fields = ('Name','Member_id','Amount_Paid','Date')
+        widgets = {
+            'Date': DatePickerInput(),
+        }              
 class TithesForm(forms.ModelForm):
     class Meta:
         model=Tithes
