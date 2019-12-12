@@ -190,7 +190,6 @@ class PledgesReportArchive(models.Model):
     Date = models.DateField(null=True, blank=True)
     Name = models.CharField( max_length=100,null=True)
     Reason = models.CharField(max_length=100, null=True)
-    Amount = models.IntegerField(default=0)
     Pledged_Amount=models.IntegerField(default=0)
     Amount_Paid = models.IntegerField(default=0)
     Balance = models.IntegerField(default=0)
