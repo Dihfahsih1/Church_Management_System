@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container">
+
+
+{% load crispy_forms_tags %}
+<form method="POST" enctype="multipart/form-data" action="{% url 'member_pledges_paid' %}" >
+{% csrf_token %}
+                                            
+	{% for member in church_member %}
+	<div class="form-row col-lg-3">
+	<label> Name</label>
+	 <input type="text" name="Name" id="member" maxlength="100" class="textinput textInput form-control" value="{{member.First_Name}}">
+	</div>
+	 <div id="st" class="form-row col-lg-3">
+	 <label>Id</label>
+	 <input type="text" name="Member_id" id="member_id" maxlength="100" class="textinput textInput form-control" value="{{member.id}}"></div>
+	{% endfor %}
+	
+    <div class="form-row col-lg-3">
+	    {{ form.Date|as_crispy_field }}
+	</div>
+	<div class="form-row col-lg-3">
+	    {{ form.Amount_Paid|as_crispy_field }}
+	</div>
+    <button type="submit" class="btn btn-primary" name="button">Submit</button>
+
+</form>
+{% include 'messages.html' %}
+</div>
+  <script type="text/javascript">
+            $(document).ready(function () {
+                $('#invoice-table').DataTable({
+                    dom: 'Bfrtip',
+                    iDisplayLength: 15,
+                    buttons: [
+                        'copyHtml5',
+                        'excelHtml5',
+                        'csvHtml5',
+                        'pdfHtml5',
+                        'print',
+                        'pageLength'
+                    ],
+                    search: true,
+                    responsive: true
+                });
+            });
+            
+                      
+                      $("#st").hide();
+                     
+            document.getElementById('id_Date').readOnly = false;
+            document.getElementById('member').readOnly = true;
+
+    //script for disabling the dropdown button, making it uneditable for the user       
+   // $(function () {
+    //var klass = $('select[name="classroom"]')
+   // klass.prop('disabled', true);});
+           
+        </script>
+{% endblock %}
