@@ -71,5 +71,9 @@ url(r'^Membership/Register/', views.register_members, name='members-register'),
 url(r'^Visitors/Register/', views.register_visitors, name='visitors-register'),
 url(r'^Membership/List/', views.members_list, name='members-list'),
 url(r'^Visitors/List/', views.visitors_list, name='visitors-list'),
+url(r'^member_pledges_paid', views.member_pledges_paid, name='member_pledges_paid'),
+url(r'^paying_pledges/(?P<pk>\d+)', views.paying_pledges, name='paying_pledges'),
+url(r'^Pledges/view/(?P<pledge_pk>\d+)/$', views.pledge_view, name='pledge_view'),
+url(r'^Pledges/History/List', views.pledges_paid_list, name='pledges-paid-list'),
 
 ]
