@@ -94,19 +94,45 @@ def Enter_Pledges(request):
 ###############################
 # MEMBERS PAYING THEIR PLEDGES#
 ###############################
-'''def paying_pledges(request):
-    items = get_object_or_404(Pledges, student_id=pk) #add a second condition to fetch only school fees exclude other dues
+def pledge_view(request, pledge_pk):
+    pledge = get_object_or_404(Pledges, pk=pledge_pk)
+    if request.method == 'POST':
+        form = PledgesForm(request.POST, instance=pledge)
+    else:
+        form = PledgesForm(instance=pledge)
+    context = {'form': form}
+    return render(request, 'pledge_view.html', context)
+
+def paying_pledges(request, pk):
+    items = get_object_or_404(Pledges, Pledge_Made_By_id=pk) #add a second condition to fetch only school fees exclude other dues
     if request.method == "POST":
         form = UpdatePledgesForm(request.POST, request.FILES, instance=items)
         if form.is_valid():
             form.save()
             return redirect('Pledgesreport')
     else:
-        form = InvoiceForm(instance=items)
+        form = UpdatePledgesForm(instance=items)
         church_member=Members.objects.filter(id__in=pk)
         context={'form':form, 'church_member':church_member}
-        return render(request, 'invoices/paying_fees_update.html', context)'''
+        return render(request, 'paying_pledges_update.html', context)
 
+def member_pledges_paid(request):
+    if request.method == "POST":
+        form =  PaidPledgesForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('pledges-paid-list')
+        else:
+            form = PaidPledgesForm()
+            context={'form':form}
+            return render(request, 'paying_pledges_update.html', context)
+
+def pledges_paid_list(request):
+    context = {}
+    lists = PaidPledges.objects.all().order_by('Member_id')
+    context['lists']=lists
+    return render(request, 'pledges_paid_list.html',context)
+    
 @login_required
 def enter_expenditure(request):
     if request.method=="POST":
