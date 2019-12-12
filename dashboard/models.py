@@ -62,10 +62,7 @@ class Tithes(Model):
     def __str__(self):
         return self.TitheMadeBy
 
-'''class PaidPledges(Model):
-    Name = models.CharField(max_length=100, blank=False)
-    Member_id = models.CharField(max_length=100, blank=False)
-    Amount_Paid = models.IntegerField(default=0, blank=True, null=True)'''
+
 
 
 
@@ -178,5 +175,21 @@ class Pledges(Model):
     Balance = models.IntegerField(default=0, blank=True, null=True)
     Amount_In_Words = models.CharField(max_length=500, blank=False)
     def __str__(self):
-        return self.Pledge_Made_By        
+        return self.Pledge_Made_By
 
+    @property
+    def total_pledge_paid(self):
+        results = PaidPledges.objects.filter(Member_id=self.Pledge_Made_By_id).aggregate(totals=models.Sum("Amount_Paid"))
+        if (results['totals']):
+            return results["totals"]
+        else:
+            return 0 
+    @property
+    def Pledge_Balance(self):
+        results=self.Amount_Pledged - self.total_pledge_paid
+        return results                
+class PaidPledges(Model):
+    Name = models.CharField(max_length=100, blank=False)
+    Member_id = models.CharField(max_length=100, blank=False)
+    Amount_Paid = models.IntegerField(default=0, blank=True, null=True)
+    Date = models.DateField(null=True, blank=True)
