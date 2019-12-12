@@ -76,22 +76,22 @@
             <thead>
             <tr style="font-size:larger">
                 <th>Date</th>
-                <th>Day</th>
                 <th>Name</th>
                 <th>Reason</th>
-                <th>Amount</th>
-                <th>Phone Number</th>
+                <th>Amount Pledge</th>
+                <th>Amount Paid</th>
+                <th>Balance</th>
             </tr>
             </thead>
             <tbody>
             {% for pledges in archived_pledges  %}
                 <tr style="font-size:large">
                     <td>{{ pledges.Date }}</td>
-                    <td>{{ pledges.Day }}</td>
                     <td>{{ pledges.Name }}</td>
                     <td>{{ pledges.Reason }}</td>
-                    <td>Shs:{{ pledges.Amount }}</td>
-                    <td>{{ Contact_Number.Name }}</td>
+                    <td>{{ pledges.Amount_Pledged}}</td>
+                    <td>{{ pledges.Amount_Paid}}</td>
+                    <td>Shs:{{ pledges.Balance }}</td>
 
                 </tr>
             {% endfor %}
@@ -102,7 +102,7 @@
 </div>
 <div class="col-lg-6 float-lg-right">
              {% load static %}
-                <img width="80%" src="{% static "media/logo.jpg" %}">
+                <img width="80%" src="{% static 'media/logo.jpg'%}">
          </div>
 </body>
 </html>
