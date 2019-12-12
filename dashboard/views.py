@@ -1053,7 +1053,7 @@ class pledgesarchivepdf(View):
     def get(self, request, report_month, report_year):
         archived_pledges = PledgesReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
         today = timezone.now()
-        total = archived_pledges.aggregate(totals=models.Sum("Amount"))
+        total = archived_pledges.aggregate(totals=models.Sum("Pledged_Amount"))
         total_amount = total["totals"]
         pledgescontext = {
             'today': today,
