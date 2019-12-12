@@ -872,7 +872,7 @@ def pledgesarchivessearch(request):
 
         pledges = PledgesReportArchive.objects.all()
         today = timezone.now()
-        total = archived_reports.aggregate(totals=models.Sum("Amount"))
+        total = archived_reports.aggregate(totals=models.Sum("Pledged_Amount"))
         total_amount = total["totals"]
         context = {'archived_reports': archived_reports,
                    'months': months,
