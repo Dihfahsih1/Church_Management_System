@@ -1,5 +1,9 @@
 from django.contrib import admin
 from .models import *
+
+
+class PledgesAdmin(admin.ModelAdmin):
+    list_display = ('total_pledge_paid','Pledge_Balance')
 admin.site.register(StaffDetails)
 admin.site.register (Salary)
 admin.site.register(Spend)
