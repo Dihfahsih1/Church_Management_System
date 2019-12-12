@@ -137,17 +137,7 @@ class TithesReportArchive(models.Model):
     def __str__(self):
         return 'Name: {1}  Amount:{0}'.format(self.Name, self.Amount)
 
-class PledgesReportArchive(models.Model):
-    Date = models.DateField(null=True, blank=True)
-    Name = models.CharField( max_length=100,null=True)
-    Day = models.CharField(max_length=100,null=True)
-    Reason = models.CharField(max_length=100, null=True)
-    Amount = models.IntegerField(default=0)
-    archivedmonth = models.CharField(max_length=100,null=True)
-    archivedyear = models.CharField(max_length=100,null=True)
 
-    def __str__(self):
-        return 'Name: {1}  Amount:{0}'.format(self.Name, self.Amount)
         
 class Members(models.Model):
     First_Name=models.CharField(max_length=100,null=True)
@@ -166,6 +156,8 @@ class Visitors(models.Model):
     Church=models.CharField(max_length=100,null=True, blank=True)
     def __str__(self):
         return self.First_Name + ' ' + self.Second_Name
+
+        #PLEDGES MODEL
 class Pledges(Model):
     Date = models.DateField(null=True, blank=True)
     Pledge_Made_By = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, blank=False)
@@ -193,3 +185,17 @@ class PaidPledges(Model):
     Member_id = models.CharField(max_length=100, blank=False)
     Amount_Paid = models.IntegerField(default=0, blank=True, null=True)
     Date = models.DateField(null=True, blank=True)
+
+class PledgesReportArchive(models.Model):
+    Date = models.DateField(null=True, blank=True)
+    Name = models.CharField( max_length=100,null=True)
+    Reason = models.CharField(max_length=100, null=True)
+    Amount = models.IntegerField(default=0)
+    Pledged_Amount=models.IntegerField(default=0)
+    Amount_Paid = models.IntegerField(default=0)
+    Balance = models.IntegerField(default=0)
+    archivedmonth = models.CharField(max_length=100,null=True)
+    archivedyear = models.CharField(max_length=100,null=True)
+
+    def __str__(self):
+        return 'Name: {1}  Amount:{0}'.format(self.Name, self.Amount)    
