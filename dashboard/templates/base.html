@@ -9,21 +9,20 @@
 
      <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
      <script src="{% static 'js/jquery-3.3.1.js' %}"></script>
-     <script src="{% static 'js/jquery-3.3.1.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
     
-
-
     <title>UCC Bwaise</title>
 
 </head>
 
-<body><br>
-  <nav class="nav navbar-expand navbar-dark bg-dark">
+<body>
+    <br>
+<nav class="nav navbar-expand navbar-dark bg-dark">
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-{% if user.is_authenticated %}
+    {% if user.is_authenticated %}
     <div class="collapse navbar-collapse" id="navbarExample02">
 
         <ul class="navbar-nav mr-auto">
@@ -89,6 +88,9 @@
     </li>
   {% endif %}
 </nav>
+
+
+{% block body %}
 {% if messages %}
   {% for message in messages %}
     <div class="alert alert-success">
@@ -96,8 +98,6 @@
     </div>
   {% endfor %}
 {% endif %}
-
-{% block body %}
 {% endblock %}
 
 </body>
