@@ -12,9 +12,9 @@ from .render import Render
 @login_required
 def index(request):
     return render(request,'index.html')
-    ####################################################
-    #       REGISTERING CHURCH MEMBERS AND VISITORS     #
-    ####################################################  
+     ####################################################
+    #       REGISTERING CHURCH MEMBERS AND VISITORS      #
+     ####################################################  
     #members
 def register_members(request):
     if request.method=="POST":
@@ -49,9 +49,9 @@ def visitors_list(request):
     context ={'visiting': visiting}
     return render(request, 'Members/visitors_list.html', context)
 
-    ####################################################
-    #        ENTERING RECORDS INTO THE DATABASE        #
-    ####################################################
+     ####################################################
+    #         ENTERING RECORDS INTO THE DATABASE         #
+     ####################################################
 def pay_salary(request):
     if request.method=="POST":
         form=SalaryForm(request.POST)
@@ -94,6 +94,7 @@ def Enter_Pledges(request):
 ###############################
 # MEMBERS PAYING THEIR PLEDGES#
 ###############################
+@login_required
 def pledge_view(request, pledge_pk):
     pledge = get_object_or_404(Pledges, pk=pledge_pk)
     if request.method == 'POST':
@@ -102,7 +103,7 @@ def pledge_view(request, pledge_pk):
         form = PledgesForm(instance=pledge)
     context = {'form': form}
     return render(request, 'pledge_view.html', context)
-
+@login_required
 def paying_pledges(request, pk):
     items = get_object_or_404(Pledges, Pledge_Made_By_id=pk) #add a second condition to fetch only school fees exclude other dues
     if request.method == "POST":
@@ -115,18 +116,26 @@ def paying_pledges(request, pk):
         church_member=Members.objects.filter(id__in=pk)
         context={'form':form, 'church_member':church_member}
         return render(request, 'paying_pledges_update.html', context)
-
+@login_required
 def member_pledges_paid(request):
     if request.method == "POST":
         form =  PaidPledgesForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('pledges-paid-list')
+            return redirect('individual-pledge-history')
         else:
             form = PaidPledgesForm()
             context={'form':form}
             return render(request, 'paying_pledges_update.html', context)
+            
+def individual_pledge_history(request, pk):
+    context = {}
+    lists = PaidPledges.objects.filter(Member_id=pk)
+    context['lists']=lists
+    return render(request, 'pledges_paid_list.html',context)
 
+
+@login_required
 def pledges_paid_list(request):
     context = {}
     lists = PaidPledges.objects.all().order_by('Member_id')
@@ -217,7 +226,7 @@ def edit_pledges(request, pk):
     else:
         form = PledgesForm(instance=item)
     return render(request, 'enter_pledge.html', {'form': form})
-
+@login_required
 def Pledgesreport(request):
     if request.method=='POST':
         archived_year=request.POST['archived_year']
