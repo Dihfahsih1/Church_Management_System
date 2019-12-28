@@ -127,7 +127,7 @@ def member_pledges_paid(request):
             form = PaidPledgesForm()
             context={'form':form}
             return render(request, 'paying_pledges_update.html', context)
-            
+
 def individual_pledge_history(request, pk):
     context = {}
     lists = PaidPledges.objects.filter(Member_id=pk)
@@ -164,9 +164,9 @@ def enter_sundryexpense(request):
     else:
         form = SundryForm()
         return render(request, 'add_new.html', {'form': form})
-#####################################################################
-# EDITING, DELETING AND PRINTING OF RECEIPT OF EACH TRANSACTION MADE #
-#####################################################################
+ #####################################################################
+# EDITING, DELETING AND PRINTING OF RECEIPT OF EACH TRANSACTION MADE  #
+ #####################################################################
 
 def edit_payment(request, pk):
     item = get_object_or_404(Spend, pk=pk)
@@ -178,6 +178,7 @@ def edit_payment(request, pk):
     else:
         form = SpendForm(instance=item)
     return render(request, 'pay_expenditure.html', {'form': form})
+
 def delete_payment(request,pk):
     items= Spend.objects.filter(id=pk).delete()
     context = { 'items':items}
