@@ -62,12 +62,6 @@ class Tithes(Model):
     def __str__(self):
         return self.TitheMadeBy
 
-
-
-
-
-
-
 class Spend(models.Model):
     reason=(
         ('Mechanic','Car Repairing'),('WaterBills','Water Bills'),('Electricity','Electricity Bills'),('URA','Paying Revenue')
@@ -168,7 +162,7 @@ class Pledges(Model):
     Amount_In_Words = models.CharField(max_length=500, blank=False)
     def __str__(self):
         return self.Pledge_Made_By
-
+    #using decorators to archive the calculations
     @property
     def total_pledge_paid(self):
         results = PaidPledges.objects.filter(Member_id=self.Pledge_Made_By_id).aggregate(totals=models.Sum("Amount_Paid"))
@@ -179,7 +173,8 @@ class Pledges(Model):
     @property
     def Pledge_Balance(self):
         results=self.Amount_Pledged - self.total_pledge_paid
-        return results                
+        return results 
+
 class PaidPledges(Model):
     Name = models.CharField(max_length=100, blank=False)
     Member_id = models.CharField(max_length=100, blank=False)
@@ -195,6 +190,18 @@ class PledgesReportArchive(models.Model):
     Balance = models.IntegerField(default=0)
     archivedmonth = models.CharField(max_length=100,null=True)
     archivedyear = models.CharField(max_length=100,null=True)
+    #using decorators
+    @property
+    def total_pledge_paid(self):
+        results = PaidPledges.objects.filter(Member_id=self.Pledge_Made_By_id).aggregate(totals=models.Sum("Amount_Paid"))
+        if (results['totals']):
+            return results["totals"]
+        else:
+            return 0 
+    @property
+    def Pledge_Balance(self):
+        results=self.Amount_Pledged - self.total_pledge_paid
+        return results 
 
     def __str__(self):
         return 'Name: {1}  Amount:{0}'.format(self.Name, self.Amount)    

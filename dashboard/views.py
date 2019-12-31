@@ -227,44 +227,6 @@ def edit_pledges(request, pk):
     else:
         form = PledgesForm(instance=item)
     return render(request, 'enter_pledge.html', {'form': form})
-@login_required
-def Pledgesreport(request):
-    if request.method=='POST':
-        archived_year=request.POST['archived_year']
-        archived_month = request.POST['archived_month']
-        all_expenses = Pledges.objects.all()
-        for expense in all_expenses:
-            date=expense.Date
-            name=expense.PledgeMadeBy
-            reason=expense.Reason
-            day= expense.DayOfTheWeek
-            amount=expense.Amount
-            expense_archiveobj=PledgesReportArchive()
-            expense_archiveobj.Date=date
-            expense_archiveobj.Day=day
-            expense_archiveobj.Name = name
-            expense_archiveobj.Reason = reason
-            expense_archiveobj.Amount=amount
-            expense_archiveobj.archivedyear= archived_year
-            expense_archiveobj.archivedmonth =archived_month
-            expense_archiveobj.save()
-        all_expenses.delete()
-        message="The Monthly Pledges Report has been Achived"
-        context={'message':message}
-        return render(request, 'pledgesindex.html', context)
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'August', 'September', 'October', 'November','December']
-    years = [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
-    total = Pledges.objects.aggregate(totals=models.Sum("Amount_Pledged"))
-    total_amount = total["totals"]
-    items =Pledges.objects.all()
-    context = {
-        'total_amount':total_amount,
-        'items':items,
-        'months':months,
-        'years':years,
-    }
-    return render(request, 'pledgesindex.html', context)
-
 
 
 def delete_salary(request,pk):
@@ -521,6 +483,44 @@ class sundryreceipt(View):
     ############################################################
    # SUBMISSION OF MONTHLY REPORTS TO BE ARCHIVED              #
     ############################################################
+ #####################
+#  ARCHIVING PLEDGES  #
+ #####################
+@login_required
+def Pledgesreport(request):
+    if request.method=='POST':
+        archived_year=request.POST['archived_year']
+        archived_month = request.POST['archived_month']
+        all_expenses = Pledges.objects.all()
+        for expense in all_expenses:
+            date=expense.Date
+            name=expense.Pledge_Made_By
+            reason=expense.Reason
+            pledged_amount= expense.Amount_Pledged
+            expense_archiveobj=PledgesReportArchive()
+            expense_archiveobj.Date=date
+            expense_archiveobj.Name = name
+            expense_archiveobj.Reason = reason
+            expense_archiveobj.Pledged_Amount=pledged_amount
+            expense_archiveobj.archivedyear= archived_year
+            expense_archiveobj.archivedmonth =archived_month
+            expense_archiveobj.save()
+        all_expenses.delete()
+        message="The Monthly Pledges Report has been Achived"
+        context={'message':message}
+        return render(request, 'pledgesindex.html', context)
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'August', 'September', 'October', 'November','December']
+    years = [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
+    total = Pledges.objects.aggregate(totals=models.Sum("Amount_Pledged"))
+    total_amount = total["totals"]
+    items =Pledges.objects.all()
+    context = {
+        'total_amount':total_amount,
+        'items':items,
+        'months':months,
+        'years':years,
+    }
+    return render(request, 'pledgesindex.html', context)
 
 #####################
 # EXPENSES ARCHIVING#
@@ -566,7 +566,7 @@ def expenditurereport (request):
 
         return render(request, 'expenditureindex.html', context)
 
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'August', 'September',
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September',
               'October', 'November',
               'December']
     years = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
@@ -618,7 +618,7 @@ def salaryreport (request):
         return render(request, 'salaryindex.html', context)
 
     months = ['January', 'February', 'March', 'April', 'May', 'June',
-              'July', 'August', 'August', 'September', 'October', 'November','December']
+              'July', 'August','September', 'October', 'November','December']
     years = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
     total = Salary.objects.aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
@@ -664,7 +664,7 @@ def sundryreport (request):
 
         return render(request, 'sundryindex.html', context)
 
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'August', 'September',
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
               'October', 'November',
               'December']
     years = [2019, 2020, 2021]
@@ -713,7 +713,7 @@ def Offeringsreport (request):
         return render(request, 'offeringsindex.html', context)
 
     months = ['January', 'February', 'March', 'April', 'May', 'June',
-              'July', 'August', 'August', 'September', 'October', 'November','December']
+              'July', 'August','September', 'October', 'November','December']
     years = [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
     total = Offerings.objects.aggregate(totals=models.Sum("TotalOffering"))
     total_amount = total["totals"]
@@ -756,7 +756,7 @@ def Tithesreport (request):
         return render(request, 'tithesindex.html', context)
 
     months = ['January', 'February', 'March', 'April', 'May', 'June',
-              'July', 'August', 'August', 'September', 'October', 'November','December']
+              'July', 'August','September', 'October', 'November','December']
     years = [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
     total = Tithes.objects.aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
@@ -791,7 +791,7 @@ def expensesarchivessearch(request):
                    }
         return render(request, "expenditurearchive.html", context)
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-              'August', 'August', 'September','October', 'November', 'November', 'December']
+              'August','September','October', 'November', 'November', 'December']
     years = [2018, 2019, 2020, 2021]
     expenses=ExpensesReportArchive.objects.all()
     context = {'months': months,
@@ -805,7 +805,7 @@ def salaryarchivessearch(request):
         report_month = request.POST['report_month']
         archived_reports = SalaryReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
         months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                  'August', 'August', 'September', 'October',  'November','December']
+                  'August','September', 'October',  'November','December']
         years = [2018, 2019, 2020, 2021]
 
         salary = SalaryReportArchive.objects.all()
@@ -825,7 +825,7 @@ def salaryarchivessearch(request):
         return render(request, "salaryarchive.html", context)
 
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-              'August', 'August', 'September','October',  'November', 'December']
+              'August', 'September','October',  'November', 'December']
     years = [2018, 2019, 2020, 2021]
 
     salary=SalaryReportArchive.objects.all()
@@ -861,7 +861,7 @@ def sundryarchivessearch(request):
         return render(request, "sundryarchive.html", context)
 
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-              'August', 'August', 'September','October', 'November', 'November', 'December']
+              'August', 'August', 'September','October', 'November', 'December']
     years = [2019, 2020, 2021]
 
     sundry=SundryReportArchive.objects.all()
@@ -877,33 +877,22 @@ def pledgesarchivessearch(request):
         report_month = request.POST['report_month']
         archived_reports = PledgesReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
         months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                  'August', 'August', 'September', 'October', 'November', 'December']
-        years = [2019, 2020, 2021]
+                  'August','September', 'October', 'November', 'December']
+        years = [2019, 2020, 2021]#getting years without hard coding.... <<pending>>
 
         pledges = PledgesReportArchive.objects.all()
         today = timezone.now()
         total = archived_reports.aggregate(totals=models.Sum("Pledged_Amount"))
         total_amount = total["totals"]
-        context = {'archived_reports': archived_reports,
-                   'months': months,
-                   'years': years,
-                   'expenses': pledges,
-                   'total_amount': total_amount,
-                   'today': today,
-                   'report_year': report_year,
-                   'report_month': report_month
-                   }
+        context = {'archived_reports': archived_reports,'months': months,'years': years,'expenses': pledges,'total_amount': total_amount,'today': today,'report_year': report_year,
+                   'report_month': report_month}
         return render(request, "pledgesarchive.html", context)
 
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-              'August', 'August', 'September', 'October', 'November', 'November', 'December']
+              'August', 'September', 'October', 'November', 'December']
     years = [2019, 2020, 2021]
-
     pledges = PledgesReportArchive.objects.all()
-
-    context = {'months': months,
-               'years': years,
-               'pledges': pledges}
+    context = {'months': months, 'years': years, 'pledges': pledges}
     return render(request, "pledgesarchive.html", context)
 @login_required
 def offeringsarchivessearch(request):
@@ -912,7 +901,7 @@ def offeringsarchivessearch(request):
         report_month = request.POST['report_month']
         archived_reports = OfferingsReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
         months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                  'August', 'August', 'September', 'October', 'November', 'December']
+                  'August', 'September', 'October', 'November', 'December']
         years = [2019, 2020, 2021]
 
         offerings = OfferingsReportArchive.objects.all()
@@ -931,7 +920,7 @@ def offeringsarchivessearch(request):
         return render(request, "offeringsarchive.html", context)
 
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-              'August', 'August', 'September', 'October', 'November', 'November', 'December']
+              'August', 'September', 'October', 'November', 'November', 'December']
     years = [2019, 2020, 2021]
 
     offerings = OfferingsReportArchive.objects.all()
@@ -947,7 +936,7 @@ def tithesarchivessearch(request):
         report_month = request.POST['report_month']
         archived_reports = TithesReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
         months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                  'August', 'August', 'September', 'October', 'November', 'December']
+                  'August','September', 'October', 'November', 'December']
         years = [2019, 2020, 2021]
 
         tithes = TithesReportArchive.objects.all()
@@ -966,7 +955,7 @@ def tithesarchivessearch(request):
         return render(request, "tithesarchive.html", context)
 
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-              'August', 'August', 'September', 'October', 'November', 'November', 'December']
+              'August', 'September', 'October', 'November', 'November', 'December']
     years = [2019, 2020, 2021]
 
     tithes = TithesReportArchive.objects.all()
