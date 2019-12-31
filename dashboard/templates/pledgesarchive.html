@@ -84,8 +84,18 @@
                     <td>{{ archived.Name }}</td>
                     <td>{{ archived.Reason}}</td>
                     <td>{{ archived.Pledged_Amount }}</td>
-                    <td>{{ archived.Amount_Paid }}</td>
-                    <td>{{ archived.Balance }}</td>
+                    <td>{{ archived.total_pledge_paid}}</td>
+                    <td>{{ archived.Pledge_Balance}}</td>
+
+                    {% if archived.total_pledge_paid >= item.Amount_Pledged  %}
+                    <td>
+                    <button class="btn btn-info">Pledge Fully Paid</button></td>
+                    {% else %}
+                    <td><a href="#"><button class="btn btn-success">Not fully paid</button></a>       
+                    </td>
+                       
+                    {% endif%} 
+
                 </tr>
             {% endfor %}
 
@@ -100,6 +110,7 @@
                     <th>Amount Pledged</th>
                     <th>Amount Paid</th>
                     <th>Balance</th>
+                    <th>Status</th>
                      </tr>
                  </thead>
                  <tr><td><b>Total Amount:</b> </td> <td>_____________ </td> <td>______________  </td><td><b>{{ total_amount}}</b></td></tr>

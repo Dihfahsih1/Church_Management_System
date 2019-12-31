@@ -181,7 +181,7 @@ class PaidPledges(Model):
     Amount_Paid = models.IntegerField(default=0, blank=True, null=True)
     Date = models.DateField(null=True, blank=True)
 
-class PledgesReportArchive(models.Model):
+class PledgesReportArchive(Model):
     Date = models.DateField(null=True, blank=True)
     Name = models.CharField( max_length=100,null=True)
     Reason = models.CharField(max_length=100, null=True)
@@ -193,14 +193,14 @@ class PledgesReportArchive(models.Model):
     #using decorators
     @property
     def total_pledge_paid(self):
-        results = PaidPledges.objects.filter(Member_id=self.Pledge_Made_By_id).aggregate(totals=models.Sum("Amount_Paid"))
+        results = PaidPledges.objects.filter(Name=self.Name).aggregate(totals=models.Sum("Amount_Paid"))
         if (results['totals']):
             return results["totals"]
         else:
             return 0 
     @property
     def Pledge_Balance(self):
-        results=self.Amount_Pledged - self.total_pledge_paid
+        results=self.Amount_Paid - self.total_pledge_paid
         return results 
 
     def __str__(self):
