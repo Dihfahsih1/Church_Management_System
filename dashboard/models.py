@@ -141,7 +141,10 @@ class Members(models.Model):
 
     def __str__(self):
         return self.First_Name + ' ' + self.Second_Name
-
+    @property
+    def full_name(self):
+        return self.First_Name + ' ' + self.Second_Name
+    
 class Visitors(models.Model):
     First_Name=models.CharField(max_length=100, null=True)
     Second_Name=models.CharField(max_length=100, null=True)
@@ -200,8 +203,8 @@ class PledgesReportArchive(Model):
             return 0 
     @property
     def Pledge_Balance(self):
-        results=self.Amount_Paid - self.total_pledge_paid
+        results=self.Pledged_Amount - self.total_pledge_paid
         return results 
 
     def __str__(self):
-        return 'Name: {1}  Amount:{0}'.format(self.Name, self.Amount)    
+        return 'Name: {1}  Amount_Paid:{0}'.format(self.Name, self.Amount_Paid)    

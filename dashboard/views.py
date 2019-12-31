@@ -105,7 +105,7 @@ def pledge_view(request, pledge_pk):
     return render(request, 'pledge_view.html', context)
 @login_required
 def paying_pledges(request, pk):
-    items = get_object_or_404(Pledges, Pledge_Made_By_id=pk) #add a second condition to fetch only school fees exclude other dues
+    items = get_object_or_404(Pledges, Pledge_Made_By_id=pk) #add  second condition to fetch only school fees exclude other dues
     if request.method == "POST":
         form = UpdatePledgesForm(request.POST, request.FILES, instance=items)
         if form.is_valid():
