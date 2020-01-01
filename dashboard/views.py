@@ -141,7 +141,11 @@ def pledges_paid_list(request):
     lists = PaidPledges.objects.all().order_by('Member_id')
     context['lists']=lists
     return render(request, 'pledges_paid_list.html',context)
-    
+
+#retrieve all archived pledge debts   
+#def archived_pledge_debts(request):
+#    debts=PledgesReportArchive.objects.all()
+
 @login_required
 def enter_expenditure(request):
     if request.method=="POST":
@@ -493,11 +497,13 @@ def Pledgesreport(request):
         archived_month = request.POST['archived_month']
         all_expenses = Pledges.objects.all()
         for expense in all_expenses:
+            Pledge_id=expense.id
             date=expense.Date
             name=expense.Pledge_Made_By
             reason=expense.Reason
             pledged_amount= expense.Amount_Pledged
             expense_archiveobj=PledgesReportArchive()
+            expense_archiveobj.pledge_id=Pledge_id
             expense_archiveobj.Date=date
             expense_archiveobj.Name = name
             expense_archiveobj.Reason = reason

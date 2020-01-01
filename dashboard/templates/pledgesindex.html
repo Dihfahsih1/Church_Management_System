@@ -40,6 +40,7 @@
 
         <tr>
             <th>Date</th>
+            <th>Pledge Id</th>
             <th>Pledge Made By</th>
             <th>Reason</th>
             <th>Amount Pledged</th>
@@ -55,7 +56,8 @@
         {% for item in items%}
         <tr>
         <td>{{ item.Date}}</td>
-         <td>{{ item.Pledge_Made_By}}</td>
+        <td>{{ item.id}}</td>
+        <td>{{ item.Pledge_Made_By}}</td>
         <td>{{ item.Reason}}</td>
         <td>{{ item.Amount_Pledged}}</td>
         <td>{{ item.total_pledge_paid}}</td>
@@ -64,20 +66,20 @@
         <td>
         <button class="btn btn-info">Pledge Fully Paid</button></td>
         {% else %}
-        <td><a href="{% url 'pledge_view' item.id %}" target="_new"><button class="btn btn-success">Pay Pledge</button></a>|
+        <td><a href="{% url 'pledge_view' item.id %}" target="_new"><button class="btn btn-success">Pay</button></a>|
         <!--<td><a href="{% url 'pledgesreceipt' item.id %}" target="_new"><button class="btn btn-info">Print Receipt</button></a> |-->
-        <a href="{% url 'edit_pledges' item.id  %}" ><button class="btn btn-warning">Edit Pledge</button></a>        
+        <a href="{% url 'edit_pledges' item.id  %}" ><button class="btn btn-warning">Edit</button></a>        
         </td>
            
         {% endif%}    
         {% endfor %}</tr>
-          <tr><td><b>Total Amount:</b> </td> <td>______________ </td><td>______________  </td><td><b>{{ total_amount}}</b></td></tr>
+          <tr><td><b>Total Amount:</b> </td> <td>______________ </td><td>______________ </td><td>______________  </td><td><b>{{ total_amount}}</b></td></tr>
 
         </tbody>
-       <tr><td><a href="{% url 'pledgespdf' %}" target="_new" class="btn btn-info bt-sm" role="button">Print Report</a></td>
-        <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Archive Pledges</button></td>
-       </tr>
       </table>
+      <div class="col-lg-4"><a href="{% url 'pledgespdf' %}" target="_new" class="btn btn-info bt-sm" role="button">Print</a> 
+        |        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Archive</button></div>
+       
                  <!-- Button trigger modal -->
 
 <!-- Modal -->

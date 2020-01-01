@@ -185,6 +185,7 @@ class PaidPledges(Model):
     Date = models.DateField(null=True, blank=True)
 
 class PledgesReportArchive(Model):
+    pledge_id = models.IntegerField(null=True, blank=True)
     Date = models.DateField(null=True, blank=True)
     Name = models.CharField( max_length=100,null=True)
     Reason = models.CharField(max_length=100, null=True)
