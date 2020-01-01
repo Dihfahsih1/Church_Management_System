@@ -179,7 +179,8 @@ class Pledges(Model):
         return results 
 
 class PaidPledges(Model):
-    Name = models.CharField(max_length=100, blank=False)
+    pledge_id=models.CharField(max_length=100, blank=True, null=True)
+    Name = models.CharField(max_length=100,blank=True, null=True)
     Member_id = models.CharField(max_length=100, blank=False)
     Amount_Paid = models.IntegerField(default=0, blank=True, null=True)
     Date = models.DateField(null=True, blank=True)

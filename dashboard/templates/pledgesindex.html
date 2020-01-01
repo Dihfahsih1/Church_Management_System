@@ -42,6 +42,7 @@
             <th>Date</th>
             <th>Pledge Id</th>
             <th>Pledge Made By</th>
+            <th>Member Id</th>
             <th>Reason</th>
             <th>Amount Pledged</th>
             <th>Amount Paid</th>
@@ -58,6 +59,7 @@
         <td>{{ item.Date}}</td>
         <td>{{ item.id}}</td>
         <td>{{ item.Pledge_Made_By}}</td>
+        <td>{{ item.Pledge_Made_By.id}}</td>
         <td>{{ item.Reason}}</td>
         <td>{{ item.Amount_Pledged}}</td>
         <td>{{ item.total_pledge_paid}}</td>
@@ -66,14 +68,14 @@
         <td>
         <button class="btn btn-info">Pledge Fully Paid</button></td>
         {% else %}
-        <td><a href="{% url 'pledge_view' item.id %}" target="_new"><button class="btn btn-success">Pay</button></a>|
+        <td><a href="{% url 'paying_pledges' item.id %}" target="_new"><button class="btn btn-success">Pay</button></a>|
         <!--<td><a href="{% url 'pledgesreceipt' item.id %}" target="_new"><button class="btn btn-info">Print Receipt</button></a> |-->
         <a href="{% url 'edit_pledges' item.id  %}" ><button class="btn btn-warning">Edit</button></a>        
         </td>
            
         {% endif%}    
         {% endfor %}</tr>
-          <tr><td><b>Total Amount:</b> </td> <td>______________ </td><td>______________ </td><td>______________  </td><td><b>{{ total_amount}}</b></td></tr>
+          <tr><td><b>Total Amount:</b> </td> <td>____________</td> <td>__________ </td><td>_________ </td><td>__________  </td><td><b>{{ total_amount}}</b></td></tr>
 
         </tbody>
       </table>
