@@ -76,4 +76,5 @@ url(r'^paying_pledges/(?P<pk>\d+)', views.paying_pledges, name='paying_pledges')
 url(r'^Pledges/view/(?P<pledge_pk>\d+)/$', views.pledge_view, name='pledge_view'),
 url(r'^Pledges/History/List', views.pledges_paid_list, name='pledges-paid-list'),
 url(r'^Pledges/Individual-History/(?P<pk>\d+)', views.individual_pledge_history, name='individual-pledge-history'),
+url(r'^Pledges/Archived/Debts', views.archived_pledge_debts, name='archived-pledge-debts'),
 ]

@@ -47,6 +47,7 @@
             <th>Amount Pledged</th>
             <th>Amount Paid</th>
             <th>Balance</th>
+            <th>Status</th>
 
             <th>Action</th>
         </tr>
@@ -64,6 +65,8 @@
         <td>{{ item.Amount_Pledged}}</td>
         <td>{{ item.total_pledge_paid}}</td>
         <td>{{ item.Pledge_Balance}}</td>
+
+        <td>{{ item.updatestatus}}</td>
         {% if item.total_pledge_paid >= item.Amount_Pledged  %}
         <td>
         <button class="btn btn-info">Pledge Fully Paid</button></td>

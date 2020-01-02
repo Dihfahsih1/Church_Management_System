@@ -30,7 +30,7 @@ class OfferingsForm(forms.ModelForm):
 class PledgesForm(forms.ModelForm):
     class Meta:
         model=Pledges
-        fields = ('Amount_Paid','Balance','Date','Pledge_Made_By','Reason','Amount_Pledged','Amount_In_Words')
+        fields = ('Status','Amount_Paid','Balance','Date','Pledge_Made_By','Reason','Amount_Pledged','Amount_In_Words')
         widgets = {
             'Date': DatePickerInput(),
         }

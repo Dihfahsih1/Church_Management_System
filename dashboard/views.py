@@ -268,7 +268,12 @@ class pledgesarchivepdf(View):
             'request': request,
             'archived_pledges': archived_pledges,
         }
-        return Render.render('pledgesarchivepdf.html', pledgescontext)  
+        return Render.render('pledgesarchivepdf.html', pledgescontext) 
+
+def archived_pledge_debts(request):
+    debts=PledgesReportArchive.objects.all()
+    context={'debts':debts}
+    return render(request, "archived_pledge_debts.html", context)
 
 @login_required
 def enter_expenditure(request):

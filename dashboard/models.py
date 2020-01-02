@@ -156,6 +156,11 @@ class Visitors(models.Model):
 
         #PLEDGES MODEL
 class Pledges(Model):
+    paid = 'PAID'
+    partial = 'PARTIAL'
+    unpaid = 'UNPAID'
+    state = ((paid, 'Paid'), (partial, 'Partial'), (unpaid, 'Unpaid'))
+    Status=models.CharField(max_length=100, choices=state, null=True, blank=True)
     Date = models.DateField(null=True, blank=True)
     Pledge_Made_By = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, blank=False)
     Reason = models.CharField(max_length=100, null=True)
@@ -178,6 +183,27 @@ class Pledges(Model):
         results=self.Amount_Pledged - self.total_pledge_paid
         return results 
 
+
+    @property
+    def updatestatus(self):
+        if (self.total_pledge_paid >= self.Amount_Pledged):
+            self.paid_status = self.paid
+            self.save()
+            return self.paid_status
+
+        elif (self.total_pledge_paid == 0):
+            self.paid_status = self.unpaid
+            self.save()
+            return self.paid_status
+
+        elif (self.total_pledge_paid < self.Amount_Pledged):
+            self.paid_status = self.partial
+            self.save()
+            return self.paid_status
+
+        else:
+            return self.paid_status    
+
 class PaidPledges(Model):
     Pledge_Id=models.CharField(max_length=100, blank=True, null=True)
     Pledge_Made_By = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, blank=False)
@@ -185,9 +211,10 @@ class PaidPledges(Model):
     Date = models.DateField(null=True, blank=True)
 
 class PledgesReportArchive(Model):
-    pledge_id = models.IntegerField(null=True, blank=True)
+    Status = models.CharField(max_length=100, null=True)
+    Pledge_Id = models.IntegerField(null=True, blank=True)
     Date = models.DateField(null=True, blank=True)
-    Name = models.CharField( max_length=100,null=True)
+    Pledge_Made_By = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, null=True, blank=True)
     Reason = models.CharField(max_length=100, null=True)
     Pledged_Amount=models.IntegerField(default=0)
     Amount_Paid = models.IntegerField(default=0)
@@ -197,7 +224,7 @@ class PledgesReportArchive(Model):
     #using decorators
     @property
     def total_pledge_paid(self):
-        results = PaidPledges.objects.filter(Name=self.Name).aggregate(totals=models.Sum("Amount_Paid"))
+        results = PaidPledges.objects.filter(Pledge_Id=self.Pledge_Id).aggregate(totals=models.Sum("Amount_Paid"))
         if (results['totals']):
             return results["totals"]
         else:
@@ -206,6 +233,10 @@ class PledgesReportArchive(Model):
     def Pledge_Balance(self):
         results=self.Pledged_Amount - self.total_pledge_paid
         return results 
-
+    
+    @property
+    def pledge_debts(self):
+        results=self.Pledge_Balance > 0
+        return results
     def __str__(self):
-        return 'Name: {1}  Amount_Paid:{0}'.format(self.Name, self.Amount_Paid)    
+        return 'Pledge_Made_By: {1}  Amount_Paid:{0}'.format(self.Pledge_Made_By, self.Amount_Paid)    
