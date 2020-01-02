@@ -27,7 +27,6 @@
 
       </ul>
     </nav>
-    <br><br>
     <div class="float-lg-right">
     <a href="{% url 'Enter_Pledges' %}"><button class="btn btn-danger">Enter Another Pledge</button></a>
     </div>
@@ -40,15 +39,12 @@
 
         <tr>
             <th>Date</th>
-            <th>Pledge Id</th>
             <th>Pledge Made By</th>
-            <th>Member Id</th>
             <th>Reason</th>
             <th>Amount Pledged</th>
             <th>Amount Paid</th>
             <th>Balance</th>
             <th>Status</th>
-
             <th>Action</th>
         </tr>
         </thead>
@@ -58,9 +54,7 @@
         {% for item in items%}
         <tr>
         <td>{{ item.Date}}</td>
-        <td>{{ item.id}}</td>
         <td>{{ item.Pledge_Made_By}}</td>
-        <td>{{ item.Pledge_Made_By.id}}</td>
         <td>{{ item.Reason}}</td>
         <td>{{ item.Amount_Pledged}}</td>
         <td>{{ item.total_pledge_paid}}</td>
@@ -78,7 +72,7 @@
            
         {% endif%}    
         {% endfor %}</tr>
-          <tr><td><b>Total Amount:</b> </td> <td>____________</td> <td>__________ </td><td>_________ </td><td>__________  </td><td><b>{{ total_amount}}</b></td></tr>
+          <tr><td><b>Total Amount:</b> </td> <td>____________</td> <td>__________ </td><td><b>{{ total_amount}}</b></td></tr>
 
         </tbody>
       </table>
