@@ -107,6 +107,7 @@ def pledge_view(request, pledge_pk):
     context = {'form': form}
     return render(request, 'pledge_view.html', context)
 
+#function that invokes the template for inputing the date and pledge amount paid by the member
 @login_required
 def paying_pledges(request, pk):
     items = get_object_or_404(Pledges, id=pk)
@@ -120,6 +121,8 @@ def paying_pledges(request, pk):
         retrieving_id=Pledges.objects.filter(id=pk)
         context={'form':form, 'retrieving_id': retrieving_id}
         return render(request, 'paying_pledges_update.html', context)
+
+#processing the pledge payment that the member has made
 @login_required
 def member_pledges_paid(request):
     if request.method == "POST":
@@ -131,13 +134,6 @@ def member_pledges_paid(request):
             form = PaidPledgesForm()
             context={'form':form}
             return render(request, 'paying_pledges_update.html', context)
-
-def individual_pledge_history(request, pk):
-    context = {}
-    lists = PaidPledges.objects.filter(Pledge_Id=pk)
-    context['lists']=lists
-    return render(request, 'pledges_paid_list.html',context)
-
 
 @login_required
 def pledges_paid_list(request):

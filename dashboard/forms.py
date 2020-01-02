@@ -1,5 +1,6 @@
 from django import forms
 from .models import *
+from django.forms import Textarea, TextInput, ChoiceField
 from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput, MonthPickerInput, DateTimePickerInput   
 
 
@@ -40,6 +41,7 @@ class UpdatePledgesForm(forms.ModelForm):
         fields = ('Pledge_Made_By','Amount_Paid','Date')
         widgets = {
             'Date': DatePickerInput(),
+            
         }  
 
 class PaidPledgesForm(forms.ModelForm):

@@ -4,9 +4,11 @@
 
 
 {% load crispy_forms_tags %}
+<br>
+<p> {{form.Pledge_Made_By}} <h5>has made a Pledge Payment</h5></p>
 <form method="POST" enctype="multipart/form-data" action="{% url 'member_pledges_paid' %}" >
 {% csrf_token %}
-    <div class="form-row col-lg-3">
+    <div class="form-row col-lg-" id="name">
         {{ form.Pledge_Made_By|as_crispy_field }}
     </div>                                
 	
@@ -17,7 +19,7 @@
     </div> 
     {% endfor%} 
 
-    <div class="form-row col-lg-3">
+    <div class="form-row col-lg-3" id="name">
 	    {{ form.Date|as_crispy_field }}
 	</div>
 	<div class="form-row col-lg-3">
@@ -48,14 +50,15 @@
             
                       
                       $("#st").hide();
+                      $("#name").hide();
                      
-            document.getElementById('id_Date').readOnly = false;
-            document.getElementById('member').readOnly = true;
+            //document.getElementById('id_Date').readOnly = true;
+            //document.getElementById('id_Pledge_Made_By').disabled = true;
 
     //script for disabling the dropdown button, making it uneditable for the user       
-   // $(function () {
-    //var klass = $('select[name="classroom"]')
-   // klass.prop('disabled', true);});
+    //$(function () {
+    //var klass = $('select[name="Pledge_Made_By"]')
+   //klass.prop('disabled', true);});
            
         </script>
 {% endblock %}
