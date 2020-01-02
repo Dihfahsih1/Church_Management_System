@@ -28,7 +28,7 @@
       </ul>
     </nav>
     <div class="float-lg-right">
-    <a href="{% url 'Enter_Pledges' %}"><button class="btn btn-danger">Enter Another Pledge</button></a>
+    <a href="{% url 'Enter_Pledges' %}"><button class="btn btn-danger">Record Another Pledge</button></a>
     </div>
     <h4>The Monthly Pledges Report</h4>
     <h3 class="alert-success">{{ message }}</h3>
@@ -62,11 +62,10 @@
 
         <td>{{ item.updatestatus}}</td>
         {% if item.total_pledge_paid >= item.Amount_Pledged  %}
-        <td>
-        <button class="btn btn-info">Pledge Fully Paid</button></td>
+        <td><a href="{% url 'pledgesreceipt' item.id %}" target="_new"><button class="btn btn-info">Print Receipt</button></a></td>
         {% else %}
         <td><a href="{% url 'paying_pledges' item.id %}" target="_new"><button class="btn btn-success">Pay</button></a>|
-        <!--<td><a href="{% url 'pledgesreceipt' item.id %}" target="_new"><button class="btn btn-info">Print Receipt</button></a> |-->
+        <a href="{% url 'pledgesreceipt' item.id %}" target="_new"><button class="btn btn-info">Print Receipt</button></a> |
         <a href="{% url 'edit_pledges' item.id  %}" ><button class="btn btn-warning">Edit</button></a>        
         </td>
            
@@ -76,6 +75,7 @@
 
         </tbody>
       </table>
+      <p><b>NB: </b> Please archive this report at the end of every month</p>
       <div class="col-lg-4"><a href="{% url 'pledgespdf' %}" target="_new" class="btn btn-info bt-sm" role="button">Print</a> 
         |        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Archive</button></div>
        
@@ -122,7 +122,7 @@
     </div>
   </div>
 </div>
-  </div>
+</div>
     {% endif %}
 
 {% endblock %}
