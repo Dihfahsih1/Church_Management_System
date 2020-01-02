@@ -180,7 +180,7 @@ class Pledges(Model):
 
 class PaidPledges(Model):
     pledge_id=models.CharField(max_length=100, blank=True, null=True)
-    Name = models.CharField(max_length=100,blank=True, null=True)
+    Pledge_Made_By = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, blank=False)
     Member_id = models.CharField(max_length=100, blank=False)
     Amount_Paid = models.IntegerField(default=0, blank=True, null=True)
     Date = models.DateField(null=True, blank=True)

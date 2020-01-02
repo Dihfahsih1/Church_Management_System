@@ -109,7 +109,7 @@ def pledge_view(request, pledge_pk):
 
 @login_required
 def paying_pledges(request, pk):
-    items = get_object_or_404(Pledges, id=pk) #add  second condition to fetch only school fees exclude other dues
+    items = get_object_or_404(Pledges, id=pk)
     if request.method == "POST":
         form = UpdatePledgesForm(request.POST, request.FILES, instance=items)
         if form.is_valid():
@@ -117,8 +117,8 @@ def paying_pledges(request, pk):
             return redirect('Pledgesreport')
     else:
         form = UpdatePledgesForm(instance=items)
-        church_member=Members.objects.filter(id__in=pk)
-        context={'form':form, 'church_member':church_member}
+        retrieving_id=Pledges.objects.filter(id=pk)
+        context={'form':form, 'retrieving_id': retrieving_id}
         return render(request, 'paying_pledges_update.html', context)
 @login_required
 def member_pledges_paid(request):
