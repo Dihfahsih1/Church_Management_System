@@ -26,7 +26,7 @@
 
         .table thead th {
             vertical-align: bottom;
-            border-bottom: 2px solid #000;
+            border-bottom: 0px solid #000;
         }
 
         .table tbody + tbody {
@@ -81,17 +81,24 @@
                 <th>Amount Pledge</th>
                 <th>Amount Paid</th>
                 <th>Balance</th>
+                <th>Status</th>
             </tr>
             </thead>
-            <tbody>
             {% for pledges in archived_pledges  %}
+             <div class="list-group">
+            
+             </div>
+            <tbody>
+            
+
                 <tr style="font-size:large">
                     <td>{{ pledges.Date }}</td>
-                    <td>{{ pledges.Name }}</td>
+                    <td>{{ pledges.Pledge_Made_By }}</td>
                     <td>{{ pledges.Reason }}</td>
                     <td>{{ pledges.Pledged_Amount}}</td>
-                    <td>{{ pledges.Amount_Paid}}</td>
-                    <td>Shs:{{ pledges.Balance }}</td>
+                    <td>{{ pledges.total_pledge_paid}}</td>
+                    <td>{{ pledges.Pledge_Balance }}</td>
+                    <td>{{ pledges.Status }}</td>
 
                 </tr>
             {% endfor %}

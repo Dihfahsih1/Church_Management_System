@@ -6,7 +6,7 @@
         <ul class="navbar-nav mr-auto">
              <li class="nav-item {% if url_name == 'pledgesarchivessearch' %}active{% endif %}">
                 <a class="nav-link" href="{% url 'pledgesarchivessearch' %}">
-                    <button class="btn btn-default">Pledges Archive</button>
+                    <button class="btn btn-btn">Pledges Archive</button>
                 </a>
             </li>
          <li class="nav-item {% if url_name == 'tithesarchivessearch' %}active{% endif %}">
@@ -38,17 +38,12 @@
 
         </ul>
     </nav>
-
-    <div class="container">
-       <p>{{ message }}</p>
-        <br><br>
-        <p>Please search for the Pledges archived by selecting <b>Year</b> and <b>Month</b></p>
-
+       <p>{{ message }}</p>        
+      <p><b>NB: </b>Please search for the Pledges archived by selecting <b>Year</b> and <b>Month</b></p>
         <form class="form-inline"  method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
           <div class="col-auto my-1">
-            <label class="mr-sm-2" for="inlineFormCustomSelect">Year</label>
             <select class="custom-select mr-lg-2" name="report_year" id="inlineFormCustomSelect">
                 {% for report_year in years %}
                    <option class="btn-success" name="{{ report_year }}" value="{{ report_year }}">{{ report_year }}</option>
@@ -56,7 +51,6 @@
             </select>
           </div>
               <div class="col-auto my-1">
-            <label class="mr-sm-2" for="inlineFormCustomSelect">Month</label>
             <select class="custom-select mr-lg-2" name="report_month" id="inlineFormCustomSelect">
                 {% for report_month in months %}
                    <option class="btn-success" name="{{ report_month }}" value="{{ report_month }}">{{ report_month }}</option>
@@ -64,7 +58,6 @@
             </select>
           </div>
               <div class="col-auto my-1">
-                  <label class="mr-sm-2" for="inlineFormCustomSelect">Search</label>
             <button type="submit" class="btn btn-danger">Search</button>
           </div>
         </form>
