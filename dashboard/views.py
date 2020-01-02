@@ -160,12 +160,12 @@ def edit_pledges(request, pk):
 class pledgespdf(View):
     def get(self, request):
         current_month = datetime.now().month
-        ple = Pledges.objects.filter(Date__month=current_month).order_by('-Date')
+        ple = Pledges.objects.all().order_by('-Date')
         today = timezone.now()
         month = today.strftime('%B')
         totalexpense = 0
         for instance in ple:
-            totalexpense += instance.Amount
+            totalexpense += instance.Amount_Pledged
         context = {
 
             'month': month,
@@ -220,6 +220,14 @@ def Pledgesreport(request):
     years = [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
     total = Pledges.objects.aggregate(totals=models.Sum("Amount_Pledged"))
     total_amount = total["totals"]
+
+    '''#calculate all pledges paid for the current month
+    current_month = datetime.now().month
+    results = PaidPledges.objects.filter(Date__month=current_month).aggregate(tot=models.Sum('Amount_Paid'))
+    all_total_amount = results["tot"]
+
+    #calculate the total balance
+    total_balance=total_amount-all_total_amount'''
     items =Pledges.objects.all()
     context = {
         'total_amount':total_amount,

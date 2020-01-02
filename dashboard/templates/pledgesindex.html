@@ -60,6 +60,7 @@
         <td>{{ item.total_pledge_paid}}</td>
         <td>{{ item.Pledge_Balance}}</td>
 
+
         <td>{{ item.updatestatus}}</td>
         {% if item.total_pledge_paid >= item.Amount_Pledged  %}
         <td><a href="{% url 'pledgesreceipt' item.id %}" target="_new"><button class="btn btn-info">Print Receipt</button></a></td>
@@ -69,9 +70,9 @@
         <a href="{% url 'edit_pledges' item.id  %}" ><button class="btn btn-warning">Edit</button></a>        
         </td>
            
-        {% endif%}    
+        {% endif%}   
         {% endfor %}</tr>
-          <tr><td><b>Total Amount:</b> </td> <td>____________</td> <td>__________ </td><td><b>{{ total_amount}}</b></td></tr>
+          <tr><td><b>Total Amount:</b> </td> <td>____________</td> <td>__________ </td><td><b>{{ total_amount}}</b></td><td><b>amount??</b></td><td><b>balance??</b></td></tr>
 
         </tbody>
       </table>

@@ -1,4 +1,5 @@
 from django.utils.timezone import now
+from datetime import datetime
 from django.db import models
 from django.db.models import Model
 from django.db.models import Sum
@@ -173,11 +174,13 @@ class Pledges(Model):
     #using decorators to archive the calculations
     @property
     def total_pledge_paid(self):
+
         results = PaidPledges.objects.filter(Pledge_Id=self.id).aggregate(totals=models.Sum("Amount_Paid"))
         if (results['totals']):
             return results["totals"]
         else:
             return 0 
+    
     @property
     def Pledge_Balance(self):
         results=self.Amount_Pledged - self.total_pledge_paid
@@ -229,6 +232,14 @@ class PledgesReportArchive(Model):
             return results["totals"]
         else:
             return 0 
+    @property
+    def all_pledges_total(self):
+        results = PaidPledges.objects.aggregate(totals=models.Sum(self.total_pledge_paid))
+        if (results['totals']):
+            return results["totals"]
+        else:
+            return 0 
+            
     @property
     def Pledge_Balance(self):
         results=self.Pledged_Amount - self.total_pledge_paid
