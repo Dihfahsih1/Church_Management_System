@@ -11,7 +11,7 @@
     </div>                                
 	
     {% for pledge_id in retrieving_id %}
-    <div class="form-row col-lg-3">
+    <div class="form-row col-lg-3" id="st">
         <label> Pledge_Id</label>
         <input type="text" name="Pledge_Id" id="Pledge_Id" maxlength="100" class="textinput textInput form-control" value="{{pledge_id.id }}">
     </div> 
@@ -47,7 +47,7 @@
             });
             
                       
-                      $("#st").show();
+                      $("#st").hide();
                      
             document.getElementById('id_Date').readOnly = false;
             document.getElementById('member').readOnly = true;

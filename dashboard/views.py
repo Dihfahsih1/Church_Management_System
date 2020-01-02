@@ -134,7 +134,7 @@ def member_pledges_paid(request):
 
 def individual_pledge_history(request, pk):
     context = {}
-    lists = PaidPledges.objects.filter(Member_id=pk)
+    lists = PaidPledges.objects.filter(Pledge_Id=pk)
     context['lists']=lists
     return render(request, 'pledges_paid_list.html',context)
 
@@ -142,7 +142,7 @@ def individual_pledge_history(request, pk):
 @login_required
 def pledges_paid_list(request):
     context = {}
-    lists = PaidPledges.objects.all().order_by('Member_id')
+    lists = PaidPledges.objects.all()
     context['lists']=lists
     return render(request, 'pledges_paid_list.html',context)
 
@@ -200,15 +200,15 @@ def Pledgesreport(request):
         archived_month = request.POST['archived_month']
         all_expenses = Pledges.objects.all()
         for expense in all_expenses:
-            Pledge_id=expense.id
+            pledge_id=expense.id
             date=expense.Date
             name=expense.Pledge_Made_By
             reason=expense.Reason
             pledged_amount= expense.Amount_Pledged
             expense_archiveobj=PledgesReportArchive()
-            expense_archiveobj.pledge_id=Pledge_id
+            expense_archiveobj.Pledge_Id=pledge_id
             expense_archiveobj.Date=date
-            expense_archiveobj.Name = name
+            expense_archiveobj.Pledge_Made_By = name
             expense_archiveobj.Reason = reason
             expense_archiveobj.Pledged_Amount=pledged_amount
             expense_archiveobj.archivedyear= archived_year

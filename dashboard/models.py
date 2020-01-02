@@ -168,7 +168,7 @@ class Pledges(Model):
     #using decorators to archive the calculations
     @property
     def total_pledge_paid(self):
-        results = PaidPledges.objects.filter(Member_id=self.Pledge_Made_By_id).aggregate(totals=models.Sum("Amount_Paid"))
+        results = PaidPledges.objects.filter(Pledge_Id=self.id).aggregate(totals=models.Sum("Amount_Paid"))
         if (results['totals']):
             return results["totals"]
         else:
@@ -179,9 +179,8 @@ class Pledges(Model):
         return results 
 
 class PaidPledges(Model):
-    pledge_id=models.CharField(max_length=100, blank=True, null=True)
+    Pledge_Id=models.CharField(max_length=100, blank=True, null=True)
     Pledge_Made_By = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, blank=False)
-    Member_id = models.CharField(max_length=100, blank=False)
     Amount_Paid = models.IntegerField(default=0, blank=True, null=True)
     Date = models.DateField(null=True, blank=True)
 
