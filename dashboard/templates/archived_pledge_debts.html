@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div class="container">
+
+  <div class="container">
+    <table class="table table-hover" border="2">
+    <thead class="table-success ">
+          <tr>
+            <th>Date</th>
+            <th>Name</td>
+            <th>Reason</th>
+            <th>Amount Pledged</th>
+            <th>Amount Paid</th>
+            <th>Balance</th>
+            <th>Action</th>
+           </tr>
+        </thead>
+
+        {% for db in debts  %}
+        <tbody>
+          <tr>
+              <td>{{ db.Date }}</td>
+              <td>{{ db.Pledge_Made_By }}</td>
+              <td>{{ db.Reason}}</td>
+              <td>{{ db.Pledged_Amount }}</td>
+              <td>{{ db.total_pledge_paid}}</td>
+              <td>{{ db.Pledge_Balance}}</td>
+              <td><a href="#" target="_new"><button class="btn btn-success">Settle Debt</button></td>
+          </tr>    
+        </tbody>    
+        {% endfor %}
+    </table>
+  </div>
+</div>
+{% endblock %}
