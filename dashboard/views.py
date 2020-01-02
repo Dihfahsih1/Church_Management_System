@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.views import View
 from django.contrib.auth.decorators import login_required
-
+from django.db.models import Q
 from .forms import *
 from .models import *
 from .render import Render
@@ -201,12 +201,14 @@ def Pledgesreport(request):
         all_expenses = Pledges.objects.all()
         for expense in all_expenses:
             pledge_id=expense.id
+            status = expense.Status
             date=expense.Date
             name=expense.Pledge_Made_By
             reason=expense.Reason
             pledged_amount= expense.Amount_Pledged
             expense_archiveobj=PledgesReportArchive()
             expense_archiveobj.Pledge_Id=pledge_id
+            expense_archiveobj.Status=status
             expense_archiveobj.Date=date
             expense_archiveobj.Pledge_Made_By = name
             expense_archiveobj.Reason = reason
@@ -271,7 +273,7 @@ class pledgesarchivepdf(View):
         return Render.render('pledgesarchivepdf.html', pledgescontext) 
 
 def archived_pledge_debts(request):
-    debts=PledgesReportArchive.objects.all()
+    debts=PledgesReportArchive.objects.filter(Q(Status='UNPAID') | Q(Status='PARTIAL'))
     context={'debts':debts}
     return render(request, "archived_pledge_debts.html", context)
 

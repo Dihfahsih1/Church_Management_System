@@ -6,7 +6,7 @@ class PledgesAdmin(admin.ModelAdmin):
     list_display = ('total_pledge_paid','Pledge_Balance','updatestatus')
 
 class PledgesReportArchiveAdmin(admin.ModelAdmin):
-    list_display = ('total_pledge_paid','Pledge_Balance','pledge_debts') 
+    list_display = ('total_pledge_paid','Pledge_Balance') 
 
 class MembersAdmin(admin.ModelAdmin):
     list_display = ('full_name')        

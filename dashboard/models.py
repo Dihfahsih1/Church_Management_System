@@ -187,22 +187,22 @@ class Pledges(Model):
     @property
     def updatestatus(self):
         if (self.total_pledge_paid >= self.Amount_Pledged):
-            self.paid_status = self.paid
+            self.Status = self.paid
             self.save()
-            return self.paid_status
+            return self.Status
 
         elif (self.total_pledge_paid == 0):
-            self.paid_status = self.unpaid
+            self.Status = self.unpaid
             self.save()
-            return self.paid_status
+            return self.Status
 
         elif (self.total_pledge_paid < self.Amount_Pledged):
-            self.paid_status = self.partial
+            self.Status = self.partial
             self.save()
-            return self.paid_status
+            return self.Status
 
         else:
-            return self.paid_status    
+            return self.Status    
 
 class PaidPledges(Model):
     Pledge_Id=models.CharField(max_length=100, blank=True, null=True)
@@ -211,7 +211,7 @@ class PaidPledges(Model):
     Date = models.DateField(null=True, blank=True)
 
 class PledgesReportArchive(Model):
-    Status = models.CharField(max_length=100, null=True)
+    Status = models.CharField(max_length=150, null=True)
     Pledge_Id = models.IntegerField(null=True, blank=True)
     Date = models.DateField(null=True, blank=True)
     Pledge_Made_By = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, null=True, blank=True)
@@ -233,10 +233,5 @@ class PledgesReportArchive(Model):
     def Pledge_Balance(self):
         results=self.Pledged_Amount - self.total_pledge_paid
         return results 
-    
-    @property
-    def pledge_debts(self):
-        results=self.Pledge_Balance > 0
-        return results
     def __str__(self):
         return 'Pledge_Made_By: {1}  Amount_Paid:{0}'.format(self.Pledge_Made_By, self.Amount_Paid)    
