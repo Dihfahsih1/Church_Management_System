@@ -42,41 +42,33 @@
     <div class="container">
        <p>{{ message }}</p>
         <br><br>
-        <h5>Please search for the archived tithes archived by <b class="btn-success">Year</b> and <b class="btn-success">Month</b></h5>
+        <p>Please search for the Pledges archived by selecting <b>Year</b> and <b>Month</b></p>
 
-                        <form class="form-inline"  method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
+        <form class="form-inline"  method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
 
-                            <div class="col-auto my-1">
-                          <label class="mr-sm-2" for="inlineFormCustomSelect">Year</label>
-                          <select class="custom-select mr-lg-2" name="report_year" id="inlineFormCustomSelect">
-                              {% for report_year in years %}
-                                 <option class="btn-success" name="{{ report_year }}" value="{{ report_year }}">{{ report_year }}</option>
-                              {% endfor %}
-                          </select>
-                        </div>
-                            <div class="col-auto my-1">
-                          <label class="mr-sm-2" for="inlineFormCustomSelect">Month</label>
-                          <select class="custom-select mr-lg-2" name="report_month" id="inlineFormCustomSelect">
-                              {% for report_month in months %}
-                                 <option class="btn-success" name="{{ report_month }}" value="{{ report_month }}">{{ report_month }}</option>
-                              {% endfor %}
-                          </select>
-                        </div>
-                            <div class="col-auto my-1">
-                                <label class="mr-sm-2" for="inlineFormCustomSelect">Search</label>
-                          <button type="submit" class="btn btn-danger">Search</button>
-                        </div>
-
-
-                        </form><br> <br>
-
-
-
-
+          <div class="col-auto my-1">
+            <label class="mr-sm-2" for="inlineFormCustomSelect">Year</label>
+            <select class="custom-select mr-lg-2" name="report_year" id="inlineFormCustomSelect">
+                {% for report_year in years %}
+                   <option class="btn-success" name="{{ report_year }}" value="{{ report_year }}">{{ report_year }}</option>
+                {% endfor %}
+            </select>
+          </div>
+              <div class="col-auto my-1">
+            <label class="mr-sm-2" for="inlineFormCustomSelect">Month</label>
+            <select class="custom-select mr-lg-2" name="report_month" id="inlineFormCustomSelect">
+                {% for report_month in months %}
+                   <option class="btn-success" name="{{ report_month }}" value="{{ report_month }}">{{ report_month }}</option>
+                {% endfor %}
+            </select>
+          </div>
+              <div class="col-auto my-1">
+                  <label class="mr-sm-2" for="inlineFormCustomSelect">Search</label>
+            <button type="submit" class="btn btn-danger">Search</button>
+          </div>
+        </form>
         <table class="table table-hover" border="2">
-
-
             <tbody >
             {% for archived in archived_reports  %}
                 <tr>
@@ -86,22 +78,13 @@
                     <td>{{ archived.Pledged_Amount }}</td>
                     <td>{{ archived.total_pledge_paid}}</td>
                     <td>{{ archived.Pledge_Balance}}</td>
-
-                    {% if archived.total_pledge_paid >= item.Amount_Pledged  %}
-                    <td>
-                    <button class="btn btn-success">Pledge Fully Paid</button></td>
-                    {% else %}
-                    <td><a href="#"><button class="btn btn-danger">Not fully paid</button></a>       
-                    </td>
-                       
-                    {% endif%} 
-
+                    <td>{{ archived.Status}}</td>
                 </tr>
             {% endfor %}
 
             </tbody>
              {% if archived_reports %}
-                 <h5>Monthly Archived Pledges Report For  {{ report_month }} {{ report_year }}  </h5>
+                 <hp>Monthly Archived Pledges Report For the financial cycle of  <b>{{ report_month }} {{ report_year }}</b>  </hp>
                  <thead class="table-success ">
                     <tr>
                     <th>Date</th>
