@@ -151,8 +151,6 @@ def settle_pledge_debt(request, pk):
     else:
         form = PledgesReportArchiveForm(instance=items)
         retrieving_id=PledgesReportArchive.objects.filter(Pledge_Id=pk)
-        for i in retrieving_id:
-            print(i.Pledge_Id)
         context={'form':form,'retrieving_id':retrieving_id}
         return render(request, 'settle_pledge_debt.html', context)
 
@@ -166,6 +164,13 @@ def member_settle_pledge_debt(request):
             form = PaidPledgesForm()
             context={'form':form}
             return render(request, 'settle_pledge_debt.html', context)
+
+def delete_bad_debt(request, pk):
+    retrieving_id=PledgesReportArchive.objects.filter(Pledge_Id=pk)
+    retrieving_id.delete()
+    message="Bad debt was removed sucessfully!"
+    context={'message':message}
+    return render(request, "delete_pledge_bad_debt.html", context)
 
 @login_required
 def pledges_paid_list(request):
