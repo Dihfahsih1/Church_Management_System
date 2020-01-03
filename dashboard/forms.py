@@ -64,4 +64,9 @@ class MembersForm(forms.ModelForm):
 class VisitorsForm(forms.ModelForm):
     class Meta:
         model=Visitors
-        fields = ('First_Name','Second_Name','Telephone','Address','Church')        
+        fields = ('First_Name','Second_Name','Telephone','Address','Church')
+
+class PledgesReportArchiveForm(forms.ModelForm):
+    class Meta:
+        model= PledgesReportArchive
+        fields = ('Status','Pledge_Id','Date','Pledge_Made_By','Reason', 'Amount_Paid')                

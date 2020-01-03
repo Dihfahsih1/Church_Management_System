@@ -224,7 +224,7 @@ class PledgesReportArchive(Model):
     Balance = models.IntegerField(default=0)
     archivedmonth = models.CharField(max_length=100,null=True)
     archivedyear = models.CharField(max_length=100,null=True)
-    #using decorators
+    # using decorators
     @property
     def total_pledge_paid(self):
         results = PaidPledges.objects.filter(Pledge_Id=self.Pledge_Id).aggregate(totals=models.Sum("Amount_Paid"))
@@ -244,5 +244,24 @@ class PledgesReportArchive(Model):
     def Pledge_Balance(self):
         results=self.Pledged_Amount - self.total_pledge_paid
         return results 
+    @property
+    def updatestatus(self):
+        if (self.total_pledge_paid >= self.Pledged_Amount):
+            self.Status = "PAID"
+            self.save()
+            return self.Status
+
+        elif (self.total_pledge_paid == 0):
+            self.Status = "UNPAID"
+            self.save()
+            return self.Status
+
+        elif (self.total_pledge_paid < self.Pledged_Amount):
+            self.Status = "PARTIAL"
+            self.save()
+            return self.Status
+
+        else:
+            return self.Status     
     def __str__(self):
         return 'Pledge_Made_By: {1}  Amount_Paid:{0}'.format(self.Pledge_Made_By, self.Amount_Paid)    

@@ -12,7 +12,7 @@ from .render import Render
 @login_required
 def index(request):
     return render(request,'index.html')
-     ####################################################
+      ####################################################
     #       REGISTERING CHURCH MEMBERS AND VISITORS      #
      ####################################################  
     #members
@@ -135,10 +135,43 @@ def member_pledges_paid(request):
             context={'form':form}
             return render(request, 'paying_pledges_update.html', context)
 
+def archived_pledge_debts(request):
+    debts=PledgesReportArchive.objects.filter(Q(Status='UNPAID') | Q(Status='PARTIAL'))
+    PledgesReportArchive.objects.filter(Status='PAID').delete()
+    context={'debts':debts}
+    return render(request, "archived_pledge_debts.html", context)
+
+def settle_pledge_debt(request, pk):
+    items = get_object_or_404(PledgesReportArchive, Pledge_Id=pk)
+    if request.method == "POST":
+        form = PledgesReportArchiveForm(request.POST, request.FILES, instance=items)
+        if form.is_valid():
+            form.save()
+            return redirect('pledges-paid-list')
+    else:
+        form = PledgesReportArchiveForm(instance=items)
+        retrieving_id=PledgesReportArchive.objects.filter(Pledge_Id=pk)
+        for i in retrieving_id:
+            print(i.Pledge_Id)
+        context={'form':form,'retrieving_id':retrieving_id}
+        return render(request, 'settle_pledge_debt.html', context)
+
+def member_settle_pledge_debt(request):
+    if request.method == "POST":
+        form =  PaidPledgesForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('archived-pledge-debts')
+        else:
+            form = PaidPledgesForm()
+            context={'form':form}
+            return render(request, 'settle_pledge_debt.html', context)
+
 @login_required
 def pledges_paid_list(request):
     context = {}
-    lists = PaidPledges.objects.all()
+    current_month = datetime.now().month
+    lists = PaidPledges.objects.filter(Date__month=current_month)
     context['lists']=lists
     return render(request, 'pledges_paid_list.html',context)
 
@@ -276,10 +309,7 @@ class pledgesarchivepdf(View):
         }
         return Render.render('pledgesarchivepdf.html', pledgescontext) 
 
-def archived_pledge_debts(request):
-    debts=PledgesReportArchive.objects.filter(Q(Status='UNPAID') | Q(Status='PARTIAL'))
-    context={'debts':debts}
-    return render(request, "archived_pledge_debts.html", context)
+
 
 @login_required
 def enter_expenditure(request):

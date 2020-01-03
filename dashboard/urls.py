@@ -65,7 +65,7 @@ url(r'^sundrysarchivessearch/', views.sundryarchivessearch, name='sundryarchives
 url(r'^pledgesarchivessearch/', views.pledgesarchivessearch, name='pledgesarchivessearch'),
 url(r'^offeringsarchivessearch/', views.offeringsarchivessearch, name='offeringsarchivessearch'),
 url(r'^tithesarchivessearch/', views.tithesarchivessearch, name='tithesarchivessearch'),
-#url(r'^expenditure_report_archive/', views.expenditure_report_archive, name='expenditure_report_archive'),
+# url(r'^expenditure_report_archive/', views.expenditure_report_archive, name='expenditure_report_archive'),
 #membership
 url(r'^Membership/Register/', views.register_members, name='members-register'),
 url(r'^Visitors/Register/', views.register_visitors, name='visitors-register'),
@@ -76,4 +76,6 @@ url(r'^paying_pledges/(?P<pk>\d+)', views.paying_pledges, name='paying_pledges')
 url(r'^Pledges/view/(?P<pledge_pk>\d+)/$', views.pledge_view, name='pledge_view'),
 url(r'^Pledges/History/List', views.pledges_paid_list, name='pledges-paid-list'),
 url(r'^Pledges/Archived/Debts', views.archived_pledge_debts, name='archived-pledge-debts'),
+url(r'^Pledges/Archived/Settling-Debt/(?P<pk>\d+)', views.settle_pledge_debt, name='settle-pledge-debt'),
+url(r'^Pledges/Archived/Debt_settling', views.member_settle_pledge_debt, name='member-settle-pledge-debt'),
 ]
