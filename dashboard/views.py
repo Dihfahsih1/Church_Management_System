@@ -137,7 +137,7 @@ def member_pledges_paid(request):
 
 def archived_pledge_debts(request):
     debts=PledgesReportArchive.objects.filter(Q(Status='UNPAID') | Q(Status='PARTIAL'))
-    PledgesReportArchive.objects.filter(Status='PAID').delete()
+    #PledgesReportArchive.objects.filter(Status='PAID').delete()
     context={'debts':debts}
     return render(request, "archived_pledge_debts.html", context)
 
@@ -162,7 +162,8 @@ def member_settle_pledge_debt(request):
             return redirect('archived-pledge-debts')
         else:
             form = PaidPledgesForm()
-            context={'form':form}
+            message="Pledge amount updated saccessfully!"
+            context={'form':form,'message':message}
             return render(request, 'settle_pledge_debt.html', context)
 
 def delete_bad_debt(request, pk):

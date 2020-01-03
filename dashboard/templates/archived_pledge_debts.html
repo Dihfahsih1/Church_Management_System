@@ -33,9 +33,13 @@
               <td>{{ db.Pledge_Balance}}</td>
 
               {% if db.total_pledge_paid >= db.Pledged_Amount  %}
-              <td><button class="btn btn-info">Debt settled</button>
+              <td><button class="btn btn-primary">Debt settled</button>|<button class="btn btn-warning">Receipt</button>
               {% else %}
-              <td><a href="{% url 'settle-pledge-debt' db.Pledge_Id %}" target="_blank"><button class="btn btn-success">Settle Debt</button></a>|<a href="{% url 'delete-bad-debt' db.Pledge_Id %}" target="_blank"><button class="btn btn-danger">Bad Debt</button></a></td>
+              <td><a href="{% url 'settle-pledge-debt' db.Pledge_Id %}" target="_blank"><button class="btn btn-success">Settle Debt</button></a>|
+                <button class="btn btn-info">Invoice</button>
+              {% endif%}   
+              {% if db.total_pledge_paid == 0  %}
+              <a href="{% url 'delete-bad-debt' db.Pledge_Id %}" target="_blank"><button class="btn btn-danger">Bad Debt</button></a></td>
               {% endif%} 
           </tr>    
         </tbody>    
