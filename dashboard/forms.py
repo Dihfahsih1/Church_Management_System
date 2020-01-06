@@ -27,7 +27,10 @@ class StaffDetailsForm(forms.ModelForm):
 class OfferingsForm(forms.ModelForm):
     class Meta:
         model=Offerings
-        fields = ('Date','DayOfTheWeek','TotalOffering','AmountInWords')
+        fields = ('Date','Total_Offering')
+        widgets = {
+            'Date': DatePickerInput(),
+        }
 class PledgesForm(forms.ModelForm):
     class Meta:
         model=Pledges

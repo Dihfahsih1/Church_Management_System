@@ -49,7 +49,7 @@ def visitors_list(request):
     context ={'visiting': visiting}
     return render(request, 'Members/visitors_list.html', context)
 
-     ####################################################
+      ####################################################
     #         ENTERING RECORDS INTO THE DATABASE         #
      ####################################################
 def pay_salary(request):
@@ -70,7 +70,7 @@ def Enter_Offerings(request):
             return redirect('Offeringsreport')
     else:
         form=OfferingsForm()
-        return render(request, 'add_new.html',{'form':form})
+        return render(request, 'record_offerings.html',{'form':form})
 @login_required
 def Enter_Tithes(request):
     if request.method=="POST":

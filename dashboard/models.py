@@ -48,11 +48,9 @@ class Sundry(Model):
 
 class Offerings(Model):
     Date = models.DateField(null=True, blank=True)
-    DayOfTheWeek =  models.CharField(max_length=100, blank=False)
-    TotalOffering = models.IntegerField(default=0)
-    AmountInWords = models.CharField(max_length=500, blank=False)
+    Total_Offering = models.IntegerField(default=0)
     def __str__(self):
-        return self.DayOfTheWeek
+        return self.TotalOffering
 
 class Tithes(Model):
     Date = models.DateField(null=True, blank=True)
