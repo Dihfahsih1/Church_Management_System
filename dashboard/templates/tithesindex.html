@@ -28,7 +28,7 @@
       </ul>
     </nav>
     <br><br>
-    <p><a href="{% url 'total-monthly-incomes'%}">View Total Current Month Incomes</a></p>
+    <p><a href="{% url 'total-monthly-incomes'%}">View Balance Sheet</a></p>
      <div class="float-lg-right">
     <a href="{% url 'Enter_Tithes' %}"><button class="btn btn-danger">Enter Another Tithe</button></a>
     </div>
@@ -59,7 +59,6 @@
      {% endfor %}</tr>
           <tr><td><b>Total Amount:</b> </td><td>______________  </td><td><b>{{ total_amount}}</b></td></tr>
         </tbody>
-      {% endif %}
  <tr><td><a href="{% url 'tithespdf' %}" target="_new" class="btn btn-info bt-sm" role="button">Print Report</a></td>
  <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
     Archive Tithes</button></td>
