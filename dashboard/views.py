@@ -61,16 +61,9 @@ def pay_salary(request):
     else:
         form=SalaryForm()
         return render(request, 'add_new.html',{'form':form})
-@login_required
-def Enter_Offerings(request):
-    if request.method=="POST":
-        form=OfferingsForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('Offeringsreport')
-    else:
-        form=OfferingsForm()
-        return render(request, 'record_offerings.html',{'form':form})
+
+
+
 @login_required
 def Enter_Tithes(request):
     if request.method=="POST":
@@ -81,6 +74,11 @@ def Enter_Tithes(request):
     else:
         form=TithesForm()
         return render(request, 'add_new.html',{'form':form})
+
+
+###############################
+      # PLEDGES MODULE#
+###############################
 
 @login_required
 def Enter_Pledges(request):
@@ -93,10 +91,6 @@ def Enter_Pledges(request):
         form=PledgesForm()
         return render(request, 'enter_pledge.html',{'form':form})
 
-
-###############################
-# MEMBERS PAYING THEIR PLEDGES#
-###############################
 @login_required
 def pledge_view(request, pledge_pk):
     pledge = get_object_or_404(Pledges, pk=pledge_pk)
@@ -316,6 +310,160 @@ class pledgesarchivepdf(View):
         return Render.render('pledgesarchivepdf.html', pledgescontext) 
 
 
+     ###################################################
+              #        OFFERINGS MODULE        #
+     ###################################################      
+@login_required
+def Enter_Offerings(request):
+    if request.method=="POST":
+        form=OfferingsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('Offeringsreport')
+    else:
+        form=OfferingsForm()
+        return render(request, 'record_offerings.html',{'form':form})
+def edit_offerings(request, pk):
+    item = get_object_or_404(Offerings, pk=pk)
+    if request.method == "POST":
+        form = OfferingsForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('Offeringsreport')
+    else:
+        form = OfferingsForm(instance=item)
+    return render(request, 'add_new.html', {'form': form})   
+
+class offeringspdf(View):
+    def get(self, request):
+        current_month = datetime.now().month
+        offerings = Offerings.objects.filter(Date__month=current_month).order_by('-Date')
+
+        today = timezone.now()
+        month = today.strftime('%B')
+        totalexpense = 0
+        for instance in offerings:
+            totalexpense += instance.Total_Offering
+        context = {
+
+            'month': month,
+            'today': today,
+            'offerings': offerings,
+            'request': request,
+            'totalexpense': totalexpense,
+        }
+        return Render.render('offeringspdf.html', context)
+
+class offeringsreceipt(View):
+    def get(self, request, pk):
+        offerings= get_object_or_404(Offerings,pk=pk)
+        today = timezone.now()
+        context = {
+            'today': today,
+            'offerings': offerings,
+            'request': request,
+        }
+        return Render.render('offeringsreceipt.html', context)
+
+@login_required    
+def Offeringsreport (request):
+    if request.method=='POST':
+        archived_year=request.POST['archived_year']
+        archived_month = request.POST['archived_month']
+
+        #all the available expense in the expenses table
+        all_expenses = Offerings.objects.all()
+        for expense in all_expenses:
+            date=expense.Date
+            amount=expense.Total_Offering
+
+            # the expense archive object
+            expense_archiveobj=OfferingsReportArchive()
+
+            #attached values to expense_archiveobj
+            expense_archiveobj.Date=date
+            expense_archiveobj.Amount=amount
+            expense_archiveobj.archivedyear= archived_year
+            expense_archiveobj.archivedmonth =archived_month
+
+            expense_archiveobj.save()
+
+        #deleting all the expense from reports table
+        all_expenses.delete()
+
+        message="The Monthly Offerings Report has been Achived"
+        context={'message':message}
+
+        return render(request, 'offeringsindex.html', context)
+
+    months = ['January', 'February', 'March', 'April', 'May', 'June',
+              'July', 'August','September', 'October', 'November','December']
+    yr = datetime.now().year          
+    years = [yr,2019,2018]
+    total = Offerings.objects.aggregate(totals=models.Sum("Total_Offering"))
+    total_amount = total["totals"]
+    items =Offerings.objects.all()
+    context = {
+        'total_amount':total_amount,
+        'items': items,
+        'months':months,
+        'years':years,
+    }
+    return render(request, 'offeringsindex.html', context)
+
+@login_required
+def offeringsarchivessearch(request):
+    if request.method == 'POST':
+        report_year = request.POST['report_year']
+        report_month = request.POST['report_month']
+        archived_reports = OfferingsReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
+        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+                  'August', 'September', 'October', 'November', 'December']
+        yr = datetime.now().year          
+        years = [yr,2019,2018]
+
+        offerings = OfferingsReportArchive.objects.all()
+        today = timezone.now()
+        total = archived_reports.aggregate(totals=models.Sum("Amount"))
+        total_amount = total["totals"]
+        context = {'archived_reports': archived_reports,
+                   'months': months,
+                   'years': years,
+                   'expenses': offerings,
+                   'total_amount': total_amount,
+                   'today': today,
+                   'report_year': report_year,
+                   'report_month': report_month
+                   }
+        return render(request, "offeringsarchive.html", context)
+
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+              'August', 'September', 'October', 'November', 'November', 'December']
+    yr = datetime.now().year          
+    years = [yr,2019,2018]
+
+    offerings = OfferingsReportArchive.objects.all()
+
+    context = {'months': months,
+               'years': years,
+               'offerings': offerings}
+    return render(request, "offeringsarchive.html", context)
+
+class offeringsarchivepdf(View):
+    def get(self, request, report_month, report_year):
+        archived_offerings = OfferingsReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
+        today = timezone.now()
+        total = archived_offerings.aggregate(totals=models.Sum("Amount"))
+        total_amount = total["totals"]
+        offeringscontext = {
+            'today': today,
+            'total_amount': total_amount,
+            'request': request,
+            'archived_offerings': archived_offerings,
+        }
+        return Render.render('offeringsarchivepdf.html', offeringscontext)
+
+
 
 @login_required
 def enter_expenditure(request):
@@ -370,16 +518,7 @@ def edit_salary(request, pk):
         form = SalaryForm(instance=item)
     return render(request, 'add_new.html', {'form': form})
 
-def edit_offerings(request, pk):
-    item = get_object_or_404(Offerings, pk=pk)
-    if request.method == "POST":
-        form = OfferingsForm(request.POST, instance=item)
-        if form.is_valid():
-            form.save()
-            return redirect('Offeringsreport')
-    else:
-        form = OfferingsForm(instance=item)
-    return render(request, 'add_new.html', {'form': form})
+
 
 def edit_tithes(request, pk):
     item = get_object_or_404(Tithes, pk=pk)
@@ -504,25 +643,7 @@ class tithespdf(View):
             'totalexpense': totalexpense,
         }
         return Render.render('tithespdf.html', context)
-class offeringspdf(View):
-    def get(self, request):
-        current_month = datetime.now().month
-        offerings = Offerings.objects.filter(Date__month=current_month).order_by('-Date')
 
-        today = timezone.now()
-        month = today.strftime('%B')
-        totalexpense = 0
-        for instance in offerings:
-            totalexpense += instance.TotalOffering
-        context = {
-
-            'month': month,
-            'today': today,
-            'offerings': offerings,
-            'request': request,
-            'totalexpense': totalexpense,
-        }
-        return Render.render('offeringspdf.html', context)
 
 def salaryarchive(request):
     salaryarchived = SalaryReportArchive.objects.all().order_by('-Date')
@@ -586,16 +707,7 @@ class salaryreceipt(View):
         }
         return Render.render('salaryreceipt.html', salarycontext)
 
-class offeringsreceipt(View):
-    def get(self, request, pk):
-        offerings= get_object_or_404(Offerings,pk=pk)
-        today = timezone.now()
-        context = {
-            'today': today,
-            'offerings': offerings,
-            'request': request,
-        }
-        return Render.render('offeringsreceipt.html', context)
+
 class tithesreceipt(View):
     def get(self, request, pk):
         tithes= get_object_or_404(Tithes,pk=pk)
@@ -780,52 +892,6 @@ def sundryreport (request):
         'years':years,
     }
     return render(request, 'sundryindex.html', context)
-@login_required    
-def Offeringsreport (request):
-    if request.method=='POST':
-        archived_year=request.POST['archived_year']
-        archived_month = request.POST['archived_month']
-
-        #all the available expense in the expenses table
-        all_expenses = Offerings.objects.all()
-        for expense in all_expenses:
-            date=expense.Date
-            day= expense.DayOfTheWeek
-            amount=expense.TotalOffering
-
-            # the expense archive object
-            expense_archiveobj=OfferingsReportArchive()
-
-            #attached values to expense_archiveobj
-            expense_archiveobj.Date=date
-            expense_archiveobj.Day=day
-            expense_archiveobj.Amount=amount
-            expense_archiveobj.archivedyear= archived_year
-            expense_archiveobj.archivedmonth =archived_month
-
-            expense_archiveobj.save()
-
-        #deleting all the expense from reports table
-        all_expenses.delete()
-
-        message="The Monthly Offerings Report has been Achived"
-        context={'message':message}
-
-        return render(request, 'offeringsindex.html', context)
-
-    months = ['January', 'February', 'March', 'April', 'May', 'June',
-              'July', 'August','September', 'October', 'November','December']
-    years = [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
-    total = Offerings.objects.aggregate(totals=models.Sum("TotalOffering"))
-    total_amount = total["totals"]
-    items =Offerings.objects.all()
-    context = {
-        'total_amount':total_amount,
-        'items': items,
-        'months':months,
-        'years':years,
-    }
-    return render(request, 'offeringsindex.html', context)
 
 @login_required
 def Tithesreport (request):
@@ -972,41 +1038,7 @@ def sundryarchivessearch(request):
                'sundry': sundry}
     return render(request, "sundryarchive.html", context)
 
-@login_required
-def offeringsarchivessearch(request):
-    if request.method == 'POST':
-        report_year = request.POST['report_year']
-        report_month = request.POST['report_month']
-        archived_reports = OfferingsReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
-        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                  'August', 'September', 'October', 'November', 'December']
-        years = [2019, 2020, 2021]
 
-        offerings = OfferingsReportArchive.objects.all()
-        today = timezone.now()
-        total = archived_reports.aggregate(totals=models.Sum("Amount"))
-        total_amount = total["totals"]
-        context = {'archived_reports': archived_reports,
-                   'months': months,
-                   'years': years,
-                   'expenses': offerings,
-                   'total_amount': total_amount,
-                   'today': today,
-                   'report_year': report_year,
-                   'report_month': report_month
-                   }
-        return render(request, "offeringsarchive.html", context)
-
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-              'August', 'September', 'October', 'November', 'November', 'December']
-    years = [2019, 2020, 2021]
-
-    offerings = OfferingsReportArchive.objects.all()
-
-    context = {'months': months,
-               'years': years,
-               'offerings': offerings}
-    return render(request, "offeringsarchive.html", context)
 @login_required
 def tithesarchivessearch(request):
     if request.method == 'POST':
@@ -1099,19 +1131,7 @@ class sundryarchivepdf(View):
             'archived_sundry': archived_sundry,
         }
         return Render.render('sundryarchivepdf.html', sundrycontext)
-class offeringsarchivepdf(View):
-    def get(self, request, report_month, report_year):
-        archived_offerings = OfferingsReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
-        today = timezone.now()
-        total = archived_offerings.aggregate(totals=models.Sum("Amount"))
-        total_amount = total["totals"]
-        offeringscontext = {
-            'today': today,
-            'total_amount': total_amount,
-            'request': request,
-            'archived_offerings': archived_offerings,
-        }
-        return Render.render('offeringsarchivepdf.html', offeringscontext)
+
 class tithesarchivepdf(View):
     def get(self, request, report_month, report_year):
         archived_tithes = TithesReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
