@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container">
+ <br><br>
+    <nav class="nav navbar-expand">
+      <ul class="navbar-nav mr-auto">
+             <li class="nav-item {% if url_name == 'Tithesreport' %}active{% endif %}">
+              <a class="nav-link" href="{% url 'Tithesreport'  %}"><button class="btn btn-default">Tithes</button></a>
+             </li>
+              <li class="nav-item {% if url_name == 'Offeringsreport' %}active{% endif %}">
+              <a class="nav-link" href="{% url 'Offeringsreport'  %}"><button class="btn btn-btn btn-primary">Offerings</button></a>
+             </li>
+             <li class="nav-item {% if url_name == 'Pledgesreport' %}active{% endif %}">
+              <a class="nav-link" href="{% url 'Pledgesreport'  %}"><button class="btn btn-primary">Pledges</button></a>
+             </li>
+             <li class="nav-item {% if url_name == 'expenditurereport' %}active{% endif %}">
+              <a class="nav-link"href="{% url 'expenditurereport'  %}"><button class="btn btn-primary">Main Expenses</button></a>
+          </li>
+          <li class="nav-item {% if url_name == 'sundryreport' %}active{% endif %}">
+              <a class="nav-link" href="{% url 'sundryreport'  %}"><button class="btn btn-primary">Petty Cash</button></a>
+          </li>
+
+            <li class="nav-item {% if url_name == 'salaryreport' %}active{% endif %}">
+               <a class="nav-link" href="{% url 'salaryreport'  %}"><button class="btn btn-primary">Allowances</button></a>
+          </li>
+
+      </ul>
+    </nav>
+    <br><br>
+     <div>
+      Total Monthly Incomes for the Month of {{month}} <h3>{{ total_monthly_incomes }}</h3>
+     </div>
+   
+</div>                                         <!-- Button trigger modal -->
+
+{% endblock %}
