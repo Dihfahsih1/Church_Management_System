@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Offerings Collection</title>
+    <title>Tithe Collection</title>
 
         {% load staticfiles %}
 
@@ -61,15 +61,12 @@
 
         <div>
         <div class='details'>
-            <h1 align="center"><u> TITHES RECEiPT</u></h1>
-            <hr>
-            <strong style="font-size: large"> Number:</strong>{{ tithes.id }}<br><br>
-            <strong style="font-size: large">Date:</strong>{{ tithes.Date }}<br><br>
-            <strong style="font-size: large">Day Of The Week:</strong>&nbsp;{{ tithes.DayOfTheWeek}}<br><br>
-            <strong style="font-size: large">Name:</strong>{{ tithes.TitheMadeBy}}<br><br>
-           <strong style="font-size: large">Total Collected:</strong>{{ tithes.Amount}}<br><br>
-            <strong style="font-size: large">Amount (In figures):</strong>{{tithes.AmountInWords}}<br><br>
-
+            <h1 align="center"><u> TiTHE RECEiPT</u></h1>
+            <hr class="hrItem">
+            <strong style="font-size: large"><pre>Tithe Date:</strong><u>{{ tithes.Date }}                        </pre></u>
+            <strong style="font-size: large"><pre>Received From:</strong><u>{{ tithes.Tithe_Made_By}}                 </pre></u>
+           <strong style="font-size: large"><pre>Amount Tithed:</strong><u> Shs.{{ tithes.Amount}}                      </pre></u>
+            <i><pre>Received with thanks by:<u>                          </pre> </u></i>
 
         </div>
     </div>

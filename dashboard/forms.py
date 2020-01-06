@@ -7,18 +7,27 @@ from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput, MonthPic
 class SpendForm(forms.ModelForm):
     class Meta:
         model=Spend
-        fields=('Date','PaymentMadeTo','ReasonForPayment','Amount','AmountInWords')
-
+        fields=('Date','Payment_Made_To','Reason_For_Payment','Amount')
+        widgets = {
+            'Date': DatePickerInput(),
+            
+        } 
 class SundryForm(forms.ModelForm):
     class Meta:
         model=Sundry
-        fields=('Date','PaymentMadeTo','Amount','AmountInWords','ReasonForPayment')
-
+        fields=('Date','Payment_Made_To','Amount','Reason_For_Payment')
+        widgets = {
+            'Date': DatePickerInput(),
+            
+        } 
 class SalaryForm(forms.ModelForm):
     class Meta:
         model=Salary
-        fields = ('Date','Name','Month','Amount','AmountInWords')
-
+        fields = ('Date','Name','Month','Amount')
+        widgets = {
+            'Date': DatePickerInput(),
+            
+        } 
 class StaffDetailsForm(forms.ModelForm):
     class Meta:
         model=StaffDetails
@@ -57,7 +66,10 @@ class PaidPledgesForm(forms.ModelForm):
 class TithesForm(forms.ModelForm):
     class Meta:
         model=Tithes
-        fields = ('Date','DayOfTheWeek','TitheMadeBy','Amount','AmountInWords')
+        fields = ('Date','Tithe_Made_By','Amount')
+        widgets = {
+            'Date': DatePickerInput(),
+        } 
 
 class MembersForm(forms.ModelForm):
     class Meta:

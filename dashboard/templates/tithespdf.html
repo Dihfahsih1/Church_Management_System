@@ -70,7 +70,6 @@
             <thead>
             <tr style="font-size:larger">
                 <th>Date</th>
-                <th>Day</th>
                 <th>Name</th>
                 <th>Amount</th>
             </tr>
@@ -80,14 +79,12 @@
                 <tr style="font-size:large">
 
         <td>{{ ex.Date}}</td>
-        <td>{{ ex.DayOfTheWeek}}</td>
-        <td>{{ ex.TitheMadeBy}}</td>
+        <td>{{ ex.Tithe_Made_By}}</td>
         <td>{{ ex.Amount }}</td>
         </tr>
             {% endfor %}
               <tr>
                   <td class="jumbotron"><h3>TOTAL</h3></td>
-                  <td class="jumbotron"><h3>----------------------</h3></td>
                   <td class="jumbotron"><h3>----------------------</h3></td>
                   <td class="jumbotron"><h3>Shs. {{ totalexpense }}</h3></td>
               </tr>

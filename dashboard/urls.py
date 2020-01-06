@@ -79,4 +79,5 @@ url(r'^Pledges/Archived/Debts', views.archived_pledge_debts, name='archived-pled
 url(r'^Pledges/Archived/Settling-Debt/(?P<pk>\d+)', views.settle_pledge_debt, name='settle-pledge-debt'),
 url(r'^Pledges/Archived/Debt_settling', views.member_settle_pledge_debt, name='member-settle-pledge-debt'),
 url(r'^Pledges/Archived/Delete-Bad-debt/(?P<pk>\d+)', views.delete_bad_debt, name='delete-bad-debt'),
+url(r'^Incomes/Total/', views.total_monthly_incomes, name='total-monthly-incomes'),
 ]

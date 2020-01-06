@@ -75,7 +75,6 @@
             <thead>
             <tr style="font-size:larger">
                 <th>Date</th>
-                <th>Day</th>
                 <th>Name</th>
                 <th>Amount</th>
             </tr>
@@ -84,13 +83,12 @@
             {% for tithes in archived_tithes  %}
                 <tr style="font-size:large">
                     <td>{{ tithes.Date }}</td>
-                    <td>{{ tithes.Day }}</td>
-                    <td>{{ tithes.Name }}</td>
+                    <td>{{ tithes.Tithe_Made_By }}</td>
                     <td>Shs:{{ tithes.Amount }}</td>
 
                 </tr>
             {% endfor %}
-            <tr><td><b>Total Amount:</b> </td> <td>______________ </td> <td>______________  </td><td><b>{{ total_amount}}</b></td></tr>
+            <tr><td><b>Total Amount:</b> </td> <td>______________  </td><td><b>{{ total_amount}}</b></td></tr>
             </tbody>
         </table>
     </div>

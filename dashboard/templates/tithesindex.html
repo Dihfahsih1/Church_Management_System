@@ -28,6 +28,7 @@
       </ul>
     </nav>
     <br><br>
+    <p><a href="{% url 'total-monthly-incomes'%}">View Total Current Month Incomes</a></p>
      <div class="float-lg-right">
     <a href="{% url 'Enter_Tithes' %}"><button class="btn btn-danger">Enter Another Tithe</button></a>
     </div>
@@ -40,7 +41,6 @@
 
         <tr>
             <td>Date</td>
-            <td>Day</td>
             <td>Tithes Made By</td>
             <td>Amount</td>
             <td>Action</td>
@@ -52,20 +52,20 @@
     {% for item in items%}
         <tr>
         <td>{{ item.Date}}</td>
-        <td>{{ item.DayOfTheWeek}}</td>
-        <td>{{ item.TitheMadeBy}}</td>
+        <td>{{ item.Tithe_Made_By}}</td>
         <td>{{ item.Amount}}</td>
         <td><a href="{% url 'tithesreceipt' item.id %}" target="_new"><button class="btn btn-info">Print Receipt</button></a> |
             <a href="{% url 'edit_tithes' item.id %}"><button class="btn btn-warning">Edit Tithes</button></a></td>
      {% endfor %}</tr>
-          <tr><td><b>Total Amount:</b> </td> <td>______________ </td> <td>______________  </td><td><b>{{ total_amount}}</b></td></tr>
-
+          <tr><td><b>Total Amount:</b> </td><td>______________  </td><td><b>{{ total_amount}}</b></td></tr>
         </tbody>
+      {% endif %}
  <tr><td><a href="{% url 'tithespdf' %}" target="_new" class="btn btn-info bt-sm" role="button">Print Report</a></td>
  <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
     Archive Tithes</button></td>
  </tr>
     </table>
+
                  <!-- Button trigger modal -->
 
 
