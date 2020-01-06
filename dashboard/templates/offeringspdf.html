@@ -70,7 +70,7 @@
             <thead>
             <tr style="font-size:larger">
                 <th>Date</th>
-                <th>Day</th>
+                <th>Service</th>
                 <th>Amount</th>
             </tr>
             </thead>
@@ -78,8 +78,8 @@
             {% for ex in offerings %}
                 <tr style="font-size:large">
                 <td>{{ ex.Date}}</td>
-                <td>{{ ex.DayOfTheWeek}}</td>
-                <td>{{ ex.TotalOffering }}</td>
+                <td>{{ ex.Service}}</td>
+                <td>{{ ex.Total_Offering }}</td>
                 </tr>
             {% endfor %}
               <tr>

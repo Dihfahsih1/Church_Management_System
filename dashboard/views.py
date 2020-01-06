@@ -332,7 +332,7 @@ def edit_offerings(request, pk):
             return redirect('Offeringsreport')
     else:
         form = OfferingsForm(instance=item)
-    return render(request, 'add_new.html', {'form': form})   
+    return render(request, 'record_offerings.html', {'form': form})   
 
 class offeringspdf(View):
     def get(self, request):

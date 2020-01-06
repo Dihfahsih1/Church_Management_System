@@ -53,7 +53,8 @@
         <td>{{ item.Date}}</td>
         <td>{{ item.Service}}</td>
         <td>{{ item.Total_Offering}}</td>
-        <td><a href="{% url 'offeringsreceipt' item.id %}" target="_new"><button class="btn btn-info">Print Receipt</button></a> |
+        <td>
+          <!--<a href="{% url 'offeringsreceipt' item.id %}" target="_new"><button class="btn btn-info">Print Receipt</button></a> |--->
             <a href="{% url 'edit_offerings' item.id %}" ><button class="btn btn-warning">Edit Offering</button></a></td>
      {% endfor %}</tr>
           <tr><td><b>Total Amount:</b> </td><td><b>_______________</b></td><td><b>{{ total_amount}}</b></td></tr>

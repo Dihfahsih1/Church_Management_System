@@ -47,9 +47,9 @@ class Sundry(Model):
         return self.PaymentMadeTo
 
 class Offerings(Model):
-    services = (('Home Cell','Home Cell'),('Youth Service','Youth Service'),('Wednesday Service','Wednesday Servuce'),
-        ('Bible Study','Bible Study'),('Friday Overnight','Friday Overnight'),('First Service','First Service'),
-        ('Secon Service','Second Service'),('Third Service','Third Service'))
+    services = (('Home Cell Service','Home Cell Service'),('Youth Service','Youth Service'),('Wednesday Service','Wednesday Service'),
+        ('Bible Study Service','Bible Study Service'),('Friday Overnight','Friday Overnight'),('SundayFirst Service','Sunday First Service'),
+        ('Sunday Second Service','Sunday Second Service'),('Sunday Third Service','Sunday Third Service'))
     Date = models.DateField(null=True, blank=True)
     Total_Offering = models.IntegerField(default=0)
     Service=models.CharField(max_length=100, choices=services, blank=False)
