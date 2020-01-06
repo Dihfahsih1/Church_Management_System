@@ -98,10 +98,16 @@ class OfferingsReportArchive(models.Model):
         return 'Name: {1}  Amount:{0}'.format(self.Day, self.Amount)
         
 class Members(models.Model):
+    cell=(
+        ('Church Zone','Church Zone'),('Kabira Zone','Kabira Zone'),('Kafunda Zone','Kafunda Zone'),('Lugoba Zone','Lugoba Zone') ,('Katooke Zone','Katooke Zone'),
+        ('Kazo Zone','Kazo Zone'),('Gombolola Zone','Gombolola Zone'),('Kawaala Zone','Kawaala Zone'),('Bombo Rd Zone','Bombo Rd Zone')
+        )
     First_Name=models.CharField(max_length=100,null=True)
     Second_Name=models.CharField(max_length=100,null=True)
-    Address=models.CharField(max_length=100,null=True)
+    Home_Cell=models.CharField(max_length=100, choices=cell,null=True)
+    Residence=models.CharField(max_length=100,null=True)
     Telephone=models.CharField(max_length=100,null=True)
+    Photo=models.ImageField(upload_to='avatars/', blank=False)
 
     def __str__(self):
         return self.First_Name + ' ' + self.Second_Name

@@ -74,7 +74,7 @@ class TithesForm(forms.ModelForm):
 class MembersForm(forms.ModelForm):
     class Meta:
         model= Members
-        fields = ('First_Name','Second_Name','Telephone','Address')
+        fields = ('First_Name','Second_Name','Telephone','Residence', 'Home_Cell','Photo')
 
 class VisitorsForm(forms.ModelForm):
     class Meta:

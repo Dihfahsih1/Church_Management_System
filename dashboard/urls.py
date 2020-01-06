@@ -42,6 +42,8 @@ url(r'^offeringsarchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.o
 url(r'^tithesarchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.tithesarchivepdf.as_view(), name='tithesarchivepdf'),
 
 url(r'^edit_payment/(?P<pk>\d+)', views.edit_payment ,name='edit_payment'),
+url(r'^Church-Member/Edit/(?P<pk>\d+)', views.edit_member ,name='edit-member'),
+url(r'^Church-Member/Delete/(?P<pk>\d+)', views.delete_member ,name='delete-member'),
 url(r'^delete_payment/(?P<pk>\d+)', views.delete_payment ,name='delete_payment'),
 url(r'^edit_salary/(?P<pk>\d+)', views.edit_salary ,name='edit_salary'),
 url(r'^edit_offerings/(?P<pk>\d+)', views.edit_offerings ,name='edit_offerings'),

@@ -9,6 +9,8 @@ from django.db.models import Q
 from .forms import *
 from .models import *
 from .render import Render
+from django.template.loader import render_to_string
+from django.http import JsonResponse
 @login_required
 def index(request):
     return render(request,'index.html')
@@ -16,9 +18,10 @@ def index(request):
     #       REGISTERING CHURCH MEMBERS AND VISITORS      #
      ####################################################  
     #members
+@login_required    
 def register_members(request):
     if request.method=="POST":
-        form=MembersForm(request.POST)
+        form=MembersForm(request.POST, request.FILES,)
         if form.is_valid():
             form.save()
             return redirect('members-list')
@@ -27,6 +30,7 @@ def register_members(request):
         return render(request, 'Members/register_members.html',{'form':form}) 
 
         #visitors
+@login_required        
 def register_visitors(request):
     if request.method=="POST":
         form=VisitorsForm(request.POST)
@@ -38,12 +42,35 @@ def register_visitors(request):
         return render(request, 'Members/register_visitors.html',{'form':form}) 
 
     #list of church members
+@login_required    
 def members_list(request):
-    membership = Members.objects.all()
+    membership = Members.objects.all().order_by('-id')
     context ={'membership': membership}
     return render(request, 'Members/members_list.html', context)
 
+def edit_member(request, pk):
+    item = get_object_or_404(Members, pk=pk)
+    if request.method == "POST":
+        form = MembersForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('members-list')
+    else:
+        form = MembersForm(instance=item)
+    return render(request, 'Members/register_members.html', {'form': form})
+
+
+def delete_member(request, pk):
+    member = get_object_or_404(Members, id=pk)
+    if request.method == 'GET':
+        member.delete()
+        return redirect('members-list')
+    else:
+        membership = Members.objects.all().order_by('-id')
+        context ={'membership': membership}
+        return render(request, 'Members/members_list.html', context)    
     #list of church visitors
+@login_required    
 def visitors_list(request):
     visiting = Visitors.objects.all()
     context ={'visiting': visiting}

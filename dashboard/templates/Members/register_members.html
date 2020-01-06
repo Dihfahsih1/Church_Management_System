@@ -6,21 +6,31 @@
 {% load crispy_forms_tags %}
 <form method="POST" enctype="multipart/form-data" >
 {% csrf_token %}
-  <div class="form-row">
-    <div class="col-lg-6">
+  <div class="row">
+  	<div class="col-lg-4">
+    <div class="col-lg-12">
 	    {{ form.First_Name|as_crispy_field }}
 	</div>
-	<div class="col-lg-6">
+	<div class="col-lg-12">
 	    {{ form.Second_Name|as_crispy_field }}
 	</div>
-
-	<div class="col-lg-6">
+	<div class="col-lg-12">
+	    {{ form.Photo|as_crispy_field }}
+	</div>
+   </div>
+   <div class="col-lg-4">
+	<div class="col-lg-12">
+	    {{ form.Home_Cell|as_crispy_field }}
+	</div>
+	<div class="col-lg-12">
+	    {{ form.Residence|as_crispy_field }}
+	</div>
+	<div class="col-lg-12">
 	    {{ form.Telephone|as_crispy_field }}
 	</div>
-
-	<div class="col-lg-6">
-	    {{ form.Address|as_crispy_field }}
 	</div>
+
+
 	
    </div>
     <button type="submit" class="btn btn-primary" name="button">Submit</button>

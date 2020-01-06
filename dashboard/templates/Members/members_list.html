@@ -13,22 +13,32 @@
         <thead class="table-success">
 
         <tr>
-            <th>#SL</th>
+            <th>Photo</th>
             <th>First Name</th>
             <th>Second Name</th>
+            <th>Residence</th>
+            <th>Home Cell</th>
             <th>Telephone</th>
-            <th>Address</th>
+            <th>Actions</th>
+            
         </tr>
         </thead>
 
         <tbody>
     {% for member in membership %}
         <tr>
-        <td>{{ member.id}}</td>
+       <td>{% if member.Photo %}
+            <img src="{{ member.Photo.url }}" width="150" />
+            {% endif %}
+        </td>
         <td>{{ member.First_Name}}</td>
          <td>{{ member.Second_Name}}</td>
+         <td>{{ member.Residence}}</td>
+         <td>{{ member.Home_Cell}}</td>
          <td>{{ member.Telephone}}</td>
-         <td>{{ member.Address}}</td>
+         <td><a href="{% url 'edit-member' member.id  %}" ><button class="btn btn-success">Edit</button></a> |
+         <a href="{% url 'delete-member' member.id  %}" ><button class="btn btn-danger">Delete</button></a> </td>
+         
     {% endfor%}     
 </div>
 
