@@ -41,7 +41,8 @@ class Offerings(Model):
 
 class Spend(models.Model):
     reason=(
-        ('Mechanic','Car Repairing'),('WaterBills','Water Bills'),('Electricity','Electricity Bills'),('URA','Paying Revenue')
+        ('Church Renovations','Church Renovations'),('Water Bills','Water Bills'),('Electricity','Electricity Bills'),
+        ('Lwaki Oli Mulamu Conference','Lwaki Oli Mulamu Conference')
     )
     Date = models.DateField(null=True, blank=True)
     Payment_Made_To = models.CharField(max_length=100,blank=False)
