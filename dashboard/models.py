@@ -96,6 +96,7 @@ class OfferingsReportArchive(models.Model):
 
     def __str__(self):
         return 'Name: {1}  Amount:{0}'.format(self.Day, self.Amount)
+       
         
 class Members(models.Model):
     cell=(
@@ -212,6 +213,7 @@ class PaidPledges(Model):
     Amount_Paid = models.IntegerField(default=0, blank=True, null=True)
     Date = models.DateField(null=True, blank=True)
 
+
 class PledgesReportArchive(Model):
     Status = models.CharField(max_length=150, null=True)
     Pledge_Id = models.IntegerField(null=True, blank=True)
@@ -223,10 +225,12 @@ class PledgesReportArchive(Model):
     Balance = models.IntegerField(default=0)
     archivedmonth = models.CharField(max_length=100,null=True)
     archivedyear = models.CharField(max_length=100,null=True)
+
     # using decorators
     @property
     def total_pledge_paid(self):
         results = PaidPledges.objects.filter(Pledge_Id=self.Pledge_Id).aggregate(totals=models.Sum("Amount_Paid"))
+        PledgesReportArchive.objects.all().delete()
         if (results['totals']):
             return results["totals"]
         else:

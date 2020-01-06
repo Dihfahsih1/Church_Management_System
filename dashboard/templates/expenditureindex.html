@@ -28,12 +28,11 @@
 
       </ul>
     </nav>
-   <br><br>
    <p><a href="{% url 'total-monthly-incomes'%}">View Balance Sheet</a></p>
     <div class="float-lg-right">
     <a href="{% url 'enter_expenditure' %}"><button class="btn btn-danger">Make another Expenditure</button></a>
 </div>
-    <h4>The Monthly Expenses Report</h4>
+    <h4>The {{current_month}} Expenditure Report</h4>
     <p>{{ message }}</p>
 
      <table class="table table-hover" border="2">

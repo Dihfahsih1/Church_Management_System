@@ -10,7 +10,7 @@ from .forms import *
 from .models import *
 from .render import Render
 from django.template.loader import render_to_string
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 @login_required
 def index(request):
     return render(request,'index.html')
@@ -61,14 +61,15 @@ def edit_member(request, pk):
 
 
 def delete_member(request, pk):
-    member = get_object_or_404(Members, id=pk)
-    if request.method == 'GET':
+    member= get_object_or_404(Members, id=pk)
+    if request.method == "GET": 
         member.delete()
-        return redirect('members-list')
-    else:
-        membership = Members.objects.all().order_by('-id')
-        context ={'membership': membership}
-        return render(request, 'Members/members_list.html', context)    
+        messages.success(request, "Post successfully deleted!")
+        return redirect("members-list")
+    
+    context= {'member': member}
+    return render(request, 'Members/members_delete.html', context)
+     
     #list of church visitors
 @login_required    
 def visitors_list(request):
@@ -77,7 +78,7 @@ def visitors_list(request):
     return render(request, 'Members/visitors_list.html', context)
 
       ####################################################
-    #         ENTERING RECORDS INTO THE DATABASE         #
+    #         ENTERING RECORDS INTO THE DATABASE          #
      ####################################################
 def pay_salary(request):
     if request.method=="POST":
@@ -306,6 +307,7 @@ def pledgesarchivessearch(request):
               'August', 'September', 'October', 'November', 'December']
     years = [2019, 2020, 2021]
     pledges = PledgesReportArchive.objects.all()
+    pledges.delete()
     context = {'months': months, 'years': years, 'pledges': pledges}
     return render(request, "pledgesarchive.html", context)
 
@@ -416,6 +418,8 @@ def Offeringsreport (request):
               'July', 'August','September', 'October', 'November','December']
     yr = datetime.now().year          
     years = [yr,2019,2018]
+    today = timezone.now()
+    current_month = today.strftime('%B')
     total = Offerings.objects.aggregate(totals=models.Sum("Total_Offering"))
     total_amount = total["totals"]
     items =Offerings.objects.all()
@@ -423,6 +427,7 @@ def Offeringsreport (request):
         'total_amount':total_amount,
         'items': items,
         'months':months,
+        'current_month':current_month,
         'years':years,
     }
     return render(request, 'offeringsindex.html', context)
@@ -564,6 +569,8 @@ def Tithesreport (request):
               'July', 'August','September', 'October', 'November','December']
     yr = datetime.now().year          
     years = [yr,2019,2018]
+    today = timezone.now()
+    current_month = today.strftime('%B')
     total = Tithes.objects.aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
     items =Tithes.objects.all()
@@ -572,6 +579,7 @@ def Tithesreport (request):
         'items': items,
         'months':months,
         'years':years,
+        'current_month':current_month
     }
     return render(request, 'tithesindex.html', context)
 
@@ -941,9 +949,12 @@ def expenditurereport (request):
               'December']
     years = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
     items =Spend.objects.all()
+    today = timezone.now()
+    current_month = today.strftime('%B')
     total = Spend.objects.aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
     context = {
+         'current_month':current_month,
          'total_amount':total_amount,
         'items': items,
         'months':months,
