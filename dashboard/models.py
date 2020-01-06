@@ -47,10 +47,14 @@ class Sundry(Model):
         return self.PaymentMadeTo
 
 class Offerings(Model):
+    services = (('Home Cell','Home Cell'),('Youth Service','Youth Service'),('Wednesday Service','Wednesday Servuce'),
+        ('Bible Study','Bible Study'),('Friday Overnight','Friday Overnight'),('First Service','First Service'),
+        ('Secon Service','Second Service'),('Third Service','Third Service'))
     Date = models.DateField(null=True, blank=True)
     Total_Offering = models.IntegerField(default=0)
+    Service=models.CharField(max_length=100, choices=services, blank=False)
     def __str__(self):
-        return self.TotalOffering
+        return self.Total_Offering
 
 class Tithes(Model):
     Date = models.DateField(null=True, blank=True)
@@ -111,7 +115,7 @@ class SalaryReportArchive(models.Model):
 
 class OfferingsReportArchive(models.Model):
     Date = models.DateField(null=True, blank=True)
-    Day = models.CharField( max_length=100,null=True)
+    Service = models.CharField( max_length=100,null=True)
     Amount = models.IntegerField(default=0)
     archivedmonth = models.CharField(max_length=100,null=True)
     archivedyear = models.CharField(max_length=100,null=True)

@@ -375,6 +375,7 @@ def Offeringsreport (request):
         all_expenses = Offerings.objects.all()
         for expense in all_expenses:
             date=expense.Date
+            service=expense.Service
             amount=expense.Total_Offering
 
             # the expense archive object
@@ -383,6 +384,7 @@ def Offeringsreport (request):
             #attached values to expense_archiveobj
             expense_archiveobj.Date=date
             expense_archiveobj.Amount=amount
+            expense_archiveobj.Service=service
             expense_archiveobj.archivedyear= archived_year
             expense_archiveobj.archivedmonth =archived_month
 

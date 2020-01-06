@@ -27,7 +27,7 @@ class StaffDetailsForm(forms.ModelForm):
 class OfferingsForm(forms.ModelForm):
     class Meta:
         model=Offerings
-        fields = ('Date','Total_Offering')
+        fields = ('Date','Total_Offering','Service')
         widgets = {
             'Date': DatePickerInput(),
         }
