@@ -16,9 +16,9 @@ def index(request):
     return render(request,'index.html')
       ####################################################
     #       REGISTERING CHURCH MEMBERS AND VISITORS      #
-     ####################################################  
+     ####################################################
     #members
-@login_required    
+@login_required
 def register_members(request):
     if request.method=="POST":
         form=MembersForm(request.POST, request.FILES,)
@@ -27,10 +27,10 @@ def register_members(request):
             return redirect('members-list')
     else:
         form=MembersForm()
-        return render(request, 'Members/register_members.html',{'form':form}) 
+        return render(request, 'Members/register_members.html',{'form':form})
 
         #visitors
-@login_required        
+@login_required
 def register_visitors(request):
     if request.method=="POST":
         form=VisitorsForm(request.POST)
@@ -39,10 +39,10 @@ def register_visitors(request):
             return redirect('visitors-list')
     else:
         form=VisitorsForm()
-        return render(request, 'Members/register_visitors.html',{'form':form}) 
+        return render(request, 'Members/register_visitors.html',{'form':form})
 
-    #list of church members
-@login_required    
+#list of church members
+@login_required
 def members_list(request):
     membership = Members.objects.all().order_by('-id')
     context ={'membership': membership}
@@ -62,16 +62,16 @@ def edit_member(request, pk):
 
 def delete_member(request, pk):
     member= get_object_or_404(Members, id=pk)
-    if request.method == "GET": 
+    if request.method == "GET":
         member.delete()
         messages.success(request, "Post successfully deleted!")
         return redirect("members-list")
-    
+
     context= {'member': member}
     return render(request, 'Members/members_delete.html', context)
-     
+
     #list of church visitors
-@login_required    
+@login_required
 def visitors_list(request):
     visiting = Visitors.objects.all()
     context ={'visiting': visiting}
@@ -190,7 +190,7 @@ def pledges_paid_list(request):
     context['lists']=lists
     return render(request, 'pledges_paid_list.html',context)
 
-#retrieve all archived pledge debts   
+#retrieve all archived pledge debts
 #def archived_pledge_debts(request):
 #    debts=PledgesReportArchive.objects.all()
 
@@ -323,12 +323,12 @@ class pledgesarchivepdf(View):
             'request': request,
             'archived_pledges': archived_pledges,
         }
-        return Render.render('pledgesarchivepdf.html', pledgescontext) 
+        return Render.render('pledgesarchivepdf.html', pledgescontext)
 
 
      ###################################################
               #        OFFERINGS MODULE        #
-     ###################################################      
+     ###################################################
 @login_required
 def Enter_Offerings(request):
     if request.method=="POST":
@@ -348,7 +348,7 @@ def edit_offerings(request, pk):
             return redirect('Offeringsreport')
     else:
         form = OfferingsForm(instance=item)
-    return render(request, 'record_offerings.html', {'form': form})   
+    return render(request, 'record_offerings.html', {'form': form})
 
 class offeringspdf(View):
     def get(self, request):
@@ -381,7 +381,7 @@ class offeringsreceipt(View):
         }
         return Render.render('offeringsreceipt.html', context)
 
-@login_required    
+@login_required
 def Offeringsreport (request):
     if request.method=='POST':
         archived_year=request.POST['archived_year']
@@ -416,7 +416,7 @@ def Offeringsreport (request):
 
     months = ['January', 'February', 'March', 'April', 'May', 'June',
               'July', 'August','September', 'October', 'November','December']
-    yr = datetime.now().year          
+    yr = datetime.now().year
     years = [yr,2019,2018]
     today = timezone.now()
     current_month = today.strftime('%B')
@@ -440,7 +440,7 @@ def offeringsarchivessearch(request):
         archived_reports = OfferingsReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
         months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
                   'August', 'September', 'October', 'November', 'December']
-        yr = datetime.now().year          
+        yr = datetime.now().year
         years = [yr,2019,2018]
 
         offerings = OfferingsReportArchive.objects.all()
@@ -460,7 +460,7 @@ def offeringsarchivessearch(request):
 
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
               'August', 'September', 'October', 'November', 'November', 'December']
-    yr = datetime.now().year          
+    yr = datetime.now().year
     years = [yr,2019,2018]
 
     offerings = OfferingsReportArchive.objects.all()
@@ -567,7 +567,7 @@ def Tithesreport (request):
 
     months = ['January', 'February', 'March', 'April', 'May', 'June',
               'July', 'August','September', 'October', 'November','December']
-    yr = datetime.now().year          
+    yr = datetime.now().year
     years = [yr,2019,2018]
     today = timezone.now()
     current_month = today.strftime('%B')
@@ -591,7 +591,7 @@ def tithesarchivessearch(request):
         archived_reports = TithesReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
         months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
                   'August','September', 'October', 'November', 'December']
-        yr = datetime.now().year          
+        yr = datetime.now().year
         years = [yr,2019,2018]
 
         tithes = TithesReportArchive.objects.all()
@@ -611,14 +611,14 @@ def tithesarchivessearch(request):
 
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
               'August', 'September', 'October', 'November', 'November', 'December']
-    yr = datetime.now().year          
+    yr = datetime.now().year
     years = [yr,2019,2018]
 
     tithes = TithesReportArchive.objects.all()
     context = {'months': months,
                'years': years,
                'tithes': tithes}
-    return render(request, "tithesarchive.html", context)  
+    return render(request, "tithesarchive.html", context)
 
 class tithesarchivepdf(View):
     def get(self, request, report_month, report_year):
@@ -642,7 +642,7 @@ def total_monthly_incomes(request):
         total_current_offerings["totals"]
         offerings=total_current_offerings["totals"]
     else:
-        0 
+        0
 
     total_current_tithes = Tithes.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_current_tithes['totals']):
@@ -656,20 +656,20 @@ def total_monthly_incomes(request):
         total_current_pledges["totals"]
         pledges=total_current_pledges["totals"]
     else:
-        0    
+        0
     total_main_expenses = Spend.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_main_expenses['totals']):
         total_main_expenses["totals"]
         expenses=total_main_expenses["totals"]
     else:
-        0 
+        0
 
     total_allowances = Salary.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_allowances['totals']):
         total_allowances["totals"]
         allowances=total_allowances["totals"]
     else:
-        0 
+        0
     total_monthly_incomes =  int(total_current_tithes["totals"]) + int(total_current_offerings["totals"])+ int(total_current_pledges["totals"])
     total_monthly_expenditure =  int(total_allowances["totals"]) + int(total_main_expenses["totals"])
     net_income = total_monthly_incomes - total_monthly_expenditure
@@ -1092,7 +1092,7 @@ def expensesarchivessearch(request):
                'years': years,
                'expenses': expenses}
     return render(request, "expenditurearchive.html", context)
-@login_required    
+@login_required
 def salaryarchivessearch(request):
     if request.method == 'POST':
         report_year = request.POST['report_year']
@@ -1224,4 +1224,3 @@ class sundryarchivepdf(View):
             'archived_sundry': archived_sundry,
         }
         return Render.render('sundryarchivepdf.html', sundrycontext)
-

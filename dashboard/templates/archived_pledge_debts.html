@@ -7,9 +7,9 @@
     <table class="table table-hover" border="2">
     <thead class="table-success ">
           <tr>
-            
+
             <th>Pledging Date </th>
-            <th>Name</td>
+            <th>Name</th>
             <th>Reason</th>
             <th>Status</th>
             <th>Amount Pledged</th>
@@ -23,7 +23,7 @@
         {% for db in debts  %}
         <tbody>
           <tr>
-              
+
               <td>{{ db.Date }}</td>
               <td>{{ db.Pledge_Made_By }}</td>
               <td>{{ db.Reason}}</td>
@@ -37,15 +37,15 @@
               {% else %}
               <td><a href="{% url 'settle-pledge-debt' db.Pledge_Id %}" target="_blank"><button class="btn btn-success">Settle Debt</button></a>|
                 <button class="btn btn-info">Invoice</button>
-              {% endif%}   
+              {% endif%}
               {% if db.total_pledge_paid == 0  %}
               <a href="{% url 'delete-bad-debt' db.Pledge_Id %}" target="_blank"><button class="btn btn-danger">Bad Debt</button></a></td>
-              {% endif%} 
-          </tr>    
-        </tbody>    
+              {% endif%}
+          </tr>
+        </tbody>
         {% endfor %}
     </table>
-    
+
   </div>
 </div>
 {% endblock %}
