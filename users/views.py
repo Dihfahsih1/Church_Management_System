@@ -11,5 +11,5 @@ def register(request):
 			return redirect('login')
 	else:
 		form = RegisterForm()
-	return render(request, 'users/register.html', {'form': form})
+	return render(request, 'users/home/register.html', {'form': form})
 

@@ -13,7 +13,49 @@ from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 @login_required
 def index(request):
-    return render(request,'index.html')
+    current_month = datetime.now().month
+    total_current_offerings = Offerings.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Total_Offering"))
+    if (total_current_offerings['totals']):
+        total_current_offerings["totals"]
+        offerings=total_current_offerings["totals"]
+    else:
+        0
+
+    total_current_tithes = Tithes.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
+    if (total_current_tithes['totals']):
+        total_current_tithes["totals"]
+        tithes=total_current_tithes["totals"]
+    else:
+        0
+
+    total_current_pledges = PaidPledges.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount_Paid"))
+    if (total_current_pledges['totals']):
+        total_current_pledges["totals"]
+        pledges=total_current_pledges["totals"]
+    else:
+        0
+    total_main_expenses = Spend.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
+    if (total_main_expenses['totals']):
+        total_main_expenses["totals"]
+        expenses=total_main_expenses["totals"]
+    else:
+        0
+
+    total_allowances = Salary.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
+    if (total_allowances['totals']):
+        total_allowances["totals"]
+        allowances=total_allowances["totals"]
+    else:
+        0
+    total_monthly_incomes =  int(total_current_tithes["totals"]) + int(total_current_offerings["totals"])+ int(total_current_pledges["totals"])
+    total_monthly_expenditure =  int(total_allowances["totals"]) + int(total_main_expenses["totals"])
+    net_income = total_monthly_incomes - total_monthly_expenditure
+    today = timezone.now()
+    month = today.strftime('%B')
+    context={'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
+    'allowances':allowances, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
+
+    return render(request,'index.html', context)
       ####################################################
     #       REGISTERING CHURCH MEMBERS AND VISITORS      #
      ####################################################

@@ -1,53 +1,82 @@
-{% extends 'users/styling.html'%}
+{% extends "app/base_site.html" %}
 {% load crispy_forms_tags %}
-{% block content %}
-<div  class="container">
-	<div class="row">
-	<div class="col-lg-6">
-		<div class=" container">
+{% block title %} Web System {% endblock title %}
 
-              <h3> Welcome To UCC Bwaise Church System</h3>
-                {% load static %}
-                <img width="100%" src="{% static 'media/uccchurch.jpg' %}">
-                <h6> The Roles in Accounts Department</h6>
-                <ul class="list-group">
-                    <li class="list-group-item-info"> Receive Pledgess</li>
-                    <li class="list-group-item-info"> Generate Receipts </li>
-                    <li class="list-group-item-info"> Make Main Expenses</li>
-                    <li class="list-group-item-info"> Make petty cash</li>
-                    <li class="list-group-item-info">Issue Allowances </li>
-                    <li class="list-group-item-info">Generate Financial report</li>
-                     <li class="list-group-item-info"> Record Tithes, offerings and church donations</li>
-                    <li class="list-group-item-info"> Submit Monthly Reports to the Church Admin</li>
-                    <li class="list-group-item-info"> Monitor Church Finances</li>
-                    <li class="list-group-item-info">Archiving of financial records</li>
-                </ul>
+{% load static i18n %}
 
+
+{% block stylesheets %}
+    {{ block.super }}
+    <!-- Animate.css -->
+    <link href="/static/vendors/animate.css/animate.min.css" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block body_class %}login{% endblock body_class %}
+
+{% block body %}
+    <div>
+        <a class="hiddenanchor" id="signup"></a>
+        <a class="hiddenanchor" id="signin"></a>
+
+        <div class="login_wrapper">
+            <div class="animate form login_form">
+
+                <section class=" border login_content">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        <h1>UCC Bwaise Web</h1>
+                         <div class="clearfix"></div>
+                        <div class="separator">
+                        {% if messages %}
+                            <ul class="messages">
+                                {% for message in messages %}
+                                    <p class="bg-success" {% if message.tags %}
+                                       class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                                <fieldset class="form-group">
+                                    <legend class="border-bottom">United Christian Center </legend>  
+                                    <div class="form-group">
+                                    {{ form|crispy}}
+                                    </div>      
+                                </fieldset>
+                            
+                                <div class="form-group">
+                                    <button class="btn btn-success" type="submit"> Login</button>           
+                                </div>
+                                
+                         </form>
+                            <div class="border-top pt-3">
+                                <small class="text-muted">
+                                    <i style="color: red"><b>Need account?</b></i><a class="ml-2" href="{% url 'register' %}">Sign Up now</a>
+                                </small>
+                            </div>
+                        <div class="clearfix"></div>
+
+                        <div class="separator">
+                            <p>
+                                <a href="#" class="btn btn-link">Forgot your password?</a>
+                            </p>
+
+                            <div class="clearfix"></div>
+                            <br/>
+
+                            <div>
+                                
+                            </div>
+                        </div>
+                    </form>
+                </section>
             </div>
-        </div>       
-	
-	<div class="col-lg-6">
-	<form method="POST">
-		{% csrf_token %}
-		<fieldset class="form-group">
-			<legend class="border-bottom">Log In </legend>	
-			<div class="form-group">
-			{{ form|crispy}}
-		    </div>		
-		</fieldset>
-	
-		<div class="form-group">
-			<button class="btn btn-outline-info" type="submit"> Login</button> 			 
-		</div>
-		
-	</form>
-	<div class="border-top pt-3">
-		<small class="text-muted">
-			Need account?<a class="ml-2" href="{% url 'register' %}">Sign Up now</a>
-		</small>
-	</div>
-   </div>
-	
-  </div>	
-</div>
-{% endblock %}
+        </div>
+    </div>
+
+{% endblock body %}
+
+
+
+
+
+
+
