@@ -93,7 +93,11 @@
                 <!-- {{ content }} -->
             {% endblock content %}
 
-
+            {% block footer %}
+                <footer>
+                    {% include "app/footer.html" %}
+                </footer>
+            {% endblock footer %}
         </div>
     </div>
 
@@ -237,11 +241,6 @@
 
 {% block js %}
 {% endblock js %}
-
 </body>
-            {% block footer %}
-                <footer>
-                    {% include "app/footer.html" %}
-                </footer>
-            {% endblock footer %}
+
 </html>

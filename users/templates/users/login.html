@@ -13,10 +13,7 @@
 
 {% block body_class %}login{% endblock body_class %}
 
-{% block body %}
-    <div>
-        <a class="hiddenanchor" id="signup"></a>
-        <a class="hiddenanchor" id="signin"></a>
+{% block content %}
 
         <div class="login_wrapper">
             <div class="animate form login_form">
@@ -24,7 +21,8 @@
                 <section class=" border login_content">
                     <form method="post" novalidate>
                         {% csrf_token %}
-                        <h1>UCC Bwaise Web</h1>
+                        <h2><u> CHURCH WEB SYSTEM</u></h2>
+                        <legend class="border-bottom">United Christian Center - Bwaise </legend> 
                          <div class="clearfix"></div>
                         <div class="separator">
                         {% if messages %}
@@ -35,8 +33,8 @@
                                 {% endfor %}
                             </ul>
                         {% endif %}
-                                <fieldset class="form-group">
-                                    <legend class="border-bottom">United Christian Center </legend>  
+                        <p style=" text-align: left">Enter Correct Credentials</p>
+                                <fieldset class="form-group"> 
                                     <div class="form-group">
                                     {{ form|crispy}}
                                     </div>      
@@ -47,14 +45,13 @@
                                 </div>
                                 
                          </form>
+                    <div class="clearfix"></div>
+                        <div class="separator">
                             <div class="border-top pt-3">
                                 <small class="text-muted">
                                     <i style="color: red"><b>Need account?</b></i><a class="ml-2" href="{% url 'register' %}">Sign Up now</a>
                                 </small>
                             </div>
-                        <div class="clearfix"></div>
-
-                        <div class="separator">
                             <p>
                                 <a href="#" class="btn btn-link">Forgot your password?</a>
                             </p>
@@ -72,7 +69,7 @@
         </div>
     </div>
 
-{% endblock body %}
+{% endblock content %}
 
 
 
