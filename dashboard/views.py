@@ -401,7 +401,7 @@ def Enter_Offerings(request):
             return redirect('Offeringsreport')
     else:
         form=OfferingsForm()
-        return render(request, 'record_offerings.html',{'form':form})
+        return render(request, 'Offerings/record_offerings.html',{'form':form})
 def edit_offerings(request, pk):
     item = get_object_or_404(Offerings, pk=pk)
     if request.method == "POST":
@@ -411,7 +411,7 @@ def edit_offerings(request, pk):
             return redirect('Offeringsreport')
     else:
         form = OfferingsForm(instance=item)
-    return render(request, 'record_offerings.html', {'form': form})
+    return render(request, 'Offerings/record_offerings.html', {'form': form})
 
 class offeringspdf(View):
     def get(self, request):
@@ -431,7 +431,7 @@ class offeringspdf(View):
             'request': request,
             'totalexpense': totalexpense,
         }
-        return Render.render('offeringspdf.html', context)
+        return Render.render('Offerings/offeringspdf.html', context)
 
 class offeringsreceipt(View):
     def get(self, request, pk):
@@ -442,7 +442,7 @@ class offeringsreceipt(View):
             'offerings': offerings,
             'request': request,
         }
-        return Render.render('offeringsreceipt.html', context)
+        return Render.render('Offerings/offeringsreceipt.html', context)
 
 @login_required
 def Offeringsreport (request):
@@ -493,7 +493,7 @@ def Offeringsreport (request):
         'current_month':current_month,
         'years':years,
     }
-    return render(request, 'offeringsindex.html', context)
+    return render(request, 'Offerings/offeringsindex.html', context)
 
 @login_required
 def offeringsarchivessearch(request):
@@ -519,7 +519,7 @@ def offeringsarchivessearch(request):
                    'report_year': report_year,
                    'report_month': report_month
                    }
-        return render(request, "offeringsarchive.html", context)
+        return render(request, "Offerings/offeringsarchive.html", context)
 
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
               'August', 'September', 'October', 'November', 'November', 'December']
@@ -531,7 +531,7 @@ def offeringsarchivessearch(request):
     context = {'months': months,
                'years': years,
                'offerings': offerings}
-    return render(request, "offeringsarchive.html", context)
+    return render(request, "Offerings/offeringsarchive.html", context)
 
 class offeringsarchivepdf(View):
     def get(self, request, report_month, report_year):
@@ -545,7 +545,7 @@ class offeringsarchivepdf(View):
             'request': request,
             'archived_offerings': archived_offerings,
         }
-        return Render.render('offeringsarchivepdf.html', offeringscontext)
+        return Render.render('Offerings/offeringsarchivepdf.html', offeringscontext)
 
      ###################################################
               #        TITHES MODULE        #
@@ -752,7 +752,7 @@ def enter_expenditure(request):
         form=SpendForm()
         items = Spend.objects.all()
         context = {'items': items, 'form': form, }
-        return render(request, 'pay_expenditure.html',context)
+        return render(request, 'Expenses/pay_expenditure.html',context)
 @login_required
 def enter_sundryexpense(request):
     if request.method == "POST":
@@ -776,12 +776,12 @@ def edit_payment(request, pk):
             return redirect('enter_expenditure')
     else:
         form = SpendForm(instance=item)
-    return render(request, 'pay_expenditure.html', {'form': form})
+    return render(request, 'Expenses/pay_expenditure.html', {'form': form})
 
 def delete_payment(request,pk):
     items= Spend.objects.filter(id=pk).delete()
     context = { 'items':items}
-    return render(request, 'expenditureindex.html', context)
+    return render(request, 'Expenses/expenditureindex.html', context)
 
 def edit_salary(request, pk):
     item = get_object_or_404(Salary, pk=pk)
@@ -813,7 +813,7 @@ def edit_sundry(request, pk):
 def delete_sundry(request, pk):
     items = Sundry.objects.filter(id=pk).delete()
     context = {'items': items}
-    return render(request, 'sundryindex.html', context)
+    return render(request, 'Expenses/sundryindex.html', context)
 
        ####################################################
       #        GENERATING REPORTS IN FORM OF PDFS         #
@@ -838,7 +838,7 @@ class expenditurepdf(View):
             'request': request,
             'totalexpense': totalexpense,
         }
-        return Render.render('expenditurepdf.html',expensecontext)
+        return Render.render('Expenses/expenditurepdf.html',expensecontext)
 
 #Printing Salaries Report
 class salariespdf(View):
@@ -877,7 +877,7 @@ class sundrypdf(View):
             'request': request,
             'totalsundry': totalsundry,
         }
-        return Render.render('sundrypdf.html',sundrycontext)
+        return Render.render('Expenses/sundrypdf.html',sundrycontext)
 
 
 
@@ -903,7 +903,7 @@ def expenditurearchive(request):
         'total_amount':total_amount,
         'expensesarchived':expensesarchived
     }
-    return render(request, 'expenditurearchive.html', context)
+    return render(request, 'Expenses/expenditurearchive.html', context)
 
 
         # calculating totals in sundryexpense report
@@ -915,7 +915,7 @@ def sundryarchive(request):
         'total_amount':total_amount,
         'sundryarchived': sundryarchived
                }
-    return render(request, 'sundryarchive.html', context)
+    return render(request, 'Expenses/sundryarchive.html', context)
 
 
 
@@ -934,7 +934,7 @@ class expensereceipt(View):
             'expense': expense,
             'request': request,
         }
-        return Render.render('expensereceipt.html', expensecontext)
+        return Render.render('Expenses/expensereceipt.html', expensecontext)
 
 class salaryreceipt(View):
     def get(self, request, pk):
@@ -956,7 +956,7 @@ class sundryreceipt(View):
             'sundry': sundry,
             'request': request,
         }
-        return Render.render('sundryreceipt.html', sundrycontext)
+        return Render.render('Expenses/sundryreceipt.html', sundrycontext)
 
 
     ############################################################
@@ -1005,7 +1005,7 @@ def expenditurereport (request):
                  'message':message,
                  }
 
-        return render(request, 'expenditureindex.html', context)
+        return render(request, 'Expenses/expenditureindex.html', context)
 
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September',
               'October', 'November',
@@ -1025,7 +1025,7 @@ def expenditurereport (request):
 
 
     }
-    return render(request, 'expenditureindex.html', context)
+    return render(request, 'Expenses/expenditureindex.html', context)
 @login_required
 def salaryreport (request):
     if request.method=='POST':
@@ -1106,7 +1106,7 @@ def sundryreport (request):
         message="The expenses report has been made"
         context={'message':message}
 
-        return render(request, 'sundryindex.html', context)
+        return render(request, 'Expenses/sundryindex.html', context)
 
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
               'October', 'November',
@@ -1122,7 +1122,7 @@ def sundryreport (request):
         'months':months,
         'years':years,
     }
-    return render(request, 'sundryindex.html', context)
+    return render(request, 'Expenses/sundryindex.html', context)
 
 
 # searching for the archives
@@ -1146,7 +1146,7 @@ def expensesarchivessearch(request):
                    'report_year': report_year,
                    'report_month': report_month
                    }
-        return render(request, "expenditurearchive.html", context)
+        return render(request, "Expenses/expenditurearchive.html", context)
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
               'August','September','October', 'November', 'November', 'December']
     years = [2018, 2019, 2020, 2021]
@@ -1154,7 +1154,7 @@ def expensesarchivessearch(request):
     context = {'months': months,
                'years': years,
                'expenses': expenses}
-    return render(request, "expenditurearchive.html", context)
+    return render(request, "Expenses/expenditurearchive.html", context)
 @login_required
 def salaryarchivessearch(request):
     if request.method == 'POST':
@@ -1215,7 +1215,7 @@ def sundryarchivessearch(request):
                    'report_year': report_year,
                    'report_month': report_month
                    }
-        return render(request, "sundryarchive.html", context)
+        return render(request, "Expenses/sundryarchive.html", context)
 
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
               'August', 'August', 'September','October', 'November', 'December']
@@ -1226,7 +1226,7 @@ def sundryarchivessearch(request):
     context = {'months': months,
                'years': years,
                'sundry': sundry}
-    return render(request, "sundryarchive.html", context)
+    return render(request, "Expenses/sundryarchive.html", context)
 
 
 
@@ -1253,7 +1253,7 @@ class expenditurearchivepdf(View):
             'report_year': report_year,
             'report_month': report_month
         }
-        return Render.render('expenditurearchivepdf.html', expensecontext)
+        return Render.render('Expenses/expenditurearchivepdf.html', expensecontext)
 
 
 # Printing Salaries archived Report
@@ -1286,4 +1286,4 @@ class sundryarchivepdf(View):
             'request': request,
             'archived_sundry': archived_sundry,
         }
-        return Render.render('sundryarchivepdf.html', sundrycontext)
+        return Render.render('Expenses/sundryarchivepdf.html', sundrycontext)

@@ -14,58 +14,14 @@
 {% block body_class %}login{% endblock body_class %}
 
 {% block content %}
-
+    <div class="container">
         <div class="login_wrapper">
-            <div class="animate form login_form">
 
-                <section class=" border login_content">
-                    <form method="post" novalidate>
-                        {% csrf_token %}
-                        <h2><u> CHURCH WEB SYSTEM</u></h2>
-                        <legend class="border-bottom">United Christian Center - Bwaise </legend> 
-                         <div class="clearfix"></div>
-                        <div class="separator">
-                        {% if messages %}
-                            <ul class="messages">
-                                {% for message in messages %}
-                                    <p class="bg-success" {% if message.tags %}
-                                       class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                        <p style=" text-align: left">Enter Correct Credentials</p>
-                                <fieldset class="form-group"> 
-                                    <div class="form-group">
-                                    {{ form|crispy}}
-                                    </div>      
-                                </fieldset>
-                            
-                                <div class="form-group">
-                                    <button class="btn btn-success" type="submit"> Login</button>           
-                                </div>
-                                
-                         </form>
-                    <div class="clearfix"></div>
-                        <div class="separator">
-                            <div class="border-top pt-3">
-                                <small class="text-muted">
-                                    <i style="color: red"><b>Need account?</b></i><a class="ml-2" href="{% url 'register' %}">Sign Up now</a>
-                                </small>
-                            </div>
-                            <p>
-                                <a href="#" class="btn btn-link">Forgot your password?</a>
-                            </p>
-
-                            <div class="clearfix"></div>
-                            <br/>
-
-                            <div>
-                                
-                            </div>
-                        </div>
-                    </form>
+                <section class=" border">
+                	<div class="jumbotron">
+                    <h4 style="color:red">*** Your account has been logged out successfully! ***</h4><br>
+                    <button class="btn btn-info" type="submit" style="font-size: 200%"><a href="{% url 'login' %}">Log in again</a></button></div>
                 </section>
-            </div>
         </div>
     </div>
 

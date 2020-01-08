@@ -19,15 +19,38 @@
                         <li><a href="{% url 'visitors-list'%}"> List of visitors</a></li>
 
                     </ul>
-
                 </li>
-                <li><a><i class="fa fa-calculator"></i> Revenues <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-calculator"></i> Record Revenues <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{% url 'Enter_Offerings' %}">Offerings</a></li>
                         <li><a href="{% url 'Enter_Tithes' %}">Tithes</a></li>
                         <li><a href="#">Seeds</a></li>
                         <li><a href="#">Donations</a></li>
                         <li><a href="#">Thanks Giving</a></li>
+                    </ul>
+                </li>
+                <li><a><i class="fa fa-tty"></i> Record Expenditures <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="{% url 'enter_expenditure'  %}">Main Expenditure</a>
+                        </li>
+                        <li><a href="#"> Petty Expenditure</a>
+                            <ul class="nav child_menu">
+                                <li><a href="{% url 'enter_sundryexpense'  %}"> Pay Sundry Expenses</a></li>
+                                <li><a href="{% url 'sundryreport'  %}"> Sundry Expenses List</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#"> Allowances</a>
+                            <ul class="nav child_menu">
+                                <li><a href="{% url 'pay_salary'  %}"> Give Allowances</a></li>
+                                <li><a href="{% url 'salaryreport'  %}"> Allowances Given List</a></li>
+                            </ul>
+
+                        </li>
+                        <li><a href="#"> Salaries</a></li>
+                            <ul class="nav child_menu">
+                                <li><a href="#"> Pay Salaries</a></li>
+                                <li><a href="#"> Salaries Paid List</a></li>
+                            </ul>
                     </ul>
                 </li>
                 <li><a><i class="fa fa-dollar"></i> Pledges Module <span class="fa fa-chevron-down"></span></a>
@@ -38,15 +61,8 @@
                         <li><a href="#">Pledges Not Cleared</a></li>
                     </ul>
                 </li>
-                <li><a><i class="fa fa-tty"></i> Expenditures <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="#">Main Expenditure</a></li>
-                        <li><a href="#"> Petty Expenditure</a></li>
-                        <li><a href="#"> Allowances</a></li>
-                        <li><a href="#"> Salaries</a></li>
-                    </ul>
-                </li>
-                <li><a><i class="fa fa-grou"></i> Monthly Reports <span class="fa fa-chevron-down"></span></a>
+
+                <li><a><i class="fa fa-dashboard"></i> Monthly Reports <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="#"> Main Expenses Reports</a></li>
                         <li><a href="#"> Offerings Reports</a></li>
@@ -66,6 +82,12 @@
                         <li><a href="#"> Petty Expenses Archived</a></li>
                         <li><a href="#"> Allowances Archived</a></li>
                         <li><a href="#"> Salaries Archived</a></li>
+                    </ul>
+                </li>
+                <li><a><i class="fa fa-group"></i> Church Employees <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="#">Add Employees</a></li>
+                        <li><a href="#">Employee List</a></li>
                     </ul>
                 </li>
             </ul>
