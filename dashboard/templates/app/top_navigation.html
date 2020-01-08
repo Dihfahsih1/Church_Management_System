@@ -6,17 +6,18 @@
             </div>
         </div>
 
-
         <div class="col-md-7">
             <ul class="nav navbar-nav navbar-left">
                 <li class="nav-item">
                     <a class="border border-light grey-text">
                         <h3>
+                            {% load static %}
                             {% if custom_header %}
                                 <span class="name">{{ custom_header }}</span>
                             {% else %}
-                                <span class="name">Church</span>
+                                <span class="name"> Web System</span>
                                 <span class="regular">| United Christian Center - Bwaise</span>
+                                <img width="10%" src="{% static 'media/uccchurch.jpg' %}">
                             {% endif %}
                         </h3>
                     </a>
@@ -27,25 +28,18 @@
 
         <div class="col-md-4">
             <ul class="nav navbar-nav navbar-right">
-                <li class="">
+                <li class="nav-item">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                        aria-expanded="false">
 
-                        {{ request.user.username }}
-                        <span class=" fa fa-angle-down"></span>
+                        <b style="color: red; font-size: 150%">{{ request.user.username }}
+                        <span class=" fa fa-angle-down"></span></b>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-left">
                         <li><a href="#"> Profile</a></li>
                         <li><a href="#"> Change Password</a></li>
                         <li><a href="{% url 'logout'%}"><i class="fa fa-sign-out pull-left"></i>Log Out</a></li>
                     </ul>
-                </li>
-
-                <li class="nav-item">
-                    <a href="#"
-                       class="nav-link border border-light grey-text rounded waves-effect">
-                        <i class="fa fa-globe mr-3"></i> Web System
-                    </a>
                 </li>
 
             </ul>
