@@ -59,15 +59,20 @@
                                   <td>{{ item.Amount}}</td>
                                      <td>
                                      <div class="mb-4">
-                                        <a href="{% url 'expensereceipt' item.id %}" target="_new"><button class="btn btn-info">Print Receipt</button></a> |
+                                        <a href="{% url 'expensereceipt' item.id %}" target="_new"><button class="btn btn-success">Print Receipt</button></a> |
                                         <a href="{% url 'edit_payment' pk=item.id %}" ><button class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span>Edit </button></a>
                                        {% endfor %}
                                         
                                      </div> </td>
                                 </tr>
                                  
-                            </tbody>
-                        </table>
+                            <tr><td><b>Total Amount:</b> </td> <td>______________ </td> <td>______________  </td><td><b>{{ total_amount}}</b></td></tr>
+                               
+                             </tbody>
+                             <tr><td><a href="{% url 'expenditurepdf' %} " target="_new" class="btn btn-info bt-sm" role="button">Print Report</a></td>
+                             <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Archive Expenses</button></td>
+                               </tr>
+                            </table>
                     </div>
                   </div>
                </div>
