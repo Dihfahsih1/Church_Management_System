@@ -1,8 +1,8 @@
-{% extends 'base.html' %}
-{% block body %}
-<div class="container">
 
-
+{% extends "app/base_site.html" %}
+{% block content %}
+<div class="right_col" role="main">
+  <div class="row">
 {% load crispy_forms_tags %}
 <form method="POST" enctype="multipart/form-data" >
 {% csrf_token %}
@@ -38,4 +38,20 @@
 </form>
 {% include 'messages.html' %}
 </div>
-{% endblock %}
+</div>
+{% endblock content %}
+
+{% block javascripts %}
+
+    {{ block.super }}
+    <!-- Datatables -->
+    <!-- DateJS -->
+    <script src="/static/vendors/DateJS/build/date.js"></script>
+    <!-- JQVMap -->
+    <script src="/static/vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="/static/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="/static/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+
+
+
+{% endblock javascripts %}

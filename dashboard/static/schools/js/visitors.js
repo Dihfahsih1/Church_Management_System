@@ -32,7 +32,7 @@ $(function () {
             processData: false,
             success: function (data) {
                 if (data.form_is_valid) {
-                    $("#visitor-table tbody").html(data.html_member_list);
+                    $("#visitor-table tbody").html(data.html_visitor_list);
                     $("#modal-visitor").modal("hide");
                 } else {
                     $("#modal-visitor .modal-content").html(data.html_form);
