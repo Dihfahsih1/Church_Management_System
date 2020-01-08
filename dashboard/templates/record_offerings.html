@@ -1,18 +1,65 @@
-{% extends 'base.html' %}
-{% block body %}
-<div class="container" style="margin-left:20%">
-<div  class="col-lg-6 col-offset-8 centered">
 
-{% load crispy_forms_tags %}
-<form method="POST" enctype="multipart/form-data" >
-{% csrf_token %}
-{{ form.Date|as_crispy_field}}
-{{ form.Service|as_crispy_field}}
-{{ form.Total_Offering|as_crispy_field}}
 
-    <button type="submit" class="btn btn-primary" name="button">Submit</button>
-</form>
-{% include 'messages.html' %}
+{% extends "app/base_site.html" %}
+{% block content %}
+<div class="right_col" role="main">
+    <div class="row">
+    	<div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Offerings</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content quick-link">
+                    <span style="color:red"><b>Quick Links:</b></span>
+                    <a href="{% url 'Enter_Offerings' %}">Offerings</a>
+                    | <a href="{% url 'Offeringsreport' %}">List of offerings</a>
+                    | <a href="{% url 'Enter_Tithes' %}">Tithes</a>
+                    | <a href="{% url 'Tithesreport' %}">List of Tithes</a>
+                    | <a href="#">Seeds</a>
+                    | <a href="#">Thanks Giving</a>
+                    | <a href="#">Donations</a>
+                </div>
+		  	    <div class="x_content">
+		            <div class="" data-example-id="togglable-tabs">
+		                <ul class="nav nav-tabs bordered">
+		                    <li role="presentation" ><a href="{% url 'Offeringsreport' %}"><i
+		                                class="fa fa-list-ol"></i> List of offerings</a>
+		                    </li>
+		                    <li role="presentation"class="active"><a href="{% url 'Enter_Offerings' %}"><i
+	                            class="fa fa-plus-square-o"></i> Record Offering</a>
+		                     </li>
+		                </ul>
+		                <br/>
+						<div  class="col-lg-6 col-offset-8 centered">
+						{% load crispy_forms_tags %}
+							<form method="POST" enctype="multipart/form-data" >
+								{% csrf_token %}
+								{{ form.Date|as_crispy_field}}
+								{{ form.Service|as_crispy_field}}
+								{{ form.Total_Offering|as_crispy_field}}
+							<button type="submit" class="btn btn-primary" name="button">Submit</button>
+							</form>
+						</div>
+			        </div>
+		        </div>
+                {% include 'messages.html' %}
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-{% endblock %}
+{% endblock content %}
+{% block javascripts %}
+    {{ block.super }}
+    <!-- Datatables -->
+    <!-- DateJS -->
+    <script src="/static/vendors/DateJS/build/date.js"></script>
+    <!-- JQVMap -->
+    <script src="/static/vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="/static/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="/static/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+{% endblock javascripts %}

@@ -11,28 +11,61 @@
     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
         <div class="menu_section">
             <ul class="nav side-menu">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Registration <span class="fa fa-chevron-down"></span></a>
+                <li><a href="#"><i class="fa fa-user"></i> Registration <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{% url 'members-register'%}">Register Members</a></li>
-                        <li><a href="#"> Register Visitor</a></li>
-                        <li><a href="#"> Church Members List</a></li>
+                        <li><a href="{% url 'visitors-register'%}"> Register Visitor</a></li>
+                        <li><a href="{% url 'members-list'%}"> Church Members List</a></li>
+                        <li><a href="{% url 'visitors-list'%}"> List of visitors</a></li>
+
                     </ul>
 
                 </li>
-                <li><a href="#"><i class="fa fa-cubes"></i> Theme</a></li>
-                <li><a href="#"><i class="fa fa-language"></i> Language</a></li>
-                <li><a><i class="fa fa-dollar"></i> Payroll <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-calculator"></i> Revenues <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li><a href="#">Salary Grade</a></li>
-                        <li><a href="#"> Salary Payment</a></li>
-                        <li><a href="#"> Payment History</a></li>
+                        <li><a href="{% url 'Enter_Offerings' %}">Offerings</a></li>
+                        <li><a href="{% url 'Enter_Tithes' %}">Tithes</a></li>
+                        <li><a href="#">Seeds</a></li>
+                        <li><a href="#">Donations</a></li>
+                        <li><a href="#">Thanks Giving</a></li>
                     </ul>
                 </li>
-                <li><a><i class="fa fa-dollar"></i> Payroll <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-dollar"></i> Pledges Module <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li><a href="#">Salary Grade</a></li>
-                        <li><a href="#"> Salary Payment</a></li>
-                        <li><a href="#"> Payment History</a></li>
+                        <li><a href="#">Record Pledges</a></li>
+                        <li><a href="#">List of Pledges</a></li>
+                        <li><a href="#">Archived Pledges</a></li>
+                        <li><a href="#">Pledges Not Cleared</a></li>
+                    </ul>
+                </li>
+                <li><a><i class="fa fa-tty"></i> Expenditures <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="#">Main Expenditure</a></li>
+                        <li><a href="#"> Petty Expenditure</a></li>
+                        <li><a href="#"> Allowances</a></li>
+                        <li><a href="#"> Salaries</a></li>
+                    </ul>
+                </li>
+                <li><a><i class="fa fa-grou"></i> Monthly Reports <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="#"> Main Expenses Reports</a></li>
+                        <li><a href="#"> Offerings Reports</a></li>
+                        <li><a href="#"> Tithes Reports</a></li>
+                        <li><a href="#"> Pledges Reports</a></li>
+                        <li><a href="#"> Petty Expenses Reports</a></li>
+                        <li><a href="#"> Allowances Reports</a></li>
+                        <li><a href="#"> Salaries Report</a></li>
+                    </ul>
+                </li>
+                <li><a><i class="fa fa-folder-open"></i> Archived Reports <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="#"> Main Expenses Archived</a></li>
+                        <li><a href="#"> Offerings Archived</a></li>
+                        <li><a href="#"> Tithes Archived</a></li>
+                        <li><a href="#"> Pledges Archived</a></li>
+                        <li><a href="#"> Petty Expenses Archived</a></li>
+                        <li><a href="#"> Allowances Archived</a></li>
+                        <li><a href="#"> Salaries Archived</a></li>
                     </ul>
                 </li>
             </ul>

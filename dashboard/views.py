@@ -69,6 +69,27 @@ def delete_member(request, pk):
 
     context= {'member': member}
     return render(request, 'Members/members_delete.html', context)
+def edit_visitor(request, pk):
+    item = get_object_or_404(Visitors, pk=pk)
+    if request.method == "POST":
+        form = VisitorsForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('visitors-list')
+    else:
+        form = VisitorsForm(instance=item)
+    return render(request, 'Members/register_visitors.html', {'form': form})
+
+
+def delete_visitor(request, pk):
+    visiting= get_object_or_404(Visitors, id=pk)
+    if request.method == "GET":
+        visiting.delete()
+        messages.success(request, "Post successfully deleted!")
+        return redirect("visitors-list")
+
+    context= {'visiting': visiting}
+    return render(request, 'Members/visitor_delete.html', context)
 
     #list of church visitors
 @login_required
