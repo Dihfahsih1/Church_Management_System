@@ -759,7 +759,7 @@ def enter_sundryexpense(request):
         form = SundryForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('enter_sundryexpense')
+            return redirect('sundryreport')
     else:
         today = timezone.now()
         current_month = today.strftime('%B')
