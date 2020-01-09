@@ -1,0 +1,72 @@
+
+{% extends "app/base_site.html" %}
+{% block content %}
+<div class="right_col" role="main">
+    <div class="row">
+    	<div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Employee</small></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content quick-link">
+                        <span>Quick Link:</span>
+                        <a href="{% url 'members-register' %}">Register Member</a>
+                        | <a href="{% url 'members-list' %}">Members List</a>
+                        | <a href="{% url 'visitors-register' %}">Register Visitor</a>
+                        | <a href="{% url 'visitors-list' %}">Visitors List</a>
+                        <a href="{% url 'visitors-list' %}">Employee List</a>
+                    </div>
+  	      <div class="x_content">
+            <div class="" data-example-id="togglable-tabs">
+                <ul class="nav nav-tabs bordered">
+                    <li role="presentation" ><a href="{% url 'employee-list' %}"><i
+                                class="fa fa-list-ol"></i> Employee List</a>
+                    </li>
+                    <li role="presentation"><a href="{% url 'employee-register' %}"><i
+                                class="fa fa-plus-square-o"></i> Add Employee</a>
+                     </li>
+                    <li role="presentation"class="active"><a href="{% url 'pay-employee' %}"><i
+                                class="fa fa-plus-square-o"></i> Pay Employee</a>
+                     </li>
+                </ul>
+                <br/>
+            {% load crispy_forms_tags %}
+
+			<form method="POST" enctype="multipart/form-data" action="{% url 'paid-salary'%}" >
+			    {% csrf_token %}
+			    <div class="row">
+                    <div class="form-group col-md-3 mb-0" id="Invoice_Id">
+                        {% for id in retrieve_employee_id %}
+                            <label>Invoice_Id</label>
+                            <input type="text" name="Invoice_Id" id="Invoice_Id" maxlength="100"
+                                   class="textinput textInput form-control"
+                                   value="{{ id.id }}">
+                        {% endfor %}
+                    </div>
+				  	<div class="col-lg-4">
+					    <div class="col-lg-12">
+						    {{ form.Name|as_crispy_field }}
+						</div>
+						<div class="col-lg-12">
+						    {{ form.Date|as_crispy_field }}
+						</div>
+                        <div class="col-lg-12">
+                            {{ form.Salary_Amount|as_crispy_field }}
+                        </div>
+
+				   </div>
+			   </div>
+			    <button type="submit" class="btn btn-primary" name="button">Submit</button>
+			</form>
+                </div>
+            </div>
+		</div>
+	</div>
+  </div>
+</div>
+{% endblock content %}
