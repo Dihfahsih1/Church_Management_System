@@ -761,8 +761,11 @@ def enter_sundryexpense(request):
             form.save()
             return redirect('enter_sundryexpense')
     else:
+        today = timezone.now()
+        current_month = today.strftime('%B')
         form = SundryForm()
-        return render(request, 'add_new.html', {'form': form})
+        context={'form': form, 'current_month': current_month}
+        return render(request, 'Expenses/record_petty_expenses.html', context )
  #####################################################################
 # EDITING, DELETING AND PRINTING OF RECEIPT OF EACH TRANSACTION MADE  #
  #####################################################################
