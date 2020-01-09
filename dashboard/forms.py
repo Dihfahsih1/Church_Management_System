@@ -31,8 +31,9 @@ class AllowanceForm(forms.ModelForm):
 class StaffDetailsForm(forms.ModelForm):
     class Meta:
         model=StaffDetails
-        fields=('Name','Salary_Amount','Role','Date_of_employment','End_of_contract')
+        fields=('Date','Name','Salary_Amount','Role','Date_of_employment','End_of_contract')
         widgets = {
+            'Date': DatePickerInput(),
             'Date_of_employment': DatePickerInput(),
             'End_of_contract': DatePickerInput(),
         }
