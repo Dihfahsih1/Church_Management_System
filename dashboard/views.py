@@ -87,11 +87,13 @@ def paying_employees(request, pk):
         retrieve_employee_id = StaffDetails.objects.filter(id=pk)
         for i in retrieve_employee_id:
             print(i.Name)
+            print(i.Salary_Amount)
+            print(i.Date)
         context = {'form': form, 'retrieve_employee_id': retrieve_employee_id}
         return render(request, 'Employees/pay_employee.html', context)
 
 def paid_salary(request):
-    if request.method == "GET":
+    if request.method == "POST":
         form = SalariesPaidForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()

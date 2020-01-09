@@ -118,8 +118,6 @@ class StaffDetails(models.Model):
     Role = models.CharField(max_length=200, blank=False)
     Date_of_employment=models.DateField(null=False, blank=False)
     End_of_contract=models.DateField(null=False, blank=False)
-    def __str__(self):
-        return self.Name
 class SalariesPaid(models.Model):
     Salary_Id = models.CharField(max_length=200,null=True, blank=True)
     Name = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, null=True, blank=True)
