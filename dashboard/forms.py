@@ -31,7 +31,11 @@ class AllowanceForm(forms.ModelForm):
 class StaffDetailsForm(forms.ModelForm):
     class Meta:
         model=StaffDetails
-        fields=('image','FistName','SecondName','Salary','Role','Sex','Contact')
+        fields=('Name','Salary_Amount','Role','Date_of_employment','End_of_contract')
+        widgets = {
+            'Date_of_employment': DatePickerInput(),
+            'End_of_contract': DatePickerInput(),
+        }
 
 class OfferingsForm(forms.ModelForm):
     class Meta:

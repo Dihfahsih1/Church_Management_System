@@ -6,19 +6,6 @@ from django.db.models import Sum
 from django.forms.fields import DateField
 from django.contrib.admin.widgets import AdminDateWidget
 
-class StaffDetails(models.Model):
-    image = models.ImageField(upload_to="avatars/", default="Photo")
-    FistName= models.CharField(max_length=150,blank=False)
-    SecondName = models.CharField(max_length=150,blank=False)
-    Salary = models.IntegerField(default=0)
-    Role = models.CharField(max_length=20, default="MALE", blank=False)
-    choices=(
-        ('Male','Male'),
-        ('Female', 'Female'))
-    Sex = models.CharField(max_length=7, default="MALE", blank=False, choices=choices)
-    Contact = models.CharField(max_length=100, default="Tel or Email")
-    def __str__(self):
-        return self.FistName + ' ' + self.SecondName
 
 class Sundry(Model):
     Date = models.DateField(null=True, blank=True)
@@ -123,6 +110,15 @@ class Visitors(models.Model):
     Church=models.CharField(max_length=100,null=True, blank=True)
     def __str__(self):
         return self.First_Name + ' ' + self.Second_Name
+
+class StaffDetails(models.Model):
+    Name = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, null=True, blank=True)
+    Salary_Amount = models.IntegerField(default=0)
+    Role = models.CharField(max_length=200, blank=False)
+    Date_of_employment=models.DateField(null=False, blank=False)
+    End_of_contract=models.DateField(null=False, blank=False)
+    def __str__(self):
+        return self.Name
 
 class Tithes(Model):
     Date = models.DateField(null=True, blank=True)

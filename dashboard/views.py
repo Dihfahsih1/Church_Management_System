@@ -56,9 +56,34 @@ def index(request):
     'allowances':allowances, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
 
     return render(request,'index.html', context)
+
+
+    ##################################
+    #        Employee Module         #
+    ##################################
+
+def employee_register(request):
+    if request.method=="POST":
+        form=StaffDetailsForm(request.POST, request.FILES,)
+        if form.is_valid():
+            form.save()
+            return redirect('employee_list')
+    else:
+        form=StaffDetailsForm()
+        return render(request, 'Employees/record_employee.html',{'form':form})
+
+@login_required
+def employee_list(request):
+    employees = StaffDetails.objects.all().order_by('-id')
+    context ={'employees': employees}
+    return render(request, 'Employees/employee_list.html', context)
+
+
       ####################################################
     #       REGISTERING CHURCH MEMBERS AND VISITORS      #
      ####################################################
+
+
     #members
 @login_required
 def register_members(request):
