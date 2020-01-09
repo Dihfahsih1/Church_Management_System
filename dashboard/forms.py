@@ -33,11 +33,14 @@ class StaffDetailsForm(forms.ModelForm):
         model=StaffDetails
         fields=('Date','Name','Salary_Amount','Role','Date_of_employment','End_of_contract')
         widgets = {
-            'Date': DatePickerInput(),
+             'Date': DatePickerInput(),
             'Date_of_employment': DatePickerInput(),
             'End_of_contract': DatePickerInput(),
         }
-
+class SalariesPaidForm(forms.ModelForm):
+    class Meta:
+        model = SalariesPaid
+        fields = ('Name','Salary_Amount','Date')
 class OfferingsForm(forms.ModelForm):
     class Meta:
         model=Offerings

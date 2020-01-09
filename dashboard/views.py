@@ -78,6 +78,27 @@ def employee_list(request):
     context ={'employees': employees}
     return render(request, 'Employees/employee_list.html', context)
 
+def paying_employees(request, pk):
+    items = get_object_or_404(StaffDetails, id=pk)
+    #add a second condition to fetch only school fees exclude other dues
+    if request.method == "POST":
+        form = StaffDetailsForm(request.POST, request.FILES, instance=items)
+    else:
+        form = StaffDetailsForm(instance=items)
+        retrieve_employee_id = StaffDetails.objects.filter(id=pk)
+        context = {'form': form, 'retrieve_employee_id': retrieve_employee_id}
+        return render(request, 'Employees/pay_employee.html', context)
+
+def paid_salary(request):
+    if request.method == "POST":
+        form = SalariesPaidForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('employee-list')
+        else:
+            form = SalariesPaidForm()
+            context = {'form': form}
+            return render(request, 'Employees/pay_employee.html', context)
 
       ####################################################
     #       REGISTERING CHURCH MEMBERS AND VISITORS      #

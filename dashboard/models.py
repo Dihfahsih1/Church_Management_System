@@ -112,7 +112,7 @@ class Visitors(models.Model):
         return self.First_Name + ' ' + self.Second_Name
 
 class StaffDetails(models.Model):
-    Date = models.DateField(null=False, blank=False)
+    Date = models.DateField(null=True, blank=True)
     Name = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, null=True, blank=True)
     Salary_Amount = models.IntegerField(default=0)
     Role = models.CharField(max_length=200, blank=False)
@@ -120,6 +120,11 @@ class StaffDetails(models.Model):
     End_of_contract=models.DateField(null=False, blank=False)
     def __str__(self):
         return self.Name
+class SalariesPaid(models.Model):
+    Name = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, null=True, blank=True)
+    Date = models.CharField(max_length=200,null=True, blank=True)
+    Salary_Amount = models.IntegerField(default=0)
+
 
 class Tithes(Model):
     Date = models.DateField(null=True, blank=True)
