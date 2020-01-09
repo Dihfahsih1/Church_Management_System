@@ -20,9 +20,9 @@ class SundryForm(forms.ModelForm):
             'Date': DatePickerInput(),
             
         } 
-class SalaryForm(forms.ModelForm):
+class AllowanceForm(forms.ModelForm):
     class Meta:
-        model=Salary
+        model=Allowance
         fields = ('Date','Name','Month','Amount')
         widgets = {
             'Date': DatePickerInput(),
@@ -31,7 +31,7 @@ class SalaryForm(forms.ModelForm):
 class StaffDetailsForm(forms.ModelForm):
     class Meta:
         model=StaffDetails
-        fields=('image','FistName','SecondName','Salary','Role','Duties','Sex','Contact')
+        fields=('image','FistName','SecondName','Salary','Role','Sex','Contact')
 
 class OfferingsForm(forms.ModelForm):
     class Meta:

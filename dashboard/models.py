@@ -7,12 +7,11 @@ from django.forms.fields import DateField
 from django.contrib.admin.widgets import AdminDateWidget
 
 class StaffDetails(models.Model):
-    image = models.ImageField(upload_to="media", default="Photo")
+    image = models.ImageField(upload_to="avatars/", default="Photo")
     FistName= models.CharField(max_length=150,blank=False)
     SecondName = models.CharField(max_length=150,blank=False)
     Salary = models.IntegerField(default=0)
     Role = models.CharField(max_length=20, default="MALE", blank=False)
-    Duties = models.CharField(max_length=1000, blank=False)
     choices=(
         ('Male','Male'),
         ('Female', 'Female'))
@@ -76,7 +75,7 @@ class SundryReportArchive(models.Model):
     def __str__(self):
         return 'Name: {1} Reason:{2} Amount:{0}'.format(self.Name,self.Reason, self.Amount)
 
-class SalaryReportArchive(models.Model):
+class AllowanceReportArchive(models.Model):
     Date = models.DateField(null=True, blank=True)
     Staff = models.CharField( max_length=100,null=True)
     Month = models.CharField(max_length=100,null=True)
@@ -142,7 +141,7 @@ class TithesReportArchive(models.Model):
     def __str__(self):
         return 'Name: {1}  Amount:{0}'.format(self.Tithe_Made_By, self.Amount)
 
-class Salary(models.Model):
+class Allowance(models.Model):
 
     months = (
         ('January','January'),('February','February'),('March', 'March'),('April', 'April')

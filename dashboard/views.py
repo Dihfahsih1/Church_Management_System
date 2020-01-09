@@ -41,7 +41,7 @@ def index(request):
     else:
         0
 
-    total_allowances = Salary.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
+    total_allowances = Allowance.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_allowances['totals']):
         total_allowances["totals"]
         allowances=total_allowances["totals"]
@@ -139,20 +139,6 @@ def visitors_list(request):
     visiting = Visitors.objects.all()
     context ={'visiting': visiting}
     return render(request, 'Members/visitors_list.html', context)
-
-      ####################################################
-    #         ENTERING RECORDS INTO THE DATABASE          #
-     ####################################################
-def pay_salary(request):
-    if request.method=="POST":
-        form=SalaryForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('salaryreport')
-    else:
-        form=SalaryForm()
-        return render(request, 'add_new.html',{'form':form})
-
 
 ###############################
       # PLEDGES MODULE#
@@ -697,6 +683,113 @@ class tithesarchivepdf(View):
         }
         return Render.render('tithesarchivepdf.html', tithescontext)
 
+#Allowances Module
+def give_allowance(request):
+    if request.method=="POST":
+        form=AllowanceForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('allowancereport')
+    else:
+        form=AllowanceForm()
+        return render(request, 'Allowances/record_new_allowance.html',{'form':form})
+
+def edit_Allowance(request, pk):
+    item = get_object_or_404(Allowance, pk=pk)
+    if request.method == "POST":
+        form = AllowanceForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('give-allowance')
+    else:
+        form = AllowanceForm(instance=item)
+    return render(request, 'Allowances/record_new_allowance.html', {'form': form})
+#Printing allowances Report
+class allowancespdf(View):
+    def get(self, request):
+        current_month = datetime.now().month
+        allowances = Allowance.objects.filter(Date__month=current_month).order_by('-Date')
+        today = timezone.now()
+        month = today.strftime('%B')
+        totalAllowance = 0
+        for instance in allowances:
+            totalAllowance += instance.Amount
+        Allowancecontext ={
+            'month': month,
+            'today':today,
+            'allowances':allowances,
+            'request': request,
+            'totalAllowance': totalAllowance,
+        }
+        return Render.render('Allowances/allowancespdf.html',Allowancecontext)
+# Printing allowances archived Report
+class Allowancearchivepdf(View):
+    def get(self, request, report_month, report_year):
+        archived_Allowance = AllowanceReportArchive.objects.filter(month=report_month, year=report_year)
+        today = timezone.now()
+        total = archived_Allowance.aggregate(totals=models.Sum("Amount"))
+        total_amount = total["totals"]
+        Allowancecontext = {
+            'today': today,
+            'total_amount': total_amount,
+            'request': request,
+            'archived_Allowance': archived_Allowance,
+        }
+        return Render.render('Allowances/allowancearchivepdf.html', Allowancecontext)
+
+@login_required
+def Allowancereport (request):
+    if request.method=='POST':
+        archived_year=request.POST['archived_year']
+        archived_month = request.POST['archived_month']
+
+        #all the available expense in the expenses table
+        all_expenses = Allowance.objects.all()
+        for expense in all_expenses:
+            date=expense.Date
+            Manth = expense.Month
+            amount=expense.Amount
+            name = expense.Name
+
+            # the expense archive object
+            expense_archiveobj=AllowanceReportArchive()
+
+            #attached values to expense_archiveobj
+            expense_archiveobj.Name = name
+            expense_archiveobj.Date=date
+            expense_archiveobj.Month=Manth
+            expense_archiveobj.Amount=amount
+            expense_archiveobj.archivedyear= archived_year
+            expense_archiveobj.archivedmonth =archived_month
+
+            expense_archiveobj.save()
+
+        #deleting all the expense from reports table
+        all_expenses.delete()
+
+        message="The Monthly Allowances report has been Achived"
+        context={'message':message}
+
+        return render(request, 'Allowances/allowanceindex.html', context)
+
+    months = ['January', 'February', 'March', 'April', 'May', 'June',
+              'July', 'August','September', 'October', 'November','December']
+    years = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
+    total = Allowance.objects.aggregate(totals=models.Sum("Amount"))
+    total_amount = total["totals"]
+    items =Allowance.objects.all()
+    context = {
+        'total_amount':total_amount,
+        'items': items,
+        'months':months,
+        'years':years,
+    }
+    return render(request, 'Allowances/allowanceindex.html', context)
+def delete_Allowance(request,pk):
+    items= Spend.objects.filter(id=pk).delete()
+    context = { 'items':items}
+    return render(request, 'Allowances/allowanceindex.html', context)
+
 #CURRENT MONTH BALANCE SHEET
 def total_monthly_incomes(request):
     current_month = datetime.now().month
@@ -727,7 +820,7 @@ def total_monthly_incomes(request):
     else:
         0
 
-    total_allowances = Salary.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
+    total_allowances = Allowance.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_allowances['totals']):
         total_allowances["totals"]
         allowances=total_allowances["totals"]
@@ -785,23 +878,6 @@ def delete_payment(request,pk):
     items= Spend.objects.filter(id=pk).delete()
     context = { 'items':items}
     return render(request, 'Expenses/expenditureindex.html', context)
-
-def edit_salary(request, pk):
-    item = get_object_or_404(Salary, pk=pk)
-    if request.method == "POST":
-        form = SalaryForm(request.POST, instance=item)
-        if form.is_valid():
-            form.save()
-            return redirect('pay_salary')
-    else:
-        form = SalaryForm(instance=item)
-    return render(request, 'add_new.html', {'form': form})
-
-def delete_salary(request,pk):
-    items= Spend.objects.filter(id=pk).delete()
-    context = { 'items':items}
-    return render(request, 'salaryindex.html', context)
-
 def edit_sundry(request, pk):
     item = get_object_or_404(Sundry, pk=pk)
     if request.method == "POST":
@@ -843,24 +919,6 @@ class expenditurepdf(View):
         }
         return Render.render('Expenses/expenditurepdf.html',expensecontext)
 
-#Printing Salaries Report
-class salariespdf(View):
-    def get(self, request):
-        current_month = datetime.now().month
-        salaries = Salary.objects.filter(Date__month=current_month).order_by('-Date')
-        today = timezone.now()
-        month = today.strftime('%B')
-        totalsalary = 0
-        for instance in salaries:
-            totalsalary += instance.Amount
-        salarycontext ={
-            'month': month,
-            'today':today,
-            'salaries':salaries,
-            'request': request,
-            'totalsalary': totalsalary,
-        }
-        return Render.render('pdf.html',salarycontext)
 
 #Printing Sundry Expenses Report
 class sundrypdf(View):
@@ -888,19 +946,19 @@ class sundrypdf(View):
         #        ARCHIVING OF THE MONTHLY REPORTS           #
         ####################################################
 
-def salaryarchive(request):
-    salaryarchived = SalaryReportArchive.objects.all().order_by('-Date')
-    total = SalaryReportArchive.objects.aggregate(totals=models.Sum("Amount"))
+def Allowancearchive(request):
+    Allowancearchived = AllowanceReportArchive.objects.all().order_by('-Date')
+    total = AllowanceReportArchive.objects.aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
     context = {
         'total_amount':total_amount,
-        'salaryarchived': salaryarchived
+        'Allowancearchived': Allowancearchived
                }
-    return render(request, 'salaryarchive.html', context)
+    return render(request, 'Allowancearchive.html', context)
 
 def expenditurearchive(request):
     expensesarchived = ExpensesReportArchive.objects.all().order_by('-Date')
-    total = SalaryReportArchive.objects.aggregate(totals=models.Sum("Amount"))
+    total = AllowanceReportArchive.objects.aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
     context = {
         'total_amount':total_amount,
@@ -939,16 +997,16 @@ class expensereceipt(View):
         }
         return Render.render('Expenses/expensereceipt.html', expensecontext)
 
-class salaryreceipt(View):
+class Allowancereceipt(View):
     def get(self, request, pk):
-        salary= get_object_or_404(Salary,pk=pk)
+        Allowance= get_object_or_404(Allowance,pk=pk)
         today = timezone.now()
-        salarycontext = {
+        Allowancecontext = {
             'today': today,
-            'salary': salary,
+            'Allowance': Allowance,
             'request': request,
         }
-        return Render.render('salaryreceipt.html', salarycontext)
+        return Render.render('Allowancereceipt.html', Allowancecontext)
 
 class sundryreceipt(View):
     def get(self, request, pk):
@@ -1029,54 +1087,7 @@ def expenditurereport (request):
 
     }
     return render(request, 'Expenses/expenditureindex.html', context)
-@login_required
-def salaryreport (request):
-    if request.method=='POST':
-        archived_year=request.POST['archived_year']
-        archived_month = request.POST['archived_month']
 
-        #all the available expense in the expenses table
-        all_expenses = Salary.objects.all()
-        for expense in all_expenses:
-            date=expense.Date
-            Manth = expense.Month
-            amount=expense.Amount
-            name = expense.Name
-
-            # the expense archive object
-            expense_archiveobj=SalaryReportArchive()
-
-            #attached values to expense_archiveobj
-            expense_archiveobj.Name = name
-            expense_archiveobj.Date=date
-            expense_archiveobj.Month=Manth
-            expense_archiveobj.Amount=amount
-            expense_archiveobj.archivedyear= archived_year
-            expense_archiveobj.archivedmonth =archived_month
-
-            expense_archiveobj.save()
-
-        #deleting all the expense from reports table
-        all_expenses.delete()
-
-        message="The Monthly Allowances report has been Achived"
-        context={'message':message}
-
-        return render(request, 'salaryindex.html', context)
-
-    months = ['January', 'February', 'March', 'April', 'May', 'June',
-              'July', 'August','September', 'October', 'November','December']
-    years = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
-    total = Salary.objects.aggregate(totals=models.Sum("Amount"))
-    total_amount = total["totals"]
-    items =Salary.objects.all()
-    context = {
-        'total_amount':total_amount,
-        'items': items,
-        'months':months,
-        'years':years,
-    }
-    return render(request, 'salaryindex.html', context)
 @login_required
 def sundryreport (request):
     if request.method=='POST':
@@ -1159,16 +1170,16 @@ def expensesarchivessearch(request):
                'expenses': expenses}
     return render(request, "Expenses/expenditurearchive.html", context)
 @login_required
-def salaryarchivessearch(request):
+def Allowancearchivessearch(request):
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
-        archived_reports = SalaryReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
+        archived_reports = AllowanceReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
         months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
                   'August','September', 'October',  'November','December']
         years = [2018, 2019, 2020, 2021]
 
-        salary = SalaryReportArchive.objects.all()
+        Allowance = AllowanceReportArchive.objects.all()
         today = timezone.now()
         total = archived_reports.aggregate(totals=models.Sum("Amount"))
         total_amount = total["totals"]
@@ -1176,24 +1187,24 @@ def salaryarchivessearch(request):
         context = {'archived_reports': archived_reports,
                    'months': months,
                    'years': years,
-                   'expenses':salary,
+                   'expenses':Allowance,
                    'total_amount': total_amount,
                    'today': today,
                    'report_year': report_year,
                    'report_month': report_month
                    }
-        return render(request, "salaryarchive.html", context)
+        return render(request, "Allowancearchive.html", context)
 
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
               'August', 'September','October',  'November', 'December']
     years = [2018, 2019, 2020, 2021]
 
-    salary=SalaryReportArchive.objects.all()
+    Allowance=AllowanceReportArchive.objects.all()
 
     context = {'months': months,
                'years': years,
-               'salary': salary}
-    return render(request, "salaryarchive.html", context)
+               'Allowance': Allowance}
+    return render(request, "Allowancearchive.html", context)
 @login_required
 def sundryarchivessearch(request):
     if request.method == 'POST':
@@ -1257,23 +1268,6 @@ class expenditurearchivepdf(View):
             'report_month': report_month
         }
         return Render.render('Expenses/expenditurearchivepdf.html', expensecontext)
-
-
-# Printing Salaries archived Report
-class salaryarchivepdf(View):
-    def get(self, request, report_month, report_year):
-        archived_salary = SalaryReportArchive.objects.filter(month=report_month, year=report_year)
-        today = timezone.now()
-        total = archived_salary.aggregate(totals=models.Sum("Amount"))
-        total_amount = total["totals"]
-        salarycontext = {
-            'today': today,
-            'total_amount': total_amount,
-            'request': request,
-            'archived_salary': archived_salary,
-        }
-        return Render.render('salaryarchivepdf.html', salarycontext)
-
 
 # Printing Sundry Expenses archived Report
 class sundryarchivepdf(View):
