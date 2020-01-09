@@ -103,6 +103,8 @@ class Members(models.Model):
         return self.First_Name + ' ' + self.Second_Name
     
 class Visitors(models.Model):
+
+    Photo=models.ImageField(upload_to='avatars/', blank=False)
     First_Name=models.CharField(max_length=100, null=True)
     Second_Name=models.CharField(max_length=100, null=True)
     Address=models.CharField(max_length=100, null=True)
@@ -112,17 +114,37 @@ class Visitors(models.Model):
         return self.First_Name + ' ' + self.Second_Name
 
 class StaffDetails(models.Model):
-    Date = models.DateField(null=True, blank=True)
-    Name = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, null=True, blank=True)
+    sex=(('Male','Male'),('Female','Female'))
+    education=(('Masters','Master'),('Degree','Degree'),('Diploma','Diploma'),('Certificate','Certificate'))
+    rel =(('Born Again','Born Again'),('Others','Others'))
+    First_Name=models.CharField(max_length=100,null=True)
+    Second_Name=models.CharField(max_length=100,null=True)
+    Gender=models.CharField(max_length=100, choices=sex, null=True)
+    Date_Of_Birth=models.DateField(null=True, blank=True)
+    Education_Level=models.CharField(max_length=100, choices=education,null=True)
+    Residence=models.CharField(max_length=100,null=True)
+    Telephone=models.CharField(max_length=100,null=True)
+    Photo=models.ImageField(upload_to='avatars/', blank=False)
+    Faith=models.CharField(max_length=100, choices=rel, null=True)
+    Date_of_paying_salary = models.DateField(null=True, blank=True)
+    Month_being_cleared = models.DateField(null=True, blank=True)
     Salary_Amount = models.IntegerField(default=0)
     Role = models.CharField(max_length=200, blank=False)
     Date_of_employment=models.DateField(null=False, blank=False)
     End_of_contract=models.DateField(null=False, blank=False)
+    @property
+    def Balance(self):
+        bal = SalariesPaid.objects.filter(Month_being_cleared=self.Month_being_cleared, Salary_Id=self.id).aggregate(totals=models.Sum("Amount_Paid"))
+        bal['totals']
+        result=self.Salary_Amount-bal
+        return result
+    
 class SalariesPaid(models.Model):
     Salary_Id = models.CharField(max_length=200,null=True, blank=True)
     Name = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, null=True, blank=True)
-    Date = models.CharField(max_length=200,null=True, blank=True)
     Salary_Amount = models.IntegerField(default=0)
+    Month_being_cleared = models.DateField(null=True, blank=True)
+    Date_of_paying_salary = models.DateField(null=True, blank=True)
 
 
 class Tithes(Model):

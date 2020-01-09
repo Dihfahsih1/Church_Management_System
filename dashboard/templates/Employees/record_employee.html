@@ -39,14 +39,38 @@
 			    <div class="row">
 				  	<div class="col-lg-4">
 					    <div class="col-lg-12">
-						    {{ form.Name|as_crispy_field }}
+						    First_Name
 						</div>
 						<div class="col-lg-12">
-						    {{ form.Role|as_crispy_field }}
-						</div>
+                            {{Second_Name |as_crispy_field }}
 
+						</div>
+                       <div class="col-lg-12">
+                            {{Gender |as_crispy_field }}
+                        </div>
+                       <div class="col-lg-12">
+                            {{ Date_Of_Birth|as_crispy_field }}
+                        </div>
 				   </div>
+                    <div class="col-lg-4">
+                        <div class="col-lg-12">
+                            {{Education_Level |as_crispy_field }}
+                        </div>
+                        <div class="col-lg-12">
+                            {{Residence |as_crispy_field }}
+
+                        </div>
+                       <div class="col-lg-12">
+                            {{Telephone |as_crispy_field }}
+                        </div>
+                       <div class="col-lg-12">
+                            {{Photo |as_crispy_field }}
+                        </div>
+                   </div>
 				   <div class="col-lg-4">
+                        <div class="col-lg-12">
+                            {{Faith |as_crispy_field }}
+                        </div>
                         <div class="col-lg-12">
                             {{ form.Salary_Amount|as_crispy_field }}
                         </div>
