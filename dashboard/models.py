@@ -121,6 +121,7 @@ class StaffDetails(models.Model):
     def __str__(self):
         return self.Name
 class SalariesPaid(models.Model):
+    Salary_Id = models.CharField(max_length=200,null=True, blank=True)
     Name = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, null=True, blank=True)
     Date = models.CharField(max_length=200,null=True, blank=True)
     Salary_Amount = models.IntegerField(default=0)

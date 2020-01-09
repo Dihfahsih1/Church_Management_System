@@ -40,7 +40,7 @@ class StaffDetailsForm(forms.ModelForm):
 class SalariesPaidForm(forms.ModelForm):
     class Meta:
         model = SalariesPaid
-        fields = ('Name','Salary_Amount','Date')
+        fields = ('Salary_Id','Name','Salary_Amount','Date')
 class OfferingsForm(forms.ModelForm):
     class Meta:
         model=Offerings

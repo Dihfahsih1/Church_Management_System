@@ -40,10 +40,10 @@
 			<form method="POST" enctype="multipart/form-data" action="{% url 'paid-salary'%}" >
 			    {% csrf_token %}
 			    <div class="row">
-                    <div class="form-group col-md-3 mb-0" id="Invoice_Id">
+                    <div class="form-group col-md-3 mb-0" id="Salary_Id">
                         {% for id in retrieve_employee_id %}
                             <label>Invoice_Id</label>
-                            <input type="text" name="Invoice_Id" id="Invoice_Id" maxlength="100"
+                            <input type="text" name="Salary_Id" id="Salary_Id" maxlength="100"
                                    class="textinput textInput form-control"
                                    value="{{ id.id }}">
                         {% endfor %}

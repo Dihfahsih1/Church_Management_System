@@ -80,17 +80,18 @@ def employee_list(request):
 
 def paying_employees(request, pk):
     items = get_object_or_404(StaffDetails, id=pk)
-    #add a second condition to fetch only school fees exclude other dues
     if request.method == "POST":
         form = StaffDetailsForm(request.POST, request.FILES, instance=items)
     else:
         form = StaffDetailsForm(instance=items)
         retrieve_employee_id = StaffDetails.objects.filter(id=pk)
+        for i in retrieve_employee_id:
+            print(i.Name)
         context = {'form': form, 'retrieve_employee_id': retrieve_employee_id}
         return render(request, 'Employees/pay_employee.html', context)
 
 def paid_salary(request):
-    if request.method == "POST":
+    if request.method == "GET":
         form = SalariesPaidForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
