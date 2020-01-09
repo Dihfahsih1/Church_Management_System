@@ -683,7 +683,10 @@ class tithesarchivepdf(View):
         }
         return Render.render('tithesarchivepdf.html', tithescontext)
 
-#Allowances Module
+                #########################################
+                #          ALLOWANCES MODULE            #
+                #########################################
+
 def give_allowance(request):
     if request.method=="POST":
         form=AllowanceForm(request.POST)
@@ -691,8 +694,11 @@ def give_allowance(request):
             form.save()
             return redirect('allowancereport')
     else:
-        form=AllowanceForm()
-        return render(request, 'Allowances/record_new_allowance.html',{'form':form})
+        today = timezone.now()
+        current_month = today.strftime('%B')
+        form = AllowanceForm()
+        context={'form': form, 'current_month': current_month}
+        return render(request, 'Allowances/record_new_allowance.html',context)
 
 def edit_allowance(request, pk):
     item = get_object_or_404(Allowance, pk=pk)
@@ -834,7 +840,7 @@ def allowancearchivessearch(request):
                'years': years,
                'Allowance': Allowance}
     return render(request, "Allowancearchive.html", context)
-    
+
 def allowancearchive(request):
     Allowancearchived = AllowanceReportArchive.objects.all().order_by('-Date')
     total = AllowanceReportArchive.objects.aggregate(totals=models.Sum("Amount"))
