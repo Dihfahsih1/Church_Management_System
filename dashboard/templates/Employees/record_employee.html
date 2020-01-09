@@ -21,6 +21,8 @@
                         | <a href="{% url 'visitors-list' %}">Visitors List</a>
                         <a href="{% url 'visitors-list' %}">Employee List</a>
                     </div>
+                    <div class="separator"></div>
+                    <h2 style="text-align: center">Enter all Employee Details</h2>
   	      <div class="x_content">
             <div class="" data-example-id="togglable-tabs">
                 <ul class="nav nav-tabs bordered">
@@ -39,37 +41,40 @@
 			    <div class="row">
 				  	<div class="col-lg-4">
 					    <div class="col-lg-12">
-						    First_Name
+						    {{form.First_Name|as_crispy_field}}
 						</div>
 						<div class="col-lg-12">
-                            {{Second_Name |as_crispy_field }}
+                            {{form.Second_Name |as_crispy_field }}
 
 						</div>
                        <div class="col-lg-12">
-                            {{Gender |as_crispy_field }}
+                            {{form.Gender |as_crispy_field }}
                         </div>
                        <div class="col-lg-12">
-                            {{ Date_Of_Birth|as_crispy_field }}
+                            {{form.Date_Of_Birth|as_crispy_field }}
+                        </div>
+                        <div class="col-lg-12">
+                            {{form.Role|as_crispy_field }}
                         </div>
 				   </div>
                     <div class="col-lg-4">
                         <div class="col-lg-12">
-                            {{Education_Level |as_crispy_field }}
+                            {{form.Education_Level |as_crispy_field }}
                         </div>
                         <div class="col-lg-12">
-                            {{Residence |as_crispy_field }}
+                            {{form.Residence |as_crispy_field }}
 
                         </div>
                        <div class="col-lg-12">
-                            {{Telephone |as_crispy_field }}
+                            {{form.Telephone |as_crispy_field }}
                         </div>
                        <div class="col-lg-12">
-                            {{Photo |as_crispy_field }}
+                            {{form.Photo |as_crispy_field }}
                         </div>
                    </div>
 				   <div class="col-lg-4">
                         <div class="col-lg-12">
-                            {{Faith |as_crispy_field }}
+                            {{form.Faith |as_crispy_field }}
                         </div>
                         <div class="col-lg-12">
                             {{ form.Salary_Amount|as_crispy_field }}

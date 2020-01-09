@@ -31,7 +31,10 @@ class AllowanceForm(forms.ModelForm):
 class StaffDetailsForm(forms.ModelForm):
     class Meta:
         model=StaffDetails
-        fields=('Date_Of_Birth','First_Name','Second_Name','Gender','Education_Level','Residence','Telephone','Photo','Faith','Date_of_paying_salary','Month_being_cleared','Salary_Amount','Role','Date_of_employment','End_of_contract')
+        fields=('Date_Of_Birth','First_Name','Second_Name','Gender',
+            'Education_Level','Residence','Telephone','Photo','Faith',
+            'Date_of_paying_salary','Month_being_cleared','Salary_Amount',
+            'Role','Date_of_employment','End_of_contract')
         widgets = {
              'Month_being_cleared' :MonthPickerInput(),
              'Date_Of_Birth': DatePickerInput(),

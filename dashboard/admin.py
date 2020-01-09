@@ -8,7 +8,7 @@ class PledgesAdmin(admin.ModelAdmin):
 class PledgesReportArchiveAdmin(admin.ModelAdmin):
     list_display = ('total_pledge_paid','Pledge_Balance','updatestatus') 
 class StaffDetailsAdmin(admin.ModelAdmin):
-    list_display = ('Balance')
+    list_display = ('Balance','full_name')
 class MembersAdmin(admin.ModelAdmin):
     list_display = ('full_name')        
 admin.site.register(StaffDetails)

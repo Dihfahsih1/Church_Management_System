@@ -114,6 +114,7 @@ class Visitors(models.Model):
         return self.First_Name + ' ' + self.Second_Name
 
 class StaffDetails(models.Model):
+    rol=(('Security','Security'),('Secretary','Secretary'),('Church-Welfare','Church-Welfare'))
     sex=(('Male','Male'),('Female','Female'))
     education=(('Masters','Master'),('Degree','Degree'),('Diploma','Diploma'),('Certificate','Certificate'))
     rel =(('Born Again','Born Again'),('Others','Others'))
@@ -129,7 +130,7 @@ class StaffDetails(models.Model):
     Date_of_paying_salary = models.DateField(null=True, blank=True)
     Month_being_cleared = models.DateField(null=True, blank=True)
     Salary_Amount = models.IntegerField(default=0)
-    Role = models.CharField(max_length=200, blank=False)
+    Role = models.CharField(max_length=200, choices=rol, blank=True, null=True)
     Date_of_employment=models.DateField(null=False, blank=False)
     End_of_contract=models.DateField(null=False, blank=False)
     @property
@@ -137,8 +138,10 @@ class StaffDetails(models.Model):
         bal = SalariesPaid.objects.filter(Month_being_cleared=self.Month_being_cleared, Salary_Id=self.id).aggregate(totals=models.Sum("Amount_Paid"))
         bal['totals']
         result=self.Salary_Amount-bal
-        return result
-    
+        return result 
+    @property
+    def full_name(self):
+        return str(self.First_Name)+ ' ' + str(self.Second_Name)
 class SalariesPaid(models.Model):
     Salary_Id = models.CharField(max_length=200,null=True, blank=True)
     Name = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, null=True, blank=True)

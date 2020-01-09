@@ -50,14 +50,15 @@
                             <tbody>
                                 {% for emp in employees %}
                                 <tr> <td>{{ emp.id}}</td>
-                                     <td>{{ emp.Name}}</td>
+                                     <td>{{ emp.full_name}}</td>
                                      <td>{{ emp.Role}}</td>
                                      <td>{{ emp.Salary_Amount}}</td>
                                      <td>{{ emp.Date_of_employment}}</td>
                                      <td>{{ emp.End_of_contract}}</td>
                                      <td>
                                      <div class="mb-4">
-                                        <a href="#"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                                        <a href="#"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-eye-open"></span> View</a>
+                                        <a href="#"class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                                      
                                         <a href="#"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"></span> Delete</a>
                                         <a href="{% url 'pay-employee' pk=emp.id %}"class="btn btn-warning btn-sm "><span class="glyphicon glyphicon-euro"> Pay Salary </span></a>
