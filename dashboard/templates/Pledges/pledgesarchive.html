@@ -90,7 +90,6 @@
                               </tr>
                           {% endfor %}
                           </tbody>
-                          {% if archived_reports %}
                            <h2 style="text-align: center">Monthly Archived Pledges Report For the financial cycle of  <b>{{ report_month }} {{ report_year }}</b>  </h2>
                             <thead>
                               <tr>
@@ -104,11 +103,6 @@
                               </tr>
                             </thead>
                       </table>
-                      <a href="{% url 'pledgesarchivepdf' report_month report_year %}" target="_new" class="btn btn-primary bt-sm" role="button"><span class="glyphicon glyphicon-print "> Print Report</span></a>
-
-                      {% else %}
-                      <h2> No archived Data in the query you have made of {{ report_month }} {{ report_year }}</h2>
-                      {% endif %}
                     </div>
                   </div>
                 </div>

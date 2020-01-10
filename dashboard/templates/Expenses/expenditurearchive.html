@@ -89,7 +89,6 @@
                                           {% endfor %}
                                           </tbody>
 
-                                           {% if archived_reports %}
                                                <h2 style="text-align: center">Monthly Archived Expenses Report For the financial cycle of  <b>{{ report_month }} {{ report_year }}</b>  </h2>
                                            <thead class="font-weight-bold ">
                                             <tr>
@@ -99,9 +98,6 @@
                                               <td>Amount</td>
                                             </tr>
                                           </thead>
-                                         {% else %}
-                                          <h2> No archived Data in the query you have made of the cycle {{ report_month }} {{ report_year }}</h2>
-                                      {% endif %}
                                       </table>
                                       <a href="#" class="btn btn-primary bt-sm" role="button"><span class="glyphicon glyphicon-print"></span></a>
                                     </div>
