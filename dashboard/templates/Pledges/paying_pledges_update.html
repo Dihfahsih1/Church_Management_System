@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container">
+
+
+{% load crispy_forms_tags %}
+<br>
+{{form.Pledge_Made_By}} <h5>has made a Pledge Payment</h5>
+<form method="POST" enctype="multipart/form-data" action="{% url 'member_pledges_paid' %}" >
+{% csrf_token %}
+    <div class="form-row col-lg-" id="name">
+        {{ form.Pledge_Made_By|as_crispy_field }}
+    </div>
+
+    {% for pledge_id in retrieving_id %}
+    <div class="form-row col-lg-3" id="st">
+        <label> Pledge_Id</label>
+        <input type="text" name="Pledge_Id" id="Pledge_Id" maxlength="100" class="textinput textInput form-control" value="{{pledge_id.id }}">
+    </div>
+    {% endfor%}
+
+    <div class="form-row col-lg-3" id="name">
+	    {{ form.Date|as_crispy_field }}
+	</div>
+	<div class="form-row col-lg-3">
+	    {{ form.Amount_Paid|as_crispy_field }}
+	</div>
+    <button type="submit" class="btn btn-primary" name="button">Submit</button>
+
+</form>
+{% include 'messages.html' %}
+</div>
+  <script type="text/javascript">
+            $(document).ready(function () {
+                $('#invoice-table').DataTable({
+                    dom: 'Bfrtip',
+                    iDisplayLength: 15,
+                    buttons: [
+                        'copyHtml5',
+                        'excelHtml5',
+                        'csvHtml5',
+                        'pdfHtml5',
+                        'print',
+                        'pageLength'
+                    ],
+                    search: true,
+                    responsive: true
+                });
+            });
+
+
+                      $("#st").hide();
+                      $("#name").hide();
+
+            //document.getElementById('id_Date').readOnly = true;
+            //document.getElementById('id_Pledge_Made_By').disabled = true;
+
+    //script for disabling the dropdown button, making it uneditable for the user
+    //$(function () {
+    //var klass = $('select[name="Pledge_Made_By"]')
+   //klass.prop('disabled', true);});
+
+        </script>
+{% endblock %}

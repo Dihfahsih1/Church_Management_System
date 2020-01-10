@@ -1,0 +1,49 @@
+
+{% extends "app/base_site.html" %}
+{% block content %}
+<div class="right_col" role="main">
+  <div class="row">
+{% load crispy_forms_tags %}
+<form method="POST" enctype="multipart/form-data" >
+{% csrf_token %}
+  <div class="form-row">
+    <div class="col-lg-3">
+	    {{ form.Date|as_crispy_field }}
+	</div>
+	<div class="col-lg-3">
+	    {{ form.Pledge_Made_By|as_crispy_field }}
+	</div>
+
+	<div class="col-lg-3">
+	    {{ form.Reason|as_crispy_field }}
+	</div>
+
+	<div class="col-lg-3">
+	    {{ form.Amount_Pledged|as_crispy_field }}
+	</div>
+	<div class="col-lg-3">
+	    {{ form.Amount_In_Words|as_crispy_field }}
+	</div>
+   </div>
+    <button type="submit" class="btn btn-primary" name="button">Submit</button>
+</form>
+<p style="color:red"><b>NB:</b> 1. Record only pledges that are to finance church activities<br>2. Don't record here wedding or introduction pledges.</p>
+{% include 'messages.html' %}	
+</div>
+</div>
+{% endblock content %}
+
+{% block javascripts %}
+
+    {{ block.super }}
+    <!-- Datatables -->
+    <!-- DateJS -->
+    <script src="/static/vendors/DateJS/build/date.js"></script>
+    <!-- JQVMap -->
+    <script src="/static/vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="/static/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="/static/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+
+
+
+{% endblock javascripts %}
