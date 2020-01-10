@@ -32,9 +32,9 @@
                         <li role="presentation"><a href="{% url 'Enter_Offerings' %}"><i
                               class="fa fa-plus-square-o"></i> Record Offering</a>
                          </li>
-                          <li role="presentation"><a href="{% url 'offeringsarchivessearch' %}"><i
-                              class="fa fa-plus-square-o"></i> Offerings Archived</a>
-                         </li>
+                        <li role="presentation"><a href="{% url 'offeringsarchivessearch' %}"><i
+                            class="fa fa-plus-square-o"></i> Offerings Archived</a>
+                       </li>
                     </ul>
                     <br/>
                      <h2 style="text-align: center">The {{current_month}} Offerings Report</h2>
@@ -76,13 +76,9 @@
                        </div>
                      </div>
                    </div>
-                   {% else %}
-                         <h3>No Offerings Recorded Yet!</h3>
-                         {% endif %}
-
-
+                  {% endif %}
                  <!-- Button trigger modal -->
-<!-- Modal -->
+                 <!-- Modal -->
                   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
