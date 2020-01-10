@@ -52,13 +52,13 @@
 
                 <li><a><i class="fa fa-dashboard"></i> Monthly Reports <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li><a href="#"> Main Expenses Reports</a></li>
-                        <li><a href="#"> Offerings Reports</a></li>
-                        <li><a href="#"> Tithes Reports</a></li>
-                        <li><a href="#"> Pledges Reports</a></li>
-                        <li><a href="#"> Petty Expenses Reports</a></li>
-                        <li><a href="#"> Allowances Reports</a></li>
-                        <li><a href="#"> Salaries Report</a></li>
+                        <li><a href="{% url 'enter_expenditure'  %}"> Main Expenses Reports</a></li>
+                        <li><a href="{% url 'Offeringsreport'  %}"> Offerings Reports</a></li>
+                        <li><a href="{% url 'Tithesreport'  %}"> Tithes Reports</a></li>
+                        <li><a href="{% url 'Pledgesreport'  %}"> Pledges Reports</a></li>
+                        <li><a href="{% url 'sundryreport'  %}"> Petty Expenses Reports</a></li>
+                        <li><a href="{% url 'allowancereport'  %}"> Allowances Reports</a></li>
+                        <li><a href="{% url 'urrent-month-salaries'  %}"> Salaries Report</a></li>
                     </ul>
                 </li>
                 <li><a><i class="fa fa-folder-open"></i> Archived Reports <span class="fa fa-chevron-down"></span></a>
