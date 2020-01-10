@@ -13,12 +13,11 @@
               </ul>
             <div class="clearfix"></div>
           </div>
-                <div class="x_content quick-link">
-                    <span style="color:red"><b>Pleges Module:</b></span>
-                        <a href="#"> Unsettled Pledges</a></li>
-                        |<a href="#"> All Pledges Paid</a></li>
-                        |<a href="#"> Pledges Archived</a></li>
-                        |<a href="{% url 'Pledgesreport'  %}"> Pledges Reports</a></li>
+                <div class="x_content quick-link"><span style="color:red"><b>Quick Links:</b></span>
+                         <a href="{% url 'archived-pledge-debts' %}"> Unsettled Pledges</a>
+                        |<a href="{% url 'pledges-paid-list' %}"> All Pledges Paid</a>
+                        |<a href="{% url 'pledgesarchivessearch' %}"> Pledges Archived</a>
+                        |<a href="{% url 'Pledgesreport' %}"> Pledges Reports</a>
                     <div class="separator"></div>
                 </div>
                 <h2 style="text-align: center">Settle the archived pledge debts</h2>
@@ -27,18 +26,26 @@
             <div class="" data-example-id="togglable-tabs">
               <ul class="nav nav-tabs bordered">
                 <li role="presentation" ><a href="{% url 'Pledgesreport' %}"><i
-                            class="fa fa-list-ol"></i> Pledges Made</a>
+                                    class="fa fa-list-ol"></i> List of Pledges</a>
                 </li>
                 <li role="presentation"><a href="{% url 'Enter_Pledges' %}"><i
-                      class="fa fa-plus-square-o"></i> Record Pledges</a>
-                </li>
+                      class="fa fa-plus-square-o"></i> Record Pledge</a>
+                 </li>
+                <li role="presentation"><a href="{% url 'pledgesarchivessearch' %}"><i
+                      class="fa fa-list-ol"></i> Archived Pledges Report</a>
+                 </li>
+                 <li role="presentation"><a href="{% url 'archived-pledge-debts' %}"><i
+                      class="fa fa-plus-square-o"></i> Archived Pledge Debts</a>
+                 </li>
+                 <li role="presentation"><a href="{% url 'pledges-paid-list' %}"><i
+                class="fa fa-plus-square-o"></i> Pledges Paid</a>
+                 </li>
                 <li role="presentation" class="active"><a href="#"><i
                       class="fa fa-plus-square-o"></i> Settle Archived Debts</a>
                 </li>
               </ul>
             {% load crispy_forms_tags %}
             <br>
-            <p> {{form.Pledge_Made_By}} <h5>Is settling a pledge debt</h5></p>
             <form method="POST" enctype="multipart/form-data" action="{% url 'member-settle-pledge-debt' %}" >
             {% csrf_token %}
                 {% for pledge_id in retrieving_id %}
@@ -47,18 +54,15 @@
                     <input type="text" name="Pledge_Id" id="Pledge_Id" maxlength="100" class="textinput textInput form-control" value="{{ pledge_id.Pledge_Id }}">
                 </div> 
                 {% endfor%} 
-                <div class="form-row col-lg-" id="name">
+                <div class="col-lg-6">
                     {{ form.Pledge_Made_By|as_crispy_field }}
-                </div>                                
-            	
-                <div class="form-row col-lg-3" id="name">
+               
             	    {{ form.Date|as_crispy_field }}
-            	</div>
-            	<div class="form-row col-lg-3">
+            
             	    {{ form.Amount_Paid|as_crispy_field }}
-            	</div>
+            	
                 <button type="submit" class="btn btn-primary" name="button">Submit</button>
-
+                </div>
             </form>
             {% include 'messages.html' %}
             </div>

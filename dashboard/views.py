@@ -1262,6 +1262,9 @@ def delete_bad_debt(request, pk):
 @login_required
 def pledges_paid_list(request):
     context = {}
+    today = timezone.now()
+    month = today.strftime('%B')
+    context['month']=month
     current_month = datetime.now().month
     lists = PaidPledges.objects.filter(Date__month=current_month)
     context['lists']=lists
