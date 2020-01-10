@@ -15,15 +15,15 @@
                     </div>
                     <div class="x_content quick-link">
                     <span style="color:red"><b>Other Reports:</b></span>
-                        <a href="{% url 'enter_expenditure'  %}"> Main Expenses Reports</a></li>
-                        |<a href="{% url 'Offeringsreport'  %}"> Offerings Reports</a></li>
-                        |<a href="{% url 'Tithesreport'  %}"> Tithes Reports</a></li>
-                        |<a href="{% url 'Pledgesreport'  %}"> Pledges Reports</a></li>
-                        |<a href="{% url 'sundryreport'  %}"> Petty Expenses Reports</a></li>
-                        |<a href="{% url 'allowancereport'  %}"> Allowances Reports</a></li>
-                        |<a href="{% url 'current-month-salaries'  %}"> Salaries Report</a></li>
+                        <a href="{% url 'enter_expenditure'  %}"> Main Expenses Reports</a>
+                        |<a href="{% url 'Offeringsreport'  %}"> Offerings Reports</a>
+                        |<a href="{% url 'Tithesreport'  %}"> Tithes Reports</a>
+                        |<a href="{% url 'Pledgesreport'  %}"> Pledges Reports</a>
+                        |<a href="{% url 'sundryreport'  %}"> Petty Expenses Reports</a>
+                        |<a href="{% url 'allowancereport'  %}"> Allowances Reports</a>
+                        |<a href="{% url 'current-month-salaries'  %}"> Salaries Report</a>
                     <div class="separator"></div>
-                </div>
+                   </div>
                     <h2 style="text-align: center">The {{current_month}} Expenditure Report</h2>
                     <p>{{ message }}</p>
             <div class="x_content">
@@ -89,29 +89,29 @@
                 </div>
                 <div class="modal-body">
                   <h5 class="text-primary">Select year and corresponding month to archive</h5>
-                                  <form class="form-inline" method="POST" enctype="multipart/form-data">
-                                  {% csrf_token %}
+                    <form class="form-inline" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
 
-                                      <div class="col-auto my-1">
-                                    <label class="mr-sm-2" for="inlineFormCustomSelect">Year</label>
-                                    <select class="custom-select mr-sm-2" name="archived_year" id="inlineFormCustomSelect">
-                                        {% for report_year in years %}
-                                           <option name="{{ report_year }}" value="{{ report_year }}">{{ report_year }}</option>
-                                        {% endfor %}
-                                    </select>
-                                  </div>
-                                      <div class="col-auto my-1">
-                                    <label class="mr-sm-2" for="inlineFormCustomSelect">Month</label>
-                                    <select class="custom-select mr-sm-2" name="archived_month" id="inlineFormCustomSelect">
-                                        {% for report_month in months %}
-                                           <option name="{{ report_month }}" value="{{ report_month }}">{{ report_month }}</option>
-                                        {% endfor %}
-                                    </select>
-                                  </div>
-                                   <div class="col-auto my-1">
-                                  <button type="submit" class="btn btn-primary">Submit</button>
-                                  </div>
-                                  </form>
+                            <div class="col-auto my-1">
+                          <label class="mr-sm-2" for="inlineFormCustomSelect">Year</label>
+                          <select class="custom-select mr-sm-2" name="archived_year" id="inlineFormCustomSelect">
+                              {% for report_year in years %}
+                                 <option name="{{ report_year }}" value="{{ report_year }}">{{ report_year }}</option>
+                              {% endfor %}
+                          </select>
+                        </div>
+                          <div class="col-auto my-1">
+                          <label class="mr-sm-2" for="inlineFormCustomSelect">Month</label>
+                          <select class="custom-select mr-sm-2" name="archived_month" id="inlineFormCustomSelect">
+                              {% for report_month in months %}
+                                 <option name="{{ report_month }}" value="{{ report_month }}">{{ report_month }}</option>
+                              {% endfor %}
+                          </select>
+                          </div>
+                         <div class="col-auto my-1">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
