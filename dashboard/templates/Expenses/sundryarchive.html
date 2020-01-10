@@ -80,7 +80,6 @@
                                         </tr>
                                     {% endfor %}
                                     </tbody>
-                                     {% if archived_reports %}
                                       <h2 style="text-align: center">Monthly Archived Petty Expenses Reports For the financial cycle of  <b>{{ report_month }} {{ report_year }}</b></h2>
                                       <thead>
                                        <tr>
@@ -90,9 +89,6 @@
                                         <td>Amount</td>
                                        </tr>
                                       </thead>
-                                      {% else %}
-                                      <h2 style="text-align: center">No Data Yet!</h2>
-                                    {% endif %}
                                     </table>
                                   </div>
                                 </div>
