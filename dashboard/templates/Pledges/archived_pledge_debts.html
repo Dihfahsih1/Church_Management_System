@@ -32,8 +32,8 @@
                         <li role="presentation"><a href="{% url 'Enter_Pledges' %}"><i
                               class="fa fa-plus-square-o"></i> Record Pledge</a>
                          </li>
-                        <li role="presentation" class="active"><a href="{% url 'Pledgesreport' %}"><i
-                              class="fa fa-plus-square-ol"></i> Pledges Report</a>
+                        <li role="presentation"><a href="{% url 'Pledgesreport' %}"><i
+                              class="fa fa-list-ol"></i> Pledges Report</a>
                          </li>
                          <li role="presentation" class="active"><a href="{% url 'archived-pledge-debts' %}"><i
                               class="fa fa-plus-square-o"></i> Archived Pledge Debts</a>
@@ -70,10 +70,8 @@
                                   <td>{{ db.Pledge_Balance}}</td>
                                   <td><div class="mb-4">
                                   {% if db.total_pledge_paid >= db.Pledged_Amount  %}
-                                  
-
                                     <a href="#" target="_blank"><button class="btn btn-primary">Debt settled</button></a>
-                                    |<a href="{% url 'settle-pledge-debt' db.Pledge_Id %}" target="_blank"><button class="btn btn-warning"><span class="glyphicon glyphicon-qrcode"> Receipt</span></button></a>
+                                    |<a href="#}" target="_blank"><button class="btn btn-warning"><span class="glyphicon glyphicon-qrcode"> Receipt</span></button></a>
                                   {% else %}
                                   <a href="{% url 'settle-pledge-debt' db.Pledge_Id %}" target="_blank"><button class="btn btn-success">Settle Debt</button></a>|
                                     <button class="btn btn-info">Invoice</button>
