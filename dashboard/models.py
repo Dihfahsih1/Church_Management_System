@@ -272,7 +272,6 @@ class PledgesReportArchive(Model):
     @property
     def total_pledge_paid(self):
         results = PaidPledges.objects.filter(Pledge_Id=self.Pledge_Id).aggregate(totals=models.Sum("Amount_Paid"))
-        PledgesReportArchive.objects.all().delete()
         if (results['totals']):
             return results["totals"]
         else:

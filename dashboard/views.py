@@ -1330,12 +1330,17 @@ def Pledgesreport(request):
     years = [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
     total = Pledges.objects.aggregate(totals=models.Sum("Amount_Pledged"))
     total_amount = total["totals"]
-    items =Pledges.objects.all()
+    total_amount = total["totals"]
+    today = timezone.now()
+    current_month = today.strftime('%B')
+    mth = datetime.now().month
+    items =Pledges.objects.filter(Date__month=mth)
     context = {
         'total_amount':total_amount,
         'items':items,
         'months':months,
         'years':years,
+        'current_month':current_month
     }
     return render(request, 'Pledges/pledgesindex.html', context)
 
@@ -1361,9 +1366,8 @@ def pledgesarchivessearch(request):
               'August', 'September', 'October', 'November', 'December']
     years = [2019, 2020, 2021]
     pledges = PledgesReportArchive.objects.all()
-    pledges.delete()
     context = {'months': months, 'years': years, 'pledges': pledges}
-    return render(request, "ledges/pledgesarchive.html", context)
+    return render(request, "Pledges/pledgesarchive.html", context)
 
 class pledgesarchivepdf(View):
     def get(self, request, report_month, report_year):

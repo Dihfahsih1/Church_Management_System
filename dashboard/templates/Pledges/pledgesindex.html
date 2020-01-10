@@ -5,7 +5,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Offerings</small></h2>
+                    <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Pledges</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -34,7 +34,7 @@
                          </li>
                     </ul>
                     <br/>
-    <h4>The {{current_month}} Offerings Report</h4>
+    <h4>The {{current_month}} Pledges Report</h4>
     <p>{{ msg}}</p>
 
             <div class="tab-content">
@@ -70,7 +70,7 @@
                                   <td><a href="{% url 'pledgesreceipt' item.id %}" target="_new"><button class="btn btn-info"><span class="glyphicon glyphicon-qrcode">Receipt</span></button></a></td>
                                   {% else %}
                                   <td><a href="{% url 'paying_pledges' item.id %}" target="_new"><button class="btn btn-success"><span class="glyphicon glyphicon-circle-arrow-right">Pay</span></button></a>|
-                                  <a href="{% url 'pledgesreceipt' item.id %}" target="_new"><button class="btn btn-info"><span class="glyphicon glyphicon-print"></span></button></a> |
+                                  <a href="{% url 'pledgesreceipt' item.id %}" target="_new"><button class="btn btn-info"><span class="glyphicon glyphicon-qrcode"> Receipt</span></button></a> |
                                   <a href="{% url 'edit_pledges' item.id  %}" ><button class="btn btn-warning"><span class="glyphicon glyphicon-edit">Edit</span></button></a>        
                                   </td>
                                      
@@ -80,8 +80,8 @@
                               </tbody>
                           </table>
                           <p><b>NB: </b> Please archive this report at the end of every month</p>
-                          <div class="col-lg-4"><a href="{% url 'pledgespdf' %}" target="_new" class="btn btn-info bt-sm" role="button">Print</a> 
-                            |        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Archive</button></div></div></div> {% endif %}
+                          <div class="col-lg-4"><a href="{% url 'pledgespdf' %}" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"></span></a> 
+                            |        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">Archive</span></button></div></div></div> {% endif %}
        
                  <!-- Button trigger modal -->
 

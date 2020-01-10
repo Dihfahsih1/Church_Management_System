@@ -1,35 +1,71 @@
 
 {% extends "app/base_site.html" %}
 {% block content %}
-<div class="right_col" role="main">
-  <div class="row">
-{% load crispy_forms_tags %}
-<form method="POST" enctype="multipart/form-data" >
-{% csrf_token %}
-  <div class="form-row">
-    <div class="col-lg-3">
-	    {{ form.Date|as_crispy_field }}
-	</div>
-	<div class="col-lg-3">
-	    {{ form.Pledge_Made_By|as_crispy_field }}
-	</div>
+  <div class="right_col" role="main">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Pledges</small></h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              </ul>
+            <div class="clearfix"></div>
+          </div>
+                <div class="x_content quick-link">
+                    <span style="color:red"><b>Pleges Module:</b></span>
+                        <a href="#"> Unsettled Pledges</a></li>
+                        |<a href="#"> All Pledges Paid</a></li>
+                        |<a href="#"> Pledges Archived</a></li>
+                        |<a href="{% url 'Pledgesreport'  %}"> Pledges Reports</a></li>
+                    <div class="separator"></div>
+                </div>
+                <h2 style="text-align: center">Record Pledges</h2>
+                    <p>{{ message }}</p>
+          <div class="x_content">
+            <div class="" data-example-id="togglable-tabs">
+              <ul class="nav nav-tabs bordered">
+                <li role="presentation" ><a href="{% url 'Pledgesreport' %}"><i
+                            class="fa fa-list-ol"></i> Pledges Made</a>
+                </li>
+                <li role="presentation" class="active"><a href="{% url 'Enter_Pledges' %}"><i
+                      class="fa fa-plus-square-o"></i> Record Pledges</a>
+                </li>
+              </ul> <br/>
+				{% load crispy_forms_tags %}
+				<form method="POST" enctype="multipart/form-data" >
+				{% csrf_token %}
+				  <div class="form-row">
+				    <div class="col-lg-3">
+					    {{ form.Date|as_crispy_field }}
+					</div>
+					<div class="col-lg-3">
+					    {{ form.Pledge_Made_By|as_crispy_field }}
+					</div>
 
-	<div class="col-lg-3">
-	    {{ form.Reason|as_crispy_field }}
-	</div>
+					<div class="col-lg-3">
+					    {{ form.Reason|as_crispy_field }}
+					</div>
 
-	<div class="col-lg-3">
-	    {{ form.Amount_Pledged|as_crispy_field }}
-	</div>
-	<div class="col-lg-3">
-	    {{ form.Amount_In_Words|as_crispy_field }}
-	</div>
-   </div>
-    <button type="submit" class="btn btn-primary" name="button">Submit</button>
-</form>
-<p style="color:red"><b>NB:</b> 1. Record only pledges that are to finance church activities<br>2. Don't record here wedding or introduction pledges.</p>
-{% include 'messages.html' %}	
-</div>
-</div>
+					<div class="col-lg-3">
+					    {{ form.Amount_Pledged|as_crispy_field }}
+					</div>
+					<div class="col-lg-3">
+					    {{ form.Amount_In_Words|as_crispy_field }}
+					</div>
+				   </div>
+				    <button type="submit" class="btn btn-primary" name="button">Submit</button>
+				</form>
+				<p style="color:red"><b>NB:</b> 1. Record only pledges that are to finance church activities<br>2. Don't record here wedding or introduction pledges.</p>
+				{% include 'messages.html' %}
+			    </div>
+			   </div>
+			   </div>
+			    </div>
+			  </div>
+			</div>
+
+
 {% endblock content %}
 

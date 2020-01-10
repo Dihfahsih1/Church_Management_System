@@ -1,45 +1,9 @@
-{% extends 'base.html' %}
-{% block body %}
+{% extends 'app/base_site.html' %}
+{% block content %}
 
-<div class="container">
-    <nav class="nav navbar-expand">
-        <ul class="navbar-nav mr-auto">
-             <li class="nav-item {% if url_name == 'pledgesarchivessearch' %}active{% endif %}">
-                <a class="nav-link" href="{% url 'pledgesarchivessearch' %}">
-                    <button class="btn btn-success">Pledges Archive</button>
-                </a>
-            </li>
-         <li class="nav-item {% if url_name == 'tithesarchivessearch' %}active{% endif %}">
-                <a class="nav-link" href="{% url 'tithesarchivessearch' %}">
-                    <button class="btn btn-default">Tithes Archive</button>
-                </a>
-            </li>
-         <li class="nav-item {% if url_name == 'offeringsarchivessearch' %}active{% endif %}">
-                <a class="nav-link" href="{% url 'offeringsarchivessearch' %}">
-                    <button class="btn btn-success">Offering Archive</button>
-                </a>
-            </li>
-            <li class="nav-item {% if url_name == 'expensesarchivessearch' %}active{% endif %}">
-                <a class="nav-link" href="{% url 'expensesarchivessearch' %}">
-                    <button class="btn btn-success">Expenses Archive</button>
-                </a>
-            </li>
-            <li class="nav-item {% if url_name == 'sundryarchivessearch' %}active{% endif %}">
-                <a class="nav-link" href="{% url 'sundryarchivessearch' %}">
-                    <button class="btn btn-success">Petty Cash Archive</button>
-                </a>
-            </li>
 
-            <li class="nav-item {% if url_name == 'salaryarchivessearch' %}active{% endif %}">
-                <a class="nav-link" href="{% url 'salaryarchivessearch' %}">
-                    <button class="btn btn-success">Allowances Paid Archive</button>
-                </a>
-            </li>
-
-        </ul>
-    </nav>
-
-    <div class="container">
+   <div class="right_col" role="main">
+    <div class="row">
        <p>{{ message }}</p>
         <br><br>
         <h5>Please search for the archived tithes archived by <b class="btn-success">Year</b> and <b class="btn-success">Month</b></h5>
@@ -104,4 +68,4 @@
     </div>
 
     <br><br></div>
-{% endblock %}
+{% endblock content%}
