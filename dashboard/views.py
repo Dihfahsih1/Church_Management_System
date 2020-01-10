@@ -644,7 +644,7 @@ def allowancereport(request):
             expense_archiveobj=AllowanceReportArchive()
 
             #attached values to expense_archiveobj
-            expense_archiveobj.Name = name
+            expense_archiveobj.Staff = name
             expense_archiveobj.Date=date
             expense_archiveobj.Month=Manth
             expense_archiveobj.Amount=amount
@@ -687,7 +687,6 @@ def allowancearchivessearch(request):
                   'August','September', 'October',  'November','December']
         yr = datetime.now().year
         years = [yr,2019,2018]
-        years = [2018, 2019, 2020, 2021]
 
         Allowance = AllowanceReportArchive.objects.all()
         today = timezone.now()
@@ -703,7 +702,7 @@ def allowancearchivessearch(request):
                    'report_year': report_year,
                    'report_month': report_month
                    }
-        return render(request, "Allowancearchive.html", context)
+        return render(request, "Allowances/allowancearchive.html", context)
 
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
               'August', 'September','October',  'November', 'December']
@@ -715,7 +714,7 @@ def allowancearchivessearch(request):
     context = {'months': months,
                'years': years,
                'Allowance': Allowance}
-    return render(request, "Allowancearchive.html", context)
+    return render(request, "Allowances/allowancearchive.html", context)
 
 def allowancearchive(request):
     Allowancearchived = AllowanceReportArchive.objects.all().order_by('-Date')

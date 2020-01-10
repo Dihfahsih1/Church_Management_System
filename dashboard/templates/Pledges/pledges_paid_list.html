@@ -1,34 +1,76 @@
-{% extends "base.html" %}
+{% extends "app/base_site.html" %}
+{% block content %}
+<div class="right_col" role="main">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Pledges</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                  <div class="x_content quick-link">
+                    <span style="color:red"><b>Quick Links:</b></span>
+                         <a href="{% url 'archived-pledge-debts' %}"> Unsettled Pledges</a>
+                        |<a href="{% url 'pledges-paid-list' %}"> All Pledges Paid</a>
+                        |<a href="{% url 'pledgesarchivessearch' %}"> Pledges Archived</a>
+                        |<a href="{% url 'Pledgesreport' %}"> Pledges Reports</a>
+                    <div class="separator"></div>
+                </div>
+            <div class="x_content">
+                <div class="" data-example-id="togglable-tabs">
+                    <ul class="nav nav-tabs bordered">
+                        <li role="presentation"><a href="{% url 'Pledgesreport' %}"><i
+                                    class="fa fa-list-ol"></i> List of Pledges</a>
+                        </li>
+                        <li role="presentation"><a href="{% url 'Enter_Pledges' %}"><i
+                              class="fa fa-plus-square-o"></i> Record Pledge</a>
+                        </li>
+                        <li role="presentation"><a href="{% url 'pledgesarchivessearch' %}"><i
+                              class="fa fa-plus-square-o"></i> Pledges Archived</a>
+                        </li>
+                        <li role="presentation" class="active"><a href="{% url 'pledgesarchivessearch' %}"><i
+                              class="fa fa-plus-square-o"></i> Pledges Paid</a>
+                        </li>  
+                    </ul>
+                    <br/>
+                   <h2 style="text-align: center">The History Paying Pledges</h2>
 
-{% block body %}
-<div class="container">
-    <br><br>
-    <div class="float-lg-right">
-    <a href="{% url 'Pledgesreport' %}"><button class="btn btn-danger">List of All Pledges</button></a>
-    </div>
-    <h4>History of Pledge Payment</h4>
-    <p>{{ message }}</p>
 
-     <table class="table table-hover" border="2">
-        <thead class="table-success">
-        <tr> 
-            <th>ID</th>
-            <th>Date</th>
-            <th>Name</th>
-            <th>Amount</th>
-        </tr>
-        </thead>
+            <div class="tab-content">
+                 <div class="tab-pane fade in active" id="tab_invoice_list">
+                    <div class="x_content">                     
+                         <table id="invoice-table" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                            <thead>
+                                <tr> 
+                                    <th>ID</th>
+                                    <th>Date</th>
+                                    <th>Name</th>
+                                    <th>Amount</th>
+                                </tr>
+                                </thead>
 
-     <tbody>
-    {% for list in lists %}
-     <tr>
-        <td>{{ list.Pledge_Id}}</td>
-         <td>{{ list.Date}}</td>
-         <td>{{ list.Pledge_Made_By }}</td>
-         <td>{{ list.Amount_Paid}}</td>
-    {% endfor%} 
-    </tr>
-    </tbody>
-    </table>          
+                                 <tbody>
+                                {% for list in lists %}
+                                 <tr>
+                                    <td>{{ list.Pledge_Id}}</td>
+                                     <td>{{ list.Date}}</td>
+                                     <td>{{ list.Pledge_Made_By }}</td>
+                                     <td>{{ list.Amount_Paid}}</td>
+                                {% endfor%} 
+                                </tr>
+                                </tbody>
+                            </table>          
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
   </div>
-{% endblock %}
+</div>
+</div>
+{% endblock content%}

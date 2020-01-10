@@ -20,7 +20,7 @@
                         |<a href="{% url 'Pledgesreport'  %}"> Pledges Reports</a></li>
                         |<a href="{% url 'sundryreport'  %}"> Petty Expenses Reports</a></li>
                         |<a href="{% url 'allowancereport'  %}"> Allowances Reports</a></li>
-                        |<a href="{% url 'current-month-salaries'  %}"> Salaries Report</a></li>
+                        |<a href="{% url 'current-month-salaries' %}"> Salaries Report</a></li>
                     <div class="separator"></div>
                 </div>
             <div class="x_content">
@@ -31,11 +31,14 @@
                         </li>
                         <li role="presentation"><a href="{% url 'Enter_Pledges' %}"><i
                               class="fa fa-plus-square-o"></i> Record Pledge</a>
-                         </li>
+                        </li>
+                        <li role="presentation"><a href="{% url 'pledgesarchivessearch' %}"><i
+                              class="fa fa-plus-square-o"></i> Pledges Archived</a>
+                        </li> 
                     </ul>
                     <br/>
-    <h4>The {{current_month}} Pledges Report</h4>
-    <p>{{ msg}}</p>
+                   <h2 style="text-align: center">The {{current_month}} Pledges Report</h2>
+                    <p>{{ msg}}</p>
 
             <div class="tab-content">
                  <div class="tab-pane fade in active" id="tab_invoice_list">
@@ -81,10 +84,11 @@
                           </table>
                           <p><b>NB: </b> Please archive this report at the end of every month</p>
                           <div class="col-lg-4"><a href="{% url 'pledgespdf' %}" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"></span></a> 
-                            |        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">Archive</span></button></div></div></div> {% endif %}
+                            |        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">Archive</span></button>
                           </div>
                     </div>
                   </div>
+                  {% endif %}
                  <!-- Button trigger modal -->
 
                 <!-- Modal -->
