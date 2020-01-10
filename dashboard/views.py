@@ -663,7 +663,8 @@ def allowancereport(request):
 
     months = ['January', 'February', 'March', 'April', 'May', 'June',
               'July', 'August','September', 'October', 'November','December']
-    years = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
+    yr = datetime.now().year
+    years = [yr,2019,2018]
     total = Allowance.objects.aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
     mth = datetime.now().month
@@ -684,7 +685,8 @@ def allowancearchivessearch(request):
         archived_reports = AllowanceReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
         months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
                   'August','September', 'October',  'November','December']
-        years = [2018, 2019, 2020, 2021]
+        yr = datetime.now().year
+        years = [yr,2019,2018]years = [2018, 2019, 2020, 2021]
 
         Allowance = AllowanceReportArchive.objects.all()
         today = timezone.now()
@@ -704,7 +706,8 @@ def allowancearchivessearch(request):
 
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
               'August', 'September','October',  'November', 'December']
-    years = [2018, 2019, 2020, 2021]
+    yr = datetime.now().year
+    years = [yr,2019,2018]
 
     Allowance=AllowanceReportArchive.objects.all()
 
@@ -988,7 +991,8 @@ def expenditurereport (request):
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September',
               'October', 'November',
               'December']
-    years = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
+    yr = datetime.now().year
+    years = [yr,2019,2018]
     mth = datetime.now().month
     items =Spend.objects.filter(Date__month=mth)
     today = timezone.now()
@@ -1043,7 +1047,8 @@ def sundryreport (request):
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
               'October', 'November',
               'December']
-    years = [2019, 2020, 2021]
+    yr = datetime.now().year
+    years = [yr,2019,2018]
 
     total = Sundry.objects.aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
@@ -1066,7 +1071,8 @@ def expensesarchivessearch(request):
         report_month = request.POST['report_month']
         months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
                   'August', 'August', 'September', 'October', 'November','December']
-        years = [2018, 2019, 2020, 2021]
+        yr = datetime.now().year
+        years = [yr,2019,2018]
         today = timezone.now()
         archived_reports = ExpensesReportArchive.objects.filter(month=report_month, year=report_year)
         total = archived_reports.aggregate(totals=models.Sum("Amount"))
@@ -1082,7 +1088,8 @@ def expensesarchivessearch(request):
         return render(request, "Expenses/expenditurearchive.html", context)
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
               'August','September','October', 'November', 'November', 'December']
-    years = [2018, 2019, 2020, 2021]
+    yr = datetime.now().year
+    years = [yr,2019,2018]
     expenses=ExpensesReportArchive.objects.all()
     context = {'months': months,
                'years': years,
@@ -1097,7 +1104,8 @@ def sundryarchivessearch(request):
         archived_reports = SundryReportArchive.objects.filter(month=report_month, year=report_year)
         months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
                   'August', 'August', 'September', 'October', 'November','December']
-        years = [2019, 2020, 2021]
+        yr = datetime.now().year
+        years = [yr,2019,2018]
 
         sundry = SundryReportArchive.objects.all()
         today = timezone.now()
@@ -1117,7 +1125,8 @@ def sundryarchivessearch(request):
 
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
               'August', 'August', 'September','October', 'November', 'December']
-    years = [2019, 2020, 2021]
+    yr = datetime.now().year
+    years = [yr,2019,2018]
 
     sundry=SundryReportArchive.objects.all()
 
