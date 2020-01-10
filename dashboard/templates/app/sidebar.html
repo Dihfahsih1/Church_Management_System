@@ -43,10 +43,10 @@
                 </li>
                 <li><a><i class="fa fa-dollar"></i> Pledges Module <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li><a href="#">Record Pledges</a></li>
-                        <li><a href="#">List of Pledges</a></li>
-                        <li><a href="#">Archived Pledges</a></li>
-                        <li><a href="#">Pledges Not Cleared</a></li>
+                        <li><a href="{% url 'Enter_Pledges' %}">Record Pledges</a></li>
+                        <li><a href="{% url 'Pledgesreport' %}">List of Pledges</a></li>
+                        <li><a href="{% url 'pledgesarchivessearch' %}">Archived Pledges</a></li>
+                        <li><a href="{% url 'archived-pledge-debts' %}">Pledges Not Cleared</a></li>
                     </ul>
                 </li>
 
@@ -58,7 +58,7 @@
                         <li><a href="{% url 'Pledgesreport'  %}"> Pledges Reports</a></li>
                         <li><a href="{% url 'sundryreport'  %}"> Petty Expenses Reports</a></li>
                         <li><a href="{% url 'allowancereport'  %}"> Allowances Reports</a></li>
-                        <li><a href="{% url 'urrent-month-salaries'  %}"> Salaries Report</a></li>
+                        <li><a href="{% url 'current-month-salaries'  %}"> Salaries Report</a></li>
                     </ul>
                 </li>
                 <li><a><i class="fa fa-folder-open"></i> Archived Reports <span class="fa fa-chevron-down"></span></a>

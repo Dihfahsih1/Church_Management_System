@@ -1,100 +1,102 @@
-{% extends "base.html" %}
+{% extends "app/base_site.html" %}
+{% block content %}
+<div class="right_col" role="main">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Offerings</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                  <div class="x_content quick-link">
+                    <span style="color:red"><b>Other Reports:</b></span>
+                        <a href="{% url 'enter_expenditure'  %}"> Main Expenses Reports</a></li>
+                        |<a href="{% url 'Offeringsreport'  %}"> Offerings Reports</a></li>
+                        |<a href="{% url 'Tithesreport'  %}"> Tithes Reports</a></li>
+                        |<a href="{% url 'Pledgesreport'  %}"> Pledges Reports</a></li>
+                        |<a href="{% url 'sundryreport'  %}"> Petty Expenses Reports</a></li>
+                        |<a href="{% url 'allowancereport'  %}"> Allowances Reports</a></li>
+                        |<a href="{% url 'current-month-salaries'  %}"> Salaries Report</a></li>
+                    <div class="separator"></div>
+                </div>
+            <div class="x_content">
+                <div class="" data-example-id="togglable-tabs">
+                    <ul class="nav nav-tabs bordered">
+                        <li role="presentation" class="active"><a href="{% url 'Pledgesreport' %}"><i
+                                    class="fa fa-list-ol"></i> List of Pledges</a>
+                        </li>
+                        <li role="presentation"><a href="{% url 'Enter_Pledges' %}"><i
+                              class="fa fa-plus-square-o"></i> Record Pledge</a>
+                         </li>
+                    </ul>
+                    <br/>
+    <h4>The {{current_month}} Offerings Report</h4>
+    <p>{{ msg}}</p>
 
-{% block body %}
-<div class="container-fluid">
- <br><br>
-    <nav class="nav navbar-expand">
-      <ul class="navbar-nav mr-auto">
-             <li class="nav-item {% if url_name == 'Tithesreport' %}active{% endif %}">
-              <a class="nav-link" href="{% url 'Tithesreport'  %}"><button class="btn btn-primary">Tithes</button></a>
-             </li>
-              <li class="nav-item {% if url_name == 'Offeringsreport' %}active{% endif %}">
-              <a class="nav-link" href="{% url 'Offeringsreport'  %}"><button class="btn btn-primary">Offerings</button></a>
-             </li>
-             <li class="nav-item {% if url_name == 'Pledgesreport' %}active{% endif %}">
-              <a class="nav-link" href="{% url 'Pledgesreport'  %}"><button class="btn btn-default">Pledges</button></a>
-             </li>
-             <li class="nav-item {% if url_name == 'expenditurereport' %}active{% endif %}">
-              <a class="nav-link"href="{% url 'expenditurereport'  %}"><button class="btn btn-primary">Main Expenses</button></a>
-          </li>
-          <li class="nav-item {% if url_name == 'sundryreport' %}active{% endif %}">
-              <a class="nav-link" href="{% url 'sundryreport'  %}"><button class="btn btn-primary">Petty Cash</button></a>
-          </li>
+            <div class="tab-content">
+                 <div class="tab-pane fade in active" id="tab_invoice_list">
+                    <div class="x_content">                     
+                         <table id="invoice-table" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                            <thead>
 
-            <li class="nav-item {% if url_name == 'salaryreport' %}active{% endif %}">
-               <a class="nav-link" href="{% url 'salaryreport'  %}"><button class="btn btn-primary">Allowances</button></a>
-          </li>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Pledge Made By</th>
+                                    <th>Reason</th>
+                                    <th>Amount Pledged</th>
+                                    <th>Amount Paid</th>
+                                    <th>Balance</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                              </thead>
 
-      </ul>
-    </nav>
-    <p><a href="{% url 'total-monthly-incomes'%}">View Balance Sheet</a></p>
-    <div class="float-lg-right">
-    <a href="{% url 'Enter_Pledges' %}"><button class="btn btn-danger">Record Another Pledge</button></a>
-    </div>
-    <h4>The Monthly Pledges Report</h4>
-    <h3 class="alert-success">{{ message }}</h3>
-
-     <table class="table table-hover" border="2">
-
-        <thead class="table-success">
-
-        <tr>
-            <th>Date</th>
-            <th>Pledge Made By</th>
-            <th>Reason</th>
-            <th>Amount Pledged</th>
-            <th>Amount Paid</th>
-            <th>Balance</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        {% if items %}
-        {% for item in items%}
-        <tr>
-        <td>{{ item.Date}}</td>
-        <td>{{ item.Pledge_Made_By}}</td>
-        <td>{{ item.Reason}}</td>
-        <td>{{ item.Amount_Pledged}}</td>
-        <td>{{ item.total_pledge_paid}}</td>
-        <td>{{ item.Pledge_Balance}}</td>
-
-
-        <td>{{ item.updatestatus}}</td>
-        {% if item.total_pledge_paid >= item.Amount_Pledged  %}
-        <td><a href="{% url 'pledgesreceipt' item.id %}" target="_new"><button class="btn btn-info">Print Receipt</button></a></td>
-        {% else %}
-        <td><a href="{% url 'paying_pledges' item.id %}" target="_new"><button class="btn btn-success">Pay</button></a>|
-        <a href="{% url 'pledgesreceipt' item.id %}" target="_new"><button class="btn btn-info">Print Receipt</button></a> |
-        <a href="{% url 'edit_pledges' item.id  %}" ><button class="btn btn-warning">Edit</button></a>        
-        </td>
-           
-        {% endif%}   
-        {% endfor %}</tr>
-          <tr><td><b>Total Amount:</b> </td> <td>____________</td> <td>__________ </td><td><b>{{ total_amount}}</b></td><td><b>amount??</b></td><td><b>balance??</b></td></tr>
-
-        </tbody>
-      </table>
-      <p><b>NB: </b> Please archive this report at the end of every month</p>
-      <div class="col-lg-4"><a href="{% url 'pledgespdf' %}" target="_new" class="btn btn-info bt-sm" role="button">Print</a> 
-        |        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Archive</button></div>
+                              <tbody>
+                                {% if items %}
+                                {% for item in items%}
+                                <tr>
+                                  <td>{{ item.Date}}</td>
+                                  <td>{{ item.Pledge_Made_By}}</td>
+                                  <td>{{ item.Reason}}</td>
+                                  <td>{{ item.Amount_Pledged}}</td>
+                                  <td>{{ item.total_pledge_paid}}</td>
+                                  <td>{{ item.Pledge_Balance}}</td>
+                                  <td>{{ item.updatestatus}}</td>
+                                  {% if item.total_pledge_paid >= item.Amount_Pledged  %}
+                                  <td><a href="{% url 'pledgesreceipt' item.id %}" target="_new"><button class="btn btn-info">P<span class="glyphicon glyphicon-qrcode">Receipt</span></button></a></td>
+                                  {% else %}
+                                  <td><a href="{% url 'paying_pledges' item.id %}" target="_new"><button class="btn btn-success"><span class="glyphicon glyphicon-euros">Pay</span></button></a>|
+                                  <a href="{% url 'pledgesreceipt' item.id %}" target="_new"><button class="btn btn-info"><span class="glyphicon glyphicon-print"></span></button></a> |
+                                  <a href="{% url 'edit_pledges' item.id  %}" ><button class="btn btn-warning"><span class="glyphicon glyphicon-edit">Edit</span></button></a>        
+                                  </td>
+                                     
+                                  {% endif%}   
+                                  {% endfor %}
+                                </tr>
+                              </tbody>
+                          </table>
+                          <p><b>NB: </b> Please archive this report at the end of every month</p>
+                          <div class="col-lg-4"><a href="{% url 'pledgespdf' %}" target="_new" class="btn btn-info bt-sm" role="button">Print</a> 
+                            |        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Archive</button></div></div></div> {% endif %}
        
                  <!-- Button trigger modal -->
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Pledges report archiving</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <h5 class="text-primary">Select year and corresponding month to archive(Church Cycle)</h5>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Pledges report archiving</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <h5 class="text-primary">Select year and corresponding month to archive(Church Cycle)</h5>
                         <form class="form-inline" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                             <div class="col-auto my-1">
@@ -117,14 +119,19 @@
                         <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                         </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-    {% endif %}
+    </div> 
 
-{% endblock %}
+{% endblock content %}

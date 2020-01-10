@@ -14,14 +14,16 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content quick-link">
-                    <span style="color:red"><b>Quick Links:</b></span>
-                    <a href="{% url 'enter_expenditure' %}">Main Expenditure</a>
-                    | <a href="{% url 'enter_sundryexpense' %}">Petty Expenditure</a>
-                    | <a href="{% url 'give-allowance' %}">Allowances</a>
-                    | <a href="#">Salaries</a>
-                     <div class="separator"></div>
-                    </div>
-
+                    <span style="color:red"><b>Other Reports:</b></span>
+                        <a href="{% url 'enter_expenditure'  %}"> Main Expenses Reports</a></li>
+                        |<a href="{% url 'Offeringsreport'  %}"> Offerings Reports</a></li>
+                        |<a href="{% url 'Tithesreport'  %}"> Tithes Reports</a></li>
+                        |<a href="{% url 'Pledgesreport'  %}"> Pledges Reports</a></li>
+                        |<a href="{% url 'sundryreport'  %}"> Petty Expenses Reports</a></li>
+                        |<a href="{% url 'allowancereport'  %}"> Allowances Reports</a></li>
+                        |<a href="{% url 'current-month-salaries'  %}"> Salaries Report</a></li>
+                    <div class="separator"></div>
+                </div>
                     <h2 style="text-align: center">The {{current_month}} Expenditure Report</h2>
                     <p>{{ message }}</p>
             <div class="x_content">
