@@ -6,7 +6,6 @@ from django.db.models import Sum
 from django.forms.fields import DateField
 from django.contrib.admin.widgets import AdminDateWidget
 
-
 class Sundry(Model):
     Date = models.DateField(null=True, blank=True)
     Payment_Made_To = models.CharField(max_length=100, blank=False)
@@ -136,7 +135,8 @@ class StaffDetails(models.Model):
     @property
     def total_salary_paid(self):
         current_month = datetime.now().month
-        bal = SalariesPaid.objects.filter(Salary_Id=self.id, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
+        current_year = datetime.now().year
+        bal = SalariesPaid.objects.filter(Salary_Id=self.id, Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
         return bal['totals']
 
     @property
@@ -153,9 +153,9 @@ class SalariesPaid(models.Model):
         staffs=StaffDetails.objects.filter(id=self.Salary_Id)
         for i in staffs:
             s_id=i.id
-            print(s_id)
             current_month = datetime.now().month
-            bal = SalariesPaid.objects.filter(Salary_Id=s_id, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
+            current_year = datetime.now().year
+            bal = SalariesPaid.objects.filter(Salary_Id=s_id, Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
             return bal['totals']
     @property
     def Balance(self):
@@ -164,7 +164,8 @@ class SalariesPaid(models.Model):
             s_id=i.id
             a_amount=i.Salary_Amount
             current_month = datetime.now().month
-            bal = SalariesPaid.objects.filter(Salary_Id=s_id, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
+            current_year = datetime.now().year
+            bal = SalariesPaid.objects.filter(Salary_Id=s_id, Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
             balance =a_amount - bal['totals']
             return balance
 

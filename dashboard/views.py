@@ -137,9 +137,11 @@ def paid_salary(request):
             return render(request, 'Employees/pay_employee.html', context)
 def current_month_salary_paid(request):
     current_month = datetime.now().month
+    current_year = datetime.now().year
+
     today = timezone.now()
     mth = today.strftime('%B')
-    salaries = SalariesPaid.objects.filter(Date_of_paying_salary__month=current_month)
+    salaries = SalariesPaid.objects.filter(Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month)
     context={'mth':mth, 'salaries':salaries}
     return render(request, 'Employees/current_month_salaries_paid.html',context) 
 
