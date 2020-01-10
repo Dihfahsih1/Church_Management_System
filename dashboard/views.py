@@ -1336,7 +1336,8 @@ def Pledgesreport(request):
         context={'message':message}
         return render(request, 'Pledges/pledgesindex.html', context)
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'August', 'September', 'October', 'November','December']
-    years = [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
+    yr = datetime.now().year
+    years = [yr,2019,2018]
     total = Pledges.objects.aggregate(totals=models.Sum("Amount_Pledged"))
     total_amount = total["totals"]
     total_amount = total["totals"]
@@ -1361,7 +1362,8 @@ def pledgesarchivessearch(request):
         archived_reports = PledgesReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
         months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
                   'August','September', 'October', 'November', 'December']
-        years = [2019, 2020, 2021]#getting years automatically without hard coding.... <<pending>>
+        yr = datetime.now().year
+        years = [yr,2019,2018]#getting years automatically without hard coding.... <<pending>>
 
         pledges = PledgesReportArchive.objects.all()
         today = timezone.now()
@@ -1373,7 +1375,8 @@ def pledgesarchivessearch(request):
 
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
               'August', 'September', 'October', 'November', 'December']
-    years = [2019, 2020, 2021]
+    yr = datetime.now().year
+    years = [yr,2019,2018]
     pledges = PledgesReportArchive.objects.all()
     context = {'months': months, 'years': years, 'pledges': pledges}
     return render(request, "Pledges/pledgesarchive.html", context)
