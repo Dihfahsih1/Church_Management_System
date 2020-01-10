@@ -47,7 +47,8 @@
                                     <th>Basic Salary</th>
                                     <th>Date of Payment</th>
                                     <th>Month Being Cleared</th>
-                                    <th>Balance</th>
+                                    <th>Total Paid</th>
+                                    <th>Remaining Balance</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -56,6 +57,8 @@
                                      <td>{{ salary.Salary_Amount}}</td>
                                      <td>{{ salary.Date_of_paying_salary}}</td>
                                      <td>{{ salary.Month_being_cleared}}</td>
+                                     <td>{{ salary.total_salary_paid}}</td>
+                                     <td>{{ salary.Balance}}</td>
                                       
                                 </tr>
                                 {% endfor%} 

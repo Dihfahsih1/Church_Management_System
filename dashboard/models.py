@@ -134,21 +134,39 @@ class StaffDetails(models.Model):
     Date_of_employment=models.DateField(null=False, blank=False)
     End_of_contract=models.DateField(null=False, blank=False)
     @property
-    def Balance(self):
-        bal = SalariesPaid.objects.filter(Month_being_cleared=self.Month_being_cleared, Salary_Id=self.id).aggregate(totals=models.Sum("Amount_Paid"))
-        bal['totals']
-        result=self.Salary_Amount-bal
-        return result 
+    def total_salary_paid(self):
+        current_month = datetime.now().month
+        bal = SalariesPaid.objects.filter(Salary_Id=self.id, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
+        return bal['totals']
+
     @property
     def full_name(self):
         return str(self.First_Name)+ ' ' + str(self.Second_Name)
 class SalariesPaid(models.Model):
     Salary_Id = models.CharField(max_length=200,null=True, blank=True)
-    Name = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, null=True, blank=True)
+    Name = models.CharField(max_length=200,null=True, blank=True)
     Salary_Amount = models.IntegerField(default=0)
     Month_being_cleared = models.DateField(null=True, blank=True)
     Date_of_paying_salary = models.DateField(null=True, blank=True)
-
+    @property
+    def total_salary_paid(self):
+        staffs=StaffDetails.objects.filter(id=self.Salary_Id)
+        for i in staffs:
+            s_id=i.id
+            print(s_id)
+            current_month = datetime.now().month
+            bal = SalariesPaid.objects.filter(Salary_Id=s_id, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
+            return bal['totals']
+    @property
+    def Balance(self):
+        staffs=StaffDetails.objects.filter(id=self.Salary_Id)
+        for i in staffs:
+            s_id=i.id
+            a_amount=i.Salary_Amount
+            current_month = datetime.now().month
+            bal = SalariesPaid.objects.filter(Salary_Id=s_id, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
+            balance =a_amount - bal['totals']
+            return balance
 
 class Tithes(Model):
     Date = models.DateField(null=True, blank=True)
@@ -168,7 +186,6 @@ class TithesReportArchive(models.Model):
         return 'Name: {1}  Amount:{0}'.format(self.Tithe_Made_By, self.Amount)
 
 class Allowance(models.Model):
-
     months = (
         ('January','January'),('February','February'),('March', 'March'),('April', 'April')
         ,('May','May'),('June', 'June'),('July', 'July'),('August','August'),
@@ -180,7 +197,7 @@ class Allowance(models.Model):
     Amount = models.IntegerField(default=0)
     def __str__(self):
         return self.Name 
-        #PLEDGES MODEL
+#PLEDGES MODEL
 class Pledges(Model):
     paid = 'PAID'
     partial = 'PARTIAL'
@@ -199,19 +216,15 @@ class Pledges(Model):
     #using decorators to archive the calculations
     @property
     def total_pledge_paid(self):
-
         results = PaidPledges.objects.filter(Pledge_Id=self.id).aggregate(totals=models.Sum("Amount_Paid"))
         if (results['totals']):
             return results["totals"]
         else:
             return 0 
-    
     @property
     def Pledge_Balance(self):
         results=self.Amount_Pledged - self.total_pledge_paid
-        return results 
-
-
+        return results
     @property
     def updatestatus(self):
         if (self.total_pledge_paid >= self.Amount_Pledged):
@@ -237,7 +250,6 @@ class PaidPledges(Model):
     Pledge_Made_By = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, blank=False)
     Amount_Paid = models.IntegerField(default=0, blank=True, null=True)
     Date = models.DateField(null=True, blank=True)
-
 
 class PledgesReportArchive(Model):
     Status = models.CharField(max_length=150, null=True)
@@ -288,7 +300,6 @@ class PledgesReportArchive(Model):
             self.Status = "PARTIAL"
             self.save()
             return self.Status
-
         else:
             return self.Status     
     def __str__(self):

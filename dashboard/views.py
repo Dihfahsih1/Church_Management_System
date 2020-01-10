@@ -19,34 +19,34 @@ def index(request):
         total_current_offerings["totals"]
         offerings=total_current_offerings["totals"]
     else:
-        0
+        total_current_offerings = 0
 
     total_current_tithes = Tithes.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_current_tithes['totals']):
         total_current_tithes["totals"]
         tithes=total_current_tithes["totals"]
     else:
-        0
+        total_current_tithes=0
 
     total_current_pledges = PaidPledges.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount_Paid"))
     if (total_current_pledges['totals']):
         total_current_pledges["totals"]
         pledges=total_current_pledges["totals"]
     else:
-        0
+        total_current_pledges = 0
     total_main_expenses = Spend.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_main_expenses['totals']):
         total_main_expenses["totals"]
         expenses=total_main_expenses["totals"]
     else:
-        0
+        total_main_expenses = 0
 
     total_allowances = Allowance.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_allowances['totals']):
         total_allowances["totals"]
         allowances=total_allowances["totals"]
     else:
-        0
+        total_allowances = 0
     total_monthly_incomes =  int(total_current_tithes["totals"]) + int(total_current_offerings["totals"])+ int(total_current_pledges["totals"])
     total_monthly_expenditure =  int(total_allowances["totals"]) + int(total_main_expenses["totals"])
     net_income = total_monthly_incomes - total_monthly_expenditure
@@ -75,7 +75,9 @@ def employee_register(request):
 @login_required
 def employee_list(request):
     employees = StaffDetails.objects.all().order_by('-id')
-    context ={'employees': employees}
+    today = timezone.now()
+    mth = today.strftime('%B')
+    context ={'mth':mth,'employees': employees}
     return render(request, 'Employees/employee_list.html', context)
 
 def paying_employees(request, pk):

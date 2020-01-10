@@ -49,7 +49,7 @@
                                    class="textinput textInput form-control"
                                    value="{{ id.id }}">
                         </div>
-                        <div class="col-lg-12" id="Nam">
+                        <div class="col-lg-12">
                         <label>Employee Name</label>
                         <input type="text" name="Name" id="Name" maxlength="100"
                                    class="textinput textInput form-control"
@@ -78,7 +78,8 @@
 	</div>
   </div>
 </div>
-{% endblock content %}
 <script type="text/javascript">
-    #Salary_Id.hide()
+    $("#Salary_Id").hide();
+    document.getElementById('Name').readOnly = true;
 </script>
+{% endblock content %}
