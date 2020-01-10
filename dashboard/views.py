@@ -1184,8 +1184,8 @@ def expenditurereport (request):
         for expense in all_expenses:
             date=expense.Date
             amount=expense.Amount
-            reason=expense.ReasonForPayment
-            name=expense.PaymentMadeTo
+            reason=expense.Reason_For_Payment
+            name=expense.Payment_Made_To
 
             # the expense archive object
             expense_archiveobj=ExpensesReportArchive()
@@ -1244,8 +1244,8 @@ def sundryreport (request):
         for expense in all_expenses:
             date=expense.Date
             amount=expense.Amount
-            reason=expense.ReasonForPayment
-            name=expense.PaymentMadeTo
+            reason=expense.Reason_For_Payment
+            name=expense.Payment_Made_To
 
             # the expense archive object
             expense_archiveobj=SundryReportArchive()
@@ -1353,15 +1353,6 @@ def sundryarchivessearch(request):
                'years': years,
                'sundry': sundry}
     return render(request, "Expenses/sundryarchive.html", context)
-
-
-
-
-
-        ###############################################
-    # GENERATING REPORTS IN FORM OF ANNUAL PDFS   #
-    ###############################################
-
 
 # Printing Expenditure archived Report
 class expenditurearchivepdf(View):
