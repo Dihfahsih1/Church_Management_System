@@ -686,7 +686,8 @@ def allowancearchivessearch(request):
         months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
                   'August','September', 'October',  'November','December']
         yr = datetime.now().year
-        years = [yr,2019,2018]years = [2018, 2019, 2020, 2021]
+        years = [yr,2019,2018]
+        years = [2018, 2019, 2020, 2021]
 
         Allowance = AllowanceReportArchive.objects.all()
         today = timezone.now()

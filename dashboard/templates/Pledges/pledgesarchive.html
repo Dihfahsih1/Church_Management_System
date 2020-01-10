@@ -12,14 +12,14 @@
                     </ul>
                     <div class="clearfix"></div>
                 </div>
-                  <div class="x_content quick-link">
+                    <div class="x_content quick-link">
                     <span style="color:red"><b>Other Archived Reports:</b></span>
-                        <a href="{% url 'enter_expenditure'  %}"> Main Expenditure Archived</a></li>
-                        |<a href="{% url 'Offeringsreport'  %}"> Tithes Archived</a></li>
-                        |<a href="{% url 'Tithesreport'  %}"> Offerings Archived</a></li>
-                        |<a href="{% url 'Pledgesreport'  %}"> Pledges Archived</a></li>
-                        |<a href="{% url 'sundryreport'  %}"> Petty Expenses Archived</a></li>
-                        |<a href="{% url 'allowancereport'  %}"> Allowances Archived</a></li>
+                        <a href="{% url 'expensesarchivessearch'  %}"> Main Expenditure Archived</a></li>
+                        |<a href="{% url 'offeringsarchivessearch'  %}"> Tithes Archived</a></li>
+                        |<a href="{% url 'tithesarchivessearch'  %}"> Offerings Archived</a></li>
+                        |<a href="{% url 'pledgesarchivessearch'  %}"> Pledges Archived</a></li>
+                        |<a href="{% url 'sundryarchivessearch'  %}"> Petty Expenses Archived</a></li>
+                        |<a href="{% url 'allowancearchivessearch'  %}"> Allowances Archived</a></li>
                         |<a href="{% url 'current-month-salaries'  %}"> Salaries Archived</a></li>
                     <div class="separator"></div>
                 </div>
@@ -104,7 +104,7 @@
                               </tr>
                             </thead>
                       </table>
-                      <a href="{% url 'pledgesarchivepdf' report_month  report_year  %}" target="_new" class="btn btn-primary bt-sm" role="button"><span class="glyphicon glyphicon-print "> Print Report</span></a>
+                      <a href="{% url 'pledgesarchivepdf' report_month report_year %}" target="_new" class="btn btn-primary bt-sm" role="button"><span class="glyphicon glyphicon-print "> Print Report</span></a>
 
                       {% else %}
                       <h2> No archived Data in the query you have made of {{ report_month }} {{ report_year }}</h2>
