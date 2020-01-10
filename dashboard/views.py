@@ -232,7 +232,7 @@ def visitors_list(request):
     return render(request, 'Members/visitors_list.html', context)
 
 
-    
+
 
 
 
@@ -1172,7 +1172,7 @@ def Enter_Pledges(request):
             return redirect('Pledgesreport')
     else:
         form=PledgesForm()
-        return render(request, 'enter_pledge.html',{'form':form})
+        return render(request, 'Pledges/enter_pledge.html',{'form':form})
 
 @login_required
 def pledge_view(request, pledge_pk):
@@ -1182,7 +1182,7 @@ def pledge_view(request, pledge_pk):
     else:
         form = PledgesForm(instance=pledge)
     context = {'form': form}
-    return render(request, 'pledge_view.html', context)
+    return render(request, 'Pledges/pledge_view.html', context)
 
 #function that invokes the template for inputing the date and pledge amount paid by the member
 @login_required
@@ -1197,7 +1197,7 @@ def paying_pledges(request, pk):
         form = UpdatePledgesForm(instance=items)
         retrieving_id=Pledges.objects.filter(id=pk)
         context={'form':form, 'retrieving_id': retrieving_id}
-        return render(request, 'paying_pledges_update.html', context)
+        return render(request, 'Pledges/paying_pledges_update.html', context)
 
 #processing the pledge payment that the member has made
 @login_required
@@ -1210,13 +1210,13 @@ def member_pledges_paid(request):
         else:
             form = PaidPledgesForm()
             context={'form':form}
-            return render(request, 'paying_pledges_update.html', context)
+            return render(request, 'Pledges/paying_pledges_update.html', context)
 
 def archived_pledge_debts(request):
     debts=PledgesReportArchive.objects.filter(Q(Status='UNPAID') | Q(Status='PARTIAL'))
     #PledgesReportArchive.objects.filter(Status='PAID').delete()
     context={'debts':debts}
-    return render(request, "archived_pledge_debts.html", context)
+    return render(request, "Pledges/archived_pledge_debts.html", context)
 
 def settle_pledge_debt(request, pk):
     items = get_object_or_404(PledgesReportArchive, Pledge_Id=pk)
@@ -1229,7 +1229,7 @@ def settle_pledge_debt(request, pk):
         form = PledgesReportArchiveForm(instance=items)
         retrieving_id=PledgesReportArchive.objects.filter(Pledge_Id=pk)
         context={'form':form,'retrieving_id':retrieving_id}
-        return render(request, 'settle_pledge_debt.html', context)
+        return render(request, 'Pledges/settle_pledge_debt.html', context)
 
 def member_settle_pledge_debt(request):
     if request.method == "POST":
@@ -1241,14 +1241,14 @@ def member_settle_pledge_debt(request):
             form = PaidPledgesForm()
             message="Pledge amount updated saccessfully!"
             context={'form':form,'message':message}
-            return render(request, 'settle_pledge_debt.html', context)
+            return render(request, 'Pledges/settle_pledge_debt.html', context)
 
 def delete_bad_debt(request, pk):
     retrieving_id=PledgesReportArchive.objects.filter(Pledge_Id=pk)
     retrieving_id.delete()
     message="Bad debt was removed sucessfully!"
     context={'message':message}
-    return render(request, "delete_pledge_bad_debt.html", context)
+    return render(request, "Pledges/delete_pledge_bad_debt.html", context)
 
 @login_required
 def pledges_paid_list(request):
