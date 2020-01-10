@@ -37,32 +37,27 @@
                 </li>
                  <li role="presentation"><a href="{% url 'archived-pledge-debts' %}"><i
                               class="fa fa-plus-square-o"></i> Archived Pledge Debts</a>
-                         </li>
+                </li>
+                 <li role="presentation"><a href="{% url 'pledgesarchivessearch' %}"><i
+                              class="fa fa-plus-square-o"></i> Pledges Paid</a>
+                </li>
               </ul> <br/>
 				{% load crispy_forms_tags %}
+        <div  class="col-lg-6 col-offset-8 centered">
 				<form method="POST" enctype="multipart/form-data" >
 				{% csrf_token %}
-				  <div class="form-row">
-				    <div class="col-lg-3">
 					    {{ form.Date|as_crispy_field }}
-					</div>
-					<div class="col-lg-3">
+					
 					    {{ form.Pledge_Made_By|as_crispy_field }}
-					</div>
-
-					<div class="col-lg-3">
+					
 					    {{ form.Reason|as_crispy_field }}
-					</div>
-
-					<div class="col-lg-3">
+					
 					    {{ form.Amount_Pledged|as_crispy_field }}
-					</div>
-					<div class="col-lg-3">
+				
 					    {{ form.Amount_In_Words|as_crispy_field }}
-					</div>
-				   </div>
 				    <button type="submit" class="btn btn-primary" name="button">Submit</button>
 				</form>
+      </div>
 				<p style="color:red"><b>NB:</b> 1. Record only pledges that are to finance church activities<br>2. Don't record here wedding or introduction pledges.</p>
 				{% include 'messages.html' %}
 			    </div>

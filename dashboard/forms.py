@@ -63,7 +63,7 @@ class PledgesForm(forms.ModelForm):
 class UpdatePledgesForm(forms.ModelForm):
     class Meta:
         model=Pledges
-        fields = ('Pledge_Made_By','Amount_Paid','Date')
+        fields = ('Reason','Pledge_Made_By','Amount_Paid','Date')
         widgets = {
             'Date': DatePickerInput(),
             
@@ -72,7 +72,7 @@ class UpdatePledgesForm(forms.ModelForm):
 class PaidPledgesForm(forms.ModelForm):
     class Meta:
         model=PaidPledges
-        fields = ('Pledge_Id','Pledge_Made_By','Amount_Paid','Date')
+        fields = ('Reason','Pledge_Id','Pledge_Made_By','Amount_Paid','Date')
         widgets = {
             'Date': DatePickerInput(),
         }              

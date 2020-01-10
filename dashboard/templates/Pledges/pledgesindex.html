@@ -14,7 +14,7 @@
                 </div>
                   <div class="x_content quick-link">
                     <span style="color:red"><b>Other Reports:</b></span>
-                        <a href="{% url 'enter_expenditure'  %}"> Main Expenses Reports</a></li>
+                        <a href="{% url 'expenditurereport'  %}"> Main Expenses Reports</a></li>
                         |<a href="{% url 'Offeringsreport'  %}"> Offerings Reports</a></li>
                         |<a href="{% url 'Tithesreport'  %}"> Tithes Reports</a></li>
                         |<a href="{% url 'Pledgesreport'  %}"> Pledges Reports</a></li>
@@ -38,6 +38,9 @@
                          <li role="presentation"><a href="{% url 'archived-pledge-debts' %}"><i
                               class="fa fa-plus-square-o"></i> Archived Pledge Debts</a>
                          </li>
+                          <li role="presentation"><a href="{% url 'pledges-paid-list' %}"><i
+                              class="fa fa-plus-square-o"></i> Pledges Paid</a>
+                        </li> 
                     </ul>
                     <br/>
                    <h2 style="text-align: center">The {{current_month}} Pledges Report</h2>

@@ -251,6 +251,7 @@ class Pledges(Model):
             return self.Status    
 
 class PaidPledges(Model):
+    Reason=models.CharField(max_length=100, blank=True, null=True)
     Pledge_Id=models.CharField(max_length=100, blank=True, null=True)
     Pledge_Made_By = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, blank=False)
     Amount_Paid = models.IntegerField(default=0, blank=True, null=True)
