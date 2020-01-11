@@ -189,7 +189,16 @@ class TithesReportArchive(models.Model):
 
     def __str__(self):
         return 'Name: {1}  Amount:{0}'.format(self.Tithe_Made_By, self.Amount)
-
+class SalariesPaidReportArchive(models.Model):
+    Salary_Id = models.CharField(max_length=200,null=True, blank=True)
+    Name = models.CharField(max_length=200,null=True, blank=True)
+    Salary_Amount = models.IntegerField(default=0)
+    Month_being_cleared = models.DateField(null=True, blank=True)
+    Date_of_paying_salary = models.DateField(null=True, blank=True)
+    archivedmonth = models.CharField(max_length=100,null=True)
+    archivedyear = models.CharField(max_length=100,null=True)
+    def __str__(self):
+        return self.Name
 class Allowance(models.Model):
     months = (
         ('January','January'),('February','February'),('March', 'March'),('April', 'April')

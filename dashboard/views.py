@@ -138,11 +138,57 @@ def paid_salary(request):
 def current_month_salary_paid(request):
     current_month = datetime.now().month
     current_year = datetime.now().year
-
     today = timezone.now()
     mth = today.strftime('%B')
     salaries = SalariesPaid.objects.filter(Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month)
     context={'mth':mth, 'salaries':salaries}
+    if request.method=='POST':
+        archived_year=request.POST['archived_year']
+        archived_month = request.POST['archived_month']
+
+        #all the available expense in the expenses table
+        current_month = datetime.now().month
+        current_year = datetime.now().year
+        today = timezone.now()
+        mth = today.strftime('%B')
+        salaries = SalariesPaid.objects.filter(Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month)
+        context={'mth':mth, 'salaries':salaries}
+        for sal in salaries:
+            date=sal.Date_of_paying_salary
+            salary_id=sal.Salary_Id
+            amount=sal.Salary_Amount
+            name=sal.Name
+            mth=sal.Month_being_cleared
+            # the expense archive object
+            sal_archiveobj=SalariesPaidReportArchive()
+            #attached values to expense_archiveobj
+            sal_archiveobj.Date_of_paying_salary=date
+            sal_archiveobj.Salary_Amount=amount
+            sal_archiveobj.Salary_Id=salary_id
+            sal_archiveobj.Name=name
+            sal_archiveobj.Month_being_cleared=mth
+            sal_archiveobj.archivedyear= archived_year
+            sal_archiveobj.archivedmonth =archived_month
+            sal_archiveobj.save()
+        #deleting all the expense from reports table
+        salaries.delete()
+        message="The Monthly Salaries Paid Report has been Achived"
+        context={'message':message, 'mth':mth}
+        return render(request, 'Employees/current_month_salaries_paid.html', context)
+    months = ['January', 'February', 'March', 'April', 'May', 'June',
+              'July', 'August','September', 'October', 'November','December']
+    yr = datetime.now().year
+    years = [yr,2019,2018]
+    today = timezone.now()
+    total = SalariesPaid.objects.filter(Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
+    total_amount = total["totals"]
+    context = {
+        'total_amount':total_amount,
+        'salaries': salaries,
+        'months':months,
+        'current_month':current_month,
+        'years':years,
+    }
     return render(request, 'Employees/current_month_salaries_paid.html',context) 
 
       ####################################################
