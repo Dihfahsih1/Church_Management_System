@@ -137,8 +137,15 @@ class StaffDetails(models.Model):
         current_month = datetime.now().month
         current_year = datetime.now().year
         bal = SalariesPaid.objects.filter(Salary_Id=self.id, Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
-        return bal['totals']
-
+        if bal['totals'] == None:
+            
+            return 0
+        else:    
+            return bal['totals']
+    @property
+    def Balance(self):
+       bal=(self.Salary_Amount) - (self.total_salary_paid)
+       return bal
     @property
     def full_name(self):
         return str(self.First_Name)+ ' ' + str(self.Second_Name)

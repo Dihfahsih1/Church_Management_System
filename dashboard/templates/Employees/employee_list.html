@@ -50,21 +50,25 @@
                                     <th>Name</th>
                                     <th>Role</th>
                                     <th>Salary</th>
-                                    <td>Salary Status</td>
+                                    <th>Salary Status</th>
+                                    <th>Balance</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
+                              <tr>
                                 {% for emp in employees %}
                                      <td>{{ emp.full_name}}</td>
                                      <td>{{ emp.Role}}</td>
                                      <td>{{ emp.Salary_Amount}}</td>
+
                                      <td> {% if emp.total_salary_paid >= emp.Salary_Amount %}
-                                        <a href="#"class="btn btn-warning btn-sm "><span class="glyphicon glyphicon-thumbs-up"> current month paid </span></a>
+                                        <b class="btn btn-warning btn-sm "><span class="glyphicon glyphicon-thumbs-up"></span> PAID </b>
                                         {% else %}
                                         <a href="{% url 'pay-employee' pk=emp.id %}"class="btn btn-warning btn-sm "><span class="glyphicon glyphicon-euros"> Pay Salary</span></a>
                                         {% endif %}
                                       </td>
+                                      <td>{{ emp.Balance}}</td>
                                      <td>
                                      <div class="mb-4">
                                          <a href="{% url 'view-employee' emp.pk %}" class="btn btn-primary btn-sm">
