@@ -64,7 +64,7 @@
                                      <td>{{ emp.Salary_Amount}}</td>
                                      <td>{{ emp.Balance}}</td>
                                      <td> {% if emp.total_salary_paid >= emp.Salary_Amount %}
-                                        <b class="btn btn-btn btn-sm "><span class="glyphicon glyphicon-thumbs-up"></span> CURRENT PAID </b>
+                                        <b class="btn btn-btn btn-sm "><span class="glyphicon glyphicon-thumbs-up"></span> CURRENT MONTH PAID </b>
                                         {% elif emp.total_salary_paid > 0 and emp.total_salary_paid != emp.Salary_Amount %}
                                         <a href="{% url 'pay-employee' pk=emp.id %}"class="btn btn-warning btn-sm "><span class="glyphicon glyphicon-euro"></span> Pay Balance</a>
                                         {% else %}
