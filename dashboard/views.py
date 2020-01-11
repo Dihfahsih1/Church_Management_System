@@ -137,6 +137,8 @@ def view_employee(request, pk):
         context['form']=form
     else:
         form = StaffDetailsForm(instance=employee)
+        get_name = StaffDetails.objects.filter(id=pk)
+        context['get_name']=get_name
         context['form']=form
     return render(request,'Employees/employee_view.html',context)
 def paying_employees(request, pk):
