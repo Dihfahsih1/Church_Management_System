@@ -22,7 +22,9 @@
                         <a href="{% url 'visitors-list' %}">Employee List</a>
                     </div>
                     <div class="separator"></div>
-                    <h2 style="text-align: center">Enter all Employee Details</h2>
+                    {% for i in get_name %}
+                    <h2 style="text-align: center">{{message}} of {{ i.First_Name}} {{ i.Second_Name}}</h2>
+                    {% endfor %}
   	      <div class="x_content">
             <div class="" data-example-id="togglable-tabs">
                 <ul class="nav nav-tabs bordered">

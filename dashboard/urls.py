@@ -51,6 +51,7 @@ url(r'^edit_allowance/(?P<pk>\d+)', views.edit_allowance ,name='edit_allowance')
 url(r'^edit_offerings/(?P<pk>\d+)', views.edit_offerings ,name='edit_offerings'),
 url(r'^edit_pledges/(?P<pk>\d+)', views.edit_pledges ,name='edit_pledges'),
 url(r'^edit_tithes/(?P<pk>\d+)', views.edit_tithes ,name='edit_tithes'),
+url(r'^Employee/Edit/(?P<pk>\d+)', views.edit_employee ,name='edit-employee'),
 
 url(r'^delete_allowance/(?P<pk>\d+)', views.delete_allowance ,name='delete_allowance'),
 url(r'^edit_sundry/(?P<pk>\d+)', views.edit_sundry ,name='edit_sundry'),

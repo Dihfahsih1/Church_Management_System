@@ -114,7 +114,31 @@ def employee_list(request):
     mth = today.strftime('%B')
     context ={'mth':mth,'employees': employees}
     return render(request, 'Employees/employee_list.html', context)
-
+def edit_employee(request, pk):
+    item = get_object_or_404(StaffDetails, pk=pk)
+    if request.method == "POST":
+        form = StaffDetailsForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('employee-list')
+    else:
+        today = timezone.now()
+        month = today.strftime('%B')
+        message="Edit Employee Details"
+        get_name = StaffDetails.objects.filter(id=pk)
+        form = StaffDetailsForm(instance=item)        
+        context={'form':form, 'month':month, 'message':message, 'get_name':get_name}
+    return render(request, 'Employees/record_employee.html', context)
+def employee_view(request, pk):
+    context={}
+    employee = get_object_or_404(StaffDetails, id=pk)
+    if request.method == 'POST':
+        form = StaffDetailsForm(request.POST, instance=employee)
+        context['form']=form
+    else:
+        form = StaffDetailsForm(instance=employee)
+        context['form']=form
+    return render(request,'Employees/employee_view.html',context)
 def paying_employees(request, pk):
     items = get_object_or_404(StaffDetails, id=pk)
     if request.method == "POST":
@@ -514,9 +538,10 @@ def edit_tithes(request, pk):
     else:
         today = timezone.now()
         month = today.strftime('%B')
+        form = TithesForm(instance=item)        
         context={'form':form, 'month':month}
-        form = TithesForm(instance=item)
-    return render(request, 'record_tithes.html', context)
+
+    return render(request, 'Tithes/record_tithes.html', context)
 
 class tithespdf(View):
     def get(self, request):
