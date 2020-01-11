@@ -24,11 +24,14 @@
   	      <div class="x_content">
             <div class="" data-example-id="togglable-tabs">
                 <ul class="nav nav-tabs bordered">
-                    <li role="presentation" ><a href="{% url 'employee-list' %}"><i
+             <li role="presentation"><a href="{% url 'employee-list' %}"><i
                                 class="fa fa-list-ol"></i> Employee List</a>
                     </li>
-                    <li role="presentation"><a href="{% url 'employee-register' %}"><i
-                                class="fa fa-plus-square-o"></i> Add Employee</a>
+                    <li role="presentation"><a href="{% url 'current-month-salaries' %}"><i
+                                class="fa fa-plus-square-o"></i> Salaries Paid Report</a>
+                     </li>
+                    <li role="presentation"><a href="{% url 'salariespaidarchivessearch' %}"><i
+                                class="fa fa-plus-square-o"></i> Archived Salaries Paid Report</a>
                      </li>
                     <li role="presentation"class="active"><a href="#"><i
                                 class="fa fa-plus-square-o"></i> Pay Employee</a>

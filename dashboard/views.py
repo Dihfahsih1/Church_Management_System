@@ -135,6 +135,8 @@ def paid_salary(request):
             form = SalariesPaidForm()
             context = {'form': form}
             return render(request, 'Employees/pay_employee.html', context)
+
+ #archive salaries report           
 def current_month_salary_paid(request):
     current_month = datetime.now().month
     current_year = datetime.now().year
@@ -190,6 +192,47 @@ def current_month_salary_paid(request):
         'years':years,
     }
     return render(request, 'Employees/current_month_salaries_paid.html',context) 
+
+
+
+#Search for the archived salaries reports
+def salariespaidarchivessearch(request):
+    if request.method == 'POST':
+        report_year = request.POST['report_year']
+        report_month = request.POST['report_month']
+        archived_reports = SalariesPaidReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
+        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+                  'August','September', 'October',  'November','December']
+        yr = datetime.now().year
+        years = [yr,2019,2018]
+
+        archived_salaries = SalariesPaidReportArchive.objects.all()
+        today = timezone.now()
+        total = archived_reports.aggregate(totals=models.Sum("Salary_Amount"))
+        total_amount = total["totals"]
+
+        context = {'archived_reports': archived_reports,
+                   'months': months,
+                   'years': years,
+                   'archived_salaries':archived_salaries,
+                   'total_amount': total_amount,
+                   'today': today,
+                   'report_year': report_year,
+                   'report_month': report_month
+                   }
+        return render(request, "Employees/salariespaidarchive.html", context)
+
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+              'August', 'September','October',  'November', 'December']
+    yr = datetime.now().year
+    years = [yr,2019,2018]
+
+    archived_salaries=SalariesPaidReportArchive.objects.all()
+
+    context = {'months': months,
+               'years': years,
+               'archived_salaries': archived_salaries}
+    return render(request, "Employees/salariespaidarchive.html", context)    
 
       ####################################################
     #       REGISTERING CHURCH MEMBERS AND VISITORS      #

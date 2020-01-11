@@ -69,6 +69,7 @@ url(r'^sundrysarchivessearch/', views.sundryarchivessearch, name='sundryarchives
 url(r'^pledgesarchivessearch/', views.pledgesarchivessearch, name='pledgesarchivessearch'),
 url(r'^offeringsarchivessearch/', views.offeringsarchivessearch, name='offeringsarchivessearch'),
 url(r'^tithesarchivessearch/', views.tithesarchivessearch, name='tithesarchivessearch'),
+url(r'^Employee/Salaries-Paid-Archive/', views.salariespaidarchivessearch, name='salariespaidarchivessearch'),
 # url(r'^expenditure_report_archive/', views.expenditure_report_archive, name='expenditure_report_archive'),
 #membership
 url(r'^Membership/Register/', views.register_members, name='members-register'),
