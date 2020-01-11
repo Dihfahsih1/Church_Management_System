@@ -138,7 +138,6 @@ class StaffDetails(models.Model):
         current_year = datetime.now().year
         bal = SalariesPaid.objects.filter(Salary_Id=self.id, Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
         if bal['totals'] == None:
-            
             return 0
         else:    
             return bal['totals']
@@ -156,6 +155,13 @@ class SalariesPaid(models.Model):
     Month_being_cleared = models.DateField(null=True, blank=True)
     Date_of_paying_salary = models.DateField(null=True, blank=True)
     @property
+    def basic_salary(self):
+        staffs=StaffDetails.objects.filter(id=self.Salary_Id)
+        for i in staffs:
+            salary=i.Salary_Amount
+            return salary
+    
+    @property
     def total_salary_paid(self):
         staffs=StaffDetails.objects.filter(id=self.Salary_Id)
         for i in staffs:
@@ -163,7 +169,10 @@ class SalariesPaid(models.Model):
             current_month = datetime.now().month
             current_year = datetime.now().year
             bal = SalariesPaid.objects.filter(Salary_Id=s_id, Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
-            return bal['totals']
+            if bal['totals'] == None:
+                return 0
+            else:    
+                return bal['totals']
     @property
     def Balance(self):
         staffs=StaffDetails.objects.filter(id=self.Salary_Id)

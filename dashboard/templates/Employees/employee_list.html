@@ -49,9 +49,10 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Role</th>
-                                    <th>Salary</th>
-                                    <th>Salary Status</th>
+                                    <th>Net Salary</th>
                                     <th>Balance</th>
+                                    <th>Salary Status</th>
+                                    
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -61,14 +62,16 @@
                                      <td>{{ emp.full_name}}</td>
                                      <td>{{ emp.Role}}</td>
                                      <td>{{ emp.Salary_Amount}}</td>
-
+                                     <td>{{ emp.Balance}}</td>
                                      <td> {% if emp.total_salary_paid >= emp.Salary_Amount %}
-                                        <b class="btn btn-warning btn-sm "><span class="glyphicon glyphicon-thumbs-up"></span> PAID </b>
+                                        <b class="btn btn-btn btn-sm "><span class="glyphicon glyphicon-thumbs-up"></span> CURRENT PAID </b>
+                                        {% elif emp.total_salary_paid > 0 and emp.total_salary_paid != emp.Salary_Amount %}
+                                        <a href="{% url 'pay-employee' pk=emp.id %}"class="btn btn-warning btn-sm "><span class="glyphicon glyphicon-euro"></span> Pay Balance</a>
                                         {% else %}
-                                        <a href="{% url 'pay-employee' pk=emp.id %}"class="btn btn-warning btn-sm "><span class="glyphicon glyphicon-euros"> Pay Salary</span></a>
+                                        <a href="{% url 'pay-employee' pk=emp.id %}"class="btn btn-info btn-sm "><span class="glyphicon glyphicon-euro"></span> Pay Salary</a>
                                         {% endif %}
                                       </td>
-                                      <td>{{ emp.Balance}}</td>
+                                      
                                      <td>
                                      <div class="mb-4">
                                          <a href="{% url 'view-employee' emp.pk %}" class="btn btn-primary btn-sm">
