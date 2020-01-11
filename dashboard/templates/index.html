@@ -65,7 +65,7 @@
                         text:'UCC Bwaise month of {{month}} Accountability'
                     },
                     xAxis: {
-                        categories: ['<strong>Offerings</strong>', '<strong>Tithes</strong>', '<strong>Pledges</strong>', '<strong>Revenue</strong>', '<strong>Allowances</strong>', '<strong>Expenditure</strong>']
+                        categories: ['<strong>Offerings</strong>', '<strong>Tithes</strong>', '<strong>Pledges</strong>', '<strong>Allowances</strong>', '<strong>Salaries</strong>']
                     },
 
                     yAxis: {
@@ -82,7 +82,7 @@
                     series: [
                         {
                             
-                            data: [{{offerings}},{{tithes}},{{pledges}},{{ total_monthly_incomes }},{{allowances}},{{total_monthly_expenditure}}
+                            data: [{{offerings}},{{tithes}},{{pledges}},{{allowances}},{{salaries}}
                             ]
                         }
                         ,
@@ -195,8 +195,8 @@
                     series: [{
                         name: 'Data',
                         data: [
-                            ['Tithe of Tithes', {{offerings}}],
-                            ['Salaries', {{tithes}}],
+                            ['Tithe of Tithes', {{tithes}}],
+                            ['Salaries', {{salaries}}],
                             ['Building', {{pledges}}],
                             ['Allowances', {{allowances}}],
                             ['Water Bills', {{total_monthly_expenditure}}],

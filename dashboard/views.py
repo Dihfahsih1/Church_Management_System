@@ -24,16 +24,21 @@ def index(request):
         offerings = 0
 
     total_current_tithes = Tithes.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
-    print(total_current_tithes)
+
     if (total_current_tithes['totals'])!=None:
         int(total_current_tithes["totals"])
         tithes=total_current_tithes["totals"]
     else:
         total_current_tithes=0
         tithes = 0
-
+    total_current_salaries = SalariesPaid.objects.filter(Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
+    if (total_current_salaries['totals'])!=None:
+        int(total_current_salaries["totals"])
+        salaries=total_current_salaries["totals"]
+    else:
+        total_current_pledges = 0
+        pledges = 0
     total_current_pledges = PaidPledges.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount_Paid"))
-    print(total_current_pledges)
     if (total_current_pledges['totals'])!=None:
         int(total_current_pledges["totals"])
         pledges=total_current_pledges["totals"]
@@ -58,35 +63,36 @@ def index(request):
     else:
         total_allowances = 0
         allowances=0
-    if (total_current_tithes, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== None:
+
+    if (total_current_tithes,total_current_salaries, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== None:
         total_monthly_incomes = 0
         total_monthly_expenditure =  0
         pledges = 0
         net_income = total_monthly_incomes - total_monthly_expenditure
         today = timezone.now()
         month = today.strftime('%B')
-        context={'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
+        context={'total_monthly_incomes':total_monthly_incomes,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
         'allowances':allowances, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
         return render(request,'index.html', context)
 
-    elif (total_current_tithes, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== 0:
+    elif (total_current_tithes,total_current_salaries, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== 0:
         total_monthly_incomes = 0
         total_monthly_expenditure =  0
         pledges = 0
         net_income = total_monthly_incomes - total_monthly_expenditure
         today = timezone.now()
         month = today.strftime('%B')
-        context={'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
+        context={'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
         'allowances':allowances, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
         return render(request,'index.html', context)
 
     else:
         total_monthly_incomes =  tithes+ offerings+ pledges
-        total_monthly_expenditure =  allowances + expenses
+        total_monthly_expenditure =  allowances + expenses+salaries
         net_income = total_monthly_incomes - total_monthly_expenditure
         today = timezone.now()
         month = today.strftime('%B')
-        context={'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
+        context={'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
         'allowances':allowances, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
         return render(request,'index.html', context)
 
