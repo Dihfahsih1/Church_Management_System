@@ -50,8 +50,6 @@
                                     <th>Name</th>
                                     <th>Role</th>
                                     <th>Salary</th>
-                                    <th>Date of Employment</th>
-                                    <th>End of Contract</th>
                                     <td>Salary Status</td>
                                     <th>Actions</th>
                                 </tr>
@@ -61,8 +59,6 @@
                                      <td>{{ emp.full_name}}</td>
                                      <td>{{ emp.Role}}</td>
                                      <td>{{ emp.Salary_Amount}}</td>
-                                     <td>{{ emp.Date_of_employment}}</td>
-                                     <td>{{ emp.End_of_contract}}</td>
                                      <td> {% if emp.total_salary_paid >= emp.Salary_Amount %}
                                         <a href="#"class="btn btn-warning btn-sm "><span class="glyphicon glyphicon-thumbs-up"> current month paid </span></a>
                                         {% else %}
@@ -71,7 +67,9 @@
                                       </td>
                                      <td>
                                      <div class="mb-4">
-                                        <a href="#"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-eye-open"></span> View</a>
+                                         <a href="{% url 'view-employee' emp.pk %}" class="btn btn-primary btn-sm">
+                                            <span class="glyphicon glyphicon-eye-open"></span> View
+                                         </a>
                                         <a href="{% url 'edit-employee' pk=emp.id %}"class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                                         <a href="#"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"></span> Delete</a>
                                      </div>   

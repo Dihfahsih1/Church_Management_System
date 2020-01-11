@@ -129,7 +129,7 @@ def edit_employee(request, pk):
         form = StaffDetailsForm(instance=item)        
         context={'form':form, 'month':month, 'message':message, 'get_name':get_name}
     return render(request, 'Employees/record_employee.html', context)
-def employee_view(request, pk):
+def view_employee(request, pk):
     context={}
     employee = get_object_or_404(StaffDetails, id=pk)
     if request.method == 'POST':
