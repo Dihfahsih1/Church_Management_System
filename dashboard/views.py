@@ -185,6 +185,7 @@ def current_month_salary_paid(request):
     total = SalariesPaid.objects.filter(Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
     total_amount = total["totals"]
     context = {
+        'mth':mth,
         'total_amount':total_amount,
         'salaries': salaries,
         'months':months,
