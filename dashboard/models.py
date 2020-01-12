@@ -235,6 +235,20 @@ class PledgeItem(Model):
     Pledge_Deadline = models.DateField(blank=True, null=True)
     def __str__(self):
         return self.Item_That_Needs_Pledges
+
+    @property
+    def Total_Amount_Pledged(self):
+        print(self.Item_That_Needs_Pledges)
+        results = Pledges.objects.filter(Reason=self.Item_That_Needs_Pledges).aggregate(totals=models.Sum("Amount_Pledged"))
+        if (results['totals']):
+            return results["totals"]
+        else:
+            return 0 
+    @property
+    def Pledge_Amount_Remaining(self):
+        results=self.Amount_Needed-self.Total_Amount_Pledged
+        return self.results
+              
 class Pledges(Model):
     paid = 'PAID'
     partial = 'PARTIAL'
@@ -250,6 +264,11 @@ class Pledges(Model):
     Amount_In_Words = models.CharField(max_length=500, blank=False)
     def __str__(self):
         return self.Pledge_Made_By
+
+    @property
+    def Total_Amount_Pledged(self):
+        return self._foo
+        
     #using decorators to archive the calculations
     @property
     def total_pledge_paid(self):

@@ -59,6 +59,8 @@
                                     <th>Pledge Item Name</th>
                                     <th>Amount Needed</th>
                                     <th>Pledge Deadline</th>
+                                    <th>Amount Pledged</th>
+                                    <th>Amount Unpledged Yet</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -66,9 +68,10 @@
                                 {% for item in items %}
                                 <tr>
                                      <td>{{ item.Date}}</td>
-                                     <td>{{ item.Item_That_Needs_Pledges}}</td>
+                                     <td>{{ item.Item_That_Needs_Pledges}}</td>            
                                      <td>{{ item.Amount_Needed}}</td>
                                      <td>{{ item.Pledge_Deadline}}</td>
+                                     <td>{{ item.Total_Amount_Pledged}}</td>
                                      <td>
                                      <div class="mb-4">
                                         <a href="#"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"> Edit</span></a>

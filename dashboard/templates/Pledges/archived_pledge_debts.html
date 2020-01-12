@@ -26,21 +26,27 @@
             <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
                   <ul class="nav nav-tabs bordered">
-                        <li role="presentation" ><a href="{% url 'Pledgesreport' %}"><i
-                                    class="fa fa-list-ol"></i> List of Pledges</a>
+                       <li role="presentation"><a href="{% url 'add-pledge-item' %}"><i
+                              class="fa fa-plus-square-o"></i> Add Pledge Item</a>
+                        </li>
+                        <li role="presentation"><a href="{% url 'list-of-pledge-items' %}"><i
+                                      class="fa fa-plus-square-o"></i> Pledge Item List</a>
                         </li>
                         <li role="presentation"><a href="{% url 'Enter_Pledges' %}"><i
                               class="fa fa-plus-square-o"></i> Record Pledge</a>
-                         </li>
+                        </li>
+                         <li role="presentation"><a href="{% url 'Pledgesreport' %}"><i
+                                    class="fa fa-list-ol"></i> List of Pledges</a>
+                        </li>
                         <li role="presentation"><a href="{% url 'pledgesarchivessearch' %}"><i
-                              class="fa fa-list-ol"></i> Archived Pledges Report</a>
-                         </li>
+                              class="fa fa-plus-square-o"></i> Pledges Archived</a>
+                        </li> 
                          <li role="presentation" class="active"><a href="{% url 'archived-pledge-debts' %}"><i
                               class="fa fa-plus-square-o"></i> Archived Pledge Debts</a>
                          </li>
-                         <li role="presentation"><a href="{% url 'pledges-paid-list' %}"><i
-                        class="fa fa-plus-square-o"></i> Pledges Paid</a>
-                         </li>
+                          <li role="presentation"><a href="{% url 'pledges-paid-list' %}"><i
+                              class="fa fa-plus-square-o"></i> Pledges Paid</a>
+                        </li> 
                     </ul>
                     <br/>
                <h3 style="text-align: center">Table showing uncleared pledge debts that were archived </h5>
