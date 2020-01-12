@@ -228,6 +228,13 @@ class Allowance(models.Model):
     def __str__(self):
         return self.Name 
 #PLEDGES MODEL
+class PledgeItem(Model):
+    Date = models.DateField(blank=True, null=True)
+    Item_That_Needs_Pledges = models.CharField(max_length=100, blank=True, null=True)
+    Amount_Needed = models.IntegerField(default=0, blank=True, null=True)
+    Pledge_Deadline = models.DateField(blank=True, null=True)
+    def __str__(self):
+        return self.Item_That_Needs_Pledges
 class Pledges(Model):
     paid = 'PAID'
     partial = 'PARTIAL'
@@ -236,7 +243,7 @@ class Pledges(Model):
     Status=models.CharField(max_length=100, choices=state, null=True, blank=True)
     Date = models.DateField(null=True, blank=True)
     Pledge_Made_By = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, blank=False)
-    Reason = models.CharField(max_length=100, null=True)
+    Reason = models.ForeignKey(PledgeItem, on_delete=models.CASCADE, max_length=100, blank=True, null=True)
     Amount_Pledged = models.IntegerField(default=0)
     Amount_Paid = models.IntegerField(default=0, blank=True, null=True)
     Balance = models.IntegerField(default=0, blank=True, null=True)
@@ -274,13 +281,7 @@ class Pledges(Model):
 
         else:
             return self.Status    
-class PledgeItem(Model):
-    Date = models.DateField(blank=True, null=True)
-    Item_That_Needs_Pledges = models.CharField(max_length=100, blank=True, null=True)
-    Amount_Needed = models.IntegerField(default=0, blank=True, null=True)
-    Pledge_Deadline = models.DateField(blank=True, null=True)
-    def __str__(self):
-        return self.Item_That_Needs_Pledges
+
 
 class PaidPledges(Model):
     Reason=models.CharField(max_length=100, blank=True, null=True)
