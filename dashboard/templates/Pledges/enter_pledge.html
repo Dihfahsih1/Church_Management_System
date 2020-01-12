@@ -26,6 +26,12 @@
           <div class="x_content">
             <div class="" data-example-id="togglable-tabs">
               <ul class="nav nav-tabs bordered">
+                  <li role="presentation"><a href="{% url 'add-pledge-item' %}"><i
+                              class="fa fa-plus-square-o"></i> Add Pledge Item</a>
+                </li>
+                  <li role="presentation"><a href="{% url 'list-of-pledge-items' %}"><i
+                                      class="fa fa-plus-square-o"></i> Pledge Item List</a>
+                        </li>
                 <li role="presentation" ><a href="{% url 'Pledgesreport' %}"><i
                             class="fa fa-list-ol"></i> Pledges Made</a>
                 </li>
@@ -58,7 +64,7 @@
 				    <button type="submit" class="btn btn-primary" name="button">Submit</button>
 				</form>
       </div>
-				<p style="color:red"><b>NB:</b> 1. Record only pledges that are to finance church activities<br>2. Don't record here wedding or introduction pledges.</p>
+			
 				{% include 'messages.html' %}
 			    </div>
 			   </div>

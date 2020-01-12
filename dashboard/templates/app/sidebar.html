@@ -43,9 +43,11 @@
                 </li>
                 <li><a><i class="fa fa-dollar"></i> Pledges Module <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
+                        <li><a href="{% url 'add-pledge-item' %}">Add Pledge Items</a></li>
+                        <li><a href="{% url 'list-of-pledge-items' %}">List of Pledge Items</a></li>
                         <li><a href="{% url 'Enter_Pledges' %}">Record Pledges</a></li>
                         <li><a href="{% url 'archived-pledge-debts' %}">Pledges Not Cleared</a></li>
-                        <li><a href="{% url 'pledges-paid-list' %}">Pledges Payments</a></li>
+                        <li><a href="{% url 'pledges-paid-list' %}">Pledge Payments</a></li>
                     </ul>
                 </li>
 

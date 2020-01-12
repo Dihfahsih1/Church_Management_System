@@ -1305,7 +1305,22 @@ def Enter_Pledges(request):
     else:
         form=PledgesForm()
         return render(request, 'Pledges/enter_pledge.html',{'form':form})
-
+@login_required
+def add_Pledge_Items(request):
+    if request.method=="POST":
+        form=PledgeItemsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('list-of-pledge-items')
+    else:
+        form=PledgeItemsForm()
+        return render(request, 'Pledges/add_Pledge_Item.html',{'form':form})
+@login_required
+def list_of_pledge_items(request):
+    items = PledgeItem.objects.all().order_by('-id')
+    context ={'items': items}
+    return render(request, 'Pledges/list_of_pledge_items.html',context)  
+      
 @login_required
 def pledge_view(request, pledge_pk):
     pledge = get_object_or_404(Pledges, pk=pledge_pk)

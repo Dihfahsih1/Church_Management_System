@@ -274,6 +274,13 @@ class Pledges(Model):
 
         else:
             return self.Status    
+class PledgeItem(Model):
+    Date = models.DateField(blank=True, null=True)
+    Item_That_Needs_Pledges = models.CharField(max_length=100, blank=True, null=True)
+    Amount_Needed = models.IntegerField(default=0, blank=True, null=True)
+    Pledge_Deadline = models.DateField(blank=True, null=True)
+    def __str__(self):
+        return self.Item_That_Needs_Pledges
 
 class PaidPledges(Model):
     Reason=models.CharField(max_length=100, blank=True, null=True)

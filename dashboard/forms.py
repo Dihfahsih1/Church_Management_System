@@ -93,7 +93,14 @@ class VisitorsForm(forms.ModelForm):
     class Meta:
         model=Visitors
         fields = ('First_Name','Second_Name','Telephone','Address','Church')
-
+class PledgeItemsForm(forms.ModelForm):
+    class Meta:
+          model = PledgeItem
+          fields = ('Item_That_Needs_Pledges','Amount_Needed','Pledge_Deadline','Date')
+          widgets = {
+            'Date': DatePickerInput(),
+            'Pledge_Deadline': DatePickerInput(),
+          }                
 class PledgesReportArchiveForm(forms.ModelForm):
     class Meta:
         model= PledgesReportArchive
