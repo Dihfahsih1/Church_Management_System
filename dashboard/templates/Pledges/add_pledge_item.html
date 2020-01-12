@@ -1,0 +1,76 @@
+
+{% extends "app/base_site.html" %}
+{% block content %}
+  <div class="right_col" role="main">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Pledges</small></h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              </ul>
+            <div class="clearfix"></div>
+          </div>
+                <div class="x_content quick-link">
+                    <span style="color:red"><b>Quick Links:</b></span>
+                        <a href="{% url 'archived-pledge-debts' %}"> Unsettled Pledges</a>
+                        |<a href="{% url 'pledges-paid-list' %}"> All Pledges Paid</a>
+                        |<a href="{% url 'pledgesarchivessearch' %}"> Pledges Archived</a>
+                        |<a href="{% url 'Pledgesreport' %}"> Pledges Reports</a>
+                    <div class="separator"></div>
+                </div>
+                <h2 style="text-align: center">Add a Pledge Item </h2>
+                    <p>{{ message }}</p>
+          <div class="x_content">
+            <div class="" data-example-id="togglable-tabs">
+              <ul class="nav nav-tabs bordered">
+                <li role="presentation" class="active"><a href="{% url 'add-pledge-item' %}"><i
+                              class="fa fa-plus-square-o"></i> Add Pledge Item</a>
+                </li>
+                 <li role="presentation"><a href="{% url 'list-of-pledge-items' %}"><i
+                                      class="fa fa-plus-square-o"></i> Pledge Item List</a>
+                </li>
+                <li role="presentation" ><a href="{% url 'Pledgesreport' %}"><i
+                            class="fa fa-list-ol"></i> Pledges Made</a>
+                </li>
+                <li role="presentation"><a href="{% url 'Enter_Pledges' %}"><i
+                      class="fa fa-plus-square-o"></i> Record Pledges</a>
+                </li>
+                <li role="presentation"><a href="{% url 'pledgesarchivessearch' %}"><i
+                              class="fa fa-plus-square-o"></i> Pledges Archived</a>
+                </li>
+                 <li role="presentation"><a href="{% url 'archived-pledge-debts' %}"><i
+                              class="fa fa-plus-square-o"></i> Archived Pledge Debts</a>
+                </li>
+                 <li role="presentation"><a href="{% url 'pledges-paid-list' %}"><i
+                              class="fa fa-plus-square-o"></i> Pledges Paid</a>
+                </li>
+              </ul> <br/>
+				{% load crispy_forms_tags %}
+        <div  class="col-lg-6 col-offset-8 centered">
+				<form method="POST" enctype="multipart/form-data" >
+				{% csrf_token %}
+					    {{ form.Date|as_crispy_field }}
+					
+					    {{ form.Item_That_Needs_Pledges|as_crispy_field }}
+					
+					    {{ form.Amount_Needed|as_crispy_field }}
+					
+					    {{ form.Pledge_Deadline|as_crispy_field }}
+				
+				    <button type="submit" class="btn btn-primary" name="button">Submit</button>
+				</form>
+      </div>
+				{% include 'messages.html' %}
+			    </div>
+			   </div>
+			   </div>
+			    </div>
+			  </div>
+			</div>
+
+
+{% endblock content %}
+

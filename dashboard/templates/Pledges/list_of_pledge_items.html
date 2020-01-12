@@ -1,0 +1,92 @@
+
+{% extends "app/base_site.html" %}
+{% block content %}
+<div class="right_col" role="main">
+      <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Members</small></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content quick-link">
+                        <span>Quick Link:</span>
+                        <a href="{% url 'members-register' %}">Register Member</a>
+                        | <a href="{% url 'members-list' %}">Members List</a>
+                        | <a href="{% url 'visitors-register' %}">Register Visitor</a>
+                        | <a href="{% url 'visitors-list' %}">Visitors List</a>
+                    </div>
+                    <p>{{ message }}</p>
+            <div class="x_content">
+                <div class="" data-example-id="togglable-tabs">
+
+                    <ul class="nav nav-tabs bordered">
+                        <li role="presentation"><a href="{% url 'add-pledge-item' %}"><i
+                                      class="fa fa-plus-square-o"></i> Add Pledge Item</a>
+                        </li>
+                         <li role="presentation"class="active"><a href="{% url 'list-of-pledge-items' %}"><i
+                                      class="fa fa-plus-square-o"></i> Pledge Item List</a>
+                        </li>
+                        <li role="presentation" ><a href="{% url 'Pledgesreport' %}"><i
+                                    class="fa fa-list-ol"></i> Pledges Made</a>
+                        </li>
+                        <li role="presentation"><a href="{% url 'Enter_Pledges' %}"><i
+                              class="fa fa-plus-square-o"></i> Record Pledges</a>
+                        </li>
+                        <li role="presentation"><a href="{% url 'pledgesarchivessearch' %}"><i
+                                      class="fa fa-plus-square-o"></i> Pledges Archived</a>
+                        </li>
+                         <li role="presentation"><a href="{% url 'archived-pledge-debts' %}"><i
+                                      class="fa fa-plus-square-o"></i> Archived Pledge Debts</a>
+                        </li>
+                         <li role="presentation"><a href="{% url 'pledges-paid-list' %}"><i
+                                      class="fa fa-plus-square-o"></i> Pledges Paid</a>
+                        </li>
+                    </ul>
+                    <br/>
+
+               <div class="tab-content">
+                 <div class="tab-pane fade in active" id="tab_invoice_list">
+                    <div class="x_content">                     
+                         <table id="invoice-table" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Pledge Item Name</th>
+                                    <th>Amount Needed</th>
+                                    <th>Pledge Deadline</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in items %}
+                                <tr>
+                                     <td>{{ item.Date}}</td>
+                                     <td>{{ item.Item_That_Needs_Pledges}}</td>
+                                     <td>{{ item.Amount_Needed}}</td>
+                                     <td>{{ item.Pledge_Deadline}}</td>
+                                     <td>
+                                     <div class="mb-4">
+                                        <a href="#"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"> Edit</span></a>
+                                     
+                                        <a href="#"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"> Delete</span></a>
+                                       
+                                     </div>   
+                                     </td> 
+                                </tr>
+                                {% endfor%} 
+                            </tbody>
+                        </table>
+                    </div>
+                  </div>
+               </div>
+            </div> 
+          </div>
+        </div>       
+    </div>
+</div>
+{% endblock content %}
