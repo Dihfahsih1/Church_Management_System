@@ -239,7 +239,8 @@ class PledgeItem(Model):
     @property
     def Total_Amount_Pledged(self):
         print(self.Item_That_Needs_Pledges)
-        results = Pledges.objects.filter(Reason=self.Item_That_Needs_Pledges).aggregate(totals=models.Sum("Amount_Pledged"))
+        results = Pledges.objects.filter(Reason__Item_That_Needs_Pledges=self.Item_That_Needs_Pledges).aggregate(totals=models.Sum("Amount_Pledged"))
+        print(results)
         if (results['totals']):
             return results["totals"]
         else:
@@ -247,7 +248,7 @@ class PledgeItem(Model):
     @property
     def Pledge_Amount_Remaining(self):
         results=self.Amount_Needed-self.Total_Amount_Pledged
-        return self.results
+        return results
               
 class Pledges(Model):
     paid = 'PAID'
