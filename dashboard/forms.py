@@ -12,6 +12,14 @@ class SpendForm(forms.ModelForm):
             'Date': DatePickerInput(),
             
         } 
+class GeneralExpensesForm(forms.ModelForm):
+    class Meta:
+        model=GeneralExpenses
+        fields=('Date','Payment_Made_To','Expense_Reason','Amount')
+        widgets = {
+            'Date': DatePickerInput(),
+            
+        }         
 class SundryForm(forms.ModelForm):
     class Meta:
         model=Sundry

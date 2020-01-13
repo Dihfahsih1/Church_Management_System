@@ -14,6 +14,7 @@ url(r'^Pledges/Add-Item/', views.add_Pledge_Items ,name='add-pledge-item'),
 url(r'^sundryreport', views.sundryreport ,name='sundryreport'),
 url(r'^allowancereport/', views.allowancereport, name='allowancereport'),
 url(r'^expenditurereport/', views.expenditurereport, name='expenditurereport'),
+url(r'^Expenses/General-Expenses/Enter', views.enter_general_expenses, name='enter-general-expenses'),
 
 #generate pdfs
 url(r'^allowancespdf/', views.allowancespdf.as_view() ,name='allowancespdf'),

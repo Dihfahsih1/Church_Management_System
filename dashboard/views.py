@@ -909,6 +909,19 @@ def enter_expenditure(request):
         items = Spend.objects.all()
         context = {'items': items, 'form': form, }
         return render(request, 'Expenses/pay_expenditure.html',context)
+
+@login_required
+def enter_general_expenses(request):
+    if request.method=="POST":
+        form=GeneralExpensesForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('enter-general-expenses')
+    else:
+        form=GeneralExpensesForm()
+        items = GeneralExpenses.objects.all()
+        context = {'items': items, 'form': form, }
+        return render(request, 'Expenses/pay_generalexpenditure.html',context)        
 @login_required
 def enter_sundryexpense(request):
     if request.method == "POST":

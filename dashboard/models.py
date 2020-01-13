@@ -7,9 +7,12 @@ from django.forms.fields import DateField
 from django.contrib.admin.widgets import AdminDateWidget
 
 class Sundry(Model):
+    reason=(
+        ('Lunch','Lunch'),('Upkeep','Upkeep')     
+    )
     Date = models.DateField(null=True, blank=True)
     Payment_Made_To = models.CharField(max_length=100, blank=False)
-    Reason_For_Payment = models.CharField(max_length=250)
+    Reason_For_Payment = models.CharField(max_length=250, choices=reason)
     Amount = models.IntegerField(default=0)
     def __str__(self):
         return self.Payment_Made_To
@@ -17,17 +20,32 @@ class Sundry(Model):
 class Offerings(Model):
     services = (('Home Cell Service','Home Cell Service'),('Youth Service','Youth Service'),('Wednesday Service','Wednesday Service'),
         ('Bible Study Service','Bible Study Service'),('Friday Overnight','Friday Overnight'),('SundayFirst Service','Sunday First Service'),
-        ('Sunday Second Service','Sunday Second Service'),('Sunday Third Service','Sunday Third Service'))
+        ('Sunday Second Service','Sunday Second Service'),('Sunday Third Service','Sunday Third Service'),
+        )
     Date = models.DateField(null=True, blank=True)
     Total_Offering = models.IntegerField(default=0)
     Service=models.CharField(max_length=100, choices=services, blank=False)
     def __str__(self):
         return self.Total_Offering
+class GeneralExpenses(Model):
+    expenses = (('GM','Generator Mechanic'),('Instruments','Servicing Music Instruments'),('Condolences','Condolences'),
+        ('Stationery','Stationery'),('Repair','Any Other Repair'),('Purchase','Purchase'),
+        ('Renovations','Renovations')
+        )
+    Date = models.DateField(null=True, blank=True)
+    Payment_Made_To = models.CharField(max_length=100,blank=False)
+    Amount = models.IntegerField(default=0)
+    Expense_Reason=models.CharField(max_length=100, choices=expenses, blank=False)
+    def __str__(self):
+        return self.Expense_Reason
+
 
 class Spend(models.Model):
     reason=(
-        ('Church Renovations','Church Renovations'),('Water Bills','Water Bills'),('Electricity','Electricity Bills'),
-        ('Lwaki Oli Mulamu Conference','Lwaki Oli Mulamu Conference')
+        ('Water Bills','Water Bills'),('YB','Yaka Bills'),
+        ('Transport','Transport'), ('LO','Love Offering'),('MB','Medical Bills'),('Rent','Rent'),
+        ('Help','Help'),('Drinks','Drinks'),('Savings','Savings'),
+        ('Evangelism','Evangelism')
     )
     Date = models.DateField(null=True, blank=True)
     Payment_Made_To = models.CharField(max_length=100,blank=False)
