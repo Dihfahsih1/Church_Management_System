@@ -1146,6 +1146,47 @@ def expenditurereport (request):
     }
     return render(request, 'Expenses/expenditureindex.html', context)
 
+#GENERAL EXPENSES REPORT    
+@login_required
+def general_expenses_report (request):
+    if request.method=='POST':
+        archived_year=request.POST['archived_year']
+        archived_month = request.POST['archived_month']
+        all_expenses = GeneralExpenses.objects.all()
+        for expense in all_expenses:
+            date=expense.Date
+            amount=expense.Amount
+            reason=expense.Expense_Reason
+            name=expense.Payment_Made_To
+            expense_archiveobj=GeneralExpensesReportArchive()
+            expense_archiveobj.Name=name
+            expense_archiveobj.Date=date
+            expense_archiveobj.Amount=amount
+            expense_archiveobj.Reason=reason
+            expense_archiveobj.year=archived_year
+            expense_archiveobj.month=archived_month
+            expense_archiveobj.save()
+        all_expenses.delete()
+        message="The Monthly General Expenses Report has been Achived"
+        context={'message':message,}
+
+        return render(request, 'Expenses/expenditureindex.html', context)
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September',
+              'October', 'November','December']
+    yr = datetime.now().year
+    years = [yr,2019,2018]
+    mth = datetime.now().month
+    items =GeneralExpenses.objects.filter(Date__month=mth)
+    today = timezone.now()
+    current_month = today.strftime('%B')
+    total = GeneralExpenses.objects.aggregate(totals=models.Sum("Amount"))
+    total_amount = total["totals"]
+    context = {'current_month':current_month, 'total_amount':total_amount,'items': items,'months':months,
+        'years':years,}
+    return render(request, 'Expenses/generalexpenditureindex.html', context)
+
+
+
 @login_required
 def sundryreport (request):
     if request.method=='POST':

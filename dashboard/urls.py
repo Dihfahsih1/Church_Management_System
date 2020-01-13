@@ -15,7 +15,7 @@ url(r'^sundryreport', views.sundryreport ,name='sundryreport'),
 url(r'^allowancereport/', views.allowancereport, name='allowancereport'),
 url(r'^expenditurereport/', views.expenditurereport, name='expenditurereport'),
 url(r'^Expenses/General-Expenses/Enter', views.enter_general_expenses, name='enter-general-expenses'),
-
+url(r'^Expenses/General-Expenses/List', views.general_expenses_report, name='general-expenses-report'),
 #generate pdfs
 url(r'^allowancespdf/', views.allowancespdf.as_view() ,name='allowancespdf'),
 url(r'^sundrypdf/', views.sundrypdf.as_view() ,name='sundrypdf'),

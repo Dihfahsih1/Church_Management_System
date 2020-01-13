@@ -58,6 +58,7 @@ class Spend(models.Model):
 ##########################################
 # REPORT ARCHIVING MODELS AFTER SUBMISSION #
 ##########################################
+
 class ExpensesReportArchive(models.Model):
     Date = models.DateField(null=True, blank=True)
     Name = models.CharField(max_length=100, default='Name', null=True)
@@ -68,6 +69,17 @@ class ExpensesReportArchive(models.Model):
 
     def __str__(self):
         return 'Name: {1} Reason:{2} Amount:{0}'.format(self.Name,self.Reason, self.Amount)
+
+class GeneralExpensesReportArchive(models.Model):
+    Date = models.DateField(null=True, blank=True)
+    Name = models.CharField(max_length=100, default='Name', null=True)
+    Amount = models.FloatField(default=0.0, null=True)
+    Reason = models.CharField(max_length=100,null=True)
+    month = models.CharField(max_length=100,null=True)
+    year = models.CharField(max_length=100,null=True)
+
+    def __str__(self):
+        return 'Name: {1} Reason:{2} Amount:{0}'.format(self.Name,self.Reason, self.Amount)        
 class SundryReportArchive(models.Model):
     Date = models.DateField(null=True, blank=True)
     Name = models.CharField(max_length=100, default='Name', null=True)
