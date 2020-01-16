@@ -929,7 +929,7 @@ def enter_general_expenses(request):
         form=GeneralExpensesForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('enter-general-expenses')
+            return redirect('general-expenses-report')
     else:
         form=GeneralExpensesForm()
         items = GeneralExpenses.objects.all()
@@ -1182,8 +1182,7 @@ def general_expenses_report (request):
         all_expenses.delete()
         message="The Monthly General Expenses Report has been Achived"
         context={'message':message,}
-
-        return render(request, 'Expenses/expenditureindex.html', context)
+        return render(request, 'Expenses/generalexpenditureindex.html', context)
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September',
               'October', 'November','December']
     yr = datetime.now().year
