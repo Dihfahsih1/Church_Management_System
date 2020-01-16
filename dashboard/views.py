@@ -14,8 +14,8 @@ from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 @login_required
 def index(request):
     current_month = datetime.now().month
+
     total_current_offerings = Offerings.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Total_Offering"))
-  
     if (total_current_offerings['totals'])!=None:
         int(total_current_offerings["totals"])
         offerings=total_current_offerings["totals"]
@@ -24,13 +24,13 @@ def index(request):
         offerings = 0
 
     total_current_tithes = Tithes.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
-
     if (total_current_tithes['totals'])!=None:
         int(total_current_tithes["totals"])
         tithes=total_current_tithes["totals"]
     else:
         total_current_tithes=0
         tithes = 0
+
     total_current_salaries = SalariesPaid.objects.filter(Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
     if (total_current_salaries['totals'])!=None:
         int(total_current_salaries["totals"])
@@ -38,6 +38,7 @@ def index(request):
     else:
         total_current_pledges = 0
         pledges = 0
+
     total_current_pledges = PaidPledges.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount_Paid"))
     if (total_current_pledges['totals'])!=None:
         int(total_current_pledges["totals"])
@@ -45,40 +46,51 @@ def index(request):
     else:
         total_current_pledges = 0
         pledges = 0
+
     total_main_expenses = Spend.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
-    print(total_main_expenses)
     if (total_main_expenses['totals'])!=None:
         int(total_main_expenses["totals"])
         expenses=total_main_expenses["totals"]
     else:
         total_main_expenses = 0
         expenses = 0
+    #Total general expenses of the current month of the year.
+    total_general_expenses = GeneralExpenses.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
+    if (total_general_expenses['totals'])!=None:
+        int(total_general_expenses["totals"])
+        general=total_general_expenses["totals"]
+    else:
+        total_general_expenses = 0
+        general = 0
 
     total_allowances = Allowance.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
-    print(total_allowances)
     if (total_allowances['totals'])!=None:
         int(total_allowances["totals"])
-        allowances=total_allowances["totals"]
-        
+        allowances=total_allowances["totals"]    
     else:
         total_allowances = 0
         allowances=0
 
-    if (total_current_tithes,total_current_salaries, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== None:
+    #incase of data has been archived, none is returned, so we have to catch it before it causes trouble
+    if (total_current_tithes,total_current_salaries, total_general_expenses, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== None:
         total_monthly_incomes = 0
         total_monthly_expenditure =  0
+        total_general_expenses = 0
         pledges = 0
+        #calculating net income
         net_income = total_monthly_incomes - total_monthly_expenditure
         today = timezone.now()
         month = today.strftime('%B')
-        context={'total_monthly_incomes':total_monthly_incomes,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
-        'allowances':allowances, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
+        context={'total_general_expenses':total_general_expenses,'total_monthly_incomes':total_monthly_incomes,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
+        'allowances':allowances, 'general':general,'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
         return render(request,'index.html', context)
-
-    elif (total_current_tithes,total_current_salaries, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== 0:
+    #in case the totals are Zero
+    elif (total_current_tithes,total_general_expenses, total_current_salaries, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== 0:
         total_monthly_incomes = 0
         total_monthly_expenditure =  0
+        total_general_expenses = 0
         pledges = 0
+        #calculating net income
         net_income = total_monthly_incomes - total_monthly_expenditure
         today = timezone.now()
         month = today.strftime('%B')
@@ -86,14 +98,15 @@ def index(request):
         'allowances':allowances, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
         return render(request,'index.html', context)
 
+    #if there are moneys, calculate incomes and total expenditure.
     else:
-        total_monthly_incomes =  tithes+ offerings+ pledges
+        total_monthly_incomes =  tithes+ offerings+ general
         total_monthly_expenditure =  allowances + expenses+salaries
         net_income = total_monthly_incomes - total_monthly_expenditure
         today = timezone.now()
         month = today.strftime('%B')
-        context={'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
-        'allowances':allowances, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
+        context={'total_general_expenses':total_general_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
+        'allowances':allowances,'general':general, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
         return render(request,'index.html', context)
 
     
@@ -1238,7 +1251,37 @@ def sundryreport (request):
         'years':years,
     }
     return render(request, 'Expenses/sundryindex.html', context)
-
+@login_required
+def generalexpensesarchivessearch(request):
+    if request.method == 'POST':
+        report_year = request.POST['report_year']
+        report_month = request.POST['report_month']
+        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+                  'August', 'August', 'September', 'October', 'November','December']
+        yr = datetime.now().year
+        years = [yr,2019,2018]
+        today = timezone.now()
+        archived_reports = GeneralExpensesReportArchive.objects.filter(month=report_month, year=report_year)
+        total = archived_reports.aggregate(totals=models.Sum("Amount"))
+        total_amount = total["totals"]
+        context = {'archived_reports':archived_reports,
+                   'months': months,
+                   'years': years,
+                   'total_amount': total_amount,
+                   'today': today,
+                   'report_year': report_year,
+                   'report_month': report_month
+                   }
+        return render(request, "Expenses/generalexpenditurearchive.html", context)
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+              'August','September','October', 'November', 'November', 'December']
+    yr = datetime.now().year
+    years = [yr,2019,2018]
+    expenses=GeneralExpensesReportArchive.objects.all()
+    context = {'months': months,
+               'years': years,
+               'expenses': expenses}
+    return render(request, "Expenses/generalexpenditurearchive.html", context)
 
 # searching for the archives
 @login_required

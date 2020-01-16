@@ -66,6 +66,7 @@ url(r'^Pledgesreport/', views.Pledgesreport, name='Pledgesreport'),
 url(r'^expenditurereport/', views.expenditurereport, name='expenditurereport'),
 
 
+url(r'^Expenses/General/Archived/', views.generalexpensesarchivessearch, name='general-expensesarchives-search'),
 url(r'^expensesarchivessearch/', views.expensesarchivessearch, name='expensesarchivessearch'),
 url(r'^allowancearchivessearch/', views.allowancearchivessearch, name='allowancearchivessearch'),
 url(r'^sundrysarchivessearch/', views.sundryarchivessearch, name='sundryarchivessearch'),
