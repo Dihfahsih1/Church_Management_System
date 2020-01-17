@@ -111,8 +111,7 @@ class OfferingsReportArchive(models.Model):
     archivedyear = models.CharField(max_length=100,null=True)
 
     def __str__(self):
-        return 'Name: {1}  Amount:{0}'.format(self.Day, self.Amount)
-       
+        return 'Name: {1}  Amount:{0}'.format(self.Day, self.Amount)  
         
 class Members(models.Model):
     cell=(
