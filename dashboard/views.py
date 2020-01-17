@@ -1568,7 +1568,6 @@ def Pledgesreport(request):
     years = [yr,2019,2018]
     total = Pledges.objects.aggregate(totals=models.Sum("Amount_Pledged"))
     total_amount = total["totals"]
-    total_amount = total["totals"]
     today = timezone.now()
     day=datetime.now()
     current_month = today.strftime('%B')
@@ -1623,3 +1622,11 @@ class pledgesarchivepdf(View):
             'archived_pledges': archived_pledges,
         }
         return Render.render('Pledges/pledgesarchivepdf.html', pledgescontext)
+#airtime report
+def airtime_data_report(request):
+    mth = datetime.now().month
+    get_airtime=Sundry.objects.filter(Reason_For_Payment='Airtime/Data',Date__month=mth)
+    total = Sundry.objects.filter(Reason_For_Payment='Airtime/Data',Date__month=mth).aggregate(totals=models.Sum("Amount"))
+    total_amount = total["totals"]
+    context={'get_airtime':airtime, 'total_amount':total_amount}
+    return render(request,'airtime_data_report.html', context)
