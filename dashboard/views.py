@@ -89,6 +89,7 @@ def index(request):
         net_income = total_monthly_incomes - total_monthly_expenditure
         today = timezone.now()
         month = today.strftime('%B')
+
         context={'total_petty_expenses':total_petty_expenses,'total_general_expenses':total_general_expenses,'total_monthly_incomes':total_monthly_incomes,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
         'petty':petty,'allowances':allowances, 'general':general,'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
         return render(request,'index.html', context)
@@ -205,9 +206,10 @@ def current_month_salary_paid(request):
         current_month = datetime.now().month
         current_year = datetime.now().year
         today = timezone.now()
+        day=datetime.now()
         mth = today.strftime('%B')
         salaries = SalariesPaid.objects.filter(Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month)
-        context={'mth':mth, 'salaries':salaries}
+        context={'day':day,'mth':mth, 'salaries':salaries}
         for sal in salaries:
             date=sal.Date_of_paying_salary
             salary_id=sal.Salary_Id
@@ -235,9 +237,11 @@ def current_month_salary_paid(request):
     yr = datetime.now().year
     years = [yr,2019,2018]
     today = timezone.now()
+    day=datetime.now()
     total = SalariesPaid.objects.filter(Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
     total_amount = total["totals"]
     context = {
+         'day':day,
         'mth':mth,
         'total_amount':total_amount,
         'salaries': salaries,
@@ -473,10 +477,11 @@ def Offeringsreport (request):
     today = timezone.now()
     current_month = today.strftime('%B')
     mth = datetime.now().month
+    day=datetime.now()
     total = Offerings.objects.aggregate(totals=models.Sum("Total_Offering"))
     total_amount = total["totals"]
     items =Offerings.objects.all()
-    context = {'yr':yr, 'total_amount':total_amount,'items': items,'months':months,'current_month':current_month,'years':years,
+    context = {'day':day,'yr':yr, 'total_amount':total_amount,'items': items,'months':months,'current_month':current_month,'years':years,
     }
     return render(request, 'Offerings/offeringsindex.html', context)
 
@@ -628,7 +633,8 @@ def Tithesreport (request):
     total_amount = total["totals"]
     mth = datetime.now().month
     items =Tithes.objects.all()
-    context = {'yr':yr,'total_amount':total_amount,'items': items,'months':months,'years':years,'current_month':current_month
+    day=datetime.now()
+    context = {'day':day,'yr':yr,'total_amount':total_amount,'items': items,'months':months,'years':years,'current_month':current_month
     }
     return render(request, 'Tithes/tithesindex.html', context)
 
@@ -787,8 +793,9 @@ def allowancereport(request):
     total = Allowance.objects.aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
     mth = datetime.now().month
+    day=datetime.now()
     items =Allowance.objects.filter(Date__month=mth)
-    context = {
+    context = {'day':day,
         'total_amount':total_amount,
         'items': items,
         'months':months,
@@ -1128,10 +1135,11 @@ def expenditurereport (request):
     mth = datetime.now().month
     items =Spend.objects.filter(Date__month=mth)
     today = timezone.now()
+    day=datetime.now()
     current_month = today.strftime('%B')
     total = Spend.objects.aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
-    context = {
+    context = {'day':day,
          'current_month':current_month,
          'total_amount':total_amount,
         'items': items,
@@ -1171,12 +1179,13 @@ def general_expenses_report (request):
     yr = datetime.now().year
     years = [yr,2019,2018]
     mth = datetime.now().month
+    day=datetime.now()
     items =GeneralExpenses.objects.filter(Date__month=mth)
     today = timezone.now()
     current_month = today.strftime('%B')
     total = GeneralExpenses.objects.aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
-    context = {'current_month':current_month, 'total_amount':total_amount,'items': items,'months':months,
+    context = {'day':day, 'current_month':current_month, 'total_amount':total_amount,'items': items,'months':months,
         'years':years,}
     return render(request, 'Expenses/generalexpenditureindex.html', context)
 
@@ -1225,8 +1234,9 @@ def sundryreport (request):
     total = Sundry.objects.aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
     mth = datetime.now().month
+    day=datetime.now()
     items =Sundry.objects.filter(Date__month=mth)
-    context = {
+    context = {'day':day,
         'total_amount':total_amount,
         'items': items,
         'months':months,
@@ -1326,9 +1336,10 @@ def sundryarchivessearch(request):
         months = ['January','February','March', 'April','May','June','July','August','September', 'October', 'November','December']
         sundry = SundryReportArchive.objects.all()
         today = timezone.now()
+        day=datetime.now()
         total = archived_reports.aggregate(totals=models.Sum("Amount"))
         total_amount = total["totals"]
-        context = {'archived_reports': archived_reports,'months': months,'years': years,'expenses':sundry,
+        context = {'day':day, 'archived_reports': archived_reports,'months': months,'years': years,'expenses':sundry,
                    'total_amount': total_amount,'today': today,'report_year': report_year,'report_month': report_month
                    }
         return render(request, "Expenses/sundryarchive.html", context)
@@ -1563,10 +1574,11 @@ def Pledgesreport(request):
     total_amount = total["totals"]
     total_amount = total["totals"]
     today = timezone.now()
+    day=datetime.now()
     current_month = today.strftime('%B')
     mth = datetime.now().month
     items =Pledges.objects.filter(Date__month=mth)
-    context = {
+    context = {'day':day,
         'total_amount':total_amount,
         'items':items,
         'months':months,

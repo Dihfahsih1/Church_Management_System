@@ -1,5 +1,8 @@
 {% extends "app/base_site.html" %}
 {% block content %}
+<head>
+  <title>UCC Bwaise | Offerings Report as of {{day}}</title>
+</head>
 <div class="right_col" role="main">
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
@@ -61,7 +64,7 @@
                                 <td>{{ item.Date}}</td>
                                 <td>{{ item.Service}}</td>
                                 <td>{{ item.Total_Offering}}</td>
-                                 
+
                                 <td>
                                   <div class="mb-4">
                                         <a href="{% url 'edit_offerings' item.id  %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit">Edit</span></a>
