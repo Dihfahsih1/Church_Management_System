@@ -13,7 +13,8 @@ class MembersAdmin(admin.ModelAdmin):
     list_display = ('full_name') 
 class SalariesPaidAdmin(admin.ModelAdmin):
     list_display = ('total_salary_paid','Balance') 
-
+class OfferingsReportArchiveAdmin(admin.ModelAdmin):
+    list_display = ('total_offerings')
 class PledgeItemAdmin(admin.ModelAdmin):
     list_display = ('Total_Amount_Pledged','Pledge_Amount_Remaining')              
 admin.site.register(StaffDetails)
