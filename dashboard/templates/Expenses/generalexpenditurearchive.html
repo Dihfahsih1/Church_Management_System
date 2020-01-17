@@ -88,8 +88,10 @@
                                                   <td>{{ archived.Name }}</td>
                                                   <td>{{ archived.Reason}}</td>
                                                   <td>{{ archived.Amount }}</td>
+
                                               </tr>
                                           {% endfor %}
+                                           <td>Total</td><td><pre>  </pre></td><td><pre>  </pre></td><td><b style="color: red">Shs.{{total_amount}}</b></td>
                                           </tbody>
 
                                                <h2 style="text-align: center">Monthly Archived General Expenses Report For the financial cycle of  <b>{{ report_month }} {{ report_year }}</b>  </h2>
