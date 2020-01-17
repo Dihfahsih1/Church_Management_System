@@ -27,8 +27,9 @@ class Offerings(Model):
     Service=models.CharField(max_length=100, choices=services, blank=False)
     def __str__(self):
         return self.Total_Offering
+
 class GeneralExpenses(Model):
-    expenses = (('GM','Generator Mechanic'),('Instruments','Servicing Music Instruments'),('Condolences','Condolences'),
+    expenses = (('Generator Mechanic','Generator Mechanic'),('Instruments','Servicing Music Instruments'),('Condolences','Condolences'),
         ('Stationery','Stationery'),('Repair','Any Other Repair'),('Purchase','Purchase'),
         ('Renovations','Renovations')
         )
@@ -42,8 +43,8 @@ class GeneralExpenses(Model):
 
 class Spend(models.Model):
     reason=(
-        ('Water Bills','Water Bills'),('YB','Yaka Bills'),
-        ('Transport','Transport'), ('LO','Love Offering'),('MB','Medical Bills'),('Rent','Rent'),
+        ('Water Bills','Water Bills'),('Yaka Bills','Yaka Bills'),
+        ('Transport','Transport'), ('Love Offering','Love Offering'),('Medical Bills','Medical Bills'),('Rent','Rent'),
         ('Help','Help'),('Drinks','Drinks'),('Savings','Savings'),
         ('Evangelism','Evangelism')
     )
