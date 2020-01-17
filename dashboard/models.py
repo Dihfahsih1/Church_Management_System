@@ -8,7 +8,7 @@ from django.contrib.admin.widgets import AdminDateWidget
 
 class Sundry(Model):
     reason=(
-        ('Lunch','Lunch'),('Upkeep','Upkeep')     
+        ('Lunch','Lunch'),('Upkeep','Upkeep'),('Airtime/Data','Airtime/Data')      
     )
     Date = models.DateField(null=True, blank=True)
     Payment_Made_To = models.CharField(max_length=100, blank=False)
