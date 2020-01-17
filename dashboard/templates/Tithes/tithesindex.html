@@ -23,7 +23,7 @@
                         |<a href="{% url 'current-month-salaries'  %}"> Salaries Report</a></li>
                     <div class="separator"></div>
                 </div>
-                    <h4>The {{month}} Tithes Report</h4>
+                    <h3 style="text-align: center">The Tithes Report as of {{current_month}} {{yr}}</h3>
                      <p>{{ msg}}</p>
             <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
@@ -69,9 +69,11 @@
                           </tbody>
                           <td>Total</td><td><pre>  </pre></td><td><b style="color: red">Shs.{{total_amount}}</b></td>
                         </table>
-                        <a href="{% url 'tithespdf' %}" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"></span></a>
-                       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">Archive</span></button>{% endif %}
+                      {% endif %}
                       </div>
+                        <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
+                        <a href="{% url 'tithespdf' %}" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"></span></a>
+                       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">Archive</span></button>
                     </div>
                   </div>
                 </div>
