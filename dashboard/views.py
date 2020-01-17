@@ -63,6 +63,14 @@ def index(request):
         total_general_expenses = 0
         general = 0
 
+    #Petty Cash expenses
+    total_petty_expenses = Sundry.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
+    if (total_petty_expenses['totals'])!=None:
+        int(total_petty_expenses["totals"])
+        petty=total_petty_expenses["totals"]
+    else:
+        total_petty_expenses = 0
+        petty = 0
     total_allowances = Allowance.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_allowances['totals'])!=None:
         int(total_allowances["totals"])
@@ -72,7 +80,7 @@ def index(request):
         allowances=0
 
     #incase of data has been archived, none is returned, so we have to catch it before it causes trouble
-    if (total_current_tithes,total_current_salaries, total_general_expenses, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== None:
+    if (total_petty_expenses,total_current_tithes,total_current_salaries, total_general_expenses, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== None:
         total_monthly_incomes = 0
         total_monthly_expenditure =  0
         total_general_expenses = 0
@@ -81,11 +89,11 @@ def index(request):
         net_income = total_monthly_incomes - total_monthly_expenditure
         today = timezone.now()
         month = today.strftime('%B')
-        context={'total_general_expenses':total_general_expenses,'total_monthly_incomes':total_monthly_incomes,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
-        'allowances':allowances, 'general':general,'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
+        context={'total_petty_expenses':total_petty_expenses,'total_general_expenses':total_general_expenses,'total_monthly_incomes':total_monthly_incomes,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
+        'petty':petty,'allowances':allowances, 'general':general,'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
         return render(request,'index.html', context)
     #in case the totals are Zero
-    elif (total_current_tithes,total_general_expenses, total_current_salaries, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== 0:
+    elif (total_petty_expenses,total_current_tithes,total_general_expenses, total_current_salaries, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== 0:
         total_monthly_incomes = 0
         total_monthly_expenditure =  0
         total_general_expenses = 0
@@ -94,19 +102,19 @@ def index(request):
         net_income = total_monthly_incomes - total_monthly_expenditure
         today = timezone.now()
         month = today.strftime('%B')
-        context={'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
-        'allowances':allowances, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
+        context={'total_general_expenses':total_general_expenses,'total_petty_expenses':total_petty_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
+        'general':general,'allowances':allowances, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
         return render(request,'index.html', context)
 
     #if there are moneys, calculate incomes and total expenditure.
     else:
-        total_monthly_incomes =  tithes+ offerings
-        total_monthly_expenditure =  allowances + expenses+salaries+ general
+        total_monthly_incomes =  tithes+ offerings 
+        total_monthly_expenditure =  allowances + expenses+salaries+ general+ petty
         net_income = total_monthly_incomes - total_monthly_expenditure
         today = timezone.now()
         month = today.strftime('%B')
-        context={'total_general_expenses':total_general_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
-        'allowances':allowances,'general':general, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
+        context={'total_petty_expenses':total_petty_expenses,'total_general_expenses':total_general_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
+        'petty':petty,'allowances':allowances,'general':general, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
         return render(request,'index.html', context)
 
     
