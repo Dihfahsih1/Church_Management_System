@@ -1629,4 +1629,4 @@ def airtime_data_report(request):
     total = Sundry.objects.filter(Reason_For_Payment='Airtime/Data',Date__month=mth).aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
     context={'get_airtime':get_airtime, 'total_amount':total_amount}
-    return render(request,'airtime_data_report.html', context)
+    return render(request,'Expenses/airtime_data_report.html', context)
