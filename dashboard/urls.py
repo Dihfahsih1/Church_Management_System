@@ -97,5 +97,5 @@ url(r'^Employees/List/', views.employee_list, name='employee-list'),
 url(r'^Employees/Pay/(?P<pk>\d+)', views.paying_employees, name='pay-employee'),
 url(r'^Employees/Salary/Paid/', views.paid_salary, name='paid-salary'),
 url(r'^Employees/Salary/Paid-List/', views.current_month_salary_paid, name='current-month-salaries'),
-url(r'^Petty-Expenses/Airtime/', views.airtime_data_report, name='airime-data-report')
+url(r'^Petty-Expenses/Airtime/', views.airtime_data_report, name='airtime-data-report')
 ]
