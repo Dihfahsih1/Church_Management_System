@@ -36,8 +36,8 @@ def index(request):
         int(total_current_salaries["totals"])
         salaries=total_current_salaries["totals"]
     else:
-        total_current_pledges = 0
-        pledges = 0
+        total_current_salaries = 0
+        salaries = 0
 
     total_current_pledges = PaidPledges.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount_Paid"))
     if (total_current_pledges['totals'])!=None:
@@ -100,8 +100,8 @@ def index(request):
 
     #if there are moneys, calculate incomes and total expenditure.
     else:
-        total_monthly_incomes =  tithes+ offerings+ general
-        total_monthly_expenditure =  allowances + expenses+salaries
+        total_monthly_incomes =  tithes+ offerings
+        total_monthly_expenditure =  allowances + expenses+salaries+ general
         net_income = total_monthly_incomes - total_monthly_expenditure
         today = timezone.now()
         month = today.strftime('%B')
@@ -581,7 +581,7 @@ class tithespdf(View):
             'request': request,
             'totalexpense': totalexpense,
         }
-        return Render.render('tithespdf.html', context)
+        return Render.render('Tithes/tithespdf.html', context)
 
 class tithesreceipt(View):
     def get(self, request, pk):
@@ -592,7 +592,7 @@ class tithesreceipt(View):
             'tithes': tithes,
             'request': request,
         }
-        return Render.render('tithesreceipt.html', context)
+        return Render.render('Tithes/tithesreceipt.html', context)
 @login_required
 def Tithesreport (request):
     if request.method=='POST':
@@ -618,7 +618,7 @@ def Tithesreport (request):
         message="The Monthly Tithes Report has been Achived"
         context={'message':message}
 
-        return render(request, 'tithesindex.html', context)
+        return render(request, 'Tithes/tithesindex.html', context)
 
     months = ['January', 'February', 'March', 'April', 'May', 'June',
               'July', 'August','September', 'October', 'November','December']
@@ -727,7 +727,7 @@ class allowancereceipt(View):
             'Allowance': Allowance,
             'request': request,
         }
-        return Render.render('Allowance/llowancereceipt.html', Allowancecontext)
+        return Render.render('Allowance/allowancereceipt.html', Allowancecontext)
 
 #Printing allowances Report
 class allowancespdf(View):
@@ -1308,7 +1308,7 @@ def expensesarchivessearch(request):
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
               'August','September','October', 'November', 'November', 'December']
     yr = datetime.now().year
-    years = [yr,2019,2018]
+    years = [yr,yr-1,yr-2,yr-3,yr-4,2018]
     expenses=ExpensesReportArchive.objects.all()
     context = {'months': months,
                'years': years,
@@ -1324,8 +1324,26 @@ def sundryarchivessearch(request):
         months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
                   'August', 'August', 'September', 'October', 'November','December']
         yr = datetime.now().year
-        years = [yr,2019,2018]
-
+        #retrieve stored years instead of getting them automatically which is floppy
+        yrs = SundryReportArchive.objects.all().order_by('-year')
+        archived_years=[]
+        for i in yrs:
+            x=i.year
+            archived_years.append(x)
+        years=archived_years
+        #remove duplicate years in the search dropdown menu for years field        
+        def remove_dup(a):
+            i = 0
+            while i < len(a):
+                j = i + 1
+                while j < len(a):
+                    if a[i] == a[j]:
+                        del a[j]
+                    else:
+                        j += 1
+                i += 1
+        s = years
+        remove_dup(s) 
         sundry = SundryReportArchive.objects.all()
         today = timezone.now()
         total = archived_reports.aggregate(totals=models.Sum("Amount"))
@@ -1345,7 +1363,7 @@ def sundryarchivessearch(request):
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
               'August', 'August', 'September','October', 'November', 'December']
     yr = datetime.now().year
-    years = [yr,2019,2018]
+    years = [yr,yr-1,yr-2,yr-3,yr-4,2018]
 
     sundry=SundryReportArchive.objects.all()
 
