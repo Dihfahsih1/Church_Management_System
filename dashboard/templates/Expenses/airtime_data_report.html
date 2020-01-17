@@ -2,14 +2,14 @@
 {% extends "app/base_site.html" %}
 {% block content %}
 <head>
-  <title>UCC Bwaise | Main Expenses Report as of {{day}}</title>
+  <title>UCC Bwaise | The Airtime-Data Daily Report for today as of {{today}} </title>
 </head>
 <div class="right_col" role="main">
       <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Members</small></h2>
+                        <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Airtime-Data</small></h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -27,26 +27,22 @@
                         |<a href="{% url 'current-month-salaries'  %}"> Salaries Report</a>
                     <div class="separator"></div>
                    </div>
-                    <h2 style="text-align: center">The Airtime-Data Report as of</h2>
+                    <h2 style="text-align: center">The Airtime-Data Daily Report for today as of {{today}} </h2>
                     <p>{{ message }}</p>
             <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
 
                     <ul class="nav nav-tabs bordered">
-                        <li role="presentation" ><a href="{% url 'expenditurereport' %}"><i
-                                    class="fa fa-list-ol"></i> List of Main Expenses</a>
+                        <li role="presentation"><a href="{% url 'sundryreport' %}"><i
+                            class="fa fa-list-ol"></i> Petty Expenses List</a>
                         </li>
-                        <li role="presentation"><a href="{% url 'enter_expenditure' %}"><i
-                              class="fa fa-plus-square-o"></i> Record Main Expense</a>
-                         </li>
-
-                          <li role="presentation"><a href="{% url 'general-expenses-report' %}"><i
-                                    class="fa fa-list-ol"></i> List of General Expenses</a>
+                        <li role="presentation"><a href="{% url 'enter_sundryexpense' %}"><i
+                              class="fa fa-plus-square-o"></i> Record PettyExpense</a>
                         </li>
-                        <li role="presentation"><a href="{% url 'enter-general-expenses' %}"><i
-                              class="fa fa-plus-square-o"></i> Record General Expense</a>
-                         </li>
-                          <li role="presentation" class="active"><a href="{% url 'airime-data-report' %}"><i
+                        <li role="presentation"><a href="{% url 'sundryarchivessearch' %}"><i
+                                      class="fa fa-plus-square-o"></i> Petty Expenses Archived</a>
+                        </li>
+                        <li role="presentation" class="active"><a href="{% url 'airtime-data-report' %}"><i
                               class="fa fa-plus-square-o"></i> Airtime-Data Payments</a>
                          </li>
                     </ul>
@@ -59,7 +55,6 @@
                                 <tr>
                                       <td>Date</td>
                                       <td>Name</td>
-                                      <td>Reason</td>
                                       <td>Amount</td>
                                       <td>Action</td>
 
@@ -70,7 +65,6 @@
                                 <tr>
                                   <td>{{ item.Date}}</td>
                                   <td>{{ item.Payment_Made_To}}</td>
-                                  <td>{{ item.Reason_For_Payment}}</td>
                                   <td>{{ item.Amount}}</td>
                                   <td>
                                      <div class="mb-4">
@@ -79,64 +73,12 @@
                                        {% endfor %}
                                      </div></td></tr>
                              </tbody>
-                             <td>Total</td><td><pre>  </pre></td><td><pre>  </pre></td><td><b style="color: red">{{total_amount}}</b></td>
+                             <td>Total</td><td><pre>  </pre></td><td><b style="color: red">Shs.{{total_amount}}</b></td>
                             </table>
-                            <a href="{% url 'expenditurepdf' %} " target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"></span></a>
-                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">Archive</span></button>
+                            
                     </div>
                   </div>
                </div>
-
-
-          <!-- Modal -->
-       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">End of the Month Expenditure report archiving</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <h5 class="text-primary">Select year and corresponding month to archive</h5>
-                    <form class="form-inline" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-
-                            <div class="col-auto my-1">
-                          <label class="mr-sm-2" for="inlineFormCustomSelect">Year</label>
-                          <select class="custom-select mr-sm-2" name="archived_year" id="inlineFormCustomSelect">
-                              {% for report_year in years %}
-                                 <option name="{{ report_year }}" value="{{ report_year }}">{{ report_year }}</option>
-                              {% endfor %}
-                          </select>
-                        </div>
-                          <div class="col-auto my-1">
-                          <label class="mr-sm-2" for="inlineFormCustomSelect">Month</label>
-                          <select class="custom-select mr-sm-2" name="archived_month" id="inlineFormCustomSelect">
-                              {% for report_month in months %}
-                                 <option name="{{ report_month }}" value="{{ report_month }}">{{ report_month }}</option>
-                              {% endfor %}
-                          </select>
-                          </div>
-                         <div class="col-auto my-1">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-              </div>
-            </div>
-                         </div>
-                       </div>
-                     </div>
-                   </div>
-                 </div>
-               </div>
-             </div>
-           </div>
         </div>       
     </div>
 </div>

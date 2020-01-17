@@ -1624,9 +1624,10 @@ class pledgesarchivepdf(View):
         return Render.render('Pledges/pledgesarchivepdf.html', pledgescontext)
 #airtime report
 def airtime_data_report(request):
-    mth = datetime.now().month
-    get_airtime=Sundry.objects.filter(Reason_For_Payment='Airtime/Data',Date__month=mth)
-    total = Sundry.objects.filter(Reason_For_Payment='Airtime/Data',Date__month=mth).aggregate(totals=models.Sum("Amount"))
+    mth = datetime.now().day
+    today = datetime.now()
+    get_airtime=Sundry.objects.filter(Reason_For_Payment='Airtime/Data', Date__day=mth)
+    total = Sundry.objects.filter(Reason_For_Payment='Airtime/Data',Date__day=mth).aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
-    context={'get_airtime':get_airtime, 'total_amount':total_amount}
+    context={'get_airtime':get_airtime, 'total_amount':total_amount, 'today':today}
     return render(request,'Expenses/airtime_data_report.html', context)
