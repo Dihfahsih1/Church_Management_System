@@ -456,7 +456,6 @@ def Offeringsreport (request):
 
         message="The Monthly Offerings Report has been Achived"
         context={'message':message}
-
         return render(request, 'Offerings/offeringsindex.html', context)
 
     months = ['January', 'February', 'March', 'April', 'May', 'June',
@@ -468,14 +467,8 @@ def Offeringsreport (request):
     mth = datetime.now().month
     total = Offerings.objects.aggregate(totals=models.Sum("Total_Offering"))
     total_amount = total["totals"]
-
-    items =Offerings.objects.filter(Date__month=mth)
-    context = {
-        'total_amount':total_amount,
-        'items': items,
-        'months':months,
-        'current_month':current_month,
-        'years':years,
+    items =Offerings.objects.all()
+    context = {'yr':yr, 'total_amount':total_amount,'items': items,'months':months,'current_month':current_month,'years':years,
     }
     return render(request, 'Offerings/offeringsindex.html', context)
 
@@ -512,9 +505,7 @@ def offeringsarchivessearch(request):
 
     offerings = OfferingsReportArchive.objects.all()
 
-    context = {'months': months,
-               'years': years,
-               'offerings': offerings}
+    context = {'months': months,'years': years,'offerings': offerings}
     return render(request, "Offerings/offeringsarchive.html", context)
 
 class offeringsarchivepdf(View):
@@ -620,8 +611,7 @@ def Tithesreport (request):
 
         return render(request, 'Tithes/tithesindex.html', context)
 
-    months = ['January', 'February', 'March', 'April', 'May', 'June',
-              'July', 'August','September', 'October', 'November','December']
+    months = ['January','February','March','April','May','June','July','August','September','October','November','December']
     yr = datetime.now().year
     years = [yr,2019,2018]
     today = timezone.now()
@@ -629,13 +619,8 @@ def Tithesreport (request):
     total = Tithes.objects.aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
     mth = datetime.now().month
-    items =Tithes.objects.filter(Date__month=mth)
-    context = {
-        'total_amount':total_amount,
-        'items': items,
-        'months':months,
-        'years':years,
-        'current_month':current_month
+    items =Tithes.objects.all()
+    context = {'yr':yr,'total_amount':total_amount,'items': items,'months':months,'years':years,'current_month':current_month
     }
     return render(request, 'Tithes/tithesindex.html', context)
 
@@ -645,31 +630,21 @@ def tithesarchivessearch(request):
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
         archived_reports = TithesReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
-        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                  'August','September', 'October', 'November', 'December']
+        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September', 'October', 'November', 'December']
         yr = datetime.now().year
         years = [yr,2019,2018]
-
         tithes = TithesReportArchive.objects.all()
         today = timezone.now()
         total = archived_reports.aggregate(totals=models.Sum("Amount"))
         total_amount = total["totals"]
-        context = {'archived_reports': archived_reports,
-                   'months': months,
-                   'years': years,
-                   'expenses': tithes,
-                   'total_amount': total_amount,
-                   'today': today,
-                   'report_year': report_year,
-                   'report_month': report_month
+        context = {'archived_reports': archived_reports,'months': months,'years': years,'expenses': tithes,
+                   'total_amount': total_amount,'today': today,'report_year': report_year,'report_month': report_month
                    }
         return render(request, "Tithes/tithesarchive.html", context)
 
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-              'August', 'September', 'October', 'November', 'November', 'December']
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'November', 'December']
     yr = datetime.now().year
     years = [yr,2019,2018]
-
     tithes = TithesReportArchive.objects.all()
     context = {'months': months,
                'years': years,
@@ -1317,59 +1292,42 @@ def expensesarchivessearch(request):
 
 @login_required
 def sundryarchivessearch(request):
+    yrs = SundryReportArchive.objects.all().order_by('-year')
+    archived_years=[]
+    for i in yrs:
+        x=i.year
+        archived_years.append(x)
+    years=archived_years
+    #remove duplicate years in the search dropdown menu for years field        
+    def remove_dup(a):
+        i = 0
+        while i < len(a):
+            j = i + 1
+            while j < len(a):
+                if a[i] == a[j]:
+                    del a[j]
+                else:
+                    j += 1
+            i += 1
+    s = years
+    remove_dup(s) 
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
         archived_reports = SundryReportArchive.objects.filter(month=report_month, year=report_year)
-        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                  'August', 'August', 'September', 'October', 'November','December']
-        yr = datetime.now().year
-        #retrieve stored years instead of getting them automatically which is floppy
-        yrs = SundryReportArchive.objects.all().order_by('-year')
-        archived_years=[]
-        for i in yrs:
-            x=i.year
-            archived_years.append(x)
-        years=archived_years
-        #remove duplicate years in the search dropdown menu for years field        
-        def remove_dup(a):
-            i = 0
-            while i < len(a):
-                j = i + 1
-                while j < len(a):
-                    if a[i] == a[j]:
-                        del a[j]
-                    else:
-                        j += 1
-                i += 1
-        s = years
-        remove_dup(s) 
+        months = ['January','February','March', 'April','May','June','July','August','September', 'October', 'November','December']
         sundry = SundryReportArchive.objects.all()
         today = timezone.now()
         total = archived_reports.aggregate(totals=models.Sum("Amount"))
         total_amount = total["totals"]
-
-        context = {'archived_reports': archived_reports,
-                   'months': months,
-                   'years': years,
-                   'expenses':sundry,
-                   'total_amount': total_amount,
-                   'today': today,
-                   'report_year': report_year,
-                   'report_month': report_month
+        context = {'archived_reports': archived_reports,'months': months,'years': years,'expenses':sundry,
+                   'total_amount': total_amount,'today': today,'report_year': report_year,'report_month': report_month
                    }
         return render(request, "Expenses/sundryarchive.html", context)
-
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-              'August', 'August', 'September','October', 'November', 'December']
+    months = ['January','February','March','April','May','June','July','August','September','October', 'November', 'December']
     yr = datetime.now().year
-    years = [yr,yr-1,yr-2,yr-3,yr-4,2018]
-
     sundry=SundryReportArchive.objects.all()
-
-    context = {'months': months,
-               'years': years,
-               'sundry': sundry}
+    context = {'months': months,'years': years,'sundry': sundry}
     return render(request, "Expenses/sundryarchive.html", context)
 
 # Printing Expenditure archived Report
