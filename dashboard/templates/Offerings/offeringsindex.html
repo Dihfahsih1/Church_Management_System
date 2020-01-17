@@ -37,7 +37,7 @@
                        </li>
                     </ul>
                     <br/>
-                     <h2 style="text-align: center">The {{current_month}} Offerings Report</h2>
+                     <h2 style="text-align: center">The Offerings Report as of {{current_month}} {{yr}}</h2>
                       <p>{{ msg}}</p>
 
             <div class="tab-content">
@@ -61,22 +61,26 @@
                                 <td>{{ item.Date}}</td>
                                 <td>{{ item.Service}}</td>
                                 <td>{{ item.Total_Offering}}</td>
+                                 
                                 <td>
-                                  <!--<a href="{% url 'offeringsreceipt' item.id %}" target="_new"><button class="btn btn-info">Print Receipt</button></a> |--->
                                   <div class="mb-4">
-                                        <a href="{% url 'edit_offerings' item.id  %}"class="btn btn-info btn-sm"><span class="fa fa-pencil-square-o"></span> Edit</a>
+                                        <a href="{% url 'edit_offerings' item.id  %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit">Edit</span></a>
                                   </div></td>
                                   {% endfor %}
                                 </tr>
                               </tbody>
-                          </table><br>
-                          <a href="{% url 'offeringspdf' %}" target="_new" class="btn btn-info bt-sm" role="button">Print Report</a>
-                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Archive Offerings</button>
-
+                              <td>Total</td><td><pre>  </pre></td><td><b style="color: red">Shs.{{total_amount}}</b></td>
+                        </table>
+                      {% endif %}
+                      </div>
+                        <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
+                          <a href="{% url 'offeringspdf' %}" target="_new"role="button"><span class="glyphicon glyphicon-print"></span></a>
+                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">Archive</span></button>
+                        
                        </div>
+
                      </div>
                    </div>
-                  {% endif %}
                  <!-- Button trigger modal -->
                  <!-- Modal -->
                   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
