@@ -14,7 +14,7 @@ class MembersAdmin(admin.ModelAdmin):
 class SalariesPaidAdmin(admin.ModelAdmin):
     list_display = ('total_salary_paid','Balance') 
 
-class PledgeItem(admin.ModelAdmin):
+class PledgeItemAdmin(admin.ModelAdmin):
     list_display = ('Total_Amount_Pledged','Pledge_Amount_Remaining')              
 admin.site.register(StaffDetails)
 admin.site.register (Allowance)
@@ -23,6 +23,7 @@ admin.site.register(Sundry)
 admin.site.register(Offerings)
 admin.site.register(Tithes)
 admin.site.register(Pledges)
+admin.site.register(PledgeItem)
 admin.site.register(AllowanceReportArchive)
 admin.site.register(SundryReportArchive)
 admin.site.register(ExpensesReportArchive)
@@ -30,4 +31,5 @@ admin.site.register(OfferingsReportArchive)
 admin.site.register(PledgesReportArchive)
 admin.site.register(TithesReportArchive)
 admin.site.register(Members)
+admin.site.register(SalariesPaid)
 admin.site.register(Visitors)
