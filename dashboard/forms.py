@@ -95,7 +95,14 @@ class TithesForm(forms.ModelForm):
 class MembersForm(forms.ModelForm):
     class Meta:
         model= Members
-        fields = ('First_Name','Second_Name','Telephone','Residence', 'Home_Cell','Photo')
+        fields = ('First_Name','Second_Name','Telephone','Residence', 'Home_Cell','Photo','Marital_Status','Marriage_Kind',
+            'Education_Level','Profession','Type_of_Work','Place_of_Work','Country','County','Parish','District','Sub_County',
+            'Village','Date_Of_Salvation','Date_Of_Joining_UCC_Bwaise','Ministry_Involved_In','Name_Of_Next_Of_Kin',
+            'Contact_Of_Next_Of_Kin','Residence_Of_Next_Of_Kin')
+        widgets = {
+            'Date': DatePickerInput(),
+            'Pledge_Deadline': DatePickerInput(),
+          } 
 
 class VisitorsForm(forms.ModelForm):
     class Meta:
