@@ -334,7 +334,18 @@ def edit_member(request, pk):
     else:
         form = MembersForm(instance=item)
     return render(request, 'Members/register_members.html', {'form': form})
-
+def view_member(request, pk):
+    context={}
+    member = get_object_or_404(Members, id=pk)
+    if request.method == 'POST':
+        form = MembersForm(request.POST, instance=member)
+        context['form']=form
+    else:
+        form = MembersForm(instance=member)
+        get_name = Members.objects.filter(id=pk)
+        context['get_name']=get_name
+        context['form']=form
+    return render(request,'Members/members_view.html',context)
 
 def delete_member(request, pk):
     member= get_object_or_404(Members, id=pk)
