@@ -1,6 +1,9 @@
 
 {% extends "app/base_site.html" %}
 {% block content %}
+<head>
+  <title>UCC Bwaise | List of Church Members as of {{day}}</title>
+</head>
 <div class="right_col" role="main">
       <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -21,6 +24,7 @@
                         | <a href="{% url 'visitors-list' %}">Visitors List</a>
                     </div>
                     <p>{{ message }}</p>
+                    <h3 style="text-align: center">The List of Church Members</h3>
             <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
 

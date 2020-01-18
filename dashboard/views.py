@@ -321,7 +321,8 @@ def register_visitors(request):
 @login_required
 def members_list(request):
     membership = Members.objects.all().order_by('-id')
-    context ={'membership': membership}
+    day=datetime.now()
+    context ={'membership': membership, 'day':day}
     return render(request, 'Members/members_list.html', context)
 
 def edit_member(request, pk):
