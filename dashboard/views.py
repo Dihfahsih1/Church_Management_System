@@ -14,6 +14,13 @@ from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 @login_required
 def index(request):
     current_month = datetime.now().month
+    total_current_seeds = Seeds.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
+    if (total_current_seeds['totals'])!=None:
+        int(total_current_seeds["totals"])
+        seeds=total_current_seeds["totals"]
+    else:
+        total_current_seeds = 0
+        seeds = 0
 
     total_current_offerings = Offerings.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Total_Offering"))
     if (total_current_offerings['totals'])!=None:
@@ -80,18 +87,19 @@ def index(request):
         allowances=0
 
     #incase of data has been archived, none is returned, so we have to catch it before it causes trouble
-    if (total_petty_expenses,total_current_tithes,total_current_salaries, total_general_expenses, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== None:
+    if (total_current_seeds,total_petty_expenses,total_current_tithes,total_current_salaries, total_general_expenses, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== None:
         total_monthly_incomes = 0
         total_monthly_expenditure =  0
         total_general_expenses = 0
+        total_current_seeds=0
         pledges = 0
         #calculating net income
         net_income = total_monthly_incomes - total_monthly_expenditure
         today = timezone.now()
         month = today.strftime('%B')
 
-        context={'total_petty_expenses':total_petty_expenses,'total_general_expenses':total_general_expenses,'total_monthly_incomes':total_monthly_incomes,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
-        'petty':petty,'allowances':allowances, 'general':general,'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
+        context={'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_general_expenses':total_general_expenses,'total_monthly_incomes':total_monthly_incomes,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
+        'petty':petty,'allowances':allowances,'seeds':seeds, 'general':general,'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
         return render(request,'index.html', context)
     #in case the totals are Zero
     elif (total_petty_expenses,total_current_tithes,total_general_expenses, total_current_salaries, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== 0:
@@ -103,19 +111,19 @@ def index(request):
         net_income = total_monthly_incomes - total_monthly_expenditure
         today = timezone.now()
         month = today.strftime('%B')
-        context={'total_general_expenses':total_general_expenses,'total_petty_expenses':total_petty_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
-        'general':general,'allowances':allowances, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
+        context={'total_current_seeds':total_current_seeds,'total_general_expenses':total_general_expenses,'total_petty_expenses':total_petty_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
+        'general':general,'allowances':allowances,'seeds':seeds, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
         return render(request,'index.html', context)
 
     #if there are moneys, calculate incomes and total expenditure.
     else:
-        total_monthly_incomes =  tithes+ offerings 
+        total_monthly_incomes =  tithes+ offerings + seeds
         total_monthly_expenditure =  allowances + expenses+salaries+ general+ petty
         net_income = total_monthly_incomes - total_monthly_expenditure
         today = timezone.now()
         month = today.strftime('%B')
-        context={'total_petty_expenses':total_petty_expenses,'total_general_expenses':total_general_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
-        'petty':petty,'allowances':allowances,'general':general, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
+        context={'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_general_expenses':total_general_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
+        'petty':petty,'allowances':allowances,'seeds':seeds,'general':general, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
         return render(request,'index.html', context)
 
     
@@ -606,20 +614,44 @@ def seedsarchivessearch(request):
         months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September', 'October', 'November', 'December']
         yr = datetime.now().year
         years = [yr,2019,2018]
-        tithes = SeedsReportArchive.objects.all()
+        seeds = SeedsReportArchive.objects.all()
         today = timezone.now()
         total = archived_reports.aggregate(totals=models.Sum("Amount"))
         total_amount = total["totals"]
-        context = {'archived_reports': archived_reports,'months': months,'years': years,'expenses': tithes,
+        context = {'archived_reports': archived_reports,'months': months,'years': years,'seeds': seeds,
                    'total_amount': total_amount,'today': today,'report_year': report_year,'report_month': report_month
                    }
         return render(request, "Seeds/seedsarchive.html", context)
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'November', 'December']
     yr = datetime.now().year
     years = [yr,2019,2018]
-    tithes = TithesReportArchive.objects.all()
-    context = {'months': months,'years': years,'tithes': tithes}
+    seeds = SeedsReportArchive.objects.all()
+    context = {'months': months,'years': years,'seeds': seeds}
     return render(request, "Seeds/seedsarchive.html", context)
+
+def edit_seed(request, pk):
+    item = get_object_or_404(Seeds, pk=pk)
+    if request.method == "POST":
+        form = SeedsForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('Seeds-report')
+    else:
+        today = timezone.now()
+        month = today.strftime('%B')
+        form = SeedsForm(instance=item)        
+        context={'form':form, 'month':month}
+    return render(request, 'Seeds/edit_seeds.html', context)
+
+class seed_offering_receipt(View):
+    def get(self, request, pk):
+        seeds= get_object_or_404(Seeds,pk=pk)
+        today = timezone.now()
+        context = { 'today': today,'seeds': seeds,'request': request,}
+        return Render.render('Seeds/seed_offerings_receipt.html', context)
+
+
+
 @login_required
 def Enter_Tithes(request):
     
@@ -647,7 +679,6 @@ def edit_tithes(request, pk):
         month = today.strftime('%B')
         form = TithesForm(instance=item)        
         context={'form':form, 'month':month}
-
     return render(request, 'Tithes/record_tithes.html', context)
 
 class tithespdf(View):

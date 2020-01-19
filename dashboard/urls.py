@@ -30,6 +30,7 @@ url(r'^sundryreceipt/(?P<pk>\d+)', views.sundryreceipt.as_view() ,name='sundryre
 url(r'^offeringsreceipt/(?P<pk>\d+)', views.offeringsreceipt.as_view() ,name='offeringsreceipt'),
 url(r'^tithesreceipt/(?P<pk>\d+)', views.tithesreceipt.as_view() ,name='tithesreceipt'),
 url(r'^pledgesreceipt/(?P<pk>\d+)', views.pledgesreceipt.as_view() ,name='pledgesreceipt'),
+url(r'^Receipts/Seed-Offering/(?P<pk>\d+)', views.seed_offering_receipt.as_view() ,name='seed-offering-receipt'),
 
 url(r'^expenditurearchive/', views.expenditurearchive, name='expenditurearchive'),
 url(r'^allowancearchive/', views.allowancearchive, name='allowancearchive'),
@@ -105,4 +106,5 @@ url(r'^Employees/Salary/Paid-List/', views.current_month_salary_paid, name='curr
 url(r'^Petty-Expenses/Airtime/', views.airtime_data_report, name='airtime-data-report'),
 url(r'^Revenue/Seeds/Add/', views.add_seeds, name='add-seeds'),
 url(r'^Reports/Seeds/List', views.Seedsreport, name='Seeds-report'),
+url(r'^Revenue/Seeds/Edit/(?P<pk>\d+)', views.edit_seed,name='edit-seed'),
 ]

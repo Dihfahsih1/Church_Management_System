@@ -67,8 +67,8 @@
                               <td>{{ item.Amount}}</td>
                               <td> 
                                 <div class="mb-4">
-                                  <a href="#" target="_new"><button class="btn btn-info"><span class="glyphicon glyphicon-qrcode">Receipt</span></button></a> |
-                                  <a href="#"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit">Edit</span></button></a>
+                                  <a href="{% url 'edit-seed' item.id %}" target="_new"><button class="btn btn-info"><span class="glyphicon glyphicon-edit">Edit</span></button></a> |
+                                  <a href="{% url 'seed-offering-receipt' item.id %}"><button class="btn btn-warning"><span class="glyphicon glyphicon-qrcode">Receipt</span></button></a>
                                 {% endfor %}
                                 </div>
                             </td>

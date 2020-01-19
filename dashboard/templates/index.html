@@ -66,7 +66,7 @@
                         text:'UCC Bwaise month of {{month}} Accountability'
                     },
                     xAxis: {
-                        categories: ['<strong>Offerings</strong>', '<strong>Tithes</strong>', '<strong>Donations</strong>', '<strong>Seeds</strong>', '<strong>Thanks Giving</strong>', '<strong>Gen Expenses</strong>', '<strong>Main Expenses</strong>', '<strong>Petty Expenses</strong>', '<strong>Allowances</strong>', '<strong>Salaries</strong>']
+                        categories: ['<strong>Offerings</strong>', '<strong>Tithes</strong>','<strong>Seeds</strong>', '<strong>Donations</strong>', '<strong>Thanks Giving</strong>', '<strong>Gen Expenses</strong>', '<strong>Main Expenses</strong>', '<strong>Petty Expenses</strong>', '<strong>Allowances</strong>', '<strong>Salaries</strong>']
                     },
 
                     yAxis: {
@@ -85,7 +85,7 @@
                         {
                             name:'REVENUES AND EXPENSES',
                             
-                            data: [{{offerings}},{{tithes}},{{petty}},{{allowances}},{{salaries}},
+                            data: [{{offerings}},{{tithes}},{{seeds}},{{petty}},{{allowances}},{{salaries}},
                             {{general}},{{expenses}},{{petty}},{{allowances}},{{salaries}}
                             ]
                         }
@@ -156,7 +156,7 @@
                             drilldown: null
                         }, {
                             name: 'Seeds',
-                            y: 1,
+                            y:{{seeds}},
                             drilldown: null
                         }]
                     }],
