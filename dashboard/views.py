@@ -246,9 +246,6 @@ def current_month_salary_paid(request):
         'years':years,
     }
     return render(request, 'Employees/current_month_salaries_paid.html',context) 
-
-
-
 #Search for the archived salaries reports
 def salariespaidarchivessearch(request):
     if request.method == 'POST':
@@ -367,8 +364,6 @@ def edit_visitor(request, pk):
     else:
         form = VisitorsForm(instance=item)
     return render(request, 'Members/register_visitors.html', {'form': form})
-
-
 def delete_visitor(request, pk):
     visiting= get_object_or_404(Visitors, id=pk)
     if request.method == "GET":
@@ -556,14 +551,75 @@ def add_seeds(request):
         form=SeedsForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('Seedsreport')
+            return redirect('Seeds-report')
     else:
         form=SeedsForm()
         today = timezone.now()
         month = today.strftime('%B')
         context={'form':form, 'month':month}
-        return render(request, 'Tithes/add_seeds.html',context)  
+        return render(request, 'Seeds/add_seeds.html',context)  
+@login_required
+def Seedsreport (request):
+    if request.method=='POST':
+        archived_year=request.POST['archived_year']
+        archived_month = request.POST['archived_month']
+        #all the available expense in the expenses table
+        all_expenses = Seeds.objects.all()
+        for expense in all_expenses:
+            date=expense.Date
+            name=expense.Seed_Made_By
+            amount=expense.Amount
+            # the expense archive object
+            expense_archiveobj=SeedsReportArchive()
+            #attached values to expense_archiveobj
+            expense_archiveobj.Date=date
+            expense_archiveobj.Seed_Made_By = name
+            expense_archiveobj.Amount=amount
+            expense_archiveobj.archivedyear = archived_year
+            expense_archiveobj.archivedmonth = archived_month
+            expense_archiveobj.save()
+            #deleting all the expense from reports table
+        all_expenses.delete()
+        message="The Monthly Seeds Report has been Achived"
+        context={'message':message}
+        return render(request, 'Seeds/Seedsindex.html', context)
+    months = ['January','February','March','April','May','June','July','August','September','October','November','December']
+    yr = datetime.now().year
+    years = [yr,2019,2018]
+    today = timezone.now()
+    current_month = today.strftime('%B')
+    total = Seeds.objects.aggregate(totals=models.Sum("Amount"))
+    total_amount = total["totals"]
+    mth = datetime.now().month
+    items =Seeds.objects.all()
+    day=datetime.now()
+    context = {'day':day,'yr':yr,'total_amount':total_amount,'items': items,'months':months,'years':years,'current_month':current_month
+    }
+    return render(request, 'Seeds/Seedsindex.html', context)
 
+@login_required
+def seedsarchivessearch(request):
+    if request.method == 'POST':
+        report_year = request.POST['report_year']
+        report_month = request.POST['report_month']
+        archived_reports = SeedsReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
+        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September', 'October', 'November', 'December']
+        yr = datetime.now().year
+        years = [yr,2019,2018]
+        tithes = SeedsReportArchive.objects.all()
+        today = timezone.now()
+        total = archived_reports.aggregate(totals=models.Sum("Amount"))
+        total_amount = total["totals"]
+        context = {'archived_reports': archived_reports,'months': months,'years': years,'expenses': tithes,
+                   'total_amount': total_amount,'today': today,'report_year': report_year,'report_month': report_month
+                   }
+        return render(request, "Seeds/seedsarchive.html", context)
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'November', 'December']
+    yr = datetime.now().year
+    years = [yr,2019,2018]
+    tithes = TithesReportArchive.objects.all()
+    context = {'months': months,'years': years,'tithes': tithes}
+    return render(request, "Seeds/seedsarchive.html", context)
 @login_required
 def Enter_Tithes(request):
     

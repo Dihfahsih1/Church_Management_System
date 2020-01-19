@@ -77,6 +77,8 @@ url(r'^pledgesarchivessearch/', views.pledgesarchivessearch, name='pledgesarchiv
 url(r'^offeringsarchivessearch/', views.offeringsarchivessearch, name='offeringsarchivessearch'),
 url(r'^tithesarchivessearch/', views.tithesarchivessearch, name='tithesarchivessearch'),
 url(r'^Employee/Salaries-Paid-Archive/', views.salariespaidarchivessearch, name='salariespaidarchivessearch'),
+url(r'^Archives/Seeds/', views.seedsarchivessearch, name='seeds-archives-search'),
+
 # url(r'^expenditure_report_archive/', views.expenditure_report_archive, name='expenditure_report_archive'),
 #membership
 url(r'^Membership/Register/', views.register_members, name='members-register'),
@@ -101,5 +103,6 @@ url(r'^Employees/Pay/(?P<pk>\d+)', views.paying_employees, name='pay-employee'),
 url(r'^Employees/Salary/Paid/', views.paid_salary, name='paid-salary'),
 url(r'^Employees/Salary/Paid-List/', views.current_month_salary_paid, name='current-month-salaries'),
 url(r'^Petty-Expenses/Airtime/', views.airtime_data_report, name='airtime-data-report'),
-url(r'^Revenue/Seeds/Add/', views.add_seeds, name='add-seeds')
+url(r'^Revenue/Seeds/Add/', views.add_seeds, name='add-seeds'),
+url(r'^Reports/Seeds/List', views.Seedsreport, name='Seeds-report'),
 ]
