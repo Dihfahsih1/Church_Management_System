@@ -53,30 +53,31 @@
             <form method="POST" enctype="multipart/form-data" action="{% url 'member_pledges_paid' %}" >
 
             {% csrf_token %}
-               <div class=" form-row col-lg-3">
+            <div class="col-lg-12">
+               <div class="form-group col-md-3 mb-0">
                    {{form.Pledge_Made_By}} <h5>has made a Pledge Payment</h5>
                </div>
-                <div class="form-row col-lg-" id="name">
+                <div class="form-group col-md-3 mb-0" id="name">
                     {{ form.Pledge_Made_By|as_crispy_field }}
                 </div>
 
                 {% for pledge_id in retrieving_id %}
-                <div class="form-row col-lg-3" id="st">
+                <div class="form-group col-md-3 mb-0" id="st">
                     <label> Pledge_Id</label>
                     <input type="text" name="Pledge_Id" id="Pledge_Id" maxlength="100" class="textinput textInput form-control" value="{{pledge_id.id }}">
                 </div>
                 {% endfor%}
-               <div class="form-row col-lg-3" id="name">
+               <div class="form-group col-md-3 mb-0" id="name">
                   {{ form.Reason|as_crispy_field }}
               </div>
-              <div class="form-row col-lg-3" id="name">
+              <div class="form-group col-md-3 mb-0" id="name">
             	    {{ form.Date|as_crispy_field }}
             	</div>
-            	<div class="form-row col-lg-3">
+            	<div class="form-group col-md-3 mb-0">
             	    {{ form.Amount_Paid|as_crispy_field }}
             	</div>
                 <button type="submit" class="btn btn-primary" name="button">Submit</button>
-
+            </div>
             </form>
           {% include 'messages.html' %}
           <script type="text/javascript">

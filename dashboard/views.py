@@ -1418,7 +1418,20 @@ def add_Pledge_Items(request):
 def list_of_pledge_items(request):
     items = PledgeItem.objects.all().order_by('-id')
     context ={'items': items}
-    return render(request, 'Pledges/list_of_pledge_items.html',context)  
+    return render(request, 'Pledges/list_of_pledge_items.html',context)
+
+def edit_pledge_item(request, pk):
+    item = get_object_or_404(PledgeItem, pk=pk)
+    if request.method == "POST":
+        form = PledgeItemsForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('list-of-pledge-items')
+    else:
+        messages='Pledge Item has been Updated'
+        form = PledgeItemsForm(instance=item)
+    return render(request, 'Pledges/edit_pledge_item.html', {'form': form}, {'messages': messages})
+
 def delete_pledge_item(request, pk):
     item= get_object_or_404(PledgeItem, id=pk)
     if request.method == "GET":
@@ -1508,7 +1521,7 @@ def pledges_paid_list(request):
     month = today.strftime('%B')
     context['month']=month
     current_month = datetime.now().month
-    lists = PaidPledges.objects.filter(Date__month=current_month)
+    lists = PaidPledges.objects.filter(Date__month=current_month).order_by('-id')
     context['lists']=lists
     return render(request, 'Pledges/pledges_paid_list.html',context)
 
@@ -1589,7 +1602,7 @@ def Pledgesreport(request):
     day=datetime.now()
     current_month = today.strftime('%B')
     mth = datetime.now().month
-    items =Pledges.objects.filter(Date__month=mth)
+    items =Pledges.objects.filter(Date__month=mth).order_by('-Date')
     context = {'day':day,
         'total_amount':total_amount,
         'items':items,
