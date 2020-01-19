@@ -1419,7 +1419,12 @@ def list_of_pledge_items(request):
     items = PledgeItem.objects.all().order_by('-id')
     context ={'items': items}
     return render(request, 'Pledges/list_of_pledge_items.html',context)  
-      
+def delete_pledge_item(request, pk):
+    item= get_object_or_404(PledgeItem, id=pk)
+    if request.method == "GET":
+        item.delete()
+        messages.success(request, "Pledge Item successfully deleted!")
+        return redirect("list-of-pledge-items")      
 @login_required
 def pledge_view(request, pledge_pk):
     pledge = get_object_or_404(Pledges, pk=pledge_pk)
