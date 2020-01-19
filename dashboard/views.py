@@ -546,6 +546,24 @@ class offeringsarchivepdf(View):
      ###################################################
               #        TITHES MODULE        #
      ###################################################
+
+        #################################################
+        #        SEEDS OFFERING MODULE                  #
+        #################################################
+def add_seeds(request):
+
+    if request.method=="POST":
+        form=SeedsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('Seedsreport')
+    else:
+        form=SeedsForm()
+        today = timezone.now()
+        month = today.strftime('%B')
+        context={'form':form, 'month':month}
+        return render(request, 'Tithes/add_seeds.html',context)  
+
 @login_required
 def Enter_Tithes(request):
     
@@ -1661,3 +1679,6 @@ def airtime_data_report(request):
     total_amount = total["totals"]
     context={'get_airtime':get_airtime, 'total_amount':total_amount, 'today':today}
     return render(request,'Expenses/airtime_data_report.html', context)
+
+
+  
