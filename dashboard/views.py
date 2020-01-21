@@ -166,6 +166,15 @@ def employee_register(request):
         form=StaffDetailsForm()
         return render(request, 'Employees/record_employee.html',{'form':form})
 
+def delete_employee(request,pk):
+    employee= get_object_or_404(StaffDetails, id=pk)
+    if request.method == "GET":
+        employee.delete()
+        messages.success(request, "Post successfully deleted!")
+        return redirect("members-list")
+    context= {'employee': employee}
+    return render(request, 'Employees/employee_delete.html', context)
+
 @login_required
 def employee_list(request):
     employees = StaffDetails.objects.all().order_by('-id')
@@ -382,7 +391,6 @@ def delete_member(request, pk):
         member.delete()
         messages.success(request, "Post successfully deleted!")
         return redirect("members-list")
-
     context= {'member': member}
     return render(request, 'Members/members_delete.html', context)
 def edit_visitor(request, pk):

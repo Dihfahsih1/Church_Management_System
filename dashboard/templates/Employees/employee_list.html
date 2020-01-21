@@ -81,7 +81,7 @@
                                             <span class="glyphicon glyphicon-eye-open"></span> View
                                          </a>
                                         <a href="{% url 'edit-employee' pk=emp.id %}"class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-                                        <a href="#"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"></span> Delete</a>
+                                        <a href="{% url 'delete-employee' emp.pk %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"></span> Delete</a>
                                      </div>   
                                      </td> 
                                 </tr>
