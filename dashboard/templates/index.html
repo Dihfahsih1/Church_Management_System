@@ -80,7 +80,7 @@
                     },
                     series: [ {
                             name:'REVENUES AND EXPENSES',
-                            data: [{{offerings}},{{tithes}},{{seeds}},{{petty}},{{allowances}},{{salaries}},
+                            data: [{{offerings}},{{tithes}},{{seeds}},{{donations}},{{thanks}},
                             {{general}},{{expenses}},{{petty}},{{allowances}},{{salaries}}
                             ]
                         }
@@ -143,11 +143,11 @@
                         }, 
                         {
                             name: 'Thanks Giving',
-                            y: 3,
+                            y: {{thanks}},
                             drilldown: null
                         }, {
                             name: 'Donations',
-                            y: 2,
+                            y: {{donations}},
                             drilldown: null
                         }, {
                             name: 'Seeds',
@@ -196,12 +196,11 @@
                     series: [{
                         name: 'Data',
                         data: [
-                            ['Tithe of Tithes', {{tithes}}],
-                            ['Salaries', {{salaries}}],
-                            ['Building', {{pledges}}],
+                            ['General Expenses', {{general}}],
+                            ['Main Expenses', {{expenses}}],
+                            ['Petty Expenses', {{petty}}],
                             ['Allowances', {{allowances}}],
-                            ['Water Bills', {{total_monthly_expenditure}}],
-                            ['Needy', {{total_monthly_incomes}}],
+                            ['Salaries', {{salaries}}],
                         ]
                     }]
                 });

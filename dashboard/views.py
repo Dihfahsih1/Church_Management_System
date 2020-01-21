@@ -8,13 +8,28 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .forms import *
 from .models import *
-import winsound
 from .render import Render
 from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 @login_required
 def index(request):
-    winsound.PlaySound("index.mp3",winsound.SND_ASYNC)
+    current_month = datetime.now().month
+    total_current_donations = Donations.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
+    if (total_current_donations['totals'])!=None:
+        int(total_current_donations["totals"])
+        donations=total_current_donations["totals"]
+    else:
+        total_current_donations = 0
+        donations = 0
+
+    total_current_thanks = ThanksGiving.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
+    if (total_current_thanks['totals'])!=None:
+        int(total_current_thanks["totals"])
+        thanks=total_current_thanks["totals"]
+    else:
+        total_current_thanks = 0
+        thanks = 0    
+
     current_month = datetime.now().month
     total_current_seeds = Seeds.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_current_seeds['totals'])!=None:
@@ -89,19 +104,23 @@ def index(request):
         allowances=0
 
     #incase of data has been archived, none is returned, so we have to catch it before it causes trouble
-    if (total_current_seeds,total_petty_expenses,total_current_tithes,total_current_salaries, total_general_expenses, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== None:
+    if (total_current_donations,total_current_thanks,total_current_seeds,total_petty_expenses,total_current_tithes,total_current_salaries, total_general_expenses, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== None:
         total_monthly_incomes = 0
         total_monthly_expenditure =  0
         total_general_expenses = 0
         total_current_seeds=0
+        total_current_donations=0
+        total_current_thanks=0
         pledges = 0
         #calculating net income
         net_income = total_monthly_incomes - total_monthly_expenditure
         today = timezone.now()
         month = today.strftime('%B')
 
-        context={'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_general_expenses':total_general_expenses,'total_monthly_incomes':total_monthly_incomes,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
-        'petty':petty,'allowances':allowances,'seeds':seeds, 'general':general,'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
+        context={'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_general_expenses':total_general_expenses,'total_monthly_incomes':total_monthly_incomes,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
+        'petty':petty,'allowances':allowances,'seeds':seeds, 'general':general,'expenses':expenses,
+        'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income,
+        'thanks':thanks,'donations':donations}
         return render(request,'index.html', context)
     #in case the totals are Zero
     elif (total_petty_expenses,total_current_tithes,total_general_expenses, total_current_salaries, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== 0:
@@ -113,19 +132,21 @@ def index(request):
         net_income = total_monthly_incomes - total_monthly_expenditure
         today = timezone.now()
         month = today.strftime('%B')
-        context={'total_current_seeds':total_current_seeds,'total_general_expenses':total_general_expenses,'total_petty_expenses':total_petty_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
-        'general':general,'allowances':allowances,'seeds':seeds, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
+        context={'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,'total_current_seeds':total_current_seeds,'total_general_expenses':total_general_expenses,'total_petty_expenses':total_petty_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
+        'general':general,'allowances':allowances,'seeds':seeds, 'expenses':expenses,
+        'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income,'thanks':thanks,'donations':donations}
         return render(request,'index.html', context)
 
     #if there are moneys, calculate incomes and total expenditure.
     else:
-        total_monthly_incomes =  tithes+ offerings + seeds
+        total_monthly_incomes =  tithes+ offerings + seeds + thanks + donations
         total_monthly_expenditure =  allowances + expenses+salaries+ general+ petty
         net_income = total_monthly_incomes - total_monthly_expenditure
         today = timezone.now()
         month = today.strftime('%B')
-        context={'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_general_expenses':total_general_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
-        'petty':petty,'allowances':allowances,'seeds':seeds,'general':general, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
+        context={'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_general_expenses':total_general_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
+        'petty':petty,'allowances':allowances,'seeds':seeds,'general':general, 'expenses':expenses,'tithes':tithes, 
+        'offerings':offerings, 'pledges':pledges, 'net_income':net_income,'thanks':thanks,'donations':donations}
         return render(request,'index.html', context)
 
     
@@ -1229,7 +1250,7 @@ def edit_payment(request, pk):
         form = SpendForm(request.POST, instance=item)
         if form.is_valid():
             form.save()
-            return redirect('enter_expenditure')
+            return redirect('expenditurereport')
     else:
         form = SpendForm(instance=item)
     return render(request, 'Expenses/pay_expenditure.html', {'form': form})
