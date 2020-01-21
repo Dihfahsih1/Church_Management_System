@@ -722,7 +722,7 @@ def donationsarchivessearch(request):
         archived_reports = DonationsReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
         months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September', 'October', 'November', 'December']
         yr = datetime.now().year
-        years = [yr,2019,2018]
+        years = [yr,2019,2018,2017]
         donations = DonationsReportArchive.objects.all()
         today = timezone.now()
         total = archived_reports.aggregate(totals=models.Sum("Amount"))
@@ -732,12 +732,98 @@ def donationsarchivessearch(request):
         return render(request, "Donations/donationssarchive.html", context)
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'November', 'December']
     yr = datetime.now().year
-    years = [yr,2019,2018]
+    years = [yr,2019,2018,2017]
     donations = DonationsReportArchive.objects.all()
     context = {'months': months,'years': years,'donations': donations}
     return render(request, "Donations/donationssarchive.html", context)
 
 
+     ###################################################
+    #               THANKS GIVING MODULE                #
+     ###################################################
+@login_required
+def record_thanks_giving(request):
+    if request.method=="POST":
+        form=ThanksGivingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('thanks-giving-report')
+    else:
+        form=ThanksGivingForm()
+        today = timezone.now()
+        month = today.strftime('%B')
+        context={'form':form, 'month':month}
+        return render(request, 'Donations/record_donations.html',context)
+@login_required
+def donations_report(request):
+    if request.method=='POST':
+        archived_year=request.POST['archived_year']
+        archived_month = request.POST['archived_month']
+        all_expenses = Donations.objects.all()
+        for expense in all_expenses:
+            date=expense.Date
+            amount=expense.Amount
+            name = expense.Donated_By
+            reason = expense.Reason
+            expense_archiveobj=DonationsReportArchive()
+            expense_archiveobj.Name = name
+            expense_archiveobj.Date=date
+            expense_archiveobj.Reason=reason
+            expense_archiveobj.Amount=amount
+            expense_archiveobj.archivedyear= archived_year
+            expense_archiveobj.archivedmonth =archived_month
+            expense_archiveobj.save()
+        all_expenses.delete()
+        message="The Monthly Donations report has been Achived"
+        context={'message':message}
+        return render(request, 'Donations/donationsindex.html', context)
+    months = ['January', 'February', 'March', 'April', 'May', 'June',
+              'July', 'August','September', 'October', 'November','December']
+    yr = datetime.now().year
+    years = [yr,2019,2018]
+    total = Donations.objects.aggregate(totals=models.Sum("Amount"))
+    total_amount = total["totals"]
+    mth = datetime.now().month
+    day=datetime.now()
+    items =Donations.objects.filter(Date__month=mth)
+    context = {'day':day,'total_amount':total_amount,'items': items,'months':months,'years':years,}
+    return render(request, 'Donations/donationsindex.html', context)
+
+def edit_donation(request, pk):
+    item = get_object_or_404(Donations, pk=pk)
+    if request.method == "POST":
+        form = DonationsForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('donations-report')
+    else:
+        today = timezone.now()
+        month = today.strftime('%B')
+        form = DonationsForm(instance=item)        
+        context={'form':form, 'month':month}
+    return render(request, 'Donations/edit_donations.html', context)
+@login_required
+def donationsarchivessearch(request):
+    if request.method == 'POST':
+        report_year = request.POST['report_year']
+        report_month = request.POST['report_month']
+        archived_reports = DonationsReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
+        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September', 'October', 'November', 'December']
+        yr = datetime.now().year
+        years = [yr,2019,2018,2017]
+        donations = DonationsReportArchive.objects.all()
+        today = timezone.now()
+        total = archived_reports.aggregate(totals=models.Sum("Amount"))
+        total_amount = total["totals"]
+        context = {'archived_reports': archived_reports,'months': months,'years': years,'expenses': donations,
+                   'total_amount': total_amount,'today': today,'report_year': report_year,'report_month': report_month}
+        return render(request, "Donations/donationssarchive.html", context)
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'November', 'December']
+    yr = datetime.now().year
+    years = [yr,2019,2018,2017]
+    donations = DonationsReportArchive.objects.all()
+    context = {'months': months,'years': years,'donations': donations}
+    return render(request, "Donations/donationssarchive.html", context)
 
 
      ###################################################
@@ -745,7 +831,6 @@ def donationsarchivessearch(request):
      ###################################################
 @login_required
 def Enter_Tithes(request):
-    
     if request.method=="POST":
         form=TithesForm(request.POST)
         if form.is_valid():
