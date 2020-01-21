@@ -1,0 +1,13 @@
+{% extends "app/base_site.html" %}
+{% block content %}
+{% load staticfiles %}
+<h1>Delete {{ employee.First_Name }}?</h1>
+
+<form method="POST" action="">
+{% csrf_token %}
+Are you sure you want to delete this Member? 
+<input type="submit" value="Yes"/>
+<a href="{{ employee.id }}">Cancel </a>
+</form>
+{% endif %}
+{% endblock %}
