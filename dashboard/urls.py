@@ -79,9 +79,10 @@ url(r'^sundrysarchivessearch/', views.sundryarchivessearch, name='sundryarchives
 url(r'^pledgesarchivessearch/', views.pledgesarchivessearch, name='pledgesarchivessearch'),
 url(r'^offeringsarchivessearch/', views.offeringsarchivessearch, name='offeringsarchivessearch'),
 url(r'^tithesarchivessearch/', views.tithesarchivessearch, name='tithesarchivessearch'),
-url(r'^Employee/Salaries-Paid-Archive/', views.salariespaidarchivessearch, name='salariespaidarchivessearch'),
+url(r'^Archives/Salaries/', views.salariespaidarchivessearch, name='salariespaidarchivessearch'),
 url(r'^Archives/Seeds/', views.seedsarchivessearch, name='seeds-archives-search'),
 url(r'^Archives/Donations/', views.donationsarchivessearch, name='donationsarchivessearch'),
+url(r'^Archives/Thanks-Giving/', views.thanksgivingarchivessearch, name='thanksgivingarchivessearch'),
 
 # url(r'^expenditure_report_archive/', views.expenditure_report_archive, name='expenditure_report_archive'),
 #membership
@@ -111,5 +112,7 @@ url(r'^Revenue/Seeds/Add/', views.add_seeds, name='add-seeds'),
 url(r'^Reports/Seeds/List', views.Seedsreport, name='Seeds-report'),
 url(r'^Revenue/Seeds/Edit/(?P<pk>\d+)', views.edit_seed,name='edit-seed'),
 url(r'^Revenue/Donations/Edit/(?P<pk>\d+)', views.edit_donation,name='edit-donation'),
-url(r'^Revenue/Thanks-giving/', views.record_thanks_giving,name='record-thanks-giving'),
+url(r'^Revenue/Thanks-Giving/Edit/(?P<pk>\d+)', views.edit_thanks_giving,name='edit-thanks-giving'),
+url(r'^Revenue/Thanks-giving/Add', views.record_thanks_giving,name='record-thanks-giving'),
+url(r'^Reports/Thanks-giving/List', views.thanks_giving_report,name='thanks-giving-report'),
 ]
