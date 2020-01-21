@@ -9,6 +9,8 @@ url(r'^enter_sundryexpense', views.enter_sundryexpense ,name='enter_sundryexpens
 url(r'^Enter-Records/Allowances', views.give_allowance, name='give-allowance'),
 url(r'^Enter_Pledges/', views.Enter_Pledges, name='Enter_Pledges'),
 url(r'^Enter_Tithes/', views.Enter_Tithes, name='Enter_Tithes'),
+url(r'^Revenue/Donations/Add', views.record_donations, name='record-donations'),
+url(r'^Reports/Donations/List', views.donations_report, name='donations-report'),
 url(r'^Enter_Offerings/', views.Enter_Offerings, name='Enter_Offerings'),
 url(r'^Pledges/Add-Item/', views.add_Pledge_Items ,name='add-pledge-item'),
 url(r'^sundryreport', views.sundryreport ,name='sundryreport'),
@@ -79,6 +81,7 @@ url(r'^offeringsarchivessearch/', views.offeringsarchivessearch, name='offerings
 url(r'^tithesarchivessearch/', views.tithesarchivessearch, name='tithesarchivessearch'),
 url(r'^Employee/Salaries-Paid-Archive/', views.salariespaidarchivessearch, name='salariespaidarchivessearch'),
 url(r'^Archives/Seeds/', views.seedsarchivessearch, name='seeds-archives-search'),
+url(r'^Archives/Donations/', views.donationsarchivessearch, name='donationsarchivessearch'),
 
 # url(r'^expenditure_report_archive/', views.expenditure_report_archive, name='expenditure_report_archive'),
 #membership
@@ -107,4 +110,5 @@ url(r'^Petty-Expenses/Airtime/', views.airtime_data_report, name='airtime-data-r
 url(r'^Revenue/Seeds/Add/', views.add_seeds, name='add-seeds'),
 url(r'^Reports/Seeds/List', views.Seedsreport, name='Seeds-report'),
 url(r'^Revenue/Seeds/Edit/(?P<pk>\d+)', views.edit_seed,name='edit-seed'),
+url(r'^Revenue/Donations/Edit/(?P<pk>\d+)', views.edit_donation,name='edit-donation'),
 ]
