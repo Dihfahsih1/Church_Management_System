@@ -98,7 +98,13 @@ class SeedsForm(forms.ModelForm):
         widgets = {
             'Date': DatePickerInput(),
         } 
-
+class DonationsForm(forms.ModelForm):
+    class Meta:
+        model=Donations
+        fields = ('Date','Donated_By','Amount','Reason')
+        widgets = {
+            'Date': DatePickerInput(),
+        } 
 class MembersForm(forms.ModelForm):
     class Meta:
         model= Members
