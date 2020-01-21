@@ -11,7 +11,7 @@
     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
         <div class="menu_section">
             <ul class="nav side-menu">
-                <li><a href="#"><i class="fa fa-user"></i> Church Members <span class="fa fa-chevron-down"></span></a>
+                <li><a href="#"><i class="fa fa-user"></i> Membership <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{% url 'members-register'%}">Register Members</a></li>
                         <li><a href="{% url 'visitors-register'%}"> Register Visitor</a></li>
@@ -25,7 +25,7 @@
                         <li><a href="{% url 'Enter_Offerings' %}">Offerings</a></li>
                         <li><a href="{% url 'Enter_Tithes' %}">Tithes</a></li>
                         <li><a href="{% url 'add-seeds'%}">Seeds Offering</a></li>
-                        <li><a href="#">Donations</a></li>
+                        <li><a href="{% url 'record-donations'%}">Donations</a></li>
                         <li><a href="#">Thanks Giving</a></li>
                     </ul>
                 </li>
@@ -66,6 +66,7 @@
                         <li><a href="{% url 'allowancereport'  %}"> Allowances Reports</a></li>
                         <li><a href="{% url 'current-month-salaries'  %}"> Salaries Report</a></li>
                         <li><a href="{% url 'Seeds-report'  %}"> Seeds Offering Report</a></li>
+                        <li><a href="{% url 'donations-report'  %}"> Donations Report</a></li>
 
                         
                     </ul>
@@ -81,6 +82,7 @@
                         <li><a href="{% url 'allowancearchivessearch' %}"> Allowances Archived</a></li>
                         <li><a href="{% url 'salariespaidarchivessearch' %}"> Salaries Archived</a></li>
                         <li><a href="{% url 'seeds-archives-search' %}"> Seed Offerings Archived</a></li>
+                        <li><a href="{% url 'donationsarchivessearch' %}"> Donations Archived</a></li>
 
                     </ul>
                 </li>
