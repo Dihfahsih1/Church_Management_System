@@ -39,31 +39,26 @@
                         </li>
                     </ul>
                     <br/>
-                      <h4>Please search for the archived Donations by <b>Year</b> and <b>Month</b></h4><br>
-
+                      <h4><i class='glyphicon glyphicon-arrow-down'></i>Please search for the archived Donations by <b>Year</b> and <b>Month</b></h4>
                         <form class="x_content" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-row">
-                          <div class="col-lg-12">
-                           <div class="col-lg-1">
+                          <div class="col-lg-12" style="background-color: rgb(227, 237, 239">
+                           <div class="col-lg-3">
                             <label >Year</label>
-                            <select name="report_year" id="inlineFormCustomSelect">
-                                {% for report_year in years %}
-                                   <option class="btn-success" name="{{ report_year }}" value="{{ report_year }}">{{ report_year }}
-                                   </option>
-                                {% endfor %}
-                            </select>
+                            <input type="text" name="report_year" width="2%">
                             </div>
-                            <div class="col-lg-1">
-                            <label  for="inlineFormCustomSelect">Month</label>
+                            <div class="col-lg-3">
+                            <label>Month</label>
                             <select  name="report_month" id="inlineFormCustomSelect">
                                 {% for report_month in months %}
                                    <option class="btn-success" name="{{ report_month }}" value="{{ report_month }}">{{ report_month }}
                                    </option>
                                 {% endfor %}
                             </select>
-                            </div><br>
-                             <div class="col-lg-2"><button type="submit" class="btn btn-info"><span class='glyphicon glyphicon-search'></span></button>
+                            </div>
+                             <div class="col-lg-2">
+                              <button type="submit" class="btn btn-info">Search <span class='glyphicon glyphicon-search'></span></button>
                              </div>
                             </div>
                           </div>
@@ -85,7 +80,7 @@
                                 </tbody>
                                 <td>Total</td><td><pre>  </pre></td><td><b style="color: red">Shs.{{total_amount}}</b></td>
                                  {% if archived_reports %}
-                                     <h2 style="text-align: center">Monthly Archived Donations Reports For the financial cycle of  <b>{{ report_month }} {{ report_year }}</b>  </h2>
+                                     <h2 style="text-align: center">Monthly Archived Donations Report For the financial cycle of  <b>{{ report_month }} {{ report_year }}</b>  </h2>
                                 <thead class="font-weight-bold ">
                                         <tr>
                                         <td>Date</td>
@@ -94,8 +89,10 @@
                                         <td>Reason</td>
                                          </tr>
                                 </thead>
+                                      {% elif archived_reports == empty %}
+                                      <p style="color: red"><i class='glyphicon glyphicon-arrow-up'></i>You have not yet made any search!, please do so</p>
                                       {% else %}
-                                       <h2> No archived Data in the query you have made of the cycle {{ report_month }} {{ report_year }}</h2>
+                                       <h2 > No archived Data in the query you have made of the cycle {{ report_month }} {{ report_year }}</h2>
                                       {% endif %}
                               </table>
                             </div>
