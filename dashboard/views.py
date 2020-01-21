@@ -8,11 +8,13 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .forms import *
 from .models import *
+import winsound
 from .render import Render
 from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 @login_required
 def index(request):
+    winsound.PlaySound("index.mp3",winsound.SND_ASYNC)
     current_month = datetime.now().month
     total_current_seeds = Seeds.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_current_seeds['totals'])!=None:
@@ -546,10 +548,7 @@ class offeringsarchivepdf(View):
         }
         return Render.render('Offerings/offeringsarchivepdf.html', offeringscontext)
 
-     ###################################################
-              #        TITHES MODULE        #
-     ###################################################
-
+    
         #################################################
         #        SEEDS OFFERING MODULE                  #
         #################################################
@@ -651,7 +650,99 @@ class seed_offering_receipt(View):
         return Render.render('Seeds/seed_offerings_receipt.html', context)
 
 
+     ###################################################
+              #        DONATIONS MODULE        #
+     ###################################################
+@login_required
+def record_donations(request):
+    if request.method=="POST":
+        form=DonationsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('donations-report')
+    else:
+        form=DonationsForm()
+        today = timezone.now()
+        month = today.strftime('%B')
+        context={'form':form, 'month':month}
+        return render(request, 'Donations/record_donations.html',context)
+@login_required
+def donations_report(request):
+    if request.method=='POST':
+        archived_year=request.POST['archived_year']
+        archived_month = request.POST['archived_month']
+        all_expenses = Donations.objects.all()
+        for expense in all_expenses:
+            date=expense.Date
+            amount=expense.Amount
+            name = expense.Donated_By
+            reason = expense.Reason
+            expense_archiveobj=DonationsReportArchive()
+            expense_archiveobj.Name = name
+            expense_archiveobj.Date=date
+            expense_archiveobj.Reason=reason
+            expense_archiveobj.Amount=amount
+            expense_archiveobj.archivedyear= archived_year
+            expense_archiveobj.archivedmonth =archived_month
+            expense_archiveobj.save()
+        all_expenses.delete()
+        message="The Monthly Donations report has been Achived"
+        context={'message':message}
+        return render(request, 'Donations/donationsindex.html', context)
+    months = ['January', 'February', 'March', 'April', 'May', 'June',
+              'July', 'August','September', 'October', 'November','December']
+    yr = datetime.now().year
+    years = [yr,2019,2018]
+    total = Donations.objects.aggregate(totals=models.Sum("Amount"))
+    total_amount = total["totals"]
+    mth = datetime.now().month
+    day=datetime.now()
+    items =Donations.objects.filter(Date__month=mth)
+    context = {'day':day,'total_amount':total_amount,'items': items,'months':months,'years':years,}
+    return render(request, 'Donations/donationsindex.html', context)
 
+def edit_donation(request, pk):
+    item = get_object_or_404(Donations, pk=pk)
+    if request.method == "POST":
+        form = DonationsForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('donations-report')
+    else:
+        today = timezone.now()
+        month = today.strftime('%B')
+        form = DonationsForm(instance=item)        
+        context={'form':form, 'month':month}
+    return render(request, 'Donations/edit_donations.html', context)
+@login_required
+def donationsarchivessearch(request):
+    if request.method == 'POST':
+        report_year = request.POST['report_year']
+        report_month = request.POST['report_month']
+        archived_reports = DonationsReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
+        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September', 'October', 'November', 'December']
+        yr = datetime.now().year
+        years = [yr,2019,2018]
+        donations = DonationsReportArchive.objects.all()
+        today = timezone.now()
+        total = archived_reports.aggregate(totals=models.Sum("Amount"))
+        total_amount = total["totals"]
+        context = {'archived_reports': archived_reports,'months': months,'years': years,'expenses': donations,
+                   'total_amount': total_amount,'today': today,'report_year': report_year,'report_month': report_month}
+        return render(request, "Donations/donationssarchive.html", context)
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'November', 'December']
+    yr = datetime.now().year
+    years = [yr,2019,2018]
+    donations = DonationsReportArchive.objects.all()
+    context = {'months': months,'years': years,'donations': donations}
+    return render(request, "Donations/donationssarchive.html", context)
+
+
+
+
+     ###################################################
+    #                  TITHES MODULE        #
+     ###################################################
 @login_required
 def Enter_Tithes(request):
     
@@ -869,7 +960,6 @@ def allowancereport(request):
     if request.method=='POST':
         archived_year=request.POST['archived_year']
         archived_month = request.POST['archived_month']
-
         #all the available expense in the expenses table
         all_expenses = Allowance.objects.all()
         for expense in all_expenses:
@@ -877,10 +967,8 @@ def allowancereport(request):
             Manth = expense.Month
             amount=expense.Amount
             name = expense.Name
-
             # the expense archive object
             expense_archiveobj=AllowanceReportArchive()
-
             #attached values to expense_archiveobj
             expense_archiveobj.Staff = name
             expense_archiveobj.Date=date
@@ -888,17 +976,12 @@ def allowancereport(request):
             expense_archiveobj.Amount=amount
             expense_archiveobj.archivedyear= archived_year
             expense_archiveobj.archivedmonth =archived_month
-
             expense_archiveobj.save()
-
         #deleting all the expense from reports table
         all_expenses.delete()
-
         message="The Monthly Allowances report has been Achived"
         context={'message':message}
-
         return render(request, 'Allowances/allowanceindex.html', context)
-
     months = ['January', 'February', 'March', 'April', 'May', 'June',
               'July', 'August','September', 'October', 'November','December']
     yr = datetime.now().year
