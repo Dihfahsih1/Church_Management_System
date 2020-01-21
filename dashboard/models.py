@@ -261,14 +261,30 @@ class Seeds(Model):
     Amount = models.IntegerField(default=0)
     Service=models.CharField(max_length=100, choices=services, blank=False)
     def __str__(self):
-        return self.Seed_Made_By        
+        return self.Seed_Made_By  
+class Donations(Model):
+    Date = models.DateField(null=True, blank=True)
+    Donated_By = models.CharField(max_length=100, null=True, blank=True)
+    Amount = models.IntegerField(default=0)
+    Reason=models.CharField(max_length=100, blank=False)
+    def __str__(self):
+        return self.Donated_By 
+
 class SeedsReportArchive(models.Model):
     Date = models.DateField(null=True, blank=True)
     Seed_Made_By = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, null=True, blank=True)
     Amount = models.IntegerField(default=0)
     archivedmonth = models.CharField(max_length=100,null=True)
     archivedyear = models.CharField(max_length=100,null=True)
-        
+
+class DonationsReportArchive(models.Model):
+    Date = models.DateField(null=True, blank=True)
+    Name = models.CharField(max_length=100, null=True, blank=True)
+    Reason = models.CharField(max_length=100, null=True, blank=True)
+    Amount = models.IntegerField(default=0)
+    archivedmonth = models.CharField(max_length=100,null=True)
+    archivedyear = models.CharField(max_length=100,null=True)
+            
 class TithesReportArchive(models.Model):
     Date = models.DateField(null=True, blank=True)
     Tithe_Made_By = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, null=True, blank=True)
