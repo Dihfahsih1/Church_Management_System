@@ -242,22 +242,32 @@ class SalariesPaid(models.Model):
             balance =a_amount - bal['totals']
             return balance
 
-class Tithes(Model):
+class ThanksGiving(Model):
     services = (('Home Cell Service','Home Cell Service'),('Youth Service','Youth Service'),('Wednesday Service','Wednesday Service'),
         ('Bible Study Service','Bible Study Service'),('Friday Overnight','Friday Overnight'),('SundayFirst Service','Sunday First Service'),
         ('Sunday Second Service','Sunday Second Service'),('Sunday Third Service','Sunday Third Service'))
     Date = models.DateField(null=True, blank=True)
-    Tithe_Made_By = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, null=True, blank=True)
+    Thanks_Giving_By = models.ForeignKey(Members, on_delete=models.PROTECT, max_length=100, null=True, blank=True)
     Amount = models.IntegerField(default=0)
     Service=models.CharField(max_length=100, choices=services, blank=False)
     def __str__(self):
-        return self.Tithe_Made_By
+        return self.Thanks_Giving_By
+class ThanksGivingReportArchive(models.Model):
+    Date = models.DateField(null=True, blank=True)
+    Thanks_Giving_By = models.ForeignKey(Members, on_delete=models.PROTECT, max_length=100, null=True, blank=True)
+    Amount = models.IntegerField(default=0)
+    Service=models.CharField(max_length=100, null=True, blank=False)
+    archivedmonth = models.CharField(max_length=100,null=True)
+    archivedyear = models.CharField(max_length=100,null=True)
+    def __str__(self):
+        return 'Name: {1}  Amount:{0}'.format(self.Thanks_Giving_By, self.Amount)        
+
 class Seeds(Model):
     services = (('Home Cell Service','Home Cell Service'),('Youth Service','Youth Service'),('Wednesday Service','Wednesday Service'),
         ('Bible Study Service','Bible Study Service'),('Friday Overnight','Friday Overnight'),('SundayFirst Service','Sunday First Service'),
         ('Sunday Second Service','Sunday Second Service'),('Sunday Third Service','Sunday Third Service'))
     Date = models.DateField(null=True, blank=True)
-    Seed_Made_By = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, null=True, blank=True)
+    Seed_Made_By = models.ForeignKey(Members, on_delete=models.PROTECT, max_length=100, null=True, blank=True)
     Amount = models.IntegerField(default=0)
     Service=models.CharField(max_length=100, choices=services, blank=False)
     def __str__(self):
@@ -268,11 +278,12 @@ class Donations(Model):
     Amount = models.IntegerField(default=0)
     Reason=models.CharField(max_length=100, blank=False)
     def __str__(self):
-        return self.Donated_By 
+        return self.Donated_By
+
 
 class SeedsReportArchive(models.Model):
     Date = models.DateField(null=True, blank=True)
-    Seed_Made_By = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, null=True, blank=True)
+    Seed_Made_By = models.ForeignKey(Members, on_delete=models.PROTECT, max_length=100, null=True, blank=True)
     Amount = models.IntegerField(default=0)
     archivedmonth = models.CharField(max_length=100,null=True)
     archivedyear = models.CharField(max_length=100,null=True)
@@ -284,14 +295,24 @@ class DonationsReportArchive(models.Model):
     Amount = models.IntegerField(default=0)
     archivedmonth = models.CharField(max_length=100,null=True)
     archivedyear = models.CharField(max_length=100,null=True)
-            
+
+class Tithes(Model):
+    services = (('Home Cell Service','Home Cell Service'),('Youth Service','Youth Service'),('Wednesday Service','Wednesday Service'),
+        ('Bible Study Service','Bible Study Service'),('Friday Overnight','Friday Overnight'),('SundayFirst Service','Sunday First Service'),
+        ('Sunday Second Service','Sunday Second Service'),('Sunday Third Service','Sunday Third Service'))
+    Date = models.DateField(null=True, blank=True)
+    Tithe_Made_By = models.ForeignKey(Members, on_delete=models.PROTECT, max_length=100, null=True, blank=True)
+    Amount = models.IntegerField(default=0)
+    Service=models.CharField(max_length=100, choices=services, blank=False)
+    def __str__(self):
+        return self.Tithe_Made_By
+
 class TithesReportArchive(models.Model):
     Date = models.DateField(null=True, blank=True)
-    Tithe_Made_By = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, null=True, blank=True)
+    Tithe_Made_By = models.ForeignKey(Members, on_delete=models.PROTECT, max_length=100, null=True, blank=True)
     Amount = models.IntegerField(default=0)
     archivedmonth = models.CharField(max_length=100,null=True)
     archivedyear = models.CharField(max_length=100,null=True)
-
     def __str__(self):
         return 'Name: {1}  Amount:{0}'.format(self.Tithe_Made_By, self.Amount)
 class SalariesPaidReportArchive(models.Model):
@@ -311,7 +332,7 @@ class Allowance(models.Model):
         ('September', 'September'),('October', 'October'),('November','November'),('December', 'December')
     )
     Date = models.DateField(null=True, blank=True)
-    Name =  models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, null=True, blank=True)
+    Name =  models.ForeignKey(Members, on_delete=models.PROTECT, max_length=100, null=True, blank=True)
     Month = models.CharField(max_length=12,choices=months, blank=False)
     Amount = models.IntegerField(default=0)
     def __str__(self):
@@ -346,8 +367,8 @@ class Pledges(Model):
     state = ((paid, 'Paid'), (partial, 'Partial'), (unpaid, 'Unpaid'))
     Status=models.CharField(max_length=100, choices=state, null=True, blank=True)
     Date = models.DateField(null=True, blank=True)
-    Pledge_Made_By = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, blank=False)
-    Reason = models.ForeignKey(PledgeItem, on_delete=models.CASCADE, max_length=100, blank=True, null=True)
+    Pledge_Made_By = models.ForeignKey(Members, on_delete=models.PROTECT, max_length=100, blank=False)
+    Reason = models.ForeignKey(PledgeItem, on_delete=models.PROTECT, max_length=100, blank=True, null=True)
     Amount_Pledged = models.IntegerField(default=0)
     Amount_Paid = models.IntegerField(default=0, blank=True, null=True)
     Balance = models.IntegerField(default=0, blank=True, null=True)
@@ -395,7 +416,7 @@ class Pledges(Model):
 class PaidPledges(Model):
     Reason=models.CharField(max_length=100, blank=True, null=True)
     Pledge_Id=models.CharField(max_length=100, blank=True, null=True)
-    Pledge_Made_By = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, blank=False)
+    Pledge_Made_By = models.ForeignKey(Members, on_delete=models.PROTECT, max_length=100, blank=False)
     Amount_Paid = models.IntegerField(default=0, blank=True, null=True)
     Date = models.DateField(null=True, blank=True)
 
@@ -403,7 +424,7 @@ class PledgesReportArchive(Model):
     Status = models.CharField(max_length=150, null=True)
     Pledge_Id = models.IntegerField(null=True, blank=True)
     Date = models.DateField(null=True, blank=True)
-    Pledge_Made_By = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100, null=True, blank=True)
+    Pledge_Made_By = models.ForeignKey(Members, on_delete=models.PROTECT, max_length=100, null=True, blank=True)
     Reason = models.CharField(max_length=100, null=True)
     Pledged_Amount=models.IntegerField(default=0)
     Amount_Paid = models.IntegerField(default=0)
