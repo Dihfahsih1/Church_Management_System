@@ -171,7 +171,7 @@ def delete_employee(request,pk):
     if request.method == "GET":
         employee.delete()
         messages.success(request, "Post successfully deleted!")
-        return redirect("members-list")
+        return redirect("employee-list")
     context= {'employee': employee}
     return render(request, 'Employees/employee_delete.html', context)
 
