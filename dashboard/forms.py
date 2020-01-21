@@ -91,6 +91,13 @@ class TithesForm(forms.ModelForm):
         widgets = {
             'Date': DatePickerInput(),
         } 
+class ThanksGivingForm(forms.ModelForm):
+    class Meta:
+        model=ThanksGiving
+        fields = ('Date','Thanks_Giving_By','Amount','Service')
+        widgets = {
+            'Date': DatePickerInput(),
+        }         
 class SeedsForm(forms.ModelForm):
     class Meta:
         model=Seeds
