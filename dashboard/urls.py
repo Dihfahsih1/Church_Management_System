@@ -111,4 +111,5 @@ url(r'^Revenue/Seeds/Add/', views.add_seeds, name='add-seeds'),
 url(r'^Reports/Seeds/List', views.Seedsreport, name='Seeds-report'),
 url(r'^Revenue/Seeds/Edit/(?P<pk>\d+)', views.edit_seed,name='edit-seed'),
 url(r'^Revenue/Donations/Edit/(?P<pk>\d+)', views.edit_donation,name='edit-donation'),
+url(r'^Revenue/Thanks-giving/', views.record_thanks_giving,name='record-thanks-giving'),
 ]
