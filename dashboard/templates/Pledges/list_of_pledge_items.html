@@ -56,11 +56,11 @@
                             <thead>
                                 <tr>
                                     <th>Date</th>
-                                    <th>Pledge Item Name</th>
+                                    <th>Item</th>
                                     <th>Amount Needed</th>
                                     <th>Pledge Deadline</th>
                                     <th>Amount Pledged</th>
-                                    <th>Amount Unpledged Yet</th>
+                                    <th>Unpledged</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -74,10 +74,11 @@
                                      <td>{{ item.Total_Amount_Pledged}}</td>
                                      <td>{{ item.Pledge_Amount_Remaining}}</td>
                                      <td>
-                                     <div class="mb-4">
+                                     <div class="mb-6">
+                                        <a href="#"class="btn btn-success btn-sm"><span class="glyphicon glyphicon-euro"> </span> Cash Out</a>
                                         <a href="{% url 'edit-pledge-item' item.id %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"> Edit</span></a>
                                      
-                                        <a href="{% url 'delete-pledge-item' item.id %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"> Delete</span></a>
+                                        <a href="{% url 'delete-pledge-item' item.id %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"></span></a>
                                        
                                      </div>   
                                      </td> 
