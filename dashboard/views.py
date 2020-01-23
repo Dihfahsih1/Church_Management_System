@@ -241,7 +241,6 @@ def current_month_salary_paid(request):
     if request.method=='POST':
         archived_year=request.POST['archived_year']
         archived_month = request.POST['archived_month']
-
         #all the available expense in the expenses table
         current_month = datetime.now().month
         current_year = datetime.now().year
