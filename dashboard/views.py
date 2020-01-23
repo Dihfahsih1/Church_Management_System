@@ -22,6 +22,17 @@ def index(request):
         total_current_donations = 0
         donations = 0
 
+
+    today = datetime.now().day
+    total_daily_donations = Donations.objects.filter(Date__day=today).aggregate(totals=models.Sum("Amount"))
+    if (total_daily_donations['totals'])!=None:
+        int(total_daily_donations["totals"])
+        d_donations=total_daily_donations["totals"]
+    else:
+        total_daily_donations = 0
+        d_donations = 0
+
+
     total_current_thanks = ThanksGiving.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_current_thanks['totals'])!=None:
         int(total_current_thanks["totals"])
@@ -144,7 +155,7 @@ def index(request):
         net_income = total_monthly_incomes - total_monthly_expenditure
         today = timezone.now()
         month = today.strftime('%B')
-        context={'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_general_expenses':total_general_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
+        context={'d_donations':d_donations,'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_general_expenses':total_general_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
         'petty':petty,'allowances':allowances,'seeds':seeds,'general':general, 'expenses':expenses,'tithes':tithes, 
         'offerings':offerings, 'pledges':pledges, 'net_income':net_income,'thanks':thanks,'donations':donations}
         return render(request,'index.html', context)

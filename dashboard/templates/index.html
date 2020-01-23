@@ -16,25 +16,25 @@
         <!-- top tiles -->
         {% if user.username == 'admin' %}
         <div class="row ">
-            <h4>Summary </h4>
+            <h4>Monthly Summary </h4>
             <div class="row top_tiles">
                 <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
                     <div class="tile-stats">
                         <p class="fa fa-dollar">&nbsp; <big style="font-size: 120%">Total Revenue</big></p>
-                        <div class="count " >Shs.{{ total_monthly_incomes }}</div>
+                        <div class="count red" >Shs.{{ total_monthly_incomes }}</div>
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
                     <div class="tile-stats">
                         <p class="fa fa-dollar">&nbsp; <big style="font-size: 120%">Total Expenditure</big></p>
-                        <div class="count" >Shs.{{ total_monthly_expenditure }}</div>
+                        <div class="count red" >Shs.{{ total_monthly_expenditure }}</div>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
                     <div class="tile-stats">
                         <p class="fa fa-dollar">&nbsp; <big style="font-size: 120%">Net Income</big></p>
-                        <div class="count green">Shs.{{ net_income}}</div>
+                        <div class="count red">Shs.{{ net_income}}</div>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
@@ -44,7 +44,47 @@
                     </div>
                 </div>
 
+
             </div>
+                <div class="separator"></div>
+                  <h4>Today's Revenue Summary </h4>
+                 
+                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <big style="font-size: 120%">Tithes</big></p>
+                        <p class="green" >Shs.{{ d_donations }}</p>
+                    </div>
+                </div>
+                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <big style="font-size: 120%">Offerings</big></p>
+                        <p class="green" >Shs.{{ d_donations }}</p>
+                    </div>
+                </div>
+                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <big style="font-size: 120%">Seeds</big></p>
+                        <p class="green" >Shs.{{ d_donations }}</p>
+                    </div>
+                </div>
+                 <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <big style="font-size: 120%">Thanks Giving</big></p>
+                        <p class="green" >Shs.{{ d_donations }}</p>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <big style="font-size: 90%">Donations</big></p>
+                        <p class="green" >Shs.{{ d_donations }}</p>
+                    </div>
+                </div>
+                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <big style="font-size: 90%">Pledges</big></p>
+                        <p class="green" >Shs.{{ d_donations }}</p>
+                    </div>
+                </div>
         </div>
 {%endif%}
         <!-- /top tiles -->
