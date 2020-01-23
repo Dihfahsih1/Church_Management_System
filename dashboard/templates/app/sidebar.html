@@ -12,6 +12,7 @@
     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
         <div class="menu_section">
             <ul class="nav side-menu">
+
                 <li><a href="#"><i class="fa fa-user"></i> Membership <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{% url 'members-register'%}">Register Members</a></li>
@@ -21,6 +22,7 @@
 
                     </ul>
                 </li>
+                
                 <li><a><i class="fa fa-calculator"></i> Record Revenues <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{% url 'Enter_Offerings' %}">Offerings</a></li>
@@ -94,6 +96,7 @@
                     </ul>
                 </li>
                 <div class="separator"></div>
+                 {% if user.username == 'admin' %}
                 <li><a><i class="glyphicon glyphicon-film"></i> Church Departments <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="#">Youth </a></li>
@@ -149,6 +152,7 @@
                         <li><a href="#">Northern Region</a></li>
                     </ul>
                 </li>
+                {% endif %}
 
             </ul>
         </div>
