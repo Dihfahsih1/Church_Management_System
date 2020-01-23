@@ -1,11 +1,17 @@
 {% if user.is_authenticated %}
 <div class="left_col scroll-view">
-    <div class="navbar nav_title" style="border: 0;">
+    <div class="navbar nav_title" style="border: 0; height: 10%">
         <a href="{% url 'index' %}" class="site_title"><i class="fa fa-spinner"></i>
             <span style="font-weight:bolder; ">UCC Bwaise</span>
         </a>
+        {% if user.username == 'admin' %}
+        <p style="font-weight:bolder; color: white; text-align: center">Admin Dashbord</p>
+        
+        {% else %}
+        <p style="font-weight:bolder; color: white;text-align: center ">Secretary Dashbord</p>
+        {% endif %}
     </div>
-
+<br><br>
     <div class="clearfix"></div>
     <div class="separator"></div>
     <!-- sidebar menu -->
