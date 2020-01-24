@@ -26,13 +26,13 @@
             </ul>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-lg-4">
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                        aria-expanded="false">
 
-                        <i>You are logged in as </i> <b style="color: red; font-size: 140%">{{ request.user.username }}
+                        <i><img src="{{ request.user.full_name.Photo.url }}" /><i> <b style="color: red; font-size: 120%">{{ request.user.username }}
                         <span class=" fa fa-angle-down"></span></b>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-left">
