@@ -3,9 +3,47 @@ from datetime import datetime
 from django.db import models
 from django.db.models import Model
 from django.db.models import Sum
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.forms.fields import DateField
 from django.contrib.admin.widgets import AdminDateWidget
+from django.contrib.auth.models import PermissionsMixin
 
+class UserManager(BaseUserManager):
+    def create_user(self, username,password=None):
+        if not username:
+            raise ValueError('User must have a username.')
+            
+        if not password:
+            raise ValueError('User must have a password.')    
+        user_obj = self.model(username=username,)
+        user_obj.set_password(password) 
+        user_obj.save(using=self._db)
+        return user_obj 
+    def create_superuser(self, username,password):
+        user_obj = self.create_user(
+            password=password,
+            username=username,
+        )
+        user_obj.is_admin = True
+        user_obj.is_staff = True
+        user_obj.is_superuser = True
+        user_obj.save(using=self._db)
+        return user_obj    
+class User(AbstractBaseUser , PermissionsMixin):
+    roles=(
+        ('Admin','Admin'),('Secretary','Secretary')      
+    )
+    username = models.CharField(max_length=30, unique=True)
+    Role = models.CharField(max_length=250, choices=roles)
+    full_name =  models.ForeignKey('Members', on_delete=models.PROTECT, max_length=100, null=True, blank=True)
+    is_active = models.BooleanField(default=True)  # can login
+    is_staff = models.BooleanField(default=False)  # staff user non superuser
+    is_superuser = models.BooleanField(default=False)
+    USERNAME_FIELD = 'username'
+    REQUIRED_FILEDS = []
+    objects = UserManager()
+    def __str__(self):
+        return self.full_name
 class Sundry(Model):
     reason=(
         ('Lunch','Lunch'),('Upkeep','Upkeep'),('Airtime/Data','Airtime/Data')      
