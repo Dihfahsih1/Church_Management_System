@@ -104,6 +104,7 @@
                 </li>
                 <div class="separator"></div>
                  {% if user.username == 'admin' %}
+                 <li><a href="{% url 'register' %}"><i class="glyphicon glyphicon-user"></i> Add New System User</a></li>
                 <li><a><i class="glyphicon glyphicon-film"></i> Church Departments <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="#">Youth </a></li>
@@ -159,6 +160,7 @@
                         <li><a href="#">Northern Region</a></li>
                     </ul>
                 </li>
+
                 {% endif %}
 
             </ul>
