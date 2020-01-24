@@ -245,6 +245,7 @@ def edit_employee(request, pk):
         form = StaffDetailsForm(request.POST, instance=item)
         if form.is_valid():
             form.save()
+            messages.success(request, f'Employee has been successfully edited')
             return redirect('employee-list')
     else:
         today = timezone.now()
@@ -281,6 +282,7 @@ def paid_salary(request):
         form = SalariesPaidForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, f'Employee has been paid salary successfully')
             return redirect('current-month-salaries')
         else:
             form = SalariesPaidForm()
@@ -393,6 +395,7 @@ def register_members(request):
         form=MembersForm(request.POST, request.FILES,)
         if form.is_valid():
             form.save()
+            messages.success(request, f'Member has been added to system successfully')
             return redirect('members-list')
     else:
         form=MembersForm()
@@ -405,6 +408,7 @@ def register_visitors(request):
         form=VisitorsForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, f'The visitor has been recorded')
             return redirect('visitors-list')
     else:
         form=VisitorsForm()
@@ -421,9 +425,10 @@ def members_list(request):
 def edit_member(request, pk):
     item = get_object_or_404(Members, pk=pk)
     if request.method == "POST":
-        form = MembersForm(request.POST, instance=item)
+        form = MembersForm(request.POST,request.FILES, instance=item)
         if form.is_valid():
             form.save()
+            messages.success(request, f'Member Information has been updated')
             return redirect('members-list')
     else:
         form = MembersForm(instance=item)
@@ -445,7 +450,7 @@ def delete_member(request, pk):
     member= get_object_or_404(Members, id=pk)
     if request.method == "GET":
         member.delete()
-        messages.success(request, "Post successfully deleted!")
+        messages.success(request, f'Member has been deleted successfully')
         return redirect("members-list")
     context= {'member': member}
     return render(request, 'Members/members_delete.html', context)
@@ -455,6 +460,7 @@ def edit_visitor(request, pk):
         form = VisitorsForm(request.POST, instance=item)
         if form.is_valid():
             form.save()
+            messages.success(request, f'The visitor has been edited')
             return redirect('visitors-list')
     else:
         form = VisitorsForm(instance=item)
@@ -463,7 +469,7 @@ def delete_visitor(request, pk):
     visiting= get_object_or_404(Visitors, id=pk)
     if request.method == "GET":
         visiting.delete()
-        messages.success(request, "Post successfully deleted!")
+        messages.success(request, f'Visitor has been deleted')
         return redirect("visitors-list")
 
     context= {'visiting': visiting}
@@ -490,6 +496,7 @@ def Enter_Offerings(request):
         form=OfferingsForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, f'Offerings have been recorded')
             return redirect('Offeringsreport')
     else:
         form=OfferingsForm()
@@ -500,6 +507,7 @@ def edit_offerings(request, pk):
         form = OfferingsForm(request.POST, instance=item)
         if form.is_valid():
             form.save()
+            messages.success(request, f'Offerings have been updated')
             return redirect('Offeringsreport')
     else:
         form = OfferingsForm(instance=item)
