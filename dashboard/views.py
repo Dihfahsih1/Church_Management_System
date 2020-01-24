@@ -11,6 +11,7 @@ from .models import *
 from .render import Render
 from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
+
 @login_required
 def index(request):
     current_month = datetime.now().month

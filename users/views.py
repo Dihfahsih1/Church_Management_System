@@ -2,6 +2,20 @@ from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import messages
 from .forms import RegisterForm
 from dashboard.models import User
+
+# def loginpage(request):
+#     if request.method == 'POST':
+#         username = request.POST['username']
+#         password =  request.POST['password']
+#         post = User.objects.filter(username=username)
+#         if post:
+#             username = request.POST['username']
+#             request.session['username'] = username
+#             messages.success(request, f'Welcome..,You have successfully logged in')
+#             return redirect("index")
+#         else:
+#             return render(request, 'users/home/login.html', {})
+#     return render(request, 'users/home/login.html', {})
 def register(request):
 	users=User.objects.all()
 	if request.method == 'POST':
