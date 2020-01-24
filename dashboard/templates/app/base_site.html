@@ -82,12 +82,25 @@
 
             {% block top_navigation %}
                 <div class="top_nav">
-                    {% include "app/top_navigation.html" %}
+                 {% include "app/top_navigation.html" %}
+         
                 </div>
             {% endblock top_navigation %}
-
+                   <div style="text-align: center;"class = "alert alert-dismissable">
+                     <button type = "button" class = "close" data-dismiss = "alert" aria-hidden = "true">
+                       <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                     </button>
+                     {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                     {% endif %}
+                  </div>
 
             {% block content %}
+
                 <!-- {{ content }} -->
             {% endblock content %}
 

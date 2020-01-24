@@ -9,7 +9,7 @@ def register(request):
 		if form.is_valid():
 			form.save()
 			username = form.cleaned_data.get('username')
-			messages.success(request, f'Account has been created successfully!, you can now login')
+			messages.success(request, f'Account has been created successfully!, User can now login')
 			return redirect('register')
 	else:
 		form = RegisterForm()
@@ -19,7 +19,7 @@ def delete_user(request,pk):
     user= get_object_or_404(User, id=pk)
     if request.method == "GET":
         user.delete()
-        messages.success(request, "user successfully deleted!")
+        messages.success(request, "The User successfully deleted!")
         return redirect("register")
     context= {'user': user}
     return render(request, 'users/home/delete_user.html', context)
