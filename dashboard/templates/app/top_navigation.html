@@ -45,6 +45,19 @@
             </ul>
         </div>
     </nav>
+       <!--fade up notification upon successful redirect-->
+            {% if messages %}
+            <div class="col-lg-6" style="float: right">
+                <div class="alert alert-success" id="success-alert">
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li style="font-weight: bolder" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+               </div>
+            </div>       
+           {% endif %} 
 </div>
 {% else %}
 {% endif %}

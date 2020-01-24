@@ -66,6 +66,7 @@
 
 {% block body %}
 
+
     <!-- loader -->
     
     <div class="fakeLoader"></div>
@@ -79,27 +80,20 @@
                     {% include "app/sidebar.html" %}
             </div>
             {% endblock sidebar %}
+         
 
             {% block top_navigation %}
                 <div class="top_nav">
                  {% include "app/top_navigation.html" %}
          
                 </div>
+                <!--alert messages-->
+       
             {% endblock top_navigation %}
-                   <div style="text-align: center;"class = "alert alert-dismissable">
-                     <button type = "button" class = "close" data-dismiss = "alert" aria-hidden = "true">
-                       <span aria-hidden="true" class="btn btn-danger">&times;</span>
-                     </button>
-                     {% if messages %}
-                        <ul class="messages">
-                            {% for message in messages %}
-                            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                            {% endfor %}
-                        </ul>
-                     {% endif %}
-                  </div>
+                  
 
             {% block content %}
+
 
                 <!-- {{ content }} -->
             {% endblock content %}
@@ -208,7 +202,12 @@
         );
   </script>
 
-
+<!--fading up messages alert-->
+<script type="text/javascript">
+    $("#success-alert").fadeTo(2500, 5000).slideUp(8000, function(){
+        $("#success-alert").slideUp(1000);
+    });
+</script>
         <script>
             $.fakeLoader();
             $(function () {
@@ -274,6 +273,7 @@
                 }
             });
         </script>
+
     <!-- Custom Theme Scripts -->
     <script src="/static/build/js/custom.js"></script>
 
