@@ -4,8 +4,8 @@
         <a href="{% url 'index' %}" class="site_title"><i class="fa fa-spinner"></i>
             <span style="font-weight:bolder; ">UCC Bwaise</span>
         </a>
-        {% if user.username == 'admin' %}
-        <p style="font-weight:bolder; color: white; text-align: center">Admin Dashbord</p>
+        {% if user.Role == 'Admin' %}
+        <p style="font-weight:bolder; color: white; text-align: center">{{user.Role}} Dashbord</p>
         
         {% else %}
         <p style="font-weight:bolder; color: white;text-align: center ">Secretary Dashbord</p>
@@ -103,7 +103,7 @@
                     </ul>
                 </li>
                 <div class="separator"></div>
-                 {% if user.username == 'admin' %}
+                 {% if user.Role == 'Admin' %}
                  <li><a href="{% url 'register' %}"><i class="glyphicon glyphicon-user"></i> Add New System User</a></li>
                 <li><a><i class="glyphicon glyphicon-film"></i> Church Departments <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
