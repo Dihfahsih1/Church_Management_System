@@ -217,6 +217,7 @@ def employee_register(request):
         form=StaffDetailsForm(request.POST, request.FILES,)
         if form.is_valid():
             form.save()
+            messages.success(request, f'Employee has been successfully add to the system')
             return redirect('employee-list')
     else:
         form=StaffDetailsForm()
@@ -226,7 +227,7 @@ def delete_employee(request,pk):
     employee= get_object_or_404(StaffDetails, id=pk)
     if request.method == "GET":
         employee.delete()
-        messages.success(request, "Post successfully deleted!")
+        messages.success(request, "User successfully deleted!")
         return redirect("employee-list")
     context= {'employee': employee}
     return render(request, 'Employees/employee_delete.html', context)
