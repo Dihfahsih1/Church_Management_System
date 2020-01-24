@@ -14,8 +14,21 @@
 {% block body_class %}login{% endblock body_class %}
 
 {% block content %}
-
+         <!--fade up notification upon successful redirect-->
+            {% if messages %}
+            <div class="col-lg-6" style="float: right">
+                <div class="alert alert-danger" id="success-alert">
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <h3 {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h3>
+                        {% endfor %}
+                    </ul>
+               </div>
+            </div>       
+           {% endif %} 
         <div class="login_wrapper">
+    
             <div class="animate form login_form">
 
                 <section class=" border login_content">
