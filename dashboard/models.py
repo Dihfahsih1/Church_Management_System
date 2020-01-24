@@ -7,6 +7,17 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.forms.fields import DateField
 from django.contrib.admin.widgets import AdminDateWidget
 from django.contrib.auth.models import PermissionsMixin
+from django.contrib.auth.signals import user_logged_in
+from django.contrib.auth.views import login
+
+
+def do_stuff(sender, user, request, **kwargs):
+    response = login(request, *args, **kwargs):
+        if request.user.is_authenticated():
+             messages.info(request, "Welcome to your dashboard, You have Logged in")
+        return response
+user_logged_in.connect(do_stuff)
+
 
 class UserManager(BaseUserManager):
     def create_user(self, username,password=None):
