@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import messages
 from .forms import RegisterForm
-from django.contrib.auth.models import User
+from dashboard.models import User
 def register(request):
 	users=User.objects.all()
 	if request.method == 'POST':
