@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import messages
 from .forms import RegisterForm
 from dashboard.models import User
+from django.contrib.auth.decorators import login_required
 
 # def loginpage(request):
 #     if request.method == 'POST':
@@ -16,6 +17,7 @@ from dashboard.models import User
 #         else:
 #             return render(request, 'users/home/login.html', {})
 #     return render(request, 'users/home/login.html', {})
+@login_required
 def register(request):
 	users=User.objects.all()
 	if request.method == 'POST':
