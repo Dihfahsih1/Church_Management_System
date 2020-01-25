@@ -31,7 +31,7 @@ class UserManager(BaseUserManager):
         return user_obj    
 class User(AbstractBaseUser , PermissionsMixin):
     roles=(
-        ('Admin','Admin'),('Secretary','Secretary')      
+        ('Admin','Admin'),('Secretary','Secretary'),('SuperAdmin','SuperAdmin')     
     )
     username = models.CharField(max_length=30, unique=True)
     Role = models.CharField(max_length=250, choices=roles)

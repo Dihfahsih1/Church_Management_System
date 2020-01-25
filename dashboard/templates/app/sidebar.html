@@ -15,7 +15,7 @@
     </style>
     <div>
          <img src="{{ request.user.full_name.Photo.url }}" width="200" height="130" class="center"  />
-        {% if user.Role == 'Admin' %}
+        {% if user.Role == 'Admin' or user.Role == 'SuperAdmin' %}
         <h3 style="font-weight:bolder; color: white; text-align: center"> {{user.full_name}}</h3>
         <h5 style="font-weight:bold; color: white; text-align: center">UCC Bwaise {{user.Role}}</h5>
         
@@ -117,7 +117,7 @@
                 </li>
                 <div class="separator"></div>
 
-                 {% if user.Role == 'Admin' %}
+                 {% if user.Role == 'Admin' or user.Role == 'SuperAdmin' %}
                  <h3 style="font-weight:bolder; color: white; text-align: center">Other Functions <i class="glyphicon glyphicon-arrow-down"></i></h3>
                  <div class="separator"></div>
                  <li><a href="{% url 'register' %}"><i class="glyphicon glyphicon-user"></i> Add New System User</a></li>

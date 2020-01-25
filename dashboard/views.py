@@ -15,6 +15,7 @@ from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 @login_required
 def index(request):
     current_month = datetime.now().month
+    day = datetime.now().today
     total_current_donations = Donations.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_current_donations['totals'])!=None:
         int(total_current_donations["totals"])
@@ -28,7 +29,9 @@ def index(request):
     total_weekly_donations = Donations.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
     if (total_weekly_donations['totals'])!=None:
         int(total_weekly_donations["totals"])
-        d_donations=total_weekly_donations["totals"]
+        
+        x=total_weekly_donations["totals"]
+        d_donations=(f"{x:,}")
     else:
         total_weekly_donations = 0
         d_donations = 0
@@ -219,7 +222,7 @@ def index(request):
         context={'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_general_expenses':total_general_expenses,'total_monthly_incomes':total_monthly_incomes,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
         'petty':petty,'allowances':allowances, 'pledges':pledges, 'general':general,'expenses':expenses,
         'tithes':tithes, 'offerings':offerings, 'seeds':seeds, 'net_income':net_income,'thanks':thanks,
-        'donations':donations,
+        'donations':donations,'day':day,
         'd_petty':d_petty,'d_allowances':d_allowances,'d_salaries':d_salaries, 'd_pledges':d_pledges, 'd_general':d_general,'d_expenses':d_expenses,
         }
         return render(request,'index.html', context)
@@ -234,7 +237,7 @@ def index(request):
         today = timezone.now()
         month = today.strftime('%B')
         context={'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,'total_current_seeds':total_current_seeds,'total_general_expenses':total_general_expenses,'total_petty_expenses':total_petty_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
-        'general':general,'allowances':allowances,'seeds':seeds, 'expenses':expenses,
+        'general':general,'allowances':allowances,'seeds':seeds, 'expenses':expenses,'day':day,
         'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income,'thanks':thanks,'donations':donations
         ,'d_petty':d_petty,'d_allowances':d_allowances,'d_salaries':d_salaries, 'd_pledges':d_pledges, 'd_general':d_general,'d_expenses':d_expenses,
         }
@@ -248,7 +251,7 @@ def index(request):
         today = timezone.now()
         month = today.strftime('%B')
         context={'d_donations':d_donations,'d_tithes':d_tithes,'d_offerings':d_offerings,
-        'd_seeds':d_seeds,'d_thanks':d_thanks,'d_pledges':d_pledges,
+        'd_seeds':d_seeds,'d_thanks':d_thanks,'d_pledges':d_pledges,'day':day,
         'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_general_expenses':total_general_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
         'petty':petty,'allowances':allowances,'seeds':seeds,'general':general, 'expenses':expenses,'tithes':tithes, 
         'offerings':offerings, 'pledges':pledges, 'net_income':net_income,'thanks':thanks,'donations':donations,
