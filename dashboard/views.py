@@ -29,7 +29,6 @@ def index(request):
     total_weekly_donations = Donations.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
     if (total_weekly_donations['totals'])!=None:
         int(total_weekly_donations["totals"])
-        
         x=total_weekly_donations["totals"]
         d_donations=(f"{x:,}")
     else:

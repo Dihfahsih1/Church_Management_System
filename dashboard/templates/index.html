@@ -12,6 +12,8 @@
     <link href="/static/vendors/fullcalendar/dist/fullcalendar.print.css" rel="stylesheet" media="print">
 {% endblock stylesheets %}
 {% block content %}
+{% load humanize %}
+{{ my_num|intcomma }}
 <div class="right_col" role="main"> 
         <!-- top tiles -->
         {% if user.Role == 'Admin' or user.Role == 'SuperAdmin'%}
@@ -22,7 +24,7 @@
             <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
                     <p class="fa fa-dollar">&nbsp; <b style="font-size: 170%">Total Revenue</b></p>
-                    <div class="count red" >Shs.{{total_monthly_incomes}}</div>
+                    <div class="count red" >Shs.{{total_monthly_incomes|intcomma}}</div>
                 </div>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
