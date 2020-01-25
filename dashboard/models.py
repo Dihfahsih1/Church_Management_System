@@ -208,7 +208,7 @@ class Visitors(models.Model):
         return self.First_Name + ' ' + self.Second_Name
 
 class StaffDetails(models.Model):
-    rol=(('Security','Security'),('Secretary','Secretary'),('Church-Welfare','Church-Welfare'))
+    rol=(('Security','Security'),('Secretary','Secretary'),('Church-Welfare','Church-Welfare'),('Admin','Admin'))
     sex=(('Male','Male'),('Female','Female'))
     education=(('Masters','Master'),('Degree','Degree'),('Diploma','Diploma'),('Certificate','Certificate'))
     rel =(('Born Again','Born Again'),('Others','Others'))
@@ -222,7 +222,7 @@ class StaffDetails(models.Model):
     Education_Level=models.CharField(max_length=100, choices=education,null=True, blank=True)
     Residence=models.CharField(max_length=100,null=True, blank=True)
     Telephone=models.CharField(max_length=100,null=True, blank=True)
-    Photo=models.ImageField(upload_to='avatars/', blank=False)
+    Photo=models.ImageField(upload_to='avatars/', null=True, blank=True)
     Faith=models.CharField(max_length=100, choices=rel, null=True, blank=True)
     Date_of_paying_salary = models.DateField(null=True, blank=True)
     Month_being_cleared = models.DateField(null=True, blank=True)
