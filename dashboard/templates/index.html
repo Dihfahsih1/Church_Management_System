@@ -16,8 +16,10 @@
         <!-- top tiles -->
         {% if user.Role == 'Admin' %}
         <div class="row ">
-            <h3>Summary of {{ month }} </h3>
-            <div class="row top_tiles">
+
+        <div class="row top_tiles">
+                <h3 style="text-align: center">Summary of {{ month }}<i class="glyphicon glyphicon-arrow-down"></i> </h3>
+            <div class="separator"></div>
                 <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
                     <div class="tile-stats">
                         <p class="fa fa-dollar">&nbsp; <b style="font-size: 170%">Total Revenue</b></p>
@@ -45,10 +47,9 @@
                 </div>
 
 <!--Start of daily summary tiles -->
-            </div>
-                <div class="separator"></div>
-                  <h3>Weekly Revenue Summary (7 Days) </h3>
-                 
+                
+                  <h3 style="text-align: center">Weekly Revenue Summary (7 Days)<i class="glyphicon glyphicon-arrow-down"></i> </h3>
+                 <div class="separator"></div>
                  <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <div class="tile-stats">
                         <p class="fa fa-dollar">&nbsp; <b style="font-size: 110%">Tithes</b></p>
@@ -85,7 +86,44 @@
                         <p class="green" ><b>Shs.{{ d_pledges }}</b></p>
                     </div>
                 </div>
+
+                
+                  <h3 style="text-align: center">Weekly Expenditure Summary (7 Days) <i class="glyphicon glyphicon-arrow-down"></i></h3>
+                  <div class="separator"></div>
+                 
+                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 110%">Main Expenditure</b></p>
+                        <p class="blue" ><b>Shs.{{ d_expenses }}</b></p>
+                    </div>
+                </div>
+                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 110%">General Expenses</b></p>
+                        <p class="blue" ><b>Shs.{{ d_general }}</b></p>
+                    </div>
+                </div>
+                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 110%">Petty Expenses</b></p>
+                        <p class="blue" ><b>Shs.{{ d_petty }}</b></p>
+                    </div>
+                </div>
+                 <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 110%">Allowances</b></p>
+                        <p class="blue" ><b>Shs.{{ d_allowances }}</b></p>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 110%">Salaries</b></p>
+                        <p class="blue" ><b>Shs.{{ d_salaries}}</b></p>
+                    </div>
+                </div>
         </div>
+     </div>
+       
 {%endif%}
         <!-- /top tiles -->
 

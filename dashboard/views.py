@@ -25,12 +25,12 @@ def index(request):
 
 
     one_week_ago = datetime.today() - timedelta(days=7)
-    total_daily_donations = Donations.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
-    if (total_daily_donations['totals'])!=None:
-        int(total_daily_donations["totals"])
-        d_donations=total_daily_donations["totals"]
+    total_weekly_donations = Donations.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
+    if (total_weekly_donations['totals'])!=None:
+        int(total_weekly_donations["totals"])
+        d_donations=total_weekly_donations["totals"]
     else:
-        total_daily_donations = 0
+        total_weekly_donations = 0
         d_donations = 0
 
 
@@ -42,12 +42,12 @@ def index(request):
         total_current_thanks = 0
         thanks = 0
 
-    total_daily_thanks = ThanksGiving.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
-    if (total_daily_thanks['totals'])!=None:
-        int(total_daily_thanks["totals"])
-        d_thanks=total_daily_thanks["totals"]
+    total_weekly_thanks = ThanksGiving.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
+    if (total_weekly_thanks['totals'])!=None:
+        int(total_weekly_thanks["totals"])
+        d_thanks=total_weekly_thanks["totals"]
     else:
-        total_daily_thanks = 0
+        total_weekly_thanks = 0
         d_thanks = 0         
 
     
@@ -60,12 +60,12 @@ def index(request):
         seeds = 0
 
     
-    total_daily_seeds = Seeds.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
-    if (total_daily_seeds['totals'])!=None:
-        int(total_daily_seeds["totals"])
-        d_seeds=total_daily_seeds["totals"]
+    total_weekly_seeds = Seeds.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
+    if (total_weekly_seeds['totals'])!=None:
+        int(total_weekly_seeds["totals"])
+        d_seeds=total_weekly_seeds["totals"]
     else:
-        total_daily_seeds = 0
+        total_weekly_seeds = 0
         d_seeds = 0
 
     total_current_offerings = Offerings.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Total_Offering"))
@@ -76,12 +76,12 @@ def index(request):
         total_current_offerings = 0
         offerings = 0
 
-    total_daily_offerings = Offerings.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Total_Offering"))
-    if (total_daily_offerings['totals'])!=None:
-        int(total_daily_offerings["totals"])
-        d_offerings=total_daily_offerings["totals"]
+    total_weekly_offerings = Offerings.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Total_Offering"))
+    if (total_weekly_offerings['totals'])!=None:
+        int(total_weekly_offerings["totals"])
+        d_offerings=total_weekly_offerings["totals"]
     else:
-        total_daily_offerings = 0
+        total_weekly_offerings = 0
         d_offerings = 0
 
     total_current_tithes = Tithes.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
@@ -92,14 +92,15 @@ def index(request):
         total_current_tithes=0
         tithes = 0
 
-    total_daily_tithes = Tithes.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
-    if (total_daily_tithes['totals'])!=None:
-        int(total_daily_tithes["totals"])
-        d_tithes=total_daily_tithes["totals"]
+    total_weekly_tithes = Tithes.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
+    if (total_weekly_tithes['totals'])!=None:
+        int(total_weekly_tithes["totals"])
+        d_tithes=total_weekly_tithes["totals"]
     else:
-        total_daily_tithes=0
+        total_weekly_tithes=0
         d_tithes = 0    
-
+#Calculating Expenditure
+    #monthly salary
     total_current_salaries = SalariesPaid.objects.filter(Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
     if (total_current_salaries['totals'])!=None:
         int(total_current_salaries["totals"])
@@ -107,7 +108,15 @@ def index(request):
     else:
         total_current_salaries = 0
         salaries = 0
-
+    #weekly salaries
+    total_weekly_salaries = SalariesPaid.objects.filter(Date_of_paying_salary__gte=one_week_ago).aggregate(totals=models.Sum("Salary_Amount"))
+    if (total_weekly_salaries['totals'])!=None:
+        int(total_weekly_salaries["totals"])
+        d_salaries=total_weekly_salaries["totals"]
+    else:
+        total_weekly_salaries = 0
+        d_salaries = 0
+    #mothly pledges    
     total_current_pledges = PaidPledges.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount_Paid"))
     if (total_current_pledges['totals'])!=None:
         int(total_current_pledges["totals"])
@@ -115,17 +124,16 @@ def index(request):
     else:
         total_current_pledges = 0
         pledges = 0
-
-    total_daily_pledges = PaidPledges.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount_Paid"))
-    if (total_daily_pledges['totals'])!=None:
-        int(total_daily_pledges["totals"])
-        d_pledges=total_daily_pledges["totals"]
+    #weekly pledges
+    total_weekly_pledges = PaidPledges.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount_Paid"))
+    if (total_weekly_pledges['totals'])!=None:
+        int(total_weekly_pledges["totals"])
+        d_pledges=total_weekly_pledges["totals"]
     else:
-        total_daily_pledges = 0
+        total_weekly_pledges = 0
         d_pledges = 0    
- 
-
-
+    
+    #monthly main expenses
     total_main_expenses = Spend.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_main_expenses['totals'])!=None:
         int(total_main_expenses["totals"])
@@ -133,6 +141,16 @@ def index(request):
     else:
         total_main_expenses = 0
         expenses = 0
+
+        #weekly main expenses
+    total_weekly_expenses = Spend.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
+    if (total_weekly_expenses['totals'])!=None:
+        int(total_weekly_expenses["totals"])
+        d_expenses=total_weekly_expenses["totals"]
+    else:
+        total_weekly_expenses = 0
+        d_expenses = 0  
+
     #Total general expenses of the current month of the year.
     total_general_expenses = GeneralExpenses.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_general_expenses['totals'])!=None:
@@ -141,8 +159,16 @@ def index(request):
     else:
         total_general_expenses = 0
         general = 0
+        #Total general expenses of the week.
+    weekly_general_expenses = GeneralExpenses.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
+    if (weekly_general_expenses['totals'])!=None:
+        int(weekly_general_expenses["totals"])
+        d_general=weekly_general_expenses["totals"]
+    else:
+        weekly_general_expenses = 0
+        d_general = 0
 
-    #Petty Cash expenses
+    #Monthly Petty Cash expenses
     total_petty_expenses = Sundry.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_petty_expenses['totals'])!=None:
         int(total_petty_expenses["totals"])
@@ -150,6 +176,17 @@ def index(request):
     else:
         total_petty_expenses = 0
         petty = 0
+
+    #weekly Petty Cash expenses
+    weekly_petty_expenses = Sundry.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
+    if (weekly_petty_expenses['totals'])!=None:
+        int(weekly_petty_expenses["totals"])
+        d_petty=weekly_petty_expenses["totals"]
+    else:
+        weekly_petty_expenses = 0
+        d_petty = 0 
+
+    #monthly allowances       
     total_allowances = Allowance.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_allowances['totals'])!=None:
         int(total_allowances["totals"])
@@ -157,7 +194,14 @@ def index(request):
     else:
         total_allowances = 0
         allowances=0
-
+    #weeky allowances       
+    weekly_allowances = Allowance.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
+    if (weekly_allowances['totals'])!=None:
+        int(weekly_allowances["totals"])
+        d_allowances=weekly_allowances["totals"]    
+    else:
+        weekly_allowances = 0
+        d_allowances=0
     #incase of data has been archived, none is returned, so we have to catch it before it causes trouble
     if (total_current_donations,total_current_thanks,total_current_seeds,total_petty_expenses,total_current_tithes,total_current_salaries, total_general_expenses, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== None:
         total_monthly_incomes = 0
@@ -173,9 +217,11 @@ def index(request):
         month = today.strftime('%B')
 
         context={'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_general_expenses':total_general_expenses,'total_monthly_incomes':total_monthly_incomes,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
-        'petty':petty,'allowances':allowances,'seeds':seeds, 'general':general,'expenses':expenses,
-        'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income,
-        'thanks':thanks,'donations':donations}
+        'petty':petty,'allowances':allowances, 'pledges':pledges, 'general':general,'expenses':expenses,
+        'tithes':tithes, 'offerings':offerings, 'seeds':seeds, 'net_income':net_income,'thanks':thanks,
+        'donations':donations,
+        'd_petty':d_petty,'d_allowances':d_allowances,'d_salaries':d_salaries, 'd_pledges':d_pledges, 'd_general':d_general,'d_expenses':d_expenses,
+        }
         return render(request,'index.html', context)
     #in case the totals are Zero
     elif (total_petty_expenses,total_current_tithes,total_general_expenses, total_current_salaries, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== 0:
@@ -189,7 +235,9 @@ def index(request):
         month = today.strftime('%B')
         context={'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,'total_current_seeds':total_current_seeds,'total_general_expenses':total_general_expenses,'total_petty_expenses':total_petty_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
         'general':general,'allowances':allowances,'seeds':seeds, 'expenses':expenses,
-        'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income,'thanks':thanks,'donations':donations}
+        'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income,'thanks':thanks,'donations':donations
+        ,'d_petty':d_petty,'d_allowances':d_allowances,'d_salaries':d_salaries, 'd_pledges':d_pledges, 'd_general':d_general,'d_expenses':d_expenses,
+        }
         return render(request,'index.html', context)
 
     #if there are moneys, calculate incomes and total expenditure.
@@ -203,7 +251,9 @@ def index(request):
         'd_seeds':d_seeds,'d_thanks':d_thanks,'d_pledges':d_pledges,
         'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_general_expenses':total_general_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
         'petty':petty,'allowances':allowances,'seeds':seeds,'general':general, 'expenses':expenses,'tithes':tithes, 
-        'offerings':offerings, 'pledges':pledges, 'net_income':net_income,'thanks':thanks,'donations':donations}
+        'offerings':offerings, 'pledges':pledges, 'net_income':net_income,'thanks':thanks,'donations':donations,
+        'd_petty':d_petty,'d_allowances':d_allowances,'d_salaries':d_salaries, 'd_general':d_general,'d_expenses':d_expenses,
+        }
         return render(request,'index.html', context)
 
     
