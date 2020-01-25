@@ -51,11 +51,19 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
+       
         {% for i in get_name %}
-                    <h2 class="modal-title" style="text-align: center">Employee Details of {{ i.First_Name}} {{ i.Second_Name}}</h2>
+                    <h2 class="modal-title" style="text-align: center">Employee Details of 
+
+                    {% if i.UCC_Bwaise_Member == 'Yes' %}
+                {{ i.Church_Member }}
+                {%else%}
+                {{ i.First_Name}} {{ i.Second_Name}}
+                {% endif %}
+
+            </h2>
         {% endfor %}
     </div>
-
     <div class="modal-body">
         <div class="" role="tabpanel" data-example-id="togglable-tabs">
             <ul id="myTab" class="nav nav-tabs bordered" role="tablist">
@@ -71,6 +79,84 @@
             <div id="myTabContent" class="tab-content">
                 <div role="tabpanel" class="tab-pane fade active in" id="tab_content1"
                      aria-labelledby="basic-tab">
+                     {% if form.instance.UCC_Bwaise_Member == 'Yes' %}
+                    <table id="tablePreview" class="table table-bordered table-striped">
+                        <style type="text/css">
+                            th   {color: blue;font-size: 120%; font-weight: bolder}
+                        </style>
+                        <tbody>
+                        <tr>
+                            <th>Photo</th>
+                            <td>
+                            {% if form.instance.Church_Member.Photo %}
+                            <img src="{{ form.instance.Church_Member.Photo.url }}" width="40" />
+                            {% endif %}
+                            </td>
+                           <th>First Name</th>
+                            <td>{{ form.instance.Church_Member.First_Name }}</td>
+                            <th>Second Name</th>
+                            <td>{{ form.instance.Church_Member.Second_Name }}</td>
+                            
+                        </tr>
+                        <tr>
+                            <th>Home Cell</th>
+                            <td>{{ form.instance.Church_Member.Home_Cell }}</td>
+                            <th>Residence</th>
+                            <td>{{ form.instance.Church_Member.Residence }}</td>
+                            <th>Marriage Status</th>
+                            <td>{{ form.instance.Church_Member.Marital_Status }}</td>
+                        </tr>
+                        <tr>
+                            <th>Gender</th>
+                            <td>{{ form.instance.Church_Member.Gender }}</td>
+                            <th>Date Of Salvation</th>
+                            <td>{{ form.instance.Church_Member.Date_Of_Joining_UCC_Bwaise }}</td>
+                            <th>Birth Date</th>
+                            <td>{{ form.instance.Church_Member.Date_Of_Birth }}</td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div role="tabpanel" class="tab-pane fade active in" id="tab_content2"
+                     aria-labelledby="parent-tab">
+                    <table id="tablePreview" class="table table-bordered table-striped">
+                        
+                        <!--Table head-->
+                        <!--Table body-->
+                        <style type="text/css">
+                            th   {color: blue;font-size: 120%; font-weight: bolder}
+                        </style>
+                        <tbody>
+                        <tr>
+                            <th>Education Level</th>
+                            <td>{{ form.instance.Church_Member.Education_Level }}</td>
+                            <th>Telephone</th>
+                            <td>{{ form.instance.Church_Member.Telephone }}</td>
+                            <th>Profession</th>
+                            <td>{{ form.instance.Church_Member.Profession }}
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <th>Salary </th>
+                            <td>{{ form.instance.Salary_Amount }}</td>
+                            <th>Date of Employment</th>
+                            <td>{{ form.instance.Date_of_employment }}</td>
+                            <th>Role</th>
+                            <td>{{ form.instance.Role }}</td>
+                        </tr>
+                          <tr>
+                            <th>End Of Contract </th>
+                            <td>{{ form.instance.End_of_contract }}</td>
+                            
+                        </tr>
+                        </tbody>
+                        <!--Table body-->
+                    </table>
+
+                    {% else %}
                     <table id="tablePreview" class="table table-bordered table-striped">
                      
                         <style type="text/css">
@@ -78,21 +164,20 @@
                         </style>
                         <tbody>
                         <tr>
+                            <th>Photo</th>
+                            <td>
+                            {% if form.instance.Church_Member.Photo %}
+                            <img src="{{ form.instance.Church_Member.Photo.url }}" width="150" />
+                            {% endif %}
+                            </td>
                             <th>First Name</th>
                             <td>{{ form.instance.First_Name }}</td>
                             <th>Second Name</th>
                             <td>{{ form.instance.Second_Name }}</td>
                         </tr>
                         <tr>
-                            <th>Employee Photo</th>
-                            <td><img src="{{ form.instance.Photo.url }}"
-                                     alt="" width="30"
-                                     style="background: rgba(15,174,221,0.97); padding: 2px;"/>
-                            </td>
                             <th>Birth Date</th>
                             <td>{{ form.instance.Date_Of_Birth }}</td>
-                        </tr>
-                        <tr>
                             <th>Gender</th>
                             <td>{{ form.instance.Gender }}</td>
                             <th>Religion</th>
@@ -139,6 +224,7 @@
                         </tbody>
                         <!--Table body-->
                     </table>
+                    {% endif %}
                 </div>
                 </div>
             </div>

@@ -47,7 +47,7 @@
                <div class="tab-content">
                  <div class="tab-pane fade in active" id="tab_invoice_list">
                     <div class="x_content">                     
-                         <table id="invoice-table" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                      <table id="invoice-table" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -55,14 +55,18 @@
                                     <th>Net Salary</th>
                                     <th>Balance</th>
                                     <th>Salary Status</th>
-                                    
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                               <tr>
                                 {% for emp in employees %}
-                                     <td>{{ emp.Church_Member}}</td>
+                                     <td>{% if emp.UCC_Bwaise_Member == 'Yes' %}
+                                     {{ emp.Church_Member}}
+                                     {% else %}
+                                     {{ emp.full_name}}
+                                     {% endif %}
+                                    </td>
                                      <td>{{ emp.Role}}</td>
                                      <td>{{ emp.Salary_Amount}}</td>
                                      <td>{{ emp.Balance}}</td>
@@ -81,7 +85,27 @@
                                             <span class="glyphicon glyphicon-eye-open"></span> View
                                          </a>
                                         <a href="{% url 'edit-employee' pk=emp.id %}"class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-                                        <a href="{% url 'delete-employee' emp.pk %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"></span> Delete</a>
+                                         <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
+                                             <span class='glyphicon glyphicon-trash'> </span> Delete
+                                         </button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                              <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <h4 class="modal-title" id="myModalLabel">Delete Checklist</h4>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                      <h3>Are you sure you want to delete checklist?</h3>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                    <a href="{% url 'delete-employee' emp.pk %}" class="btn btn-danger bt-sm" role="button">Confirm</a>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
                                      </div>   
                                      </td> 
                                 </tr>

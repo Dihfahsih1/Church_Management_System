@@ -256,17 +256,20 @@ def edit_employee(request, pk):
         form = StaffDetailsForm(instance=item)        
         context={'form':form, 'month':month, 'message':message, 'get_name':get_name}
     return render(request, 'Employees/record_employee.html', context)
+
 def view_employee(request, pk):
     context={}
     employee = get_object_or_404(StaffDetails, id=pk)
     if request.method == 'POST':
-        form = StaffDetailsForm(request.POST, instance=employee)
+        form = StaffDetailsForm(request.POST, request.FILES, instance=employee)
         context['form']=form
+
     else:
-        form = StaffDetailsForm(instance=employee)
+        form = StaffDetailsForm(request.POST, request.FILES, instance=employee)
         get_name = StaffDetails.objects.filter(id=pk)
         context['get_name']=get_name
         context['form']=form
+        print(form.instance.UCC_Bwaise_Member)
     return render(request,'Employees/employee_view.html',context)
 def paying_employees(request, pk):
     items = get_object_or_404(StaffDetails, id=pk)
