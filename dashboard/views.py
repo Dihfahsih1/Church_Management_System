@@ -1,5 +1,5 @@
 #views
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
@@ -24,8 +24,8 @@ def index(request):
         donations = 0
 
 
-    today = datetime.now().day
-    total_daily_donations = Donations.objects.filter(Date__day=today).aggregate(totals=models.Sum("Amount"))
+    one_week_ago = datetime.today() - timedelta(days=7)
+    total_daily_donations = Donations.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
     if (total_daily_donations['totals'])!=None:
         int(total_daily_donations["totals"])
         d_donations=total_daily_donations["totals"]
@@ -42,7 +42,7 @@ def index(request):
         total_current_thanks = 0
         thanks = 0
 
-    total_daily_thanks = ThanksGiving.objects.filter(Date__day=today).aggregate(totals=models.Sum("Amount"))
+    total_daily_thanks = ThanksGiving.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
     if (total_daily_thanks['totals'])!=None:
         int(total_daily_thanks["totals"])
         d_thanks=total_daily_thanks["totals"]
@@ -60,7 +60,7 @@ def index(request):
         seeds = 0
 
     
-    total_daily_seeds = Seeds.objects.filter(Date__day=today).aggregate(totals=models.Sum("Amount"))
+    total_daily_seeds = Seeds.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
     if (total_daily_seeds['totals'])!=None:
         int(total_daily_seeds["totals"])
         d_seeds=total_daily_seeds["totals"]
@@ -76,7 +76,7 @@ def index(request):
         total_current_offerings = 0
         offerings = 0
 
-    total_daily_offerings = Offerings.objects.filter(Date__day=today).aggregate(totals=models.Sum("Total_Offering"))
+    total_daily_offerings = Offerings.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Total_Offering"))
     if (total_daily_offerings['totals'])!=None:
         int(total_daily_offerings["totals"])
         d_offerings=total_daily_offerings["totals"]
@@ -92,7 +92,7 @@ def index(request):
         total_current_tithes=0
         tithes = 0
 
-    total_daily_tithes = Tithes.objects.filter(Date__day=today).aggregate(totals=models.Sum("Amount"))
+    total_daily_tithes = Tithes.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
     if (total_daily_tithes['totals'])!=None:
         int(total_daily_tithes["totals"])
         d_tithes=total_daily_tithes["totals"]
@@ -116,7 +116,7 @@ def index(request):
         total_current_pledges = 0
         pledges = 0
 
-    total_daily_pledges = PaidPledges.objects.filter(Date__day=today).aggregate(totals=models.Sum("Amount_Paid"))
+    total_daily_pledges = PaidPledges.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount_Paid"))
     if (total_daily_pledges['totals'])!=None:
         int(total_daily_pledges["totals"])
         d_pledges=total_daily_pledges["totals"]
