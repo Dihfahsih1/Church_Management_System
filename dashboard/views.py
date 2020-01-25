@@ -347,7 +347,13 @@ def current_month_salary_paid(request):
         'current_month':current_month,
         'years':years,
     }
-    return render(request, 'Employees/current_month_salaries_paid.html',context) 
+    return render(request, 'Employees/current_month_salaries_paid.html',context)
+def delete_salary_paid(request,pk):
+    salary= get_object_or_404(SalariesPaid, id=pk)
+    if request.method == "GET":
+        salary.delete()
+        messages.success(request, "Salary Paid successfully deleted!")
+        return redirect("current-month-salaries")     
 #Search for the archived salaries reports
 def salariespaidarchivessearch(request):
     if request.method == 'POST':

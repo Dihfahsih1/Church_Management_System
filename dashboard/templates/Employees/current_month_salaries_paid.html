@@ -47,7 +47,7 @@
                                 class="fa fa-plus-square-o"></i> Archived Salaries Paid Report</a>
                      </li> 
                 </ul>
-                <br/>
+                <br/> 
                <div class="tab-content">
                  <div class="tab-pane fade in active" id="tab_invoice_list">
                     <div class="x_content">                     
@@ -60,20 +60,43 @@
                                     <th>Month Being Cleared</th>
                                     <th>Amount Paid</th>
                                     <th>Total Paid</th>
-
                                     <th>Remaining Balance</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for salary in salaries %}
-                                <tr> <td>{{ salary.Name}}</td>
+                                <tr>
+                                 <td>{{ salary.Name}}</td>
                                      <td>{{ salary.basic_salary}}</td>
                                      <td>{{ salary.Date_of_paying_salary}}</td>
                                      <td>{{ salary.Month_being_cleared}}</td>
                                      <td>{{ salary.Salary_Amount}}</td>
                                      <td>{{ salary.total_salary_paid}}</td>
                                      <td>{{ salary.Balance}}</td>
-                                      
+                                     <td>
+                                       <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
+                                             <span class='glyphicon glyphicon-trash'> </span> Delete
+                                         </button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                              <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <h4 class="modal-title" id="myModalLabel">Delete Checklist</h4>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                      <h3>Are you sure you want to delete checklist?</h3>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                    <a href="{% url 'delete-salary-paid' salary.pk %}" class="btn btn-danger bt-sm" role="button">Confirm</a>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                     </td>
                                 </tr>
                                 {% endfor%} 
                             </tbody>

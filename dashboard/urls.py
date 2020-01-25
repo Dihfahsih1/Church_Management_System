@@ -112,6 +112,7 @@ url(r'^Petty-Expenses/Airtime/', views.airtime_data_report, name='airtime-data-r
 url(r'^Revenue/Seeds/Add/', views.add_seeds, name='add-seeds'),
 url(r'^Reports/Seeds/List', views.Seedsreport, name='Seeds-report'),
 url(r'^Revenue/Seeds/Edit/(?P<pk>\d+)', views.edit_seed,name='edit-seed'),
+url(r'^Employee/Salary/Delete/(?P<pk>\d+)', views.delete_salary_paid,name='delete-salary-paid'),
 url(r'^Revenue/Donations/Edit/(?P<pk>\d+)', views.edit_donation,name='edit-donation'),
 url(r'^Revenue/Thanks-Giving/Edit/(?P<pk>\d+)', views.edit_thanks_giving,name='edit-thanks-giving'),
 url(r'^Revenue/Thanks-giving/Add', views.record_thanks_giving,name='record-thanks-giving'),

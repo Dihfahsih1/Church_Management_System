@@ -234,11 +234,20 @@ class StaffDetails(models.Model):
     def total_salary_paid(self):
         current_month = datetime.now().month
         current_year = datetime.now().year
-        bal = SalariesPaid.objects.filter(Salary_Id=self.id, Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
-        if bal['totals'] == None:
-            return 0
-        else:    
-            return bal['totals']
+        if self.UCC_Bwaise_Member == 'Yes':
+            bal = SalariesPaid.objects.filter(Salary_Id=self.Church_Member_id, Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
+            if bal['totals'] == None:
+                return 0
+            else:    
+                return bal['totals']
+        else:
+            bal = SalariesPaid.objects.filter(Salary_Id=self.id, Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
+            if bal['totals'] == None:
+                return 0
+            else:    
+                return bal['totals']
+
+                
     @property
     def Balance(self):
        bal=(self.Salary_Amount) - (self.total_salary_paid)
@@ -254,34 +263,66 @@ class SalariesPaid(models.Model):
     Date_of_paying_salary = models.DateField(null=True, blank=True)
     @property
     def basic_salary(self):
-        staffs=StaffDetails.objects.filter(id=self.Salary_Id)
-        for i in staffs:
-            salary=i.Salary_Amount
-            return salary
+        if self.UCC_Bwaise_Member == 'Yes':
+            staffs=StaffDetails.objects.filter(Church_Member_id=self.Salary_Id)
+            for i in staffs:
+                salary=i.Salary_Amount
+                return salary
+        else:
+            staffs=StaffDetails.objects.filter(id=self.Salary_Id)
+            for i in staffs:
+                salary=i.Salary_Amount
+                return salary
+                
     
     @property
     def total_salary_paid(self):
-        staffs=StaffDetails.objects.filter(id=self.Salary_Id)
-        for i in staffs:
-            s_id=i.id
-            current_month = datetime.now().month
-            current_year = datetime.now().year
-            bal = SalariesPaid.objects.filter(Salary_Id=s_id, Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
-            if bal['totals'] == None:
-                return 0
-            else:    
-                return bal['totals']
+        if self.UCC_Bwaise_Member == 'Yes':
+            staffs=StaffDetails.objects.filter(Church_Member_id=self.Salary_Id)
+            for i in staffs:
+                s_id=i.Church_Member_id
+                current_month = datetime.now().month
+                current_year = datetime.now().year
+                bal = SalariesPaid.objects.filter(Salary_Id=s_id, Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
+                if bal['totals'] == None:
+                    return 0
+                else:    
+                    return bal['totals']
+        else:
+            staffs=StaffDetails.objects.filter(id=self.Salary_Id)
+            for i in staffs:
+                s_id=i.id
+                current_month = datetime.now().month
+                current_year = datetime.now().year
+                bal = SalariesPaid.objects.filter(Salary_Id=s_id, Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
+                if bal['totals'] == None:
+                    return 0
+                else:    
+                    return bal['totals']
+                    
     @property
     def Balance(self):
-        staffs=StaffDetails.objects.filter(id=self.Salary_Id)
-        for i in staffs:
-            s_id=i.id
-            a_amount=i.Salary_Amount
-            current_month = datetime.now().month
-            current_year = datetime.now().year
-            bal = SalariesPaid.objects.filter(Salary_Id=s_id, Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
-            balance =a_amount - bal['totals']
-            return balance
+        if self.UCC_Bwaise_Member == 'Yes':
+            staffs=StaffDetails.objects.filter(Church_Member_id=self.Salary_Id)
+            for i in staffs:
+                s_id=i.Church_Member_id
+                a_amount=i.Salary_Amount
+                current_month = datetime.now().month
+                current_year = datetime.now().year
+                bal = SalariesPaid.objects.filter(Salary_Id=s_id, Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
+                balance =a_amount - bal['totals']
+                return balance
+        else:
+            staffs=StaffDetails.objects.filter(id=self.Salary_Id)
+            for i in staffs:
+                s_id=i.id
+                a_amount=i.Salary_Amount
+                current_month = datetime.now().month
+                current_year = datetime.now().year
+                bal = SalariesPaid.objects.filter(Salary_Id=s_id, Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
+                balance =a_amount - bal['totals']
+                return balance
+            
 
 class ThanksGiving(Model):
     services = (('Home Cell Service','Home Cell Service'),('Youth Service','Youth Service'),('Wednesday Service','Wednesday Service'),
