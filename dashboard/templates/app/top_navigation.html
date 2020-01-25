@@ -45,14 +45,19 @@
             </ul>
         </div>
     </nav>
+
        <!--fade up notification upon successful redirect-->
             {% if messages %}
             <div class="col-lg-6" style="float: right">
-                <div class="alert alert-success" id="success-alert">
+                <div class="alert alert-info" id="success-alert">
                     <button type="button" class="close" data-dismiss="alert">x</button>
-                    <ul class="messages">
+                    {% if request.user.Role == 'Admin' or request.user.Role == 'Secretary' %}
+                     <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                         <span class="lead">Dear {{user.full_name}}...</span>
+                     {% endif %}    
+                    <ul>
                         {% for message in messages %}
-                        <li style="font-weight: bolder" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        <h1 style="font-weight: bolder" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h1>
                         {% endfor %}
                     </ul>
                </div>
