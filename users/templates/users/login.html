@@ -13,11 +13,20 @@
 
 {% block body_class %}login{% endblock body_class %}
 
+
 {% block content %}
+<style>
+.first-info{
+    width: 950px;
+    height: 409px;
+    background-image: url( "{% static 'img/uccchurch.jpg' %} ");
+}
+</style>
+<div class="container">
          <!--fade up notification upon successful redirect-->
             {% if messages %}
             <div class="col-lg-6" style="float: right">
-                <div class="alert alert-danger" id="success-alert">
+                <div class="alert alert-info" id="success-alert">
                     <button type="button" class="close" data-dismiss="alert">x</button>
                     <ul class="messages">
                         {% for message in messages %}
@@ -26,21 +35,20 @@
                     </ul>
                </div>
             </div>       
-           {% endif %} 
-        <div class="login_wrapper">
-    
+           {% endif %}    
+        <div class="login_wrapper first-info">
             <div class="animate form login_form">
 
-                <section class=" border login_content">
+                <section class=" border login_content" style="color:black">
                     <form method="post" novalidate>
                         {% csrf_token %}
                         <h2><u> CHURCH WEB SYSTEM</u></h2>
-                        <legend class="border-bottom">United Christian Center - Bwaise </legend> 
+                        <legend class="border-bottom"><h3 style=" font-weight:bolder">UCC-Bwaise </h3></legend> 
                          <div class="clearfix"></div>
                         <div class="separator">
-                        <p style=" text-align: left">Enter Correct Credentials</p>
+                        <b style=" text-align: left;font-size: 160%">Enter Correct Credentials</b>
                                 <fieldset class="form-group"> 
-                                    <div class="form-group">
+                                    <div class="form-group" style="text-align: left;font-size: 120%">
                                     {{ form|crispy}}
                                     </div>      
                                 </fieldset>
@@ -49,27 +57,17 @@
                                     <button class="btn btn-success" type="submit"> Login</button>           
                                 </div>
                                 
-                         </form>
-                    <div class="clearfix"></div>
-                    <div class="separator"></div>
-                            <p>
-                                <a href="#" class="btn btn-link">Forgot your password?</a>
-                            </p>
-
-                            <div class="clearfix"></div>
-                            <br/>
-
-                            <div>
-                                
-                            </div>
-                        </div>
                     </form>
+                    <div class="separator"></div>
+                    <p><a href="#" class="btn btn-link">Forgot your password?</a></p>
                 </section>
             </div>
         </div>
+      </div>
     </div>
 
 {% endblock content %}
+
 
 
 
