@@ -46,17 +46,19 @@
 
                     <div class="col-lg-4">
                         <div class="col-lg-12" id="Salary_Id">
-                        {% for id in retrieve_employee_id %}
+                                              
+        
+                    {% for id in retrieve_employee_id %}
                             <label>Employee Id</label>
                             <input type="text" name="Salary_Id" id="Salary_Id" maxlength="100"
                                    class="textinput textInput form-control"
-                                   value="{{ id.id }}">
+                                   {%if id.UCC_Bwaise_Member == 'Yes'%}value="{{ id.Church_Member_id }}" {%else%}value="{{ id.id }}" {%endif%}>
                         </div>
                         <div class="col-lg-12">
                         <label>Employee Name</label>
                         <input type="text" name="Name" id="Name" maxlength="100"
                                    class="textinput textInput form-control"
-                                   value="{{ id.full_name }}">
+                                   {%if id.UCC_Bwaise_Member == 'Yes'%}value="{{ id.Church_Member }}" {%else%}value="{{ id.full_name }}" {%endif%}  >
                          </div>
                     {% endfor %}
                     </div>
