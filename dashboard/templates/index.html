@@ -13,7 +13,6 @@
 {% endblock stylesheets %}
 {% block content %}
 {% load humanize %}
-{{ my_num|intcomma }}
 <div class="right_col" role="main"> 
         <!-- top tiles -->
         {% if user.Role == 'Admin' or user.Role == 'SuperAdmin'%}
@@ -30,19 +29,19 @@
             <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
                     <p class="fa fa-dollar">&nbsp; <b style="font-size: 170%">Total Expenditure</b></p>
-                    <div class="count red" >Shs.{{total_monthly_expenditure}}</div>
+                    <div class="count red" >Shs.{{total_monthly_expenditure|intcomma}}</div>
                 </div>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
                     <p class="fa fa-dollar">&nbsp; <b style="font-size: 170%">Net Income</b></p>
-                    <div class="count red">Shs.{{net_income}}</div>
+                    <div class="count red">Shs.{{net_income|intcomma}}</div>
                 </div>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
                     <p class="fa fa-dollar">&nbsp; <b style="font-size: 170%">Total Pledges Paid</b></p>
-                    <p class="count red" >Shs.{{pledges}}</p>
+                    <p class="count red" >Shs.{{pledges|intcomma}}</p>
                 </div>
             </div>
         </div>
@@ -54,37 +53,37 @@
              <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
                     <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Tithes</b></p>
-                    <p class="green" ><b>Shs.{{ d_tithes }}</b></p>
+                    <p class="green" ><b>Shs.{{ d_tithes|intcomma }}</b></p>
                 </div>
             </div>
              <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
                     <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Offerings</b></p>
-                    <p class="green" ><b>Shs.{{ d_offerings }}</b></p>
+                    <p class="green" ><b>Shs.{{ d_offerings|intcomma }}</b></p>
                 </div>
             </div>
              <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
                     <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Seeds</b></p>
-                    <p class="green" ><b>Shs.{{ d_seeds }}</b></p>
+                    <p class="green" ><b>Shs.{{ d_seeds|intcomma }}</b></p>
                 </div>
             </div>
              <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
                 <div class="tile-stats">
                     <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Thanks Giving</b></p>
-                    <p class="green" ><b>Shs.{{ d_thanks }}</b></p>
+                    <p class="green" ><b>Shs.{{ d_thanks|intcomma }}</b></p>
                 </div>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
                     <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Donations</b></p>
-                    <p class="green" ><b>Shs.{{ d_donations }}</b></p>
+                    <p class="green" ><b>Shs.{{ d_donations|intcomma }}</b></p>
                 </div>
             </div>
              <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
                     <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Pledges</b></p>
-                    <p class="green" ><b>Shs.{{ d_pledges }}</b></p>
+                    <p class="green" ><b>Shs.{{ d_pledges|intcomma }}</b></p>
                 </div>
             </div>
         </div>        
@@ -95,31 +94,31 @@
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
                     <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Main Expenditure</b></p>
-                    <p class="blue" ><b>Shs.{{ d_expenses }}</b></p>
+                    <p class="blue" ><b>Shs.{{ d_expenses|intcomma }}</b></p>
                 </div>
             </div>
              <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
                     <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">General Expenses</b></p>
-                    <p class="blue" ><b>Shs.{{ d_general }}</b></p>
+                    <p class="blue" ><b>Shs.{{ d_general|intcomma }}</b></p>
                 </div>
             </div>
              <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
                     <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Petty Expenses</b></p>
-                    <p class="blue" ><b>Shs.{{ d_petty }}</b></p>
+                    <p class="blue" ><b>Shs.{{ d_petty|intcomma }}</b></p>
                 </div>
             </div>
              <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
                 <div class="tile-stats">
                     <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Allowances</b></p>
-                    <p class="blue" ><b>Shs.{{ d_allowances }}</b></p>
+                    <p class="blue" ><b>Shs.{{ d_allowances|intcomma }}</b></p>
                 </div>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
                     <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Salaries</b></p>
-                    <p class="blue" ><b>Shs.{{ d_salaries}}</b></p>
+                    <p class="blue" ><b>Shs.{{ d_salaries|intcomma}}</b></p>
                 </div>
             </div>
         </div>    
