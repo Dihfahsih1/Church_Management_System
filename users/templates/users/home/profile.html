@@ -47,12 +47,12 @@
 
                                         <div  class="text-center">
                                             <div class="profile_img">
-                                                {% if user.photo %}
-                                                    <img src="{{ user.Photo.url }}"
+                                                {% if user.full_name.Photo %}
+                                                    <img src="{{ user.full_name.Photo.url }}"
                                                          alt="..." width="100"
                                                          style="background: rgba(15,174,221,0.97); padding: 2px;"/>
                                                 {% endif %}
-                                                <h3>{{ request.user.username }}</h3>
+                                                <h3>{{ request.user.full_name }}</h3>
                                                 <br/>
                                             </div>
                                         </div>
@@ -61,7 +61,7 @@
                                             <tbody>
 
                                             <tr>
-                                                <th>Name</th>
+                                                <th>Username</th>
                                                 <td>{{ request.user.username }}</td>
                                                 <th>National ID</th>
                                                 <td>{{ request.user.national_ID }}</td>
