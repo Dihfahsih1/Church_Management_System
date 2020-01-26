@@ -142,6 +142,7 @@ class PledgeItemsForm(forms.ModelForm):
           widgets = {
             'Date': DatePickerInput(),
             'Pledge_Deadline': DatePickerInput(),
+            'Item_That_Needs_Pledges': TextInput(attrs={'placeholder': 'Item'}),
           }                
 class PledgesReportArchiveForm(forms.ModelForm):
     class Meta:

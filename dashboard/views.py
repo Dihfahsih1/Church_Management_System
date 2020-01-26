@@ -1859,6 +1859,7 @@ def edit_pledge_item(request, pk):
         form = PledgeItemsForm(instance=item)
     return render(request, 'Pledges/edit_pledge_item.html', {'form': form}, {'messages': messages})
 
+#spending money on the pledged item
 def pledge_cash_out(request, pk):
     items = get_object_or_404(PledgeItem, id=pk)
     if request.method == "POST":
