@@ -425,10 +425,22 @@ class PledgeItem(Model):
     Pledge_Deadline = models.DateField(blank=True, null=True)
     def __str__(self):
         return self.Item_That_Needs_Pledges
+    @property 
+    def Total_Item_Cashout(self):
+        results = PledgesCashedOut.objects.filter(Item_Id=self.id).aggregate(totals=models.Sum("Amount_Cashed_Out"))
+        
+        if (results['totals']):
+            return results["totals"]
+        else:
+            return 0 
+    @property 
+    def Amount_needed_after_cashout(self):
+        results=self.Amount_Needed-self.Total_Item_Cashout
+        return results
+             
     @property
     def Total_Amount_Pledged(self):
         results = Pledges.objects.filter(Reason__Item_That_Needs_Pledges=self.Item_That_Needs_Pledges).aggregate(totals=models.Sum("Amount_Pledged"))
-        print(results)
         if (results['totals']):
             return results["totals"]
         else:
@@ -436,13 +448,11 @@ class PledgeItem(Model):
     @property
     def Pledge_Amount_Remaining(self):
         results=self.Amount_Needed-self.Total_Amount_Pledged
-        print(results)
         return results
     #total money paid for a particular item
     @property
     def Item_money_received(self):
         results=PaidPledges.objects.filter(Reason__Item_That_Needs_Pledges=self.Item_That_Needs_Pledges).aggregate(totals=models.Sum("Amount_Paid"))
-        print(results)
         if (results['totals']):
             return results["totals"]
         else:
@@ -450,7 +460,6 @@ class PledgeItem(Model):
     @property
     def Item_money_balance(self):
         results=self.Total_Amount_Pledged-self.Item_money_received
-        print(results)
         return results
 class PledgesCashedOut(Model):
     Date = models.DateField(blank=True, null=True)

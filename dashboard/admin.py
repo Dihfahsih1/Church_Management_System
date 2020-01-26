@@ -6,7 +6,9 @@ class PledgeItemAdmin(admin.ModelAdmin):
     	'Total_Amount_Pledged',
     	'Pledge_Amount_Remaining',
     	'Item_money_balance',
-    	'Item_money_received')  
+    	'Item_money_received',
+    	'Amount_needed_after_cashout',
+    	'Total_Item_Cashout')  
 class PledgesAdmin(admin.ModelAdmin):
     list_display = ('total_pledge_paid','Pledge_Balance','updatestatus')
 

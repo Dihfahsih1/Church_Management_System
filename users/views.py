@@ -3,20 +3,33 @@ from django.contrib import messages
 from .forms import RegisterForm
 from dashboard.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import View
 
-# def loginpage(request):
-#     if request.method == 'POST':
-#         username = request.POST['username']
-#         password =  request.POST['password']
-#         post = User.objects.filter(username=username)
-#         if post:
-#             username = request.POST['username']
-#             request.session['username'] = username
-#             messages.success(request, f'Welcome..,You have successfully logged in')
-#             return redirect("index")
-#         else:
-#             return render(request, 'users/home/login.html', {})
-#     return render(request, 'users/home/login.html', {})
+
+
+class UserPasswordChangeView(LoginRequiredMixin, View):
+    form_class = PasswordChangeForm
+    template_name = 'users/home/change_password.html'
+
+    def get(self, request):
+        return render(request, self.template_name, {
+            'form': self.form_class(request.user)
+        })
+
+    def post(self, request):
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, f'Password updated successfully.')
+        return render(request, self.template_name, {'form': form})
+
+def view_profile(request):
+    args = {'user': request.user}
+    return render(request, 'users/home/profile.html', args)        
 @login_required
 def register(request):
 	users=User.objects.all()

@@ -11,6 +11,8 @@ from .models import *
 from .render import Render
 from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
+from django.contrib.auth import update_session_auth_hash
+
 
 @login_required
 def index(request):
