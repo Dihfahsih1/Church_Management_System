@@ -1861,8 +1861,8 @@ def edit_pledge_item(request, pk):
 
 def pledge_cash_out(request, pk):
     items = get_object_or_404(PledgeItem, id=pk)
-    if request.method == "GET":
-        form = PledgeItemsForm(request.GET,instance=items)
+    if request.method == "POST":
+        form = PledgeItemsForm(request.POST,instance=items)
         if form.is_valid():
             form.save()
             return redirect('list-of-pledge-items')
@@ -1871,6 +1871,7 @@ def pledge_cash_out(request, pk):
         cashout=PledgeItem.objects.filter(id=pk)
         context={'form':form, 'cashout': cashout}
         return render(request, 'Pledges/pledge_cash_out.html', context)
+
 def cashing_out_items(request):
     if request.method == "POST":
         form =  PledgesCashedOutForm(request.POST,request.FILES)
