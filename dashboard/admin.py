@@ -16,7 +16,7 @@ class SalariesPaidAdmin(admin.ModelAdmin):
 class OfferingsReportArchiveAdmin(admin.ModelAdmin):
     list_display = ('total_offerings')
 class PledgeItemAdmin(admin.ModelAdmin):
-    list_display = ('Total_Amount_Pledged','Pledge_Amount_Remaining')              
+    list_display = ('Total_Amount_Pledged','Pledge_Amount_Remaining','Item_money_balance','Item_money_received')              
 admin.site.register(StaffDetails)
 admin.site.register (Allowance)
 admin.site.register(Spend)
@@ -35,3 +35,4 @@ admin.site.register(Members)
 admin.site.register(SalariesPaid)
 admin.site.register(Visitors)
 admin.site.register(User)
+admin.site.register(PaidPledges)

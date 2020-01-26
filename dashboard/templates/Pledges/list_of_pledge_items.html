@@ -1,6 +1,7 @@
 
 {% extends "app/base_site.html" %}
 {% block content %}
+{% load humanize %}
 <div class="right_col" role="main">
       <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -57,10 +58,13 @@
                                 <tr>
                                     <th>Date</th>
                                     <th>Item</th>
-                                    <th>Amount Needed</th>
-                                    <th>Pledge Deadline</th>
-                                    <th>Amount Pledged</th>
+                                    <th>Deadline</th>
+                                    <th>Needed</th>
                                     <th>Unpledged</th>
+                                    <th>Pledged</th>
+                                    <th>Paid</th>
+                                    <th>Unpaid</th>
+                                    
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -68,14 +72,18 @@
                                 {% for item in items %}
                                 <tr>
                                      <td>{{ item.Date}}</td>
-                                     <td>{{ item.Item_That_Needs_Pledges}}</td>            
-                                     <td>{{ item.Amount_Needed}}</td>
+                                     <td>{{ item.Item_That_Needs_Pledges}}</td>
                                      <td>{{ item.Pledge_Deadline}}</td>
-                                     <td>{{ item.Total_Amount_Pledged}}</td>
-                                     <td>{{ item.Pledge_Amount_Remaining}}</td>
+            
+                                     <td>{{ item.Amount_Needed|intcomma}}</td>
+                                     <td>{{ item.Pledge_Amount_Remaining|intcomma}}</td>
+                                     <td>{{ item.Total_Amount_Pledged|intcomma}}</td>
+                                     <th>{{ item.Item_money_received|intcomma}}</th>
+                                     <th>{{ item.Item_money_balance|intcomma}}</th>
+                                     
                                      <td>
                                      <div class="mb-6">
-                                        <a href="#"class="btn btn-success btn-sm"><span class="glyphicon glyphicon-euro"> </span> Cash Out</a>
+                                        <a href="{% url 'pledge-cash-out' item.id %}"class="btn btn-success btn-sm"><span class="glyphicon glyphicon-euro"> </span> Cash Out</a>
                                         <a href="{% url 'edit-pledge-item' item.id %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"> Edit</span></a>
                                      
                                         <a href="{% url 'delete-pledge-item' item.id %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"></span></a>

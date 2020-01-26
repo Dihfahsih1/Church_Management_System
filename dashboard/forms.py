@@ -26,8 +26,14 @@ class SundryForm(forms.ModelForm):
         fields=('Date','Payment_Made_To','Amount','Reason_For_Payment')
         widgets = {
             'Date': DatePickerInput(),
-            
-        } 
+        }
+class PledgesCashedOutForm(forms.ModelForm):
+    class Meta:
+        model=PledgesCashedOut
+        fields=('Date','Item_That_Needs_Pledges','Amount_Needed','Item_Id','Amount_Cashed_Out')
+        widgets = {
+            'Date': DatePickerInput(),
+        }          
 class AllowanceForm(forms.ModelForm):
     class Meta:
         model=Allowance

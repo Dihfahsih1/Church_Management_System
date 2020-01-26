@@ -1859,6 +1859,29 @@ def edit_pledge_item(request, pk):
         form = PledgeItemsForm(instance=item)
     return render(request, 'Pledges/edit_pledge_item.html', {'form': form}, {'messages': messages})
 
+def pledge_cash_out(request, pk):
+    items = get_object_or_404(PledgeItem, id=pk)
+    if request.method == "GET":
+        form = PledgeItemsForm(request.GET,instance=items)
+        if form.is_valid():
+            form.save()
+            return redirect('list-of-pledge-items')
+    else:
+        form = PledgeItemsForm(instance=items)
+        cashout=PledgeItem.objects.filter(id=pk)
+        context={'form':form, 'cashout': cashout}
+        return render(request, 'Pledges/pledge_cash_out.html', context)
+def cashing_out_items(request):
+    if request.method == "POST":
+        form =  PledgesCashedOutForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('list-of-pledge-items')
+        else:
+            form = PledgesCashedOutForm()
+            context={'form':form}
+            return render(request, 'Pledges/pledge_cash_out.html', context)
+
 def delete_pledge_item(request, pk):
     item= get_object_or_404(PledgeItem, id=pk)
     if request.method == "GET":
@@ -1951,7 +1974,12 @@ def pledges_paid_list(request):
     lists = PaidPledges.objects.filter(Date__month=current_month).order_by('-id')
     context['lists']=lists
     return render(request, 'Pledges/pledges_paid_list.html',context)
-
+def delete_pledges_paid(request, pk):
+    pledges= get_object_or_404(PaidPledges, id=pk)
+    if request.method == "GET":
+        pledges.delete()
+        messages.success(request, "Payment successfully deleted!")
+        return redirect("pledges-paid-list")  
 def edit_pledges(request, pk):
     item = get_object_or_404(Pledges, pk=pk)
     if request.method == "POST":
