@@ -77,8 +77,6 @@ class GeneralExpenses(Model):
     Expense_Reason=models.CharField(max_length=100, choices=expenses, blank=False)
     def __str__(self):
         return self.Expense_Reason
-
-
 class Spend(models.Model):
     reason=(
         ('Water Bills','Water Bills'),('Yaka Bills','Yaka Bills'),
@@ -427,17 +425,8 @@ class PledgeItem(Model):
     Pledge_Deadline = models.DateField(blank=True, null=True)
     def __str__(self):
         return self.Item_That_Needs_Pledges
-
-class PledgesCashedOut(Model):
-    Date = models.DateField(blank=True, null=True)
-    Item_That_Needs_Pledges = models.CharField(max_length=100, blank=True, null=True)
-    Item_Id = models.CharField(max_length=100, blank=True, null=True)
-    Amount_Needed = models.IntegerField(default=0, blank=True, null=True)
-    Amount_Cashed_Out = models.IntegerField(default=0, blank=True, null=True)
-    
     @property
     def Total_Amount_Pledged(self):
-        print(self.Item_That_Needs_Pledges)
         results = Pledges.objects.filter(Reason__Item_That_Needs_Pledges=self.Item_That_Needs_Pledges).aggregate(totals=models.Sum("Amount_Pledged"))
         print(results)
         if (results['totals']):
@@ -447,11 +436,13 @@ class PledgesCashedOut(Model):
     @property
     def Pledge_Amount_Remaining(self):
         results=self.Amount_Needed-self.Total_Amount_Pledged
+        print(results)
         return results
     #total money paid for a particular item
     @property
     def Item_money_received(self):
         results=PaidPledges.objects.filter(Reason__Item_That_Needs_Pledges=self.Item_That_Needs_Pledges).aggregate(totals=models.Sum("Amount_Paid"))
+        print(results)
         if (results['totals']):
             return results["totals"]
         else:
@@ -459,8 +450,15 @@ class PledgesCashedOut(Model):
     @property
     def Item_money_balance(self):
         results=self.Total_Amount_Pledged-self.Item_money_received
+        print(results)
         return results
-
+class PledgesCashedOut(Model):
+    Date = models.DateField(blank=True, null=True)
+    Item_That_Needs_Pledges = models.CharField(max_length=100, blank=True, null=True)
+    Item_Id = models.CharField(max_length=100, blank=True, null=True)
+    Amount_Needed = models.IntegerField(default=0, blank=True, null=True)
+    Amount_Cashed_Out = models.IntegerField(default=0, blank=True, null=True)
+    
 class Pledges(Model):
     paid = 'PAID'
     partial = 'PARTIAL'
@@ -473,7 +471,6 @@ class Pledges(Model):
     Amount_Pledged = models.IntegerField(default=0)
     Amount_Paid = models.IntegerField(default=0, blank=True, null=True)
     Balance = models.IntegerField(default=0, blank=True, null=True)
-    Amount_In_Words = models.CharField(max_length=500, blank=False)
     def __str__(self):
         return self.Pledge_Made_By
 

@@ -1878,6 +1878,7 @@ def cashing_out_items(request):
         form =  PledgesCashedOutForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, "Cash out was successful")
             return redirect('list-of-pledge-items')
         else:
             form = PledgesCashedOutForm()

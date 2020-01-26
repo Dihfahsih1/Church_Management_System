@@ -1,7 +1,12 @@
 from django.contrib import admin
 from .models import *
 
-
+class PledgeItemAdmin(admin.ModelAdmin):
+    list_display = (
+    	'Total_Amount_Pledged',
+    	'Pledge_Amount_Remaining',
+    	'Item_money_balance',
+    	'Item_money_received')  
 class PledgesAdmin(admin.ModelAdmin):
     list_display = ('total_pledge_paid','Pledge_Balance','updatestatus')
 
@@ -14,9 +19,7 @@ class MembersAdmin(admin.ModelAdmin):
 class SalariesPaidAdmin(admin.ModelAdmin):
     list_display = ('total_salary_paid','Balance') 
 class OfferingsReportArchiveAdmin(admin.ModelAdmin):
-    list_display = ('total_offerings')
-class PledgeItemAdmin(admin.ModelAdmin):
-    list_display = ('Total_Amount_Pledged','Pledge_Amount_Remaining','Item_money_balance','Item_money_received')              
+    list_display = ('total_offerings')            
 admin.site.register(StaffDetails)
 admin.site.register (Allowance)
 admin.site.register(Spend)
@@ -24,7 +27,6 @@ admin.site.register(Sundry)
 admin.site.register(Offerings)
 admin.site.register(Tithes)
 admin.site.register(Pledges)
-admin.site.register(PledgeItem)
 admin.site.register(AllowanceReportArchive)
 admin.site.register(SundryReportArchive)
 admin.site.register(ExpensesReportArchive)
