@@ -102,7 +102,7 @@ def index(request):
     else:
         total_weekly_tithes=0
         d_tithes = 0    
-#Calculating Expenditure
+#Calculate Expenditure
     #monthly salary
     total_current_salaries = SalariesPaid.objects.filter(Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
     if (total_current_salaries['totals'])!=None:

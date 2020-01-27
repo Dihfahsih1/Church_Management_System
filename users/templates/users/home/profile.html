@@ -35,9 +35,6 @@
                                 <li role="presentation" class="active"><a href="#"><i
                                         class="fa fa-eye"></i> Profile</a>
                                 </li>
-                                <li role="presentation"><a href="#"><i
-                                        class="fa fa-pencil-square-o"></i> Update</a>
-                                </li>
                             </ul>
                             <br/>
 
@@ -59,44 +56,63 @@
 
                                         <table id="tablePreview" class="table table-bordered table-striped">
                                             <tbody>
+                                                <style type="text/css">
+                                                    th{
+                                                      font-weight: bolder;
+                                                      font-size: 100%;  
+                                                    }
+                                                </style>
 
                                             <tr>
-                                                <th>Username</th>
+                                                <th>1. Username</th>
                                                 <td>{{ request.user.username }}</td>
-                                                <th>National ID</th>
-                                                <td>{{ request.user.national_ID }}</td>
+                                                <th>2. First Name</th>
+                                                <td>{{ request.user.full_name.First_Name }}</td>
+                                                <th>4. Second Name</th>
+                                                <td>{{ request.user.full_name.Second_Name }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>5. Gender</th>
+                                                <td>{{ request.user.full_name.Gender }}</td>
+                                                <th>6. Marital Status</th>
+                                                <td>{{ request.user.full_name.Marital_Status }}</td>
+                                                <th>7. Home Cell</th>
+                                                <td>8. {{ request.user.full_name.Home_Cell }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Email</th>
-                                                <td>{{ request.user.email }}</td>
-                                                <th>Phone</th>
-                                                <td>{{ request.user.phone }}</td>
+                                                <td>{{ request.user.full_name.Email }}</td>
+                                                <th>9. Phone</th>
+                                                <td>{{ request.user.full_name.Telephone }}</td>
+                                                <th>10. Residence</th>
+                                                <td>{{ request.user.full_name.Residence }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Present Address</th>
-                                                <td>{{ request.user.present_address }}</td>
-                                                <th>Permanent Address</th>
-                                                <td>{{ request.user.permanent_address }}</td>
+                                                <th>11. Education</th>
+                                                <td>{{ request.user.full_name.Education_Level }}</td>
+                                                <th>12. Profession</th>
+                                                <td>{{ request.user.full_name.Profession }}</td>
+                                                <th>13. Place of Work</th>
+                                                <td>{{ request.user.full_name.Place_of_Work }}</td>
                                             </tr>
-                                            <tr>
-                                                <th>Gender</th>
-                                                <td>{{ request.user.gender }}</td>
-                                                <th>Blood Group</th>
-                                                <td>{{ request.user.blood_group }}</td>
+                                           <tr>
+                                                <th>14. Salvation Date</th>
+                                                <td>{{ request.user.full_name.Date_Of_Salvation }}</td>
+                                                <th>15. Date Of Birth</th>
+                                                <td>{{ request.user.full_name.Date_Of_Birth }}</td>
+                                                <th>16. Ministry at Church</th>
+                                                <td>{{ request.user.full_name.Ministry_Involved_In }}</td>
                                             </tr>
-                                            <tr>
-                                                <th>Religion</th>
-                                                <td>{{ request.user.religion }}</td>
-                                                <th>Birth Date</th>
-                                                <td>{{ request.user.birth_date }}</td>
+                                             <tr>
+                                                <th>17. Home District</th>
+                                                <td>{{ request.user.full_name.District }}</td>
+                                                <th>18. Village</th>
+                                                <td>{{ request.user.full_name.Village }}</td>
+                                                <th>19. Next of Kin</th>
+                                                <td>{{ request.user.full_name.Name_Of_Next_Of_Kin }}</td>
                                             </tr>
 
-                                            <tr>
-                                                <th>Other Info</th>
-                                                <td>{{ request.user.other_info }}</td>
-                                                <th>Resume</th>
-                                                <td></td>
-                                            </tr>
+                                            
                                             </tbody>
                                             <!--Table body-->
                                         </table>

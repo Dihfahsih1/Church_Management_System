@@ -14,7 +14,7 @@
         }
     </style>
     <div>
-         <img src="{{ request.user.full_name.Photo.url }}" width="200" height="130" class="center"  />
+         <a href="{% url 'profile' %}"><img src="{{ request.user.full_name.Photo.url }}" width="200" height="130" class="center"  /></a>
         {% if user.Role == 'Admin' or user.Role == 'SuperAdmin' %}
         <h3 style="font-weight:bolder; color: white; text-align: center"> {{user.full_name}}</h3>
         <h5 style="font-weight:bold; color: white; text-align: center">UCC Bwaise {{user.Role}}</h5>

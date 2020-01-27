@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import messages
 from .forms import RegisterForm
+from dashboard.forms import UserForm
 from dashboard.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
@@ -29,7 +30,26 @@ class UserPasswordChangeView(LoginRequiredMixin, View):
 
 def view_profile(request):
     args = {'user': request.user}
-    return render(request, 'users/home/profile.html', args)        
+    return render(request, 'users/home/profile.html', args)
+
+def edit_profile(request):
+    if request.method == 'POST':
+        form = UserForm(request.POST or None, request.FILES or None, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Profile updated successfully.')
+            return redirect('profile')
+
+        else:
+            form = UserForm(instance=request.user)
+            args = {'form': form}
+            return render(request, 'users/home/update_profile.html', args)
+
+    else:
+        form = UserForm(instance=request.user)
+        args = {'form': form}
+        return render(request, 'users/home/update_profile.html', args)            
 @login_required
 def register(request):
 	users=User.objects.all()

@@ -12,6 +12,16 @@ class SpendForm(forms.ModelForm):
             'Date': DatePickerInput(),
             
         } 
+class UserForm(forms.ModelForm):
+    class Meta:
+        model=User
+        fields=('username','Role','full_name','is_active','is_staff','is_superuser')
+        widgets = {
+            'Date': DatePickerInput(),
+            
+        } 
+
+
 class GeneralExpensesForm(forms.ModelForm):
     class Meta:
         model=GeneralExpenses
