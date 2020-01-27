@@ -253,6 +253,7 @@ class StaffDetails(models.Model):
     @property
     def full_name(self):
         return str(self.First_Name)+ ' ' + str(self.Second_Name)
+
 class SalariesPaid(models.Model):
     Salary_Id = models.CharField(max_length=200,null=True, blank=True)
     Name = models.CharField(max_length=200,null=True, blank=True)
@@ -261,7 +262,7 @@ class SalariesPaid(models.Model):
     Date_of_paying_salary = models.DateField(null=True, blank=True)
     @property
     def basic_salary(self):
-        if self.UCC_Bwaise_Member == 'Yes':
+        if StaffDetails.objects.filter(Church_Member_id=self.Salary_Id):
             staffs=StaffDetails.objects.filter(Church_Member_id=self.Salary_Id)
             for i in staffs:
                 salary=i.Salary_Amount
@@ -275,7 +276,7 @@ class SalariesPaid(models.Model):
     
     @property
     def total_salary_paid(self):
-        if self.UCC_Bwaise_Member == 'Yes':
+        if StaffDetails.objects.filter(Church_Member_id=self.Salary_Id):
             staffs=StaffDetails.objects.filter(Church_Member_id=self.Salary_Id)
             for i in staffs:
                 s_id=i.Church_Member_id
@@ -300,7 +301,7 @@ class SalariesPaid(models.Model):
                     
     @property
     def Balance(self):
-        if self.UCC_Bwaise_Member == 'Yes':
+        if StaffDetails.objects.filter(Church_Member_id=self.Salary_Id):
             staffs=StaffDetails.objects.filter(Church_Member_id=self.Salary_Id)
             for i in staffs:
                 s_id=i.Church_Member_id
@@ -320,7 +321,7 @@ class SalariesPaid(models.Model):
                 bal = SalariesPaid.objects.filter(Salary_Id=s_id, Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
                 balance =a_amount - bal['totals']
                 return balance
-            
+          
 
 class ThanksGiving(Model):
     services = (('Home Cell Service','Home Cell Service'),('Youth Service','Youth Service'),('Wednesday Service','Wednesday Service'),
