@@ -85,11 +85,12 @@
                              </tbody>
                              <td>Total</td><td><pre>  </pre></td><td><pre>  </pre></td><td><b style="color: red">{{total_amount}}</b></td>
                             </table>
-                            <a href="{% url 'expenditurepdf' %} " target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"></span></a>
-                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">Archive</span></button>
-                    </div>
+                      </div>
                   </div>
                </div>
+               <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
+                          <a href="{% url 'offeringspdf' %}" target="_new"role="button"><span class="glyphicon glyphicon-print"></span></a>
+                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">Archive</span></button>
 
 
           <!-- Modal -->
