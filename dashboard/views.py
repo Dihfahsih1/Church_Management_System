@@ -1128,8 +1128,9 @@ class tithesarchivepdf(View):
 def member_annual_tithes(request, pk):
     yr = datetime.now().year
     tithes=TithesReportArchive.objects.filter(Tithe_Made_By_id=pk, archivedyear=yr)
-    tithescontext={'tithes':tithes}
     
+    members=Members.objects.filter(id=pk)
+    tithescontext={'tithes':tithes, 'members':members}
     return render(request, 'Tithes/member_annual_tithes.html', tithescontext)        
 
                 #########################################

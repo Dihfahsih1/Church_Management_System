@@ -80,7 +80,8 @@
                                         <a href="{% url 'edit-member' member.id  %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
                                         <a href="{% url 'view-member' member.id  %}"class="btn btn-success btn-sm"><span class="glyphicon glyphicon-eye-open"></span></a>
                                         <a href="{% url 'delete-member' member.id %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"></span></a>
-                                        <a href="{% url 'annual-tithes' member.pk %}"class="btn btn-primary btn-sm "><span class="glyphicon glyphicon-euro"></span> Annual Tithes</a>
+                                        {%if request.user.Role == 'SuperAdmin'%}
+                                        <a href="{% url 'annual-tithes' member.pk %}"class="btn btn-primary btn-sm "><span class="glyphicon glyphicon-euro"></span> Annual Tithes</a>{%endif%}
                                      </div>   
                                      </td> 
                                 </tr>
