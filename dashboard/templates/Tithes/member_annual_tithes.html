@@ -1,5 +1,6 @@
 {% extends "app/base_site.html" %}
 {% block content %}
+{% load humanize %}
 <head>
   <title>UCC Bwaise | Annual Tithes Report of {% for name in members%} {{name.First_Name}} {{name.Second_Name}}{%endfor%}</title>
 </head>
@@ -44,7 +45,7 @@
                           <thead>
                               <tr >
                                   <td>Date</td>
-                                  <td>Amount <i class=" glyphicon glyphicon-arrow-right"></i> (<span style="font-weight: bolder; color:red" class="totalCol"></span>)</td>
+                                  <td>Amount <i class=" glyphicon glyphicon-arrow-right"></i> <b>(<span style="font-weight: bolder; color:red" class="totalCol"></span>)</b></td>
                                   
                               </tr>
                           </thead>
@@ -78,7 +79,7 @@
 $('.sum_table tr td.rowDataSd').each(function() {
     total += parseInt($(this).text());
 });
-$('.sum_table span.totalCol').text("Tota Amount: " + total);
+$('.sum_table span.totalCol').text("Total Amount: Shs." + total );
 </script>
 
 {% endblock content %}
