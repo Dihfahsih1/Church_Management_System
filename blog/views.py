@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import posts
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.auth.models import User
+from dashboard.models import User
 def home(request):
     Posts=posts.objects.all()
     context={
@@ -19,11 +19,18 @@ class PostListView(ListView):
 
 class UserPostListView(ListView):
     model = posts
-    template_name = 'blog/user_posts.html' #<app_name>/<model>_<viewtype>.html
+    template_name = 'blog/user_posts.html' #<app_name>/<mode_<viewtype>.html
     context_object_name = 'Posts'
     paginate_by = 4
 
     def get_queryset(self):
+        Posts=posts.objects.all()
+        for i in Posts:
+            print(i.Name)
+        user= User.objects.all()
+        for i in user:
+            print(i.username)
+
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return posts.objects.filter(Name=user).order_by('-Date_posted')
 class PostDetailView(DetailView):

@@ -37,14 +37,14 @@ class User(AbstractBaseUser , PermissionsMixin):
     username = models.CharField(max_length=30, unique=True)
     Role = models.CharField(max_length=250, choices=roles)
     full_name =  models.ForeignKey('Members', on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
-    is_active = models.BooleanField(default=True)  # can login
+    is_active = models.BooleanField(default=True)   # can login
     is_staff = models.BooleanField(default=False)  # staff user non superuser
     is_superuser = models.BooleanField(default=False)
     USERNAME_FIELD = 'username'
     REQUIRED_FILEDS = []
     objects = UserManager()
     def __str__(self):
-        return self.full_name
+        return self.username
 class Sundry(Model):
     reason=(
         ('Lunch','Lunch'),('Upkeep','Upkeep'),('Airtime/Data','Airtime/Data')      
@@ -190,7 +190,8 @@ class Members(models.Model):
     Contact_Of_Next_Of_Kin=models.CharField(max_length=100,null=True,blank=True)
     Residence_Of_Next_Of_Kin=models.CharField(max_length=100,null=True,blank=True)
     def __str__(self):
-        return self.First_Name + ' ' + self.Second_Name
+        return ' {} {}'.format(self.First_Name, self.Second_Name)
+        #return self.First_Name + ' ' + self.Second_Name
     @property
     def full_name(self):
         return self.First_Name + ' ' + self.Second_Name
