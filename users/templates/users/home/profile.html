@@ -53,8 +53,9 @@
                                                 <br/>
                                             </div>
                                         </div>
-
+                                        <h3>Your Personal Information</h3>
                                         <table id="tablePreview" class="table table-bordered table-striped">
+
                                             <tbody>
                                                 <style type="text/css">
                                                     th{
@@ -77,10 +78,10 @@
                                                 <th>6. Marital Status</th>
                                                 <td>{{ request.user.full_name.Marital_Status }}</td>
                                                 <th>7. Home Cell</th>
-                                                <td>8. {{ request.user.full_name.Home_Cell }}</td>
+                                                <td> {{ request.user.full_name.Home_Cell }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Email</th>
+                                                <th>8. Email</th>
                                                 <td>{{ request.user.full_name.Email }}</td>
                                                 <th>9. Phone</th>
                                                 <td>{{ request.user.full_name.Telephone }}</td>
@@ -116,7 +117,7 @@
                                             </tbody>
                                             <!--Table body-->
                                         </table>
-
+                                       <a href="{% url 'post-create' %}">Create a post</a>
                                     </div>
                                 </div>
 

@@ -80,6 +80,7 @@
                     {% include "app/sidebar.html" %}
             </div>
             {% endblock sidebar %}
+            
 
 
             {% block top_navigation %}
@@ -93,23 +94,7 @@
 
             {% block content %}
 
-<!-- Modal -->
-                                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                              <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                  <div class="modal-header">
-                                                    <h4 class="modal-title" id="myModalLabel">Delete Checklist</h4>
-                                                  </div>
-                                                  <div class="modal-body">
-                                                      <h3>Are you sure you want to delete checklist?</h3>
-                                                  </div>
-                                                  <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                    <a href="{% url 'delete-employee' emp.pk %}" class="btn btn-danger bt-sm" role="button">Confirm</a>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>
+
                 <!-- {{ content }} -->
             {% endblock content %}
 
