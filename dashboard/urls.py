@@ -26,6 +26,7 @@ url(r'^pledgespdf/', views.pledgespdf.as_view() ,name='pledgespdf'),
 url(r'^tithespdf/', views.tithespdf.as_view() ,name='tithespdf'),
 url(r'^offeringspdf/', views.offeringspdf.as_view() ,name='offeringspdf'),
 
+
 url(r'^expensereceipt/(?P<pk>\d+)', views.expensereceipt.as_view() ,name='expensereceipt'),
 url(r'^allowancereceipt/(?P<pk>\d+)', views.allowancereceipt.as_view() ,name='allowancereceipt'),
 url(r'^sundryreceipt/(?P<pk>\d+)', views.sundryreceipt.as_view() ,name='sundryreceipt'),
@@ -45,6 +46,7 @@ url(r'^pledgesarchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.ple
 url(r'^offeringsarchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.offeringsarchivepdf.as_view(), name='offeringsarchivepdf'),
 url(r'^tithesarchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.tithesarchivepdf.as_view(), name='tithesarchivepdf'),
 
+url(r'^Member/Tithes/Annual/(?P<pk>\d+)', views.member_annual_tithes ,name='annual-tithes'),
 url(r'^edit_payment/(?P<pk>\d+)', views.edit_payment ,name='edit_payment'),
 url(r'^Church-Member/Edit/(?P<pk>\d+)', views.edit_member ,name='edit-member'),
 url(r'^Church-Member/Delete/(?P<pk>\d+)', views.delete_member ,name='delete-member'),

@@ -382,6 +382,7 @@ def current_month_salary_paid(request):
             sal_archiveobj.archivedyear= archived_year
             sal_archiveobj.archivedmonth =archived_month
             sal_archiveobj.save()
+
         #deleting all the expense from reports table
         salaries.delete()
         message="The Monthly Salaries Paid Report has been Achived"
@@ -1124,9 +1125,17 @@ class tithesarchivepdf(View):
         }
         return Render.render('Tithes/tithesarchivepdf.html', tithescontext)
 
+def member_annual_tithes(request, pk):
+    yr = datetime.now().year
+    tithes=TithesReportArchive.objects.filter(Tithe_Made_By_id=pk, archivedyear=yr)
+    tithescontext={'tithes':tithes}
+    
+    return render(request, 'Tithes/member_annual_tithes.html', tithescontext)        
+
                 #########################################
                 #          ALLOWANCES MODULE            #
                 #########################################
+
 
 def give_allowance(request):
     if request.method=="POST":
