@@ -40,7 +40,8 @@
                         	<th>Photo</th>
                             <th>Name</th>
                             <th>Role</th>
-                            <th>Contact</th>
+                            <th>Email</th>
+                            <th>Phone</th>
                             <th>Action</th>
                         </tr>
                       </thead>
@@ -55,8 +56,10 @@
                           {% endif %}</td>
 						  <td>{{ user.full_name}}</td>
                           <td>{{ user.Role}}</td>
+                          <td>{{ user.email}}</td>
                           <td>{{ user.full_name.Telephone}}</td>
-                          <td><a href="{% url 'delete-user' user.pk %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"></span></a></td>
+                          <td><a href="{% url 'delete-user' user.pk %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"></span></a>
+                          	<a href="{% url 'user_update' user.pk %}"class="btn btn-success btn-sm "><span class="glyphicon glyphicon-edit"></span></a></td>
 						   	
 						</tr>
 						{% endfor %}

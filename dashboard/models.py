@@ -8,7 +8,6 @@ from django.forms.fields import DateField
 from django.contrib.admin.widgets import AdminDateWidget
 from django.contrib.auth.models import PermissionsMixin
 
-
 class UserManager(BaseUserManager):
     def create_user(self, username,password=None):
         if not username:
@@ -34,6 +33,7 @@ class User(AbstractBaseUser , PermissionsMixin):
     roles=(
         ('Admin','Admin'),('Secretary','Secretary') ,('SuperAdmin','SuperAdmin')     
     )
+    email = models.EmailField(max_length=255, unique=True, blank=True, null=True)
     username = models.CharField(max_length=30, unique=True)
     Role = models.CharField(max_length=250, choices=roles)
     full_name =  models.ForeignKey('Members', on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
@@ -44,7 +44,7 @@ class User(AbstractBaseUser , PermissionsMixin):
     REQUIRED_FILEDS = []
     objects = UserManager()
     def __str__(self):
-        return self.username
+        return self.Role
 class Sundry(Model):
     reason=(
         ('Lunch','Lunch'),('Upkeep','Upkeep'),('Airtime/Data','Airtime/Data')      
@@ -190,11 +190,11 @@ class Members(models.Model):
     Contact_Of_Next_Of_Kin=models.CharField(max_length=100,null=True,blank=True)
     Residence_Of_Next_Of_Kin=models.CharField(max_length=100,null=True,blank=True)
     def __str__(self):
-        return ' {} {}'.format(self.First_Name, self.Second_Name)
-        #return self.First_Name + ' ' + self.Second_Name
+        
+        return self.First_Name + ' ' + self.Second_Name
     @property
     def full_name(self):
-        return self.First_Name + ' ' + self.Second_Name
+        return str(self.First_Name) + ' ' + str(self.Second_Name)
     
 class Visitors(models.Model):
 

@@ -8,11 +8,13 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['full_name','username','Role']
+        fields = ['full_name','email','username','Role']
         # 'roles'
 
         labels = {
             'full_name': 'Name',
+            'email': 'Email',
+            'username': 'Username',
         }
 
         error_messages = {
@@ -37,7 +39,12 @@ class RegisterForm(forms.ModelForm):
             user.save()
         return user
 
+class EditUserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields =['full_name','email','username','Role']
 
+   
 '''class UserEmailForm(forms.ModelForm):
     class Meta:
         model = User

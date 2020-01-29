@@ -16,6 +16,7 @@ from django.contrib.auth import update_session_auth_hash
 
 @login_required
 def index(request):
+
     current_month = datetime.now().month
     day = datetime.now().today
     total_current_donations = Donations.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))

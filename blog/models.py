@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from dashboard.models import User
+from dashboard.models import *
 from django.urls import reverse
 
 class posts(models.Model):

@@ -24,14 +24,7 @@ class UserPostListView(ListView):
     paginate_by = 4
 
     def get_queryset(self):
-        Posts=posts.objects.all()
-        for i in Posts:
-            print(i.Name)
-        user= User.objects.all()
-        for i in user:
-            print(i.username)
-
-        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        user = get_object_or_404(User, full_name=self.kwargs.get('full_name'))
         return posts.objects.filter(Name=user).order_by('-Date_posted')
 class PostDetailView(DetailView):
     model = posts

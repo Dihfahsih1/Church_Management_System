@@ -15,12 +15,26 @@ class SpendForm(forms.ModelForm):
 class UserForm(forms.ModelForm):
     class Meta:
         model=User
-        fields=('username','Role','full_name','is_active','is_staff','is_superuser')
+        fields=('email','username','Role','full_name','is_active','is_staff','is_superuser')
         widgets = {
             'Date': DatePickerInput(),
             
         } 
-
+class UserEmailForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('email',)
+    def clean_email(self):
+        email = self.cleaned_data["email"]
+        if not email:
+            return email
+        try:
+            user = User.objects.get(email=email)
+            if user.email == self.instance.email:
+                return email
+        except User.DoesNotExist:
+            return email
+        raise ValidationError(_("This email is already used."))
 
 class GeneralExpensesForm(forms.ModelForm):
     class Meta:

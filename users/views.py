@@ -1,13 +1,17 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import messages
-from .forms import RegisterForm
+from .forms import *
 from dashboard.forms import UserForm
 from dashboard.models import User
+from python_utils import *
+from django.contrib.auth.views import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
+from blog.models import posts
+from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
 
 
 
@@ -28,8 +32,31 @@ class UserPasswordChangeView(LoginRequiredMixin, View):
             messages.success(request, f'Password updated successfully.')
         return render(request, self.template_name, {'form': form})
 
+def reset_user_password(request, user_pk):
+    user = get_object_or_404(User, pk=user_pk)
+
+    if not request.user.is_authenticated:
+        return HttpResponseForbidden()
+
+    password = password_generator()
+    user.set_password(password)
+    user.save()
+    messages.success(request, "This user's password has been reset. Please notify the user of their new password.!")
+    context = {'mod_user': user,
+               'password': password}
+    return render(request, 'users/home/reset_user_password.html', context)
 def view_profile(request):
-    args = {'user': request.user}
+    Postings=posts.objects.all().order_by('-Date_posted')
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(Postings, 10)
+    try:
+        posters = paginator.page(page)
+    except PageNotAnInteger:
+        posters = paginator.page(1)
+    except EmptyPage:
+        potsers = paginator.page(paginator.num_pages)
+    args = {'user': request.user,'posters':posters}
     return render(request, 'users/home/profile.html', args)
 
 def edit_profile(request):
@@ -72,3 +99,29 @@ def delete_user(request,pk):
         return redirect("register")
     context= {'user': user}
     return render(request, 'users/home/delete_user.html', context)
+
+def user_update(request, user_pk):
+    user = get_object_or_404(User, pk=user_pk)
+
+    if request.method == "POST":
+        form = EditUserForm(request.POST, request.FILES, instance=user)
+
+        if form.is_valid():
+            user_form = form.save()
+            return redirect('register')
+
+        else:
+            form = EditUserForm(instance=user)
+
+            args = {
+                'form': form,
+            }
+            return render(request, 'users/home/user_update.html', args)
+
+    else:
+        form = EditUserForm(instance=user)
+
+        args = {
+            'form': form,
+        }
+        return render(request, 'users/home/user_update.html', args)
