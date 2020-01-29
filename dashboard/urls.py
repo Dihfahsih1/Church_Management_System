@@ -88,7 +88,9 @@ url(r'^Archives/Donations/', views.donationsarchivessearch, name='donationsarchi
 url(r'^Archives/Thanks-Giving/', views.thanksgivingarchivessearch, name='thanksgivingarchivessearch'),
 
 # url(r'^expenditure_report_archive/', views.expenditure_report_archive, name='expenditure_report_archive'),
-#membership
+#membership 
+
+url(r'^Members/Annual-Tithes/(?P<pk>\d+)', views.member_annual_tithes, name='annual-tithes'),
 url(r'^Membership/Register/', views.register_members, name='members-register'),
 url(r'^Visitors/Register/', views.register_visitors, name='visitors-register'),
 url(r'^Membership/List/', views.members_list, name='members-list'),

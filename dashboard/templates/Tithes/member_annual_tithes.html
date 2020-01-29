@@ -45,7 +45,9 @@
                           <thead>
                               <tr >
                                   <td>Date</td>
+                                  <td>Service</td>
                                   <td>Amount <i class=" glyphicon glyphicon-arrow-right"></i> <b>(<span style="font-weight: bolder; color:red" class="totalCol"></span>)</b></td>
+                                  
                                   
                               </tr>
                           </thead>
@@ -53,8 +55,9 @@
                               {% for item in tithes%}
                              <tr class="totalColumn">
                               <td>{{ item.Date}}</td>
+                              <td>{{ item.Service}}</td>
                               <td class="rowDataSd">{{ item.Amount}}</td>
-
+                              
                              </tr> 
                              {%endfor%}
                              
