@@ -17,9 +17,9 @@
 {% block content %}
 <style>
 .first-info{
-    width: 950px;
-    height: 409px;
-    background-image: url( "{% static 'img/uccchurch.jpg' %} ");
+    width: 511px;
+    height: 509px;
+    background-image: url( "{% static 'img/uccb.jpg' %} ");
 }
 </style>
 <div class="container">
@@ -36,31 +36,34 @@
                </div>
             </div>       
            {% endif %}    
-        <div class="login_wrapper first-info">
+        <div class="login_wrapper">
             <div class="animate form login_form">
 
-                <section class=" border login_content" style="color:black">
+                <section class="first-info border login_content" style="color:black">
                     <form method="post" novalidate>
                         {% csrf_token %}
-                        <h2><u> CHURCH WEB SYSTEM</u></h2>
-                        <legend class="border-bottom"><h3 style=" font-weight:bolder">UCC-Bwaise </h3></legend> 
-                         <div class="clearfix"></div>
+                        
                         <div class="separator">
-                        <b style=" text-align: left;font-size: 160%">Enter Correct Credentials</b>
-                                <fieldset class="form-group"> 
-                                    <div class="form-group" style="text-align: left;font-size: 120%">
-                                    {{ form|crispy}}
-                                    </div>      
-                                </fieldset>
-                            
-                                <div class="form-group">
-                                    <button class="btn btn-success" type="submit"> Login</button>           
+                        
+                               <div class="row"><div class="col-lg-3"></div>
+                                    <fieldset class="form-group col-lg-6"> 
+                                      
+                        <legend class="border-bottom"><h3 style=" font-weight:bolder">CHURCH WEB SYSTEM </h3></legend> 
+                                        <div class="form-group" style="text-align: left;font-size: 120%">
+                                        {{ form|crispy}}
+                                        </div>      
+                                    </fieldset>
+                               </div>
+                               <div class="row">
+                                    <div class="form-group">
+                                        <button class="btn btn-success" type="submit"> Login</button>           
+                                    </div>
                                 </div>
-                                
                     </form>
-                    <div class="separator"></div>
-                    <p><a href="{% url 'password_reset' %}" class="btn btn-link">Forgot your password?</a></p>
+                    
+                    
                 </section>
+                <p><a href="{% url 'password_reset' %}" class="btn btn-link"><button class="btn btn-info">Forgot your password?</button></a></p>
             </div>
         </div>
       </div>
