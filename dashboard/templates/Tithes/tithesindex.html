@@ -30,7 +30,7 @@
                     <div class="separator"></div>
                 </div>
                     <h3 style="text-align: center">The Tithes Report as of {{current_month}} {{yr}}</h3>
-                     <p>{{ msg}}</p>
+                     <h4 style="color: green; font-weight: 120%"><b>{{ message }}</b></h4>
             <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
                     <ul class="nav nav-tabs bordered">
@@ -61,8 +61,7 @@
                               </thead>
 
                               <tbody>
-                              {% if items %}
-                          {% for item in items%}
+                               {% for item in items%}
                              <tr>
                               <td class="totalColumn">{{ item.Date}}</td>
                               <td>{{ item.Tithe_Made_By}}</td>
@@ -78,7 +77,6 @@
                           </tbody>
                           <td>Total</td><td><pre>  </pre></td><td><b style="color: red">Shs.{{total_amount}}</b></td>
                         </table>
-                      {% endif %}
                       </div>
                       
                     </div>

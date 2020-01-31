@@ -83,8 +83,8 @@
                                      <td>
                                      
                                      <div class="mb-6">
-                                       {% if item.Amount_needed_after_cashout >= item.Amount_Needed or item.Amount_needed_after_cashout == 0 %}
-                                      <b class="btn btn-btn btn-sm "><span class="glyphicon glyphicon-thumbs-up"></span> ITEM FULLY CASHED</b>
+                                       {% if item.Total_Item_Cashout == item.Amount_Needed  %}
+                                      <b class="btn btn-btn btn-sm "><span class="glyphicon glyphicon-thumbs-up"></span>CASHED</b>
                                       {% else %}
                                         <a href="{% url 'pledge-cash-out' item.id %}"class="btn btn-success btn-sm"><span class="glyphicon glyphicon-euro"> </span> Cash Out</a>
                                         <a href="{% url 'edit-pledge-item' item.id %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"></span></a>

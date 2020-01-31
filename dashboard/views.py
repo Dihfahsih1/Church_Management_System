@@ -386,7 +386,7 @@ def current_month_salary_paid(request):
 
         #deleting all the expense from reports table
         salaries.delete()
-        message="The Monthly Salaries Paid Report has been Achived"
+        message="The Monthly Salaries Paid Report has been Archived"
         context={'message':message, 'mth':mth}
         return render(request, 'Employees/current_month_salaries_paid.html', context)
     months = ['January', 'February', 'March', 'April', 'May', 'June',
@@ -637,7 +637,7 @@ def Offeringsreport (request):
         #deleting all the expense from reports table
         all_expenses.delete()
 
-        message="The Monthly Offerings Report has been Achived"
+        message="The Monthly Offerings Report has been Archived"
         context={'message':message}
         return render(request, 'Offerings/offeringsindex.html', context)
 
@@ -745,7 +745,7 @@ def Seedsreport (request):
             expense_archiveobj.save()
             #deleting all the expense from reports table
         all_expenses.delete()
-        message="The Monthly Seeds Report has been Achived"
+        message="The Monthly Seeds Report has been Archived"
         context={'message':message}
         return render(request, 'Seeds/Seedsindex.html', context)
     months = ['January','February','March','April','May','June','July','August','September','October','November','December']
@@ -844,7 +844,7 @@ def donations_report(request):
             expense_archiveobj.archivedmonth =archived_month
             expense_archiveobj.save()
         all_expenses.delete()
-        message="The Monthly Donations report has been Achived"
+        message="The Monthly Donations report has been Archived"
         context={'message':message}
         return render(request, 'Donations/donationsindex.html', context)
     months = ['January', 'February', 'March', 'April', 'May', 'June',
@@ -932,7 +932,7 @@ def thanks_giving_report(request):
             expense_archiveobj.archivedmonth =archived_month
             expense_archiveobj.save()
         all_expenses.delete()
-        message="The Monthly Thanks Giving report has been Achived"
+        message="The Monthly Thanks Giving report has been Archived"
         context={'message':message}
         return render(request, 'ThanksGiving/thanksgivingindex.html', context)
     months = ['January', 'February', 'March', 'April', 'May', 'June',
@@ -1066,7 +1066,7 @@ def Tithesreport (request):
             expense_archiveobj.save()
             #deleting all the expense from reports table
         all_expenses.delete()
-        message="The Monthly Tithes Report has been Achived"
+        message="The Monthly Tithes Report has been Archived"
         context={'message':message}
 
         return render(request, 'Tithes/tithesindex.html', context)
@@ -1231,7 +1231,7 @@ def allowancereport(request):
             expense_archiveobj.save()
         #deleting all the expense from reports table
         all_expenses.delete()
-        message="The Monthly Allowances report has been Achived"
+        message="The Monthly Allowances report has been Archived"
         context={'message':message}
         return render(request, 'Allowances/allowanceindex.html', context)
     months = ['January', 'February', 'March', 'April', 'May', 'June',
@@ -1568,7 +1568,7 @@ def expenditurereport (request):
         #paid = Spend.objects.all().aggregate(Sum('Amount'))
         all_expenses.delete()
 
-        message="The Monthly Main Expenses Report has been Achived"
+        message="The Monthly Main Expenses Report has been Archived"
         context={
                  'message':message,
                  }
@@ -1619,7 +1619,7 @@ def general_expenses_report (request):
             expense_archiveobj.month=archived_month
             expense_archiveobj.save()
         all_expenses.delete()
-        message="The Monthly General Expenses Report has been Achived"
+        message="The Monthly General Expenses Report has been Archived"
         context={'message':message,}
         return render(request, 'Expenses/generalexpenditureindex.html', context)
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September',
@@ -1668,7 +1668,7 @@ def sundryreport (request):
         #deleting all the expense from reports table
         all_expenses.delete()
 
-        message="The expenses report has been made"
+        message="Petty Expenses Monthly Report has been archived"
         context={'message':message}
 
         return render(request, 'Expenses/sundryindex.html', context)
@@ -2061,7 +2061,7 @@ def Pledgesreport(request):
             expense_archiveobj.archivedmonth =archived_month
             expense_archiveobj.save()
         all_expenses.delete()
-        message="The Monthly Pledges Report has been Achived"
+        message="The Monthly Pledges Report has been Archived"
         context={'message':message}
         return render(request, 'Pledges/pledgesindex.html', context)
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'August', 'September', 'October', 'November','December']

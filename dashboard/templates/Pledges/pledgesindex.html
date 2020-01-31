@@ -57,7 +57,7 @@
                     </ul>
                     <br/>
                    <h2 style="text-align: center">The {{current_month}} Pledges Report</h2>
-                    <p>{{ msg}}</p>
+                    <h4 style="color: green; font-weight: 120%"><b>{{ message }}</b></h4>
 
             <div class="tab-content">
                  <div class="tab-pane fade in active" id="tab_invoice_list">
@@ -77,7 +77,6 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                {% if items %}
                                 {% for item in items%}
                                 <tr>
                                   <td>{{ item.Pledge_Made_By}}</td>
@@ -104,7 +103,6 @@
                           </div>
                     </div>
                   </div>
-                  {% endif %}
                   <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
                           <a href="{% url 'offeringspdf' %}" target="_new"role="button"><span class="glyphicon glyphicon-print"></span></a>
                          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">Archive</span></button>

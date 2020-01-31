@@ -31,7 +31,7 @@
                     <div class="separator"></div>
                 </div>
                     <h2 style="text-align: center">The {{current_month}} Expenditure Report</h2>
-                    <p>{{ message }}</p>
+                    <h4 style="color: green; font-weight: 120%"><b>{{ message }}</b></h4>
             <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
 
@@ -82,6 +82,7 @@
                     </div>
                   </div>
                </div>
+               
                <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
                           <a href="{% url 'expenditurepdf' %}" target="_new"role="button"><span class="glyphicon glyphicon-print"></span></a>
                          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">Archive</span></button>
