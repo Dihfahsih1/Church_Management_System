@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Payment Voucher</title>
+    <title>Expenditure Report</title>
 
         {% load staticfiles %}
 
@@ -48,10 +48,10 @@
         </style>
 </head>
 <body>
-<p style="font-size: smaller">Generated on:{{ today }}</p>
   <div class='wrapper'>
 
-         <div align="center">
+
+        <div align="center">
                    <b>UCC - BWAISE </b><br>
                  +256701614086<br>
                  Nabweru, Kampala Rd<br>
@@ -60,19 +60,16 @@
 
         <div>
         <div class='details'>
-            <h1 align="center"><u>EXPENDITURE PAYMENT VOUCHER</u></h1>
-            <hr>
-            <strong style="font-size: large">Voucher Number:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ expense.id }}<br><br>
-            <strong style="font-size: large">Date of Payment:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ expense.Date }}<br><br>
-            <strong style="font-size: large">Person Receiving:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ expense.PaymentMadeTo}}<br><br>
-           <strong style="font-size: large">Expenditure Reason:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ expense.ReasonForPayment }}<br><br>
-            <strong style="font-size: large">Amount (In figures):</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ expense.Amount}}<br><br>
-            <strong style="font-size: large">Amount(In Words):</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ expense.AmountInWords }}<br>
-
+            <h1 align="center"><u> Expenditure Payment Voucher</u></h1>
+            <strong style="font-size: large"><pre> Date:</strong><u>{{ expense.Date }}                       </pre></u>
+            <strong style="font-size: large"><pre>Payment Made To:</strong><u>{{ expense.Payment_Made_To}}                </pre></u>
+           <strong style="font-size: large"><pre>Expense Reason:</strong><u> {{ expense.Reason_For_Payment}}                    </pre></u>
+           <strong style="font-size: large"><pre>Expense Amount:</strong><u> Shs.{{ expense.Amount}}               </pre></u>
+            <i><pre>Payment Made by:<u>                          </pre> </u></i>
 
         </div>
-    </div>
-  </div>
-
+    </div><br><br>
+  </div><hr style="color:gray" class="hrItem">
+<p style="font-size: smaller; text-align: left; color: red">Generated on:{{ today }}</p>
 </body>
 </html>
