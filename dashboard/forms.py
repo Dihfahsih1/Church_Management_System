@@ -141,7 +141,11 @@ class DonationsForm(forms.ModelForm):
         fields = ('Date','Donated_By','Amount','Reason')
         widgets = {
             'Date': DatePickerInput(),
+            'Donated_By': TextInput(attrs={'placeholder': 'e.g. Church, Place or Person'}),
         } 
+        labels = {
+            'Donated_By': 'Received From',
+        }
 class MembersForm(forms.ModelForm):
     class Meta:
         model= Members

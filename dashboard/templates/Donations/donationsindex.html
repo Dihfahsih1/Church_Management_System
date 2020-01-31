@@ -8,7 +8,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Donations</small></h2>
+                    <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Revenue </small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -29,7 +29,7 @@
                         |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a></li>
                     <div class="separator"></div>
                 </div>
-                    <h3 style="text-align: center">The Donations Report as of {{day}}</h3>
+                    <h3 style="text-align: center">The Evangelism Donations Report as of {{day}}</h3>
                      <h4 style="color: green; font-weight: 120%"><b>{{ message }}</b></h4>
             <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
@@ -61,7 +61,6 @@
                               </thead>
 
                               <tbody>
-                              {% if items %}
                           {% for item in items%}
                              <tr>
                               <td>{{ item.Date}}</td>
@@ -84,12 +83,13 @@
                     </div>
                   </div>
                 </div>
-                {% endif %}
+                {% if items != empty %}
                  <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
                         <a href="{% url 'tithespdf' %}" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"></span></a>
                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">Archive</span></button>
+                {% endif %}       
                  <!-- Button trigger modal -->
-
+                
                      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
