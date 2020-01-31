@@ -100,16 +100,15 @@
                           </div>
                           <div class="modal-body">
                             <h5 class="text-primary">Select year and corresponding month to archive(Church Cycle)</h5>
-                              <form class="form-inline" method="POST" enctype="multipart/form-data">
+                              <form class="form-inline" method="GET" enctype="multipart/form-data">
                               {% csrf_token %}
 
                                 <div class="col-auto my-1">
-                                <label class="mr-sm-2" for="inlineFormCustomSelect">Year</label>
-                                  <select class="custom-select mr-sm-2" name="archived_year" id="inlineFormCustomSelect">
-                                      {% for report_year in years %}
-                                         <option name="{{ report_year }}" value="{{ report_year }}">{{ report_year }}</option>
-                                      {% endfor %}
-                                  </select>
+                                <div class="col-lg-3">
+                                    <label >Year</label>
+                                    <input type="number" name="archived_year" width="2%">
+                                    </div>
+                                      
                                 </div>
 
                                 <div class="col-auto my-1">

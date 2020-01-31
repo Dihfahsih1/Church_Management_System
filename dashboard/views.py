@@ -721,10 +721,12 @@ def add_seeds(request):
         return render(request, 'Seeds/add_seeds.html',context)  
 @login_required
 def Seedsreport (request):
-    if request.method=='POST':
-        archived_year=request.POST['archived_year']
+    yr = datetime.now().year
+    if request.method=='GET':
         archived_month = request.POST['archived_month']
-        #all the available expense in the expenses table
+        archived_year=request.POST['archived_year']
+        
+        #all the available expense in the expenses table 
         all_expenses = Seeds.objects.all()
         for expense in all_expenses:
             date=expense.Date
@@ -745,7 +747,6 @@ def Seedsreport (request):
         context={'message':message}
         return render(request, 'Seeds/Seedsindex.html', context)
     months = ['January','February','March','April','May','June','July','August','September','October','November','December']
-    yr = datetime.now().year
     today = datetime.now()
     current_month = today.strftime('%B')
     total = Seeds.objects.aggregate(totals=models.Sum("Amount"))
