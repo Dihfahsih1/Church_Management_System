@@ -48,7 +48,6 @@
         </style>
 </head>
 <body>
-<p style="font-size: smaller">Generated on:{{ today }}</p>
   <div class='wrapper'>
 
 
@@ -62,15 +61,14 @@
         <div>
         <div class='details'>
             <h1 align="center"><u> TiTHE RECEiPT</u></h1>
-            <hr class="hrItem">
             <strong style="font-size: large"><pre>Tithe Date:</strong><u>{{ tithes.Date }}                        </pre></u>
             <strong style="font-size: large"><pre>Received From:</strong><u>{{ tithes.Tithe_Made_By}}                 </pre></u>
            <strong style="font-size: large"><pre>Amount Tithed:</strong><u> Shs.{{ tithes.Amount}}                      </pre></u>
             <i><pre>Received with thanks by:<u>                          </pre> </u></i>
 
         </div>
-    </div>
-  </div>
-
+    </div><br><br>
+  </div><hr style="color:gray" class="hrItem">
+<p style="font-size: smaller; text-align: left; color: red">Generated on:{{ today }}</p>
 </body>
 </html>

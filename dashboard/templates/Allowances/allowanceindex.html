@@ -1,6 +1,7 @@
 
 {% extends "app/base_site.html" %}
 {% block content %}
+{% load humanize %}
 <head>
   <title>UCC Bwaise | Allowances Report as of {{day}}</title>
 </head>
@@ -143,13 +144,4 @@
  </div>
 </div>
 </div>
-
-<script type="text/javascript">
-  
-  var total = 0;
-$('.sum_table tr td.rowDataSd').each(function() {
-    total += parseInt($(this).text());
-});
-$('.sum_table span.totalCol').text("Tota Amount: " + total);
-</script>
 {% endblock content %}

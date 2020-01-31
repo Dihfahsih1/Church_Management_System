@@ -20,11 +20,11 @@
                     | <a href="{% url 'Offeringsreport' %}">List of offerings</a>
                     | <a href="{% url 'Enter_Tithes' %}">Tithes</a>
                     | <a href="{% url 'Tithesreport' %}">List of Tithes</a>
-                    | <a href="#">Seeds</a>
-                    | <a href="#">Thanks Giving</a>
-                    | <a href="#">Donations</a>
+                    | <a href="{% url 'Seeds-report' %}">Seeds</a>
+                    | <a href="{% url 'thanks-giving-report' %}">Thanks Giving</a>
+                    | <a href="{% url 'donations-report' %}">Donations</a>
                     <div class="separator"></div>
-                </div>
+                </div> 
                 <h2 style="text-align: center">Record all tithes made in this month of {{month}}</h2>
 		  	    <div class="x_content">
 		            <div class="" data-example-id="togglable-tabs">
@@ -35,6 +35,9 @@
 		                    <li role="presentation"class="active"><a href="{% url 'Enter_Tithes' %}"><i
 	                            class="fa fa-plus-square-o"></i> Record Tithes</a>
 		                     </li>
+                              <li role="presentation"><a href="{% url 'tithesarchivessearch'  %}"><i
+                              class="fa fa-plus-square-o"></i> Tithes Archived</a>
+                         </li>
 		                </ul>
 		                <br/>
 						<div  class="col-lg-6 col-offset-8 centered">

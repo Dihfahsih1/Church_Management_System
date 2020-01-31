@@ -207,6 +207,16 @@
         }
         );
   </script>
+  
+<!--script for performing totals on the tables-->
+<script type="text/javascript">
+  
+  var total = 0;
+$('.sum_table tr td.rowDataSd').each(function() {
+    total += parseInt($(this).text());
+});
+$('.sum_table span.totalCol').text("Tota Amount: " + total);
+</script>
 
 <!--fading up messages alert-->
 <script type="text/javascript">
