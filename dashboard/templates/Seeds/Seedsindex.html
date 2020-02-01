@@ -29,7 +29,7 @@
                         |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a></li>
                     <div class="separator"></div>
                 </div>
-                    <h3 style="text-align: center">The Seeds Offering Report as of {{current_month}} {{yr}}</h3>
+                    <h3 style="text-align: center">The Seeds Offering Report as of {{day}}</h3>
                      <h4 style="color: green; font-weight: 120%"><b>{{ message }}</b></h4>
             <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
@@ -50,12 +50,12 @@
             <div class="tab-content">
                  <div class="tab-pane fade in active" id="tab_invoice_list">
                     <div class="x_content">                     
-                         <table id="invoice-table" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                         <table id="invoice-table" class="sum_table table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                             <thead>
                               <tr>
                                   <td>Date</td>
                                   <td>Seeds Made By</td>
-                                  <td>Amount</td>
+                                  <td>Amount <i class=" glyphicon glyphicon-arrow-right"></i> (<span style="font-weight: bolder; color:red" class="totalCol"></span>)</td>
                                   <td>Action</td>
                               </tr>
                               </thead>
@@ -63,10 +63,10 @@
                               <tbody>
                               
                           {% for item in items%}
-                             <tr>
+                             <tr class="totalColumn">
                               <td>{{ item.Date}}</td>
                               <td>{{ item.Seed_Made_By}}</td>
-                              <td>{{ item.Amount}}</td>
+                              <td class="rowDataSd">{{ item.Amount}}</td>
                               <td> 
                                 <div class="mb-4">
                                   <a href="{% url 'edit-seed' item.id %}" target="_new"><button class="btn btn-info"><span class="glyphicon glyphicon-edit">Edit</span></button></a> |
@@ -99,31 +99,31 @@
                             </button>
                           </div>
                           <div class="modal-body">
-                            <h4 class="text-danger"><b><u>Ensure You archive the Correct Month and Year(Church Cycle)</u></b></h4>
-                              <form class="form-inline" method="POST" enctype="multipart/form-data">
-                              {% csrf_token %}
-                                <div class="form-row">
-                                  <div class="col-lg-12" style="background-color: rgb(227, 237, 239">
-                                   <div class="col-lg-2">
-                                    <label>Year</label>
-                                    <input type="text" name="report_year" value="{{yr}}">
-                                    </div><br><br><br><br>
-                                    <div class="col-lg-6">
-                                    <label>Month</label>
-                                    <select  name="report_month" id="inlineFormCustomSelect">
-                                      <option selected="Selct Month">Select Month</option>
-                                        {% for report_month in months %}
-                                           <option class="btn-success" name="{{ report_month }}" value="{{ report_month }}">{{ report_month }}
-                                           </option>
-                                        {% endfor %}
-                                    </select>
-                                    </div>
-                                     <div class="col-lg-2">
-                                      <button type="submit" class="btn btn-info">Submit <span class='glyphicon glyphicon-send'></span></button>
-                                     </div>
-                                    </div>
-                                  </div>
-                              </form>
+                           <h4 class="text-danger"><b><u>Ensure You archive the Correct Month and Year(Church Cycle)</u></b></h4>
+                        <form class="x_content" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-row">
+                          <div class="col-lg-12" style="background-color: rgb(227, 237, 239">
+                           <div class="col-lg-3">
+                            <label >Year</label>
+                            <input type="text" name="archived_year" value="{{years}}" width="1%">
+                            </div><br><br><br>
+                            <div class="col-lg-3">
+                            <label>Month</label>
+                            <select  name="archived_month" id="inlineFormCustomSelect">
+                                <option selected> Select Month</option>
+                                {% for report_month in months %}
+                                   <option class="btn-success" name="{{ report_month }}" value="{{ report_month }}">{{ report_month }}
+                                   </option>
+                                {% endfor %}
+                            </select>
+                            </div><br><br><br>
+                             <div class="col-lg-6">
+                              <button type="submit" class="btn btn-info">Submit <span class='glyphicon glyphicon-send'></span></button>
+                             </div>
+                            </div>
+                          </div>
+                        </form>
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -2,6 +2,9 @@
 {% extends "app/base_site.html" %}
 {% block content %}
 {% load humanize %}
+<head>
+  <title>UCC Bwaise | List of Pledge items and how they are funded </title>
+</head>
 <div class="right_col" role="main">
       <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -85,8 +88,11 @@
                                      <div class="mb-6">
                                        {% if item.Total_Item_Cashout == item.Amount_Needed  %}
                                       <b class="btn btn-btn btn-sm "><span class="glyphicon glyphicon-thumbs-up"></span>CASHED</b>
-                                      {% else %}
+                                      
+
+                                      {% elif item.Item_money_received > 0 %}
                                         <a href="{% url 'pledge-cash-out' item.id %}"class="btn btn-success btn-sm"><span class="glyphicon glyphicon-euro"> </span> Cash Out</a>
+                                      {% else %}
                                         <a href="{% url 'edit-pledge-item' item.id %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
                                      
                                         <a href="{% url 'delete-pledge-item' item.id %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"></span></a>

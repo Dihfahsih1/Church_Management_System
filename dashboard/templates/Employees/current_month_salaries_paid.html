@@ -30,7 +30,7 @@
                         |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a></li>
                     <div class="separator"></div>
                 </div>
-                    <h2 style="text-align: center">All salaries Paid in the month of {{mth}}</h2>
+                    <h2 style="text-align: center">All salaries Paid as of {{day}}</h2>
                     <h4 style="color: green; font-weight: 120%"><b>{{ message }}</b></h4>
           <div class="x_content">
             <div class="" data-example-id="togglable-tabs">
@@ -85,10 +85,10 @@
                                               <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                   <div class="modal-header">
-                                                    <h4 class="modal-title" id="myModalLabel">Delete Checklist</h4>
+                                                    <h4 class="modal-title" id="myModalLabel">Delete Salary</h4>
                                                   </div>
                                                   <div class="modal-body">
-                                                      <h3>Are you sure you want to delete checklist?</h3>
+                                                      <h3>Are you sure you want to delete Salary?</h3>
                                                   </div>
                                                   <div class="modal-footer">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -106,11 +106,10 @@
                     </div>
                   </div>
                </div>
-               {% if items != empty %}
                 <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
-                        <a href="{% url 'tithespdf' %}" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"></span></a>
+                        <a href="{% url 'tithespdf' %}" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print">Print</span></a>
                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">Archive</span></button>
-              {% endif%}
+              
                <!-- Modal -->
               
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -123,30 +122,32 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <h5 class="text-primary">Select year and corresponding month to archive(Church Cycle)</h5>
-                        <form class="form-inline" method="POST" enctype="multipart/form-data">
+                           <h4 class="text-danger"><b><u>Ensure You archive the Correct Month and Year(Church Cycle)</u></b></h4>
+                        <form class="x_content" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
-                            <div class="col-auto my-1">
-                          <label class="mr-sm-2" for="inlineFormCustomSelect">Year</label>
-                          <select class="custom-select mr-sm-2" name="archived_year" id="inlineFormCustomSelect">
-                              {% for report_year in years %}
-                                 <option name="{{ report_year }}" value="{{ report_year }}">{{ report_year }}</option>
-                              {% endfor %}
-                          </select>
-                        </div>
-                            <div class="col-auto my-1">
-                          <label class="mr-sm-2" for="inlineFormCustomSelect">Month</label>
-                          <select class="custom-select mr-sm-2" name="archived_month" id="inlineFormCustomSelect">
-                              {% for report_month in months %}
-                                 <option name="{{ report_month }}" value="{{ report_month }}">{{ report_month }}</option>
-                              {% endfor %}
-                          </select>
-                        </div>
-                         <div class="col-auto my-1">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
+                        <div class="form-row">
+                          <div class="col-lg-12" style="background-color: rgb(227, 237, 239">
+                           <div class="col-lg-3">
+                            <label >Year</label>
+                            <input type="text" name="archived_year" value="{{years}}" width="1%">
+                            </div><br><br><br>
+                            <div class="col-lg-3">
+                            <label>Month</label>
+                            <select  name="archived_month" id="inlineFormCustomSelect">
+                                <option selected> Select Month</option>
+                                {% for report_month in months %}
+                                   <option class="btn-success" name="{{ report_month }}" value="{{ report_month }}">{{ report_month }}
+                                   </option>
+                                {% endfor %}
+                            </select>
+                            </div><br><br><br>
+                             <div class="col-lg-6">
+                              <button type="submit" class="btn btn-info">Submit <span class='glyphicon glyphicon-send'></span></button>
+                             </div>
+                            </div>
+                          </div>
                         </form>
-                      </div>
+                          </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 

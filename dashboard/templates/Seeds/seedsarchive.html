@@ -57,6 +57,7 @@
                             <label>Month</label>
                             <select  name="report_month" id="inlineFormCustomSelect">
                                 {% for report_month in months %}
+                                <option selected="Select Month"> Select Month</option>
                                    <option class="btn-success" name="{{ report_month }}" value="{{ report_month }}">{{ report_month }}
                                    </option>
                                 {% endfor %}
