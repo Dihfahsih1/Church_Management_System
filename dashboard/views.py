@@ -1960,11 +1960,11 @@ def member_settle_pledge_debt(request):
             return render(request, 'Pledges/settle_pledge_debt.html', context)
 
 def delete_bad_debt(request, pk):
-    retrieving_id=PledgesReportArchive.objects.filter(Pledge_Id=pk)
-    retrieving_id.delete()
-    message="Bad debt was removed sucessfully!"
-    context={'message':message}
-    return render(request, "Pledges/delete_pledge_bad_debt.html", context)
+    retrieving_id=PledgesReportArchive.objects.filter(id=pk)
+    if request.method == "GET":
+        retrieving_id.delete()
+        messages.success(request, "Archive successfully deleted!")
+        return redirect('archived-pledge-debts')
 
 @login_required
 def pledges_paid_list(request):
