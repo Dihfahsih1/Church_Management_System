@@ -63,6 +63,7 @@ url(r'^edit_tithes/(?P<pk>\d+)', views.edit_tithes ,name='edit_tithes'),
 url(r'^Employee/Edit/(?P<pk>\d+)', views.edit_employee ,name='edit-employee'),
 url(r'^Employee/View/(?P<pk>\d+)', views.view_employee ,name='view-employee'),
 url(r'^Member/View/(?P<pk>\d+)', views.view_member ,name='view-member'),
+url(r'^Pledge/Delete/(?P<pk>\d+)', views.delete_pledge ,name='delete-pledge'),
 url(r'^Pledges-Item/Delete/(?P<pk>\d+)', views.delete_pledge_item ,name='delete-pledge-item'),
 url(r'^Pledges-Item/Edit/(?P<pk>\d+)', views.edit_pledge_item ,name='edit-pledge-item'),
 

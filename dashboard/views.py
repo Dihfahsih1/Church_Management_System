@@ -1981,7 +1981,14 @@ def delete_pledges_paid(request, pk):
     if request.method == "GET":
         pledges.delete()
         messages.success(request, "Payment successfully deleted!")
-        return redirect("pledges-paid-list")  
+        return redirect("pledges-paid-list")
+
+def delete_pledge(request, pk):
+    pledges= get_object_or_404(Pledges, id=pk)
+    if request.method == "GET":
+        pledges.delete()
+        messages.success(request, "Pledge successfully deleted!")
+        return redirect("Pledgesreport")          
 def edit_pledges(request, pk):
     item = get_object_or_404(Pledges, pk=pk)
     if request.method == "POST":
@@ -2036,6 +2043,7 @@ def Pledgesreport(request):
             name=expense.Pledge_Made_By
             reason=expense.Reason
             pledged_amount= expense.Amount_Pledged
+
             expense_archiveobj=PledgesReportArchive()
             expense_archiveobj.Pledge_Id=pledge_id
             expense_archiveobj.Status=status

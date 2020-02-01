@@ -536,9 +536,9 @@ class PledgesReportArchive(Model):
     Date = models.DateField(null=True, blank=True)
     Pledge_Made_By = models.ForeignKey(Members, on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
     Reason = models.CharField(max_length=100, null=True)
-    Pledged_Amount=models.IntegerField()
-    Amount_Paid = models.IntegerField()
-    Balance = models.IntegerField()
+    Pledged_Amount=models.IntegerField(null=True, blank=True)
+    Amount_Paid = models.IntegerField(null=True, blank=True)
+    Balance = models.IntegerField(null=True, blank=True)
     archivedmonth = models.CharField(max_length=100,null=True)
     archivedyear = models.CharField(max_length=100,null=True)
 
