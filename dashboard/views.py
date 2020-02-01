@@ -1929,7 +1929,7 @@ def member_pledges_paid(request):
             return render(request, 'Pledges/paying_pledges_update.html', context)
 
 def archived_pledge_debts(request):
-    debts=PledgesReportArchive.objects.filter(Q(Status='UNPAID') | Q(Status='PARTIAL'))
+    debts=PledgesReportArchive.objects.filter(Q(Status='UNPAID') | Q(Status='PARTIAL') | Q(Status='PAID'))
     #PledgesReportArchive.objects.filter(Status='PAID').delete()
     context={'debts':debts}
     return render(request, "Pledges/archived_pledge_debts.html", context)
@@ -2117,7 +2117,18 @@ class pledge_debt_invoice(View):
             'debt': debt,
             'request': request,
         }
-        return Render.render('Pledges/pledge_debt_invoice.html', debtcontext)        
+        return Render.render('Pledges/pledge_debt_invoice.html', debtcontext) 
+
+class settled_archived_pledge_receipt(View):
+    def get(self, request, pk):
+        settled= PledgesReportArchive.objects.get(Status='PAID', Pledge_Id=pk)
+        today = datetime.now()
+        context = {
+            'today': today,
+            'settled': settled,
+            'request': request,
+        }
+        return Render.render('Pledges/settled_archived_pledges_receipt.html', context)               
 #airtime report
 def airtime_data_report(request):
     mth = datetime.now().day

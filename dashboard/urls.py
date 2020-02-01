@@ -28,7 +28,8 @@ url(r'^offeringspdf/', views.offeringspdf.as_view() ,name='offeringspdf'),
 
 
 url(r'^expensereceipt/(?P<pk>\d+)', views.expensereceipt.as_view() ,name='expensereceipt'),
-url(r'^Archived/Pledge-Debt/(?P<pk>\d+)', views.pledge_debt_invoice.as_view() ,name='pledge-invoice'),
+url(r'^Archived/Pledge-Debt/Receipt/(?P<pk>\d+)', views.settled_archived_pledge_receipt.as_view() ,name='settled-pledge-receipt'),
+url(r'^Archived/Pledge-Debt/Invoice/(?P<pk>\d+)', views.pledge_debt_invoice.as_view() ,name='pledge-invoice'),
 url(r'^allowancereceipt/(?P<pk>\d+)', views.allowancereceipt.as_view() ,name='allowancereceipt'),
 url(r'^sundryreceipt/(?P<pk>\d+)', views.sundryreceipt.as_view() ,name='sundryreceipt'),
 url(r'^offeringsreceipt/(?P<pk>\d+)', views.offeringsreceipt.as_view() ,name='offeringsreceipt'),

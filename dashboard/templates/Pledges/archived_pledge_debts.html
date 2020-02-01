@@ -79,14 +79,14 @@
                                   <td>{{ db.Pledge_Balance}}</td>
                                   <td><div class="mb-4">
                                   {% if db.total_pledge_paid >= db.Pledged_Amount  %}
-                                    <a href="#" target="_blank"><button class="btn btn-primary">Debt settled</button></a>
-                                    |<a href="#}" target="_blank"><button class="btn btn-warning"><span class="glyphicon glyphicon-qrcode"> Receipt</span></button></a>
+                                    <button class="btn btn-primary">Debt settled</button>
+                                    |<a href="{% url 'settled-pledge-receipt' db.Pledge_Id %}"><button class="btn btn-warning"><span class="glyphicon glyphicon-qrcode"> Receipt</span></button></a>
                                   {% else %}
-                                  <a href="{% url 'settle-pledge-debt' db.Pledge_Id %}" target="_blank"><button class="btn btn-success">Settle Debt</button></a>|
+                                  <a href="{% url 'settle-pledge-debt' db.Pledge_Id %}"><button class="btn btn-success">Settle Debt</button></a>|
                                     <a href="{% url 'pledge-invoice' db.Pledge_Id %}"><button class="btn btn-info">Invoice</button></a>
                                   {% endif%}
                                   {% if db.total_pledge_paid == 0  %}
-                                  <a href="{% url 'delete-bad-debt' db.Pledge_Id %}" target="_blank"><button class="btn btn-danger">Bad Debt</button></a></td>
+                                  <a href="{% url 'delete-bad-debt' db.Pledge_Id %}"><button class="btn btn-danger">Bad Debt</button></a></td>
                                   {% endif%}
                                   </tr>
                                 </tbody>
