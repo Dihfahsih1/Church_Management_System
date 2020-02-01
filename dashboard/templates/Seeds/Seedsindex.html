@@ -99,29 +99,30 @@
                             </button>
                           </div>
                           <div class="modal-body">
-                            <h5 class="text-primary">Select year and corresponding month to archive(Church Cycle)</h5>
-                              <form class="form-inline" method="GET" enctype="multipart/form-data">
+                            <h4 class="text-danger"><b><u>Ensure You archive the Correct Month and Year(Church Cycle)</u></b></h4>
+                              <form class="form-inline" method="POST" enctype="multipart/form-data">
                               {% csrf_token %}
-
-                                <div class="col-auto my-1">
-                                <div class="col-lg-3">
-                                    <label >Year</label>
-                                    <input type="number" name="archived_year" width="2%">
+                                <div class="form-row">
+                                  <div class="col-lg-12" style="background-color: rgb(227, 237, 239">
+                                   <div class="col-lg-2">
+                                    <label>Year</label>
+                                    <input type="text" name="report_year" value="{{yr}}">
+                                    </div><br><br><br><br>
+                                    <div class="col-lg-6">
+                                    <label>Month</label>
+                                    <select  name="report_month" id="inlineFormCustomSelect">
+                                      <option selected="Selct Month">Select Month</option>
+                                        {% for report_month in months %}
+                                           <option class="btn-success" name="{{ report_month }}" value="{{ report_month }}">{{ report_month }}
+                                           </option>
+                                        {% endfor %}
+                                    </select>
                                     </div>
-                                      
-                                </div>
-
-                                <div class="col-auto my-1">
-                                <label class="mr-sm-2" for="inlineFormCustomSelect">Month</label>
-                                <select class="custom-select mr-sm-2" name="archived_month" id="inlineFormCustomSelect">
-                                    {% for report_month in months %}
-                                       <option name="{{ report_month }}" value="{{ report_month }}">{{ report_month }}</option>
-                                    {% endfor %}
-                                </select>
-                                </div>
-                                <div class="col-auto my-1">
-                                  <button type="submit" class="btn btn-primary">Submit Report</button>
-                                </div>
+                                     <div class="col-lg-2">
+                                      <button type="submit" class="btn btn-info">Submit <span class='glyphicon glyphicon-send'></span></button>
+                                     </div>
+                                    </div>
+                                  </div>
                               </form>
                           </div>
                           <div class="modal-footer">

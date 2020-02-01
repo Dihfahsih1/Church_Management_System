@@ -722,9 +722,9 @@ def add_seeds(request):
 @login_required
 def Seedsreport (request):
     yr = datetime.now().year
-    if request.method=='GET':
-        archived_month = request.POST['archived_month']
-        archived_year=request.POST['archived_year']
+    if request.method=='POST':
+        archived_month = request.GET['archived_month']
+        archived_year=request.GET['archived_year']
         
         #all the available expense in the expenses table 
         all_expenses = Seeds.objects.all()
