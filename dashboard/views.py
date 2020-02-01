@@ -2097,7 +2097,7 @@ def pledgesarchivessearch(request):
 class pledgesarchivepdf(View):
     def get(self, request, report_month, report_year):
         archived_pledges = PledgesReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
-        today = timezone.now()
+        today = datetime.now()
         total = archived_pledges.aggregate(totals=models.Sum("Pledged_Amount"))
         total_amount = total["totals"]
         pledgescontext = {
@@ -2111,7 +2111,7 @@ class pledgesarchivepdf(View):
 class pledge_debt_invoice(View):
     def get(self, request, pk):
         debt = PledgesReportArchive.objects.get(Q(Status='UNPAID') | Q(Status='PARTIAL'), Pledge_Id=pk)
-        today = timezone.now()
+        today = datetime.now()
         debtcontext = {
             'today': today,
             'debt': debt,
