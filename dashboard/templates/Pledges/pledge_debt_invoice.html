@@ -1,0 +1,78 @@
+<DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Expenditure Report</title>
+
+        {% load staticfiles %}
+
+    <link type="text/css" rel="stylesheet" href="{% static '/css/bootstrap.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static '/styles.css' %}"/>
+       <style type="text/css">
+
+           @page {
+            size: A5;
+            margin: 1cm;
+        }
+            body {
+                font-weight: 200;
+                font-size: 14px;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 100;
+                text-align: center;
+                color: #007cae;
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               padding: 10px 20px 0px 20px;
+            }
+            .title span {
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #333; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+        </style>
+</head>
+<body>
+  <div class='wrapper'>
+
+
+        <div align="center">
+                   <b>UCC - BWAISE </b><br>
+                 +256701614086<br>
+                 Nabweru, Kampala Rd<br>
+               uccbwaise1@gmail.com<br>
+         </div>
+
+        <div>
+        <div class='details'>
+            <h1 align="center"><u> Archived Debt Invoice </u></h1>
+            <strong style="font-size: large"><pre> Pledge Date:</strong><u>{{ debt.Date }}                       </pre></u>
+            <strong style="font-size: large"><pre> Pledge Status:</strong><u>{{ debt.updatestatus }}                       </pre></u>
+            <strong style="font-size: large"><pre>Pledge Made By:</strong><u>{{ debt.Pledge_Made_By}}                </pre></u>
+           <strong style="font-size: large"><pre>Pledge Reason:</strong><u> {{ debt.Reason}}                    </pre></u>
+           <strong style="font-size: large"><pre>Pledged Amount:</strong><u> Shs.{{ debt.Pledged_Amount}}               </pre></u>
+           <strong style="font-size: large"><pre>Amount Paid:</strong><u> Shs.{{ debt.total_pledge_paid}}               </pre></u>
+           <strong style="font-size: large; "><pre>Balance:</strong><u> <b style="font-size: large; color: red">Shs.{{ debt.Pledge_Balance}}</b>               </pre></u><br>
+           <i>Thank You for supporting the Ministry</i>
+
+        </div>
+    </div><br><br>
+  </div><hr style="color:gray" class="hrItem">
+<p style="font-size: smaller; text-align: left; color: red">Generated on:{{ today }}</p>
+</body>
+</html>
