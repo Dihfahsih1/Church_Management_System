@@ -2062,17 +2062,14 @@ def Pledgesreport(request):
     years = datetime.now().year
     total = Pledges.objects.aggregate(totals=models.Sum("Amount_Pledged"))
     total_amount = total["totals"]
-    today = timezone.now()
     day=datetime.now()
-    current_month = today.strftime('%B')
     mth = datetime.now().month
-    items =Pledges.objects.all().order_by('-Date')
+    items =Pledges.objects.filter(Date__month=mth).order_by('-Date')
     context = {'day':day,
         'total_amount':total_amount,
         'items':items,
         'months':months,
         'years':years,
-        'current_month':current_month
     }
     return render(request, 'Pledges/pledgesindex.html', context)
 
