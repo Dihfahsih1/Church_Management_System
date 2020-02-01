@@ -1879,7 +1879,9 @@ def cashing_out_items(request):
         form =  PledgesCashedOutForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
+            #PledgesCashedOut.objects.all().delete()
             messages.success(request, "Cash out was successful")
+
             return redirect('list-of-pledge-items')
         else:
             form = PledgesCashedOutForm()
@@ -2057,7 +2059,7 @@ def Pledgesreport(request):
             expense_archiveobj.archivedmonth =archived_month
             expense_archiveobj.save()
         messages.success(request, "The Monthly Pledges Report has been Archived")
-        return render(request, 'Pledges/pledgesindex.html', context)
+        return render(request, 'Pledges/pledgesindex.html')
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'August', 'September', 'October', 'November','December']
     years = datetime.now().year
     total = Pledges.objects.aggregate(totals=models.Sum("Amount_Pledged"))
