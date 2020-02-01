@@ -1837,6 +1837,8 @@ def add_Pledge_Items(request):
         if form.is_valid():
             form.save()
             return redirect('list-of-pledge-items')
+        messages.success(request, "Item Already exists in the Database!")
+        return redirect('list-of-pledge-items')   
     else:
         form=PledgeItemsForm()
         return render(request, 'Pledges/add_Pledge_Item.html',{'form':form})

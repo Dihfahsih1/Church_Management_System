@@ -88,16 +88,16 @@
                                      <div class="mb-6">
                                        {% if item.Total_Item_Cashout == item.Amount_Needed  %}
                                       <b class="btn btn-btn btn-sm "><span class="glyphicon glyphicon-thumbs-up"></span>CASHED</b>
-                                       <a href="{% url 'edit-pledge-item' item.id %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                                       <a href="{% url 'delete-pledge-item' item.id %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"></span></a>
                                       
 
-                                      {% elif item.Item_money_received > 0 %}
+                                      {% elif item.Item_money_received >= 0 %}
                                         <a href="{% url 'pledge-cash-out' item.id %}"class="btn btn-success btn-sm"><span class="glyphicon glyphicon-euro"> </span> Cash Out</a>
-                                         <a href="{% url 'edit-pledge-item' item.id %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                                        
                                       {% else %}
                                         <a href="{% url 'edit-pledge-item' item.id %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
                                      
-                                        <a href="{% url 'delete-pledge-item' item.id %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"></span></a>
+                                        
                                       {% endif %} 
                                      </div> 
                                         
@@ -106,9 +106,12 @@
                                 {% endfor%} 
                             </tbody>
                         </table>
+                           
+
                     </div>
                   </div>
                </div>
+                <p style="color:red; font-size: 150%"><b>NB: </b> Please Delete The Pledge Item that has been  <b>FULLY CASHED</b></p>
             </div> 
           </div>
         </div>       
