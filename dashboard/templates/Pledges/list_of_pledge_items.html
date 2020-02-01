@@ -91,11 +91,11 @@
                                        <a href="{% url 'delete-pledge-item' item.id %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"></span></a>
                                       
 
-                                      {% elif item.Item_money_received >= 0 %}
+                                      {% elif item.Item_money_received > 0 %}
                                         <a href="{% url 'pledge-cash-out' item.id %}"class="btn btn-success btn-sm"><span class="glyphicon glyphicon-euro"> </span> Cash Out</a>
                                         
                                       {% else %}
-                                        <a href="{% url 'edit-pledge-item' item.id %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                                        <a href="{% url 'edit-pledge-item' item.id %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                                      
                                         
                                       {% endif %} 

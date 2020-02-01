@@ -1837,8 +1837,8 @@ def add_Pledge_Items(request):
         if form.is_valid():
             form.save()
             return redirect('list-of-pledge-items')
-        messages.success(request, "Item Already exists in the Database!")
-        return redirect('list-of-pledge-items')   
+        messages.error(request, "Item Name Already exists in the Database, Choose a different one!")
+        return redirect('add-pledge-item')   
     else:
         form=PledgeItemsForm()
         return render(request, 'Pledges/add_Pledge_Item.html',{'form':form})
@@ -2056,9 +2056,7 @@ def Pledgesreport(request):
             expense_archiveobj.archivedyear= archived_year
             expense_archiveobj.archivedmonth =archived_month
             expense_archiveobj.save()
-        all_expenses.delete()
-        message="The Monthly Pledges Report has been Archived"
-        context={'message':message}
+        messages.success(request, "The Monthly Pledges Report has been Archived")
         return render(request, 'Pledges/pledgesindex.html', context)
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'August', 'September', 'October', 'November','December']
     years = datetime.now().year
