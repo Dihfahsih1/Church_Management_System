@@ -2107,6 +2107,17 @@ class pledgesarchivepdf(View):
             'archived_pledges': archived_pledges,
         }
         return Render.render('Pledges/pledgesarchivepdf.html', pledgescontext)
+
+class pledge_debt_invoice(View):
+    def get(self, request, pk):
+        debt = PledgesReportArchive.objects.get(Q(Status='UNPAID') | Q(Status='PARTIAL'), Pledge_Id=pk)
+        today = timezone.now()
+        debtcontext = {
+            'today': today,
+            'debt': debt,
+            'request': request,
+        }
+        return Render.render('Pledges/pledge_debt_invoice.html', debtcontext)        
 #airtime report
 def airtime_data_report(request):
     mth = datetime.now().day

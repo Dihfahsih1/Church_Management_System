@@ -42,12 +42,14 @@
                         <li role="presentation"><a href="{% url 'enter_expenditure' %}"><i
                               class="fa fa-plus-square-o"></i> Record Main Expense</a>
                          </li>
-                        <li role="presentation" class="active"><a href="{% url 'general-expenses-report' %}"><i
-                                    class="fa fa-list-ol"></i> List of General Expenses</a>
+                        <li role="presentation" class="active"><a href="{% url 'general-expenses-report' %}"><i class="fa fa-list-ol"></i> List of General Expenses</a>
                         </li>
                         <li role="presentation"><a href="{% url 'enter-general-expenses' %}"><i
                               class="fa fa-plus-square-o"></i> Record General Expense</a>
                          </li>
+                         <li role="presentation" ><a href="{% url 'general-expensesarchives-search' %}"><i
+                                    class="fa fa-list-ol"></i> Archived General Expenses</a>
+                        </li>
                     </ul>
                     <br/>
                     <h3 style="color: red">{{ message }}</h3>
@@ -74,7 +76,7 @@
                                   <td class="rowDataSd">{{ item.Amount}}</td>
                                   <td>
                                      <div class="mb-4">
-                                        <a href="{% url 'expensereceipt' item.id %}" target="_new"><button class="btn btn-success"><span class="glyphicon glyphicon-qrcode">Receipt </span></button></a> |
+                                        <a href="{% url 'expensereceipt' item.id %}" target="_new"><button class="btn btn-success"><span class="glyphicon glyphicon-qrcode">Voucher </span></button></a> |
                                         <a href="{% url 'edit_payment' pk=item.id %}" ><button class="btn btn-info"><span class="glyphicon glyphicon-edit">Edit </span></button></a>
                                        {% endfor %}
                                      </div></td>

@@ -24,18 +24,20 @@
             <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
                     <ul class="nav nav-tabs bordered">
-                        <li role="presentation"><a href="{% url 'expenditurereport' %}"><i
-                                    class="fa fa-list-ol"></i> List of Main Expenses</a>
+                        <li role="presentation" ><a href="{% url 'expenditurereport' %}"><i
+                                    class="fa fa-list-ol"></i> Main Expenses</a>
                         </li>
-                        <li role="presentation"><a href="{% url 'enter_expenditure' %}"><i
+                        <li role="presentation" ><a href="{% url 'enter_expenditure' %}"><i
                               class="fa fa-plus-square-o"></i> Record Main Expense</a>
                          </li>
-                        <li role="presentation"><a href="{% url 'general-expenses-report' %}"><i
-                                    class="fa fa-list-ol"></i> List of General Expenses</a>
+                        <li role="presentation"><a href="{% url 'general-expenses-report' %}"><i class="fa fa-list-ol"></i> General Expenses</a>
                         </li>
-                        <li role="presentation"  class="active"><a href="{% url 'enter-general-expenses' %}"><i
+                        <li role="presentation" class="active"><a href="{% url 'enter-general-expenses' %}"><i
                               class="fa fa-plus-square-o"></i> Record General Expense</a>
                          </li>
+                         <li role="presentation" ><a href="{% url 'general-expensesarchives-search' %}"><i
+                                    class="fa fa-list-ol"></i> Archived General Expenses</a>
+                        </li>
                     </ul>
                     <br/>
 					<div class="col-lg-6 col-offset-8 centered">

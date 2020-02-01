@@ -83,7 +83,7 @@
                                     |<a href="#}" target="_blank"><button class="btn btn-warning"><span class="glyphicon glyphicon-qrcode"> Receipt</span></button></a>
                                   {% else %}
                                   <a href="{% url 'settle-pledge-debt' db.Pledge_Id %}" target="_blank"><button class="btn btn-success">Settle Debt</button></a>|
-                                    <button class="btn btn-info">Invoice</button>
+                                    <a href="{% url 'pledge-invoice' db.Pledge_Id %}"><button class="btn btn-info">Invoice</button></a>
                                   {% endif%}
                                   {% if db.total_pledge_paid == 0  %}
                                   <a href="{% url 'delete-bad-debt' db.Pledge_Id %}" target="_blank"><button class="btn btn-danger">Bad Debt</button></a></td>

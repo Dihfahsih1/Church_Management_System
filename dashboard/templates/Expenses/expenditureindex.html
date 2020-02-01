@@ -36,15 +36,19 @@
                 <div class="" data-example-id="togglable-tabs">
 
                     <ul class="nav nav-tabs bordered">
-                        <li role="presentation" class="active"><a href="{% url 'expenditurereport' %}"><i
+                         <li role="presentation" class="active"><a href="{% url 'expenditurereport' %}"><i
                                     class="fa fa-list-ol"></i> List of Main Expenses</a>
                         </li>
                         <li role="presentation"><a href="{% url 'enter_expenditure' %}"><i
                               class="fa fa-plus-square-o"></i> Record Main Expense</a>
                          </li>
-
-                          <li role="presentation"><a href="#"><i
-                              class="glyphicon glyphicon-king"></i> Expenditures Archived</a>
+                        <li role="presentation"><a href="{% url 'general-expenses-report' %}"><i class="fa fa-list-ol"></i> List of General Expenses</a>
+                        </li>
+                        <li role="presentation"><a href="{% url 'enter-general-expenses' %}"><i
+                              class="fa fa-plus-square-o"></i> Record General Expense</a>
+                         </li>
+                        <li role="presentation"><a href="{% url 'expensesarchivessearch' %}"><i
+                              class="fa fa-plus-square-o"></i> Archived Main Expense</a>
                          </li>
                     </ul>
                     <br/>
@@ -71,7 +75,7 @@
                                   <td class="rowDataSd">{{ item.Amount}}</td>
                                   <td>
                                      <div class="mb-4">
-                                        <a href="{% url 'expensereceipt' item.id %}" target="_new"><button class="btn btn-success"><span class="glyphicon glyphicon-qrcode">Receipt </span></button></a> |
+                                        <a href="{% url 'expensereceipt' item.id %}" target="_new"><button class="btn btn-success"><span class="glyphicon glyphicon-qrcode">Voucher</span></button></a> |
                                         <a href="{% url 'edit_payment' pk=item.id %}" ><button class="btn btn-info"><span class="glyphicon glyphicon-edit">Edit </span></button></a>
                                        {% endfor %}
                                      </div></td></tr>
