@@ -152,6 +152,7 @@ class OfferingsReportArchive(models.Model):
         
 class Members(models.Model):
     sex=(('Female','Female'),('Male','Male'))
+    ini=(('Mr.','Mr.'),('Mrs.','Mrs.'),('Ms.','Ms.'),('Pr.','Pr.'),('Dr.','Dr.'),('Eng.','Eng.'))
     status=(('Married','Married'),('Single','Single'),('Divorced','Divorced'),('Widower','Widower'),('Widow','Widow'))
     marriage=(('Church_Marriage','Church_Marriage'),('Customary','Customary'),('Legal','Legal'),('Cohabiting','Cohabiting'))
     education=(('Masters','Master'),('Degree','Degree'),('Diploma','Diploma'),('Certificate','Certificate'),('None','None'),
@@ -161,7 +162,7 @@ class Members(models.Model):
         ('Church Zone','Church Zone'),('Kabira Zone','Kabira Zone'),('Kafunda Zone','Kafunda Zone'),('Lugoba Zone','Lugoba Zone') ,('Katooke Zone','Katooke Zone'),
         ('Kazo Zone','Kazo Zone'),('Gombolola Zone','Gombolola Zone'),('Kawaala Zone','Kawaala Zone'),('Bombo Rd Zone','Bombo Rd Zone')
         )
-
+    Initials=models.CharField(max_length=100, choices=ini,null=True, blank=True)
     First_Name=models.CharField(max_length=100,null=True)
     Second_Name=models.CharField(max_length=100,null=True)
     Home_Cell=models.CharField(max_length=100, choices=cell,null=True)

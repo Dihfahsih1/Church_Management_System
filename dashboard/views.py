@@ -1973,7 +1973,7 @@ def delete_bad_debt(request, pk):
 @login_required
 def pledges_paid_list(request):
     context = {}
-    today = timezone.now()
+    today = datetime.now()
     month = today.strftime('%B')
     context['month']=month
     current_month = datetime.now().month
@@ -2126,6 +2126,19 @@ class pledge_debt_invoice(View):
         }
         return Render.render('Pledges/pledge_debt_invoice.html', debtcontext) 
 
+#invoice of pledges made but pending payment
+class pledge_made_invoice(View):
+    def get(self, request, pk):
+        pledge = Pledges.objects.get(Q(Status='UNPAID') | Q(Status='PARTIAL'), id=pk)
+        today = datetime.now()
+        debtcontext = {
+            'today': today,
+            'pledge': pledge,
+            'request': request,
+        }
+        return Render.render('Pledges/pledges_made_invoice.html', debtcontext) 
+
+#print receipt for archived pledges that have been settled.        
 class settled_archived_pledge_receipt(View):
     def get(self, request, pk):
         settled= PledgesReportArchive.objects.get(Status='PAID', Pledge_Id=pk)

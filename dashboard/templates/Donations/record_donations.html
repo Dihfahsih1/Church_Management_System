@@ -26,7 +26,7 @@
 		  	    <div class="x_content">
 		            <div class="" data-example-id="togglable-tabs">
 		                <ul class="nav nav-tabs bordered">
-		                    <li role="presentation"><a href="{% url 'donations-report' %}"><i class="fa fa-list-ol"></i> List of Donations</a>
+		                    <li role="presentation"><a href="{% url 'donations-report' %}"><i class="fa fa-list-ol"></i> Evangelism Report</a>
                          </li>
 		                    <li role="presentation"class="active"><a href="{% url 'record-donations' %}"><i
 	                            class="fa fa-plus-square-o"></i> Record Donation</a>
@@ -37,7 +37,7 @@
                             
 		                </ul>
 		                <br/>
-                         <h2 style="text-align: center">Record Revenue From Evangelism/Missions</h2>
+                         <h2 style="text-align: center">Record Revenue From Evangelism / Missions</h2>
                       <h4 style="color: green; font-weight: 120%"><b>{{ message }}</b></h4>
 						<div style="margin-left: 25%"class="col-lg-4 col-md-4 col-sm-4 justify-content-center">
 						{% load crispy_forms_tags %}
@@ -52,7 +52,6 @@
 						</div>
 			        </div>
 		        </div>
-                {% include 'messages.html' %}
             </div>
         </div>
     </div>
