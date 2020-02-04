@@ -112,6 +112,7 @@ def index(request):
     else:
         total_current_salaries = 0
         salaries = 0
+
     #weekly salaries
     total_weekly_salaries = SalariesPaid.objects.filter(Date_of_paying_salary__gte=one_week_ago).aggregate(totals=models.Sum("Salary_Amount"))
     if (total_weekly_salaries['totals'])!=None:
@@ -206,6 +207,7 @@ def index(request):
     else:
         weekly_allowances = 0
         d_allowances=0
+
     #incase of data has been archived, none is returned, so we have to catch it before it causes trouble
     if (total_current_donations,total_current_thanks,total_current_seeds,total_petty_expenses,total_current_tithes,total_current_salaries, total_general_expenses, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== None:
         total_monthly_incomes = 0
@@ -227,12 +229,14 @@ def index(request):
         'd_petty':d_petty,'d_allowances':d_allowances,'d_salaries':d_salaries, 'd_pledges':d_pledges, 'd_general':d_general,'d_expenses':d_expenses,
         }
         return render(request,'index.html', context)
+
     #in case the totals are Zero
     elif (total_petty_expenses,total_current_tithes,total_general_expenses, total_current_salaries, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== 0:
         total_monthly_incomes = 0
         total_monthly_expenditure =  0
         total_general_expenses = 0
         pledges = 0
+
         #calculating net income
         net_income = total_monthly_incomes - total_monthly_expenditure
         today = timezone.now()
@@ -294,6 +298,7 @@ def employee_list(request):
     mth = today.strftime('%B')
     context ={'mth':mth,'employees': employees}
     return render(request, 'Employees/employee_list.html', context)
+
 def edit_employee(request, pk):
     item = get_object_or_404(StaffDetails, pk=pk)
     if request.method == "POST":
@@ -325,6 +330,7 @@ def view_employee(request, pk):
         context['form']=form
         print(form.instance.UCC_Bwaise_Member)
     return render(request,'Employees/employee_view.html',context)
+
 def paying_employees(request, pk):
     items = get_object_or_404(StaffDetails, id=pk)
     if request.method == "POST":
@@ -402,12 +408,14 @@ def current_month_salary_paid(request):
         'years':years,
     }
     return render(request, 'Employees/current_month_salaries_paid.html',context)
+
 def delete_salary_paid(request,pk):
     salary= get_object_or_404(SalariesPaid, id=pk)
     if request.method == "GET":
         salary.delete()
         messages.success(request, "Salary Paid successfully deleted!")
-        return redirect("current-month-salaries")     
+        return redirect("current-month-salaries")
+
 #Search for the archived salaries reports
 def salariespaidarchivessearch(request):
     if request.method == 'POST':
@@ -417,8 +425,6 @@ def salariespaidarchivessearch(request):
         months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
                   'August','September', 'October',  'November','December']
         years = datetime.now().year
-
-
         archived_salaries = SalariesPaidReportArchive.objects.all()
         today = timezone.now()
         total = archived_reports.aggregate(totals=models.Sum("Salary_Amount"))
@@ -446,7 +452,7 @@ def salariespaidarchivessearch(request):
                'archived_salaries': archived_salaries}
     return render(request, "Employees/salariespaidarchive.html", context)    
 
-      ####################################################
+     ####################################################
     #       REGISTERING CHURCH MEMBERS AND VISITORS      #
      ####################################################
 
@@ -464,7 +470,8 @@ def register_members(request):
         form=MembersForm()
         return render(request, 'Members/register_members.html',{'form':form})
 
-        #visitors
+
+#visitors
 @login_required
 def register_visitors(request):
     if request.method=="POST":
@@ -485,6 +492,7 @@ def members_list(request):
     context ={'membership': membership, 'day':day}
     return render(request, 'Members/members_list.html', context)
 
+#edit member
 def edit_member(request, pk):
     item = get_object_or_404(Members, pk=pk)
     if request.method == "POST":
@@ -496,6 +504,8 @@ def edit_member(request, pk):
     else:
         form = MembersForm(instance=item)
     return render(request, 'Members/register_members.html', {'form': form})
+
+#view member    
 def view_member(request, pk):
     context={}
     member = get_object_or_404(Members, id=pk)
@@ -509,6 +519,7 @@ def view_member(request, pk):
         context['form']=form
     return render(request,'Members/members_view.html',context)
 
+#delete member
 def delete_member(request, pk):
     member= get_object_or_404(Members, id=pk)
     if request.method == "GET":
@@ -517,6 +528,8 @@ def delete_member(request, pk):
         return redirect("members-list")
     context= {'member': member}
     return render(request, 'Members/members_delete.html', context)
+
+#edit visitor    
 def edit_visitor(request, pk):
     item = get_object_or_404(Visitors, pk=pk)
     if request.method == "POST":
@@ -528,6 +541,8 @@ def edit_visitor(request, pk):
     else:
         form = VisitorsForm(instance=item)
     return render(request, 'Members/register_visitors.html', {'form': form})
+
+#delete visitors    
 def delete_visitor(request, pk):
     visiting= get_object_or_404(Visitors, id=pk)
     if request.method == "GET":
@@ -538,7 +553,7 @@ def delete_visitor(request, pk):
     context= {'visiting': visiting}
     return render(request, 'Members/visitor_delete.html', context)
 
-    #list of church visitors
+#list of church visitors
 @login_required
 def visitors_list(request):
     visiting = Visitors.objects.all()
@@ -551,8 +566,10 @@ def visitors_list(request):
 
 
      ###################################################
-              #        OFFERINGS MODULE        #
+    #                 OFFERINGS MODULE                  #
      ###################################################
+
+#recording offerings
 @login_required
 def Enter_Offerings(request):
     if request.method=="POST":
@@ -564,6 +581,8 @@ def Enter_Offerings(request):
     else:
         form=OfferingsForm()
         return render(request, 'Offerings/record_offerings.html',{'form':form})
+
+#edit offerings
 def edit_offerings(request, pk):
     item = get_object_or_404(Offerings, pk=pk)
     if request.method == "POST":
@@ -576,11 +595,11 @@ def edit_offerings(request, pk):
         form = OfferingsForm(instance=item)
     return render(request, 'Offerings/record_offerings.html', {'form': form})
 
+#offering
 class offeringspdf(View):
     def get(self, request):
         current_month = datetime.now().month
         offerings = Offerings.objects.filter(Date__month=current_month).order_by('-Date')
-
         today = timezone.now()
         month = today.strftime('%B')
         totalexpense = 0
@@ -619,30 +638,24 @@ def Offeringsreport (request):
             date=expense.Date
             service=expense.Service
             amount=expense.Total_Offering
-
             # the expense archive object
             expense_archiveobj=OfferingsReportArchive()
-
             #attached values to expense_archiveobj
             expense_archiveobj.Date=date
             expense_archiveobj.Amount=amount
             expense_archiveobj.Service=service
             expense_archiveobj.archivedyear= archived_year
             expense_archiveobj.archivedmonth =archived_month
-
             expense_archiveobj.save()
-
         #deleting all the expense from reports table
         all_expenses.delete()
-
         message="The Monthly Offerings Report has been Archived"
         context={'message':message}
         return render(request, 'Offerings/offeringsindex.html', context)
-
     months = ['January', 'February', 'March', 'April', 'May', 'June',
               'July', 'August','September', 'October', 'November','December']
     years = datetime.now().year
-    today = timezone.now()
+    today = datetime.now()
     current_month = today.strftime('%B')
     mth = datetime.now().month
     day=datetime.now()
@@ -662,8 +675,6 @@ def offeringsarchivessearch(request):
         months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
                   'August', 'September', 'October', 'November', 'December']
         years = datetime.now().year
-
-
         offerings = OfferingsReportArchive.objects.all()
         today = timezone.now()
         total = archived_reports.aggregate(totals=models.Sum("Amount"))
@@ -678,13 +689,10 @@ def offeringsarchivessearch(request):
                    'report_month': report_month
                    }
         return render(request, "Offerings/offeringsarchive.html", context)
-
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
               'August', 'September', 'October', 'November', 'November', 'December']
     years = datetime.now().year
-
     offerings = OfferingsReportArchive.objects.all()
-
     context = {'months': months,'years': years,'offerings': offerings}
     return render(request, "Offerings/offeringsarchive.html", context)
 
@@ -698,8 +706,7 @@ class offeringsarchivepdf(View):
             'today': today,
             'total_amount': total_amount,
             'request': request,
-            'archived_offerings': archived_offerings,
-        }
+            'archived_offerings': archived_offerings,}
         return Render.render('Offerings/offeringsarchivepdf.html', offeringscontext)
 
     
@@ -707,7 +714,6 @@ class offeringsarchivepdf(View):
         #        SEEDS OFFERING MODULE                  #
         #################################################
 def add_seeds(request):
-
     if request.method=="POST":
         form=SeedsForm(request.POST)
         if form.is_valid():
@@ -765,7 +771,6 @@ def seedsarchivessearch(request):
         archived_reports = SeedsReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
         months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September', 'October', 'November', 'December']
         years = datetime.now().year
-
         seeds = SeedsReportArchive.objects.all()
         today = timezone.now()
         total = archived_reports.aggregate(totals=models.Sum("Amount"))
@@ -803,7 +808,7 @@ class seed_offering_receipt(View):
 
 
      ###################################################
-              #        DONATIONS MODULE        #
+    #                   DONATIONS MODULE                #
      ###################################################
 @login_required
 def record_donations(request):
@@ -861,7 +866,7 @@ def edit_donation(request, pk):
             form.save()
             return redirect('donations-report')
     else:
-        today = timezone.now()
+        today = datetime.now()
         month = today.strftime('%B')
         form = DonationsForm(instance=item)        
         context={'form':form, 'month':month}
@@ -876,7 +881,7 @@ def donationsarchivessearch(request):
         years = datetime.now().year
         years = [yr,2019,2018,2017]
         donations = DonationsReportArchive.objects.all()
-        today = timezone.now()
+        today = datetime.now()
         total = archived_reports.aggregate(totals=models.Sum("Amount"))
         total_amount = total["totals"]
         context = {'archived_reports': archived_reports,'months': months,'years': years,'expenses': donations,
