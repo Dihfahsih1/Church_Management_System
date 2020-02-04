@@ -1837,19 +1837,24 @@ def Enter_Pledges(request):
         return render(request, 'Pledges/enter_pledge.html',{'form':form})
 @login_required
 def add_Pledge_Items(request):
+    
     if request.method=="POST":
         form=PledgeItemsForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('list-of-pledge-items')
+            return redirect('add-pledge-item')
         messages.error(request, "Item Name Already exists in the Database, Choose a different one!")
         return redirect('add-pledge-item')   
     else:
         form=PledgeItemsForm()
-        return render(request, 'Pledges/add_Pledge_Item.html',{'form':form})
+        current_year=datetime.now().year
+        items = PledgeItem.objects.filter(Date__year=current_year)
+        context={'form':form, 'items':items, 'current_year':current_year}
+        return render(request, 'Pledges/add_Pledge_Item.html',context)
 @login_required
 def list_of_pledge_items(request):
-    items = PledgeItem.objects.all().order_by('-id')
+    current_year=datetime.now().year
+    items = PledgeItem.objects.filter(Date__year=current_year).order_by('-Date')
     context ={'items': items}
     return render(request, 'Pledges/list_of_pledge_items.html',context)
 

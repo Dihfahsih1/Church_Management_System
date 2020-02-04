@@ -49,6 +49,7 @@
                 </li>
               </ul> <br/>
 				{% load crispy_forms_tags %}
+
         <div  class="col-lg-6 col-offset-8 centered">
 				<form method="POST" enctype="multipart/form-data" >
 				{% csrf_token %}
@@ -63,10 +64,18 @@
 				    <button type="submit" class="btn btn-primary" name="button">Submit</button>
 				</form>
       </div>
-				{% include 'messages.html' %}
+      <div  class="col-lg-6 col-offset-8 centered">
+        <h4>List of all Pledge Items in {{current_year}}</h4>
+        <div class="separator"></div>
+        {% for item in items %}
+          <h5>{{forloop.counter}}. {{item.Item_That_Needs_Pledges}} - {{item.Date}} </h5><br>
+        {% endfor %}
+      </div>
+				
 			    </div>
 			   </div>
 			   </div>
+         <p style="color:red; font-size: 150%"><b>NB: </b> Please Use Different Item Name to avoid Conflict</p>
 			    </div>
 			  </div>
 			</div>
