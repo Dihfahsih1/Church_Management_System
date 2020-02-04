@@ -10,7 +10,6 @@ class RegisterForm(forms.ModelForm):
         model = User
         fields = ['full_name','email','username','Role']
         # 'roles'
-
         labels = {
             'full_name': 'Name',
             'email': 'Email',

@@ -103,15 +103,15 @@ def delete_user(request,pk):
 def user_update(request, user_pk):
     user = get_object_or_404(User, pk=user_pk)
     if request.method == "POST":
-        form = EditUserForm(request.POST, request.FILES, instance=user)
+        form = RegisterForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
-            user_form = form.save()
+            form = form.save()
             return redirect('register')
         else:
-            form = EditUserForm(instance=user)
+            form = RegisterForm(instance=user)
             args = {'form': form,}
             return render(request, 'users/home/user_update.html', args)
     else:
-        form = EditUserForm(instance=user)
+        form = RegisterForm(instance=user)
         args = {'form': form,}
         return render(request, 'users/home/user_update.html', args)
