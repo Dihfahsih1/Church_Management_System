@@ -1,0 +1,261 @@
+{% load static contact_tags page_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load bootstrap4 %} {# import bootstrap4/bootstrap3 #}
+    {% bootstrap_javascript jquery='full' %} {# Embed Bootstrap JS+jQuery #}
+    {{ form.media }} {# Adds date-picker required JS and CSS #}
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block head %}
+        {% block meta %}
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+            <!-- Meta, title, CSS, favicons, etc. -->
+            <meta charset="utf-8">
+            <meta charset="ISO-8859-15">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% endblock meta %}
+
+        <title>Canon | {% block title %}{% endblock %}</title>
+
+        {% block stylesheets %}
+            <!-- CSS -->
+            <link rel="stylesheet" href="{% static 'vendors/bootstrap/dist/css/bootstrap.min.css' %}">
+            <link rel="stylesheet" href="{% static 'vendors/jquery-ui/jquery-ui.css' %}">
+            <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+            <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+            <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+            <link rel="stylesheet" href="{% static 'css/jazzberry-jam.css' %}">
+            <link rel="stylesheet" href="{% static 'css/meanmenu.css' %}">
+            <link rel="stylesheet" href="{% static 'css/jquery.fancybox.css' %}">
+            <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+            <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+            <script src="{% static 'js/jquery.validate.js' %}"></script>
+        {% endblock stylesheets %}
+
+    {% endblock head %}
+
+</head>
+
+<body>
+
+<header>
+    <div class="header-top-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 col-md-8 col-sm-12 col-12 hta-left">
+                    <div class="hta-box">
+                        <p class="text">Have you any question?</p>
+                    </div>
+                    <div class="hta-box">
+                        <span class="icon"><i class="fa fa-phone"></i></span>
+                        <p class="text">Call us : {% phone_number %}</p>
+                    </div>
+
+                    <div class="hta-box">
+                        <span class="icon"><i class="fa fa-envelope"></i></span>
+                        <p class="text">Email us : {% email_address %}</p>
+                    </div>
+
+                </div>
+                <div class="col-lg-5 col-md-4 col-sm-12 col-12 hta-right text-right">
+                    <div class="hta-box">
+                        {% school_name %}
+
+                        {#                        {% if request.tenant %}#}
+                        {#                            <a href="http://{{ request.tenant.domain_url }}:8000/canon/">#}
+                        {#                                <strong>{{ request.tenant.schema_name }}</strong>#}
+                        {#                            </a>#}
+                        {#                        {% else %}#}
+                        {#                            None.#}
+                        {#                        {% endif %}#}
+
+                    </div>
+
+                    <div class="hta-box">
+                        <a class="text" href="{% url 'online_admission' %}">Admission</a>
+                    </div>
+
+                    {% if request.user.is_authenticated %}
+                        <div class="hta-box">
+                            <span class="icon"><i class="fa fa-sign-in-alt"></i></span>
+                            <a class="text" href="{% url 'logout' %}">Log Out</a>
+                        </div>
+                    {% else %}
+                        <div class="hta-box">
+                            <span class="icon"><i class="fa fa-sign-in-alt"></i></span>
+                            <a class="text" href="{% url 'login' %}">Log In</a>
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-bottom-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 offset-lg-0 col-md-4 offset-md-3 col-sm-6 col-6">
+                    <div class="logo">
+                        <a href="{% url 'index_public' %}">
+                            <img src="{% static 'images/logo.png' %}"
+                                 alt=""/>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-10 offset-lg-0 col-md-8 offset-md-2 col-sm-12 col-12">
+                    <div class="menu">
+                        <nav id="mobile_menu_active">
+                            <ul id="menu">
+                                <li><a href="{% url 'index_public' %}">Home</a></li>
+                                <li><a href="#">Announcement <span class="icon fa fa-chevron-down"></span></a>
+                                    <ul class="drop">
+                                        <li><a href="#">News</a></li>
+                                        <li><a href="#">Notice</a></li>
+                                        <li><a href="#">Holiday</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Event</a></li>
+                                <li><a href="#">Gallery</a></li>
+                                <li><a href="#">Teacher</a></li>
+                                <li><a href="#">Staff</a></li>
+                                <li><a href="#">Contact Us</a></li>
+                                <li><a href="javascript:void(0)">Page <span class="icon fa fa-chevron-down"></span></a>
+                                    <ul class="drop">
+                                        {% all_pages %}
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+{% block content %}
+{% endblock content %}
+{% include "home/scripts.html" %}
+
+<!-- footer content -->
+<footer>
+    <div class="footer-top-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-7 col-sm-7 col-12">
+                    <div class="footer-widget">
+                        <h2 class="fw-title"><span>About Us:</span></h2>
+                        <p class="text">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                            exercitation
+                            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                            reprehenderit
+                            in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-5 col-sm-5 col-12">
+                    <div class="footer-widget">
+                        <h2 class="fw-title"><span>Quick Link:</span></h2>
+                        <ul class="links">
+                            <li><a href="#">Admission</a></li>
+                            <li><a href="#">News</a></li>
+                            <li><a href="#">Notice</a></li>
+                            <li><a href="#">Holiday</a></li>
+                            <li><a href="#">Event</a></li>
+                            <li><a href="#">Gallery</a></li>
+                            <li><a href="#">Teacher</a></li>
+                            <li><a href="#">Staff</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Privacy
+                                Policy</a>
+                            </li>
+                            <li><a href="#">Terms &
+                                Condition</a></li>
+
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-5 col-sm-5 col-12">
+                    <div class="footer-widget">
+                        <h2 class="fw-title">Social Link</h2>
+                        <ul class="social">
+                            <li><a href="https://www.facebook.com/" target="_blank"><i
+                                    class="fa fa-facebook"></i></a></li>
+
+                            <li><a href="https://www.twitter.com/" target="_blank"><i
+                                    class="fa fa-twitter"></i></a>
+                            </li>
+
+                            <li><a href="https://www.linkedin.com/" target="_blank"><i
+                                    class="fa fa-linkedin"></i></a></li>
+
+                            <li><a href="https://plus.google.com/" target="_blank"><i
+                                    class="fa fa-google-plus"></i></a>
+                            </li>
+
+                            <li><a href="https://www.youtube.com/" target="_blank"><i
+                                    class="fa fa-youtube"></i></a>
+                            </li>
+
+                            <li><a href="https://www.instagram.com/" target="_blank"><i
+                                    class="fa fa-instagram"></i></a></li>
+
+                            <li><a href="https://www.pinterest.com/" target="_blank"><i
+                                    class="fa fa-pinterest"></i></a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-7 col-sm-7 col-12">
+                    <div class="footer-widget">
+                        <h2 class="fw-title">Get in Touch</h2>
+                        <ul class="address">
+                            <li><span class="icon"><i class="fa fa-phone"></i></span>
+                                {% phone_number %}
+                            </li>
+                            <li><span class="icon"><i class="fa fa-envelope"></i></span>
+                                {% email_address %}
+                            </li>
+                            <li><span class="icon"><i class="fa fa-map-marker"></i></span>
+                                {% school_address %}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom-area">
+        <div class="container text-center">
+            <p class="copyright">
+                {% school_name %}
+            </p>
+        </div>
+    </div>
+</footer>
+<!-- /footer content -->
+<!-- Scripts -->
+<script src="{% static 'vendors/jquery-ui/jquery-ui.js' %}"></script>
+<link rel="stylesheet" href="{% static 'js/owl.carousel.min.js' %}">
+<link rel="stylesheet" href="{% static 'js/counterup.min.js' %}">
+<link rel="stylesheet" href="{% static 'js/jquery.meanmenu.js' %}">
+<link rel="stylesheet" href="{% static 'js/jquery.fancybox.min.js' %}">
+<link rel="stylesheet" href="{% static 'js/jquery.scrollUp.js' %}">
+<link rel="stylesheet" href="{% static 'js/jquery.waypoints.min.js' %}">
+<link rel="stylesheet" href="{% static 'js/popper.min.js' %}">
+<link rel="stylesheet" href="{% static 'js/bootstrap.min.js' %}">
+<link rel="stylesheet" href="{% static 'js/theme.js' %}">
+
+</body>
+</html>
+
