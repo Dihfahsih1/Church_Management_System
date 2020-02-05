@@ -14,7 +14,7 @@
                 </div>
                 <div class="content">
                     <div class="container">
-                        <h3 class="intro animated">Welcome to</h3>
+                        <!--<h3 class="intro animated">Welcome to</h3>-->
                         <h2 class="title animated"> {{slider.image_title}} </h2>
                         <a class="link animated glbscl-link-btn hvr-bs"
                            href="#">Visit Us Today</a>
@@ -30,11 +30,11 @@
         <div class="container">
             <div class="row">
                 {% for about in abouts %}
+                {% if forloop.counter == 1 %}
                     <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                         <div class="top-banner-content">
                             <h3 class="intro">Welcome to</h3>
-                            <h2 class="title">
-                                {{ custom_header }} </h2>
+                            <h2 class="title"> UCC BWAISE </h2>
                             <p class="text">
                                 {{ about.about|truncatewords:80|linebreaks }}
                             </p>
@@ -53,6 +53,20 @@
                             {% endif %}
                         </div>
                     </div>
+                <!---      {% else %}
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                        <div class="top-banner-img">
+                            {% if about.about_image %}
+                                <img src="{{ about.about_image.url }}" alt="">
+                            {% endif %}
+                        </div>
+                        <div class="top-banner-content">
+                            <p class="text">
+                                {{ about.about|truncatewords:80|linebreaks }}
+                            </p>
+                        </div>
+                    </div> -->
+                {% endif %}
                 {% endfor %}
             </div>
         </div>

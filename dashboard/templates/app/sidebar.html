@@ -114,10 +114,18 @@
                 </li>
                  <li><a><i class="glyphicon glyphicon-transfer"></i> Manage Church Website <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li><a href="#">Manage Pages</a></li>
+                        <li><a href="{% url 'page_list' %}">Manage Pages</a></li>
                         <li><a href="{% url 'slider_list' %}">Manage Sliders</a></li>
                         <li><a href="{% url 'about_list' %}">The Front About</a></li>
                     </ul>
+                </li>
+                <li><a><i class="fa fa-image"></i>Media Gallery <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="{% url 'gallery_list' %}">Manage Gallery</a></li>
+                        <li><a href="{% url 'image_list' %}">Manage Gallery Image</a></li>
+                    </ul>
+                </li>
+                <li><a href="{% url 'news_list' %}"><i class="fa fa-bullhorn"></i> News</a>
                 </li>
                 <div class="separator"></div>
 

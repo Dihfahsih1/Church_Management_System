@@ -144,4 +144,35 @@ url(r'^frontend/about/update/(?P<about_pk>\d+)/$', views.AboutUpdateView.as_view
 url(r'^frontend/about/view/(?P<about_pk>\d+)/$', views.about_view, name='about_view'),
 url(r'^frontend/about/about-detail/(?P<about_pk>\d+)/$', views.about_detail, name='about_detail'),
 url(r'^frontend/about/delete/(?P<about_pk>\d+)/$', views.about_delete, name='about_delete'),
+
+#Pages
+url(r'^frontend/index/$', views.PageListView.as_view(), name='page_list'),
+url(r'^frontend/page/(?P<page_pk>\d+)/$', views.page_wall, name='page_wall'),
+url(r'^frontend/add/$', views.PageCreateView.as_view(), name='page_create'),
+url(r'^frontend/update/(?P<page_pk>\d+)/$', views.PageUpdateView.as_view(), name='page_update'),
+url(r'^frontend/view/(?P<page_pk>\d+)/$', views.page_view, name='page_view'),
+url(r'^frontend/delete/(?P<page_pk>\d+)/$', views.page_delete, name='page_delete'),
+
+#Galleries
+url(r'^gallery/index/$', views.GalleryListView.as_view(), name='gallery_list'),
+url(r'^galleries/$', views.gallery_wall, name='gallery_wall'),
+url(r'^gallery/add/$', views.GalleryCreateView.as_view(), name='gallery_create'),
+url(r'^gallery/update/(?P<gallery_pk>\d+)/$', views.GalleryUpdateView.as_view(), name='gallery_update'),
+url(r'^gallery/delete/(?P<gallery_pk>\d+)/$', views.gallery_delete, name='gallery_delete'),
+
+#Images
+url(r'^gallery/image/index/$', views.ImageListView.as_view(), name='image_list'),
+url(r'^gallery/image/create/$', views.ImageCreateView.as_view(), name='image_create'),
+url(r'^gallery/image/update/(?P<image_pk>\d+)/$', views.ImageUpdateView.as_view(), name='image_update'),
+url(r'^gallery/image/view/(?P<image_pk>\d+)/$', views.image_view, name='image_view'),
+url(r'^gallery/image/delete/(?P<image_pk>\d+)/$', views.image_delete, name='image_delete'),
+
+#News
+url(r'^announcement/news/index/$', views.NewsListView.as_view(), name='news_list'),
+url(r'^announcement/news/$', views.news_wall, name='news_wall'),
+url(r'^announcement/news/add/$', views.NewsCreateView.as_view(), name='news_create'),
+url(r'^announcement/news/update/(?P<news_pk>\d+)/$', views.NewsUpdateView.as_view(), name='news_update'),
+url(r'^announcement/news/view/(?P<news_pk>\d+)/$', views.news_view, name='news_view'),
+url(r'^announcement/news/news-detail/(?P<news_pk>\d+)/$', views.news_detail, name='news_detail'),
+url(r'^announcement/news/delete/(?P<news_pk>\d+)/$', views.news_delete, name='news_delete'),
 ]

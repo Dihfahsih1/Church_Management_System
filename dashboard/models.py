@@ -622,3 +622,85 @@ class About(models.Model):
 
     def get_absolute_url(self):
         return reverse('about_detail', args=[self.pk])        
+
+
+#pages
+class PublishedHeaderPageManager(models.Manager):
+    def get_queryset(self):
+        return super(PublishedHeaderPageManager, self).get_queryset().filter(page_location='Header')
+
+
+class PublishedFooterPageManager(models.Manager):
+    def get_queryset(self):
+        return super(PublishedFooterPageManager, self).get_queryset().filter(page_location='Footer')
+
+
+class Page(models.Model):
+    IS = (('Header', 'Header'),
+          ('Footer', 'Footer'))
+    page_location = models.CharField(max_length=100, default='Header', choices=IS)
+    page_title = models.CharField( max_length=100)
+    page_description = models.TextField(max_length=300)
+    page_image = models.ImageField(upload_to='images/', null=True, blank=False)
+
+    objects = models.Manager()
+    header = PublishedHeaderPageManager()
+    footer = PublishedFooterPageManager()
+
+    class Meta:
+        default_permissions = ('view', 'add', 'change', 'delete')
+
+    def __str__(self):
+        return self.page_title
+#Gallery
+class Gallery(models.Model):
+    gallery_title = models.CharField( max_length=100)
+    note = models.TextField( max_length=300)
+    Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS)
+
+    objects = models.Manager()
+    published = PublishedStatusManager()
+
+    class Meta:
+        default_permissions = ('view', 'add', 'change', 'delete')
+        verbose_name = ("Gallery")
+        verbose_name_plural = ("Galleries")
+
+    def __str__(self):
+        return self.gallery_title        
+#Images
+class Image(models.Model):
+    gallery_title = models.ForeignKey(Gallery, on_delete=models.CASCADE, blank=False, null=True)
+    gallery_image = models.ImageField( upload_to='images/', null=True, blank=False)
+    image_caption = models.CharField( max_length=100)
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ('view', 'add', 'change', 'delete')
+
+    def __str__(self):
+        return self.image_caption
+#News
+class News(models.Model):
+    news_title = models.CharField(max_length=100)
+    date = models.DateField(auto_now_add=True)
+    image = models.ImageField(upload_to='images/', null=True, blank=False)
+    news = models.TextField()
+    Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='news', blank=True)
+
+    objects = models.Manager()
+    published = PublishedStatusManager()
+
+    class Meta:
+        default_permissions = ('view', 'add', 'change', 'delete')
+        verbose_name = ("News")
+        verbose_name_plural = ("News")
+        ordering = ('-date',)
+
+    def __str__(self):
+        return self.news_title
+
+    def get_absolute_url(self):
+        return reverse('news_detail', args=[self.pk])        

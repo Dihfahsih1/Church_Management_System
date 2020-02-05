@@ -15,11 +15,15 @@ from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.contrib.auth import update_session_auth_hash
 
 def web(request):
+    news = News.published.all()
+    #events = Event.published.all()
+    #feedbacks = Feedback.publish.all()
     members = Members.published.all()
     employees = StaffDetails.published.all()
     sliders = Slider.objects.all()
     abouts = About.objects.all()
     context = {
+        'news': news,
         'abouts': abouts,
         'sliders' :sliders,
         'members': members,
@@ -2346,4 +2350,415 @@ def about_delete(request, about_pk):
                                              )
     return JsonResponse(data)
 
+# ###################################===>BEGINNING OF IMAGE MODULE<===###############################################
+
+
+class ImageListView(ListView):
+    model = Image
+    template_name = 'images/image_list.html'
+    context_object_name = 'images'
+
+
+class ImageCreateView(CreateView):
+    model = Image
+    template_name = 'images/image_create.html'
+    fields = ('gallery_title', 'gallery_image', 'image_caption')
+
+    def form_valid(self, form):
+        image = form.save(commit=False)
+        image.save()
+        return redirect('image_list')
+
+
+class ImageUpdateView(UpdateView):
+    model = Image
+    template_name = 'images/update_image.html'
+    pk_url_kwarg = 'image_pk'
+    fields = ('gallery_title', 'gallery_image', 'image_caption')
+
+    def form_valid(self, form):
+        image = form.save(commit=False)
+        image.save()
+        return redirect('image_list')
+
+
+def save_image_form(request, form, template_name):
+    data = dict()
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            data['form_is_valid'] = True
+            images = Image.objects.all()
+            data['html_image_list'] = render_to_string('images/includes/partial_image_list.html', {
+                'images': images
+            })
+        else:
+            data['form_is_valid'] = False
+    context = {'form': form}
+    data['html_form'] = render_to_string(template_name, context, request=request)
+    return JsonResponse(data)
+
+
+def image_view(request, image_pk):
+    image = get_object_or_404(Image, pk=image_pk)
+    if request.method == 'POST':
+        form = ImageForm(request.POST, instance=image)
+    else:
+        form = ImageForm(instance=image)
+    return save_image_form(request, form, 'images/includes/partial_image_view.html')
+
+
+def image_delete(request, image_pk):
+    image = get_object_or_404(Image, pk=image_pk)
+    data = dict()
+    if request.method == 'POST':
+        image.delete()
+        data['form_is_valid'] = True
+        images = Image.objects.all()
+        data['html_image_list'] = render_to_string('images/includes/partial_image_list.html', {
+            'images': images
+        })
+    else:
+        context = {'image': image}
+        data['html_form'] = render_to_string('images/includes/partial_image_delete.html',
+                                             context,
+                                             request=request,
+                                             )
+    return JsonResponse(data)
+
+
+
+# ###################################===>BEGINNING OF PAGE MODULE<===###############################################
+
+
+class PageListView(ListView):
+    model = Page
+    template_name = 'pages/page_list.html'
+    context_object_name = 'pages'
+
+
+def page_wall(request, page_pk):
+    page = get_object_or_404(Page, pk=page_pk)
+    pages = Page.objects.all()
+    header_pages = Page.header.all()
+    footer_pages = Page.footer.all()
+    context = {
+        'page': page,
+        'pages': pages,
+        'header_pages': header_pages,
+        'footer_pages': footer_pages
+    }
+    return render(request, 'pages/page_wall.html', context)
+
+
+class PageCreateView(CreateView):
+    model = Page
+    template_name = 'pages/page_create.html'
+    fields = ('page_location', 'page_title', 'page_description', 'page_image')
+
+    def form_valid(self, form):
+        page = form.save(commit=False)
+        page.save()
+        return redirect('page_list')
+
+
+class PageUpdateView(UpdateView):
+    model = Page
+    template_name = 'pages/update_page.html'
+    pk_url_kwarg = 'page_pk'
+    fields = ('page_location', 'page_title', 'page_description', 'page_image')
+
+    def form_valid(self, form):
+        page = form.save(commit=False)
+        page.save()
+        return redirect('page_list')
+
+
+def save_page_form(request, form, template_name):
+    data = dict()
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            data['form_is_valid'] = True
+            pages = Page.objects.all()
+            data['html_page_list'] = render_to_string('pages/includes/partial_page_list.html', {
+                'pages': pages
+            })
+        else:
+            data['form_is_valid'] = False
+    context = {'form': form}
+    data['html_form'] = render_to_string(template_name, context, request=request)
+    return JsonResponse(data)
+
+
+def page_view(request, page_pk):
+    page = get_object_or_404(Page, pk=page_pk)
+    if request.method == 'POST':
+        form = PageForm(request.POST, instance=page)
+    else:
+        form = PageForm(instance=page)
+    return save_page_form(request, form, 'pages/includes/partial_page_view.html')
+
+
+def page_delete(request, page_pk):
+    page = get_object_or_404(Page, pk=page_pk)
+    data = dict()
+    if request.method == 'POST':
+        page.delete()
+        data['form_is_valid'] = True  # This is just to play along with the existing code
+        pages = Page.objects.all()
+        data['html_page_list'] = render_to_string('pages/includes/partial_page_list.html', {
+            'pages': pages
+        })
+    else:
+        context = {'page': page}
+        data['html_form'] = render_to_string('pages/includes/partial_page_delete.html',
+                                             context,
+                                             request=request,
+                                             )
+    return JsonResponse(data)
+
+# ###################################===>BEGINNING OF GALLERY MODULE<===###############################################
+
+
+class GalleryListView(ListView):
+    model = Gallery
+    template_name = 'galleries/gallery_list.html'
+    context_object_name = 'galleries'
+
+
+def gallery_wall(request):
+    galleries = Gallery.published.all()
+    images = Image.objects.all()
+    context = {
+        'galleries': galleries,
+        'images': images
+    }
+    return render(request, 'galleries/gallery_wall.html', context)
+
+
+class GalleryCreateView(CreateView):
+    model = Gallery
+    template_name = 'galleries/gallery_create.html'
+    fields = ('gallery_title', 'note', 'Is_View_on_Web')
+
+    def form_valid(self, form):
+        gallery = form.save(commit=False)
+        gallery.save()
+        return redirect('gallery_list')
+
+
+class GalleryUpdateView(UpdateView):
+    model = Gallery
+    template_name = 'galleries/update_gallery.html'
+    pk_url_kwarg = 'gallery_pk'
+    fields = ('gallery_title', 'note', 'Is_View_on_Web')
+
+    def form_valid(self, form):
+        gallery = form.save(commit=False)
+        gallery.save()
+        return redirect('gallery_list')
+
+
+def save_gallery_form(request, form, template_name):
+    data = dict()
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            data['form_is_valid'] = True
+            gallerys = Gallery.objects.all()
+            data['html_gallery_list'] = render_to_string('galleries/includes/partial_gallery_list.html', {
+                'galleries': gallerys
+            })
+        else:
+            data['form_is_valid'] = False
+    context = {'form': form}
+    data['html_form'] = render_to_string(template_name, context, request=request)
+    return JsonResponse(data)
+
+
+def gallery_delete(request, gallery_pk):
+    gallery = get_object_or_404(Gallery, pk=gallery_pk)
+    data = dict()
+    if request.method == 'POST':
+        gallery.delete()
+        data['form_is_valid'] = True
+        gallerys = Gallery.objects.all()
+        data['html_gallery_list'] = render_to_string('galleries/includes/partial_gallery_list.html', {
+            'galleries': gallerys
+        })
+    else:
+        context = {'gallery': gallery}
+        data['html_form'] = render_to_string('galleries/includes/partial_gallery_delete.html',
+                                             context,
+                                             request=request,
+                                             )
+    return JsonResponse(data)
+
+
+# ###################################===>BEGINNING OF IMAGE MODULE<===###############################################
+class ImageListView(ListView):
+    model = Image
+    template_name = 'images/image_list.html'
+    context_object_name = 'images'
+
+
+class ImageCreateView(CreateView):
+    model = Image
+    template_name = 'images/image_create.html'
+    fields = ('gallery_title', 'gallery_image', 'image_caption')
+
+    def form_valid(self, form):
+        image = form.save(commit=False)
+        image.save()
+        return redirect('image_list')
+
+
+class ImageUpdateView(UpdateView):
+    model = Image
+    template_name = 'images/update_image.html'
+    pk_url_kwarg = 'image_pk'
+    fields = ('gallery_title', 'gallery_image', 'image_caption')
+
+    def form_valid(self, form):
+        image = form.save(commit=False)
+        image.save()
+        return redirect('image_list')
+
+
+def save_image_form(request, form, template_name):
+    data = dict()
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            data['form_is_valid'] = True
+            images = Image.objects.all()
+            data['html_image_list'] = render_to_string('images/includes/partial_image_list.html', {
+                'images': images
+            })
+        else:
+            data['form_is_valid'] = False
+    context = {'form': form}
+    data['html_form'] = render_to_string(template_name, context, request=request)
+    return JsonResponse(data)
+
+
+def image_view(request, image_pk):
+    image = get_object_or_404(Image, pk=image_pk)
+    if request.method == 'POST':
+        form = ImageForm(request.POST, instance=image)
+    else:
+        form = ImageForm(instance=image)
+    return save_image_form(request, form, 'images/includes/partial_image_view.html')
+
+
+def image_delete(request, image_pk):
+    image = get_object_or_404(Image, pk=image_pk)
+    data = dict()
+    if request.method == 'POST':
+        image.delete()
+        data['form_is_valid'] = True
+        images = Image.objects.all()
+        data['html_image_list'] = render_to_string('images/includes/partial_image_list.html', {
+            'images': images
+        })
+    else:
+        context = {'image': image}
+        data['html_form'] = render_to_string('images/includes/partial_image_delete.html',
+                                             context,
+                                             request=request,
+                                             )
+    return JsonResponse(data)
+
+# ###################################===>BEGINNING OF NEWS MODULE<===###############################################
+
+
+class NewsListView(ListView):
+    model = News
+    template_name = 'news/news_list.html'
+    context_object_name = 'news'
+
+
+def news_wall(request):
+    news = News.published.all()
+    return render(request, 'news/news_wall.html', {'news': news})
+
+
+class NewsCreateView(CreateView):
+    model = News
+    template_name = 'news/news_create.html'
+    fields = ('news_title', 'image', 'news', 'Is_View_on_Web')
+
+    def form_valid(self, form):
+        news = form.save(commit=False)
+        news.author = self.request.user
+        news.save()
+        return redirect('news_list')
+
+
+class NewsUpdateView(UpdateView):
+    model = News
+    template_name = 'news/update_news.html'
+    pk_url_kwarg = 'news_pk'
+    fields = ('news_title', 'image', 'news', 'Is_View_on_Web')
+
+    def form_valid(self, form):
+        news = form.save(commit=False)
+        news.save()
+        return redirect('news_list')
+
+
+def save_news_form(request, form, template_name):
+    data = dict()
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            data['form_is_valid'] = True
+            newss = News.objects.all()
+            data['html_news_list'] = render_to_string('news/includes/partial_news_list.html', {
+                'news': newss
+            })
+        else:
+            data['form_is_valid'] = False
+    context = {'form': form}
+    data['html_form'] = render_to_string(template_name, context, request=request)
+    return JsonResponse(data)
+
+
+def news_view(request, news_pk):
+    news = get_object_or_404(News, pk=news_pk)
+    if request.method == 'POST':
+        form = NewsForm(request.POST, instance=news)
+    else:
+        form = NewsForm(instance=news)
+    return save_news_form(request, form, 'news/includes/partial_news_view.html')
+
+
+def news_detail(request, news_pk):
+    news = get_object_or_404(News, pk=news_pk)
+    more_news = News.published.order_by('-date')[:5]
+    context = {
+        'news': news,
+        'more_news': more_news
+    }
+    return render(request, 'news/news_detail.html', context)
+
+
+def news_delete(request, news_pk):
+    news = get_object_or_404(News, pk=news_pk)
+    data = dict()
+    if request.method == 'POST':
+        news.delete()
+        data['form_is_valid'] = True  # This is just to play along with the existing code
+        news = News.objects.all()
+        data['html_news_list'] = render_to_string('news/includes/partial_news_list.html', {
+            'news': news
+        })
+    else:
+        context = {'news': news}
+        data['html_form'] = render_to_string('news/includes/partial_news_delete.html',
+                                             context,
+                                             request=request,
+                                             )
+    return JsonResponse(data)
 

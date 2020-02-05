@@ -189,4 +189,23 @@ class PledgesReportArchiveForm(forms.ModelForm):
 class AboutForm(forms.ModelForm):
     class Meta:
         model = About
-        fields = ('about', 'about_image')                      
+        fields = ('about', 'about_image')
+
+class PageForm(forms.ModelForm):
+    class Meta:
+        model = Page
+        fields = ('page_location', 'page_title', 'page_description', 'page_image')
+
+class GalleryForm(forms.ModelForm):
+    class Meta:
+        model = Gallery
+        fields = ('gallery_title', 'note', 'Is_View_on_Web')
+
+class ImageForm(forms.ModelForm):
+    class Meta:
+        model = Image
+        fields = ('gallery_title', 'gallery_image', 'image_caption')                                      
+class NewsForm(forms.ModelForm):
+    class Meta:
+        model = News
+        fields = ('news_title', 'image', 'news', 'Is_View_on_Web')        
