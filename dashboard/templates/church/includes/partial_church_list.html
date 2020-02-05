@@ -1,0 +1,38 @@
+{% for church in churches %}
+    <tr>
+        <td>{{ church.id }}</td>
+        <td>{{ church.church_name }}</td>
+        <td>{{ church.address }}</td>
+        <td>{{ church.phone }}</td>
+        <td>{{ church.email_address }}</td>
+        <td>
+            {% if church.frontend_Logo %}
+                <img src="{{ church.frontend_Logo.url }}"
+                     alt="" width="50"
+                     style="background: rgba(15,174,221,0.97); padding: 2px;"/><br/><br/>
+            {% endif %}
+        </td>
+        <td>{{ church.status }}</td>
+        <td>
+            <button type="button"
+                    class="btn btn-success btn-sm js-view-school"
+                    data-url="{% url 'church_view' church.pk %}">
+                <span class="fa fa-eye"></span> View
+            </button>
+            <div class="mb-4">
+                <a href="{% url 'church_update' church.pk %}" class="btn btn-info btn-sm">
+                    <span class="fa fa-pencil-square-o"></span> Edit</a>
+            </div>
+            <button type="button"
+                    class="btn btn-danger btn-sm js-delete-school"
+                    data-url="{% url 'church_delete' church.pk %}">
+                <span class="fa fa-trash"></span> Delete
+            </button>
+            <br>
+        </td>
+    </tr>
+{% empty %}
+    <tr>
+        <td colspan="9" class="text-center bg-warning">No church</td>
+    </tr>
+{% endfor %}
