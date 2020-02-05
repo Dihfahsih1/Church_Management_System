@@ -46,18 +46,7 @@ def reset_user_password(request, user_pk):
                'password': password}
     return render(request, 'users/home/reset_user_password.html', context)
 def view_profile(request):
-    Postings=posts.objects.all().order_by('-Date_posted')
-    page = request.GET.get('page', 1)
-
-    paginator = Paginator(Postings, 10)
-    try:
-        posters = paginator.page(page)
-    except PageNotAnInteger:
-        posters = paginator.page(1)
-    except EmptyPage:
-        potsers = paginator.page(paginator.num_pages)
-    args = {'user': request.user,'posters':posters}
-    return render(request, 'users/home/profile.html', args)
+    return render(request, 'users/home/profile.html')
 
 def edit_profile(request):
     if request.method == 'POST':

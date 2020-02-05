@@ -13,6 +13,23 @@ from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.contrib.auth import update_session_auth_hash
 
+def web(request):
+    news = Pledges.published.all()
+    events = PledgedItem.published.all()
+    holidays = Members.published.all()
+    feedbacks = Visitors.publish.all()
+    abouts = StaffDetails.objects.all()
+    sliders = Donations.objects.all()
+    context = {
+        'abouts': abouts,
+        'news': news,
+        'events': events,
+        'holidays': holidays,
+        'feedbacks': feedbacks,
+        'sliders': sliders,
+    }
+    return render(request, 'home/index_public.html', context)
+
 
 @login_required
 def index(request):
@@ -2168,6 +2185,3 @@ def airtime_data_report(request):
     total_amount = total["totals"]
     context={'get_airtime':get_airtime, 'total_amount':total_amount, 'today':today}
     return render(request,'Expenses/airtime_data_report.html', context)
-
-
-  ##

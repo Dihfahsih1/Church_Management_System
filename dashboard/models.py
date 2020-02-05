@@ -7,6 +7,11 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.forms.fields import DateField
 from django.contrib.admin.widgets import AdminDateWidget
 from django.contrib.auth.models import PermissionsMixin
+OPTIONS = (('Yes', 'Yes'),
+           ('No', 'No'))
+class PublishedStatusManager(models.Manager):
+    def get_queryset(self):
+        return super(PublishedStatusManager, self).get_queryset().filter(Is_View_on_Web='Yes')
 
 class UserManager(BaseUserManager):
     def create_user(self, username,password=None):
@@ -190,8 +195,10 @@ class Members(models.Model):
     Name_Of_Next_Of_Kin=models.CharField(max_length=100,null=True,blank=True)
     Contact_Of_Next_Of_Kin=models.CharField(max_length=100,null=True,blank=True)
     Residence_Of_Next_Of_Kin=models.CharField(max_length=100,null=True,blank=True)
+    Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS,null=True,blank=True)
+    objects = models.Manager()
+    published = PublishedStatusManager()
     def __str__(self):
-        
         return self.First_Name + ' ' + self.Second_Name
     @property
     def full_name(self):
@@ -231,6 +238,9 @@ class StaffDetails(models.Model):
     Role = models.CharField(max_length=200, choices=rol, blank=True, null=True)
     Date_of_employment=models.DateField(null=False, blank=False)
     End_of_contract=models.DateField(null=False, blank=False)
+    Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS,null=True,blank=True)
+    objects = models.Manager()
+    published = PublishedStatusManager()
     @property
     def total_salary_paid(self):
         current_month = datetime.now().month
