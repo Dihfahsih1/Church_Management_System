@@ -204,7 +204,7 @@ class GalleryForm(forms.ModelForm):
 class ImageForm(forms.ModelForm):
     class Meta:
         model = Image
-        fields = ('gallery_title', 'gallery_image', 'image_caption')                                      
+        fields = ('gallery_title', 'gallery_image', 'image_caption','Is_View_on_Web')                                      
 class NewsForm(forms.ModelForm):
     class Meta:
         model = News

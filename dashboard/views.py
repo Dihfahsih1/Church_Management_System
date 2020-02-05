@@ -17,12 +17,13 @@ from django.contrib.auth import update_session_auth_hash
 def web(request):
     news = News.published.all()
     events = Event.published.all()
-    #feedbacks = Feedback.publish.all()
+    images = Image.published.all()
     members = Members.published.all()
     employees = StaffDetails.published.all()
     sliders = Slider.objects.all()
     abouts = About.objects.all()
     context = {
+        'images':images,
         'events': events,
         'news': news,
         'abouts': abouts,

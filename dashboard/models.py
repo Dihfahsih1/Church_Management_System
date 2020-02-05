@@ -680,8 +680,10 @@ class Image(models.Model):
     gallery_title = models.ForeignKey(Gallery, on_delete=models.CASCADE, blank=False, null=True)
     gallery_image = models.ImageField( upload_to='images/', null=True, blank=False)
     image_caption = models.CharField( max_length=100)
+    Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS, null=True, blank=False)
 
     objects = models.Manager()
+    published = PublishedStatusManager()
 
     class Meta:
         default_permissions = ('view', 'add', 'change', 'delete')

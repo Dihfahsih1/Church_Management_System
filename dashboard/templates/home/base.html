@@ -52,11 +52,11 @@
                     </div>
                     <div class="hta-box">
                         <span class="icon"><i class="fa fa-phone"></i></span>
-                        <p class="text">Call us : </p>
+                        <p class="text">Call us : {% phone_number %} </p>
                     </div>
                     <div class="hta-box">
                         <span class="icon"><i class="fa fa-envelope"></i></span>
-                        <p class="text">Email us : </p>
+                        <p class="text">Email us : {% email_address %} </p>
                     </div>
 
                 </div>
@@ -100,7 +100,7 @@
                                 <li><a href="#">Ministries</a></li>
                                 <li><a href="#">Projects</a></li>
                                 <li><a href="#">Youtube Channel</a></li>
-                                <li><a href="#">Upcoming Events</a></li>
+                                <li><a href="{% url 'event_list' %} ">Upcoming Events</a></li>
                                 <li><a href="#">Photo Gallery</a></li>
                                 <li><a href="#">Contact Us</a></li>
                                 <li><a href="javascript:void(0)">Page <span class="icon fa fa-chevron-down"></span></a>
@@ -131,12 +131,16 @@
                     <div class="footer-widget">
                         <h2 class="fw-title"><span>About Us:</span></h2>
                         <p class="text">
-                            Church System dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                            exercitation
-                            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                            reprehenderit
-                            in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                            United Christian Centre Bwaise (UCC BWAISE) is a born again Christian church in Kampala Uganda East Africa.
+                            The church is located on Bwaise – Nabweru road The lead pastor isPr. Joshua Zake ministering with a team of other associate pastors namely;
+                            Pr. Sande Posiano Zakumumpa<br>
+                            Pr. Henry Musubize<br>
+                            Pr. Sanyu Rebecca<br>
+                            and other preachers of the word including the following
+                            Mr. Mukisa Kintu<br>
+                            Mr. John Bosco Buyuki<br>
+                            Mr. Charles Bunjo<br>
+                            Mr. Kasirye Eddie
                         </p>
                     </div>
                 </div>
@@ -193,13 +197,14 @@
                         <h2 class="fw-title">Get in Touch</h2>
                         <ul class="address">
                             <li><span class="icon"><i class="fa fa-phone"></i></span>
+                                {% phone_number %}
                                 
                             </li>
                             <li><span class="icon"><i class="fa fa-envelope"></i></span>
-                                
+                               {% email_address %} 
                             </li>
                             <li><span class="icon"><i class="fa fa-map-marker"></i></span>
-                                
+                               {% church_address %} 
                             </li>
                         </ul>
                     </div>
@@ -210,6 +215,7 @@
     <div class="footer-bottom-area">
         <div class="container text-center">
             <p class="copyright">
+                {% church_footer %}
                 
             </p>
         </div>

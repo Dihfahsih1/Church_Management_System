@@ -1,5 +1,6 @@
 {% extends 'home/base.html' %}
 {% load static total_tags %}
+{% load static contact_tags %}
 <body>
 
 {% block content %}
@@ -34,7 +35,7 @@
                     <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                         <div class="top-banner-content">
                             <h3 class="intro">Welcome to</h3>
-                            <h2 class="title"> UCC BWAISE </h2>
+                            <h2 class="title"> {{church_name}} </h2>
                             <p class="text" style="font-size: 120%">
                                 {{ about.about|truncatewords:80|linebreaks }}
                             </p>
@@ -71,6 +72,34 @@
             </div>
         </div>
     </section>
+
+    <section class="page-gallery-area">
+    <div class="container">
+     <div class="row">
+        <h2 style="text-align: center"><ul>CHURCH HIGHLIGHTS</ul></h2>
+     <div class="gallery-carousel owl-carousel">    
+                  {% for image in images %}                 
+                    <div class="single-gallery">
+                            <a href="{% url 'image_view' image.pk %}">
+                                {% if image.gallery_image %}
+                                    <span class="img" style="height:20% ">
+                                      <img src="{{ image.gallery_image.url }}"alt="">
+                                    </span> 
+                                {% endif %} 
+                                <span class="content">
+                                     <h3 class="title">{{image.gallery_title}}</h3>
+                                     <div class="text">{{image.image_caption}}</div>
+                                </span>
+                            </a>
+                    </div>   
+                     
+                
+                {% endfor %}
+
+           </div>  
+        </div>   
+    </div>
+</section>
 
     <section class="facilities-area">
         <div class="container">
@@ -169,7 +198,45 @@
             </div>
         </div>
     </section>
+  <section class="testimonial-area bg-with-black">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-title white text-center">
+                            <h2 class="title">Church Reviews</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-10 col-md-12 offset-lg-1 col-sm-12 col-12">
+                        <div class="testimonial-carousel owl-carousel">
+                            <div class="single-testimonial">
+                                <div class="auth-img">
+                                    <img src="{% static 'img/photo-1518180397-sms.jpg' %}"
+                                         alt="">
 
+                                </div>
+                                <div class="content">
+                                    <h2 class="name">Patrick Mubiru</h2>
+                                    <p class="text"> UCC Bwaise is a church that transforms people's thoughts and we start to think of the reason as to why God created us -- Reason as to why i am alive.</p>
+                                </div>
+                            </div>
+                             <div class="single-testimonial">
+                                <div class="auth-img">
+                                    <img src="{% static 'img/photo-1518180397-sms.jpg' %}"
+                                         alt="">
+
+                                </div>
+                                <div class="content">
+                                    <h2 class="name">Nakachwa Tracy</h2>
+                                    <p class="text"> Through UCC Bwaise Church i was able to discover the will of God for my life and that's to serve him</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
     <section class="latest-news-area">
         <div class="container">
