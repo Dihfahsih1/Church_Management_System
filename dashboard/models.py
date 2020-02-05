@@ -592,4 +592,33 @@ class PledgesReportArchive(Model):
         else:
             return self.Status     
     def __str__(self):
-        return 'Pledge_Made_By: {1}  Amount_Paid:{0}'.format(self.Pledge_Made_By, self.Amount_Paid)    
+        return 'Pledge_Made_By: {1}  Amount_Paid:{0}'.format(self.Pledge_Made_By, self.Amount_Paid) 
+
+class Slider(models.Model):
+    slider_image = models.ImageField(upload_to='sliders/', null=True, blank=False)
+    image_title = models.CharField(max_length=100)
+    modified = models.DateTimeField(verbose_name="Modified", auto_now=True)
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ('view', 'add', 'change', 'delete')
+
+    def __str__(self):
+        return self.image_title
+
+class About(models.Model):
+    about_image = models.ImageField(upload_to='about/', null=True, blank=False)
+    about = models.TextField(max_length=500)
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ('view', 'add', 'change', 'delete')
+        verbose_name = ("About")
+        verbose_name_plural = ("About")
+
+    def __str__(self):
+        return self.about
+
+    def get_absolute_url(self):
+        return reverse('about_detail', args=[self.pk])        

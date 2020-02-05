@@ -129,4 +129,19 @@ url(r'^Revenue/Donations/Edit/(?P<pk>\d+)', views.edit_donation,name='edit-donat
 url(r'^Revenue/Thanks-Giving/Edit/(?P<pk>\d+)', views.edit_thanks_giving,name='edit-thanks-giving'),
 url(r'^Revenue/Thanks-giving/Add', views.record_thanks_giving,name='record-thanks-giving'),
 url(r'^Reports/Thanks-giving/List', views.thanks_giving_report,name='thanks-giving-report'),
+
+#slider urls
+url(r'^frontend/slider/index/$', views.SliderListView.as_view(), name='slider_list'),
+url(r'^frontend/slider/add/$', views.SliderCreateView.as_view(), name='slider_create'),
+url(r'^frontend/slider/update/(?P<slider_pk>\d+)/$', views.SliderUpdateView.as_view(), name='slider_update'),
+url(r'^frontend/slider/view/(?P<slider_pk>\d+)/$', views.slider_view, name='slider_view'),
+url(r'^frontend/slider/delete/(?P<slider_pk>\d+)/$', views.slider_delete, name='slider_delete'),
+
+#abouts Urls
+url(r'^frontend/about/index/$', views.AboutListView.as_view(), name='about_list'),
+url(r'^frontend/about/add/$', views.AboutCreateView.as_view(), name='about_create'),
+url(r'^frontend/about/update/(?P<about_pk>\d+)/$', views.AboutUpdateView.as_view(), name='about_update'),
+url(r'^frontend/about/view/(?P<about_pk>\d+)/$', views.about_view, name='about_view'),
+url(r'^frontend/about/about-detail/(?P<about_pk>\d+)/$', views.about_detail, name='about_detail'),
+url(r'^frontend/about/delete/(?P<about_pk>\d+)/$', views.about_delete, name='about_delete'),
 ]

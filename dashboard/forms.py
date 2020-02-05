@@ -4,6 +4,12 @@ from django.forms import Textarea, TextInput, ChoiceField
 from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput, MonthPickerInput, DateTimePickerInput   
 
 
+
+class SliderForm(forms.ModelForm):
+    class Meta:
+        model = Slider
+        fields = ('slider_image', 'image_title')
+
 class SpendForm(forms.ModelForm):
     class Meta:
         model=Spend
@@ -178,4 +184,9 @@ class PledgesReportArchiveForm(forms.ModelForm):
         fields = ('Status','Pledge_Id','Date','Pledge_Made_By','Reason', 'Amount_Paid') 
         widgets = {
             'Date': DatePickerInput(),
-        }                
+        }  
+
+class AboutForm(forms.ModelForm):
+    class Meta:
+        model = About
+        fields = ('about', 'about_image')                      

@@ -1,4 +1,5 @@
 #views
+from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
 from datetime import datetime, timedelta
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
@@ -16,7 +17,11 @@ from django.contrib.auth import update_session_auth_hash
 def web(request):
     members = Members.published.all()
     employees = StaffDetails.published.all()
+    sliders = Slider.objects.all()
+    abouts = About.objects.all()
     context = {
+        'abouts': abouts,
+        'sliders' :sliders,
         'members': members,
         'employees': employees,
     }
@@ -2177,3 +2182,168 @@ def airtime_data_report(request):
     total_amount = total["totals"]
     context={'get_airtime':get_airtime, 'total_amount':total_amount, 'today':today}
     return render(request,'Expenses/airtime_data_report.html', context)
+
+
+
+                            #################################
+                            #         SLIDER VIEW
+                            #################################
+
+class SliderListView(ListView):
+    model = Slider
+    template_name = 'sliders/slider_list.html'
+    context_object_name = 'sliders'
+
+
+class SliderCreateView(CreateView):
+    model = Slider
+    template_name = 'sliders/slider_create.html'
+    fields = ('slider_image', 'image_title')
+
+    def form_valid(self, form):
+        slider = form.save(commit=False)
+        slider.save()
+        return redirect('slider_list')
+
+
+class SliderUpdateView(UpdateView):
+    model = Slider
+    template_name = 'sliders/update_slider.html'
+    pk_url_kwarg = 'slider_pk'
+    fields = ('slider_image', 'image_title')
+
+    def form_valid(self, form):
+        slider = form.save(commit=False)
+        slider.save()
+        return redirect('slider_list')
+
+
+def save_slider_form(request, form, template_name):
+    data = dict()
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            data['form_is_valid'] = True
+            sliders = Slider.objects.all()
+            data['html_slider_list'] = render_to_string('sliders/includes/partial_slider_list.html', {
+                'sliders': sliders
+            })
+        else:
+            data['form_is_valid'] = False
+    context = {'form': form}
+    data['html_form'] = render_to_string(template_name, context, request=request)
+    return JsonResponse(data)
+
+
+def slider_view(request, slider_pk):
+    slider = get_object_or_404(Slider, pk=slider_pk)
+    if request.method == 'POST':
+        form = SliderForm(request.POST, instance=slider)
+    else:
+        form = SliderForm(instance=slider)
+    return save_slider_form(request, form, 'sliders/includes/partial_slider_view.html')
+
+
+def slider_delete(request, slider_pk):
+    slider = get_object_or_404(Slider, pk=slider_pk)
+    data = dict()
+    if request.method == 'POST':
+        slider.delete()
+        data['form_is_valid'] = True  # This is just to play along with the existing code
+        sliders = Slider.objects.all()
+        data['html_slider_list'] = render_to_string('sliders/includes/partial_slider_list.html', {
+            'sliders': sliders
+        })
+    else:
+        context = {'slider': slider}
+        data['html_form'] = render_to_string('sliders/includes/partial_slider_delete.html',
+                                             context,
+                                             request=request,
+                                             )
+    return JsonResponse(data)
+
+##################===>BEGINNING OF ABOUT MODULE<===#########################
+
+
+class AboutListView(ListView):
+    model = About
+    template_name = 'abouts/about_list.html'
+    context_object_name = 'abouts'
+
+
+class AboutCreateView(CreateView):
+    model = About
+    template_name = 'abouts/about_create.html'
+    fields = ('about', 'about_image')
+
+    def form_valid(self, form):
+        about = form.save(commit=False)
+        about.save()
+        return redirect('about_list')
+
+
+class AboutUpdateView(UpdateView):
+    model = About
+    template_name = 'abouts/update_about.html'
+    pk_url_kwarg = 'about_pk'
+    fields = ('about', 'about_image')
+
+    def form_valid(self, form):
+        about = form.save(commit=False)
+        about.save()
+        return redirect('about_list')
+
+
+def save_about_form(request, form, template_name):
+    data = dict()
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            data['form_is_valid'] = True
+            abouts = About.objects.all()
+            data['html_about_list'] = render_to_string('abouts/includes/partial_about_list.html', {
+                'abouts': abouts
+            })
+        else:
+            data['form_is_valid'] = False
+    context = {'form': form}
+    data['html_form'] = render_to_string(template_name, context, request=request)
+    return JsonResponse(data)
+
+
+def about_view(request, about_pk):
+    about = get_object_or_404(About, pk=about_pk)
+    if request.method == 'POST':
+        form = AboutForm(request.POST, instance=about)
+    else:
+        form = AboutForm(instance=about)
+    return save_about_form(request, form, 'abouts/includes/partial_about_view.html')
+
+
+def about_detail(request, about_pk):
+    about = get_object_or_404(About, pk=about_pk)
+    context = {
+        'about': about,
+    }
+    return render(request, 'abouts/about_detail.html', context)
+
+
+def about_delete(request, about_pk):
+    about = get_object_or_404(About, pk=about_pk)
+    data = dict()
+    if request.method == 'POST':
+        about.delete()
+        data['form_is_valid'] = True  # This is just to play along with the existing code
+        abouts = About.objects.all()
+        data['html_about_list'] = render_to_string('abouts/includes/partial_about_list.html', {
+            'abouts': abouts
+        })
+    else:
+        context = {'about': about}
+        data['html_form'] = render_to_string('abouts/includes/partial_about_delete.html',
+                                             context,
+                                             request=request,
+                                             )
+    return JsonResponse(data)
+
+
