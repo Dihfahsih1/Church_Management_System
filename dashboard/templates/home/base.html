@@ -11,7 +11,7 @@
     {% block head %}
         {% block meta %}
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+            <link rel="shortcut icon" type="img/" href="{% static 'uccb.jpg' %}"/>
             <!-- Meta, title, CSS, favicons, etc. -->
             <meta charset="utf-8">
             <meta charset="ISO-8859-15">
@@ -52,31 +52,18 @@
                     </div>
                     <div class="hta-box">
                         <span class="icon"><i class="fa fa-phone"></i></span>
-                        <p class="text">Call us : {% phone_number %}</p>
+                        <p class="text">Call us : </p>
                     </div>
 
                     <div class="hta-box">
                         <span class="icon"><i class="fa fa-envelope"></i></span>
-                        <p class="text">Email us : {% email_address %}</p>
+                        <p class="text">Email us : </p>
                     </div>
 
                 </div>
-                <div class="col-lg-5 col-md-4 col-sm-12 col-12 hta-right text-right">
-                    <div class="hta-box">
-                        {% school_name %}
-
-                        {#                        {% if request.tenant %}#}
-                        {#                            <a href="http://{{ request.tenant.domain_url }}:8000/canon/">#}
-                        {#                                <strong>{{ request.tenant.schema_name }}</strong>#}
-                        {#                            </a>#}
-                        {#                        {% else %}#}
-                        {#                            None.#}
-                        {#                        {% endif %}#}
-
-                    </div>
 
                     <div class="hta-box">
-                        <a class="text" href="{% url 'online_admission' %}">Admission</a>
+                        <a class="text" href="#">Make Pledge</a>
                     </div>
 
                     {% if request.user.is_authenticated %}
@@ -98,34 +85,34 @@
     <div class="header-bottom-area">
         <div class="container">
             <div class="row">
-                <div class="col-lg-2 offset-lg-0 col-md-4 offset-md-3 col-sm-6 col-6">
+                <div class="col-lg-1 offset-lg-0 col-md-4 offset-md-3 col-sm-6 col-6">
                     <div class="logo">
                         <a href="{% url 'index_public' %}">
-                            <img src="{% static 'images/logo.png' %}"
+                            <img src="{% static 'img/uccb.jpg' %}"
                                  alt=""/>
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-10 offset-lg-0 col-md-8 offset-md-2 col-sm-12 col-12">
+                <div class="col-lg-11 offset-lg-0 col-md-8 offset-md-2 col-sm-12 col-12">
                     <div class="menu">
                         <nav id="mobile_menu_active">
                             <ul id="menu">
                                 <li><a href="{% url 'index_public' %}">Home</a></li>
-                                <li><a href="#">Announcement <span class="icon fa fa-chevron-down"></span></a>
+                                <li><a href="#">About Us <span class="icon fa fa-chevron-down"></span></a>
                                     <ul class="drop">
-                                        <li><a href="#">News</a></li>
-                                        <li><a href="#">Notice</a></li>
-                                        <li><a href="#">Holiday</a></li>
+                                        <li><a href="#">Our Ministry</a></li>
+                                        <li><a href="#">Our Projects</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#">Event</a></li>
-                                <li><a href="#">Gallery</a></li>
-                                <li><a href="#">Teacher</a></li>
-                                <li><a href="#">Staff</a></li>
+                                <li><a href="#">Ministries</a></li>
+                                <li><a href="#">Projects</a></li>
+                                <li><a href="#">Youtube Channel</a></li>
+                                <li><a href="#">Upcoming Events</a></li>
+                                <li><a href="#">Photo Gallery</a></li>
                                 <li><a href="#">Contact Us</a></li>
                                 <li><a href="javascript:void(0)">Page <span class="icon fa fa-chevron-down"></span></a>
                                     <ul class="drop">
-                                        {% all_pages %}
+                                        
                                     </ul>
                                 </li>
 
@@ -221,13 +208,13 @@
                         <h2 class="fw-title">Get in Touch</h2>
                         <ul class="address">
                             <li><span class="icon"><i class="fa fa-phone"></i></span>
-                                {% phone_number %}
+                                
                             </li>
                             <li><span class="icon"><i class="fa fa-envelope"></i></span>
-                                {% email_address %}
+                                
                             </li>
                             <li><span class="icon"><i class="fa fa-map-marker"></i></span>
-                                {% school_address %}
+                                
                             </li>
                         </ul>
                     </div>
@@ -238,7 +225,7 @@
     <div class="footer-bottom-area">
         <div class="container text-center">
             <p class="copyright">
-                {% school_name %}
+                
             </p>
         </div>
     </div>

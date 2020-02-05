@@ -14,19 +14,11 @@ from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.contrib.auth import update_session_auth_hash
 
 def web(request):
-    news = Pledges.published.all()
-    events = PledgedItem.published.all()
-    holidays = Members.published.all()
-    feedbacks = Visitors.publish.all()
-    abouts = StaffDetails.objects.all()
-    sliders = Donations.objects.all()
+    members = Members.published.all()
+    employees = StaffDetails.published.all()
     context = {
-        'abouts': abouts,
-        'news': news,
-        'events': events,
-        'holidays': holidays,
-        'feedbacks': feedbacks,
-        'sliders': sliders,
+        'members': members,
+        'employees': employees,
     }
     return render(request, 'home/index_public.html', context)
 
