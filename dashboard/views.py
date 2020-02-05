@@ -2871,9 +2871,9 @@ def event_delete(request, event_pk):
 
 # #######################################===>BEGINNING OF CHURCH MODULE<===##########################################
 
-class ChurchCreateView(CreateView):
+class churchCreateView(CreateView):
     model = Church
-    template_name = 'Church/create_church.html'
+    template_name = 'church/create_church.html'
     fields = ('church_name', 'church_code', 'address', 'phone', 'registration_date', 'email_address', 'fax',
               'footer', 'enable_frontend', 'latitude', 'longitude', 'facebook_url','twitter_url', 
               'linkedIn_url', 'google_plus_url', 'youtube_url', 'instagram_url', 'pinterest_url',
@@ -2892,7 +2892,7 @@ class ChurchCreateView(CreateView):
 
 class churchUpdateView(UpdateView):
     model = Church
-    template_name = 'churchs/update_church.html'
+    template_name = 'church/update_church.html'
     pk_url_kwarg = 'church_pk'
     fields = ('church_name', 'church_code', 'address', 'phone', 'registration_date', 'email_address', 'fax',
               'footer', 'enable_frontend', 'latitude', 'longitude', 'facebook_url','twitter_url', 
@@ -2912,8 +2912,8 @@ class churchUpdateView(UpdateView):
 
 class churchListView(ListView):
     model = Church
-    template_name = 'churchs/church_list.html'
-    context_object_name = 'church'
+    template_name = 'church/church_list.html'
+    context_object_name = 'churches'
 
 
 def save_church_form(request, form, template_name):

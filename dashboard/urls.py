@@ -184,4 +184,11 @@ url(r'^event/edit/(?P<event_pk>\d+)/$', views.EventUpdateView.as_view(), name='e
 url(r'^event/view/(?P<event_pk>\d+)/$', views.event_view, name='event_view'),
 url(r'^event/event-detail/(?P<event_pk>\d+)/$', views.event_detail, name='event_detail'),
 url(r'^event/delete(?P<event_pk>\d+)/$', views.event_delete, name='event_delete'),
+
+#church
+url(r'^administrator/church/index/$', views.churchListView.as_view(), name='church_list'),
+url(r'^administrator/church/add/$', views.churchCreateView.as_view(), name='church_create'),
+url(r'^administrator/church/update/(?P<church_pk>\d+)/$', views.churchUpdateView.as_view(), name='church_update'),
+url(r'^administrator/church/(?P<church_pk>\d+)/view/$', views.church_view, name='church_view'),
+url(r'^administrator/church/(?P<church_pk>\d+)/delete/$', views.church_delete, name='church_delete'),
 ]
