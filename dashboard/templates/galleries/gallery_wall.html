@@ -1,0 +1,54 @@
+{% extends 'home/base.html' %}
+{% load static total_tags %}
+<body>
+
+{% block content %}
+
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">Gallery</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href="javascript:void(0);">Galleries</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="page-gallery-area">
+        <div class="container">
+            <div class="row">
+
+                {% for gallery in galleries %}
+                    <div class="gallery-section-title">
+                        <h2 class="title">{{ gallery.gallery_title }}</h2>
+                        <div class="text">{{ gallery.note }}</div>
+                    </div>
+                    <div class="gallery-carousel owl-carousel">
+
+                        {% for image in images %}
+                            <div class="single-gallery">
+
+                                {% if image.gallery_title.gallery_title %}
+                                    <a href="{{ image.gallery_image.url }}"
+                                       data-fancybox="images">
+                                        <span class="icon"><i class="fa fa-search"></i></span>
+                                        <img src="{{ image.gallery_image.url }}"
+                                             alt="Lorem Ipsum is simply dummy."/>
+                                    </a>
+
+                                {% endif %}
+
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+</body>
+
