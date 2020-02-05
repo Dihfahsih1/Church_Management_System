@@ -62,13 +62,11 @@
 
                 </div>
 
-                    <div class="hta-box">
-                        <a class="text" href="#">Make Pledge</a>
-                    </div>
 
                     {% if request.user.is_authenticated %}
+                    
                         <div class="hta-box">
-                            <span class="icon"><i class="fa fa-sign-in-alt"></i></span>
+                            <span style="font-weight:120%">{{request.user.full_name.Initials}} {{request.user.full_name}}</i></span>
                             <a class="text" href="{% url 'logout' %}">Log Out</a>
                         </div>
                     {% else %}
