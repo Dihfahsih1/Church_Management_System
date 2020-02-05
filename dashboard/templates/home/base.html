@@ -54,24 +54,19 @@
                         <span class="icon"><i class="fa fa-phone"></i></span>
                         <p class="text">Call us : </p>
                     </div>
-
                     <div class="hta-box">
                         <span class="icon"><i class="fa fa-envelope"></i></span>
                         <p class="text">Email us : </p>
                     </div>
 
                 </div>
-
-
-                    {% if request.user.is_authenticated %}
-                    
+                    {% if request.user.is_authenticated %}                    
                         <div class="hta-box">
                             <span style="font-weight:120%">{{request.user.full_name.Initials}} {{request.user.full_name}}</i></span>
                             <a class="text" href="{% url 'logout' %}">Log Out</a>
                         </div>
                     {% else %}
-                        <div class="hta-box">
-                            <span class="icon"><i class="fa fa-sign-in-alt"></i></span>
+                        <div class="hta-box">                            
                             <a class="text" href="{% url 'login' %}">Log In</a>
                         </div>
                     {% endif %}
@@ -137,7 +132,7 @@
                     <div class="footer-widget">
                         <h2 class="fw-title"><span>About Us:</span></h2>
                         <p class="text">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                            Church System dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
                             incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
                             exercitation
                             ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
@@ -150,21 +145,15 @@
                     <div class="footer-widget">
                         <h2 class="fw-title"><span>Quick Link:</span></h2>
                         <ul class="links">
-                           
                             <li><a href="#">News</a></li>
                             <li><a href="#">Notice</a></li>
                             <li><a href="#">Event</a></li>
                             <li><a href="#">Gallery</a></li>
                             <li><a href="#">Members</a></li>
-                            <li><a href="#">Staff</a></li>
+                            <li><a href="#">Employees</a></li>
                             <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">Privacy
-                                Policy</a>
-                            </li>
-                            <li><a href="#">Terms &
-                                Condition</a></li>
-
-
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms & Condition</a></li>
                         </ul>
                     </div>
                 </div>
