@@ -16,13 +16,14 @@ from django.contrib.auth import update_session_auth_hash
 
 def web(request):
     news = News.published.all()
-    #events = Event.published.all()
+    events = Event.published.all()
     #feedbacks = Feedback.publish.all()
     members = Members.published.all()
     employees = StaffDetails.published.all()
     sliders = Slider.objects.all()
     abouts = About.objects.all()
     context = {
+        'events': events,
         'news': news,
         'abouts': abouts,
         'sliders' :sliders,
@@ -2761,4 +2762,202 @@ def news_delete(request, news_pk):
                                              request=request,
                                              )
     return JsonResponse(data)
+
+# ###################################===>BEGINNING OF EVENT MODULE<===###############################################
+
+
+class EventListView(ListView):
+    model = Event
+    template_name = 'events/event_list.html'
+    context_object_name = 'events'
+
+
+def event_wall(request):
+    events = Event.published.all()
+    return render(request, 'events/events_wall.html', {'events': events})
+
+
+class EventCreateView(CreateView):
+    model = Event
+    template_name = 'events/event_create.html'
+    fields = ('event_title', 'event_for', 'event_place', 'from_date', 'to_date', 'image', 'note',
+              'Is_View_on_Web')
+
+    def get_form(self):
+        form = super().get_form()
+        form.fields['from_date'].widget = DatePickerInput()
+        form.fields['to_date'].widget = DatePickerInput()
+        return form
+
+    def form_valid(self, form):
+        event = form.save(commit=False)
+        event.save()
+        return redirect('event_list')
+
+
+class EventUpdateView(UpdateView):
+    model = Event
+    template_name = 'events/update_event.html'
+    pk_url_kwarg = 'event_pk'
+    fields = ('event_title', 'event_for', 'event_place', 'from_date', 'to_date', 'image', 'note',
+              'Is_View_on_Web')
+
+    def get_form(self):
+        form = super().get_form()
+        form.fields['from_date'].widget = DatePickerInput()
+        form.fields['to_date'].widget = DatePickerInput()
+        return form
+
+    def form_valid(self, form):
+        event = form.save(commit=False)
+        event.save()
+        return redirect('event_list')
+
+
+def save_event_form(request, form, template_name):
+    data = dict()
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            data['form_is_valid'] = True
+            events = Event.objects.all()
+            data['html_event_list'] = render_to_string('events/includes/partial_event_list.html', {
+                'events': events
+            })
+        else:
+            data['form_is_valid'] = False
+    context = {'form': form}
+    data['html_form'] = render_to_string(template_name, context, request=request)
+    return JsonResponse(data)
+
+
+def event_view(request, event_pk):
+    event = get_object_or_404(Event, pk=event_pk)
+    if request.method == 'POST':
+        form = EventForm(request.POST, instance=event)
+    else:
+        form = EventForm(instance=event)
+    return save_vehicle_form(request, form, 'events/includes/partial_event_view.html')
+
+
+def event_detail(request, event_pk):
+    event = get_object_or_404(Event, pk=event_pk)
+    more_events = Event.published.order_by('-from_date')[:5]
+    context = {
+        'event': event,
+        'more_events': more_events
+    }
+    return render(request, 'events/event_detail.html', context)
+
+
+def event_delete(request, event_pk):
+    event = get_object_or_404(Event, pk=event_pk)
+    data = dict()
+    if request.method == 'POST':
+        event.delete()
+        data['form_is_valid'] = True
+        events = Event.objects.all()
+        data['html_event_list'] = render_to_string('events/includes/partial_event_list.html', {
+            'events': events
+        })
+    else:
+        context = {'event': event}
+        data['html_form'] = render_to_string('events/includes/partial_event_delete.html',
+                                             context,
+                                             request=request,
+                                             )
+    return JsonResponse(data)
+
+
+# #######################################===>BEGINNING OF CHURCH MODULE<===##########################################
+
+class ChurchCreateView(CreateView):
+    model = Church
+    template_name = 'Church/create_church.html'
+    fields = ('church_name', 'church_code', 'address', 'phone', 'registration_date', 'email_address', 'fax',
+              'footer', 'enable_frontend', 'latitude', 'longitude', 'facebook_url','twitter_url', 
+              'linkedIn_url', 'google_plus_url', 'youtube_url', 'instagram_url', 'pinterest_url',
+              'status', 'frontend_Logo', 'backend_Logo')
+
+    def get_form(self):
+        form = super().get_form()
+        form.fields['registration_date'].widget = DatePickerInput()
+        return form
+
+    def form_valid(self, form):
+        church = form.save(commit=False)
+        church.save()
+        return redirect('church_list')
+
+
+class churchUpdateView(UpdateView):
+    model = Church
+    template_name = 'churchs/update_church.html'
+    pk_url_kwarg = 'church_pk'
+    fields = ('church_name', 'church_code', 'address', 'phone', 'registration_date', 'email_address', 'fax',
+              'footer', 'enable_frontend', 'latitude', 'longitude', 'facebook_url','twitter_url', 
+              'linkedIn_url', 'google_plus_url', 'youtube_url', 'instagram_url', 'pinterest_url',
+              'status', 'frontend_Logo', 'backend_Logo')
+
+    def get_form(self):
+        form = super().get_form()
+        form.fields['registration_date'].widget = DatePickerInput()
+        return form
+
+    def form_valid(self, form):
+        church = form.save(commit=False)
+        church.save()
+        return redirect('church_list')
+
+
+class churchListView(ListView):
+    model = Church
+    template_name = 'churchs/church_list.html'
+    context_object_name = 'church'
+
+
+def save_church_form(request, form, template_name):
+    data = dict()
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            data['form_is_valid'] = True
+            churches = Church.objects.all()
+            data['html_church_list'] = render_to_string('church/includes/partial_church_list.html', {
+                'churches': churches
+            })
+        else:
+            data['form_is_valid'] = False
+    context = {'form': form}
+    data['html_form'] = render_to_string(template_name, context, request=request)
+    return JsonResponse(data)
+
+
+def church_view(request, church_pk):
+    church = get_object_or_404(Church, pk=church_pk)
+    if request.method == 'POST':
+        form = churchForm(request.POST, instance=church)
+    else:
+        form = churchForm(instance=church)
+    return save_church_form(request, form, 'church/includes/partial_church_view.html')
+
+
+def church_delete(request, church_pk):
+    church = get_object_or_404(Church, pk=church_pk)
+    data = dict()
+    if request.method == 'POST':
+        church.delete()
+        data['form_is_valid'] = True  # This is just to play along with the existing code
+        churches = Church.objects.all()
+        data['html_church_list'] = render_to_string('church/includes/partial_church_list.html', {
+            'churches': churches
+        })
+    else:
+        context = {'church': church}
+        data['html_form'] = render_to_string('church/includes/partial_church_delete.html',
+                                             context,
+                                             request=request,
+                                             )
+    return JsonResponse(data)
+
 

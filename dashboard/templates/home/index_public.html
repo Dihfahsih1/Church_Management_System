@@ -35,12 +35,12 @@
                         <div class="top-banner-content">
                             <h3 class="intro">Welcome to</h3>
                             <h2 class="title"> UCC BWAISE </h2>
-                            <p class="text">
+                            <p class="text" style="font-size: 120%">
                                 {{ about.about|truncatewords:80|linebreaks }}
                             </p>
 
                             <div class="more text-right">
-                                <a class="link glbscl-link-btn hvr-bs" href="#">Read
+                                <a class="link glbscl-link-btn hvr-bs" href="{% url 'about_detail' about.pk %}">Read
                                     More</a>
                             </div>
 
@@ -171,7 +171,58 @@
     </section>
 
 
-    <section class="achivement-area bg-with-black">
+    <section class="latest-news-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title text-center">
+                        <h2 class="title">Latest <span class="inner">News</span></h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                {% for news in news %}
+                    <div class="col-lg-4 col-md-6 col-sm-8 col-12">
+                        <div class="single-news">
+                            <div class="img">
+                                {% if news.image %}
+                                    <img src="{{ news.image.url }}"
+                                         alt="">
+                                {% endif %}
+                            </div>
+
+                            <div class="content">
+                                <ul class="meta">
+                                    <li class="info"><span class="icon"><i class="fa fa-user"></i></span>By :
+                                    {{ news.author.full_name.Initials }} {{ news.author.full_name }} - {{ news.author}}
+                                    </li>
+
+                                    <li class="info"><span class="icon"><i class="far fa-calendar-alt"></i></span>
+                                        {{ news.date }}
+                                    </li>
+                                </ul>
+
+                                <h2 class="title"><a href="{{ news.get_absolute_url }}">{{ news.news_title }}</a></h2>
+
+                                <p class="text">
+                                    {{ news.news|truncatewords:20|linebreaks }}
+                                </p>
+
+                                <div class="more text-right">
+                                    <a class="link glbscl-link-btn hvr-bs"
+                                       href="{% url 'news_detail' news.pk %}">Read More</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+        <section class="achivement-area bg-with-black">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -229,58 +280,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="latest-news-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-title text-center">
-                        <h2 class="title">Latest <span class="inner">News</span></h2>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row justify-content-center">
-                {% for news in news %}
-                    <div class="col-lg-4 col-md-6 col-sm-8 col-12">
-                        <div class="single-news">
-                            <div class="img">
-                                {% if news.image %}
-                                    <img src="{{ news.image.url }}"
-                                         alt="">
-                                {% endif %}
-                            </div>
-
-                            <div class="content">
-                                <ul class="meta">
-                                    <li class="info"><span class="icon"><i class="fa fa-user"></i></span>By /
-                                        {{ news.author }}
-                                    </li>
-
-                                    <li class="info"><span class="icon"><i class="far fa-calendar-alt"></i></span>
-                                        {{ news.date }}
-                                    </li>
-                                </ul>
-
-                                <h2 class="title"><a href="{{ news.get_absolute_url }}">{{ news.news_title }}</a></h2>
-
-                                <p class="text">
-                                    {{ news.news|truncatewords:20|linebreaks }}
-                                </p>
-
-                                <div class="more text-right">
-                                    <a class="link glbscl-link-btn hvr-bs"
-                                       href="{% url 'news_detail' news.pk %}">Read More</a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-
             </div>
         </div>
     </section>

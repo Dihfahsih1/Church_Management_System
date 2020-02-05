@@ -1,6 +1,7 @@
 from django.utils.timezone import now
 from datetime import datetime
 from django.db import models
+from django.urls import reverse
 from django.db.models import Model
 from django.db.models import Sum
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
@@ -9,6 +10,12 @@ from django.contrib.admin.widgets import AdminDateWidget
 from django.contrib.auth.models import PermissionsMixin
 OPTIONS = (('Yes', 'Yes'),
            ('No', 'No'))
+ROLE_CHOICES = (
+    ('SuperAdmin', 'SuperAdmin'),
+    ('Members', 'Members'),
+    ('Secretary', 'Secretary'),
+    ('Admin', 'Admin'),
+)
 class PublishedStatusManager(models.Manager):
     def get_queryset(self):
         return super(PublishedStatusManager, self).get_queryset().filter(Is_View_on_Web='Yes')
@@ -608,7 +615,7 @@ class Slider(models.Model):
 
 class About(models.Model):
     about_image = models.ImageField(upload_to='about/', null=True, blank=False)
-    about = models.TextField(max_length=500)
+    about = models.TextField(max_length=50000)
 
     objects = models.Manager()
 
@@ -704,3 +711,72 @@ class News(models.Model):
 
     def get_absolute_url(self):
         return reverse('news_detail', args=[self.pk])        
+
+class Event(models.Model):
+    event_title = models.CharField(max_length=100)
+    event_for = models.CharField(max_length=20, choices=ROLE_CHOICES, blank=True)
+    event_place = models.CharField(max_length=100)
+    from_date = models.DateField(null=True)
+    to_date = models.DateField(null=True)
+    image = models.ImageField(upload_to='images/', null=True, blank=False)
+    note = models.TextField(blank=True)
+    Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS)
+
+    objects = models.Manager()
+    published = PublishedStatusManager()
+
+    class Meta:
+        default_permissions = ('view', 'add', 'change', 'delete')
+        ordering = ('-from_date',)
+
+    def __str__(self):
+        return self.event_title
+
+    def get_absolute_url(self):
+        return reverse('event_detail', args=[self.pk])
+
+
+class PublishedChurchManager(models.Manager):
+    def get_queryset(self):
+        return super(PublishedChurchManager, self).get_queryset().filter(status='Active')
+
+class EnableFrontendManager(models.Manager):
+    def get_queryset(self):
+        return super(EnableFrontendManager, self).get_queryset().filter(enable_frontend='Yes')
+
+
+class Church(models.Model):
+    church_code = models.CharField(max_length=130, blank=True, null=True)
+    church_name = models.CharField(max_length=130)
+    address = models.CharField(max_length=130)
+    phone = models.CharField(max_length=130)
+    registration_date = models.DateField(blank=True, null=True)
+    email_address = models.EmailField(max_length=120)
+    fax = models.CharField(max_length=130, blank=True, null=True)
+    footer = models.CharField(max_length=130, blank=True, null=True)
+    enable_frontend = models.CharField(max_length=130, default='Yes', choices=OPTIONS)
+    latitude = models.CharField(max_length=130, blank=True, null=True)
+    longitude = models.CharField(max_length=130, blank=True, null=True)
+    facebook_url = models.URLField(max_length=130, blank=True, null=True)
+    twitter_url = models.URLField(max_length=130, blank=True, null=True)
+    linkedIn_url = models.URLField(max_length=130, blank=True, null=True)
+    google_plus_url = models.URLField(max_length=130, blank=True, null=True)
+    youtube_url = models.URLField(max_length=130, blank=True, null=True)
+    instagram_url = models.URLField(max_length=130, blank=True, null=True)
+    pinterest_url = models.URLField(max_length=130, blank=True, null=True)
+    frontend_Logo = models.ImageField(upload_to='logo/', blank=False)
+    backend_Logo = models.ImageField(upload_to='logo/', blank=False)
+    STATUS = (('Active', 'Active'),
+              ('Inactive', 'Inactive'))
+    status = models.CharField(max_length=130, blank=True, null=True, default="Active", choices=STATUS)
+    objects = models.Manager()
+    published = PublishedChurchManager()
+    fronted = EnableFrontendManager()
+    class Meta:
+        default_permissions = ('view', 'add', 'change', 'delete')
+        ordering = ('church_name',)
+        verbose_name = 'church'
+        verbose_name_plural = 'churches'
+
+    def __str__(self):
+        return self.church_name

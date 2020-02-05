@@ -175,4 +175,13 @@ url(r'^announcement/news/update/(?P<news_pk>\d+)/$', views.NewsUpdateView.as_vie
 url(r'^announcement/news/view/(?P<news_pk>\d+)/$', views.news_view, name='news_view'),
 url(r'^announcement/news/news-detail/(?P<news_pk>\d+)/$', views.news_detail, name='news_detail'),
 url(r'^announcement/news/delete/(?P<news_pk>\d+)/$', views.news_delete, name='news_delete'),
+
+#events
+url(r'^event/index/$', views.EventListView.as_view(), name='event_list'),
+url(r'^event/$', views.event_wall, name='event_wall'),
+url(r'^event/add/$', views.EventCreateView.as_view(), name='event_create'),
+url(r'^event/edit/(?P<event_pk>\d+)/$', views.EventUpdateView.as_view(), name='event_update'),
+url(r'^event/view/(?P<event_pk>\d+)/$', views.event_view, name='event_view'),
+url(r'^event/event-detail/(?P<event_pk>\d+)/$', views.event_detail, name='event_detail'),
+url(r'^event/delete(?P<event_pk>\d+)/$', views.event_delete, name='event_delete'),
 ]

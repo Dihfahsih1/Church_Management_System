@@ -208,4 +208,34 @@ class ImageForm(forms.ModelForm):
 class NewsForm(forms.ModelForm):
     class Meta:
         model = News
-        fields = ('news_title', 'image', 'news', 'Is_View_on_Web')        
+        fields = ('news_title', 'image', 'news', 'Is_View_on_Web')
+
+class EventForm(forms.ModelForm):
+    class Meta:
+        model = Event
+        fields = ('event_title', 'event_for', 'event_place', 'from_date', 'to_date', 'image', 'note',
+                  'Is_View_on_Web')
+
+        widgets = {
+            'from_date': DatePickerInput(),
+            'to_date': DatePickerInput(),
+        }
+class churchForm(forms.ModelForm):
+    class Meta:
+        model = Church
+
+        fields = ('church_name', 'church_code', 'address', 'phone', 'registration_date', 'email_address', 'fax',
+                  'footer', 'enable_frontend', 'latitude','longitude', 'facebook_url', 'twitter_url', 
+                  'linkedIn_url', 'google_plus_url', 'youtube_url','instagram_url','pinterest_url', 
+                  'status', 'frontend_Logo', 'backend_Logo')
+
+        widgets = {
+            'church_name': TextInput(attrs={'placeholder': 'Church Name'}),
+            'church_code': TextInput(attrs={'placeholder': 'Church Code'}),
+            'address': TextInput(attrs={'placeholder': 'Address'}),
+            'phone': TextInput(attrs={'placeholder': 'Phone'}),
+            'email_address': TextInput(attrs={'placeholder': 'Email'}),
+            'fax': TextInput(attrs={'placeholder': 'Fax'}),
+            'footer': TextInput(attrs={'placeholder': 'Footer'}),
+            'registration_date': DatePickerInput(),
+        }

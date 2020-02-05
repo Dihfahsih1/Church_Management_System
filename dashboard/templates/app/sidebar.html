@@ -127,6 +127,7 @@
                 </li>
                 <li><a href="{% url 'news_list' %}"><i class="fa fa-bullhorn"></i> News</a>
                 </li>
+                <li><a href="{% url 'event_list' %}"><i class="fa fa fa-calendar-check-o"></i> Event</a></li>
                 <div class="separator"></div>
 
                  {% if user.Role == 'Admin' or user.Role == 'SuperAdmin' %}
