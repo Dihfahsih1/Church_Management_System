@@ -50,32 +50,35 @@
 
             <form method="POST" enctype="multipart/form-data" action="{% url 'cashing-out-items' %}" >
 
-            {% csrf_token %}
-            <div class="col-lg-12">
-             {% for out in cashout %}
-                <div class="form-group col-md-3 mb-0" id="id">
-                    <label> Pledge_Id</label>
-                    <input type="text" name="Item_Id" id="Item_Id" maxlength="100" class="textinput textInput form-control" value="{{out.id }}">
-                </div>
-                {% endfor%}
-                
-               <div class="form-group col-md-3 mb-0" id="item">
-                   {{form.Item_That_Needs_Pledges |as_crispy_field }} 
-               </div>
-                <div class="form-group col-md-3 mb-0" id="amount">
-                    {{ form.Amount_Needed|as_crispy_field }}
-                </div>
+                {% csrf_token %}
+                <div class="form-row">
+                <div class="col-lg-6">
+                  
+                   {% for out in cashout %}
+                    <div class="form-group " id="id">
+                        <label> Pledge_Id</label>
+                        <input type="text" name="Item_Id" id="Item_Id" maxlength="100" class="textinput textInput form-control" value="{{out.id }}">
+                    </div>
+                    {% endfor%}
+                    
+                   <div class="form-group" id="item">
+                       {{form.Item_That_Needs_Pledges |as_crispy_field }} 
+                   </div>
+                    <div class="form-group" id="amount">
+                        {{ form.Amount_Needed|as_crispy_field }}
+                    </div>
 
-                <div class="form-group col-md-3 mb-0" >
-                    <label> Amount Cashed Out</label>
-                    <input type="number" name="Amount_Cashed_Out" id="Amount_Cashed_Out" maxlength="100" class="textinput textInput form-control">
+                    <div class="form-group" >
+                        <label> Amount Cashed Out</label>
+                        <input type="number" name="Amount_Cashed_Out" id="Amount_Cashed_Out" maxlength="100" class="textinput textInput form-control">
+                    </div>
+                   <div class="form-group" >
+                        <label> Cash Out Date</label>
+                        <input type="date" name="Date" id="Date" maxlength="100" class="textinput textInput form-control"> 
+                    </div> 
+                    <button type="submit" class="btn btn-primary" name="button">Submit</button>
                 </div>
-               <div class="form-group col-md-3 mb-0" >
-                    <label> Cash Out Date</label>
-                    <input type="date" name="Date" id="Date" maxlength="100" class="textinput textInput form-control">
-                </div>
-                <button type="submit" class="btn btn-primary" name="button">Submit</button>
-            </div>
+              </div>
             </form>
           {% include 'messages.html' %}
           <script type="text/javascript">

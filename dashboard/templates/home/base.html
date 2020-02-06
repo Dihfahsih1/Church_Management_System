@@ -77,7 +77,7 @@
     <div class="header-bottom-area">
         <div class="container">
             <div class="row">
-                <div class="col-lg-1 offset-lg-0 col-md-4 offset-md-3 col-sm-6 col-6">
+                <div class="col-lg-1">
                     <div class="logo">
                         <a href="{% url 'index_public' %}">
                             <img src="{% static 'img/uccb.jpg' %}"
@@ -85,7 +85,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-11 offset-lg-0 col-md-8 offset-md-2 col-sm-12 col-12">
+                <div class="col-lg-11">
                     <div class="menu">
                         <nav id="mobile_menu_active">
                             <ul id="menu">
@@ -112,13 +112,13 @@
                                 </li>
                                 <li><a href="#">Projects</a></li>
                                 <li><a href="https://www.youtube.com/channel/UCFMCB_zTwBQNunbpjBsPcSw/videos" target="_blank">Youtube Channel</a></li>
-                                <li><a href="{% url 'event_wall' %}">Upcoming Events</a></li>
-                                <li><a href="{% url 'gallery_wall' %}">Photo Gallery</a></li>
+                                <li><a href="{% url 'event_wall' %}">Events</a></li>
+                                <li><a href="{% url 'gallery_wall' %}">Gallery</a></li>
                                 <li><a href="{% url 'contact' %}">Contact Us</a></li>
-                                <li><a href="javascript:void(0)">Page <span class="icon fa fa-chevron-down"></span></a>
+                                <!--<li><a href="javascript:void(0)">Page <span class="icon fa fa-chevron-down"></span></a>
                                    <ul class="drop">
                                     </ul>
-                                </li>
+                                </li>-->
 
                             </ul>
                         </nav>
