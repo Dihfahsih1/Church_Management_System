@@ -36,9 +36,9 @@
                         <div class="top-banner-content">
                             <h3 class="intro">Welcome to</h3>
                             <h2 class="title"> {{church_name}} </h2>
-                            <p class="text" style="font-size: 120%">
+                            <h3 class="text" style="font-size: 120%">
                                 {{ about.about|truncatewords:80|linebreaks }}
-                            </p>
+                            </h3>
 
                             <div class="more text-right">
                                 <a class="link glbscl-link-btn hvr-bs" href="{% url 'about_detail' about.pk %}">Read
@@ -73,7 +73,7 @@
         </div>
     </section>
 
-    <section class="page-gallery-area">
+    <section class="page-gallery-area" style="margin-top: -10%">
     <div class="container">
      <div class="row">
         <h2 style="text-align: center"><ul>CHURCH HIGHLIGHTS</ul></h2>
