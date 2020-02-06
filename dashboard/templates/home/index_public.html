@@ -77,7 +77,7 @@
     <div class="container">
      <div class="row">
         <h2 style="text-align: center"><ul>CHURCH HIGHLIGHTS</ul></h2>
-     <div class="gallery-carousel owl-carousel">    
+            <div class="gallery-carousel owl-carousel">    
                   {% for image in images %}                 
                     <div class="single-gallery">
                             <a href="{% url 'image_view' image.pk %}">
@@ -96,9 +96,13 @@
                 
                 {% endfor %}
 
-           </div>  
+           </div> 
+            <div class="more text-right" style="margin-top: -7%">
+            <a class="link glbscl-link-btn hvr-bs" href="{% url 'gallery_wall' %}">More Highlights</a>
+           </div> 
         </div>   
     </div>
+    
 </section>
 
     <section class="facilities-area">
@@ -160,6 +164,7 @@
 
             <div class="row justify-content-center">
                 {% for event in events %}
+                 {% if forloop.counter <= 3 %}
                     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                         <div class="single-event">
                             <div class="img">
@@ -194,8 +199,12 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %}
                 {% endfor %}
             </div>
+            <div class="more text-right" style="margin-top: -7%">
+            <a class="link glbscl-link-btn hvr-bs" href="{% url 'event_wall' %}">More Events</a>
+           </div>
         </div>
     </section>
   <section class="testimonial-area bg-with-black">
@@ -250,6 +259,7 @@
 
             <div class="row justify-content-center">
                 {% for news in news %}
+                  {% if forloop.counter <= 3 %}
                     <div class="col-lg-4 col-md-6 col-sm-8 col-12">
                         <div class="single-news">
                             <div class="img">
@@ -284,9 +294,13 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %}
                 {% endfor %}
 
             </div>
+             <div class="more text-right" style="margin-top: -7%">
+            <a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">More News</a>
+           </div>
         </div>
     </section>
         <section class="achivement-area bg-with-black">

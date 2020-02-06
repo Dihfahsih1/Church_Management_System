@@ -8,6 +8,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.forms.fields import DateField
 from django.contrib.admin.widgets import AdminDateWidget
 from django.contrib.auth.models import PermissionsMixin
+
 OPTIONS = (('Yes', 'Yes'),
            ('No', 'No'))
 ROLE_CHOICES = (
@@ -706,7 +707,7 @@ class News(models.Model):
         default_permissions = ('view', 'add', 'change', 'delete')
         verbose_name = ("News")
         verbose_name_plural = ("News")
-        ordering = ('-date',)
+        ordering = ('-date')
 
     def __str__(self):
         return self.news_title
@@ -715,6 +716,7 @@ class News(models.Model):
         return reverse('news_detail', args=[self.pk])        
 
 class Event(models.Model):
+    date = models.DateField(auto_now_add=True)
     event_title = models.CharField(max_length=100)
     event_for = models.CharField(max_length=20, choices=ROLE_CHOICES, blank=True)
     event_place = models.CharField(max_length=100)
@@ -729,7 +731,7 @@ class Event(models.Model):
 
     class Meta:
         default_permissions = ('view', 'add', 'change', 'delete')
-        ordering = ('-from_date',)
+        ordering = ('-date')
 
     def __str__(self):
         return self.event_title
