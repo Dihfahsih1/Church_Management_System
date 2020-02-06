@@ -707,7 +707,7 @@ class News(models.Model):
         default_permissions = ('view', 'add', 'change', 'delete')
         verbose_name = ("News")
         verbose_name_plural = ("News")
-        ordering = ('-date')
+        ordering = ['-date']
 
     def __str__(self):
         return self.news_title
@@ -731,7 +731,7 @@ class Event(models.Model):
 
     class Meta:
         default_permissions = ('view', 'add', 'change', 'delete')
-        ordering = ('-date')
+        ordering = ['-date']
 
     def __str__(self):
         return self.event_title

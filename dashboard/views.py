@@ -33,7 +33,8 @@ def web(request):
     }
     return render(request, 'home/index_public.html', context)
 
-
+def contact(request):
+    return render(request, 'home/contacts.html')
 @login_required
 def index(request):
 
