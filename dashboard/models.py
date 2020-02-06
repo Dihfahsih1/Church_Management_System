@@ -485,7 +485,7 @@ class PledgeItem(Model):
         return results
 class PledgesCashedOut(Model):
     Date = models.DateField(blank=True, null=True)
-    Item_That_Needs_Pledges = models.ForeignKey(PledgeItem, on_delete=models.SET_NULL,  max_length=100, blank=True, null=True)
+    Item_That_Needs_Pledges = models.CharField( max_length=100, blank=True, null=True)
     Item_Id = models.CharField(max_length=100, blank=True, null=True)
     Amount_Needed = models.IntegerField(blank=True, null=True)
     Amount_Cashed_Out = models.IntegerField(blank=True, null=True)

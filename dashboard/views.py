@@ -1908,14 +1908,13 @@ def pledge_cash_out(request, pk):
 def cashing_out_items(request):
     if request.method == "POST":
         form =  PledgesCashedOutForm(request.POST,request.FILES)
-
+        print(form)
         if form.is_valid():
-            print(form)
+            
             form.save() 
             #PledgesCashedOut.objects.all().delete()
             messages.success(request, "Cash out was successful")
-
-            return redirect('list-of-pledge-items')
+            return redirect('list-of-pledge-items')    
         else:
             form = PledgesCashedOutForm()
             context={'form':form}

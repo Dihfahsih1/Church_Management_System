@@ -40,7 +40,7 @@ class UserEmailForm(forms.ModelForm):
                 return email
         except User.DoesNotExist:
             return email
-        raise ValidationError(_("This email is already used."))
+        raise ValidationError("This email is already used.")
 
 class GeneralExpensesForm(forms.ModelForm):
     class Meta:
@@ -57,13 +57,14 @@ class SundryForm(forms.ModelForm):
         widgets = {
             'Date': DatePickerInput(),
         }
+
 class PledgesCashedOutForm(forms.ModelForm):
     class Meta:
         model=PledgesCashedOut
         fields=('Date','Item_That_Needs_Pledges','Amount_Needed','Item_Id','Amount_Cashed_Out')
-        widgets = {
-            'Date': DatePickerInput(),
-        }          
+        widgets = {'Date': DatePickerInput(),
+          'Item_That_Needs_Pledges': TextInput(attrs={'placeholder': 'Item'}),} 
+
 class AllowanceForm(forms.ModelForm):
     class Meta:
         model=Allowance
