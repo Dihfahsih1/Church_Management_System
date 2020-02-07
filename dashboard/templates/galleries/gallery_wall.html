@@ -28,10 +28,9 @@
                         {% for image in images %}
                         {% if image.gallery_title.gallery_title == gallery.gallery_title %}
                             <div class="single-gallery">
-                                 <a href="{{ image.gallery_image.url }}"
-                                       data-fancybox="images">
+                                 <a href="{{ image.gallery_image.url }}">
                                         <span class="icon"><i class="fa fa-search"></i></span>
-                                        <img src="{{ image.gallery_image.url }}"
+                                        <img src="{{ image.gallery_image.url }}" data-fancybox="images"
                                              alt="Lorem Ipsum is simply dummy."/>
                                  </a>
                             </div>
