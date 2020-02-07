@@ -23,7 +23,9 @@ def web(request):
     employees = StaffDetails.published.all()
     sliders = Slider.objects.all()
     abouts = About.objects.all()
+    feeback= Contact.objects.all()
     context = {
+        'feeback':feeback,
         'images':images,
         'events': events,
         'news': news,

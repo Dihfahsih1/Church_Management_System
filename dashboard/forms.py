@@ -243,4 +243,4 @@ class churchForm(forms.ModelForm):
 class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
-        fields = ('name', 'email', 'phone', 'subject','message')
+        fields = ('name', 'email', 'phone', 'subject','message','feedback')

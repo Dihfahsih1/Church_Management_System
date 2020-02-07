@@ -788,8 +788,9 @@ class Church(models.Model):
 class Contact(models.Model):
     name=models.CharField(max_length=1000, blank=True, null=True)
     email = models.CharField(max_length=130, blank=True, null=True)
-    phone = models.CharField(max_length=130)
-    subject = models.CharField(max_length=130)
-    message = models.TextField(max_length=130)
+    phone = models.CharField(max_length=130, blank=True, null=True)
+    subject = models.CharField(max_length=130, blank=True, null=True)
+    message = models.TextField(max_length=130, blank=True, null=True)
+    feedback = models.TextField(max_length=100000, blank=True, null=True)
 
 

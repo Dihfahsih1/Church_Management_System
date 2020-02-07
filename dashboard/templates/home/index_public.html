@@ -15,10 +15,9 @@
                 </div>
                 <div class="content">
                     <div class="container">
-                        <!--<h3 class="intro animated">Welcome to</h3>-->
                         <h2 class="title animated"> {{slider.image_title}} </h2>
                         <a class="link animated glbscl-link-btn hvr-bs"
-                           href="#">Visit Us Today</a>
+                           href="{% url 'contact' %}">Come Fellowship with Us</a>
                     </div>
                 </div>
             </div>
@@ -41,8 +40,7 @@
                             </h3>
 
                             <div class="more text-right">
-                                <a class="link glbscl-link-btn hvr-bs" href="{% url 'about_detail' about.pk %}">Read
-                                    More</a>
+                                <a class="link glbscl-link-btn hvr-bs" href="{% url 'about_detail' about.pk %}">Read More</a>
                             </div>
 
                         </div>
@@ -54,19 +52,6 @@
                             {% endif %}
                         </div>
                     </div>
-                <!---      {% else %}
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                        <div class="top-banner-img">
-                            {% if about.about_image %}
-                                <img src="{{ about.about_image.url }}" alt="">
-                            {% endif %}
-                        </div>
-                        <div class="top-banner-content">
-                            <p class="text">
-                                {{ about.about|truncatewords:80|linebreaks }}
-                            </p>
-                        </div>
-                    </div> -->
                 {% endif %}
                 {% endfor %}
             </div>
@@ -105,51 +90,51 @@
     
 </section>
 
-    <section class="facilities-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-title text-center">
-                        <h2 class="title">Our <span class="inner">Departments</span></h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="single-faclities">
-                        <div class="icon">
-                            <img src="{% static 'img/experience-teacher.png' %}"
-                                 alt="">
-                        </div>
-                        <h4 class="name">Youths</h4>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="single-faclities">
-                        <div class="icon">
-                            <img src="{% static 'img/library.png' %}" alt="">
-                        </div>
-                        <h4 class="name">Evangelical</h4>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="single-faclities">
-                        <div class="icon">
-                            <img src="{% static 'img/transport.png' %}" alt="">
-                        </div>
-                        <h4 class="name">Building</h4>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="single-faclities">
-                        <div class="icon">
-                            <img src="{% static 'img/hostel.png' %}" alt="">
-                        </div>
-                        <h4 class="name">Sunday School</h4>
-                    </div>
+<section class="facilities-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title text-center">
+                    <h2 class="title">Our <span class="inner">Departments</span></h2>
                 </div>
             </div>
         </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="single-faclities">
+                    <div class="icon">
+                        <img src="{% static 'img/experience-teacher.png' %}"
+                             alt="">
+                    </div>
+                    <h4 class="name">Youths</h4>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="single-faclities">
+                    <div class="icon">
+                        <img src="{% static 'img/library.png' %}" alt="">
+                    </div>
+                    <h4 class="name">Evangelical</h4>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="single-faclities">
+                    <div class="icon">
+                        <img src="{% static 'img/transport.png' %}" alt="">
+                    </div>
+                    <h4 class="name">Building</h4>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="single-faclities">
+                    <div class="icon">
+                        <img src="{% static 'img/hostel.png' %}" alt="">
+                    </div>
+                    <h4 class="name">Sunday School</h4>
+                </div>
+            </div>
+        </div>
+    </div>
     </section>
 
     <section class="latest-event">
@@ -207,45 +192,43 @@
            </div>
         </div>
     </section>
-  <section class="testimonial-area bg-with-black">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="section-title white text-center">
-                            <h2 class="title">Church Reviews</h2>
-                        </div>
+    <section class="testimonial-area bg-with-black">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title white text-center">
+                        <h2 class="title">Church Reviews</h2>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-10 col-md-12 offset-lg-1 col-sm-12 col-12">
-                        <div class="testimonial-carousel owl-carousel">
-                            <div class="single-testimonial">
-                                <div class="auth-img">
-                                    <img src="{% static 'img/photo-1518180397-sms.jpg' %}"
-                                         alt="">
-
-                                </div>
-                                <div class="content">
-                                    <h2 class="name">Patrick Mubiru</h2>
-                                    <p class="text"> UCC Bwaise is a church that transforms people's thoughts and we start to think of the reason as to why God created us -- Reason as to why i am alive.</p>
-                                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-10 col-md-12 offset-lg-1 col-sm-12 col-12">
+                    <div class="testimonial-carousel owl-carousel">
+                        {% for data in feeback %}
+                        <div class="single-testimonial">
+                            <div class="content">
+                                <h2 class="name">{{data.name}}</h2>
+                                <p class="text"> {{data.feedback}}</p>
                             </div>
-                             <div class="single-testimonial">
-                                <div class="auth-img">
-                                    <img src="{% static 'img/photo-1518180397-sms.jpg' %}"
-                                         alt="">
-
-                                </div>
-                                <div class="content">
-                                    <h2 class="name">Nakachwa Tracy</h2>
-                                    <p class="text"> Through UCC Bwaise Church i was able to discover the will of God for my life and that's to serve him</p>
-                                </div>
+                        </div>
+                        {% endfor %}
+                        <div class="single-testimonial">
+                            <div class="content">
+                                <h2 class="name">Patrick Mubiru</h2>
+                                <p class="text"> UCC Bwaise is a church that transforms people's thoughts and we start to think of the reason as to why God created us -- Reason as to why i am alive.</p>
+                            </div>
+                        </div>
+                         <div class="single-testimonial">
+                            <div class="content">
+                                <h2 class="name">Nakachwa Tracy</h2>
+                                <p class="text"> Through UCC Bwaise Church i was able to discover the will of God for my life and that's to serve him</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
     <section class="latest-news-area">
         <div class="container">
@@ -303,7 +286,7 @@
            </div>
         </div>
     </section>
-        <section class="achivement-area bg-with-black">
+    <section class="achivement-area bg-with-black">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -364,60 +347,58 @@
             </div>
         </div>
     </section>
-
-    {% if feedbacks %}
-        <section class="testimonial-area bg-with-black">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="section-title white text-center">
-                            <h2 class="title">What Others Say?</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-10 col-md-12 offset-lg-1 col-sm-12 col-12">
-                        <div class="testimonial-carousel owl-carousel">
-                            <div class="single-testimonial">
-                                <div class="auth-img">
-                                    <img src="{% static 'img/photo-1518180397-sms.jpg' %}"
-                                         alt="">
-
-                                </div>
-                                <div class="content">
-                                    <h2 class="name">TK Musakanda</h2>
-                                    <p class="text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                        eiusmod
-                                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                        quis
-                                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                        Duis
-                                        aute
-                                        irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                                        nulla
-                                        pariatur.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    {% endif %}
-
     <section class="apply-now-area">
         <div class="container">
-            <div class="apply-now">
-                <div class="row">
-                    <div class="col-lg-9 col-md-9 col-sm-8 col-12">
-                        <h2 class="title">Visit Us Today</h2>
+             <div class="col-lg-12 col-12">
+                    <div class="contact-form-area">
+                        <h2 class="contact-page-title">Feedback to {% church_name %}</h2>
+
+                        <form action="{% url 'contact' %}"
+                              method="POST"
+                              id="contact_us"
+                              name="contact_us">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="contact-input-box">
+                                        <input type="text" name="name" id="name" 
+                                               placeholder="Name *">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="contact-input-box">
+                                        <input type="email" name="email" id="email" 
+                                               placeholder="Email *">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="contact-input-box">
+                                        <input type="text" name="phone" id="phone" placeholder="Phone">
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="contact-input-box">
+                                    <textarea name="feedback" id="message" required="required"
+                                              placeholder="Feed Back *"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="contact-input-box text-right">
+                                        <input class="glbscl-link-btn hvr-bs" type="submit" name="submit" id="submit"
+                                               value="Submit">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </form>
+
                     </div>
-                    <div class="col-lg-3 col-md-3 col-sm-4 col-12">
-                        <a href="{% url 'contact' %}"
-                           class="link glbscl-link-btn hvr-bs" style="color: #007bff !important;">Directions</a>
-                    </div>
-                </div>
-            </div>
+              </div>
         </div>
     </section>        <!-- /page content -->
 
