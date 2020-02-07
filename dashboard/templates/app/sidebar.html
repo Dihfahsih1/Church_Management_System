@@ -28,7 +28,7 @@
             <ul class="nav side-menu">
                 <h3 style="font-weight:bolder; color: white; text-align: center">Financial Functions <i class="glyphicon glyphicon-arrow-down"></i></h3>
                 <div class="separator"></div>
-                <li><a href="#"><i class="fa fa-user"></i> Membership <span class="fa fa-chevron-down"></span></a>
+                <li><a href="#"><i class="fa fa-group"></i> Membership <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{% url 'members-register'%}">Register Members</a></li>
                         <li><a href="{% url 'visitors-register'%}"> Register Visitor</a></li>
@@ -47,7 +47,7 @@
                         <li><a href="{% url 'record-thanks-giving'%}">Thanks Giving / Love Offering</a></li>
                     </ul>
                 </li>
-                <li><a><i class="fa fa-tty"></i> Record Expenditures <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-balance-scale"></i> Record Expenditures <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{% url 'enter-general-expenses'  %}">General  Expenditure</a>
                         </li>
@@ -74,7 +74,7 @@
                     </ul>
                 </li>
 
-                <li><a><i class="fa fa-dashboard"></i> Monthly Reports <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-database"></i> Monthly Reports <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{% url 'expenditurereport'  %}"> Main Expenses Reports</a></li>
                         <li><a href="{% url 'general-expenses-report' %}"> General Expenses Reports</a></li>
@@ -89,7 +89,7 @@
                         <li><a href="{% url 'thanks-giving-report'  %}"> Thanks Giving Report</a></li>
                     </ul>
                 </li>
-                <li><a><i class="fa fa-folder-open"></i> Archived Reports <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-archive"></i> Archived Reports <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{% url 'expensesarchivessearch' %}"> Main Expenses Archived</a></li>
                          <li><a href="{% url 'general-expensesarchives-search' %}"> General Expenses Archived</a></li>
@@ -112,7 +112,7 @@
                         <li><a href="{% url 'employee-list' %}">Employee List</a></li>
                     </ul>
                 </li>
-                 <li><a><i class="glyphicon glyphicon-transfer"></i> Manage Church Website <span class="fa fa-chevron-down"></span></a>
+                 <li><a><i class="fa fa-laptop"></i> Manage Church Website <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{% url 'page_list' %}">Manage Pages</a></li>
                         <li><a href="{% url 'slider_list' %}">Manage Sliders</a></li>
@@ -128,7 +128,7 @@
                 <li><a href="{% url 'news_list' %}"><i class="fa fa-bullhorn"></i> News</a>
                 </li>
                 <li><a href="{% url 'event_list' %}"><i class="fa fa fa-calendar-check-o"></i> Event</a></li>
-                <li><a href="{% url 'church_list' %}">Manage Church</a></li>
+                <li><a href="{% url 'church_list' %}"><i class="fa fa fa-institution"></i> Manage Church</a></li>
                 <div class="separator"></div>
 
                  {% if user.Role == 'Admin' or user.Role == 'SuperAdmin' %}

@@ -45,7 +45,7 @@
     <div class="header-top-area">
         <div class="container">
             <div class="row">
-                <div class="col-lg-7 col-md-8 col-sm-12 col-12 hta-left">
+                <div class="col-lg-9 col-md-8 col-sm-12 col-12 hta-left">
                     <div class="hta-box">
                         <p class="text">Have you any question?</p>
                     </div>
@@ -55,17 +55,19 @@
                     </div>
                     <div class="hta-box">
                         <span class="icon"><i class="fa fa-envelope"></i></span>
-                        <p class="text">Email us : {% email_address %} </p>
+                       <p class="text">Email us :  {% email_address %} </p>
+                    </div>
+                    <div class="hta-box">
+                        <span class="icon"><i class="fa fa-group"></i></span>
+                        <p class="text">Membership : <a class="text btn btn-success" href="{% url 'online_registration' %}">Register</a></p>
                     </div>
 
                 </div>
-                 <div class="hta-box">
-                        <a class="text" href="{% url 'online_registration' %}">Admission</a>
-                    </div>
+                 
                     {% if request.user.is_authenticated %}                    
                         <div class="hta-box">
-                            <span style="font-weight:120%">{{request.user.full_name.Initials}} {{request.user.full_name}}</i></span>
-                            <a class="text" href="{% url 'logout' %}">Log Out</a>
+                            <span style="font-weight:120%; color: white">{{request.user.full_name.Initials}} {{request.user.full_name}}</i></span>
+                            <a class="text btn btn-primary" href="{% url 'logout' %}">Log Out</a>
                         </div>
                     {% else %}
                         <div class="hta-box">                            
@@ -127,6 +129,19 @@
                         </nav>
                     </div>
                 </div>
+                 <!--fade up notification upon successful redirect-->
+            {% if messages %}
+            <div class="col-lg-6" style="float: right">
+                <div class="alert alert-info" id="success-alert">
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                    <ul>
+                        {% for message in messages %}
+                        <h1 style="font-weight: bolder" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h1>
+                        {% endfor %}
+                    </ul>
+               </div>
+            </div>       
+           {% endif %} 
             </div>
         </div>
     </div>

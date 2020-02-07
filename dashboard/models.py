@@ -785,3 +785,11 @@ class Church(models.Model):
 
     def __str__(self):
         return self.church_name
+class Contact(models.Model):
+    name=models.CharField(max_length=1000, blank=True, null=True)
+    email = models.CharField(max_length=130, blank=True, null=True)
+    phone = models.CharField(max_length=130)
+    subject = models.CharField(max_length=130)
+    message = models.TextField(max_length=130)
+
+

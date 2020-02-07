@@ -1,5 +1,6 @@
 #views
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
+from django.contrib.messages.views import SuccessMessageMixin
 from datetime import datetime, timedelta
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
@@ -34,16 +35,27 @@ def web(request):
     return render(request, 'home/index_public.html', context)
 
 def contact(request):
+    if request.method=="POST":
+        form=ContactForm(request.POST, request.FILES,)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Your Message has been sent successfully')
+            return redirect('index_public')
+    else:
+        form=ContactForm()
+        return render(request, 'home/contacts.html',{'form':form})
+
     return render(request, 'home/contacts.html')
 
-class OnlineRegistrationView(CreateView):
+class OnlineRegistrationView(SuccessMessageMixin,CreateView):
     model = Members
     template_name = 'Members/online_registration.html'
+    success_message = " Your Membership has been Saved successfully"
     fields = '__all__'
 
     def form_valid(self, form):
-        student = form.save(commit=False)
-        student.save()
+        member = form.save(commit=False)
+        member.save()
         return redirect('index_public')    
 @login_required
 def index(request):
@@ -1156,7 +1168,7 @@ class tithesarchivepdf(View):
 
 def member_annual_tithes(request, pk):
     years = datetime.now().year
-    tithes=TithesReportArchive.objects.filter(Tithe_Made_By_id=pk, archivedyear=yr)
+    tithes=TithesReportArchive.objects.filter(Tithe_Made_By_id=pk, archivedyear=years)
     
     members=Members.objects.filter(id=pk)
     tithescontext={'tithes':tithes, 'members':members}
@@ -2887,7 +2899,7 @@ def event_delete(request, event_pk):
 class churchCreateView(CreateView):
     model = Church
     template_name = 'church/create_church.html'
-    fields = ('church_name', 'church_code', 'address', 'phone', 'registration_date', 'email_address', 'fax',
+    fields = ('maps_embedded_link','church_name', 'church_code', 'address', 'phone', 'registration_date', 'email_address', 'fax',
               'footer', 'enable_frontend', 'latitude', 'longitude', 'facebook_url','twitter_url', 
               'linkedIn_url', 'google_plus_url', 'youtube_url', 'instagram_url', 'pinterest_url',
               'status', 'frontend_Logo', 'backend_Logo')
@@ -2907,7 +2919,7 @@ class churchUpdateView(UpdateView):
     model = Church
     template_name = 'church/update_church.html'
     pk_url_kwarg = 'church_pk'
-    fields = ('church_name', 'church_code', 'address', 'phone', 'registration_date', 'email_address', 'fax',
+    fields = ('maps_embedded_link','church_name', 'church_code', 'address', 'phone', 'registration_date', 'email_address', 'fax',
               'footer', 'enable_frontend', 'latitude', 'longitude', 'facebook_url','twitter_url', 
               'linkedIn_url', 'google_plus_url', 'youtube_url', 'instagram_url', 'pinterest_url',
               'status', 'frontend_Logo', 'backend_Logo')

@@ -59,6 +59,12 @@ def church_footer():
     return church_foot
 
 @register.simple_tag
+def church_map():
+    on_map = Church.objects.get(id=1)
+    on_map_link = on_map.maps_embedded_link
+    return on_map_link    
+
+@register.simple_tag
 def church():
     church_status = Church.objects.get(id=1)
     return church_status

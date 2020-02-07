@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import messages
 from .forms import *
 from dashboard.forms import UserForm
-from dashboard.models import User
+from dashboard.models import User, Contact
 from python_utils import *
 from django.contrib.auth.views import *
 from django.contrib.auth.decorators import login_required
@@ -46,7 +46,9 @@ def reset_user_password(request, user_pk):
                'password': password}
     return render(request, 'users/home/reset_user_password.html', context)
 def view_profile(request):
-    return render(request, 'users/home/profile.html')
+    web_messages=Contact.objects.all()
+    context={'web_messages':web_messages}
+    return render(request, 'users/home/profile.html',context)
 
 def edit_profile(request):
     if request.method == 'POST':
