@@ -225,7 +225,7 @@ class churchForm(forms.ModelForm):
     class Meta:
         model = Church
 
-        fields = ('church_name', 'church_code', 'address', 'phone', 'registration_date', 'email_address', 'fax',
+        fields = ('maps_embedded_link','church_name', 'church_code', 'address', 'phone', 'registration_date', 'email_address', 'fax',
                   'footer', 'enable_frontend', 'latitude','longitude', 'facebook_url', 'twitter_url', 
                   'linkedIn_url', 'google_plus_url', 'youtube_url','instagram_url','pinterest_url', 
                   'status', 'frontend_Logo', 'backend_Logo')

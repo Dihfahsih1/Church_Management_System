@@ -750,6 +750,7 @@ class EnableFrontendManager(models.Manager):
 
 
 class Church(models.Model):
+    maps_embedded_link=models.CharField(max_length=1000, blank=True, null=True)
     church_code = models.CharField(max_length=130, blank=True, null=True)
     church_name = models.CharField(max_length=130)
     address = models.CharField(max_length=130)

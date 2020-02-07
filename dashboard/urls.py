@@ -6,6 +6,7 @@ urlpatterns=[
 url(r'^$', views.web, name='index_public'),
 url(r'^Church-System', views.index ,name='index'),
 url(r'^contact/$', views.contact, name='contact'),
+url(r'^mbership-online/$', views.OnlineRegistrationView.as_view(), name='online_registration'),
 
 url(r'^enter_expenditure/', views.enter_expenditure, name='enter_expenditure'),
 url(r'^enter_sundryexpense', views.enter_sundryexpense ,name='enter_sundryexpense'),

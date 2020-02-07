@@ -35,6 +35,16 @@ def web(request):
 
 def contact(request):
     return render(request, 'home/contacts.html')
+
+class OnlineRegistrationView(CreateView):
+    model = Members
+    template_name = 'Members/online_registration.html'
+    fields = '__all__'
+
+    def form_valid(self, form):
+        student = form.save(commit=False)
+        student.save()
+        return redirect('index_public')    
 @login_required
 def index(request):
 

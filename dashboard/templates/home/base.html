@@ -59,6 +59,9 @@
                     </div>
 
                 </div>
+                 <div class="hta-box">
+                        <a class="text" href="{% url 'online_registration' %}">Admission</a>
+                    </div>
                     {% if request.user.is_authenticated %}                    
                         <div class="hta-box">
                             <span style="font-weight:120%">{{request.user.full_name.Initials}} {{request.user.full_name}}</i></span>
