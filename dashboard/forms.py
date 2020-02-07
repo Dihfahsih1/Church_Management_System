@@ -1,9 +1,11 @@
 from django import forms
 from .models import *
+from captcha.fields import ReCaptchaField
 from django.forms import Textarea, TextInput, ChoiceField
 from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput, MonthPickerInput, DateTimePickerInput   
 
-
+class FormWithCaptcha(forms.Form):
+    captcha = ReCaptchaField()
 
 class SliderForm(forms.ModelForm):
     class Meta:

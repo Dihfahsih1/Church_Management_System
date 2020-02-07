@@ -3,6 +3,7 @@ from django.views.generic import CreateView, UpdateView, ListView, DeleteView, D
 from django.contrib.messages.views import SuccessMessageMixin
 from datetime import datetime, timedelta
 from django.contrib import messages
+from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.views import View
@@ -24,7 +25,10 @@ def web(request):
     sliders = Slider.objects.all()
     abouts = About.objects.all()
     feeback= Contact.objects.all()
+    pages = Page.objects.all()
+   
     context = {
+        'pages' : pages,
         'feeback':feeback,
         'images':images,
         'events': events,
@@ -40,8 +44,24 @@ def contact(request):
     if request.method=="POST":
         form=ContactForm(request.POST, request.FILES,)
         if form.is_valid():
-            form.save()
-            messages.success(request, f'Your Message has been sent successfully')
+            ''' Begin reCAPTCHA validation '''
+            recaptcha_response = request.POST.get('g-recaptcha-response')
+            url = 'https://www.google.com/recaptcha/api/siteverify'
+            values = {
+                'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+                'response': recaptcha_response
+            }
+            data = urllib.parse.urlencode(values).encode()
+            req =  urllib.request.Request(url, data=data)
+            response = urllib.request.urlopen(req)
+            result = json.loads(response.read().decode())
+            ''' End reCAPTCHA validation '''
+
+            if result['success']:
+                form.save()
+                messages.success(request, f'Your Message has been sent successfully')
+            else:
+                messages.error(request, 'Invalid reCAPTCHA. Please try again.')
             return redirect('index_public')
     else:
         form=ContactForm()
@@ -2466,12 +2486,12 @@ class PageListView(ListView):
 
 
 def page_wall(request, page_pk):
-    page = get_object_or_404(Page, pk=page_pk)
+    pager = get_object_or_404(Page, pk=page_pk)
     pages = Page.objects.all()
     header_pages = Page.header.all()
     footer_pages = Page.footer.all()
     context = {
-        'page': page,
+        'pager': pager, 
         'pages': pages,
         'header_pages': header_pages,
         'footer_pages': footer_pages

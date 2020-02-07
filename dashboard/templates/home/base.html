@@ -47,7 +47,7 @@
             <div class="row">
                 <div class="col-lg-9 col-md-8 col-sm-12 col-12 hta-left">
                     <div class="hta-box">
-                        <p class="text">Have you any question?</p>
+                        <p class="text"><b>UCC Bwaise</b></p>
                     </div>
                     <div class="hta-box">
                         <span class="icon"><i class="fa fa-phone"></i></span>
@@ -67,11 +67,11 @@
                     {% if request.user.is_authenticated %}                    
                         <div class="hta-box">
                             <span style="font-weight:120%; color: white">{{request.user.full_name.Initials}} {{request.user.full_name}}</i></span>
-                            <a class="text btn btn-primary" href="{% url 'logout' %}">Log Out</a>
+                            <a class="text btn btn-primary" href="{% url 'logout' %}"><span class="fa fa-sign-out">Log Out</span></a>
                         </div>
                     {% else %}
                         <div class="hta-box">                            
-                            <a class="text" href="{% url 'login' %}">Log In</a>
+                            <a class="text btn btn-primary" href="{% url 'login' %}"><span class="fa fa-sign-out">Log In</span></a>
                         </div>
                     {% endif %}
 
@@ -80,7 +80,7 @@
         </div>
     </div>
     <div class="header-bottom-area">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-1">
                     <div class="logo">
@@ -88,12 +88,13 @@
                             <img src="{% static 'img/uccb.jpg' %}"
                                  alt=""/>
                         </a>
+
                     </div>
                 </div>
-                <div class="col-lg-11">
+                <div class="col-lg-11" style="margin-right: -5%">
                     <div class="menu">
                         <nav id="mobile_menu_active">
-                            <ul id="menu">
+                            <ul id="menu" >
                                 <li><a href="{% url 'index_public' %}">Home</a></li>
                                 <li><a href="#">About Us <span class="icon fa fa-chevron-down"></span></a>
                                     <ul class="drop">
@@ -120,10 +121,14 @@
                                 <li><a href="{% url 'event_wall' %}">Events</a></li>
                                 <li><a href="{% url 'gallery_wall' %}">Gallery</a></li>
                                 <li><a href="{% url 'contact' %}">Contact Us</a></li>
-                                <!--<li><a href="javascript:void(0)">Page <span class="icon fa fa-chevron-down"></span></a>
-                                   <ul class="drop">
+                                
+                                <li><a href="javascript:void(0)">Page <span class="icon fas fa-chevron-down"></span></a>
+                                    <ul class="drop">
+                                       <li>
+                                           {% all_pages %}
+                                       </li>
                                     </ul>
-                                </li>-->
+                                </li>
 
                             </ul>
                         </nav>

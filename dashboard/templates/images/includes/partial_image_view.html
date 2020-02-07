@@ -1,3 +1,18 @@
+{% extends 'home/base.html' %}
+{% load static total_tags %}
+<body>
+
+{% block content %}
+
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">Gallery</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href="javascript:void(0);">Images</a></li>
+            </ul>
+        </div>
+    </section>
 <form method="post" action="{% url 'image_view' form.instance.pk %}" class="js-image-view-form"
       enctype="multipart/form-data">
     {% csrf_token %}
@@ -19,8 +34,8 @@
                             <table id="tablePreview" class="table table-bordered table-striped">
                                 <tbody>
                                 <tr>
-                                    <th>School Name</th>
-                                    <td>{{ form.instance.school }}</td>
+                                    <th>Church Name</th>
+                                    <td>{{ form.instance.church }}</td>
                                 </tr>
                                 <tr>
                                     <th>Gallery Title</th>
@@ -53,3 +68,6 @@
         </div>
     </div>
 </form>
+{% endblock %}
+
+</body>

@@ -25,19 +25,30 @@
 
     </section>
 
+ <div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="section-title text-center">
+                <h1 class="title">UNITED CHRISTIAN CENTER<span class="inner"> ( UCC-BWAISE )</span></h1>
+                <h2 class="more text"><span class="inner"> VISION: </span>Discovering and Doing God's Will</h2>
+                <h3 class="more text"><span class="inner"> MISSION: </span>Why are you alive?</h3>
 
-    <section class="top-banner-area">
+            </div>
+            
+        </div>
+        
+    </div>
+ </div> 
+    <section class="top-banner-area" style="margin-top: -8%">
         <div class="container">
             <div class="row">
                 {% for about in abouts %}
                 {% if forloop.counter == 1 %}
                     <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                         <div class="top-banner-content">
-                            <h3 class="intro">Welcome to</h3>
-                            <h2 class="title"> {{church_name}} </h2>
-                            <h3 class="text" style="font-size: 120%">
+                            <h1 class="text" style="font: 50%">
                                 {{ about.about|truncatewords:80|linebreaks }}
-                            </h3>
+                            </h1>
 
                             <div class="more text-right">
                                 <a class="link glbscl-link-btn hvr-bs" href="{% url 'about_detail' about.pk %}">Read More</a>
@@ -57,7 +68,7 @@
             </div>
         </div>
     </section>
-
+          
     <section class="page-gallery-area" style="margin-top: -10%">
     <div class="container">
      <div class="row">
@@ -66,21 +77,17 @@
                   {% for image in images %}                 
                     <div class="single-gallery">
                             <a href="{% url 'image_view' image.pk %}">
+
                                 {% if image.gallery_image %}
-                                    <span class="img" style="height:20% ">
-                                      <img src="{{ image.gallery_image.url }}"alt="">
-                                    </span> 
+                                      <img src="{{ image.gallery_image.url }}" data-fancybox="images" alt="" >
                                 {% endif %} 
                                 <span class="content">
                                      <h3 class="title">{{image.gallery_title}}</h3>
                                      <div class="text">{{image.image_caption}}</div>
                                 </span>
                             </a>
-                    </div>   
-                     
-                
+                    </div> 
                 {% endfor %}
-
            </div> 
             <div class="more text-right" style="margin-top: -7%">
             <a class="link glbscl-link-btn hvr-bs" href="{% url 'gallery_wall' %}">More Highlights</a>
@@ -176,11 +183,9 @@
                                     <li class="info"><span class="icon"><i
                                             class="fa fa-map-marker"></i></span>{{ event.event_place }}
                                     </li>
-                                </ul>
-                                <div class="more text-center">
+                                </ul><div class="more text-right">
                                     <a href="{% url 'event_detail' event.pk %}"
-                                       class="link glbscl-link-btn hvr-bs">Read More</a>
-                                </div>
+                                       class="link hvr-bs"><b>....</b>Read More</a></div>
                             </div>
                         </div>
                     </div>
@@ -192,6 +197,50 @@
            </div>
         </div>
     </section>
+
+
+    <!--<section class="latest-event">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title text-center">
+                        <h2 class="title">Other<span class="inner">Pages</span></h2>
+                    </div>
+                </div>
+            </div>
+
+         <div class="row justify-content-center">
+                {% for page in pages %}
+
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="single-event">
+                            <div class="img">
+                                {% if page.page_image %}
+                                    <img src="{{ page.page_image.url }}"
+                                         alt="">
+                                {% endif %}
+                            </div>
+                            <div class="content">
+                                <h2 class="title"><a href="{{ page.get_absolute_url }}">{{ page.page_title }}</a>
+                                </h2>
+                                <ul class="list">
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-user"></i></span>{{ page.page_description }} 
+                                    </li>
+                                    
+                                </ul>
+                                <div class="more text-center">
+                                    <a href="{% url 'page_wall' page.pk %}"
+                                       class="link glbscl-link-btn hvr-bs">Read</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </section>-->
     <section class="testimonial-area bg-with-black">
         <div class="container">
             <div class="row">
@@ -270,8 +319,8 @@
                                 </p>
 
                                 <div class="more text-right">
-                                    <a class="link glbscl-link-btn hvr-bs"
-                                       href="{% url 'news_detail' news.pk %}">Read More</a>
+                                    <a class="link hvr-bs"
+                                       href="{% url 'news_detail' news.pk %}"><b>....</b>continue</a>
                                 </div>
 
                             </div>
@@ -385,7 +434,8 @@
                                               placeholder="Feed Back *"></textarea>
                                     </div>
                                 </div>
-
+                                     <script src='https://www.google.com/recaptcha/api.js'></script>
+                                     <div class="g-recaptcha" data-sitekey="6LcRrNYUAAAAAKhye62qSokoMzaRkgQvGW7XbTAh"></div>
                                 <div class="col-12">
                                     <div class="contact-input-box text-right">
                                         <input class="glbscl-link-btn hvr-bs" type="submit" name="submit" id="submit"
