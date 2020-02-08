@@ -18,7 +18,7 @@ from django.contrib.auth import update_session_auth_hash
 
 def web(request):
     news = News.published.all()
-    events = Event.published.all()
+    events = Event.published.all().order_by('-from_date')
     images = Image.published.all()
     members = Members.published.all()
     employees = StaffDetails.published.all()

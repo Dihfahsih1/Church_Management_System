@@ -46,7 +46,7 @@
                 {% if forloop.counter == 1 %}
                     <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                             <h1 style="font-size: 150%">
-                                {{ about.about|truncatewords:200|linebreaks }}
+                                {{ about.about|truncatewords:150|linebreaks }}
                             <a href="{% url 'about_detail' about.pk %}"><b>...</b> More</a></h1>
                     </div>
                   <!--   <div class="col-lg-6 col-md-6 col-sm-12 col-12 text-center">
@@ -152,7 +152,7 @@
     </div>
     </section>
 
-    <section class="latest-event">
+    <section class="latest-event" style="margin-top: -6%">
         <div class="container">
             <div class="row">
                 <div class="col-12">
