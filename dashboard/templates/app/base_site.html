@@ -79,34 +79,35 @@
     <!-- loader -->
 
     <div class="container body">
-        <div class="main_container">
 
+        <div class="main_container">
+              
+             
             {% block sidebar %}
                 <div class="col-md-3 left_col {% block sidebar_class %} {% endblock sidebar_class %}">
                     {% include "app/sidebar.html" %}
-            </div>
+                </div>
             {% endblock sidebar %}
-            
-
 
             {% block top_navigation %}
-                <div class="top_nav">
-                 {% include "app/top_navigation.html" %}
+                <div class="top_nav ">
+            {% include "app/top_navigation.html" %}
          
                 </div>
        
-            {% endblock top_navigation %}
-                  
-
+                {% endblock top_navigation %}
             {% block content %}
             <h3 style="color: red">{{ message }}</h3>
-
+             
 
                 <!-- {{ content }} -->
             {% endblock content %}
 
             {% block footer %}
-                    {% include "app/footer.html" %}
+            <footer>
+                 {% include "app/footer.html" %}
+            </footer>
+                   
                
             {% endblock footer %}
         </div>
