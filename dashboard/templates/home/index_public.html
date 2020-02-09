@@ -4,9 +4,8 @@
 <body>
 
 {% block content %}
-    <!-- page content -->
-   
-<!--     <section class="slider-area owl-carousel">
+    <!-- page content 
+    <section class="slider-area owl-carousel">
         {% for slider in sliders %}
             <div class="single-slider">
                 <div class="img">
@@ -23,7 +22,8 @@
                 </div>
             </div>
         {% endfor %}
-    </section> -->
+
+    </section>-->
 
  <div class="container">
     <div class="row">
@@ -32,7 +32,6 @@
                 <h1 class="title">UNITED CHRISTIAN CENTER<span class="inner"> ( UCC-BWAISE )</span></h1><br>
                 <h2 class="more text" style="font-size: 300%"><span class="inner"> VISION: </span>Discovering and Doing God's Will</h2><br>
                 <h3 class="more text" style="font-size: 300%"><span class="inner"> MISSION: </span>Why are you alive?</h3><br><span style="font-size: 200%; padding-top:50%">( lwaki oli mulamu? )</span>
-
             </div>
             
         </div>
@@ -42,13 +41,24 @@
     <section class="top-banner-area" style="margin-top: -8%">
         <div class="container">
             <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                 {% for about in abouts %}
                 {% if forloop.counter == 1 %}
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                            <h1 style="font-size: 150%">
-                                {{ about.about|truncatewords:150|linebreaks }}
+                <h1 style="font-size: 150%">
+                                {{ about.about|truncatewords:130|linebreaks }}
                             <a href="{% url 'about_detail' about.pk %}"><b>...</b> More</a></h1>
-                    </div>
+                    <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                        <div class="top-banner-content">
+                            <h1 class="text" style="font: 50%">
+                                {{ about.about|truncatewords:80|linebreaks }}
+                            </h1>
+
+                            <div class="more text-right">
+                                <a class="link glbscl-link-btn hvr-bs" href="{% url 'about_detail' about.pk %}">Read More</a>
+                            </div>
+
+                        </div>
+                    </div> -->
                   <!--   <div class="col-lg-6 col-md-6 col-sm-12 col-12 text-center">
                         <div class="top-banner-img">
                             {% if about.about_image %}
@@ -58,7 +68,8 @@
                     </div> -->
                 {% endif %}
                 {% endfor %}
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12 text-center">
+            </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12 text-center">
                      <section class="slider-area owl-carousel">
                         {% for slider in sliders %}
                             <div class="single-slider">
@@ -72,7 +83,6 @@
                         {% endfor %}
                     </section>
                 </div>
-
             </div>
         </div>
     </section>
@@ -105,7 +115,7 @@
     
 </section>
 
-<section class="facilities-area">
+<!-- <section class="facilities-area">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -150,9 +160,9 @@
             </div>
         </div>
     </div>
-    </section>
+    </section> -->
 
-    <section class="latest-event" style="margin-top: -6%">
+    <section class="latest-event" style="margin-top: -10%">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -249,7 +259,7 @@
         </div>
 
     </section>-->
-    <section class="testimonial-area bg-with-black">
+   <!--  <section class="testimonial-area bg-with-black">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -285,7 +295,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <section class="latest-news-area">
         <div class="container">
@@ -343,7 +353,7 @@
            </div>
         </div>
     </section>
-    <section class="achivement-area bg-with-black">
+   <!--  <section class="achivement-area bg-with-black">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -403,10 +413,11 @@
                 </div>
             </div>
         </div>
-    </section>
-    <section class="apply-now-area">
-        <div class="container">
+    </section> -->
+    <section class="apply-now-area" style="margin-top: -7%">
+        <div class="container-fluid">
              <div class="col-lg-12 col-12">
+                <div class="col-lg-5">
                     <div class="contact-form-area">
                         <h2 class="contact-page-title">Feedback to {% church_name %}</h2>
 
@@ -442,8 +453,6 @@
                                               placeholder="Feed Back *"></textarea>
                                     </div>
                                 </div>
-                                     <script src='https://www.google.com/recaptcha/api.js'></script>
-                                     <div class="g-recaptcha" data-sitekey="6LcRrNYUAAAAAKhye62qSokoMzaRkgQvGW7XbTAh"></div>
                                 <div class="col-12">
                                     <div class="contact-input-box text-right">
                                         <input class="glbscl-link-btn hvr-bs" type="submit" name="submit" id="submit"
@@ -456,9 +465,38 @@
                         </form>
 
                     </div>
+                </div>
+                 <h2 class="contact-page-title">What others are saying about {% church_name %}</h2>
+                <div class="col-lg-6 testimonial-area bg-with-black" style="float: right">
+                    <div class="col-lg-12 col-md-12 offset-lg-1 col-sm-12 col-12">
+                    <div class="testimonial-carousel owl-carousel">
+                        {% for data in feeback %}
+                        <div class="single-testimonial">
+                            <div class="content">
+                                <h2 class="name">{{data.name}}</h2>
+                                <p class="text"> {{data.feedback}}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="single-testimonial">
+                            <div class="content">
+                                <h2 class="name">Patrick Mubiru</h2>
+                                <p class="text"> UCC Bwaise is a church that transforms people's thoughts and we start to think of the reason as to why God created us -- Reason as to why i am alive.</p>
+                            </div>
+                        </div>
+                         <div class="single-testimonial">
+                            <div class="content">
+                                <h2 class="name">Nakachwa Tracy</h2>
+                                <p class="text"> Through UCC Bwaise Church i was able to discover the will of God for my life and that's to serve him</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
               </div>
+          </div>
         </div>
-    </section>        <!-- /page content -->
+    </section>        
 
 
 {% endblock %}

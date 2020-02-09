@@ -44,25 +44,9 @@ def contact(request):
     if request.method=="POST":
         form=ContactForm(request.POST, request.FILES,)
         if form.is_valid():
-            ''' Begin reCAPTCHA validation '''
-            recaptcha_response = request.POST.get('g-recaptcha-response')
-            url = 'https://www.google.com/recaptcha/api/siteverify'
-            values = {
-                'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
-                'response': recaptcha_response
-            }
-            data = urllib.parse.urlencode(values).encode()
-            req =  urllib.request.Request(url, data=data)
-            response = urllib.request.urlopen(req)
-            result = json.loads(response.read().decode())
-            ''' End reCAPTCHA validation '''
-
-            if result['success']:
                 form.save()
                 messages.success(request, f'Your Message has been sent successfully')
-            else:
-                messages.error(request, 'Invalid reCAPTCHA. Please try again.')
-            return redirect('index_public')
+                return redirect('index_public')
     else:
         form=ContactForm()
         return render(request, 'home/contacts.html',{'form':form})
@@ -74,7 +58,7 @@ class OnlineRegistrationView(SuccessMessageMixin,CreateView):
     template_name = 'Members/online_registration.html'
     success_message = " Your Membership has been Saved successfully"
     fields = '__all__'
-
+         
     def form_valid(self, form):
         member = form.save(commit=False)
         member.save()
