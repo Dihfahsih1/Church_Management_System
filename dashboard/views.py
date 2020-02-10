@@ -16,46 +16,61 @@ def index(request):
     current_month = datetime.now().month
     total_current_offerings = Offerings.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Total_Offering"))
     if (total_current_offerings['totals']):
-        total_current_offerings["totals"]
+        int(total_current_offerings["totals"])
         offerings=total_current_offerings["totals"]
     else:
         total_current_offerings = 0
+        offerings = 0
 
     total_current_tithes = Tithes.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_current_tithes['totals']):
-        total_current_tithes["totals"]
+        int(total_current_tithes["totals"])
         tithes=total_current_tithes["totals"]
     else:
         total_current_tithes=0
+        tithes = 0
 
     total_current_pledges = PaidPledges.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount_Paid"))
     if (total_current_pledges['totals']):
-        total_current_pledges["totals"]
+        int(total_current_pledges["totals"])
         pledges=total_current_pledges["totals"]
     else:
         total_current_pledges = 0
+        pledges = 0
     total_main_expenses = Spend.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_main_expenses['totals']):
-        total_main_expenses["totals"]
+        int(total_main_expenses["totals"])
         expenses=total_main_expenses["totals"]
     else:
         total_main_expenses = 0
+        expenses = 0
 
     total_allowances = Allowance.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_allowances['totals']):
-        total_allowances["totals"]
+        int(total_allowances["totals"])
         allowances=total_allowances["totals"]
     else:
         total_allowances = 0
-    total_monthly_incomes =  int(total_current_tithes["totals"]) + int(total_current_offerings["totals"])+ int(total_current_pledges["totals"])
-    total_monthly_expenditure =  int(total_allowances["totals"]) + int(total_main_expenses["totals"])
-    net_income = total_monthly_incomes - total_monthly_expenditure
-    today = timezone.now()
-    month = today.strftime('%B')
-    context={'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
-    'allowances':allowances, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
-
-    return render(request,'index.html', context)
+        allowances=0
+    if (total_current_tithes, total_current_offerings,total_current_offerings,total_current_pledges,total_allowances,total_main_expenses) == 0:   
+        total_monthly_incomes =  total_current_tithes["totals"]+ itotal_current_offerings["totals"]+ total_current_pledges["totals"]
+        total_monthly_expenditure =  total_allowances["totals"] + total_main_expenses["totals"]
+        net_income = total_monthly_incomes - total_monthly_expenditure
+        today = timezone.now()
+        month = today.strftime('%B')
+        context={'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
+        'allowances':allowances, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
+        return render(request,'index.html', context)
+    else:
+        total_monthly_incomes = 0
+        total_monthly_expenditure =  0
+        net_income = total_monthly_incomes - total_monthly_expenditure
+        today = timezone.now()
+        month = today.strftime('%B')
+        context={'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
+        'allowances':allowances, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
+        return render(request,'index.html', context)
+    
 
 
     ##################################
@@ -515,7 +530,7 @@ def Offeringsreport (request):
         message="The Monthly Offerings Report has been Achived"
         context={'message':message}
 
-        return render(request, 'offeringsindex.html', context)
+        return render(request, 'Offerings/offeringsindex.html', context)
 
     months = ['January', 'February', 'March', 'April', 'May', 'June',
               'July', 'August','September', 'October', 'November','December']
@@ -523,9 +538,11 @@ def Offeringsreport (request):
     years = [yr,2019,2018]
     today = timezone.now()
     current_month = today.strftime('%B')
+    mth = datetime.now().month
     total = Offerings.objects.aggregate(totals=models.Sum("Total_Offering"))
     total_amount = total["totals"]
-    items =Offerings.objects.all()
+
+    items =Offerings.objects.filter(Date__month=mth)
     context = {
         'total_amount':total_amount,
         'items': items,
@@ -676,7 +693,8 @@ def Tithesreport (request):
     current_month = today.strftime('%B')
     total = Tithes.objects.aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
-    items =Tithes.objects.all()
+    mth = datetime.now().month
+    items =Tithes.objects.filter(Date__month=mth)
     context = {
         'total_amount':total_amount,
         'items': items,
@@ -849,7 +867,8 @@ def allowancereport(request):
     years = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
     total = Allowance.objects.aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
-    items =Allowance.objects.all()
+    mth = datetime.now().month
+    items =Allowance.objects.filter(Date__month=mth)
     context = {
         'total_amount':total_amount,
         'items': items,
@@ -1171,7 +1190,8 @@ def expenditurereport (request):
               'October', 'November',
               'December']
     years = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
-    items =Spend.objects.all()
+    mth = datetime.now().month
+    items =Spend.objects.filter(Date__month=mth)
     today = timezone.now()
     current_month = today.strftime('%B')
     total = Spend.objects.aggregate(totals=models.Sum("Amount"))
@@ -1228,7 +1248,8 @@ def sundryreport (request):
 
     total = Sundry.objects.aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
-    items =Sundry.objects.all()
+    mth = datetime.now().month
+    items =Sundry.objects.filter(Date__month=mth)
     context = {
         'total_amount':total_amount,
         'items': items,
