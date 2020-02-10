@@ -33,7 +33,7 @@
                         <h3 {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h3>
                         {% endfor %}
                     </ul>
-               </div>
+                </div>
             </div>       
            {% endif %}    
         <div class="login_wrapper">
@@ -42,12 +42,9 @@
                 <section class="first-info border login_content" style="color:black">
                     <form method="post" novalidate>
                         {% csrf_token %}
-                        
-                        <div class="separator">
-                        
+                        <div class="separator"></div>
                                <div class="row"><div class="col-lg-3"></div>
                                     <fieldset class="form-group col-lg-6"> 
-
                                         <legend class="border-bottom">
                                           <h3 style=" font-weight:bolder">CHURCH WEB SYSTEM </h3>
                                         </legend> 
@@ -58,12 +55,10 @@
                                </div>
                                <div class="row">
                                     <div class="form-group">
-                                        <button class="btn btn-success" type="submit"> Login</button>           
+                                        <button class="btn btn-success" type="submit"> Login</button>
                                     </div>
                                 </div>
                     </form>
-                    
-                    
                 </section>
                 <p><a href="{% url 'password_reset' %}" class="btn btn-link"><button class="btn btn-info">Forgot your password?</button></a></p>
             </div>
