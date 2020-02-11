@@ -10,7 +10,6 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
-from blog.models import posts
 from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
 
 
