@@ -77,39 +77,34 @@
     
     <div class="fakeLoader"></div>
     <!-- loader -->
-
     <div class="container body">
-
-        <div class="main_container">
-              
-             
-            {% block sidebar %}
-                <div class="col-md-3 left_col {% block sidebar_class %} {% endblock sidebar_class %}">
-                    {% include "app/sidebar.html" %}
+        <div class="main_container" style="width: 110%">
+                <div style="margin-left: -5%">
+                    {% block sidebar %}
+                            <div class="col-md-3 left_col {% block sidebar_class %} {% endblock sidebar_class %}">
+                                {% include "app/sidebar.html" %}
+                            </div>
+                    {% endblock sidebar %}
                 </div>
-            {% endblock sidebar %}
 
-            {% block top_navigation %}
-                <div class="top_nav ">
-            {% include "app/top_navigation.html" %}
-         
-                </div>
-       
+                {% block top_navigation %}
+                    <div class="top_nav">
+                      {% include "app/top_navigation.html" %}
+                   </div>
                 {% endblock top_navigation %}
-            {% block content %}
-            <h3 style="color: red">{{ message }}</h3>
-             
 
-                <!-- {{ content }} -->
-            {% endblock content %}
+                {% block content %}
+                    <h3 style="color: red">
+                      {{ message }}
+                    </h3>
+                {% endblock content %}
 
-            {% block footer %}
-            <footer>
-                 {% include "app/footer.html" %}
-            </footer>
-                   
-               
-            {% endblock footer %}
+                {% block footer %}
+                <footer>
+                     {% include "app/footer.html" %}
+                </footer>  
+                {% endblock footer %}
+
         </div>
     </div>
 
@@ -186,8 +181,7 @@
     <script src="/static/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
     <script src="/static/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
     {% endblock javascripts %}
-    <script type="text/javascript">
-    $(document).ready(function () 
+    <script type="text/javascript">$(document).ready(function () 
       {
         $('#invoice-table').DataTable(
         {
@@ -207,25 +201,20 @@
           }
           );
         }
-        );
-  </script>
-  
+        );</script>
 <!--script for performing totals on the tables-->
-<script type="text/javascript">
-  
+        <script type="text/javascript">
   var total = 0;
-$('.sum_table tr td.rowDataSd').each(function() {
-    total += parseInt($(this).text());
-});
-$('.sum_table span.totalCol').text("Tota Amount: " + total);
-</script>
+    $('.sum_table tr td.rowDataSd').each(function() {
+        total += parseInt($(this).text());
+    });
+    $('.sum_table span.totalCol').text("Tota Amount: " + total);</script>
 
 <!--fading up messages alert-->
-<script type="text/javascript">
+        <script type="text/javascript">
     $("#success-alert").fadeTo(3210, 8000).slideUp(10000, function(){
         $("#success-alert").slideUp(2000);
-    });
-</script>
+    });</script>
         <script>
             $.fakeLoader();
             $(function () {

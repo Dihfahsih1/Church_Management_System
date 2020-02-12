@@ -1,26 +1,20 @@
 {% extends "app/base_site.html" %}
 {% load crispy_forms_tags %}
 {% block title %} Web System {% endblock title %}
-
 {% load static i18n %}
-
-
 {% block stylesheets %}
     {{ block.super }}
-    <!-- Animate.css -->
 {% endblock stylesheets %}
-
 {% block body_class %}login{% endblock body_class %}
-
-
 {% block content %}
-<style>
-.first-info{
-    width: 511px;
-    height: 509px;
-    background-image: url( "{% static 'img/uccb.jpg' %} ");
-}
-</style>
+
+        <style>
+        .first-info{
+            width: 511px;
+            height: 509px;
+            background-image: url( "{% static 'img/uccb.jpg' %} ");
+        }
+        </style>
          <!--fade up notification upon successful redirect-->
             {% if messages %}
             <div class="col-lg-6" style="float: right">
