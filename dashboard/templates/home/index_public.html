@@ -216,88 +216,7 @@
         </div>
     </section>
 
-
-    <!--<section class="latest-event">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-title text-center">
-                        <h2 class="title">Other<span class="inner">Pages</span></h2>
-                    </div>
-                </div>
-            </div>
-
-         <div class="row justify-content-center">
-                {% for page in pages %}
-
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="single-event">
-                            <div class="img">
-                                {% if page.page_image %}
-                                    <img src="{{ page.page_image.url }}"
-                                         alt="">
-                                {% endif %}
-                            </div>
-                            <div class="content">
-                                <h2 class="title"><a href="{{ page.get_absolute_url }}">{{ page.page_title }}</a>
-                                </h2>
-                                <ul class="list">
-                                    <li class="info"><span class="icon"><i
-                                            class="fa fa-user"></i></span>{{ page.page_description }} 
-                                    </li>
-                                    
-                                </ul>
-                                <div class="more text-center">
-                                    <a href="{% url 'page_wall' page.pk %}"
-                                       class="link glbscl-link-btn hvr-bs">Read</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-
-    </section>-->
-   <!--  <section class="testimonial-area bg-with-black">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-title white text-center">
-                        <h2 class="title">Church Reviews</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-10 col-md-12 offset-lg-1 col-sm-12 col-12">
-                    <div class="testimonial-carousel owl-carousel">
-                        {% for data in feeback %}
-                        <div class="single-testimonial">
-                            <div class="content">
-                                <h2 class="name">{{data.name}}</h2>
-                                <p class="text"> {{data.feedback}}</p>
-                            </div>
-                        </div>
-                        {% endfor %}
-                        <div class="single-testimonial">
-                            <div class="content">
-                                <h2 class="name">Patrick Mubiru</h2>
-                                <p class="text"> UCC Bwaise is a church that transforms people's thoughts and we start to think of the reason as to why God created us -- Reason as to why i am alive.</p>
-                            </div>
-                        </div>
-                         <div class="single-testimonial">
-                            <div class="content">
-                                <h2 class="name">Nakachwa Tracy</h2>
-                                <p class="text"> Through UCC Bwaise Church i was able to discover the will of God for my life and that's to serve him</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
-
-    <section class="latest-news-area">
+    <section class="latest-news-area" style="margin-top: -10%">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -412,8 +331,43 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
     </section> -->
+        <section class="page-gallery-area" style="margin-top: -10%">
+    <div class="container">
+     <div class="row">
+        <h2 style="text-align: center"><ul>CHURCH MEMBERS</ul></h2>
+            <div class="gallery-carousel owl-carousel">    
+                  {% for member in members %}
+                  {% if forloop.counter <= 6 %}
+                  {% if member.Initials != 'Pr.'%}                 
+                    <div class="single-gallery">
+                            
+
+                                {% if member.Photo %}
+                                    <img src="{{ member.Photo.url }}" data-fancybox="images" style="border-radius: 40%;" >
+                                {% endif %} 
+                                <span style="text-align: left;">
+                                    
+                                     <h2> {{member.Initials}} {{member.First_Name}} {{member.Second_Name}}</h2>
+
+                                     <div class="text">Group: {{member.Group}}</div>
+                                     <div class="text">Home Cell: {{member.Home_Cell}}</div>
+                                     <div class="text">Residence: {{member.Residence}}</div>
+                                     
+                                </span>
+                    </div> 
+                    {% endif %}
+                    {% endif %}
+                {% endfor %}
+           </div> 
+            <div class="more text-right" style="margin-top: -7%">
+            <a class="link glbscl-link-btn hvr-bs" href="{% url 'membership_wall' %}">More </a>
+           </div> 
+        </div>   
+    </div>
+    
+</section>
     <section class="apply-now-area" style="margin-top: -7%">
         <div class="container-fluid">
              <div class="col-lg-12 col-12">

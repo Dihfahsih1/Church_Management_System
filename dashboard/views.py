@@ -541,6 +541,9 @@ def members_list(request):
     context ={'membership': membership, 'day':day}
     return render(request, 'Members/members_list.html', context)
 
+def membership_wall(request):
+    all_members = Members.published.all()
+    return render(request, 'Members/members_wall.html', {'all_members': all_members})
 #edit member
 def edit_member(request, pk):
     item = get_object_or_404(Members, pk=pk)

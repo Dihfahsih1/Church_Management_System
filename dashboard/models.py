@@ -175,6 +175,11 @@ class Members(models.Model):
         ('Church Zone','Church Zone'),('Kabira Zone','Kabira Zone'),('Kafunda Zone','Kafunda Zone'),('Lugoba Zone','Lugoba Zone') ,('Katooke Zone','Katooke Zone'),
         ('Kazo Zone','Kazo Zone'),('Gombolola Zone','Gombolola Zone'),('Kawaala Zone','Kawaala Zone'),('Bombo Rd Zone','Bombo Rd Zone')
         )
+    grouping=(
+        ('God is Able','God is Able'),('Winners','Winners'),('Overcomers','Overcomers'),('Biyinzika','Biyinzika') ,
+        ('Victors','Victors'),('Issachar','Issachar')
+        )
+    Group=models.CharField(max_length=100, choices=grouping, null=True, blank=True, default="God Is Able")
     Initials=models.CharField(max_length=100, choices=ini,null=True, blank=True)
     First_Name=models.CharField(max_length=100,null=True)
     Second_Name=models.CharField(max_length=100,null=True)
@@ -211,7 +216,9 @@ class Members(models.Model):
     @property
     def full_name(self):
         return str(self.First_Name) + ' ' + str(self.Second_Name)
-    
+
+    objects = models.Manager()
+    published = PublishedStatusManager()
 class Visitors(models.Model):
 
     Photo=models.ImageField(upload_to='avatars/', blank=False)
