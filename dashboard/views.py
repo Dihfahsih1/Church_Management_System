@@ -15,6 +15,7 @@ from .render import Render
 from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.contrib.auth import update_session_auth_hash
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 def web(request):
     news = News.published.all()
@@ -543,7 +544,11 @@ def members_list(request):
 
 def membership_wall(request):
     all_members = Members.published.all()
-    return render(request, 'Members/members_wall.html', {'all_members': all_members})
+    paginator = Paginator(all_members, 3)  # 3 posts in each page
+    page = request.GET.get('page')
+    members_list = paginator.page(page)
+    context={'page':page, 'members_list': members_list}    
+    return render(request, 'Members/members_wall.html', context)
 #edit member
 def edit_member(request, pk):
     item = get_object_or_404(Members, pk=pk)
