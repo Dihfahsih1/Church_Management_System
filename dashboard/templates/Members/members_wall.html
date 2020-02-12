@@ -19,7 +19,7 @@
             {% for member in members_list %}                
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                         <div class="single-event">
-                            <div class="img">
+                            <div class="img" style="max-height: 170px">
                                  {% if member.Photo %}
                                     <img src="{{ member.Photo.url }}" data-fancybox="images" style="border-radius: 40%;" >
                                 {% endif %} 
@@ -30,14 +30,14 @@
                                 </h2>
                                 <ul class="list">
                                     <li class="info"><span class="icon"><i
-                                            class="fa fa-group"></i></span>{{member.Group}}
+                                            class="fa fa-group"></i></span>Group: {{member.Group}}
                                     </li>
                                     <li class="info"><span class="icon"><i
-                                            class="fa fa-home"></i></span>{{ member.Home_Cell }}
+                                            class="fa fa-home"></i></span>Cell: {{ member.Home_Cell }}
                                         
                                     </li>
                                     <li class="info"><span class="icon"><i
-                                            class="fa fa-map-marker"></i></span>{{ member.Residence }}
+                                            class="fa fa-map-marker"></i></span>Residence: {{ member.Residence }}
                                         
                                     </li>
                                    

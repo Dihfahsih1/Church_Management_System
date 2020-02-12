@@ -68,6 +68,7 @@
                         <div class="hta-box">
                             <span style="font-weight:120%; color: white">{{request.user.full_name.Initials}} {{request.user.full_name}}</i></span>
                             <a class="text btn btn-primary" href="{% url 'logout' %}"><span class="fa fa-sign-out">Log Out</span></a>
+
                         </div>
                     {% else %}
                         <div class="hta-box">                            
@@ -121,15 +122,9 @@
                                 <li><a href="{% url 'event_wall' %}">Events</a></li>
                                 <li><a href="{% url 'gallery_wall' %}">Gallery</a></li>
                                 <li><a href="{% url 'contact' %}">Contact Us</a></li>
-                                
-                                <li><a href="javascript:void(0)">Page <span class="icon fas fa-chevron-down"></span></a>
-                                    <ul class="drop">
-                                       <li>
-                                           {% all_pages %}
-                                       </li>
-                                    </ul>
-                                </li>
-
+                                {% if request.user.is_authenticated %}   
+                                <li> <a class="text btn btn-warning" href="{% url 'index' %}"><span class="fa fa-share"></span> Church System</a>
+                                {% endif %}
                             </ul>
                         </nav>
                     </div>

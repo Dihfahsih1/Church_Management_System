@@ -161,6 +161,62 @@
         </div>
     </div>
     </section> -->
+    <section class="latest-news-area" style="margin-top: -10%">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title text-center">
+                        <h2 class="title">Latest <span class="inner">Gospel Teachings</span></h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                {% for news in news %}
+                  {% if forloop.counter <= 3 %}
+                    <div class="col-lg-4 col-md-6 col-sm-8 col-12">
+                        <div class="single-news">
+                            <div class="img">
+                                {% if news.image %}
+                                    <img src="{{ news.image.url }}"
+                                         alt="">
+                                {% endif %}
+                            </div>
+
+                            <div class="content">
+                                <ul class="meta">
+                                    <li class="info"><span class="icon"><i class="fa fa-user"></i></span>By :
+                                    {{ news.author.full_name.Initials }} {{ news.author.full_name }} - {{ news.author}}
+                                    </li>
+
+                                    <li class="info"><span class="icon"><i class="far fa-calendar-alt"></i></span>
+                                        {{ news.date }}
+                                    </li>
+                                </ul>
+
+                                <h2 class="title"><a href="{{ news.get_absolute_url }}">{{ news.news_title }}</a></h2>
+
+                                <p class="text">
+                                    {{ news.news|truncatewords:20|linebreaks }}
+                                </p>
+
+                                <div class="more text-right">
+                                    <a class="link hvr-bs"
+                                       href="{% url 'news_detail' news.pk %}"><b>....</b>continue</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+
+            </div>
+             <div class="more text-right" style="margin-top: -7%">
+            <a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">More News</a>
+           </div>
+        </div>
+    </section>
 
     <section class="latest-event" style="margin-top: -10%">
         <div class="container">
@@ -216,62 +272,7 @@
         </div>
     </section>
 
-    <section class="latest-news-area" style="margin-top: -10%">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-title text-center">
-                        <h2 class="title">Latest <span class="inner">News</span></h2>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row justify-content-center">
-                {% for news in news %}
-                  {% if forloop.counter <= 3 %}
-                    <div class="col-lg-4 col-md-6 col-sm-8 col-12">
-                        <div class="single-news">
-                            <div class="img">
-                                {% if news.image %}
-                                    <img src="{{ news.image.url }}"
-                                         alt="">
-                                {% endif %}
-                            </div>
-
-                            <div class="content">
-                                <ul class="meta">
-                                    <li class="info"><span class="icon"><i class="fa fa-user"></i></span>By :
-                                    {{ news.author.full_name.Initials }} {{ news.author.full_name }} - {{ news.author}}
-                                    </li>
-
-                                    <li class="info"><span class="icon"><i class="far fa-calendar-alt"></i></span>
-                                        {{ news.date }}
-                                    </li>
-                                </ul>
-
-                                <h2 class="title"><a href="{{ news.get_absolute_url }}">{{ news.news_title }}</a></h2>
-
-                                <p class="text">
-                                    {{ news.news|truncatewords:20|linebreaks }}
-                                </p>
-
-                                <div class="more text-right">
-                                    <a class="link hvr-bs"
-                                       href="{% url 'news_detail' news.pk %}"><b>....</b>continue</a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                {% endfor %}
-
-            </div>
-             <div class="more text-right" style="margin-top: -7%">
-            <a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">More News</a>
-           </div>
-        </div>
-    </section>
+    
    <!--  <section class="achivement-area bg-with-black">
         <div class="container">
             <div class="row">

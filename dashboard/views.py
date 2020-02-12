@@ -544,9 +544,16 @@ def members_list(request):
 
 def membership_wall(request):
     all_members = Members.published.all()
-    paginator = Paginator(all_members, 3)  # 3 posts in each page
+    paginator = Paginator(all_members, 8)  # 6 members on each page
     page = request.GET.get('page')
-    members_list = paginator.page(page)
+    try:
+        members_list = paginator.page(page)
+    except PageNotAnInteger:
+            # If page is not an integer deliver the first page
+        members_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range deliver last page of results
+        members_list = paginator.page(paginator.num_pages)
     context={'page':page, 'members_list': members_list}    
     return render(request, 'Members/members_wall.html', context)
 #edit member
