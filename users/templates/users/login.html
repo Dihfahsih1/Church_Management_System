@@ -1,20 +1,29 @@
 {% extends "app/base_site.html" %}
 {% load crispy_forms_tags %}
 {% block title %} Web System {% endblock title %}
+
 {% load static i18n %}
+
+
 {% block stylesheets %}
     {{ block.super }}
+    <!-- Animate.css -->
+    <link href="/static/vendors/animate.css/animate.min.css" rel="stylesheet">
 {% endblock stylesheets %}
-{% block body_class %}login{% endblock body_class %}
-{% block content %}
 
-        <style>
-        .first-info{
-            width: 511px;
-            height: 509px;
-            background-image: url( "{% static 'img/uccb.jpg' %} ");
-        }
-        </style>
+{% block body_class %}login{% endblock body_class %}
+
+
+{% block content %}
+<style>
+.first-info{
+    background-repeat:no-repeat;
+    background-size:100%;
+    background-position:center;
+    background-image: url( "{% static 'img/uccb.jpg' %} ");
+}
+</style>
+<div class="container">
          <!--fade up notification upon successful redirect-->
             {% if messages %}
             <div class="col-lg-6" style="float: right">
@@ -27,36 +36,37 @@
                     </ul>
                 </div>
             </div>       
-           {% endif %}    
+           {% endif %}
+    <div class="container">      
         <div class="login_wrapper">
             <div class="animate form login_form">
-
+                
                 <section class="first-info border login_content" style="color:black">
+                    <h3 class="border-bottom" style=" font-weight:bolder">CHURCH WEB SYSTEM </h3>
+                <div class="separator"></div>
                     <form method="post" novalidate>
                         {% csrf_token %}
-                        <div class="separator"></div>
-                               <div class="row"><div class="col-lg-3"></div>
-                                    <fieldset class="form-group col-lg-6"> 
-                                        <legend class="border-bottom">
-                                          <h3 style=" font-weight:bolder">CHURCH WEB SYSTEM </h3>
-                                        </legend> 
-                                        <div class="form-group" style="text-align: left;font-size: 120%">
-                                        {{ form|crispy}}
-                                        </div>      
-                                    </fieldset>
-                               </div>
-                               <div class="row">
-                                    <div class="form-group">
-                                        <button class="btn btn-success" type="submit"> Login</button>
-                                    </div>
-                                </div>
+                       <div class="row"><div class="col-lg-3"></div>
+                            <fieldset class="form-group col-lg-6">  
+                                <div class="form-group" style="text-align: left;font-size: 120%">
+                                {{ form|crispy}}
+                                </div>      
+                            </fieldset>
+                       </div>
+                       <div class="row">
+                            <div class="form-group">
+                                <button class="btn btn-success" type="submit"> Login</button>
+                            </div>
+                        </div>
                     </form>
+                    <p><a href="{% url 'password_reset' %}" style="color: red">Forgot your password?</a></p>
                 </section>
-                <p><a href="{% url 'password_reset' %}" class="btn btn-link"><button class="btn btn-info">Forgot your password?</button></a></p>
+                
             </div>
         </div>
-      </div>
     </div>
+ </div>
+</div>
 
 {% endblock content %}
 
