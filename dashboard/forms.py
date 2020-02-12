@@ -2,7 +2,7 @@ from django import forms
 from .models import *
 from captcha.fields import ReCaptchaField
 from django.forms import Textarea, TextInput, ChoiceField
-from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput, MonthPickerInput, DateTimePickerInput   
+from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput, MonthPickerInput  
 
 class FormWithCaptcha(forms.Form):
     captcha = ReCaptchaField()
@@ -217,11 +217,13 @@ class EventForm(forms.ModelForm):
     class Meta:
         model = Event
         fields = ('event_title', 'event_for', 'event_place', 'from_date', 'to_date', 'image', 'note',
-                  'Is_View_on_Web')
+                  'Is_View_on_Web', 'Start_Time', 'End_Time', 'Program_Name', 'Day','Activity_Type')
 
         widgets = {
             'from_date': DatePickerInput(),
             'to_date': DatePickerInput(),
+            'Start_Time': TimePickerInput(),
+            'End_Time': TimePickerInput(),
         }
 class churchForm(forms.ModelForm):
     class Meta:

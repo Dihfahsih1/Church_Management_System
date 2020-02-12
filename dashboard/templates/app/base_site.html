@@ -79,13 +79,12 @@
     <!-- loader -->
     <div class="container body">
         <div class="main_container">
-                <div style="margin-left:0%;">
                     {% block sidebar %}
                             <div class="col-md-3 left_col {% block sidebar_class %} {% endblock sidebar_class %}">
                                 {% include "app/sidebar.html" %}
                             </div>
                     {% endblock sidebar %}
-                </div>
+                
 
                 {% block top_navigation %}
                     <div class="top_nav">

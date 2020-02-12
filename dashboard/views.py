@@ -2827,7 +2827,7 @@ class EventCreateView(CreateView):
     model = Event
     template_name = 'events/event_create.html'
     fields = ('event_title', 'event_for', 'event_place', 'from_date', 'to_date', 'image', 'note',
-              'Is_View_on_Web')
+              'Is_View_on_Web', 'Start_Time', 'End_Time', 'Day','Activity_Type')
 
     def get_form(self):
         form = super().get_form()

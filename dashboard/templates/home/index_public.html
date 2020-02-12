@@ -93,11 +93,11 @@
         <h2 style="text-align: center"><ul>CHURCH HIGHLIGHTS</ul></h2>
             <div class="gallery-carousel owl-carousel">    
                   {% for image in images %}                 
-                    <div class="single-gallery">
+                    <div class="single-gallery" style="height: 200px">
                             <a href="{% url 'image_view' image.pk %}">
 
                                 {% if image.gallery_image %}
-                                      <img src="{{ image.gallery_image.url }}" data-fancybox="images" alt="" >
+                                      <img src="{{ image.gallery_image.url }}" data-fancybox="images" alt=""  height="50px">
                                 {% endif %} 
                                 <span class="content">
                                      <h3 class="title">{{image.gallery_title}}</h3>
@@ -174,9 +174,9 @@
             <div class="row justify-content-center">
                 {% for news in news %}
                   {% if forloop.counter <= 3 %}
-                    <div class="col-lg-4 col-md-6 col-sm-8 col-12">
-                        <div class="single-news">
-                            <div class="img">
+                    <div class="col-lg-4 col-md-6 col-sm-8 col-12" >
+                        <div class="single-news" style="height: 400px">
+                            <div class="img" style="height: 180px">
                                 {% if news.image %}
                                     <img src="{{ news.image.url }}"
                                          alt="">
@@ -212,27 +212,27 @@
                 {% endfor %}
 
             </div>
-             <div class="more text-right" style="margin-top: -7%">
-            <a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">More News</a>
+             <div class="more text-right" style="margin-top: -10%">
+            <a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">More</a>
            </div>
         </div>
     </section>
 
-    <section class="latest-event" style="margin-top: -10%">
+    <section class="latest-event" style="margin-top: -12%">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="section-title text-center">
-                        <h2 class="title">Latest <span class="inner">Event</span></h2>
+                        <h2 class="title">Church <span class="inner">Activities</span></h2>
                     </div>
                 </div>
             </div>
 
             <div class="row justify-content-center">
                 {% for event in events %}
-                 {% if forloop.counter <= 3 %}
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="single-event">
+                 {% if forloop.counter <= 2 %}
+                    <div class="col-lg-3">
+                        <div class="single-event" style="height: 550px">
                             <div class="img">
                                 {% if event.image %}
                                     <img src="{{ event.image.url }}"
@@ -259,81 +259,80 @@
                                     </li>
                                 </ul><div class="more text-right">
                                     <a href="{% url 'event_detail' event.pk %}"
-                                       class="link hvr-bs"><b>....</b>Read More</a></div>
+                                       class="link hvr-bs"><b>....</b>Details</a></div>
                             </div>
                         </div>
                     </div>
                     {% endif %}
+                    {% if event.Day == 'Monday' %}
+                                     <ul>   
+                                    <li>{{event.note}} ( {{event.Start_Time}} - {{event.End_Time}} )</li>
+                       
+                                     </ul> 
+                 {% endif %}
                 {% endfor %}
+                <div class="col-lg-6">
+                        <div class="single-event" style="height: 550px">
+                            <div class="content">
+                                <h2 class="title"><a href="#">Church Weekly Program</a>
+                                </h2>
+                                <ul class="list">
+                                    <li class="info"><b>Monday </b>
+                                     <ul>   
+                                    <li>Prayer Alter (9:00am - 4:00pm)</li>
+                                     <li>Ministers In Word (6:00pm - 8:00pm)</li>
+                                     <li>Worship Team (5:00pm - 7:00pm)</li>
+                                     <li>Youth Service (7:00pm - 9:30pm)</li>
+                                     </ul>
+                                    </li>
+                                   <li class="info"><b>Tuesday </b>
+                                    <ul>
+                                    <li>Home Cell Fellowships (5:00pm - 8:00pm)</li>
+                                    </ul>
+                                    </li>
+                                    <li class="info"><b>Wednesday </b>
+
+                                    <ul>
+                                     <li>Revival Service (5:00pm - 8:00pm)</li>
+                                    </ul> 
+                                    </li>
+
+                                    <li class="info"><b>Thursday </b>
+                                        <ul>
+                                         <li>Counselling and Guidance (9:00am - 4:00pm)</li>
+                                        </ul>
+                                    </li>
+                                    <li class="info"><b>Friday </b>
+                                      <ul>
+                                        <li>Bible Study (5:00pm - 7:00pm)</li>
+                                        <li>Prayer Night (8:00pm - 11:00pm)</li>
+                                      </ul>
+                                    </li>
+                                    <li class="info"><b>Saturday </b><br>
+                                        <ul>
+                                         <li>Practices (9:00am - 4:00pm)</li>
+                                        </ul>
+                                    </li>
+                                     <li class="info"><b>Sunday </b>
+                                        <ul>   
+                                    
+                                        <li>First Service (6:30am - 9:00am)</li>
+                                         <li>Second Service (9:00am - 11:00am)</li>
+                                        <li>Third Service (11:00am - 2:30pm)</li>
+                                        <li>Youth Practices (5:30pm - 7:00pm)</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
             </div>
             <div class="more text-right" style="margin-top: -7%">
-            <a class="link glbscl-link-btn hvr-bs" href="{% url 'event_wall' %}">More Events</a>
+            <a class="link glbscl-link-btn hvr-bs" href="{% url 'event_wall' %}">More Activities</a>
            </div>
         </div>
     </section>
 
-    
-   <!--  <section class="achivement-area bg-with-black">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-title text-center">
-                        <h2 class="title">Our <span class="inner">Church System</span></h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="single-achivement">
-                        <div class="icon">
-                            <img src="{% static 'img/teacher.png' %}" alt="">
-                        </div>
-                        <div class="content">
-                            <h2 class="counter counter-up" data-counterup-time="1500" data-counterup-delay="30">
-                                {% total_employees %} </h2>
-                            <p class="name">Employees</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="single-achivement">
-                        <div class="icon">
-                            <img src="{% static 'img/student.png' %}" alt="">
-                        </div>
-                        <div class="content">
-                            <h2 class="counter counter-up" data-counterup-time="1500" data-counterup-delay="30">
-                                {% total_students %} </h2>
-                            <p class="name">Members</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="single-achivement">
-                        <div class="icon">
-                            <img src="{% static 'img/staff.png' %}" alt="">
-                        </div>
-                        <div class="content">
-                            <h2 class="counter counter-up" data-counterup-time="1500" data-counterup-delay="30">
-                                {% total_guardians %} </h2>
-                            <p class="name">Visitors</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="single-achivement">
-                        <div class="icon">
-                            <img src="{% static 'img/staff.png' %}" alt="">
-                        </div>
-                        <div class="content">
-                            <h2 class="counter counter-up" data-counterup-time="1500" data-counterup-delay="30">
-                                {% total_users %} </h2>
-                            <p class="name">Users</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> 
-    </section> -->
         <section class="page-gallery-area" style="margin-top: -10%">
     <div class="container">
      <div class="row">
@@ -374,7 +373,7 @@
              <div class="col-lg-12 col-12">
                 <div class="col-lg-5">
                     <div class="contact-form-area">
-                        <h2 class="contact-page-title">Feedback to {% church_name %}</h2>
+                        <h2 class="contact-page-title">Feed back to {% church_name %}</h2>
 
                         <form action="{% url 'contact' %}"
                               method="POST"

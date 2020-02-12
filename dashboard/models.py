@@ -17,6 +17,15 @@ ROLE_CHOICES = (
     ('Secretary', 'Secretary'),
     ('Admin', 'Admin'),
 )
+Week_Days = (
+    ('Monday', 'Monday'),
+    ('Tuesday', 'Tuesday'),
+    ('Wednesday', 'Wednesday'),
+    ('Thursday', 'Thursday'),
+    ('Friday', 'Friday'),
+    ('Saturday', 'Saturday'),
+    ('Sunday', 'Sunday'),
+)
 class PublishedStatusManager(models.Manager):
     def get_queryset(self):
         return super(PublishedStatusManager, self).get_queryset().filter(Is_View_on_Web='Yes')
@@ -723,16 +732,23 @@ class News(models.Model):
         return reverse('news_detail', args=[self.pk])        
 
 class Event(models.Model):
+    activity =(('Events','Events'), ('Church_Program','Church_Program'))
+    Activity_Type = models.CharField(max_length=20, choices=activity, default="Events")
     date = models.DateField(auto_now_add=True)
-    event_title = models.CharField(max_length=100)
-    event_for = models.CharField(max_length=20, choices=ROLE_CHOICES, blank=True)
-    event_place = models.CharField(max_length=100)
-    from_date = models.DateField(null=True)
-    to_date = models.DateField(null=True)
-    image = models.ImageField(upload_to='images/', null=True, blank=False)
+    event_title = models.CharField(max_length=100, blank=True, null=True)
+    event_for = models.CharField(max_length=20, choices=ROLE_CHOICES, blank=True, null=True)
+    event_place = models.CharField(max_length=100,blank=True)
+    from_date = models.DateField(null=True,blank=True)
+    to_date = models.DateField(null=True,blank=True)
+    image = models.ImageField(upload_to='images/', null=True ,blank=True)
     note = models.TextField(blank=True)
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS)
 
+    Start_Time = models.TimeField(blank=True, null=True)
+    End_Time = models.TimeField(blank=True, null=True)
+    Program_Name = models.CharField(max_length=100, blank=True, null=True)
+    Day = models.CharField(max_length=20, choices=Week_Days, blank=True, null=True)
+   
     objects = models.Manager()
     published = PublishedStatusManager()
 
