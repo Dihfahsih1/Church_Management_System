@@ -2321,11 +2321,14 @@ class AboutListView(ListView):
     template_name = 'abouts/about_list.html'
     context_object_name = 'abouts'
 
+def abouts_vision(request):
+    abouts = About.published.all()
+    return render(request, 'abouts/abouts_wall.html', {'abouts': abouts})
 
 class AboutCreateView(CreateView):
     model = About
     template_name = 'abouts/about_create.html'
-    fields = ('about', 'about_image')
+    fields = ('about_title','about', 'about_image','vision_description','mission_description','Is_View_on_Web')
 
     def form_valid(self, form):
         about = form.save(commit=False)
@@ -2337,7 +2340,7 @@ class AboutUpdateView(UpdateView):
     model = About
     template_name = 'abouts/update_about.html'
     pk_url_kwarg = 'about_pk'
-    fields = ('about', 'about_image')
+    fields = ('about', 'about_image','vision_description','mission_description','Is_View_on_Web')
 
     def form_valid(self, form):
         about = form.save(commit=False)
@@ -2920,7 +2923,8 @@ def event_delete(request, event_pk):
 class churchCreateView(CreateView):
     model = Church
     template_name = 'church/create_church.html'
-    fields = ('maps_embedded_link','church_name', 'church_code', 'address', 'phone', 'registration_date', 'email_address', 'fax',
+    fields = ('church_vision','church_mission','maps_embedded_link','church_name', 'church_code',
+              'address', 'phone', 'registration_date', 'email_address', 'Post_Office_Box',
               'footer', 'enable_frontend', 'latitude', 'longitude', 'facebook_url','twitter_url', 
               'linkedIn_url', 'google_plus_url', 'youtube_url', 'instagram_url', 'pinterest_url',
               'status', 'frontend_Logo', 'backend_Logo')
@@ -2940,11 +2944,11 @@ class churchUpdateView(UpdateView):
     model = Church
     template_name = 'church/update_church.html'
     pk_url_kwarg = 'church_pk'
-    fields = ('maps_embedded_link','church_name', 'church_code', 'address', 'phone', 'registration_date', 'email_address', 'fax',
+    fields = ('church_vision','church_mission','maps_embedded_link','church_name', 'church_code',
+              'address', 'phone', 'registration_date', 'email_address', 'Post_Office_Box',
               'footer', 'enable_frontend', 'latitude', 'longitude', 'facebook_url','twitter_url', 
               'linkedIn_url', 'google_plus_url', 'youtube_url', 'instagram_url', 'pinterest_url',
               'status', 'frontend_Logo', 'backend_Logo')
-
     def get_form(self):
         form = super().get_form()
         form.fields['registration_date'].widget = DatePickerInput()

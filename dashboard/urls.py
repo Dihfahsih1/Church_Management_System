@@ -8,6 +8,7 @@ url(r'^Church-System', views.index ,name='index'),
 url(r'^feedback', views.contact, name='contact'),
 url(r'^membership-online/$', views.OnlineRegistrationView.as_view(), name='online_registration'),
 url(r'^Church/Members', views.membership_wall, name='membership_wall'),
+url(r'^Church/Vision', views.abouts_vision, name='abouts_vision'),
 
 url(r'^expenditure/record', views.enter_expenditure, name='enter_expenditure'),
 url(r'^enter_sundryexpense', views.enter_sundryexpense ,name='enter_sundryexpense'),

@@ -47,25 +47,6 @@
                 <h1 style="font-size: 150%">
                                 {{ about.about|truncatewords:130|linebreaks }}
                             <a href="{% url 'about_detail' about.pk %}"><b>...</b> More</a></h1>
-                    <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                        <div class="top-banner-content">
-                            <h1 class="text" style="font: 50%">
-                                {{ about.about|truncatewords:80|linebreaks }}
-                            </h1>
-
-                            <div class="more text-right">
-                                <a class="link glbscl-link-btn hvr-bs" href="{% url 'about_detail' about.pk %}">Read More</a>
-                            </div>
-
-                        </div>
-                    </div> -->
-                  <!--   <div class="col-lg-6 col-md-6 col-sm-12 col-12 text-center">
-                        <div class="top-banner-img">
-                            {% if about.about_image %}
-                                <img src="{{ about.about_image.url }}" alt="">
-                            {% endif %}
-                        </div>
-                    </div> -->
                 {% endif %}
                 {% endfor %}
             </div>
@@ -114,53 +95,6 @@
     </div>
     
 </section>
-
-<!-- <section class="facilities-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-title text-center">
-                    <h2 class="title">Our <span class="inner">Departments</span></h2>
-                </div>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="single-faclities">
-                    <div class="icon">
-                        <img src="{% static 'img/experience-teacher.png' %}"
-                             alt="">
-                    </div>
-                    <h4 class="name">Youths</h4>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="single-faclities">
-                    <div class="icon">
-                        <img src="{% static 'img/library.png' %}" alt="">
-                    </div>
-                    <h4 class="name">Evangelical</h4>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="single-faclities">
-                    <div class="icon">
-                        <img src="{% static 'img/transport.png' %}" alt="">
-                    </div>
-                    <h4 class="name">Building</h4>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="single-faclities">
-                    <div class="icon">
-                        <img src="{% static 'img/hostel.png' %}" alt="">
-                    </div>
-                    <h4 class="name">Sunday School</h4>
-                </div>
-            </div>
-        </div>
-    </div>
-    </section> -->
     <section class="latest-news-area" style="margin-top: -10%">
         <div class="container">
             <div class="row">
@@ -263,14 +197,8 @@
                             </div>
                         </div>
                     </div>
-                    {% endif %}
-                    {% if event.Day == 'Monday' %}
-                                     <ul>   
-                                    <li>{{event.note}} ( {{event.Start_Time}} - {{event.End_Time}} )</li>
-                       
-                                     </ul> 
-                 {% endif %}
-                {% endfor %}
+                   {% endif %}
+               {% endfor %}
                 <div class="col-lg-6">
                         <div class="single-event" style="height: 550px">
                             <div class="content">

@@ -632,9 +632,13 @@ class Slider(models.Model):
 
 class About(models.Model):
     about_image = models.ImageField(upload_to='about/', null=True, blank=False)
-    about = models.TextField(max_length=50000)
-
+    about = models.TextField(max_length=50000 , null=True, blank=True)
+    about_title = models.CharField(max_length=100, null=True, blank=True)
+    vision_description = models.TextField(max_length=10000000, null=True, blank=True)
+    mission_description = models.TextField(max_length=100000000, null=True, blank=True)
+    Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS, null=True, blank=False)
     objects = models.Manager()
+    published = PublishedStatusManager()
 
     class Meta:
         default_permissions = ('view', 'add', 'change', 'delete')
@@ -773,6 +777,8 @@ class EnableFrontendManager(models.Manager):
 
 
 class Church(models.Model):
+    church_vision = models.CharField(max_length=1000, default="vision")
+    church_mission = models.CharField(max_length=1000, default='mission')
     maps_embedded_link=models.CharField(max_length=1000, blank=True, null=True)
     church_code = models.CharField(max_length=130, blank=True, null=True)
     church_name = models.CharField(max_length=130)
@@ -780,7 +786,7 @@ class Church(models.Model):
     phone = models.CharField(max_length=130)
     registration_date = models.DateField(blank=True, null=True)
     email_address = models.EmailField(max_length=120)
-    fax = models.CharField(max_length=130, blank=True, null=True)
+    Post_Office_Box = models.CharField(max_length=130, blank=True, null=True)
     footer = models.CharField(max_length=130, blank=True, null=True)
     enable_frontend = models.CharField(max_length=130, default='Yes', choices=OPTIONS)
     latitude = models.CharField(max_length=130, blank=True, null=True)

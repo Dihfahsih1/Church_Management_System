@@ -53,6 +53,19 @@ def church_name():
     return church_full_name
 
 @register.simple_tag
+def church_vision():
+    church = Church.objects.get(id=1)
+    vision = church.church_vision
+    return vision
+
+@register.simple_tag
+def church_mission():
+    church = Church.objects.get(id=1)
+    mission = church.church_mission
+    return mission
+
+
+@register.simple_tag
 def church_footer():
     church = Church.objects.get(id=1)
     church_foot = church.footer
