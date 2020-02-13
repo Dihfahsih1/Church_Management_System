@@ -233,6 +233,7 @@ class Members(models.Model):
     Name_Of_Next_Of_Kin=models.CharField(max_length=100,null=True,blank=True)
     Contact_Of_Next_Of_Kin=models.CharField(max_length=100,null=True,blank=True)
     Residence_Of_Next_Of_Kin=models.CharField(max_length=100,null=True,blank=True)
+    More_Info =models.TextField(max_length=1000000,null=True,blank=True)
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS,null=True,blank=True)
     objects = models.Manager()
     published = PublishedStatusManager()
