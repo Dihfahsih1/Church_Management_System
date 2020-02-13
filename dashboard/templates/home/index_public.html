@@ -51,17 +51,25 @@
                 {% endfor %}
             </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 col-12 text-center">
-                     <section class="slider-area owl-carousel">
-                        {% for slider in sliders %}
-                            <div class="single-slider">
-                                <div class="img">
-                                    {% if slider.slider_image %}
-                                        <img src="{{ slider.slider_image.url }}" alt="">
-                                    {% endif %}
+                        <style type="text/css">
+                           
+                        </style>
+                     <section class="slider-area owl-carousel ">
+                        
+                            {% for slider in sliders %}
+                                <div class="single-slider">
+                                    <div class="img">
+                                        {% if slider.slider_image %}
+                                            <img src="{{ slider.slider_image.url }}" alt="">
+                                        {% endif %}
+                                    </div>
+                                    <h2 class="title animated"> {{slider.image_title}} </h2>
+                                    
                                 </div>
-                                <h2 class="title animated"> {{slider.image_title}} </h2>
-                            </div>
-                        {% endfor %}
+
+                            {% endfor %}
+                         
+                    </a>
                     </section>
                 </div>
             </div>
@@ -298,10 +306,10 @@
 </section>
     <section class="apply-now-area" style="margin-top: -7%">
         <div class="container-fluid">
-             <div class="col-lg-12 col-12">
+             <div class="col-lg-12 col-12" style="height: 557px">
                 <div class="col-lg-5">
                     <div class="contact-form-area">
-                        <h2 class="contact-page-title">Feed back to {% church_name %}</h2>
+                        <h2 class="contact-page-title">We would like to hear from You</h2>
 
                         <form action="{% url 'contact' %}"
                               method="POST"
@@ -348,30 +356,18 @@
 
                     </div>
                 </div>
-                 <h2 class="contact-page-title">What others are saying about {% church_name %}</h2>
-                <div class="col-lg-6 testimonial-area bg-with-black" style="float: right">
+                 <h2 class="contact-page-title">What others are saying</h2>
+                <div class="col-lg-6 testimonial-area bg-with-black" style="float: right;">
                     <div class="col-lg-12 col-md-12 offset-lg-1 col-sm-12 col-12">
                     <div class="testimonial-carousel owl-carousel">
                         {% for data in feeback %}
                         <div class="single-testimonial">
-                            <div class="content">
+                            <div class="content"  style="height: 300px">
                                 <h2 class="name">{{data.name}}</h2>
                                 <p class="text"> {{data.feedback}}</p>
                             </div>
                         </div>
                         {% endfor %}
-                        <div class="single-testimonial">
-                            <div class="content">
-                                <h2 class="name">Patrick Mubiru</h2>
-                                <p class="text"> UCC Bwaise is a church that transforms people's thoughts and we start to think of the reason as to why God created us -- Reason as to why i am alive.</p>
-                            </div>
-                        </div>
-                         <div class="single-testimonial">
-                            <div class="content">
-                                <h2 class="name">Nakachwa Tracy</h2>
-                                <p class="text"> Through UCC Bwaise Church i was able to discover the will of God for my life and that's to serve him</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 </div>

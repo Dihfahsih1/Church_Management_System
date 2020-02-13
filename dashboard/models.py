@@ -76,10 +76,10 @@ class User(AbstractBaseUser , PermissionsMixin):
     is_active = models.BooleanField(default=True)   # can login
     is_staff = models.BooleanField(default=False)  # staff user non superuser
     is_superuser = models.BooleanField(default=False)
+    Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS,null=True,blank=True)
     USERNAME_FIELD = 'username'
     REQUIRED_FILEDS = []
-    Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS,null=True,blank=True)
-    objects = models.Manager()
+    objects = UserManager()
     published = PublishedStatusManager()
     def __str__(self):
         return self.Role

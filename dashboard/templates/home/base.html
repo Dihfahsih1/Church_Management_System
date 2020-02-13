@@ -159,11 +159,21 @@
             <div class="row">
                 <div class="col-lg-3 col-md-7 col-sm-7 col-12">
                     <div class="footer-widget">
-                        <h2 class="fw-title"><span>Sunday Services:</span></h2>
+                        <h2 class="fw-title"><span>Church Services</span></h2>
                         <p class="text">
-                            First Service (6:30am - 9:00am)<br>
-                            Second Service (9:00am - 11:00am)<br>
-                            Third Service (11:00am - 2:30pm)<br> 
+                             <b>Monday</b>
+                            <ul>
+                                <li>First Service (6:30am - 9:00am)</li>
+                                <li>Second Service (9:00am - 11:00am)</li>
+                                <li>Third Service (11:00am - 2:30pm)</li> 
+                            </ul>
+                            <b>Services</b>
+                            <ul>
+                                <li>First Service (6:30am - 9:00am)</li>
+                                <li>Second Service (9:00am - 11:00am)</li>
+                                <li>Third Service (11:00am - 2:30pm)</li> 
+                            </ul>
+
                         </p>
                     </div>
                 </div>
@@ -236,8 +246,10 @@
     </div>
     <div class="footer-bottom-area">
         <div class="container text-center">
+
             <p class="copyright">
-                {% church_footer %}
+                {% church_footer %} &copy;2001<script>new Date().getFullYear()>2010&&document.write(" - "+new Date().getFullYear());</script>| 
+                    Website Developed by<a href="https://mugoyadihfahsih.000webhostapp.com"> <b style="font-size: 90%; color: yellow"> Mugoya Dihfahsih</b></a>
                 
             </p>
         </div>
