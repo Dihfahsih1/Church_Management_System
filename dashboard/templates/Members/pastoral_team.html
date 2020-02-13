@@ -1,0 +1,63 @@
+{% extends 'home/base.html' %}
+{% load static total_tags %}
+<body>
+
+{% block content %}
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">UCC Bwaise Staff</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href='javascript:void(0);'>Pastoral Team</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="page-event-area">
+        <div class="container">
+            <div class="row">
+            {% for pastor in pastors %} 
+             {% if pastor.Ministry_Involved_In == "Pastoral"%}               
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="single-event">
+                            <div class="img">
+                                 {% if pastor.Photo %}
+                                    <img src="{{ pastor.Photo.url }}" data-fancybox="images" style="border-radius: 40%;" >
+                                {% endif %} 
+                            </div>
+
+                            <div class="content">
+                                <h2 class="title"><a href="{{ pastor.get_absolute_url }}"> {{pastor.Initials}} {{pastor.First_Name}} {{pastor.Second_Name}}</a>
+                                </h2>
+                                <ul class="list">
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-group"></i></span>Group: {{pastor.Group}}
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-home"></i></span>Cell: {{ pastor.Home_Cell }}
+                                        
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-map-marker"></i></span>Residence: {{ pastor.Residence }}
+                                        
+                                    </li>
+                                   
+                                </ul>
+                                    <a href="#">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                   {% endfor %}
+
+                </div>
+            </div>
+            
+        </div>
+
+        </div>
+    </section>
+
+{% endblock %}
+
+</body>
