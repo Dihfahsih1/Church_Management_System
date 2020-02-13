@@ -1,0 +1,52 @@
+{% extends 'home/base.html' %}
+{% load static total_tags %}
+{% load static contact_tags %}
+<body>
+
+{% block content %}
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">About</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href='javascript:void(0);'>Vision</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="page-event-area">
+        
+        <div class="container">
+            <div class="row justify-content-center">
+
+                <h1 class="title" style="text-align: center"><b><a href="#">The Church Vision</a></b>
+                 </h1>
+                <h2 class="title" style="text-align: center"><a href="#">{% church_vision %}</a>
+                                </h2>
+                {% for about in abouts %}
+                    <div>
+                        <div class="col-lg-12 single-event">
+
+                            <div class="img col-lg-4">
+                                {% if about.about_image %}
+                                    <img src="{{ about.about_image.url }}" alt="">
+                                {% endif %}
+                            </div>
+
+                            <div class="col-lg-8 content" >
+                                <ul class="list">
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-folder"></i></span>{{ about.vision_description }}
+                                    </li>
+                                    
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+</body>
