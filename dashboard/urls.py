@@ -11,6 +11,7 @@ url(r'^Church/Members', views.membership_wall, name='membership_wall'),
 url(r'^Church/Vision', views.abouts_vision, name='abouts_vision'),
 url(r'^Church-Mission', views.abouts_mission, name='abouts_mission'),
 url(r'^Pastoral-Team', views.church_pastors, name='church_pastors'),
+url(r'^Administrative-Team', views.church_administration, name='church_administration'),
 
 
 url(r'^expenditure/record', views.enter_expenditure, name='enter_expenditure'),

@@ -64,7 +64,10 @@ class UserManager(BaseUserManager):
         return user_obj    
 class User(AbstractBaseUser , PermissionsMixin):
     roles=(
-        ('Admin','Admin'),('Secretary','Secretary') ,('SuperAdmin','SuperAdmin')     
+        ('Admin','Admin'),('Secretary','Secretary') ,('SuperAdmin','SuperAdmin') ,
+        ('Building Chair', 'Building Chair'),
+       ('Marrieds Leader', 'Marrieds Leader'),
+       ('Youth Leader', 'Youth Leader'),   
     )
     email = models.EmailField(max_length=255, unique=True, blank=True, null=True)
     username = models.CharField(max_length=30, unique=True)

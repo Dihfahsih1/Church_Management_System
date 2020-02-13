@@ -8,7 +8,7 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['full_name','email','username','Role']
+        fields = ['full_name','email','username','Role','Is_View_on_Web']
         # 'roles'
         labels = {
             'full_name': 'Name',

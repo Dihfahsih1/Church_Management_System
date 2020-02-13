@@ -564,8 +564,8 @@ def church_pastors(request):
 
 #Administrative Team
 def church_administration(request):
-    staff = Users.published.all()
-    return render(request, 'Members/administration_team.html', {'staff': staff})  
+    staffs = User.published.all()
+    return render(request, 'Members/administration_team.html', {'staffs': staffs})  
 
 #edit member
 def edit_member(request, pk):
