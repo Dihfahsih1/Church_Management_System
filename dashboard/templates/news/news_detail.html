@@ -7,11 +7,11 @@
 
     <section class="page-breadcumb-area bg-with-black">
         <div class="container text-center">
-            <h2 class="title">News Detail</h2>
+            <h2 class="title">Gospel Detail</h2>
             <ul class="links">
                 <li><a href="{% url 'index_public' %}">Home</a></li>
-                <li><a href="{% url 'news_wall' %}">News</a></li>
-                <li><a href="javascript:void(0);">News Detail</a></li>
+                <li><a href="{% url 'news_wall' %}">Gospel</a></li>
+                <li><a href="javascript:void(0);">Sermon Detail</a></li>
             </ul>
         </div>
     </section>
@@ -40,7 +40,7 @@
 
                         <p class="text">{{ news.news|linebreaks }}</p>
 
-                        <div class="share-news" style="display: none;">
+                        <div class="share-news">
                             <h4 class="name">Share :</h4>
                             <ul class="social">
                                 <li><a class="icon" href="#"><i class="fa fa-facebook"></i></a></li>
@@ -54,7 +54,7 @@
                 <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-12">
                     <div class="sidebar">
                         <div class="sidebar-widget">
-                            <h2 class="sidebar-title">Latest News</h2>
+                            <h2 class="sidebar-title">Gospel Series</h2>
                             <ul class="widget-news">
                                 {% for news in more_news %}
                                     <li>

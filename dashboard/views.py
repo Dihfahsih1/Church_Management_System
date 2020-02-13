@@ -2325,6 +2325,9 @@ def abouts_vision(request):
     abouts = About.published.all()
     return render(request, 'abouts/abouts_wall.html', {'abouts': abouts})
 
+def abouts_mission(request):
+    abouts = About.published.all()
+    return render(request, 'abouts/abouts_mission.html', {'abouts': abouts})
 class AboutCreateView(CreateView):
     model = About
     template_name = 'abouts/about_create.html'
@@ -2737,11 +2740,10 @@ def news_wall(request):
 class NewsCreateView(CreateView):
     model = News
     template_name = 'news/news_create.html'
-    fields = ('news_title', 'image', 'news', 'Is_View_on_Web')
+    fields = ('news_title', 'image', 'news', 'author','Is_View_on_Web')
 
     def form_valid(self, form):
         news = form.save(commit=False)
-        news.author = self.request.user
         news.save()
         return redirect('news_list')
 

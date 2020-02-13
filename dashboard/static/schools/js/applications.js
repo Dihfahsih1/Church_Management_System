@@ -17,7 +17,7 @@ $(function () {
         });
     };
 
-      var saveForm = function () {
+    var saveForm = function () {
         var form = $(this);
         var formData = new FormData(form[0]);
         $.ajax({
@@ -53,6 +53,9 @@ $(function () {
     $("#application-table").on("click", ".js-update-application", loadForm);
     $("#modal-application").on("submit", ".js-application-update-form", saveForm);
 
+    // view application
+    $("#application-table").on("click", ".js-view-application", loadForm);
+    $("#modal-application").on("submit", ".js-application-view-form", saveForm);
 
     // Delete application
     $("#application-table").on("click", ".js-delete-application", loadForm);

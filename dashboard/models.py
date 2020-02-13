@@ -718,8 +718,7 @@ class News(models.Model):
     image = models.ImageField(upload_to='images/', null=True, blank=False)
     news = models.TextField()
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='news', blank=True)
-
+    author = models.CharField(max_length=1003, null=True, blank=True, default="Preacher")
     objects = models.Manager()
     published = PublishedStatusManager()
 

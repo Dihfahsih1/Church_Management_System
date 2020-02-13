@@ -49,8 +49,8 @@ $(function () {
     $(".js-create-user").click(loadForm);
     $("#modal-user").on("submit", ".js-user-create-form", saveForm);
 
-     // view user
-     $("#user-table").on("click", ".js-view-user", loadForm);
+    // view user
+    $("#user-table").on("click", ".js-view-user", loadForm);
     $("#modal-user").on("submit", ".js-user-view-form", saveForm);
 
     // Update user
