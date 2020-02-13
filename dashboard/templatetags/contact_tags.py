@@ -19,10 +19,10 @@ def email_address():
 
 
 @register.simple_tag
-def fax():
+def Post_Office_Box():
     church = Church.objects.get(id=1)
-    church_fax_number = church.fax
-    return church_fax_number
+    church_post_number = church.Post_Office_Box
+    return church_post_number
 
 
 @register.simple_tag

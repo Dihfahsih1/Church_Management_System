@@ -9,6 +9,14 @@ from django.forms.fields import DateField
 from django.contrib.admin.widgets import AdminDateWidget
 from django.contrib.auth.models import PermissionsMixin
 
+ministries=(
+    ('Pastoral', 'Pastoral'),
+    ('Discipleship', 'Discipleship'),
+    ('Worship Team', 'Worship Team'),
+    ('Ushering', 'Ushering'),
+    ('Orchestra', 'Orchestra'),
+    ('Youth Leadership', 'Youth Leadership'),
+    ('Teens', 'Teens'),)
 OPTIONS = (('Yes', 'Yes'),
            ('No', 'No'))
 ROLE_CHOICES = (
@@ -16,6 +24,9 @@ ROLE_CHOICES = (
     ('Members', 'Members'),
     ('Secretary', 'Secretary'),
     ('Admin', 'Admin'),
+    ('Building Chair', 'Building Chair'),
+    ('Marrieds Leader', 'Marrieds Leader'),
+    ('Youth Leader', 'Youth Leader'),
 )
 Week_Days = (
     ('Monday', 'Monday'),
@@ -64,7 +75,9 @@ class User(AbstractBaseUser , PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
     USERNAME_FIELD = 'username'
     REQUIRED_FILEDS = []
-    objects = UserManager()
+    Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS,null=True,blank=True)
+    objects = models.Manager()
+    published = PublishedStatusManager()
     def __str__(self):
         return self.Role
 class Sundry(Model):
@@ -213,7 +226,7 @@ class Members(models.Model):
     Date_Of_Salvation=models.DateField(null=True,blank=True)
     Date_Of_Birth=models.DateField(null=True,blank=True)
     Date_Of_Joining_UCC_Bwaise=models.DateField(null=True,blank=True)
-    Ministry_Involved_In=models.CharField(max_length=100,null=True,blank=True)
+    Ministry_Involved_In=models.CharField(max_length=100, default='Discipleship', choices=ministries,null=True,blank=True)
     Name_Of_Next_Of_Kin=models.CharField(max_length=100,null=True,blank=True)
     Contact_Of_Next_Of_Kin=models.CharField(max_length=100,null=True,blank=True)
     Residence_Of_Next_Of_Kin=models.CharField(max_length=100,null=True,blank=True)

@@ -23,7 +23,7 @@ class SpendForm(forms.ModelForm):
 class UserForm(forms.ModelForm):
     class Meta:
         model=User
-        fields=('email','username','Role','full_name','is_active','is_staff','is_superuser')
+        fields=('Is_View_on_Web','email','username','Role','full_name','is_active','is_staff','is_superuser')
         widgets = {
             'Date': DatePickerInput(),
             

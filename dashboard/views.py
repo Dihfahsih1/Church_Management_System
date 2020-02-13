@@ -556,6 +556,17 @@ def membership_wall(request):
         members_list = paginator.page(paginator.num_pages)
     context={'page':page, 'members_list': members_list}    
     return render(request, 'Members/members_wall.html', context)
+
+#Church Pastors
+def church_pastors(request):
+    pastors = Members.published.all()
+    return render(request, 'Members/pastoral_team.html', {'pastors': pastors})
+
+#Administrative Team
+def church_administration(request):
+    staff = Users.published.all()
+    return render(request, 'Members/administration_team.html', {'staff': staff})  
+
 #edit member
 def edit_member(request, pk):
     item = get_object_or_404(Members, pk=pk)
