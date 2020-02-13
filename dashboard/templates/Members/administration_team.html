@@ -1,0 +1,65 @@
+{% extends 'home/base.html' %}
+{% load static total_tags %}
+<body>
+
+{% block content %}
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">UCC Bwaise Staff</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href='javascript:void(0);'>Administrative Team</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="page-event-area">
+        <div class="container">
+            <div class="row">
+            {% for staff in staffs %} 
+               {% if staff.full_name != None %}              
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                          
+                        <div class="single-event">
+                            <div class="img" >
+                                 {% if staff.full_name.Photo %}
+                                    <img src="{{ staff.full_name.Photo.url }}" data-fancybox="images" style="border-radius: 40%;height: 350px" >
+                                {% endif %} 
+                            </div><br>
+                            <div class="content">
+                                <h2 class="title"><a href="{{ staff.get_absolute_url }}"> {{staff.full_name.Initials}} {{staff.full_name}}</a>
+                                </h2>
+                                <ul class="list">
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-star"></i></span>Role: {{staff.Role}}
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-group"></i></span>Group: {{staff.full_name.Group}}
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-home"></i></span>Cell: {{ staff.full_name.Home_Cell }}
+                                        
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-map-marker"></i></span>Residence: {{ staff.full_name.Residence }}
+                                        
+                                    </li>
+                                   
+                                </ul>
+                                    <a href="#">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                   {% endfor %}
+
+                </div>
+            </div>
+            
+        </div>
+
+        </div>
+    </section>
+    {% endblock %}
+
+</body>
