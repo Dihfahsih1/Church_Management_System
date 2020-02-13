@@ -81,3 +81,15 @@ def church_map():
 def church():
     church_status = Church.objects.get(id=1)
     return church_status
+
+@register.simple_tag
+def facebook():
+    fb = Church.objects.get(id=1)
+    facbook = fb.facebook_url
+    return facbook
+
+@register.simple_tag
+def youtube():
+    yt = Church.objects.get(id=1)
+    youtu = yt.youtube_url
+    return youtu    

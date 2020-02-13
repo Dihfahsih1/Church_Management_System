@@ -159,18 +159,11 @@
             <div class="row">
                 <div class="col-lg-3 col-md-7 col-sm-7 col-12">
                     <div class="footer-widget">
-                        <h2 class="fw-title"><span>About Us:</span></h2>
+                        <h2 class="fw-title"><span>Sunday Services:</span></h2>
                         <p class="text">
-                            United Christian Centre Bwaise (UCC BWAISE) is a born again Christian church in Kampala Uganda East Africa.
-                            The church is located on Bwaise – Nabweru road The lead pastor isPr. Joshua Zake ministering with a team of other associate pastors namely;
-                            Pr. Sande Posiano Zakumumpa<br>
-                            Pr. Henry Musubize<br>
-                            Pr. Sanyu Rebecca<br>
-                            and other preachers of the word including the following
-                            Mr. Mukisa Kintu<br>
-                            Mr. John Bosco Buyuki<br>
-                            Mr. Charles Bunjo<br>
-                            Mr. Kasirye Eddie
+                            First Service (6:30am - 9:00am)<br>
+                            Second Service (9:00am - 11:00am)<br>
+                            Third Service (11:00am - 2:30pm)<br> 
                         </p>
                     </div>
                 </div>
@@ -183,10 +176,6 @@
                             <li><a href="#">Event</a></li>
                             <li><a href="#">Gallery</a></li>
                             <li><a href="#">Members</a></li>
-                            <li><a href="#">Employees</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Terms & Condition</a></li>
                         </ul>
                     </div>
                 </div>
@@ -194,7 +183,7 @@
                     <div class="footer-widget">
                         <h2 class="fw-title">Social Link</h2>
                         <ul class="social">
-                            <li><a href="https://www.facebook.com/" target="_blank"><i
+                            <li><a href="{% facebook %}" target="_blank"><i
                                     class="fa fa-facebook"></i></a></li>
 
                             <li><a href="https://www.twitter.com/" target="_blank"><i
@@ -208,7 +197,7 @@
                                     class="fa fa-google-plus"></i></a>
                             </li>
 
-                            <li><a href="https://www.youtube.com/" target="_blank"><i
+                            <li><a href="{% youtube%}" target="_blank"><i
                                     class="fa fa-youtube"></i></a>
                             </li>
 
@@ -235,6 +224,9 @@
                             </li>
                             <li><span class="icon"><i class="fa fa-map-marker"></i></span>
                                {% church_address %} 
+                            </li>
+                            <li> <span class="icon"><i class="fa fa-pencil"> P.O.Box</i></span>
+                               {%Post_Office_Box %} 
                             </li>
                         </ul>
                     </div>
