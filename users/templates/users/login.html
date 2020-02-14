@@ -23,7 +23,8 @@
     background-image: url( "{% static 'img/uccb.jpg' %} ");
 }
 </style>
-<div class="container">
+<div class="right_col" role="main">
+      <div class="row">
          <!--fade up notification upon successful redirect-->
             {% if messages %}
             <div class="col-lg-6" style="float: right">
@@ -36,8 +37,7 @@
                     </ul>
                 </div>
             </div>       
-           {% endif %}
-    <div class="container">      
+           {% endif %}      
         <div class="login_wrapper">
             <div class="animate form login_form">
                 
@@ -65,8 +65,8 @@
             </div>
         </div>
     </div>
- </div>
-</div>
+      </div>
+    </div>
 
 {% endblock content %}
 
