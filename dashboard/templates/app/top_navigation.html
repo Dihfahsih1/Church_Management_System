@@ -7,7 +7,7 @@
             </div>
         </div>
 {% load static %}
-        <div class="col-md-7">
+        <div class="col-md-6">
             <ul class="nav navbar-nav navbar-left">
                 <li class="nav-item">
                     <a href="{% url 'index' %}" class="border border-light grey-text">
@@ -26,8 +26,14 @@
             </ul>
         </div>
 
-        <div class="col-lg-4">
+        <div class="col-lg-3">
             <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item">
+                    <a href="{% url 'index_public' %}"
+                       class="nav-link border border-light grey-text rounded waves-effect">
+                        <i class="fa fa-globe mr-3"></i> website
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                        aria-expanded="false">
@@ -41,12 +47,7 @@
                         <li><a href="{% url 'logout'%}"><i class="fa fa-sign-out pull-left"></i>Log Out</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="{% url 'index_public' %}"
-                       class="nav-link border border-light grey-text rounded waves-effect">
-                        <i class="fa fa-globe mr-3"></i> Web
-                    </a>
-                </li>
+                
 
             </ul>
         </div>
@@ -59,7 +60,7 @@
                     <button type="button" class="close" data-dismiss="alert">x</button>
                     {% if request.user.Role == 'Admin' or request.user.Role == 'Secretary' or request.user.Role == 'SuperAdmin' %}
                      <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
-                         <span class="lead">Dear {{user.full_name}}...</span>
+                         <span class="lead">Dear {{user.full_name.Initials}} {{user.full_name}}...</span>
                      {% endif %}    
                     <ul>
                         {% for message in messages %}
