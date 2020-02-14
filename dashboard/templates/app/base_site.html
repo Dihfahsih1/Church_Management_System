@@ -78,7 +78,7 @@
     <div class="fakeLoader"></div>
     <!-- loader -->
     <div class="container body">
-        <div class="main_container">
+        <div class="main_container" style="max-width: 1350px">
                     {% block sidebar %}
                             <div class="col-md-3 left_col {% block sidebar_class %} {% endblock sidebar_class %}">
                                 {% include "app/sidebar.html" %}
@@ -282,7 +282,11 @@
 
     <!-- Custom Theme Scripts -->
     <script src="/static/build/js/custom.js"></script>
-
+    <script type="text/javascript">
+        $('#myTable').DataTable( {
+        responsive: true
+        } );
+    </script>
 
 
 {% endblock body %}
