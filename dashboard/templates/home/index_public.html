@@ -178,7 +178,7 @@
                 <div class="row justify-content-center" style="margin-top: -5%">
                 {% for event in events %}
                 {% if forloop.counter <= 2 %}
-                    <div class="col-lg-3">
+                    <div class="col-lg-3" style="margin-right: -2%">
                         <div class="single-event" style="height: 550px">
                             <div class="img">
                                 {% if event.image %}
@@ -204,9 +204,11 @@
                                     <li class="info"><span class="icon"><i
                                             class="fa fa-map-marker"></i></span>{{ event.event_place }}
                                     </li>
-                                </ul><div class="more text-right">
-                                    <a href="{% url 'event_detail' event.pk %}"
-                                       class="link hvr-bs"><b>....</b>Details</a></div>
+                                </ul>
+                                <div class="more text-right">
+                                    <a href="{% url 'event_detail' event.pk %}"class="link hvr-bs"><b>....</b>Details
+                                    </a>
+                                   </div>
                             </div>
                         </div>
                     </div>
@@ -214,7 +216,7 @@
                     {% endfor %}
 
                     <div class="col-lg-6">
-                        <div class="single-event" style="height: 550px">
+                        <div class="single-event" style="height: 550px; margin-right: -12%">
                             <div class="content">
                                 <h2 class="title"><a href="#">Church Weekly Program</a>
                                 </h2>
@@ -233,12 +235,10 @@
                                     </ul>
                                     </li>
                                     <li class="info"><b>Wednesday </b>
-
                                     <ul>
                                      <li>Revival Service (5:00pm - 8:00pm)</li>
                                     </ul> 
                                     </li>
-
                                     <li class="info"><b>Thursday </b>
                                         <ul>
                                          <li>Counselling and Guidance (9:00am - 4:00pm)</li>
@@ -256,8 +256,7 @@
                                         </ul>
                                     </li>
                                      <li class="info"><b>Sunday </b>
-                                        <ul>   
-                                    
+                                        <ul>
                                         <li>First Service (6:30am - 9:00am)</li>
                                          <li>Second Service (9:00am - 11:00am)</li>
                                         <li>Third Service (11:00am - 2:30pm)</li>
@@ -275,7 +274,6 @@
            </div> -->
         </div>
     </section>
- 
 
     <section class="page-gallery-area" style="margin-top: -10%">
         <div class="container">
@@ -294,16 +292,13 @@
                         {% if member.Initials != 'Pr.'%}                 
                             <div class="single-gallery">
                                 {% if member.Photo %}
-                                    <img src="{{ member.Photo.url }}" data-fancybox="images" style="border-radius: 40%;" >
+                                    <img src="{{ member.Photo.url }}" data-fancybox="images" style="border-radius: 40%; height: 150px" >
                                 {% endif %} 
                                 <span style="text-align: left;">
-                                    
                                     <h2> {{member.Initials}} {{member.First_Name}} {{member.Second_Name}}</h2>
-
                                     <div class="text">Group: {{member.Group}}</div>
                                     <div class="text">Home Cell: {{member.Home_Cell}}</div>
                                     <div class="text">Residence: {{member.Residence}}</div>
-                                     
                                 </span>
                             </div> 
                         {% endif %}
@@ -329,11 +324,10 @@
                     </div>
                 </div>
                 <div class="row justify-content-center" style="margin-top: -5%">
-                    <div class="col-lg-12" style="height: 557px">
-                        <div class="col-lg-5">
+                    <div class="col-lg-12" style="height: 380px">
+                        <div class="col-lg-5" style="height: 250px">
                             <div class="contact-form-area">
                                 <h2 class="contact-page-title">We would like to hear from You</h2>
-
                                 <form action="{% url 'contact' %}"
                                       method="POST"
                                       id="contact_us"
@@ -364,7 +358,7 @@
                                                 </textarea>
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-12" style="margin-top: -7%">
                                             <div class="contact-input-box text-right">
                                                 <input class="glbscl-link-btn hvr-bs" type="submit" name="submit" id="submit"
                                                        value="Submit">
@@ -374,14 +368,13 @@
                                 </form>
                             </div>
                         </div>
-
                         <h2 class="contact-page-title"style="float: right;">What others are saying</h2>
                         <div class="col-lg-6 testimonial-area bg-with-black" style="float: right; margin-top: -2%">
-                            <div class="col-lg-12" style="margin-top: -11%">
+                            <div class="col-lg-12" style="margin-top: -11%;height: 250px">
                                 <div class="testimonial-carousel owl-carousel">
                                     {% for data in feeback %}
                                     <div class="single-testimonial">
-                                        <div class="content"  style="height: 300px">
+                                        <div class="content"  style="height: 310px">
                                             <h2 class="name">{{data.name}}</h2>
                                             <p class="text"> {{data.feedback}}</p>
                                         </div>

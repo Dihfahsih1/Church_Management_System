@@ -112,8 +112,9 @@ class UpdatePledgesForm(forms.ModelForm):
         model=Pledges
         fields = ('Reason','Pledge_Made_By','Amount_Paid','Date')
         widgets = {
+
             'Date': DatePickerInput(),
-            
+            'Amount_Paid': TextInput(attrs={'placeholder': 'Shs.'}),
         }  
 
 class PaidPledgesForm(forms.ModelForm):
