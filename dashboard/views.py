@@ -1122,17 +1122,19 @@ def Tithesreport (request):
     if request.method=='POST':
         archived_year=request.POST['archived_year']
         archived_month = request.POST['archived_month']
-        #all the available expense in the expenses table
+         #all the available expense in the expenses table
         all_expenses = Tithes.objects.all()
         for expense in all_expenses:
             date=expense.Date
             name=expense.Tithe_Made_By
             amount=expense.Amount
+            service=expense.Service
             # the expense archive object
             expense_archiveobj=TithesReportArchive()
             #attached values to expense_archiveobj
             expense_archiveobj.Date=date
             expense_archiveobj.Tithe_Made_By = name
+            expense_archiveobj.Service=service
             expense_archiveobj.Amount=amount
             expense_archiveobj.archivedyear = archived_year
             expense_archiveobj.archivedmonth = archived_month

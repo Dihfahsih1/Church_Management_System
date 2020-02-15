@@ -446,6 +446,7 @@ class TithesReportArchive(models.Model):
     Date = models.DateField(null=True, blank=True)
     Tithe_Made_By = models.ForeignKey(Members, on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
     Amount = models.IntegerField()
+    Service = models.CharField(max_length=100,null=True, blank=True, default="Third Service")
     archivedmonth = models.CharField(max_length=100,null=True)
     archivedyear = models.CharField(max_length=100,null=True)
     def __str__(self):

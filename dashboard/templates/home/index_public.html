@@ -4,35 +4,38 @@
 
 <body>
 {% block content %}
-    <section class="slider-area owl-carousel">
+    <section class="page-gallery-area" style="margin-top: -8%;">
+        <div class="slider-area owl-carousel">
         {% for slider in sliders %}
-            <div class="single-slider" >
+            <div class="single-slider" style="height: 400px;" >
                 <div class="img">
                     {% if slider.slider_image %}
                         <img src="{{ slider.slider_image.url }}" alt="">
                     {% endif %}
                 </div>
-                <div class="content">
+                <!-- <div class="content">
                     <div class="container">
                         <h2 class="title animated"> {{slider.image_title}} </h2>
                         <a class="link animated glbscl-link-btn hvr-bs"
                            href="{% url 'contact' %}">Come Fellowship with Us</a>
                     </div>
-                </div>
+                </div> -->
             </div>
         {% endfor %}
-    </section> 
+        </div>
+    </section>
 
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="section-title text-center">
-                    <h1 class="title"><span class="inner">{% church_name%} </span></h1><br>
+                    <h1 class="title"><span class="inner">{% church_name %} </span></h1><br>
                     <a href="{% url 'abouts_vision' %}">
                         <h2 class="more text" style="font-size: 300%"><span class="inner"> VISION: </span>{% church_vision %}</h2>
-                    </a><br>
+                    </a>
+                    <br>
                     <a href="{% url 'abouts_mission' %}">
-                        <h3 class="more text" style="font-size: 300%"><span class="inner"> MISSION: </span>{% church_mission%}</h3><br><span style="font-size: 200%; padding-top:50%">( lwaki oli mulamu? )</span>
+                        <h3 class="more text" style="font-size: 300%"><span class="inner"> MISSION: </span>{% church_mission %}</h3><br><span style="font-size: 200%; padding-top:50%">( lwaki oli mulamu? )</span>
                     </a>
                 </div>
             </div>
