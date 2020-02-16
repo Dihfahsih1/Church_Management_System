@@ -2095,7 +2095,7 @@ class pledgespdf(View):
     def get(self, request):
         current_month = datetime.now().month
         ple = Pledges.objects.all().order_by('-Date')
-        today = timezone.now()
+        today = datetime.now().now()
         month = today.strftime('%B')
         totalexpense = 0
         for instance in ple:
@@ -2113,7 +2113,7 @@ class pledgespdf(View):
 class pledgesreceipt(View):
     def get(self, request, pk):
         pledges= get_object_or_404(Pledges,pk=pk)
-        today = timezone.now()
+        today = datetime.now()
         context = {
             'today': today,
             'pledges': pledges,
