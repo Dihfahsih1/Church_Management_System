@@ -2145,7 +2145,7 @@ def Pledgesreport(request):
             expense_archiveobj.archivedyear= archived_year
             expense_archiveobj.archivedmonth =archived_month
             expense_archiveobj.save()
-        messages.success(request, "The Monthly Pledges Report has been Archived")
+        messages.success(request, "The Pledges Report has been Archived")
         return render(request, 'Pledges/pledgesindex.html')
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'August', 'September', 'October', 'November','December']
     years = datetime.now().year
@@ -2153,8 +2153,10 @@ def Pledgesreport(request):
     total_amount = total["totals"]
     day=datetime.now()
     mth = datetime.now().month
-    items =Pledges.objects.filter(Date__month=mth).order_by('-Date')
-    context = {'day':day,
+    items =Pledges.objects.all().order_by('-Date')
+    context = {
+        'day':day,
+        'mth':mth,
         'total_amount':total_amount,
         'items':items,
         'months':months,

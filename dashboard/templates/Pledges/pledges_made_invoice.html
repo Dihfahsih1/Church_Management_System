@@ -62,13 +62,15 @@
         <div>
         <div class='details'>
             <h1 align="center"><u> Pledge Invoice </u></h1>
-            <strong style="font-size: large"><pre>Pledge Date:</strong><u> {{ pledge.Date }}</pre></u>
-            <strong style="font-size: large"><pre>Pledge Status:</strong><u> {{ pledge.Status }}</pre></u>
-            <strong style="font-size: large"><pre>Pledge Made By:</strong><u>{{ pledge.Pledge_Made_By.Initials }} {{ pledge.Pledge_Made_By}}</pre></u>
-           <strong style="font-size: large"><pre>Pledge Reason:</strong><u> {{ pledge.Reason}}</pre></u>
-           <strong style="font-size: large"><pre>Pledged Amount:</strong><u> Shs.{{ pledge.Amount_Pledged|intcomma}}</pre></u>
-           <strong style="font-size: large"><pre>Amount Paid:</strong><u> Shs.{{ pledge.total_pledge_paid|intcomma}}</pre></u>
-           <strong style="font-size: large; "><pre>Balance:</strong><u> <b style="font-size: large; color: red">Shs.{{ pledge.Pledge_Balance|intcomma}}</b></pre></u>
+            <strong style="font-size: large"><pre>Pledge Date: </strong><u> {{ pledge.Date }}</pre></u>
+            <strong style="font-size: large"><pre>Pledge Made By: </strong><u>{{ pledge.Pledge_Made_By.Initials }} {{ pledge.Pledge_Made_By}}</pre></u>
+            <strong style="font-size: large"><pre>Church Group: </strong><u>{{ pledge.Pledge_Made_By.Group}}</pre></u>
+            <strong style="font-size: large"><pre>Pledge Status: </strong><u> {{ pledge.Status }}</pre></u>
+            
+           <strong style="font-size: large"><pre>Pledge Reason: </strong><u> {{ pledge.Reason}}</pre></u>
+           <strong style="font-size: large"><pre>Pledged Amount: </strong><u> Shs.{{ pledge.Amount_Pledged|intcomma}}</pre></u>
+           <strong style="font-size: large"><pre>Amount Paid: </strong><u> Shs.{{ pledge.total_pledge_paid|intcomma}}</pre></u>
+           <strong style="font-size: large; "><pre>Balance: </strong><u> <b style="font-size: large; color: red">Shs.{{ pledge.Pledge_Balance|intcomma}}</b></pre></u>
          </div>
     </div><br>
     <i>Thank You for supporting the Ministry, God Bless You</i>
