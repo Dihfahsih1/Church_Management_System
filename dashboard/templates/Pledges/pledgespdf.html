@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Pledges Monthly Report</title>
+    <title>Annual Pledges Report</title>
     <style type="text/css">
         @page {
             size: A4;
@@ -13,6 +13,9 @@
             width: 100%;
             max-width: 100%;
             background-color: #fff;
+            border: black solid 1px;
+            padding: 5px;
+
         }
    
         .table thead th {
@@ -22,6 +25,7 @@
         .table tbody + tbody {
 
             border-top: 0px solid #000;
+            padding: 25px;
         }
         .table .table {
             background-color: #fff;
@@ -64,6 +68,7 @@
             <tr style="font-size:larger">
                 <th>Date</th>
                 <th>Name</th>
+                <th>Group</th>
                 <th>Reason</th>
                 <th>Amount Pledged</th>
                 <th>Amount Paid</th>
@@ -73,14 +78,14 @@
             <tbody>
             {% for ex in ple %}
                 <tr style="font-size:large">
-
-        <td>{{ ex.Date}}</td>
-        <td>{{ ex.Pledge_Made_By  }}</td>
-        <td>{{ ex.Reason  }}</td>
-        <td>{{ ex.Amount_Pledged }}</td>
-        <td>{{ ex.total_pledge_paid }}</td>
-        <td>{{ ex.Pledge_Balance }}</td>
-        </tr>
+                    <td>{{ ex.Date}}</td>
+                    <td>{{ ex.Pledge_Made_By  }}</td>
+                    <td>{{ ex.Pledge_Made_By.Group  }}</td>
+                    <td>{{ ex.Reason  }}</td>
+                    <td>{{ ex.Amount_Pledged }}</td>
+                    <td>{{ ex.total_pledge_paid }}</td>
+                    <td>{{ ex.Pledge_Balance }}</td>
+                </tr>
             {% endfor %}
               <tr>
                   <td class="jumbotron"><h3>TOTAL</h3></td>

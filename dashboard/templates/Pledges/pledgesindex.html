@@ -55,7 +55,7 @@
                               class="fa fa-plus-square-o"></i> Pledges Paid</a>
                         </li> 
                     </ul>
-                    <br/>
+                    <br/> 
                    <h2 style="text-align: center">The Pledges Made Report as of {{day}}</h2>
                     <h4 style="color: green; font-weight: 120%"><b>{{ message }}</b></h4>
 
@@ -110,7 +110,7 @@
                           </div>
                     </div>
                   </div>
-                  <p><a href="{% url 'pledgespdf' %}" target="_new"role="button"><span class="glyphicon glyphicon-print"> PRINT REPORT</span></a></p>
+                  <p><a href="{% url 'pledgespdf' %}" target="_new" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-print"> PRINT REPORT</span></a></p>
                   {% if mth == December %}
                   <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
                   
