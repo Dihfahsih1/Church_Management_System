@@ -2064,15 +2064,16 @@ def pledges_paid_list(request):
     month = today.strftime('%B')
     context['month']=month
     current_month = datetime.now().month
-    lists = PaidPledges.objects.filter(Date__month=current_month).order_by('-id')
+    lists = PaidPledges.objects.all().values('Pledge_Id').order_by('Pledge_Id').annotate(Amount_Paid=Sum('Amount_Paid'))
     context['lists']=lists
     return render(request, 'Pledges/pledges_paid_list.html',context)
-def delete_pledges_paid(request, pk):
-    pledges= get_object_or_404(PaidPledges, id=pk)
-    if request.method == "GET":
-        pledges.delete()
-        messages.success(request, "Payment successfully deleted!")
-        return redirect("pledges-paid-list")
+
+# def delete_pledges_paid(request, pk):
+#     pledges= get_object_or_404(PaidPledges, id=pk)
+#     if request.method == "GET":
+#         pledges.delete()
+#         messages.success(request, "Payment successfully deleted!")
+#         return redirect("pledges-paid-list")
 
 def delete_pledge(request, pk):
     pledges= get_object_or_404(Pledges, id=pk)

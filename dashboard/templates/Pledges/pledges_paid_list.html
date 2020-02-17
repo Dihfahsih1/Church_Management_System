@@ -61,39 +61,18 @@
                                     <th>Paid By</th>
                                     <th>Pledge Reason</th>
                                     <th>Amount</th>
-                                    <th>Action</th>
                                 </tr>
                                 </thead>
 
                                  <tbody>
                                 {% for list in lists %}
                                  <tr>
-                                    <td>{{ list.Pledge_Id}}</td>
+                                    <td>{{ forloop.counter }}</td>
                                      <td>{{ list.Date}}</td>
                                      <td>{{ list.Pledge_Made_By }}</td>
                                      <td>{{ list.Reason}}</td>
                                      <td>{{ list.Amount_Paid|intcomma}}</td>
-                                     <td><button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
-                                             <span class='glyphicon glyphicon-trash'> </span> Delete
-                                         </button>
-                                         <!-- Modal -->
-                                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                              <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                  <div class="modal-header">
-                                                    <h4 class="modal-title" id="myModalLabel">Delete Checklist</h4>
-                                                  </div>
-                                                  <div class="modal-body">
-                                                      <h3>Are you sure you want to delete Payment?</h3>
-                                                  </div>
-                                                  <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                    <a href="{% url 'delete-pledges-paid' list.pk %}" class="btn btn-danger bt-sm" role="button">Confirm</a>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                     </td>    
+                                        
                                 {% endfor%} 
                                 </tr>
                                 </tbody>

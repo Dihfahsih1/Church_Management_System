@@ -11,6 +11,8 @@ class PledgeItemAdmin(admin.ModelAdmin):
     	'Total_Item_Cashout')  
 class PledgesAdmin(admin.ModelAdmin):
     list_display = ('total_pledge_paid','Pledge_Balance','updatestatus')
+class PaidPledges(admin.ModelAdmin):
+    list_display = ('total_amount_paid')
 
 class PledgesReportArchiveAdmin(admin.ModelAdmin):
     list_display = ('total_pledge_paid','Pledge_Balance','updatestatus') 
@@ -39,7 +41,6 @@ admin.site.register(Members)
 admin.site.register(SalariesPaid)
 admin.site.register(Visitors)
 admin.site.register(User)
-admin.site.register(PaidPledges)
 admin.site.register(PledgesCashedOut)
 admin.site.register(PledgeItem)
 admin.site.register(Gallery)

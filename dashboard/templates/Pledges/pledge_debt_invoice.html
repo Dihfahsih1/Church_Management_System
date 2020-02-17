@@ -5,6 +5,7 @@
     <title>Expenditure Report</title>
 
         {% load staticfiles %}
+        {% load humanize %}
 
     <link type="text/css" rel="stylesheet" href="{% static '/css/bootstrap.css' %}"/>
     <link type="text/css" rel="stylesheet" href="{% static '/styles.css' %}"/>
@@ -66,9 +67,9 @@
             <strong style="font-size: large"><pre>Pledge Status:</strong><u> {{ debt.updatestatus }}</pre></u>
             <strong style="font-size: large"><pre>Pledge Made By:</strong><u> {{ debt.Pledge_Made_By}}</pre></u>
            <strong style="font-size: large"><pre>Pledge Reason:</strong><u> {{ debt.Reason}}</pre></u>
-           <strong style="font-size: large"><pre>Pledged Amount:</strong><u> Shs.{{ debt.Pledged_Amount}}</pre></u>
-           <strong style="font-size: large"><pre>Amount Paid:</strong><u> Shs.{{ debt.total_pledge_paid}}</pre></u>
-           <strong style="font-size: large; "><pre>Balance:</strong><u> <b style="font-size: large; color: red">Shs.{{ debt.Pledge_Balance}}</b></pre></u>
+           <strong style="font-size: large"><pre>Pledged Amount:</strong><u> Shs.{{ debt.Pledged_Amount|intcomma}}</pre></u>
+           <strong style="font-size: large"><pre>Amount Paid:</strong><u> Shs.{{ debt.total_pledge_paid|intcomma}}</pre></u>
+           <strong style="font-size: large; "><pre>Balance:</strong><u> <b style="font-size: large; color: red">Shs.{{ debt.Pledge_Balance|intcomma}}</b></pre></u>
          </div>
     </div><br>
     <i>Thank You for supporting the Ministry, God Bless You</i>
