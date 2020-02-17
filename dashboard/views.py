@@ -2064,7 +2064,8 @@ def pledges_paid_list(request):
     month = today.strftime('%B')
     context['month']=month
     current_month = datetime.now().month
-    lists = PaidPledges.objects.all().values('Pledge_Id').order_by('Pledge_Id').annotate(Amount_Paid=Sum('Amount_Paid'))
+    lists = PaidPledges.objects.all().values('Pledge_Id','Pledge_Made_By','Reason__Item_That_Needs_Pledges').annotate(Amount_Paid=Sum('Amount_Paid'))
+    print(lists)
     context['lists']=lists
     return render(request, 'Pledges/pledges_paid_list.html',context)
 

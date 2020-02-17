@@ -580,12 +580,7 @@ class PaidPledges(Model):
     Pledge_Id=models.IntegerField(blank=True, null=True)
     Pledge_Made_By = models.ForeignKey(Members, on_delete=models.SET_NULL,null=True,  max_length=100, blank=False)
     Amount_Paid = models.IntegerField(blank=True, null=True)
-    Date = models.DateField(null=True, blank=True)
-
-        #x=Pledges.objects.filter(pk=self.Pledge_Id).values_list('pk', flat=True)
-        #results=PaidPledges.objects.values('Pledge_Id').annotate(totals=Sum('Amount_Paid')).order_by('Pledge_Id')
-        
-        #return results['totals']   
+    Date = models.DateField(null=True, blank=True) 
          
     
 class PledgesReportArchive(Model):
