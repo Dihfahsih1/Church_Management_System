@@ -27,6 +27,7 @@ def web(request):
     abouts = About.objects.all()
     feeback= Contact.objects.all().order_by('-id')
     pages = Page.objects.all().order_by('-id')
+   
     context = {
         'pages' : pages,
         'feeback':feeback,

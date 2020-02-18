@@ -27,7 +27,6 @@
                         | <a href="#">Reset Password</a>
                         | <a href="#">Log Out</a>
                     </div>
-
                     <div class="x_content">
                         <div class="" data-example-id="togglable-tabs">
 
@@ -119,29 +118,31 @@
                                         </table>
                                        
                                     </div>
-                                    <!-- <h4>Messages from website</h4>
+                                    {% if request.user.full_name.id == member_id %}
+                                    <h4><b>Pledges Report of {{request.user.full_name.Initials}} {{request.user.full_name}}</b></h4>
                                     <table id="tablePreview" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Telephone</th>
-                                                <th>Email</th>
-                                                <th>Subject</th>
-                                                <th>Message</th>
+                                                <th>Pledge Reason</th>
+                                                <th>Pledged Amount</th>
+                                                <th>Amount Paid</th>
+                                                <th> Pledge Balance</th>
+                                                <th>Pledge Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                {% for message in web_messages%}
-                                                <td>{{message.name}}</td>
-                                                <td>{{message.phone}}</td>
-                                                <td>{{message.email}}</td>
-                                                <td>{{message.subject}}</td>
-                                                <td>{{message.message}}</td>
+                                                {% for item in pledges %}
+                                                  <td>{{ item.Reason}}</td>
+                                                  <td>{{ item.Amount_Pledged}}</td>
+                                                  <td>{{ item.total_pledge_paid}}</td>
+                                                  <td>{{ item.Pledge_Balance}}</td>
+                                                  <td>{{ item.updatestatus}}</td>
                                                 {% endfor %}
                                             </tr>
                                         </tbody>
-                                    </table> -->
+                                    </table>
+                                    {% endif %}
                                 </div>
 
                                 <!-- THE MODAL WE WILL BE USING -->

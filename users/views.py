@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import messages
 from .forms import *
 from dashboard.forms import UserForm
-from dashboard.models import User, Contact
+from dashboard.models import *
 from python_utils import *
+from dashboard.views import *
 from django.contrib.auth.views import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
@@ -11,8 +12,6 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
 from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
-
-
 
 class UserPasswordChangeView(LoginRequiredMixin, View):
     form_class = PasswordChangeForm
@@ -45,8 +44,13 @@ def reset_user_password(request, user_pk):
                'password': password}
     return render(request, 'users/home/reset_user_password.html', context)
 def view_profile(request):
-    web_messages=Contact.objects.all()
-    context={'web_messages':web_messages}
+    context = {}
+    all_users = User.objects.all()
+    for i in all_users:
+        member_id = i.full_name_id
+        pledges=Pledges.objects.filter(Pledge_Made_By_id=member_id)
+        context['pledges']=pledges
+        context['member_id']=member_id
     return render(request, 'users/home/profile.html',context)
 
 def edit_profile(request):
