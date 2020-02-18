@@ -297,7 +297,7 @@
             });
 
         </script>
-
+  {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' %}
         <div class="row">
 
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -317,9 +317,10 @@
 
                 </div>
             </div>
-
+ {% endif%}
   
         </div>
+
 {% if user.Role == 'Admin' or user.Role == 'SuperAdmin' %}
         <div class="row">
             <div class="col-md-8 col-sm-8 col-xs-12">

@@ -43,13 +43,18 @@ def reset_user_password(request, user_pk):
     context = {'mod_user': user,
                'password': password}
     return render(request, 'users/home/reset_user_password.html', context)
+
 def view_profile(request):
     context = {}
     all_users = User.objects.all()
     for i in all_users:
         member_id = i.full_name_id
         pledges=Pledges.objects.filter(Pledge_Made_By_id=member_id)
+        tithes=TithesReportArchive.objects.filter(Tithe_Made_By_id=member_id)
+        thanks=ThanksGivingReportArchive.objects.filter(Thanks_Giving_By_id=member_id)
+        context['thanks']=thanks
         context['pledges']=pledges
+        context['tithes']=tithes
         context['member_id']=member_id
     return render(request, 'users/home/profile.html',context)
 
