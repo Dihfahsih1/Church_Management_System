@@ -67,10 +67,9 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Group</th>
-                                    <th>Contact</th>
                                     <th>Reason</th>
                                     <th>Pledged</th>
-                                    <th>Amount Paid </th>
+                                    <th>Amount Paid</th>
                                     <th>Balance</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -81,7 +80,6 @@
                                 <tr>
                                   <td>{{ item.Pledge_Made_By}}</td>
                                   <td>{{ item.Pledge_Made_By.Group}}</td>
-                                  <td>{{ item.Pledge_Made_By.Telephone}}</td>
                                   <td>{{ item.Reason}}</td>
                                   <td>{{ item.Amount_Pledged}}</td>
                                   <td>{{ item.total_pledge_paid}}</td>
@@ -89,7 +87,7 @@
                                   <td>{{ item.updatestatus}}</td>
                                   {% if item.total_pledge_paid >= item.Amount_Pledged  %}
                                   <td><a href="{% url 'pledgesreceipt' item.id %}" ><button class="btn btn-warning"><span class="glyphicon glyphicon-print"> Receipt</span></button></a>
-                                   
+                                   <a href="{% url 'edit_pledges' item.id  %}" ><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button></a>  
                                   {% if user.Role == Admin or user.Role == SuperAdmin %}
                                   <a href="{% url 'delete-pledge' item.id  %}" ><button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>Delete</button></a></td>
                                    {% endif %}

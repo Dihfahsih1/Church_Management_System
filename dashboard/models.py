@@ -204,6 +204,7 @@ class Members(models.Model):
         ('God is Able','God is Able'),('Winners','Winners'),('Overcomers','Overcomers'),('Biyinzika','Biyinzika') ,
         ('Victors','Victors'),('Issachar','Issachar')
         )
+    date = models.DateTimeField(auto_now=True)
     Group=models.CharField(max_length=100, choices=grouping, null=True, blank=True, default="God Is Able")
     Initials=models.CharField(max_length=100, choices=ini,null=True, blank=True)
     First_Name=models.CharField(max_length=100,null=True)

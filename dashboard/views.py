@@ -18,16 +18,15 @@ from django.contrib.auth import update_session_auth_hash
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 def web(request):
-    news = News.published.all()
+    news = News.published.all().order_by('-id')
     events = Event.published.all().order_by('-from_date')
-    images = Image.published.all()
-    members = Members.published.all()
+    images = Image.published.all().order_by('-id')
+    members = Members.published.all().order_by('-id')
     employees = StaffDetails.published.all()
-    sliders = Slider.objects.all()
+    sliders = Slider.objects.all().order_by('-id')
     abouts = About.objects.all()
-    feeback= Contact.objects.all()
-    pages = Page.objects.all()
-   
+    feeback= Contact.objects.all().order_by('-id')
+    pages = Page.objects.all().order_by('-id')
     context = {
         'pages' : pages,
         'feeback':feeback,

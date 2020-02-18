@@ -19,7 +19,7 @@
 
                 <section class=" border">
                 	<div class="jumbotron">
-                    <h4 style="color:red">*** Your account has been logged out successfully! ***</h4><br>
+                    <h4 style="color:red">*** dear {{request.user.full_name}}Your account has been logged out successfully! ***</h4><br>
                     <button class="btn btn-info" type="submit" style="font-size: 200%"><a href="{% url 'login' %}">Log in again</a></button></div>
                 </section>
         </div>

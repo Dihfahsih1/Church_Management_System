@@ -17,8 +17,8 @@
         <div class="container">
             <div class="row">
             {% for member in members_list %}                
-                    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                        <div class="single-event">
+                    <div class="col-lg-3">
+                        <div class="single-event" style="height: 415px">
                             <div class="img" style="max-height: 170px">
                                  {% if member.Photo %}
                                     <img src="{{ member.Photo.url }}" data-fancybox="images" style="border-radius: 40%;" >
