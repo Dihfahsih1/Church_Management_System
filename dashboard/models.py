@@ -8,7 +8,10 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.forms.fields import DateField
 from django.contrib.admin.widgets import AdminDateWidget
 from django.contrib.auth.models import PermissionsMixin
-
+services = (('Home Cell Service','Home Cell Service'),('Youth Service','Youth Service'),('Wednesday Service','Wednesday Service'),
+        ('Bible Study Service','Bible Study Service'),('Friday Overnight','Friday Overnight'),('SundayFirst Service','Sunday First Service'),
+        ('Sunday Second Service','Sunday Second Service'),('Sunday Third Service','Sunday Third Service'),
+        )
 ministries=(
     ('Pastoral', 'Pastoral'),
     ('Discipleship', 'Discipleship'),
@@ -97,15 +100,20 @@ class Sundry(Model):
         return self.Payment_Made_To
 
 class Offerings(Model):
-    services = (('Home Cell Service','Home Cell Service'),('Youth Service','Youth Service'),('Wednesday Service','Wednesday Service'),
-        ('Bible Study Service','Bible Study Service'),('Friday Overnight','Friday Overnight'),('SundayFirst Service','Sunday First Service'),
-        ('Sunday Second Service','Sunday Second Service'),('Sunday Third Service','Sunday Third Service'),
-        )
     Date = models.DateField(null=True, blank=True)
     Total_Offering = models.IntegerField()
     Service=models.CharField(max_length=100, choices=services, blank=False)
+
     def __str__(self):
         return self.Total_Offering
+
+class BuildingRenovation(Model):
+    Date = models.DateField(null=True, blank=True)
+    Total_Collection = models.IntegerField()
+    Service=models.CharField(max_length=100, choices=services, blank=False)
+    Other_Notes=models.TextField(max_length=10000, blank=True, null=True)
+    def __str__(self):
+        return self.Total_Collection
 
 class GeneralExpenses(Model):
     expenses = (('Generator Mechanic','Generator Mechanic'),('Instruments','Servicing Music Instruments'),('Condolences','Condolences'),
@@ -188,7 +196,8 @@ class OfferingsReportArchive(models.Model):
     archivedyear = models.CharField(max_length=100,null=True)
 
     def __str__(self):
-        return 'Name: {1}  Amount:{0}'.format(self.Day, self.Amount)  
+        return 'Date: {1}  Amount:{0}'.format(self.Date, self.Amount)  
+
         
 class Members(models.Model):
     sex=(('Female','Female'),('Male','Male'))

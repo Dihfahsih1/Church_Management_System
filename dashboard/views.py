@@ -637,7 +637,29 @@ def visitors_list(request):
 
 
 
+     ###################################################
+    #                 BUILDING MODULE                  #
+     ###################################################
 
+#recording offerings
+@login_required
+def record_building_collections(request):
+    if request.method=="POST":
+        form=BuildingRenovationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Building Collections have been recorded')
+            return redirect('record-building-collections')
+    else:
+        form=BuildingRenovationForm()
+        return render(request, 'BuildingRenovation/record_building_collections.html',{'form':form})
+
+@login_required
+def Building_Renovation_report(request):
+    context={}
+    items = BuildingRenovation.objects.all()
+    context['items']=items
+    return render(request, 'BuildingRenovation/Building_Renovation_report.html', context)
 
 
      ###################################################

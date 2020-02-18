@@ -100,6 +100,14 @@ class OfferingsForm(forms.ModelForm):
         widgets = {
             'Date': DatePickerInput(),
         }
+
+class BuildingRenovationForm(forms.ModelForm):
+    class Meta:
+        model=BuildingRenovation
+        fields = ('Date','Total_Collection','Service','Other_Notes')
+        widgets = {
+            'Date': DatePickerInput(),
+        }        
 class PledgesForm(forms.ModelForm):
     class Meta:
         model=Pledges
