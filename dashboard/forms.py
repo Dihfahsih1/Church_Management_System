@@ -104,7 +104,7 @@ class OfferingsForm(forms.ModelForm):
 class BuildingRenovationForm(forms.ModelForm):
     class Meta:
         model=BuildingRenovation
-        fields = ('Date','Total_Collection','Service','Other_Notes')
+        fields = ('archivedmonth','archivedyear','Archived_Status','Date','Total_Collection','Service','Other_Notes')
         widgets = {
             'Date': DatePickerInput(),
         }        

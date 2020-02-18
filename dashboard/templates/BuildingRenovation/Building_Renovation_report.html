@@ -55,6 +55,7 @@
                                     <td>Date</td>
                                     <td>Service</td>
                                     <td>Amount <i class=" glyphicon glyphicon-arrow-right"></i> (<span style="font-weight: bolder; color:red" class="totalCol"></span>)</td>
+                                    <td>Archived Status</td>
                                     <td>Other Infor</td>
                                     <td>Action</td>
                               </tr>
@@ -66,6 +67,7 @@
                                 <td>{{ item.Date}}</td>
                                 <td>{{ item.Service}}</td>
                                 <td class="rowDataSd">{{ item.Total_Collection}}</td>
+                                  <td>{{ item.Archived_Status}}</td>
                                 <td>{{ item.Other_Notes}}</td>
 
                                 <td>
@@ -82,21 +84,23 @@
 
                      </div>
                    </div>
-                        <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
-                          <a href="#" target="_new"role="button"><span class="btn btn-success"> PRINT REPORT</span></a>
-                         <button class="btn btn-warning" >Archive</button>
-                      
+
+                  <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
+                        <a href="#" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"></span></a>
+                       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">Archive</span></button>
                
-                  <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Offerings report archiving</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
+                 <!-- Button trigger modal -->
+<!-- Modal -->
+                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Tithes report archiving</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
                            <h4 class="text-danger"><b><u>Ensure You archive the Correct Month and Year(Church Cycle)</u></b></h4>
                         <form class="x_content" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
@@ -123,12 +127,12 @@
                           </div>
                         </form>
                           </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div> -->
               </div>
             </div>
           </div>

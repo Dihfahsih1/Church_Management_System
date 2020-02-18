@@ -638,31 +638,6 @@ def visitors_list(request):
 
 
      ###################################################
-    #                 BUILDING MODULE                  #
-     ###################################################
-
-#recording offerings
-@login_required
-def record_building_collections(request):
-    if request.method=="POST":
-        form=BuildingRenovationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, f'Building Collections have been recorded')
-            return redirect('record-building-collections')
-    else:
-        form=BuildingRenovationForm()
-        return render(request, 'BuildingRenovation/record_building_collections.html',{'form':form})
-
-@login_required
-def Building_Renovation_report(request):
-    context={}
-    items = BuildingRenovation.objects.all()
-    context['items']=items
-    return render(request, 'BuildingRenovation/Building_Renovation_report.html', context)
-
-
-     ###################################################
     #                 OFFERINGS MODULE                  #
      ###################################################
 
@@ -1139,48 +1114,6 @@ class tithesreceipt(View):
             'request': request,
         }
         return Render.render('Tithes/tithesreceipt.html', context)
-@login_required
-def Tithesreport (request):
-    if request.method=='POST':
-        archived_year=request.POST['archived_year']
-        archived_month = request.POST['archived_month']
-         #all the available expense in the expenses table
-        all_expenses = Tithes.objects.all()
-        for expense in all_expenses:
-            date=expense.Date
-            name=expense.Tithe_Made_By
-            amount=expense.Amount
-            service=expense.Service
-            # the expense archive object
-            expense_archiveobj=TithesReportArchive()
-            #attached values to expense_archiveobj
-            expense_archiveobj.Date=date
-            expense_archiveobj.Tithe_Made_By = name
-            expense_archiveobj.Service=service
-            expense_archiveobj.Amount=amount
-            expense_archiveobj.archivedyear = archived_year
-            expense_archiveobj.archivedmonth = archived_month
-            expense_archiveobj.save()
-            #deleting all the expense from reports table
-        all_expenses.delete()
-        message="The Monthly Tithes Report has been Archived"
-        context={'message':message}
-
-        return render(request, 'Tithes/tithesindex.html', context)
-
-    months = ['January','February','March','April','May','June','July','August','September','October','November','December']
-    years = datetime.now().year
-    today = timezone.now()
-    current_month = today.strftime('%B')
-    total = Tithes.objects.aggregate(totals=models.Sum("Amount"))
-    total_amount = total["totals"]
-    mth = datetime.now().month
-    items =Tithes.objects.all()
-    day=datetime.now()
-    context = {'day':day,'total_amount':total_amount,'items': items,
-               'months':months,'years':years,'current_month':current_month
-    }
-    return render(request, 'Tithes/tithesindex.html', context)
 
 @login_required
 def tithesarchivessearch(request):
@@ -3051,3 +2984,85 @@ def church_delete(request, church_pk):
     return JsonResponse(data)
 
 
+
+     ###################################################
+    #                 BUILDING MODULE                  #
+     ###################################################
+
+#recording offerings
+@login_required
+def record_building_collections(request):
+    if request.method=="POST":
+        form=BuildingRenovationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Building Collections have been recorded')
+            return redirect('record-building-collections')
+    else:
+        form=BuildingRenovationForm()
+        return render(request, 'BuildingRenovation/record_building_collections.html',{'form':form})
+
+
+def Building_Renovation_report(request):
+    if request.method=='POST':
+        archived_year= request.POST['archived_year']
+        archived_month = request.POST['archived_month']
+        items = BuildingRenovation.objects.all()
+        for item in items:
+            item.Archived_Status = 'ARCHIVED'
+            item.archivedyear = archived_year
+            item.archivedmonth = archived_month
+            item.save()
+        messages.success(request, f'All Building Collections have been Archived')
+        return redirect('Building-Renovation-report')
+    months = ['January','February','March','April','May','June','July','August','September','October','November','December']
+    years = datetime.now().year
+    context={}
+    items = BuildingRenovation.objects.filter(Archived_Status='UN-ARCHIVED')
+    context['items']=items
+    context['months']=months
+    context['years']=years
+    return render(request, 'BuildingRenovation/Building_Renovation_report.html', context)
+
+@login_required
+def Tithesreport (request):
+    if request.method=='POST':
+        archived_year=request.POST['archived_year']
+        archived_month = request.POST['archived_month']
+         #all the available expense in the expenses table
+        all_expenses = Tithes.objects.all()
+        for expense in all_expenses:
+            date=expense.Date
+            name=expense.Tithe_Made_By
+            amount=expense.Amount
+            service=expense.Service
+            # the expense archive object
+            expense_archiveobj=TithesReportArchive()
+            #attached values to expense_archiveobj
+            expense_archiveobj.Date=date
+            expense_archiveobj.Tithe_Made_By = name
+            expense_archiveobj.Service=service
+            expense_archiveobj.Amount=amount
+            expense_archiveobj.archivedyear = archived_year
+            expense_archiveobj.archivedmonth = archived_month
+            expense_archiveobj.save()
+            #deleting all the expense from reports table
+        all_expenses.delete()
+        message="The Monthly Tithes Report has been Archived"
+        context={'message':message}
+
+        return render(request, 'Tithes/tithesindex.html', context)
+
+    months = ['January','February','March','April','May','June','July','August','September','October','November','December']
+    years = datetime.now().year
+    today = timezone.now()
+    current_month = today.strftime('%B')
+    total = Tithes.objects.aggregate(totals=models.Sum("Amount"))
+    total_amount = total["totals"]
+    mth = datetime.now().month
+    items =Tithes.objects.all()
+    day=datetime.now()
+    context = {'day':day,'total_amount':total_amount,'items': items,
+               'months':months,'years':years,'current_month':current_month
+    }
+    return render(request, 'Tithes/tithesindex.html', context)
