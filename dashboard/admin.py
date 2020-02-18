@@ -23,6 +23,7 @@ class SalariesPaidAdmin(admin.ModelAdmin):
 class OfferingsReportArchiveAdmin(admin.ModelAdmin):
     list_display = ('total_offerings')            
 admin.site.register(StaffDetails)
+admin.site.register (BuildingRenovation)
 admin.site.register (Allowance)
 admin.site.register(Spend)
 admin.site.register(Sundry)

@@ -42,7 +42,7 @@ Week_Days = (
 )
 archive = (
     ('ARCHIVED', 'ARCHIVED'),
-    ('UN-ARCHIVED', 'UN-ARCHIVED'),)
+    ('NOT-ARCHIVED', 'NOT-ARCHIVED'),)
 class PublishedStatusManager(models.Manager):
     def get_queryset(self):
         return super(PublishedStatusManager, self).get_queryset().filter(Is_View_on_Web='Yes')
@@ -111,17 +111,14 @@ class Offerings(Model):
         return self.Total_Offering
 
 class BuildingRenovation(Model):
-    Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='UN-ARCHIVED')
+    Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
     Date = models.DateField(null=True, blank=True)
     Total_Collection = models.IntegerField()
     Service=models.CharField(max_length=100, choices=services, blank=False)
     Other_Notes=models.TextField(max_length=10000, blank=True, null=True)
-    archivedyear=models.CharField(max_length=100, blank=True, null=True)
-    archivedmonth=models.CharField(max_length=100, blank=True, null=True)
     
-
     def __str__(self):
-        return self.Total_Collection
+        return self.Archived_Status
 
 class GeneralExpenses(Model):
     expenses = (('Generator Mechanic','Generator Mechanic'),('Instruments','Servicing Music Instruments'),('Condolences','Condolences'),

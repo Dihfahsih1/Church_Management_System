@@ -1084,7 +1084,74 @@ def edit_tithes(request, pk):
         form = TithesForm(instance=item)        
         context={'form':form, 'month':month}
     return render(request, 'Tithes/record_tithes.html', context)
+@login_required
+def tithesarchivessearch(request):
+    if request.method == 'POST':
+        report_year = request.POST['report_year']
+        report_month = request.POST['report_month']
+        archived_reports = TithesReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
+        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September', 'October', 'November', 'December']
+        years = datetime.now().year
 
+        tithes = TithesReportArchive.objects.all()
+        today = timezone.now()
+        total = archived_reports.aggregate(totals=models.Sum("Amount"))
+        total_amount = total["totals"]
+        context = {'archived_reports': archived_reports,'months': months,'years': years,'expenses': tithes,
+                   'total_amount': total_amount,'today': today,'report_year': report_year,'report_month': report_month
+                   }
+        return render(request, "Tithes/tithesarchive.html", context)
+
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'November', 'December']
+    years = datetime.now().year
+    tithes = TithesReportArchive.objects.all()
+    context = {'months': months,
+               'years': years,
+               'tithes': tithes}
+    return render(request, "Tithes/tithesarchive.html", context)
+
+@login_required
+def Tithesreport (request):
+    if request.method=='POST':
+        archived_year=request.POST['archived_year']
+        archived_month = request.POST['archived_month']
+         #all the available expense in the expenses table
+        all_expenses = Tithes.objects.all()
+        for expense in all_expenses:
+            date=expense.Date
+            name=expense.Tithe_Made_By
+            amount=expense.Amount
+            service=expense.Service
+            # the expense archive object
+            expense_archiveobj=TithesReportArchive()
+            #attached values to expense_archiveobj
+            expense_archiveobj.Date=date
+            expense_archiveobj.Tithe_Made_By = name
+            expense_archiveobj.Service=service
+            expense_archiveobj.Amount=amount
+            expense_archiveobj.archivedyear = archived_year
+            expense_archiveobj.archivedmonth = archived_month
+            expense_archiveobj.save()
+            #deleting all the expense from reports table
+        all_expenses.delete()
+        message="The Monthly Tithes Report has been Archived"
+        context={'message':message}
+
+        return render(request, 'Tithes/tithesindex.html', context)
+
+    months = ['January','February','March','April','May','June','July','August','September','October','November','December']
+    years = datetime.now().year
+    today = timezone.now()
+    current_month = today.strftime('%B')
+    total = Tithes.objects.aggregate(totals=models.Sum("Amount"))
+    total_amount = total["totals"]
+    mth = datetime.now().month
+    items =Tithes.objects.all()
+    day=datetime.now()
+    context = {'day':day,'total_amount':total_amount,'items': items,
+               'months':months,'years':years,'current_month':current_month
+    }
+    return render(request, 'Tithes/tithesindex.html', context)
 class tithespdf(View):
     def get(self, request):
         current_month = datetime.now().month
@@ -2981,23 +3048,17 @@ def record_building_collections(request):
 
 def Building_Renovation_report(request):
     if request.method=='POST':
-        archived_year= request.POST['archived_year']
-        archived_month = request.POST['archived_month']
         items = BuildingRenovation.objects.all()
         for item in items:
             item.Archived_Status = 'ARCHIVED'
-            item.archivedyear = archived_year
-            item.archivedmonth = archived_month
             item.save()
         messages.success(request, f'All Building Collections have been Archived')
         return redirect('Building-Renovation-report')
-    months = ['January','February','March','April','May','June','July','August','September','October','November','December']
     today = datetime.now()
     years=today.year
     context={}
-    items = BuildingRenovation.objects.filter(Archived_Status="UN-ARCHIVED") 
+    items = BuildingRenovation.objects.filter(Archived_Status="NOT-ARCHIVED")
     context['items']=items
-    context['months']=months
     context['years']=years
     context['today']=today
     return render(request, 'BuildingRenovation/Building_Renovation_report.html', context)
@@ -3007,91 +3068,13 @@ def BuildingRenovationarchivessearch(request):
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
-        archived_reports = BuildingRenovation.objects.filter(Archived_Status='ARCHIVED')
-        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September', 'October', 'November', 'December']
+        archived_reports = BuildingRenovation.objects.filter(Archived_Status='ARCHIVED', Date__month=report_month, Date__year=report_year)
         years = datetime.now().year
         today = datetime.now()
-        context = {'archived_reports': archived_reports,'months': months,'years': years,
+        context = {'archived_reports': archived_reports,'years': years,
                   'today': today,'report_year': report_year,'report_month': report_month
                    }
         return render(request, "BuildingRenovation/buildingarchive.html", context)
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'November', 'December']
     years = datetime.now().year
-    context = {'months': months,
-               'years': years,}
+    context = {'years': years,}
     return render(request, "BuildingRenovation/buildingarchive.html", context)
-@login_required
-def tithesarchivessearch(request):
-    if request.method == 'POST':
-        report_year = request.POST['report_year']
-        report_month = request.POST['report_month']
-        archived_reports = TithesReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
-        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September', 'October', 'November', 'December']
-        years = datetime.now().year
-
-        tithes = TithesReportArchive.objects.all()
-        today = timezone.now()
-        total = archived_reports.aggregate(totals=models.Sum("Amount"))
-        total_amount = total["totals"]
-        context = {'archived_reports': archived_reports,'months': months,'years': years,'expenses': tithes,
-                   'total_amount': total_amount,'today': today,'report_year': report_year,'report_month': report_month
-                   }
-        return render(request, "Tithes/tithesarchive.html", context)
-
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'November', 'December']
-    years = datetime.now().year
-    tithes = TithesReportArchive.objects.all()
-    context = {'months': months,
-               'years': years,
-               'tithes': tithes}
-    return render(request, "Tithes/tithesarchive.html", context)
-
-
-
-
-
-
-
-
-@login_required
-def Tithesreport (request):
-    if request.method=='POST':
-        archived_year=request.POST['archived_year']
-        archived_month = request.POST['archived_month']
-         #all the available expense in the expenses table
-        all_expenses = Tithes.objects.all()
-        for expense in all_expenses:
-            date=expense.Date
-            name=expense.Tithe_Made_By
-            amount=expense.Amount
-            service=expense.Service
-            # the expense archive object
-            expense_archiveobj=TithesReportArchive()
-            #attached values to expense_archiveobj
-            expense_archiveobj.Date=date
-            expense_archiveobj.Tithe_Made_By = name
-            expense_archiveobj.Service=service
-            expense_archiveobj.Amount=amount
-            expense_archiveobj.archivedyear = archived_year
-            expense_archiveobj.archivedmonth = archived_month
-            expense_archiveobj.save()
-            #deleting all the expense from reports table
-        all_expenses.delete()
-        message="The Monthly Tithes Report has been Archived"
-        context={'message':message}
-
-        return render(request, 'Tithes/tithesindex.html', context)
-
-    months = ['January','February','March','April','May','June','July','August','September','October','November','December']
-    years = datetime.now().year
-    today = timezone.now()
-    current_month = today.strftime('%B')
-    total = Tithes.objects.aggregate(totals=models.Sum("Amount"))
-    total_amount = total["totals"]
-    mth = datetime.now().month
-    items =Tithes.objects.all()
-    day=datetime.now()
-    context = {'day':day,'total_amount':total_amount,'items': items,
-               'months':months,'years':years,'current_month':current_month
-    }
-    return render(request, 'Tithes/tithesindex.html', context)
