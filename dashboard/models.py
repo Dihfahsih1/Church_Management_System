@@ -118,6 +118,7 @@ class BuildingRenovation(Model):
     Other_Notes=models.TextField(max_length=10000, blank=True, null=True)
     archivedyear=models.CharField(max_length=100, blank=True, null=True)
     archivedmonth=models.CharField(max_length=100, blank=True, null=True)
+    
 
     def __str__(self):
         return self.Total_Collection

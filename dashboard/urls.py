@@ -102,6 +102,7 @@ url(r'^Archives/Salaries/', views.salariespaidarchivessearch, name='salariespaid
 url(r'^Archives/Seeds/', views.seedsarchivessearch, name='seeds-archives-search'),
 url(r'^Archives/Donations/', views.donationsarchivessearch, name='donationsarchivessearch'),
 url(r'^Archives/Thanks-Giving/', views.thanksgivingarchivessearch, name='thanksgivingarchivessearch'),
+url(r'^Archives/Building-Renovations/', views.BuildingRenovationarchivessearch, name='BuildingRenovationarchivessearch'),
 
 # url(r'^expenditure_report_archive/', views.expenditure_report_archive, name='expenditure_report_archive'),
 #membership 
