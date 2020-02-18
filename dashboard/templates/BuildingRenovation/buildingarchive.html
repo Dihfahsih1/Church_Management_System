@@ -87,6 +87,7 @@
                                   <tr>
                                       <td>Date</td>
                                       <td>Service</td>
+                                      <td>Status</td>
                                       <td>Amount Collected <i class=" glyphicon glyphicon-arrow-right"></i> (<span style="font-weight: bolder; color:red" class="totalCol"></span>)</td>
                                   </tr>
                                   </thead>
@@ -95,6 +96,7 @@
                                     <tr class="totalColumn">
                                       <td>{{ archived.Date }}</td>
                                       <td>{{ archived.Service }}</td>
+                                      <td>{{ archived.Archived_Status }}</td>
                                       <td class="rowDataSd">{{ archived.Total_Collection}}</td>
                                     </tr>
                                   {% endfor %}

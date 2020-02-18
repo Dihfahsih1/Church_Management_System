@@ -2995,7 +2995,7 @@ def Building_Renovation_report(request):
     today = datetime.now()
     years=today.year
     context={}
-    items = BuildingRenovation.objects.all()
+    items = BuildingRenovation.objects.filter(Archived_Status="UN-ARCHIVED") 
     context['items']=items
     context['months']=months
     context['years']=years
