@@ -564,7 +564,7 @@ def church_pastors(request):
 
 #Administrative Team
 def church_administration(request):
-    staffs = User.published.all()
+    staffs = User.published.filter(Q(Role='Admin') | Q(Role='SuperAdmin') | Q(Role='Secretary')| Q(Role='Youth Leader'))
     return render(request, 'Members/administration_team.html', {'staffs': staffs})  
 
 #edit member

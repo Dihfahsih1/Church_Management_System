@@ -1,5 +1,4 @@
 {% load static i18n widget_tweaks %}
-
 {% for field in form %}
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-8 "  role="alert">
@@ -9,3 +8,4 @@
         <div class="col-sm-8">{% render_field field class="form-control is-valid" %}</div>
     </div>
 {% endfor %}
+

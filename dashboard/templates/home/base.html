@@ -54,11 +54,7 @@
                     </div>
                     <div class="hta-box">
                         <span class="icon"><i class="fa fa-envelope"></i></span>
-                       <p class="text">Email us :  {% email_address %} </p>
-                    </div>
-                    <div class="hta-box">
-                        <span class="icon"><i class="fa fa-group"></i></span>
-                        <p class="text">Membership : <a class="text btn btn-success" href="{% url 'online_registration' %}">Register</a></p>
+                       <p class="text">Email us : {% email_address %} </p>
                     </div>
 
                 </div>
@@ -67,9 +63,12 @@
                         <div class="hta-box">
                             <span style="font-weight:120%; color: white">{{request.user.full_name.Initials}} {{request.user.full_name}}</i></span>
                             <a class="text btn btn-primary" href="{% url 'logout' %}"><span class="fa fa-sign-out">Log Out</span></a>
-
                         </div>
                     {% else %}
+                        <div class="hta-box">
+                            <span class="icon"><i class="fa fa-group"></i></span>
+                            <p class="text">Membership : <a class="text btn btn-success" href="{% url 'online_registration' %}">Register</a></p>
+                        </div>
                         <div class="hta-box">                            
                             <a class="text btn btn-primary" href="{% url 'login' %}"><span class="fa fa-sign-out">Log In</span></a>
                         </div>
