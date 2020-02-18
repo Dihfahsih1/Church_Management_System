@@ -316,11 +316,12 @@
                     </div>
 
                 </div>
-            </div>
- {% endif%}
-  
+            </div> 
         </div>
-
+    {% endif%}
+    {% if user.Role == 'Ordinary' or user.Role == 'Website Admin' %}
+    <h1> Welcome to UCC Bwaise Church System</h1> 
+    {% endif%}
 {% if user.Role == 'Admin' or user.Role == 'SuperAdmin' %}
         <div class="row">
             <div class="col-md-8 col-sm-8 col-xs-12">

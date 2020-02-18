@@ -132,15 +132,16 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {% for item in pledges %}
                                             <tr>
-                                                {% for item in pledges %}
                                                   <td>{{ item.Reason}}</td>
                                                   <td>{{ item.Amount_Pledged}}</td>
                                                   <td>{{ item.total_pledge_paid}}</td>
                                                   <td>{{ item.Pledge_Balance}}</td>
                                                   <td>{{ item.updatestatus}}</td>
-                                                {% endfor %}
                                             </tr>
+                                            {% endfor %}
+                                            
                                         </tbody>
                                     </table>
 
@@ -154,13 +155,15 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                                
                                                 {% for item in tithes %}
+                                                <tr>
                                                   <td >{{ item.Date}}</td>
                                                   <td>{{ item.Service}}</td>
                                                   <td>{{ item.Amount}}</td>
+                                                </tr>
                                                 {% endfor %}
-                                            </tr>
+                                            
                                         </tbody>
                                     </table>
 
@@ -174,13 +177,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {% for item in thanks %}
                                             <tr>
-                                                {% for item in thanks %}
-                                                  <td >{{ item.Date}}</td>
-                                                  <td>{{ item.Service}}</td>
-                                                  <td>{{ item.Amount}}</td>
-                                                {% endfor %}
+                                              <td >{{ item.Date}}</td>
+                                              <td>{{ item.Service}}</td>
+                                              <td>{{ item.Amount}}</td>
+                                                
                                             </tr>
+                                            {% endfor %}
                                         </tbody>
                                     </table>
                                     {% endif %}

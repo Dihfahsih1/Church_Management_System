@@ -68,7 +68,8 @@ class User(AbstractBaseUser , PermissionsMixin):
         ('Building Chair', 'Building Chair'),
        ('Marrieds Leader', 'Marrieds Leader'),
        ('Youth Leader', 'Youth Leader'),
-       ('Ordinary', 'Ordinary'),   
+       ('Ordinary', 'Ordinary'), 
+       ('Website Admin', 'Website Admin'),  
     )
     email = models.EmailField(max_length=255, unique=True, blank=True, null=True)
     username = models.CharField(max_length=30, unique=True)
