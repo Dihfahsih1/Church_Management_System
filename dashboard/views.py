@@ -138,6 +138,7 @@ def index(request):
         total_weekly_offerings = 0
         d_offerings = 0
 
+#TITHES
     total_current_tithes = Tithes.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_current_tithes['totals'])!=None:
         int(total_current_tithes["totals"])
@@ -152,7 +153,23 @@ def index(request):
         d_tithes=total_weekly_tithes["totals"]
     else:
         total_weekly_tithes=0
-        d_tithes = 0    
+        d_tithes = 0 
+
+#BUILDING
+    total_current_building = BuildingRenovation.objects.filter(Archived_Status='NOT-ARCHIVED', Date__month=current_month).aggregate(totals=models.Sum("Total_Collection"))
+    if (total_current_building['totals'])!=None:
+        int(total_current_building["totals"])
+        building=total_current_building["totals"]
+    else:
+        total_current_building=0
+        building = 0
+    total_weekly_building = BuildingRenovation.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Total_Collection"))
+    if (total_weekly_building['totals'])!=None:
+        int(total_weekly_building["totals"])
+        d_building=total_weekly_building["totals"]
+    else:
+        total_weekly_building=0
+        d_building = 0           
 #Calculate Expenditure
     #monthly salary
     total_current_salaries = SalariesPaid.objects.filter(Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
@@ -259,13 +276,14 @@ def index(request):
         d_allowances=0
 
     #incase of data has been archived, none is returned, so we have to catch it before it causes trouble
-    if (total_current_donations,total_current_thanks,total_current_seeds,total_petty_expenses,total_current_tithes,total_current_salaries, total_general_expenses, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== None:
+    if (total_current_donations,total_current_thanks,total_current_seeds,total_petty_expenses,total_current_tithes,total_current_salaries, total_general_expenses, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses, total_current_building)== None:
         total_monthly_incomes = 0
         total_monthly_expenditure =  0
         total_general_expenses = 0
         total_current_seeds=0
         total_current_donations=0
         total_current_thanks=0
+        total_current_building=0
         pledges = 0
         #calculating net income
         net_income = total_monthly_incomes - total_monthly_expenditure
@@ -274,8 +292,9 @@ def index(request):
 
         context={'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_general_expenses':total_general_expenses,'total_monthly_incomes':total_monthly_incomes,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
         'petty':petty,'allowances':allowances, 'pledges':pledges, 'general':general,'expenses':expenses,
-        'tithes':tithes, 'offerings':offerings, 'seeds':seeds, 'net_income':net_income,'thanks':thanks,
-        'donations':donations,'day':day,
+        'tithes':tithes, 'offerings':offerings, 'seeds':seeds, 'net_income':net_income,'thanks':thanks, 'building':building,
+        'donations':donations,'day':day,'total_current_building':total_current_building, 'd_building': d_building,
+
         'd_petty':d_petty,'d_allowances':d_allowances,'d_salaries':d_salaries, 'd_pledges':d_pledges, 'd_general':d_general,'d_expenses':d_expenses,
         }
         return render(request,'index.html', context)
@@ -291,7 +310,7 @@ def index(request):
         net_income = total_monthly_incomes - total_monthly_expenditure
         today = timezone.now()
         month = today.strftime('%B')
-        context={'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,'total_current_seeds':total_current_seeds,'total_general_expenses':total_general_expenses,'total_petty_expenses':total_petty_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
+        context={'total_current_building':total_current_building, 'd_building': d_building, 'building':building, 'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,'total_current_seeds':total_current_seeds,'total_general_expenses':total_general_expenses,'total_petty_expenses':total_petty_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
         'general':general,'allowances':allowances,'seeds':seeds, 'expenses':expenses,'day':day,
         'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income,'thanks':thanks,'donations':donations
         ,'d_petty':d_petty,'d_allowances':d_allowances,'d_salaries':d_salaries, 'd_pledges':d_pledges, 'd_general':d_general,'d_expenses':d_expenses,
@@ -300,12 +319,14 @@ def index(request):
 
     #if there are moneys, calculate incomes and total expenditure.
     else:
-        total_monthly_incomes =  tithes+ offerings + seeds + thanks + donations
+        total_monthly_incomes =  tithes+ offerings + seeds + thanks + donations + building
         total_monthly_expenditure =  allowances + expenses+salaries+ general+ petty
         net_income = total_monthly_incomes - total_monthly_expenditure
         today = timezone.now()
         month = today.strftime('%B')
-        context={'d_donations':d_donations,'d_tithes':d_tithes,'d_offerings':d_offerings,
+        context={
+        'total_current_building':total_current_building, 'd_building': d_building,"building":building,
+        'd_donations':d_donations,'d_tithes':d_tithes,'d_offerings':d_offerings,
         'd_seeds':d_seeds,'d_thanks':d_thanks,'d_pledges':d_pledges,'day':day,
         'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_general_expenses':total_general_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
         'petty':petty,'allowances':allowances,'seeds':seeds,'general':general, 'expenses':expenses,'tithes':tithes, 

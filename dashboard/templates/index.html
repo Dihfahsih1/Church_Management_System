@@ -82,8 +82,8 @@
             </div>
              <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Pledges</b></p>
-                    <p class="green" ><b>Shs.{{ d_pledges|intcomma }}</b></p>
+                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Building</b></p>
+                    <p class="green" ><b>Shs.{{ d_building|intcomma }}</b></p>
                 </div>
             </div>
         </div>        
@@ -151,6 +151,7 @@
                         '<strong>Seeds</strong>', 
                         '<strong>Donations</strong>',
                          '<strong>Thanks Giving</strong>',
+                         '<strong>Building Collections</strong>',
                          '<strong style="color: red; font-weight:bolder">Gen Expenses</strong>', 
                          '<strong style="color: red; font-weight:bolder">Main Expenses</strong>',
                          '<strong style="color: red; font-weight:bolder">Petty Expenses</strong>',
@@ -170,7 +171,7 @@
                     },
                     series: [ {
                             name:'REVENUES AND EXPENSES',
-                            data: [{{offerings}},{{tithes}},{{seeds}},{{donations}},{{thanks}},
+                            data: [{{offerings}},{{tithes}},{{seeds}},{{donations}},{{thanks}},{{building}},
                             {{general}},{{expenses}},{{petty}},{{allowances}},{{salaries}}
                             ]
                         }
@@ -235,7 +236,14 @@
                             name: 'Thanks Giving',
                             y: {{thanks}},
                             drilldown: null
-                        }, {
+                        },
+
+                         {
+                            name: 'Building Collections',
+                            y: {{building}},
+                            drilldown: null
+                        },
+                         {
                             name: 'Donations',
                             y: {{donations}},
                             drilldown: null
