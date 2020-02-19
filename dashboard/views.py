@@ -722,14 +722,13 @@ def offeringsarchivessearch(request):
 class offeringspdf(View):
     def get(self, request):
         current_month = datetime.now().month
-        offerings = Offerings.objects.filter(Date__month=current_month).order_by('-Date')
+        offerings = Revenues.objects.filter(Archived_Status='ARCHIVED',Revenue_filter='offering').order_by('-Date')
         today = timezone.now()
         month = today.strftime('%B')
         totalexpense = 0
         for instance in offerings:
-            totalexpense += instance.Total_Offering
+            totalexpense += instance.Amount
         context = {
-
             'month': month,
             'today': today,
             'offerings': offerings,
@@ -737,17 +736,6 @@ class offeringspdf(View):
             'totalexpense': totalexpense,
         }
         return Render.render('Offerings/offeringspdf.html', context)
-
-class offeringsreceipt(View):
-    def get(self, request, pk):
-        offerings= get_object_or_404(Offerings,pk=pk)
-        today = timezone.now()
-        context = {
-            'today': today,
-            'offerings': offerings,
-            'request': request,
-        }
-        return Render.render('Offerings/offeringsreceipt.html', context)
 class offeringsarchivepdf(View):
     def get(self, request, report_month, report_year):
         archived_offerings = OfferingsReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
