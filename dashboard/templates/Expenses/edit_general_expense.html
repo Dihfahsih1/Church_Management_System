@@ -44,18 +44,15 @@
                     </ul>
                     <br/>
 					<div class="col-lg-6 col-offset-8 centered">
-
-					    <div class="col-md-10">
-
-					      {% load crispy_forms_tags %}
                           <h3>Updating General Expenses</h3>
-
+					    <div class="col-md-10">
+					      {% load crispy_forms_tags %}
 						      <form method="post" enctype="multipart/form-data">
-
 						      {% csrf_token %}
-
-						          {{ form|crispy }}
-
+						        {{ form.Date|as_crispy_field}}
+                                {{ form.Payment_Made_To|as_crispy_field}}
+                                {{ form.General_Expenses_Reason|as_crispy_field}}
+                                {{ form.Amount|as_crispy_field}}
 						      <button type="submit" class="btn btn-primary" name="button">Submit</button>
 
 						      </form>

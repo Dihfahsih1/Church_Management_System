@@ -13,9 +13,19 @@ url(r'^Church-Mission', views.abouts_mission, name='abouts_mission'),
 url(r'^Pastoral-Team', views.church_pastors, name='church_pastors'),
 url(r'^Administrative-Team', views.church_administration, name='church_administration'),
 
+#EXPENDITURE MODULE URLS
+url(r'^Expenses/Main-Expenses', views.enter_main_expenses, name='enter_expenditure'),
+url(r'^Expenses/Petty-Expenses/', views.enter_petty_expenses, name='enter_sundryexpense'),
+url(r'^Expenses/General-Expenses/Enter', views.enter_general_expenses, name='enter-general-expenses'),
 
-url(r'^expenditure/record', views.enter_expenditure, name='enter_expenditure'),
-url(r'^enter_sundryexpense', views.enter_sundryexpense ,name='enter_sundryexpense'),
+url(r'^Edit/General-Expense/(?P<pk>\d+)', views.edit_general_expense ,name='edit-general-expense'),
+url(r'^Edit/Main-Expense/(?P<pk>\d+)', views.edit_main_expense ,name='edit-main-expense'),
+url(r'^Edit/Petty-Expense/(?P<pk>\d+)', views.edit_petty_cash ,name='edit-main-expense'),
+
+url(r'^Reports/Main-Expenses/', views.expenditurereport, name='expenditurereport'),
+url(r'^Reports/General-Expenses/', views.general_expenses_report, name='general-expenses-report'),
+url(r'^Reports/Sundry-Report/', views.sundryreport, name='sundryreport'),
+
 url(r'^Enter-Records/Allowances', views.give_allowance, name='give-allowance'),
 url(r'^Enter_Pledges/', views.Enter_Pledges, name='Enter_Pledges'),
 url(r'^Building-Renovations/', views.record_building_collections, name='record-building-collections'),
@@ -24,18 +34,20 @@ url(r'^Revenue/Donations/Add', views.record_donations, name='record-donations'),
 url(r'^Reports/Donations/List', views.donations_report, name='donations-report'),
 url(r'^Enter_Offerings/', views.Enter_Offerings, name='Enter_Offerings'),
 url(r'^Pledges/Add-Item/', views.add_Pledge_Items ,name='add-pledge-item'),
-url(r'^sundryreport', views.sundryreport ,name='sundryreport'),
+
 url(r'^allowancereport/', views.allowancereport, name='allowancereport'),
-url(r'^expenditurereport/', views.expenditurereport, name='expenditurereport'),
-url(r'^Expenses/General-Expenses/Enter', views.enter_general_expenses, name='enter-general-expenses'),
-url(r'^Expenses/General-Expenses/List', views.general_expenses_report, name='general-expenses-report'),
-#generate pdfs
+
+
+
+
 url(r'^allowancespdf/', views.allowancespdf.as_view() ,name='allowancespdf'),
 url(r'^sundrypdf/', views.sundrypdf.as_view() ,name='sundrypdf'),
 url(r'^expenditurepdf/', views.expenditurepdf.as_view() ,name='expenditurepdf'),
 url(r'^pledgespdf/', views.pledgespdf.as_view() ,name='pledgespdf'),
 url(r'^tithespdf/', views.tithespdf.as_view() ,name='tithespdf'),
 url(r'^offeringspdf/', views.offeringspdf.as_view() ,name='offeringspdf'),
+
+
 
 
 url(r'^expensereceipt/(?P<pk>\d+)', views.expensereceipt.as_view() ,name='expensereceipt'),
@@ -61,13 +73,11 @@ url(r'^tithesarchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.tith
 
 #Handling all PKs, IDs
 url(r'^Pledges-Made/Invoice/(?P<pk>\d+)', views.pledge_made_invoice.as_view(), name='pledge-made-invoice'),
-url(r'^Edit/General-Expense/(?P<pk>\d+)', views.edit_general_expense ,name='edit-general-expense'),
 url(r'^Church-Member/Edit/(?P<pk>\d+)', views.edit_member ,name='edit-member'),
 url(r'^Church-Member/Delete/(?P<pk>\d+)', views.delete_member ,name='delete-member'),
 url(r'^Employee/Delete/(?P<pk>\d+)', views.delete_employee ,name='delete-employee'),
 url(r'^Church-Visitor/Edit/(?P<pk>\d+)', views.edit_visitor ,name='edit-visitor'),
 url(r'^Church-Visitor/Delete/(?P<pk>\d+)', views.delete_visitor ,name='delete-visitor'),
-url(r'^delete_payment/(?P<pk>\d+)', views.delete_payment ,name='delete_payment'),
 url(r'^edit_allowance/(?P<pk>\d+)', views.edit_allowance ,name='edit_allowance'),
 url(r'^edit_offerings/(?P<pk>\d+)', views.edit_offerings ,name='edit_offerings'),
 url(r'^edit_pledges/(?P<pk>\d+)', views.edit_pledges ,name='edit_pledges'),
@@ -79,8 +89,6 @@ url(r'^Pledge/Delete/(?P<pk>\d+)', views.delete_pledge ,name='delete-pledge'),
 url(r'^Pledges-Item/Delete/(?P<pk>\d+)', views.delete_pledge_item ,name='delete-pledge-item'),
 url(r'^Pledges-Item/Edit/(?P<pk>\d+)', views.edit_pledge_item ,name='edit-pledge-item'),
 url(r'^delete_allowance/(?P<pk>\d+)', views.delete_allowance ,name='delete_allowance'),
-url(r'^edit_sundry/(?P<pk>\d+)', views.edit_sundry ,name='edit_sundry'),
-url(r'^delete_sundry/(?P<pk>\d+)', views.delete_sundry ,name='delete_sundry'),
 
 #Monthly Report Generation
 url(r'^allowancereport/', views.allowancereport, name='allowancereport'),

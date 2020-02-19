@@ -1445,17 +1445,16 @@ def total_monthly_incomes(request):
                  #############################################################
 
 @login_required
-def enter_expenditure(request):
+def enter_main_expenses(request):
     if request.method=="POST":
-        form=SpendForm(request.POST)
+        form=ExpendituresForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('expenditurereport')
     else:
-        form=SpendForm()
-        items = Spend.objects.all()
-        context = {'items': items, 'form': form, }
-        return render(request, 'Expenses/pay_expenditure.html',context)
+        form=ExpendituresForm()
+        context = {'form': form, }
+        return render(request, 'Expenses/pay_main_expenses.html',context)
 
 @login_required
 def enter_general_expenses(request):
@@ -1466,20 +1465,19 @@ def enter_general_expenses(request):
             return redirect('general-expenses-report')
     else:
         form=ExpendituresForm()
-        items = Expenditure.objects.all()
-        context = {'items': items, 'form': form, }
-        return render(request, 'Expenses/pay_generalexpenditure.html',context)        
+        context = {'form': form, }
+        return render(request, 'Expenses/pay_general_expenses.html',context)        
 @login_required
-def enter_sundryexpense(request):
+def enter_petty_expenses(request):
     if request.method == "POST":
-        form = SundryForm(request.POST)
+        form = ExpendituresForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('sundryreport')
     else:
         today = timezone.now()
         current_month = today.strftime('%B')
-        form = SundryForm()
+        form = ExpendituresForm()
         context={'form': form, 'current_month': current_month}
         return render(request, 'Expenses/record_petty_expenses.html', context )
 
@@ -1494,25 +1492,37 @@ def edit_general_expense(request, pk):
         form = ExpendituresForm(instance=item)
     return render(request, 'Expenses/edit_general_expense.html', {'form': form})
 
-def delete_payment(request,pk):
-    items= Spend.objects.filter(id=pk).delete()
-    context = { 'items':items}
-    return render(request, 'Expenses/expenditureindex.html', context)
-def edit_sundry(request, pk):
-    item = get_object_or_404(Sundry, pk=pk)
+def edit_main_expense(request, pk):
+    item = get_object_or_404(Expenditures, pk=pk)
     if request.method == "POST":
-        form = SundryForm(request.POST, instance=item)
+        form = ExpendituresForm(request.POST, instance=item)
         if form.is_valid():
             form.save()
-            return redirect('enter_sundryexpense')
+            return redirect('expenditurereport')
     else:
-        form = SundryForm(instance=item)
-    return render(request, 'add_new.html', {'form': form, })
+        form = ExpendituresForm(instance=item)
+    return render(request, 'Expenses/edit_main_expense.html', {'form': form})
 
-def delete_sundry(request, pk):
-    items = Sundry.objects.filter(id=pk).delete()
-    context = {'items': items}
-    return render(request, 'Expenses/sundryindex.html', context)
+def edit_petty_cash(request, pk):
+    item = get_object_or_404(Expenditures, pk=pk)
+    if request.method == "POST":
+        form = ExpendituresForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('sundryreport')
+    else:
+        form = ExpendituresForm(instance=item)
+    return render(request, 'Expenses/edit_petty_cash.html', {'form': form, })
+
+# def delete_payment(request,pk):
+#     items= Spend.objects.filter(id=pk).delete()
+#     context = { 'items':items}
+#     return render(request, 'Expenses/expenditureindex.html', context)
+
+# def delete_sundry(request, pk):
+#     items = Sundry.objects.filter(id=pk).delete()
+#     context = {'items': items}
+#     return render(request, 'Expenses/sundryindex.html', context)
 
        ####################################################
       #        GENERATING REPORTS IN FORM OF PDFS         #

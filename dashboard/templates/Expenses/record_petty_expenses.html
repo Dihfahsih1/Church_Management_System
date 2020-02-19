@@ -20,7 +20,7 @@
                     | <a href="#">Salaries</a>
                  <div class="separator"></div>   
                 </div>
-                <h4 style="text-align: center">Record Small Expenses for the month of {{current_month}} </h4>
+                <h4 style="text-align: center">Petty Cash Expenses Module</h4>
             <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
                     <ul class="nav nav-tabs bordered">
@@ -39,21 +39,17 @@
                     </ul>
                     <br/>
 					<div class="col-lg-6 col-offset-8 centered">
-
+               <h3>Record Petty Cash Payment</h3>
 					    <div class="col-md-10">
-
 					      {% load crispy_forms_tags %}
-
 						      <form method="post" enctype="multipart/form-data">
-
-						      {% csrf_token %}
-
-						          {{ form|crispy }}
-
-						      <button type="submit" class="btn btn-primary" name="button">Submit</button>
-
+						          {% csrf_token %}
+						          {{ form.Date|as_crispy_field}}
+                      {{ form.Payment_Made_To|as_crispy_field}}
+                      {{ form.Petty_Cash_Reason|as_crispy_field}}
+                      {{ form.Amount|as_crispy_field}}
+						        <button type="submit" class="btn btn-primary" name="button">Submit</button>
 						      </form>
-					         
 					    </div>
 					</div>
 				</div>

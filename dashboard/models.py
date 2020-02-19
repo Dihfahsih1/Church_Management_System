@@ -131,6 +131,7 @@ class Expenditures(Model):
     Main_Expense_Reason=models.CharField(max_length=100, choices=main,blank=True, null=True)
     General_Expenses_Reason=models.CharField(max_length=100, choices=general, blank=True, null=True)
     Petty_Cash_Reason=models.CharField(max_length=100, choices=petty, blank=True, null=True)
+    Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
     def __str__(self):
         return self.Payment_Made_To
 
