@@ -61,7 +61,7 @@ url(r'^tithesarchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.tith
 
 #Handling all PKs, IDs
 url(r'^Pledges-Made/Invoice/(?P<pk>\d+)', views.pledge_made_invoice.as_view(), name='pledge-made-invoice'),
-url(r'^edit_payment/(?P<pk>\d+)', views.edit_payment ,name='edit_payment'),
+url(r'^Edit/General-Expense/(?P<pk>\d+)', views.edit_general_expense ,name='edit-general-expense'),
 url(r'^Church-Member/Edit/(?P<pk>\d+)', views.edit_member ,name='edit-member'),
 url(r'^Church-Member/Delete/(?P<pk>\d+)', views.delete_member ,name='delete-member'),
 url(r'^Employee/Delete/(?P<pk>\d+)', views.delete_employee ,name='delete-employee'),

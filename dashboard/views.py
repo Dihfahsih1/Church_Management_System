@@ -163,7 +163,7 @@ def index(request):
     else:
         total_current_building=0
         building = 0
-    total_weekly_building = BuildingRenovation.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Total_Collection"))
+    total_weekly_building = BuildingRenovation.objects.filter(Archived_Status='NOT-ARCHIVED', Date__gte=one_week_ago).aggregate(totals=models.Sum("Total_Collection"))
     if (total_weekly_building['totals'])!=None:
         int(total_weekly_building["totals"])
         d_building=total_weekly_building["totals"]
@@ -1438,6 +1438,12 @@ def total_monthly_incomes(request):
     context={'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
     'allowances':allowances, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
     return render(request, 'total_monthly_incomes.html', context)
+
+
+                 #############################################################
+                #          GENERAL, MAIN, PETTY EXPENSES MODULES              #
+                 #############################################################
+
 @login_required
 def enter_expenditure(request):
     if request.method=="POST":
@@ -1476,11 +1482,8 @@ def enter_sundryexpense(request):
         form = SundryForm()
         context={'form': form, 'current_month': current_month}
         return render(request, 'Expenses/record_petty_expenses.html', context )
- #####################################################################
-# EDITING, DELETING AND PRINTING OF RECEIPT OF EACH TRANSACTION MADE  #
- #####################################################################
 
-def edit_payment(request, pk):
+def edit_general_expense(request, pk):
     item = get_object_or_404(Spend, pk=pk)
     if request.method == "POST":
         form = SpendForm(request.POST, instance=item)
@@ -1489,7 +1492,7 @@ def edit_payment(request, pk):
             return redirect('expenditurereport')
     else:
         form = SpendForm(instance=item)
-    return render(request, 'Expenses/pay_expenditure.html', {'form': form})
+    return render(request, 'Expenses/edit_general_expense.html', {'form': form})
 
 def delete_payment(request,pk):
     items= Spend.objects.filter(id=pk).delete()
