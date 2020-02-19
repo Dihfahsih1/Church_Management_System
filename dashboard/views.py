@@ -1532,6 +1532,19 @@ def expenditurereport (request):
     context['today']=today
     return render(request, 'Expenses/Main_Expenses_report.html', context)
 
+@login_required
+def main_expenses_archives_search(request):
+    today = datetime.now()
+    years=today.year
+    if request.method == 'POST':
+        report_year = request.POST['report_year']
+        report_month = request.POST['report_month']
+        archived_reports = Expenditures.objects.filter(Archived_Status='ARCHIVED', Date__month=report_month, Date__year=report_year)
+        context = {'archived_reports': archived_reports,'years': years,'today': today,
+                  'report_year': report_year,'report_month': report_month}
+        return render(request, "Expenses/main_expenses_archived_search.html", context)
+    context = {'years': years}
+    return render(request, "Expenses/main_expenses_archived_search.html", context)
        ####################################################
       #        GENERATING REPORTS IN FORM OF PDFS         #
       ####################################################

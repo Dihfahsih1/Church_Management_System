@@ -26,6 +26,9 @@ url(r'^Reports/Main-Expenses/', views.expenditurereport, name='expenditurereport
 url(r'^Reports/General-Expenses/', views.general_expenses_report, name='general-expenses-report'),
 url(r'^Reports/Sundry-Report/', views.sundryreport, name='sundryreport'),
 
+url(r'^General-Expenses/Archived/', views.generalexpensesarchivessearch, name='general-expensesarchives-search'),
+url(r'^Main-Expenses/Archived/', views.main_expenses_archives_search, name='expensesarchivessearch'),
+
 url(r'^Enter-Records/Allowances', views.give_allowance, name='give-allowance'),
 url(r'^Enter_Pledges/', views.Enter_Pledges, name='Enter_Pledges'),
 url(r'^Building-Renovations/', views.record_building_collections, name='record-building-collections'),
@@ -99,8 +102,7 @@ url(r'^expenditurereport/', views.expenditurereport, name='expenditurereport'),
 url(r'^Building-Renovations-Report/', views.Building_Renovation_report, name='Building-Renovation-report'),
 
 #Archived reports search
-url(r'^Expenses/General/Archived/', views.generalexpensesarchivessearch, name='general-expensesarchives-search'),
-url(r'^expensesarchivessearch/', views.expensesarchivessearch, name='expensesarchivessearch'),
+
 url(r'^allowancearchivessearch/', views.allowancearchivessearch, name='allowancearchivessearch'),
 url(r'^sundrysarchivessearch/', views.sundryarchivessearch, name='sundryarchivessearch'),
 url(r'^pledgesarchivessearch/', views.pledgesarchivessearch, name='pledgesarchivessearch'),
