@@ -9,7 +9,7 @@ from django.forms.fields import DateField
 from django.contrib.admin.widgets import AdminDateWidget
 from django.contrib.auth.models import PermissionsMixin
 services = (('Home Cell Service','Home Cell Service'),('Youth Service','Youth Service'),('Wednesday Service','Wednesday Service'),
-        ('Bible Study Service','Bible Study Service'),('Friday Overnight','Friday Overnight'),('SundayFirst Service','Sunday First Service'),
+        ('Bible Study Service','Bible Study Service'),('Friday Overnight','Friday Overnight'),('Sunday First Service','Sunday First Service'),
         ('Sunday Second Service','Sunday Second Service'),('Sunday Third Service','Sunday Third Service'),
         )
 ministries=(
@@ -57,6 +57,33 @@ general = (('Generator Mechanic','Generator Mechanic'),('Instruments','Servicing
         ('Stationery','Stationery'),('Repair','Any Other Repair'),('Purchase','Purchase'),
         ('Renovations','Renovations')
         )
+sex=(('Female','Female'),('Male','Male'))
+ini=(('Mr.','Mr.'),('Mrs.','Mrs.'),('Ms.','Ms.'),('Pr.','Pr.'),('Dr.','Dr.'),('Eng.','Eng.'))
+status=(('Married','Married'),('Single','Single'),('Divorced','Divorced'),('Widower','Widower'),('Widow','Widow'))
+marriage=(('Church_Marriage','Church_Marriage'),('Customary','Customary'),('Legal','Legal'),('Cohabiting','Cohabiting'))
+education=(('Masters','Master'),('Degree','Degree'),('Diploma','Diploma'),('Certificate','Certificate'),('None','None'),
+    ('Still_Studying','Still_Studying'),('Primary_Graduate','Primary_Graduate'),('O_Level_Graduate','O_Level_Graduate'),('A_Level_Graduate','A_Level_Graduate'))
+employment=(('Employed','Employed'),('Unemployed','Unemployed'))
+cell=(
+    ('Church Zone','Church Zone'),('Kabira Zone','Kabira Zone'),('Kafunda Zone','Kafunda Zone'),('Lugoba Zone','Lugoba Zone') ,('Katooke Zone','Katooke Zone'),
+    ('Kazo Zone','Kazo Zone'),('Gombolola Zone','Gombolola Zone'),('Kawaala Zone','Kawaala Zone'),('Bombo Rd Zone','Bombo Rd Zone')
+    )
+grouping=(
+    ('God is Able','God is Able'),('Winners','Winners'),('Overcomers','Overcomers'),('Biyinzika','Biyinzika') ,
+    ('Victors','Victors'),('Issachar','Issachar')
+    )
+roles=(
+    ('Admin','Admin'),('Secretary','Secretary') ,('SuperAdmin','SuperAdmin') ,
+    ('Building Chair', 'Building Chair'),
+   ('Marrieds Leader', 'Marrieds Leader'),
+   ('Youth Leader', 'Youth Leader'),
+   ('Ordinary', 'Ordinary'), 
+   ('Website Admin', 'Website Admin'),  
+)
+rol=(('Security','Security'),('Secretary','Secretary'),('Church-Welfare','Church-Welfare'),('Admin','Admin'))
+education=(('Masters','Master'),('Degree','Degree'),('Diploma','Diploma'),('Certificate','Certificate'))
+rel =(('Born Again','Born Again'),('Others','Others'))
+member=(('Yes','Yes'),('No','No'))
 class PublishedStatusManager(models.Manager):
     def get_queryset(self):
         return super(PublishedStatusManager, self).get_queryset().filter(Is_View_on_Web='Yes')
@@ -83,14 +110,6 @@ class UserManager(BaseUserManager):
         user_obj.save(using=self._db)
         return user_obj    
 class User(AbstractBaseUser , PermissionsMixin):
-    roles=(
-        ('Admin','Admin'),('Secretary','Secretary') ,('SuperAdmin','SuperAdmin') ,
-        ('Building Chair', 'Building Chair'),
-       ('Marrieds Leader', 'Marrieds Leader'),
-       ('Youth Leader', 'Youth Leader'),
-       ('Ordinary', 'Ordinary'), 
-       ('Website Admin', 'Website Admin'),  
-    )
     email = models.EmailField(max_length=255, unique=True, blank=True, null=True)
     username = models.CharField(max_length=30, unique=True)
     Role = models.CharField(max_length=250, choices=roles)
@@ -106,13 +125,6 @@ class User(AbstractBaseUser , PermissionsMixin):
     def __str__(self):
         return self.Role
 
-class Offerings(Model):
-    Date = models.DateField(null=True, blank=True)
-    Total_Offering = models.IntegerField()
-    Service=models.CharField(max_length=100, choices=services, blank=False)
-
-    def __str__(self):
-        return self.Total_Offering
 
 class BuildingRenovation(Model):
     Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
@@ -136,80 +148,27 @@ class Expenditures(Model):
     def __str__(self):
         return self.Payment_Made_To
 
-##########################################
-# REPORT ARCHIVING MODELS AFTER SUBMISSION #
-##########################################
-
-class ExpensesReportArchive(models.Model):
+class Revenues(Model):
     Date = models.DateField(null=True, blank=True)
-    Name = models.CharField(max_length=100, default='Name', null=True)
-    Amount = models.FloatField( null=True)
-    Reason = models.CharField(max_length=100,null=True)
-    month = models.CharField(max_length=100,null=True)
-    year = models.CharField(max_length=100,null=True)
-
+    Service=models.CharField(max_length=100, choices=services, null=True, blank=True)
+    Amount = models.IntegerField()
+    Member_Name = models.ForeignKey('Members', on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
+    Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
+    Revenue_filter=models.CharField(max_length=100, blank=True, null=True)
     def __str__(self):
-        return 'Name: {1} Reason:{2} Amount:{0}'.format(self.Name,self.Reason, self.Amount)
-
-class GeneralExpensesReportArchive(models.Model):
-    Date = models.DateField(null=True, blank=True)
-    Name = models.CharField(max_length=100, default='Name', null=True)
-    Amount = models.FloatField(.0, null=True)
-    Reason = models.CharField(max_length=100,null=True)
-    month = models.CharField(max_length=100,null=True)
-    year = models.CharField(max_length=100,null=True)
-
-    def __str__(self):
-        return 'Name: {1} Reason:{2} Amount:{0}'.format(self.Name,self.Reason, self.Amount)        
-class SundryReportArchive(models.Model):
-    Date = models.DateField(null=True, blank=True)
-    Name = models.CharField(max_length=100, default='Name', null=True)
-    Amount = models.FloatField(.0, null=True)
-    Reason = models.CharField(max_length=100,null=True)
-    month = models.CharField(max_length=100,null=True)
-    year = models.CharField(max_length=100,null=True)
-
-    def __str__(self):
-        return 'Name: {1} Reason:{2} Amount:{0}'.format(self.Name,self.Reason, self.Amount)
+        return self.Member_Name
 
 class AllowanceReportArchive(models.Model):
     Date = models.DateField(null=True, blank=True)
     Staff = models.CharField( max_length=100,null=True)
-    Month = models.CharField(max_length=100,null=True)
     Amount = models.IntegerField()
     archivedmonth = models.CharField(max_length=100,null=True)
     archivedyear = models.CharField(max_length=100,null=True)
 
     def __str__(self):
         return 'Name: {1}  Amount:{0}'.format(self.Staff, self.Amount)
-
-class OfferingsReportArchive(models.Model):
-    Date = models.DateField(null=True, blank=True)
-    Service = models.CharField( max_length=100,null=True)
-    Amount = models.IntegerField()
-    archivedmonth = models.CharField(max_length=100,null=True)
-    archivedyear = models.CharField(max_length=100,null=True)
-
-    def __str__(self):
-        return 'Date: {1}  Amount:{0}'.format(self.Date, self.Amount)  
-
         
 class Members(models.Model):
-    sex=(('Female','Female'),('Male','Male'))
-    ini=(('Mr.','Mr.'),('Mrs.','Mrs.'),('Ms.','Ms.'),('Pr.','Pr.'),('Dr.','Dr.'),('Eng.','Eng.'))
-    status=(('Married','Married'),('Single','Single'),('Divorced','Divorced'),('Widower','Widower'),('Widow','Widow'))
-    marriage=(('Church_Marriage','Church_Marriage'),('Customary','Customary'),('Legal','Legal'),('Cohabiting','Cohabiting'))
-    education=(('Masters','Master'),('Degree','Degree'),('Diploma','Diploma'),('Certificate','Certificate'),('None','None'),
-        ('Still_Studying','Still_Studying'),('Primary_Graduate','Primary_Graduate'),('O_Level_Graduate','O_Level_Graduate'),('A_Level_Graduate','A_Level_Graduate'))
-    employment=(('Employed','Employed'),('Unemployed','Unemployed'))
-    cell=(
-        ('Church Zone','Church Zone'),('Kabira Zone','Kabira Zone'),('Kafunda Zone','Kafunda Zone'),('Lugoba Zone','Lugoba Zone') ,('Katooke Zone','Katooke Zone'),
-        ('Kazo Zone','Kazo Zone'),('Gombolola Zone','Gombolola Zone'),('Kawaala Zone','Kawaala Zone'),('Bombo Rd Zone','Bombo Rd Zone')
-        )
-    grouping=(
-        ('God is Able','God is Able'),('Winners','Winners'),('Overcomers','Overcomers'),('Biyinzika','Biyinzika') ,
-        ('Victors','Victors'),('Issachar','Issachar')
-        )
     date = models.DateTimeField(auto_now=True)
     Group=models.CharField(max_length=100, choices=grouping, null=True, blank=True, default="God Is Able")
     Initials=models.CharField(max_length=100, choices=ini,null=True, blank=True)
@@ -264,11 +223,6 @@ class Visitors(models.Model):
         return self.First_Name + ' ' + self.Second_Name
 
 class StaffDetails(models.Model):
-    rol=(('Security','Security'),('Secretary','Secretary'),('Church-Welfare','Church-Welfare'),('Admin','Admin'))
-    sex=(('Male','Male'),('Female','Female'))
-    education=(('Masters','Master'),('Degree','Degree'),('Diploma','Diploma'),('Certificate','Certificate'))
-    rel =(('Born Again','Born Again'),('Others','Others'))
-    member=(('Yes','Yes'),('No','No'))
     UCC_Bwaise_Member=models.CharField(max_length=100, choices=member,blank=True, null=True)
     Church_Member=models.ForeignKey(Members, on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
     First_Name=models.CharField(max_length=100,blank=True,null=True)
@@ -384,79 +338,6 @@ class SalariesPaid(models.Model):
                 return balance
           
 
-class ThanksGiving(Model):
-    services = (('Home Cell Service','Home Cell Service'),('Youth Service','Youth Service'),('Wednesday Service','Wednesday Service'),
-        ('Bible Study Service','Bible Study Service'),('Friday Overnight','Friday Overnight'),('SundayFirst Service','Sunday First Service'),
-        ('Sunday Second Service','Sunday Second Service'),('Sunday Third Service','Sunday Third Service'))
-    Date = models.DateField(null=True, blank=True)
-    Thanks_Giving_By = models.ForeignKey(Members, on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
-    Amount = models.IntegerField()
-    Service=models.CharField(max_length=100, choices=services, blank=False)
-    def __str__(self):
-        return self.Thanks_Giving_By
-class ThanksGivingReportArchive(models.Model):
-    Date = models.DateField(null=True, blank=True)
-    Thanks_Giving_By = models.ForeignKey(Members, on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
-    Amount = models.IntegerField()
-    Service=models.CharField(max_length=100, null=True, blank=False)
-    archivedmonth = models.CharField(max_length=100,null=True)
-    archivedyear = models.CharField(max_length=100,null=True)
-    def __str__(self):
-        return 'Name: {1}  Amount:{0}'.format(self.Thanks_Giving_By, self.Amount)        
-
-class Seeds(Model):
-    services = (('Home Cell Service','Home Cell Service'),('Youth Service','Youth Service'),('Wednesday Service','Wednesday Service'),
-        ('Bible Study Service','Bible Study Service'),('Friday Overnight','Friday Overnight'),('SundayFirst Service','Sunday First Service'),
-        ('Sunday Second Service','Sunday Second Service'),('Sunday Third Service','Sunday Third Service'))
-    Date = models.DateField(null=True, blank=True)
-    Seed_Made_By = models.ForeignKey(Members, on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
-    Amount = models.IntegerField()
-    Service=models.CharField(max_length=100, choices=services, blank=False)
-    def __str__(self):
-        return self.Seed_Made_By  
-class Donations(Model):
-    Date = models.DateField(null=True, blank=True)
-    Donated_By = models.CharField(max_length=100, null=True, blank=True)
-    Amount = models.IntegerField()
-    Reason=models.CharField(max_length=100, blank=False)
-    def __str__(self):
-        return self.Donated_By
-
-class SeedsReportArchive(models.Model):
-    Date = models.DateField(null=True, blank=True)
-    Seed_Made_By = models.ForeignKey(Members, on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
-    Amount = models.IntegerField()
-    archivedmonth = models.CharField(max_length=100,null=True)
-    archivedyear = models.CharField(max_length=100,null=True)
-
-class DonationsReportArchive(models.Model):
-    Date = models.DateField(null=True, blank=True)
-    Name = models.CharField(max_length=100, null=True, blank=True)
-    Reason = models.CharField(max_length=100, null=True, blank=True)
-    Amount = models.IntegerField()
-    archivedmonth = models.CharField(max_length=100,null=True)
-    archivedyear = models.CharField(max_length=100,null=True)
-
-class Tithes(Model):
-    services = (('Home Cell Service','Home Cell Service'),('Youth Service','Youth Service'),('Wednesday Service','Wednesday Service'),
-        ('Bible Study Service','Bible Study Service'),('Friday Overnight','Friday Overnight'),('SundayFirst Service','Sunday First Service'),
-        ('Sunday Second Service','Sunday Second Service'),('Sunday Third Service','Sunday Third Service'))
-    Date = models.DateField(null=True, blank=True)
-    Tithe_Made_By = models.ForeignKey(Members, on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
-    Amount = models.IntegerField()
-    Service=models.CharField(max_length=100, choices=services, blank=False)
-    def __str__(self):
-        return self.Tithe_Made_By
-
-class TithesReportArchive(models.Model):
-    Date = models.DateField(null=True, blank=True)
-    Tithe_Made_By = models.ForeignKey(Members, on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
-    Amount = models.IntegerField()
-    Service = models.CharField(max_length=100,null=True, blank=True, default="Third Service")
-    archivedmonth = models.CharField(max_length=100,null=True)
-    archivedyear = models.CharField(max_length=100,null=True)
-    def __str__(self):
-        return 'Name: {1}  Amount:{0}'.format(self.Tithe_Made_By, self.Amount)
 class SalariesPaidReportArchive(models.Model):
     Salary_Id = models.CharField(max_length=200,null=True, blank=True)
     Name = models.CharField(max_length=200,null=True, blank=True)
@@ -468,14 +349,8 @@ class SalariesPaidReportArchive(models.Model):
     def __str__(self):
         return self.Name
 class Allowance(models.Model):
-    months = (
-        ('January','January'),('February','February'),('March', 'March'),('April', 'April')
-        ,('May','May'),('June', 'June'),('July', 'July'),('August','August'),
-        ('September', 'September'),('October', 'October'),('November','November'),('December', 'December')
-    )
     Date = models.DateField(null=True, blank=True)
     Name =  models.ForeignKey(Members, on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
-    Month = models.CharField(max_length=12,choices=months, blank=False)
     Amount = models.IntegerField()
     def __str__(self):
         return self.Name 

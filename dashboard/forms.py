@@ -44,6 +44,13 @@ class ExpendituresForm(forms.ModelForm):
         widgets = {
             'Date': DatePickerInput(),
         }                 
+class RevenuesForm(forms.ModelForm):
+    class Meta:
+        model=Revenues
+        fields=('Revenue_filter','Archived_Status','Date','Member_Name','Service','Amount')
+        widgets = {
+            'Date': DatePickerInput(),
+        }                 
 
 class PledgesCashedOutForm(forms.ModelForm):
     class Meta:
@@ -55,7 +62,7 @@ class PledgesCashedOutForm(forms.ModelForm):
 class AllowanceForm(forms.ModelForm):
     class Meta:
         model=Allowance
-        fields = ('Date','Name','Month','Amount')
+        fields = ('Date','Name','Amount')
         widgets = {
             'Date': DatePickerInput(),
             
@@ -78,13 +85,7 @@ class SalariesPaidForm(forms.ModelForm):
     class Meta:
         model = SalariesPaid
         fields = ('Salary_Id','Name','Salary_Amount','Month_being_cleared','Date_of_paying_salary')
-class OfferingsForm(forms.ModelForm):
-    class Meta:
-        model=Offerings
-        fields = ('Date','Total_Offering','Service')
-        widgets = {
-            'Date': DatePickerInput(),
-        }
+
 
 class BuildingRenovationForm(forms.ModelForm):
     class Meta:
@@ -117,38 +118,7 @@ class PaidPledgesForm(forms.ModelForm):
         widgets = {
             'Date': DatePickerInput(),
         }              
-class TithesForm(forms.ModelForm):
-    class Meta:
-        model=Tithes
-        fields = ('Date','Tithe_Made_By','Amount','Service')
-        widgets = {
-            'Date': DatePickerInput(),
-        } 
-class ThanksGivingForm(forms.ModelForm):
-    class Meta:
-        model=ThanksGiving
-        fields = ('Date','Thanks_Giving_By','Amount','Service')
-        widgets = {
-            'Date': DatePickerInput(),
-        }         
-class SeedsForm(forms.ModelForm):
-    class Meta:
-        model=Seeds
-        fields = ('Date','Seed_Made_By','Amount','Service')
-        widgets = {
-            'Date': DatePickerInput(),
-        } 
-class DonationsForm(forms.ModelForm):
-    class Meta:
-        model=Donations
-        fields = ('Date','Donated_By','Amount','Reason')
-        widgets = {
-            'Date': DatePickerInput(),
-            'Donated_By': TextInput(attrs={'placeholder': 'e.g. Church, Place or Person'}),
-        } 
-        labels = {
-            'Donated_By': 'Received From',
-        }
+
 class MembersForm(forms.ModelForm):
     class Meta:
         model= Members

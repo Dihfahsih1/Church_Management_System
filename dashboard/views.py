@@ -206,7 +206,7 @@ def index(request):
         d_pledges = 0    
     
     #monthly main expenses
-    total_main_expenses = Spend.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
+    total_main_expenses = Expenditures.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_main_expenses['totals'])!=None:
         int(total_main_expenses["totals"])
         expenses=total_main_expenses["totals"]
@@ -215,7 +215,7 @@ def index(request):
         expenses = 0
 
         #weekly main expenses
-    total_weekly_expenses = Spend.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
+    total_weekly_expenses = Expenditures.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
     if (total_weekly_expenses['totals'])!=None:
         int(total_weekly_expenses["totals"])
         d_expenses=total_weekly_expenses["totals"]
@@ -224,7 +224,7 @@ def index(request):
         d_expenses = 0  
 
     #Total general expenses of the current month of the year.
-    total_general_expenses = GeneralExpenses.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
+    total_general_expenses = Expenditures.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_general_expenses['totals'])!=None:
         int(total_general_expenses["totals"])
         general=total_general_expenses["totals"]
@@ -232,7 +232,7 @@ def index(request):
         total_general_expenses = 0
         general = 0
         #Total general expenses of the week.
-    weekly_general_expenses = GeneralExpenses.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
+    weekly_general_expenses = Expenditures.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
     if (weekly_general_expenses['totals'])!=None:
         int(weekly_general_expenses["totals"])
         d_general=weekly_general_expenses["totals"]
@@ -241,7 +241,7 @@ def index(request):
         d_general = 0
 
     #Monthly Petty Cash expenses
-    total_petty_expenses = Sundry.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
+    total_petty_expenses = Expenditures.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_petty_expenses['totals'])!=None:
         int(total_petty_expenses["totals"])
         petty=total_petty_expenses["totals"]
@@ -250,7 +250,7 @@ def index(request):
         petty = 0
 
     #weekly Petty Cash expenses
-    weekly_petty_expenses = Sundry.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
+    weekly_petty_expenses = Expenditures.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
     if (weekly_petty_expenses['totals'])!=None:
         int(weekly_petty_expenses["totals"])
         d_petty=weekly_petty_expenses["totals"]
@@ -1390,7 +1390,7 @@ def allowancearchive(request):
                }
     return render(request, 'Allowances/allowancearchive.html', context)
 def delete_allowance(request,pk):
-    items= Spend.objects.filter(id=pk).delete()
+    items= Expenditures.objects.filter(id=pk).delete()
     context = { 'items':items}
     return render(request, 'Allowances/allowanceindex.html', context)
 
@@ -1417,7 +1417,7 @@ def total_monthly_incomes(request):
         pledges=total_current_pledges["totals"]
     else:
         0
-    total_main_expenses = Spend.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
+    total_main_expenses = Expenditures.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_main_expenses['totals']):
         total_main_expenses["totals"]
         expenses=total_main_expenses["totals"]
@@ -1473,7 +1473,7 @@ def enter_petty_expenses(request):
         form = ExpendituresForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('sundryreport')
+            return redirect('Expendituresreport')
     else:
         today = timezone.now()
         current_month = today.strftime('%B')
@@ -1509,7 +1509,7 @@ def edit_petty_cash(request, pk):
         form = ExpendituresForm(request.POST, instance=item)
         if form.is_valid():
             form.save()
-            return redirect('sundryreport')
+            return redirect('Expendituresreport')
     else:
         form = ExpendituresForm(instance=item)
     return render(request, 'Expenses/edit_petty_cash.html', {'form': form})
@@ -1587,7 +1587,7 @@ def petty_cash_report (request):
             item.Archived_Status = 'ARCHIVED'
             item.save()
         messages.success(request, f'All Petty Cash have been Archived')
-        return redirect('sundryreport')
+        return redirect('Expendituresreport')
     today = datetime.now()
     years=today.year
     context={}
@@ -1616,7 +1616,7 @@ def petty_cash_archives_search(request):
 class expenditurepdf(View):
     def get(self, request):
         current_month = datetime.now().month
-        expense = Spend.objects.filter(Date__month=current_month).order_by('-Date')
+        expense = Expenditures.objects.filter(Date__month=current_month).order_by('-Date')
 
         today = timezone.now()
         month = today.strftime('%B')
@@ -1634,25 +1634,25 @@ class expenditurepdf(View):
         return Render.render('Expenses/expenditurepdf.html',expensecontext)
 
 
-#Printing Sundry Expenses Report
-class sundrypdf(View):
+#Printing Expenditures Expenses Report
+class Expenditurespdf(View):
     def get(self, request):
         current_month = datetime.now().month
-        sundry = Sundry.objects.all()
+        Expenditures = Expenditures.objects.all()
         today = timezone.now()
         month = today.strftime('%B')
-        totalsundry = 0
-        for instance in sundry:
-            totalsundry += instance.Amount
-        sundrycontext ={
+        totalExpenditures = 0
+        for instance in Expenditures:
+            totalExpenditures += instance.Amount
+        Expenditurescontext ={
             ''
             'month': month,
             'today':today,
-            'sundry':sundry,
+            'Expenditures':Expenditures,
             'request': request,
-            'totalsundry': totalsundry,
+            'totalExpenditures': totalExpenditures,
         }
-        return Render.render('Expenses/sundrypdf.html',sundrycontext)
+        return Render.render('Expenses/Expenditurespdf.html',Expenditurescontext)
 
 
 
@@ -1673,16 +1673,16 @@ def expenditurearchive(request):
     return render(request, 'Expenses/expenditurearchive.html', context)
 
 
-        # calculating totals in sundryexpense report
-def sundryarchive(request):
-    sundryarchived = SundryReportArchive.objects.all().order_by('-Date')
-    total = SundryReportArchive.objects.aggregate(totals=models.Sum("Amount"))
+        # calculating totals in Expendituresexpense report
+def Expendituresarchive(request):
+    Expendituresarchived = ExpendituresReportArchive.objects.all().order_by('-Date')
+    total = ExpendituresReportArchive.objects.aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
     context = {
         'total_amount':total_amount,
-        'sundryarchived': sundryarchived
+        'Expendituresarchived': Expendituresarchived
                }
-    return render(request, 'Expenses/sundryarchive.html', context)
+    return render(request, 'Expenses/Expendituresarchive.html', context)
 
 
 
@@ -1694,7 +1694,7 @@ def sundryarchive(request):
 
 class expensereceipt(View):
     def get(self, request, pk):
-        expense = get_object_or_404(Spend,pk=pk)
+        expense = get_object_or_404(Expenditures,pk=pk)
         today = timezone.now()
         expensecontext = {
             'today': today,
@@ -1702,16 +1702,16 @@ class expensereceipt(View):
             'request': request,
         }
         return Render.render('Expenses/expensereceipt.html', expensecontext)
-class sundryreceipt(View):
+class Expendituresreceipt(View):
     def get(self, request, pk):
-        sundry = get_object_or_404(Sundry,pk=pk)
+        Expenditures = get_object_or_404(Expenditures,pk=pk)
         today = timezone.now()
-        sundrycontext = {
+        Expenditurescontext = {
             'today': today,
-            'sundry': sundry,
+            'Expenditures': Expenditures,
             'request': request,
         }
-        return Render.render('Expenses/sundryreceipt.html', sundrycontext)
+        return Render.render('Expenses/Expendituresreceipt.html', Expenditurescontext)
 
 
     ############################################################
@@ -1722,12 +1722,12 @@ class sundryreceipt(View):
 
 
 @login_required
-def sundryreport (request):
+def Expendituresreport (request):
     if request.method=='POST':
         archived_year=request.POST['archived_year']
         archived_month = request.POST['archived_month']
         #all the available expense in the expenses table
-        all_expenses = Sundry.objects.all()
+        all_expenses = Expenditures.objects.all()
         for expense in all_expenses:
             date=expense.Date
             amount=expense.Amount
@@ -1735,7 +1735,7 @@ def sundryreport (request):
             name=expense.Payment_Made_To
 
             # the expense archive object
-            expense_archiveobj=SundryReportArchive()
+            expense_archiveobj=ExpendituresReportArchive()
 
             #attached values to expense_archiveobj
             expense_archiveobj.Name=name
@@ -1753,30 +1753,30 @@ def sundryreport (request):
         message="Petty Expenses Monthly Report has been archived"
         context={'message':message}
 
-        return render(request, 'Expenses/sundryindex.html', context)
+        return render(request, 'Expenses/Expendituresindex.html', context)
 
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
               'October', 'November',
               'December']
     years = datetime.now().year
 
-    total = Sundry.objects.aggregate(totals=models.Sum("Amount"))
+    total = Expenditures.objects.aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
     mth = datetime.now().month
     day=datetime.now()
-    items =Sundry.objects.all()
+    items =Expenditures.objects.all()
     context = {'day':day,
         'total_amount':total_amount,
         'items': items,
         'months':months,
         'years':years,
     }
-    return render(request, 'Expenses/sundryindex.html', context)
+    return render(request, 'Expenses/Expendituresindex.html', context)
 
 
 @login_required
-def sundryarchivessearch(request):
-    yrs = SundryReportArchive.objects.all().order_by('-year')
+def Expendituresarchivessearch(request):
+    yrs = ExpendituresReportArchive.objects.all().order_by('-year')
     archived_years=[]
     for i in yrs:
         x=i.year
@@ -1798,22 +1798,22 @@ def sundryarchivessearch(request):
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
-        archived_reports = SundryReportArchive.objects.filter(month=report_month, year=report_year)
+        archived_reports = ExpendituresReportArchive.objects.filter(month=report_month, year=report_year)
         months = ['January','February','March', 'April','May','June','July','August','September', 'October', 'November','December']
-        sundry = SundryReportArchive.objects.all()
+        Expenditures = ExpendituresReportArchive.objects.all()
         today = timezone.now()
         day=datetime.now()
         total = archived_reports.aggregate(totals=models.Sum("Amount"))
         total_amount = total["totals"]
-        context = {'day':day, 'archived_reports': archived_reports,'months': months,'years': years,'expenses':sundry,
+        context = {'day':day, 'archived_reports': archived_reports,'months': months,'years': years,'expenses':Expenditures,
                    'total_amount': total_amount,'today': today,'report_year': report_year,'report_month': report_month
                    }
-        return render(request, "Expenses/sundryarchive.html", context)
+        return render(request, "Expenses/Expendituresarchive.html", context)
     months = ['January','February','March','April','May','June','July','August','September','October', 'November', 'December']
     years = datetime.now().year
-    sundry=SundryReportArchive.objects.all()
-    context = {'months': months,'years': years,'sundry': sundry}
-    return render(request, "Expenses/sundryarchive.html", context)
+    Expenditures=ExpendituresReportArchive.objects.all()
+    context = {'months': months,'years': years,'Expenditures': Expenditures}
+    return render(request, "Expenses/Expendituresarchive.html", context)
 
 # Printing Expenditure archived Report
 class expenditurearchivepdf(View):
@@ -1833,21 +1833,21 @@ class expenditurearchivepdf(View):
         }
         return Render.render('Expenses/expenditurearchivepdf.html', expensecontext)
 
-# Printing Sundry Expenses archived Report
-class sundryarchivepdf(View):
+# Printing Expenditures Expenses archived Report
+class Expendituresarchivepdf(View):
     def get(self, request, report_month, report_year):
-        archived_sundry = SundryReportArchive.objects.filter(month=report_month, year=report_year)
+        archived_Expenditures = ExpendituresReportArchive.objects.filter(month=report_month, year=report_year)
         today = timezone.now()
         month = today.strftime('%B')
-        total = archived_sundry.aggregate(totals=models.Sum("Amount"))
+        total = archived_Expenditures.aggregate(totals=models.Sum("Amount"))
         total_amount = total["totals"]
-        sundrycontext = {
+        Expenditurescontext = {
             'today': today,
             'total_amount': total_amount,
             'request': request,
-            'archived_sundry': archived_sundry,
+            'archived_Expenditures': archived_Expenditures,
         }
-        return Render.render('Expenses/sundryarchivepdf.html', sundrycontext)
+        return Render.render('Expenses/Expendituresarchivepdf.html', Expenditurescontext)
 ###############################
       # PLEDGES MODULE#
 ###############################
@@ -1897,7 +1897,7 @@ def edit_pledge_item(request, pk):
         form = PledgeItemsForm(instance=item)
     return render(request, 'Pledges/edit_pledge_item.html', {'form': form}, {'messages': messages})
 
-#spending money on the pledged item
+#Expendituresing money on the pledged item
 def pledge_cash_out(request, pk):
     items = get_object_or_404(PledgeItem, id=pk)
     if request.method == "POST":
@@ -2195,8 +2195,8 @@ class settled_archived_pledge_receipt(View):
 def airtime_data_report(request):
     mth = datetime.now().day
     today = datetime.now()
-    get_airtime=Sundry.objects.filter(Reason_For_Payment='Airtime/Data', Date__day=mth)
-    total = Sundry.objects.filter(Reason_For_Payment='Airtime/Data',Date__day=mth).aggregate(totals=models.Sum("Amount"))
+    get_airtime=Expenditures.objects.filter(Reason_For_Payment='Airtime/Data', Date__day=mth)
+    total = Expenditures.objects.filter(Reason_For_Payment='Airtime/Data',Date__day=mth).aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
     context={'get_airtime':get_airtime, 'total_amount':total_amount, 'today':today}
     return render(request,'Expenses/airtime_data_report.html', context)
