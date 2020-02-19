@@ -50,6 +50,7 @@
                                 {{ form.Payment_Made_To|as_crispy_field}}
                                 {{ form.Main_Expense_Reason|as_crispy_field}}
                                 {{ form.Amount|as_crispy_field}}
+                                <input type="hidden" id="general" name="Reason_filtering" value="main">
 
                   <button type="submit" class="btn btn-primary" name="button">Submit</button>
                   </form>

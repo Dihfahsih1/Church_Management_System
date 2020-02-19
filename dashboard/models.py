@@ -128,6 +128,7 @@ class Expenditures(Model):
     Date = models.DateField(null=True, blank=True)
     Payment_Made_To = models.CharField(max_length=100,blank=False)
     Amount = models.IntegerField()
+    Reason_filtering=models.CharField(max_length=100, blank=True, null=True)
     Main_Expense_Reason=models.CharField(max_length=100, choices=main,blank=True, null=True)
     General_Expenses_Reason=models.CharField(max_length=100, choices=general, blank=True, null=True)
     Petty_Cash_Reason=models.CharField(max_length=100, choices=petty, blank=True, null=True)

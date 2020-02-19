@@ -40,7 +40,7 @@ class UserEmailForm(forms.ModelForm):
 class ExpendituresForm(forms.ModelForm):
     class Meta:
         model=Expenditures
-        fields=('Archived_Status','Date','Payment_Made_To','Main_Expense_Reason','General_Expenses_Reason','Petty_Cash_Reason','Amount')
+        fields=('Reason_filtering','Archived_Status','Date','Payment_Made_To','Main_Expense_Reason','General_Expenses_Reason','Petty_Cash_Reason','Amount')
         widgets = {
             'Date': DatePickerInput(),
         }                 

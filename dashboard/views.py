@@ -1526,7 +1526,7 @@ def main_expenses_report (request):
     today = datetime.now()
     years=today.year
     context={}
-    items = Expenditures.objects.filter(Archived_Status="NOT-ARCHIVED")
+    items = Expenditures.objects.filter(Archived_Status="NOT-ARCHIVED",Reason_filtering='general')
     context['items']=items
     context['years']=years
     context['today']=today
@@ -1539,7 +1539,7 @@ def main_expenses_archives_search(request):
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
-        archived_reports = Expenditures.objects.filter(Archived_Status='ARCHIVED', Date__month=report_month, Date__year=report_year)
+        archived_reports = Expenditures.objects.filter(Archived_Status='ARCHIVED',Reason_filtering='main', Date__month=report_month, Date__year=report_year)
         context = {'archived_reports': archived_reports,'years': years,'today': today,
                   'report_year': report_year,'report_month': report_month}
         return render(request, "Expenses/main_expenses_archived_search.html", context)
@@ -1558,7 +1558,7 @@ def general_expenses_report (request):
     today = datetime.now()
     years=today.year
     context={}
-    items = Expenditures.objects.filter(Archived_Status="NOT-ARCHIVED").order_by('General_Expenses_Reason')
+    items = Expenditures.objects.filter(Archived_Status="NOT-ARCHIVED",Reason_filtering='general')
     context['items']=items
     context['years']=years
     context['today']=today
@@ -1571,12 +1571,12 @@ def general_expenses_archives_search(request):
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
-        archived_reports = Expenditures.objects.filter(Archived_Status='ARCHIVED', Date__month=report_month, Date__year=report_year)
+        archived_reports = Expenditures.objects.filter(Archived_Status='ARCHIVED',Date__month=report_month, Date__year=report_year, Reason_filtering='general')
         context = {'archived_reports': archived_reports,'years': years,'today': today,
                   'report_year': report_year,'report_month': report_month}
-        return render(request, "Expenses/main_expenses_archived_search.html", context)
+        return render(request, "Expenses/general_expenses_archived_search.html", context)
     context = {'years': years}
-    return render(request, "Expenses/main_expenses_archived_search.html", context)    
+    return render(request, "Expenses/general_expenses_archived_search.html", context)    
        ####################################################
       #        GENERATING REPORTS IN FORM OF PDFS         #
       ####################################################
