@@ -16,7 +16,7 @@ from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.contrib.auth import update_session_auth_hash
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-
+import calendar
 def web(request):
     news = News.published.all().order_by('-id')
     events = Event.published.all().order_by('-from_date')
@@ -713,8 +713,10 @@ def offeringsarchivessearch(request):
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
         archived_reports = Revenues.objects.filter(Archived_Status='ARCHIVED',Revenue_filter='offering', Date__month=report_month, Date__year=report_year)
+        mth=int(report_month)
+        month=calendar.month_name[mth]
         context = {'archived_reports': archived_reports,'years': years,'today': today,
-                  'report_year': report_year,'report_month': report_month}
+                  'report_year':report_year,'month': month}
         return render(request, "Offerings/offeringsarchive.html", context)
     context = {'years': years}
     return render(request, "Offerings/offeringsarchive.html", context)
@@ -722,8 +724,8 @@ def offeringsarchivessearch(request):
 class offeringspdf(View):
     def get(self, request):
         current_month = datetime.now().month
-        offerings = Revenues.objects.filter(Archived_Status='ARCHIVED',Revenue_filter='offering').order_by('-Date')
-        today = timezone.now()
+        offerings = Revenues.objects.filter(Archived_Status='NOT-ARCHIVED',Revenue_filter='offering').order_by('-Date')
+        today = datetime.now()
         month = today.strftime('%B')
         totalexpense = 0
         for instance in offerings:
@@ -737,13 +739,15 @@ class offeringspdf(View):
         }
         return Render.render('Offerings/offeringspdf.html', context)
 class offeringsarchivepdf(View):
-    def get(self, request, report_month, report_year):
-        archived_offerings = OfferingsReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
-        today = timezone.now()
+    def get(self, request):
+        archived_offerings = Revenues.objects.filter(Archived_Status='NOT-ARCHIVED',Revenue_filter='offering').order_by('-Date')
+        today = datetime.now()
+        month=today.strftime('%B')
         total = archived_offerings.aggregate(totals=models.Sum("Amount"))
         total_amount = total["totals"]
         offeringscontext = {
             'today': today,
+            'month': month,
             'total_amount': total_amount,
             'request': request,
             'archived_offerings': archived_offerings,}
