@@ -1515,7 +1515,7 @@ def edit_petty_cash(request, pk):
     return render(request, 'Expenses/edit_petty_cash.html', {'form': form})
 
 @login_required
-def expenditurereport (request):
+def main_expenses_report (request):
     if request.method=='POST':
         items = Expenditures.objects.all()
         for item in items:
@@ -1545,6 +1545,38 @@ def main_expenses_archives_search(request):
         return render(request, "Expenses/main_expenses_archived_search.html", context)
     context = {'years': years}
     return render(request, "Expenses/main_expenses_archived_search.html", context)
+
+@login_required
+def general_expenses_report (request):
+    if request.method=='POST':
+        items = Expenditures.objects.all()
+        for item in items:
+            item.Archived_Status = 'ARCHIVED'
+            item.save()
+        messages.success(request, f'All General Expenses have been Archived')
+        return redirect('general-expenses-report')
+    today = datetime.now()
+    years=today.year
+    context={}
+    items = Expenditures.objects.filter(Archived_Status="NOT-ARCHIVED").order_by('General_Expenses_Reason')
+    context['items']=items
+    context['years']=years
+    context['today']=today
+    return render(request, 'Expenses/General_Expenses_report.html', context)
+
+@login_required
+def general_expenses_archives_search(request):
+    today = datetime.now()
+    years=today.year
+    if request.method == 'POST':
+        report_year = request.POST['report_year']
+        report_month = request.POST['report_month']
+        archived_reports = Expenditures.objects.filter(Archived_Status='ARCHIVED', Date__month=report_month, Date__year=report_year)
+        context = {'archived_reports': archived_reports,'years': years,'today': today,
+                  'report_year': report_year,'report_month': report_month}
+        return render(request, "Expenses/main_expenses_archived_search.html", context)
+    context = {'years': years}
+    return render(request, "Expenses/main_expenses_archived_search.html", context)    
        ####################################################
       #        GENERATING REPORTS IN FORM OF PDFS         #
       ####################################################
@@ -1655,46 +1687,6 @@ class sundryreceipt(View):
    # SUBMISSION OF MONTHLY REPORTS TO BE ARCHIVED              #
     ############################################################
 
-
-
-
-#GENERAL EXPENSES REPORT    
-@login_required
-def general_expenses_report (request):
-    if request.method=='POST':
-        archived_year=request.POST['archived_year']
-        archived_month = request.POST['archived_month']
-        all_expenses = GeneralExpenses.objects.all()
-        for expense in all_expenses:
-            date=expense.Date
-            amount=expense.Amount
-            reason=expense.Expense_Reason
-            name=expense.Payment_Made_To
-            expense_archiveobj=GeneralExpensesReportArchive()
-            expense_archiveobj.Name=name
-            expense_archiveobj.Date=date
-            expense_archiveobj.Amount=amount
-            expense_archiveobj.Reason=reason
-            expense_archiveobj.year=archived_year
-            expense_archiveobj.month=archived_month
-            expense_archiveobj.save()
-        all_expenses.delete()
-        message="The Monthly General Expenses Report has been Archived"
-        context={'message':message,}
-        return render(request, 'Expenses/generalexpenditureindex.html', context)
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September',
-              'October', 'November','December']
-    years = datetime.now().year
-    mth = datetime.now().month
-    day=datetime.now()
-    items =GeneralExpenses.objects.all()
-    today = timezone.now()
-    current_month = today.strftime('%B')
-    total = GeneralExpenses.objects.aggregate(totals=models.Sum("Amount"))
-    total_amount = total["totals"]
-    context = {'day':day, 'current_month':current_month, 'total_amount':total_amount,'items': items,'months':months,
-        'years':years,}
-    return render(request, 'Expenses/generalexpenditureindex.html', context)
 
 
 

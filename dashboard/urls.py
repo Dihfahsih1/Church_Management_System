@@ -22,7 +22,7 @@ url(r'^Edit/General-Expense/(?P<pk>\d+)', views.edit_general_expense ,name='edit
 url(r'^Main-Expense/Edit/(?P<pk>\d+)', views.edit_main_expense ,name='edit-main-expense'),
 url(r'^Petty-Expense/Edit/(?P<pk>\d+)', views.edit_petty_cash ,name='edit-main-expense'),
 
-url(r'^Reports/Main-Expenses/', views.expenditurereport, name='expenditurereport'),
+url(r'^Reports/Main-Expenses/', views.main_expenses_report, name='expenditurereport'),
 url(r'^Reports/General-Expenses/', views.general_expenses_report, name='general-expenses-report'),
 url(r'^Reports/Sundry-Report/', views.sundryreport, name='sundryreport'),
 
@@ -98,7 +98,6 @@ url(r'^allowancereport/', views.allowancereport, name='allowancereport'),
 url(r'^Tithesreport/', views.Tithesreport, name='Tithesreport'),
 url(r'^Offeringsreport/', views.Offeringsreport, name='Offeringsreport'),
 url(r'^Pledgesreport/', views.Pledgesreport, name='Pledgesreport'),
-url(r'^expenditurereport/', views.expenditurereport, name='expenditurereport'),
 url(r'^Building-Renovations-Report/', views.Building_Renovation_report, name='Building-Renovation-report'),
 
 #Archived reports search
