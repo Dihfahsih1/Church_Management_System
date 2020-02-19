@@ -1514,15 +1514,23 @@ def edit_petty_cash(request, pk):
         form = ExpendituresForm(instance=item)
     return render(request, 'Expenses/edit_petty_cash.html', {'form': form, })
 
-# def delete_payment(request,pk):
-#     items= Spend.objects.filter(id=pk).delete()
-#     context = { 'items':items}
-#     return render(request, 'Expenses/expenditureindex.html', context)
-
-# def delete_sundry(request, pk):
-#     items = Sundry.objects.filter(id=pk).delete()
-#     context = {'items': items}
-#     return render(request, 'Expenses/sundryindex.html', context)
+@login_required
+def expenditurereport (request):
+    if request.method=='POST':
+        items = Expenditures.objects.all()
+        for item in items:
+            item.Archived_Status = 'ARCHIVED'
+            item.save()
+        messages.success(request, f'All Main Expenses have been Archived')
+        return redirect('expenditurereport')
+    today = datetime.now()
+    years=today.year
+    context={}
+    items = Expenditures.objects.filter(Archived_Status="NOT-ARCHIVED")
+    context['items']=items
+    context['years']=years
+    context['today']=today
+    return render(request, 'Expenses/Main_Expenses_report.html', context)
 
        ####################################################
       #        GENERATING REPORTS IN FORM OF PDFS         #
@@ -1634,71 +1642,8 @@ class sundryreceipt(View):
    # SUBMISSION OF MONTHLY REPORTS TO BE ARCHIVED              #
     ############################################################
 
-#####################
-# EXPENSES ARCHIVING#
-#####################
-@login_required
-def expenditurereport (request):
-    if request.method=='POST':
-        archived_year=request.POST['archived_year']
-        archived_month = request.POST['archived_month']
-
-        #all the available expense in the expenses table
-        all_expenses = Spend.objects.all()
-
-        for expense in all_expenses:
-            date=expense.Date
-            amount=expense.Amount
-            reason=expense.Reason_For_Payment
-            name=expense.Payment_Made_To
-
-            # the expense archive object
-            expense_archiveobj=ExpensesReportArchive()
-
-            #attached values to expense_archiveobj
-            expense_archiveobj.Name=name
-            expense_archiveobj.Date=date
-            expense_archiveobj.Amount=amount
-            expense_archiveobj.Reason=reason
-            expense_archiveobj.year=archived_year
-            expense_archiveobj.month=archived_month
-
-            expense_archiveobj.save()
-
-        #deleting all the expense from reports table
 
 
-        #paid = Spend.objects.all().aggregate(Sum('Amount'))
-        all_expenses.delete()
-
-        message="The Monthly Main Expenses Report has been Archived"
-        context={
-                 'message':message,
-                 }
-
-        return render(request, 'Expenses/expenditureindex.html', context)
-
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September',
-              'October', 'November',
-              'December']
-    years = datetime.now().year
-    mth = datetime.now().month
-    items =Spend.objects.all()
-    today = timezone.now()
-    day=datetime.now()
-    current_month = today.strftime('%B')
-    total = Spend.objects.aggregate(totals=models.Sum("Amount"))
-    total_amount = total["totals"]
-    context = {'day':day,
-         'current_month':current_month,
-         'total_amount':total_amount,
-        'items': items,
-        'months':months,
-        'years':years,
-
-
-    }
-    return render(request, 'Expenses/expenditureindex.html', context)
 
 #GENERAL EXPENSES REPORT    
 @login_required
