@@ -20,14 +20,15 @@ url(r'^Expenses/General-Expenses/Enter', views.enter_general_expenses, name='ent
 
 url(r'^Edit/General-Expense/(?P<pk>\d+)', views.edit_general_expense ,name='edit-general-expense'),
 url(r'^Main-Expense/Edit/(?P<pk>\d+)', views.edit_main_expense ,name='edit-main-expense'),
-url(r'^Petty-Expense/Edit/(?P<pk>\d+)', views.edit_petty_cash ,name='edit-main-expense'),
+url(r'^Petty-Expense/Edit/(?P<pk>\d+)', views.edit_petty_cash ,name='edit-petty-cash'),
 
 url(r'^Reports/Main-Expenses/', views.main_expenses_report, name='expenditurereport'),
 url(r'^Reports/General-Expenses/', views.general_expenses_report, name='general-expenses-report'),
-url(r'^Reports/Sundry-Report/', views.sundryreport, name='sundryreport'),
+url(r'^Reports/Sundry-Report/', views.petty_cash_report, name='sundryreport'),
 
 url(r'^General-Expenses/Archived/', views.general_expenses_archives_search, name='general-expensesarchives-search'),
 url(r'^Main-Expenses/Archived/', views.main_expenses_archives_search, name='expensesarchivessearch'),
+url(r'^Petty-Cash/Archived/', views.petty_cash_archives_search, name='sundryarchivessearch'),
 
 url(r'^Enter-Records/Allowances', views.give_allowance, name='give-allowance'),
 url(r'^Enter_Pledges/', views.Enter_Pledges, name='Enter_Pledges'),
@@ -65,7 +66,7 @@ url(r'^Receipts/Seed-Offering/(?P<pk>\d+)', views.seed_offering_receipt.as_view(
 
 url(r'^expenditurearchive/', views.expenditurearchive, name='expenditurearchive'),
 url(r'^allowancearchive/', views.allowancearchive, name='allowancearchive'),
-url(r'^sundryarchive/', views.sundryarchive, name='sundryarchive'),
+
 
 url(r'^expenditurearchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.expenditurearchivepdf.as_view(), name='expenditurearchivepdf'),
 url(r'^allowancearchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.allowancearchivepdf.as_view(), name='allowancearchivepdf'),
@@ -103,7 +104,6 @@ url(r'^Building-Renovations-Report/', views.Building_Renovation_report, name='Bu
 #Archived reports search
 
 url(r'^allowancearchivessearch/', views.allowancearchivessearch, name='allowancearchivessearch'),
-url(r'^sundrysarchivessearch/', views.sundryarchivessearch, name='sundryarchivessearch'),
 url(r'^pledgesarchivessearch/', views.pledgesarchivessearch, name='pledgesarchivessearch'),
 url(r'^offeringsarchivessearch/', views.offeringsarchivessearch, name='offeringsarchivessearch'),
 url(r'^tithesarchivessearch/', views.tithesarchivessearch, name='tithesarchivessearch'),

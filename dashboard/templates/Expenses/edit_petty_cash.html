@@ -55,8 +55,8 @@
                       {{ form.Payment_Made_To|as_crispy_field}}
                       {{ form.Petty_Cash_Reason|as_crispy_field}}
                       {{ form.Amount|as_crispy_field}}
-
-						      <button type="submit" class="btn btn-primary" name="button">Submit</button>
+                      <input type="hidden" id="general" name="Reason_filtering" value="petty">
+						          <button type="submit" class="btn btn-primary" name="button">Submit</button>
 
 						      </form>
 					         
