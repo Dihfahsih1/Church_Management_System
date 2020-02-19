@@ -65,6 +65,15 @@
         </style>
 
     {% endblock head %}
+        <style type="text/css">
+           @media 
+            only screen and (max-width: 760px),
+            (min-device-width: 768px) and (max-device-width: 1024px)
+              {
+                table, thead, tbody, th, td, tr { 
+                    font-size: 15px;
+                    display: inline-block;}          
+        </style>
 </head>
 <div style="max-width: 1230px">
 <body class="{% block body_class %}nav-md {% endblock body_class %}" >
