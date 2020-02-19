@@ -30,13 +30,21 @@ url(r'^General-Expenses/Archived/', views.general_expenses_archives_search, name
 url(r'^Main-Expenses/Archived/', views.main_expenses_archives_search, name='expensesarchivessearch'),
 url(r'^Petty-Cash/Archived/', views.petty_cash_archives_search, name='sundryarchivessearch'),
 
+
+url(r'^Revenues/Offerings/Report', views.Offeringsreport, name='Offeringsreport'),
+url(r'^edit_offerings/(?P<pk>\d+)', views.edit_offerings ,name='edit-offerings'),
+url(r'^offeringspdf/', views.offeringspdf.as_view() ,name='offeringspdf'),
+url(r'^offeringsreceipt/(?P<pk>\d+)', views.offeringsreceipt.as_view() ,name='offeringsreceipt'),
+url(r'^offeringsarchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.offeringsarchivepdf.as_view(), name='offeringsarchivepdf'),
+url(r'^Record-Offerings/', views.Enter_Offerings, name='Enter_Offerings'),
+
+
 url(r'^Enter-Records/Allowances', views.give_allowance, name='give-allowance'),
 url(r'^Enter_Pledges/', views.Enter_Pledges, name='Enter_Pledges'),
 url(r'^Building-Renovations/', views.record_building_collections, name='record-building-collections'),
 url(r'^Enter_Tithes/', views.Enter_Tithes, name='Enter_Tithes'),
 url(r'^Revenue/Donations/Add', views.record_donations, name='record-donations'),
 url(r'^Reports/Donations/List', views.donations_report, name='donations-report'),
-url(r'^Enter_Offerings/', views.Enter_Offerings, name='Enter_Offerings'),
 url(r'^Pledges/Add-Item/', views.add_Pledge_Items ,name='add-pledge-item'),
 
 url(r'^allowancereport/', views.allowancereport, name='allowancereport'),
@@ -48,7 +56,7 @@ url(r'^allowancespdf/', views.allowancespdf.as_view() ,name='allowancespdf'),
 url(r'^expenditurepdf/', views.expenditurepdf.as_view() ,name='expenditurepdf'),
 url(r'^pledgespdf/', views.pledgespdf.as_view() ,name='pledgespdf'),
 url(r'^tithespdf/', views.tithespdf.as_view() ,name='tithespdf'),
-url(r'^offeringspdf/', views.offeringspdf.as_view() ,name='offeringspdf'),
+
 
 
 
@@ -57,7 +65,6 @@ url(r'^expensereceipt/(?P<pk>\d+)', views.expensereceipt.as_view() ,name='expens
 url(r'^Archived/Pledge-Debt/Receipt/(?P<pk>\d+)', views.settled_archived_pledge_receipt.as_view() ,name='settled-pledge-receipt'),
 url(r'^Archived/Pledge-Debt/Invoice/(?P<pk>\d+)', views.pledge_debt_invoice.as_view() ,name='pledge-invoice'),
 url(r'^allowancereceipt/(?P<pk>\d+)', views.allowancereceipt.as_view() ,name='allowancereceipt'),
-url(r'^offeringsreceipt/(?P<pk>\d+)', views.offeringsreceipt.as_view() ,name='offeringsreceipt'),
 url(r'^tithesreceipt/(?P<pk>\d+)', views.tithesreceipt.as_view() ,name='tithesreceipt'),
 url(r'^pledgesreceipt/(?P<pk>\d+)', views.pledgesreceipt.as_view() ,name='pledgesreceipt'),
 url(r'^Receipts/Seed-Offering/(?P<pk>\d+)', views.seed_offering_receipt.as_view() ,name='seed-offering-receipt'),
@@ -70,7 +77,6 @@ url(r'^expenditurearchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views
 url(r'^allowancearchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.allowancearchivepdf.as_view(), name='allowancearchivepdf'),
 #url(r'^sundryarchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.sundryarchivepdf.as_view(), name='sundryarchivepdf'),
 url(r'^pledgesarchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.pledgesarchivepdf.as_view(), name='pledgesarchivepdf'),
-url(r'^offeringsarchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.offeringsarchivepdf.as_view(), name='offeringsarchivepdf'),
 url(r'^tithesarchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.tithesarchivepdf.as_view(), name='tithesarchivepdf'),
 
 #Handling all PKs, IDs
@@ -81,7 +87,7 @@ url(r'^Employee/Delete/(?P<pk>\d+)', views.delete_employee ,name='delete-employe
 url(r'^Church-Visitor/Edit/(?P<pk>\d+)', views.edit_visitor ,name='edit-visitor'),
 url(r'^Church-Visitor/Delete/(?P<pk>\d+)', views.delete_visitor ,name='delete-visitor'),
 url(r'^edit_allowance/(?P<pk>\d+)', views.edit_allowance ,name='edit_allowance'),
-url(r'^edit_offerings/(?P<pk>\d+)', views.edit_offerings ,name='edit_offerings'),
+
 url(r'^edit_pledges/(?P<pk>\d+)', views.edit_pledges ,name='edit_pledges'),
 url(r'^edit_tithes/(?P<pk>\d+)', views.edit_tithes ,name='edit_tithes'),
 url(r'^Employee/Edit/(?P<pk>\d+)', views.edit_employee ,name='edit-employee'),
@@ -95,7 +101,7 @@ url(r'^delete_allowance/(?P<pk>\d+)', views.delete_allowance ,name='delete_allow
 #Monthly Report Generation
 url(r'^allowancereport/', views.allowancereport, name='allowancereport'),
 url(r'^Tithesreport/', views.Tithesreport, name='Tithesreport'),
-url(r'^Offeringsreport/', views.Offeringsreport, name='Offeringsreport'),
+
 url(r'^Pledgesreport/', views.Pledgesreport, name='Pledgesreport'),
 url(r'^Building-Renovations-Report/', views.Building_Renovation_report, name='Building-Renovation-report'),
 

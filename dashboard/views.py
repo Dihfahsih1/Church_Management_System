@@ -666,28 +666,58 @@ def visitors_list(request):
 @login_required
 def Enter_Offerings(request):
     if request.method=="POST":
-        form=OfferingsForm(request.POST)
+        form=RevenuesForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, f'Offerings have been recorded')
             return redirect('Offeringsreport')
     else:
-        form=OfferingsForm()
+        form=RevenuesForm()
         return render(request, 'Offerings/record_offerings.html',{'form':form})
 
 #edit offerings
 def edit_offerings(request, pk):
-    item = get_object_or_404(Offerings, pk=pk)
+    item = get_object_or_404(Revenues, pk=pk)
     if request.method == "POST":
-        form = OfferingsForm(request.POST, instance=item)
+        form = RevenuesForm(request.POST, instance=item)
         if form.is_valid():
             form.save()
             messages.success(request, f'Offerings have been updated')
             return redirect('Offeringsreport')
     else:
-        form = OfferingsForm(instance=item)
+        form = RevenuesForm(instance=item)
     return render(request, 'Offerings/record_offerings.html', {'form': form})
+@login_required
+def Offeringsreport (request):
+    if request.method=='POST':
+        items = Revenues.objects.all()
+        for item in items:
+            item.Archived_Status = 'ARCHIVED'
+            item.save()
+        messages.success(request, f'All Building Collections have been Archived')
+        return redirect('Offeringsreport')
+    today = datetime.now()
+    years=today.year
+    context={}
+    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED")
+    context['items']=items
+    context['years']=years
+    context['today']=today
+    return render(request, 'Offerings/offeringsindex.html', context)
 
+@login_required
+def offeringsarchivessearch(request):
+    today = datetime.now()
+    years=today.year
+    if request.method == 'POST':
+        report_year = request.POST['report_year']
+        report_month = request.POST['report_month']
+        archived_reports = Revenues.objects.filter(Archived_Status='ARCHIVED',Revenue_filter='offering', Date__month=report_month, Date__year=report_year)
+        context = {'archived_reports': archived_reports,'years': years,'today': today,
+                  'report_year': report_year,'report_month': report_month}
+        return render(request, "Offerings/offeringsarchive.html", context)
+    context = {'years': years}
+    return render(request, "Offerings/offeringsarchive.html", context)
 #offering
 class offeringspdf(View):
     def get(self, request):
@@ -718,77 +748,6 @@ class offeringsreceipt(View):
             'request': request,
         }
         return Render.render('Offerings/offeringsreceipt.html', context)
-
-@login_required
-def Offeringsreport (request):
-    if request.method=='POST':
-        archived_year=request.POST['archived_year']
-        archived_month = request.POST['archived_month']
-
-        #all the available expense in the expenses table
-        all_expenses = Offerings.objects.all()
-        for expense in all_expenses:
-            date=expense.Date
-            service=expense.Service
-            amount=expense.Total_Offering
-            # the expense archive object
-            expense_archiveobj=OfferingsReportArchive()
-            #attached values to expense_archiveobj
-            expense_archiveobj.Date=date
-            expense_archiveobj.Amount=amount
-            expense_archiveobj.Service=service
-            expense_archiveobj.archivedyear= archived_year
-            expense_archiveobj.archivedmonth =archived_month
-            expense_archiveobj.save()
-        #deleting all the expense from reports table
-        all_expenses.delete()
-        message="The Monthly Offerings Report has been Archived"
-        context={'message':message}
-        return render(request, 'Offerings/offeringsindex.html', context)
-    months = ['January', 'February', 'March', 'April', 'May', 'June',
-              'July', 'August','September', 'October', 'November','December']
-    years = datetime.now().year
-    today = datetime.now()
-    current_month = today.strftime('%B')
-    mth = datetime.now().month
-    day=datetime.now()
-    total = Offerings.objects.aggregate(totals=models.Sum("Total_Offering"))
-    total_amount = total["totals"]
-    items =Offerings.objects.all()
-    context = {'day':day, 'total_amount':total_amount,'items': items,'months':months,'current_month':current_month,'years':years,
-    }
-    return render(request, 'Offerings/offeringsindex.html', context)
-
-@login_required
-def offeringsarchivessearch(request):
-    if request.method == 'POST':
-        report_year = request.POST['report_year']
-        report_month = request.POST['report_month']
-        archived_reports = OfferingsReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
-        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                  'August', 'September', 'October', 'November', 'December']
-        years = datetime.now().year
-        offerings = OfferingsReportArchive.objects.all()
-        today = timezone.now()
-        total = archived_reports.aggregate(totals=models.Sum("Amount"))
-        total_amount = total["totals"]
-        context = {'archived_reports': archived_reports,
-                   'months': months,
-                   'years': years,
-                   'expenses': offerings,
-                   'total_amount': total_amount,
-                   'today': today,
-                   'report_year': report_year,
-                   'report_month': report_month
-                   }
-        return render(request, "Offerings/offeringsarchive.html", context)
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-              'August', 'September', 'October', 'November', 'November', 'December']
-    years = datetime.now().year
-    offerings = OfferingsReportArchive.objects.all()
-    context = {'months': months,'years': years,'offerings': offerings}
-    return render(request, "Offerings/offeringsarchive.html", context)
-
 class offeringsarchivepdf(View):
     def get(self, request, report_month, report_year):
         archived_offerings = OfferingsReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
