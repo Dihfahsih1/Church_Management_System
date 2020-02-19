@@ -54,24 +54,24 @@
                 <div class="col-lg-12" style="background-color: rgb(227, 237, 239">
                   <div class="col-lg-3" style="margin-top: 8px">
                     <label >Year</label>
-                    <input type="text" placeholder="Enter Year, e.g. 2020" name="report_year" width="2%">
+                    <input type="number" placeholder="Enter Year, e.g. 2020" name="report_year" width="2%" required="required">
                   </div>
                   <div class="col-lg-3" style="margin-top: 8px">
                     <label>Month</label>
-                    <select  name="report_month" id="inlineFormCustomSelect">
-                      <option>Select Month</option>
-                      <option class="btn-success" value=1>January</option>
-                      <option class="btn-success" value=2>February</option>
-                      <option class="btn-success" value=3>March</option>
-                      <option class="btn-success" value=4>April</option>
-                      <option class="btn-success" value="5">May</option>
-                      <option class="btn-success" value="6">June</option>
-                      <option class="btn-success" value="7">July</option>
-                      <option class="btn-success" value="8">August</option>
-                      <option class="btn-success" value="9">September</option>
-                      <option class="btn-success" value="10">October</option>
-                      <option class="btn-success" value="11">November</option>
-                      <option class="btn-success" value="12">December</option>
+                    <select  name="report_month" id="inlineFormCustomSelect" required="required" style="cursor: pointer">
+                      <option></option>
+                      <option class="btn-success" name="1" value="1">January</option>
+                      <option class="btn-success" name="2" value="2">February</option>
+                      <option class="btn-success" name="3" value="3">March</option>
+                      <option class="btn-success" name="4" value="4">April</option>
+                      <option class="btn-success" name="5" value="5">May</option>
+                      <option class="btn-success" name="6" value="6">June</option>
+                      <option class="btn-success" name="7" value="7">July</option>
+                      <option class="btn-success" name="8" value="8">August</option>
+                      <option class="btn-success" name="9" value="9">September</option>
+                      <option class="btn-success" name="10" value="10">October</option>
+                      <option class="btn-success" name="11" value="11">November</option>
+                      <option class="btn-success" name="12" value="12">December</option>
                     </select>
                   </div>
                   <div class="col-lg-2">
@@ -84,11 +84,11 @@
            <div class="tab-pane fade in active" id="tab_invoice_list">
               <div class="x_content"> 
               {% if archived_reports %}
-                   <h2 style="text-align: center">Monthly Archived Offerings For the financial cycle of  <b>{{ month }} {{ report_year }}</b>  </h2>
+                   <h2 style="text-align: center">Monthly Archived Offerings For the financial cycle of  <b>{{ report_month }} {{ report_year }}</b>  </h2>
                 {% elif archived_reports == empty %}
                     <p style="color: red"><i class='glyphicon glyphicon-arrow-up'></i>You have not yet made any search!, please do so</p>
                     {% else %}
-                     <h2 > No archived Data in the query you have made of the cycle {{ month }} {{ report_year }}</h2>                     
+                     <h2 > No archived Data in the query you have made of the cycle <b style="color: red">{{ report_month }} {{ report_year }}</b></h2>                     
                    {% endif %}                     
                    <table id="invoice-table" class=" sum_table table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                     <thead>
@@ -112,7 +112,9 @@
                       {% endfor %}
                     </tbody>
                   </table>
+                  {% if archived_reports %}
                   <a href="{% url 'offeringsarchivepdf' %}" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"> PRINT REPORT</span></a>
+                  {% endif %}
                 </div>
               </div>
             </div>

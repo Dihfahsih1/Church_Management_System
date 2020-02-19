@@ -714,9 +714,9 @@ def offeringsarchivessearch(request):
         report_month = request.POST['report_month']
         archived_reports = Revenues.objects.filter(Archived_Status='ARCHIVED',Revenue_filter='offering', Date__month=report_month, Date__year=report_year)
         mth=int(report_month)
-        month=calendar.month_name[mth]
+        report_month=calendar.month_name[mth]
         context = {'archived_reports': archived_reports,'years': years,'today': today,
-                  'report_year':report_year,'month': month}
+                  'report_year':report_year,'report_month': report_month}
         return render(request, "Offerings/offeringsarchive.html", context)
     context = {'years': years}
     return render(request, "Offerings/offeringsarchive.html", context)
@@ -1510,6 +1510,8 @@ def main_expenses_archives_search(request):
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
         archived_reports = Expenditures.objects.filter(Archived_Status='ARCHIVED',Reason_filtering='main', Date__month=report_month, Date__year=report_year)
+        mth=int(report_month)
+        report_month=calendar.month_name[mth]
         context = {'archived_reports': archived_reports,'years': years,'today': today,
                   'report_year': report_year,'report_month': report_month}
         return render(request, "Expenses/main_expenses_archived_search.html", context)
@@ -1523,6 +1525,8 @@ def general_expenses_archives_search(request):
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
+        mth=int(report_month)
+        report_month=calendar.month_name[mth]
         archived_reports = Expenditures.objects.filter(Archived_Status='ARCHIVED', Reason_filtering='general',Date__month=report_month, Date__year=report_year)
         context = {'archived_reports': archived_reports,'years': years,'today': today,
                   'report_year': report_year,'report_month': report_month}
@@ -1556,6 +1560,8 @@ def petty_cash_archives_search(request):
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
         archived_reports = Expenditures.objects.filter(Archived_Status='ARCHIVED',Reason_filtering='petty', Date__month=report_month, Date__year=report_year)
+        mth=int(report_month)
+        report_month=calendar.month_name[mth]
         context = {'archived_reports': archived_reports,'years': years,'today': today,
                   'report_year': report_year,'report_month': report_month}
         return render(request, "Expenses/petty_cash_archived_search.html", context)
@@ -1568,14 +1574,12 @@ class expenditurepdf(View):
     def get(self, request):
         current_month = datetime.now().month
         expense = Expenditures.objects.filter(Date__month=current_month).order_by('-Date')
-
         today = timezone.now()
         month = today.strftime('%B')
         totalexpense = 0
         for instance in expense:
             totalexpense += instance.Amount
         expensecontext ={
-
             'month': month,
             'today':today,
             'expense':expense,
