@@ -50,7 +50,10 @@
 
 						      {% csrf_token %}
 
-						          {{ form|crispy }}
+						        {{ form.Date|as_crispy_field}}
+                                {{ form.Payment_Made_To|as_crispy_field}}
+                                {{ form.General_Expenses_Reason|as_crispy_field}}
+                                {{ form.Amount|as_crispy_field}}
 
 						      <button type="submit" class="btn btn-primary" name="button">Submit</button>
 

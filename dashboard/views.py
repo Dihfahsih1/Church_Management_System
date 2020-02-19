@@ -1460,13 +1460,13 @@ def enter_expenditure(request):
 @login_required
 def enter_general_expenses(request):
     if request.method=="POST":
-        form=GeneralExpensesForm(request.POST)
+        form=ExpendituresForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('general-expenses-report')
     else:
-        form=GeneralExpensesForm()
-        items = GeneralExpenses.objects.all()
+        form=ExpendituresForm()
+        items = Expenditure.objects.all()
         context = {'items': items, 'form': form, }
         return render(request, 'Expenses/pay_generalexpenditure.html',context)        
 @login_required
@@ -1484,14 +1484,14 @@ def enter_sundryexpense(request):
         return render(request, 'Expenses/record_petty_expenses.html', context )
 
 def edit_general_expense(request, pk):
-    item = get_object_or_404(Spend, pk=pk)
+    item = get_object_or_404(Expenditures, pk=pk)
     if request.method == "POST":
-        form = SpendForm(request.POST, instance=item)
+        form = ExpendituresForm(request.POST, instance=item)
         if form.is_valid():
             form.save()
-            return redirect('expenditurereport')
+            return redirect('general-expenses-report')
     else:
-        form = SpendForm(instance=item)
+        form = ExpendituresForm(instance=item)
     return render(request, 'Expenses/edit_general_expense.html', {'form': form})
 
 def delete_payment(request,pk):

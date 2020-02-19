@@ -12,14 +12,7 @@ class SliderForm(forms.ModelForm):
         model = Slider
         fields = ('slider_image', 'image_title')
 
-class SpendForm(forms.ModelForm):
-    class Meta:
-        model=Spend
-        fields=('Date','Payment_Made_To','Reason_For_Payment','Amount')
-        widgets = {
-            'Date': DatePickerInput(),
-            
-        } 
+
 class UserForm(forms.ModelForm):
     class Meta:
         model=User
@@ -44,21 +37,13 @@ class UserEmailForm(forms.ModelForm):
             return email
         raise ValidationError("This email is already used.")
 
-class GeneralExpensesForm(forms.ModelForm):
+class ExpendituresForm(forms.ModelForm):
     class Meta:
-        model=GeneralExpenses
-        fields=('Date','Payment_Made_To','Expense_Reason','Amount')
+        model=Expenditures
+        fields=('Date','Payment_Made_To','Main_Expense_Reason','General_Expenses_Reason','Petty_Cash_Reason','Amount')
         widgets = {
             'Date': DatePickerInput(),
-            
-        }         
-class SundryForm(forms.ModelForm):
-    class Meta:
-        model=Sundry
-        fields=('Date','Payment_Made_To','Amount','Reason_For_Payment')
-        widgets = {
-            'Date': DatePickerInput(),
-        }
+        }                 
 
 class PledgesCashedOutForm(forms.ModelForm):
     class Meta:

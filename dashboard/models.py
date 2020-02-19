@@ -43,6 +43,20 @@ Week_Days = (
 archive = (
     ('ARCHIVED', 'ARCHIVED'),
     ('NOT-ARCHIVED', 'NOT-ARCHIVED'),)
+
+petty=(
+        ('Lunch','Lunch'),('Upkeep','Upkeep'),('Airtime/Data','Airtime/Data')      
+    )
+main=(
+        ('Water Bills','Water Bills'),('Yaka Bills','Yaka Bills'),
+        ('Transport','Transport'), ('Love Offering','Love Offering'),('Medical Bills','Medical Bills'),('Rent','Rent'),
+        ('Help','Help'),('Drinks','Drinks'),('Savings','Savings'),
+        ('Evangelism','Evangelism')
+    )
+general = (('Generator Mechanic','Generator Mechanic'),('Instruments','Servicing Music Instruments'),('Condolences','Condolences'),
+        ('Stationery','Stationery'),('Repair','Any Other Repair'),('Purchase','Purchase'),
+        ('Renovations','Renovations')
+        )
 class PublishedStatusManager(models.Manager):
     def get_queryset(self):
         return super(PublishedStatusManager, self).get_queryset().filter(Is_View_on_Web='Yes')
@@ -91,16 +105,6 @@ class User(AbstractBaseUser , PermissionsMixin):
     published = PublishedStatusManager()
     def __str__(self):
         return self.Role
-class Sundry(Model):
-    reason=(
-        ('Lunch','Lunch'),('Upkeep','Upkeep'),('Airtime/Data','Airtime/Data')      
-    )
-    Date = models.DateField(null=True, blank=True)
-    Payment_Made_To = models.CharField(max_length=100, blank=False)
-    Reason_For_Payment = models.CharField(max_length=250, choices=reason)
-    Amount = models.IntegerField()
-    def __str__(self):
-        return self.Payment_Made_To
 
 class Offerings(Model):
     Date = models.DateField(null=True, blank=True)
@@ -120,31 +124,15 @@ class BuildingRenovation(Model):
     def __str__(self):
         return self.Archived_Status
 
-class GeneralExpenses(Model):
-    expenses = (('Generator Mechanic','Generator Mechanic'),('Instruments','Servicing Music Instruments'),('Condolences','Condolences'),
-        ('Stationery','Stationery'),('Repair','Any Other Repair'),('Purchase','Purchase'),
-        ('Renovations','Renovations')
-        )
+class Expenditures(Model):
     Date = models.DateField(null=True, blank=True)
     Payment_Made_To = models.CharField(max_length=100,blank=False)
     Amount = models.IntegerField()
-    Expense_Reason=models.CharField(max_length=100, choices=expenses, blank=False)
+    Main_Expense_Reason=models.CharField(max_length=100, choices=main,blank=True, null=True)
+    General_Expenses_Reason=models.CharField(max_length=100, choices=general, blank=True, null=True)
+    Petty_Cash_Reason=models.CharField(max_length=100, choices=petty, blank=True, null=True)
     def __str__(self):
-        return self.Expense_Reason
-class Spend(models.Model):
-    reason=(
-        ('Water Bills','Water Bills'),('Yaka Bills','Yaka Bills'),
-        ('Transport','Transport'), ('Love Offering','Love Offering'),('Medical Bills','Medical Bills'),('Rent','Rent'),
-        ('Help','Help'),('Drinks','Drinks'),('Savings','Savings'),
-        ('Evangelism','Evangelism')
-    )
-    Date = models.DateField(null=True, blank=True)
-    Payment_Made_To = models.CharField(max_length=100,blank=False)
-    Reason_For_Payment = models.CharField(max_length=100, choices=reason)
-    Amount = models.IntegerField()
-
-    def __str__(self):
-        return 'Name:{0}, Reason:{1}, Amount: {2}'.format(self.Payment_Made_To, self.Reason_For_Payment, self.Amount)
+        return self.Payment_Made_To
 
 ##########################################
 # REPORT ARCHIVING MODELS AFTER SUBMISSION #
