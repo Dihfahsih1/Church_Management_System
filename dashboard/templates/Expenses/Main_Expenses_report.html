@@ -30,6 +30,9 @@
           |<a href="{% url 'Building-Renovation-report' %}"> Building</a>
         </div>
         <div class="separator"></div>
+
+        <h3>Main Expenses Module</h3>
+        <div class="separator"></div>
         <div class="x_content">
           <div class="" data-example-id="togglable-tabs">
             <ul class="nav nav-tabs bordered">
@@ -67,7 +70,7 @@
                           <td>{{ item.Archived_Status}}</td>
                           <td>
                           <div class="mb-4">
-                                <a href="{% url 'edit-main-expens' item.pk %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit">Edit</span></a>
+                                <a href="{% url 'edit-main-expense' item.pk %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit">Update</span></a>
                           </div>
                           </td>
                         </tr>
