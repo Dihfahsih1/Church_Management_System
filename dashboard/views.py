@@ -1526,25 +1526,12 @@ def main_expenses_report (request):
     today = datetime.now()
     years=today.year
     context={}
-    items = Expenditures.objects.filter(Archived_Status="NOT-ARCHIVED",Reason_filtering='general')
+    items = Expenditures.objects.filter(Archived_Status="NOT-ARCHIVED",Reason_filtering='main')
     context['items']=items
     context['years']=years
     context['today']=today
     return render(request, 'Expenses/Main_Expenses_report.html', context)
 
-@login_required
-def main_expenses_archives_search(request):
-    today = datetime.now()
-    years=today.year
-    if request.method == 'POST':
-        report_year = request.POST['report_year']
-        report_month = request.POST['report_month']
-        archived_reports = Expenditures.objects.filter(Archived_Status='ARCHIVED',Reason_filtering='main', Date__month=report_month, Date__year=report_year)
-        context = {'archived_reports': archived_reports,'years': years,'today': today,
-                  'report_year': report_year,'report_month': report_month}
-        return render(request, "Expenses/main_expenses_archived_search.html", context)
-    context = {'years': years}
-    return render(request, "Expenses/main_expenses_archived_search.html", context)
 
 @login_required
 def general_expenses_report (request):
@@ -1563,6 +1550,19 @@ def general_expenses_report (request):
     context['years']=years
     context['today']=today
     return render(request, 'Expenses/General_Expenses_report.html', context)
+@login_required
+def main_expenses_archives_search(request):
+    today = datetime.now()
+    years=today.year
+    if request.method == 'POST':
+        report_year = request.POST['report_year']
+        report_month = request.POST['report_month']
+        archived_reports = Expenditures.objects.filter(Archived_Status='ARCHIVED',Reason_filtering='main', Date__month=report_month, Date__year=report_year)
+        context = {'archived_reports': archived_reports,'years': years,'today': today,
+                  'report_year': report_year,'report_month': report_month}
+        return render(request, "Expenses/main_expenses_archived_search.html", context)
+    context = {'years': years}
+    return render(request, "Expenses/main_expenses_archived_search.html", context)
 
 @login_required
 def general_expenses_archives_search(request):
@@ -1571,7 +1571,7 @@ def general_expenses_archives_search(request):
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
-        archived_reports = Expenditures.objects.filter(Archived_Status='ARCHIVED',Date__month=report_month, Date__year=report_year, Reason_filtering='general')
+        archived_reports = Expenditures.objects.filter(Archived_Status='ARCHIVED', Reason_filtering='general',Date__month=report_month, Date__year=report_year)
         context = {'archived_reports': archived_reports,'years': years,'today': today,
                   'report_year': report_year,'report_month': report_month}
         return render(request, "Expenses/general_expenses_archived_search.html", context)
@@ -1741,69 +1741,7 @@ def sundryreport (request):
         'years':years,
     }
     return render(request, 'Expenses/sundryindex.html', context)
-@login_required
-def generalexpensesarchivessearch(request):
-    if request.method == 'POST':
-        report_year = request.POST['report_year']
-        report_month = request.POST['report_month']
-        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                  'August', 'August', 'September', 'October', 'November','December']
-        years = datetime.now().year
 
-        today = timezone.now()
-        archived_reports = GeneralExpensesReportArchive.objects.filter(month=report_month, year=report_year)
-        total = archived_reports.aggregate(totals=models.Sum("Amount"))
-        total_amount = total["totals"]
-        context = {'archived_reports':archived_reports,
-                   'months': months,
-                   'years': years,
-                   'total_amount': total_amount,
-                   'today': today,
-                   'report_year': report_year,
-                   'report_month': report_month
-                   }
-        return render(request, "Expenses/generalexpenditurearchive.html", context)
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-              'August','September','October', 'November', 'November', 'December']
-    years = datetime.now().year
-    expenses=GeneralExpensesReportArchive.objects.all()
-    context = {'months': months,
-               'years': years,
-               'expenses': expenses}
-    return render(request, "Expenses/generalexpenditurearchive.html", context)
-
-# searching for the archives
-@login_required
-def expensesarchivessearch(request):
-    if request.method == 'POST':
-        report_year = request.POST['report_year']
-        report_month = request.POST['report_month']
-        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                  'August', 'August', 'September', 'October', 'November','December']
-        years = datetime.now().year
-
-        today = timezone.now()
-        archived_reports = ExpensesReportArchive.objects.filter(month=report_month, year=report_year)
-        total = archived_reports.aggregate(totals=models.Sum("Amount"))
-        total_amount = total["totals"]
-        context = {'archived_reports':archived_reports,
-                   'months': months,
-                   'years': years,
-                   'total_amount': total_amount,
-                   'today': today,
-                   'report_year': report_year,
-                   'report_month': report_month
-                   }
-        return render(request, "Expenses/expenditurearchive.html", context)
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-              'August','September','October', 'November', 'November', 'December']
-    years = datetime.now().year
-    years = [yr,yr-1,yr-2,yr-3,yr-4,2018]
-    expenses=ExpensesReportArchive.objects.all()
-    context = {'months': months,
-               'years': years,
-               'expenses': expenses}
-    return render(request, "Expenses/expenditurearchive.html", context)
 
 @login_required
 def sundryarchivessearch(request):

@@ -26,7 +26,7 @@ url(r'^Reports/Main-Expenses/', views.main_expenses_report, name='expenditurerep
 url(r'^Reports/General-Expenses/', views.general_expenses_report, name='general-expenses-report'),
 url(r'^Reports/Sundry-Report/', views.sundryreport, name='sundryreport'),
 
-url(r'^General-Expenses/Archived/', views.generalexpensesarchivessearch, name='general-expensesarchives-search'),
+url(r'^General-Expenses/Archived/', views.general_expenses_archives_search, name='general-expensesarchives-search'),
 url(r'^Main-Expenses/Archived/', views.main_expenses_archives_search, name='expensesarchivessearch'),
 
 url(r'^Enter-Records/Allowances', views.give_allowance, name='give-allowance'),
