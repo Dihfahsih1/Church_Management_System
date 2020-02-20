@@ -918,7 +918,6 @@ class tithesreceipt(View):
 class tithesarchivepdf(View):
     def get(self, request, report_month, report_year):        
         month=strptime(report_month, '%B').tm_mon
-        print(month)
         archived_tithes = Revenues.objects.filter(Archived_Status='ARCHIVED',Revenue_filter='tithes',Date__month=month, Date__year=report_year)
         today = datetime.now()
         total = archived_tithes.aggregate(totals=models.Sum("Amount"))
@@ -1409,20 +1408,6 @@ def allowancearchivessearch(request):
         return render(request, "Allowances/allowancearchive.html", context)
     context = {'years': years}
     return render(request, "Allowances/allowancearchive.html", context)        
-# Printing allowances archived Report
-class allowancearchivepdf(View):
-    def get(self, request, report_month, report_year):
-        archived_Allowance = AllowanceReportArchive.objects.filter(month=report_month, year=report_year)
-        today = timezone.now()
-        total = archived_Allowance.aggregate(totals=models.Sum("Amount"))
-        total_amount = total["totals"]
-        Allowancecontext = {
-            'today': today,
-            'total_amount': total_amount,
-            'request': request,
-            'archived_Allowance': archived_Allowance,
-        }
-        return Render.render('Allowances/allowancearchivepdf.html', Allowancecontext)
 
 class allowances_archived_pdf(View):
     def get(self, request, report_month, report_year):        
@@ -1431,9 +1416,9 @@ class allowances_archived_pdf(View):
         today = datetime.now()
         total = archived_allowance.aggregate(totals=models.Sum("Amount"))
         total_amount = total["totals"]
-        context = {'report_month': report_month,'report_year':report_year,'today': today,
+        allowancecontext = {'report_month': report_month,'report_year':report_year,'today': today,
         'total_amount': total_amount,'request': request,'archived_allowance': archived_allowance,}
-        return Render.render('Allowances/allowancearchivepdf.html', context)
+        return Render.render('Allowances/allowancearchivepdf.html', allowancecontext)
 ###############################
       # PLEDGES MODULE#
 ###############################
