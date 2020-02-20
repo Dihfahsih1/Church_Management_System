@@ -1377,13 +1377,15 @@ def allowancereport(request):
 class allowancespdf(View):
     def get(self, request):
         current_month = datetime.now().month
-        allowances = Expenditures.objects.filter(Archived_Status=NOT-ARCHIVED, Date__month=current_month).order_by('-Date')
+        allowances = Expenditures.objects.filter(Archived_Status='NOT-ARCHIVED', Date__month=current_month).order_by('-Date')
         today = datetime.now()
+        year=today.year
         month = today.strftime('%b')
         totalAllowance = 0
         for instance in allowances:
             totalAllowance += instance.Amount
         Allowancecontext ={
+            'year':year,
             'month': month,
             'today':today,
             'allowances':allowances,
@@ -1422,24 +1424,16 @@ class allowancearchivepdf(View):
         }
         return Render.render('Allowances/allowancearchivepdf.html', Allowancecontext)
 
-
-
-
-
-def allowancearchive(request):
-    Allowancearchived = AllowanceReportArchive.objects.all().order_by('-Date')
-    total = AllowanceReportArchive.objects.aggregate(totals=models.Sum("Amount"))
-    total_amount = total["totals"]
-    context = {
-        'total_amount':total_amount,
-        'Allowancearchived': Allowancearchived
-               }
-    return render(request, 'Allowances/allowancearchive.html', context)
-def delete_allowance(request,pk):
-    items= Expenditures.objects.filter(id=pk).delete()
-    context = { 'items':items}
-    return render(request, 'Allowances/allowanceindex.html', context)
-
+class allowances_archived_pdf(View):
+    def get(self, request, report_month, report_year):        
+        month=strptime(report_month, '%B').tm_mon
+        archived_allowance = Expenditures.objects.filter(Archived_Status='ARCHIVED', Reason_filtering='allowance',Date__month=month, Date__year=report_year)
+        today = datetime.now()
+        total = archived_allowance.aggregate(totals=models.Sum("Amount"))
+        total_amount = total["totals"]
+        context = {'report_month': report_month,'report_year':report_year,'today': today,
+        'total_amount': total_amount,'request': request,'archived_allowance': archived_allowance,}
+        return Render.render('Allowances/allowancearchivepdf.html', context)
 ###############################
       # PLEDGES MODULE#
 ###############################

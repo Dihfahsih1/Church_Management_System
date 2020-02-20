@@ -34,8 +34,7 @@ url(r'^Allowances/Add/', views.give_allowance, name='give-allowance'),
 url(r'^Report/Allowances/', views.allowancereport, name='allowancereport'),
 url(r'^Edit/allowance/(?P<pk>\d+)', views.edit_allowance ,name='edit_allowance'),
 url(r'^allowancespdf/', views.allowancespdf.as_view() ,name='allowancespdf'),
-url(r'^allowancearchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.allowancearchivepdf.as_view(), name='allowancearchivepdf'),
-url(r'^allowancearchive/', views.allowancearchive, name='allowancearchive'),
+url(r'^allowancearchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.allowances_archived_pdf.as_view(), name='allowancearchivepdf'),
 url(r'^allowancearchivessearch/', views.allowancearchivessearch, name='allowancearchivessearch'),
 
 

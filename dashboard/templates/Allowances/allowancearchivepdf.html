@@ -1,8 +1,9 @@
 <!doctype html>
+{% load humanize %}
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Salaries Report</title>
+    <title>Allowances Given Report</title>
     <style type="text/css">
         @page {
             size: A4;
@@ -21,7 +22,7 @@
             padding: 5px;
             vertical-align: top;
             border-top: 1px solid #000;
-            text-align: center;
+            text-align: left;
         }
 
         .table thead th {
@@ -68,29 +69,32 @@
                uccbwaise1@gmail.com<br>
          </div>
         <div class="list-group">
-            <h2 style="align-content:center"> Monthly Allowances Paid Archived Reports</h2>
+            <h2 style="align-content:center"> Allowances Archived Report For {{report_month}} {{report_year}}</h2>
         </div>
 
-        <table class="table" border="2">
+        <table class="table" border="0.1">
             <thead>
             <tr style="font-size:larger">
                 <th>Date</th>
                 <th>Name</th>
-                <th>Month</th>
+                <th>Reason</th>
                 <th>Amount</th>
             </tr>
             </thead>
             <tbody>
-            {% for salary in archived_salary  %}
-                <tr style="font-size:large">
-                    <td>{{ salary.Date }}</td>
-                    <td>{{ salary.Name }}</td>
-                    <td>{{ salary.Manth }}</td>
-                    <td>Shs:{{ salary.Amount }}</td>
+            {% for allowance in archived_allawance  %}
+                <tr>
+                    <td>{{ allowance.Date }}</td>
+                    <td>{{ allowance.Member_Name }}</td>
+                    <td>{{ allowance.Notes }}</td>
+                    <td>{{ allowance.Amount |intcomma }}</td>
 
                 </tr>
             {% endfor %}
-            <tr><td><b>Total Amount:</b> </td> <td>______________ </td> <td>______________  </td><td><b>{{ total_amount}}</b></td></tr>
+            <tr><td><b>Total Amount:</b></td> 
+                <td>______________  </td><td>______________</td>
+                <td><b>Shs.{{ total_amount|intcomma}}</b></td>
+            </tr>
             </tbody>
         </table>
     </div>

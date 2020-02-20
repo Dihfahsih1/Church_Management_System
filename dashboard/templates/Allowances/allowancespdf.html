@@ -1,4 +1,5 @@
 <!doctype html>
+{% load humanize %}
 <html>
 <head>
     <meta charset="utf-8">
@@ -19,7 +20,7 @@
             padding: 5px;
             vertical-align: top;
             border-top: 1px solid #000;
-            text-align: center;
+            text-align: left;
         }
         .table thead th {
             vertical-align: bottom;
@@ -61,10 +62,10 @@
                uccbwaise1@gmail.com<br>
          </div>
         <div class="list-group">
-            <h2 style="align-content:center"> Monthly Allowances Given Report for the month of {{ month }}</h2>
+            <h2 style="align-content:center"> Monthly Allowances Given Report for the month of {{ month }}, {{year}}</h2>
         </div>
 
-        <table class="table" border="2">
+        <table class="table" border="0.5">
             <thead>
             <tr style="font-size:larger">
                 <th>Date</th>
@@ -79,14 +80,14 @@
                     <td>{{ allowance.Date }}</td>
                     <td>{{ allowance.Member_Name}}</td>
                     <td>{{ allowance.Notes}}</td>
-                    <td>Shs:{{ allowance.Amount}}</td>
+                    <td>{{ allowance.Amount|intcomma}}</td>
 
                 </tr>
             {% endfor %}
               <tr>
                   <td class="jumbotron"><h3>TOTAL</h3></td>
-                  <td class="jumbotron"><h3>----------------------</h3><h3>----------------------</h3></td>
-                  <td class="jumbotron"><h3>Shs. {{ totalAllowance }}</h3></td>
+                  <td class="jumbotron"><h3>----------------------</h3></td><td><h3>----------------------</h3></td>
+                  <td class="jumbotron"><h3>Shs. {{ totalAllowance|intcomma }}</h3></td>
               </tr>
             </tbody>
         </table>
