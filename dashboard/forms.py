@@ -40,16 +40,20 @@ class UserEmailForm(forms.ModelForm):
 class ExpendituresForm(forms.ModelForm):
     class Meta:
         model=Expenditures
-        fields=('Reason_filtering','Archived_Status','Date','Payment_Made_To','Main_Expense_Reason','General_Expenses_Reason','Petty_Cash_Reason','Amount')
+        fields=('Other_Expenditure','Reason_filtering','Archived_Status','Date','Payment_Made_To','Main_Expense_Reason','General_Expenses_Reason','Petty_Cash_Reason','Amount')
         widgets = {
             'Date': DatePickerInput(),
+            'Payment_Made_To': TextInput(attrs={'placeholder': 'Entity Receiving Money'}),
+            'Other_Expenditure': TextInput(attrs={'placeholder': 'any other expense'}),
+            'Amount': TextInput(attrs={'placeholder': 'Shs.'})
         }                 
 class RevenuesForm(forms.ModelForm):
     class Meta:
         model=Revenues
-        fields=('Revenue_filter','Archived_Status','Date','Member_Name','Service','Amount')
+        fields=('Other_Sources','Revenue_filter','Archived_Status','Date','Member_Name','Service','Amount')
         widgets = {
             'Date': DatePickerInput(),
+            'Other_Sources': TextInput(attrs={'placeholder': 'e.g lwaki olimulamu missions'})
         }                 
 
 class PledgesCashedOutForm(forms.ModelForm):

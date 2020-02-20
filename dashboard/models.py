@@ -45,7 +45,7 @@ archive = (
     ('NOT-ARCHIVED', 'NOT-ARCHIVED'),)
 
 petty=(
-        ('Lunch','Lunch'),('Upkeep','Upkeep'),('Airtime/Data','Airtime/Data')      
+        ('Lunch','Lunch'),('Upkeep','Upkeep'),('Airtime/Data','Airtime/Data'),('Other','Other')     
     )
 main=(
         ('Water Bills','Water Bills'),('Yaka Bills','Yaka Bills'),
@@ -144,9 +144,10 @@ class Expenditures(Model):
     Main_Expense_Reason=models.CharField(max_length=100, choices=main,blank=True, null=True)
     General_Expenses_Reason=models.CharField(max_length=100, choices=general, blank=True, null=True)
     Petty_Cash_Reason=models.CharField(max_length=100, choices=petty, blank=True, null=True)
+    Other_Expenditure=models.CharField(max_length=100, blank=True, null=True)
     Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
     def __str__(self):
-        return self.Payment_Made_To
+        return self.Reason_filtering
 
 class Revenues(Model):
     Date = models.DateField(null=True, blank=True)
@@ -155,8 +156,9 @@ class Revenues(Model):
     Member_Name = models.ForeignKey('Members', on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
     Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
     Revenue_filter=models.CharField(max_length=100, blank=True, null=True)
+    Other_Sources=models.CharField(max_length=100, blank=True, null=True)
     def __str__(self):
-        return str(self.Date)
+        return str(self.Revenue_filter)
 
 class AllowanceReportArchive(models.Model):
     Date = models.DateField(null=True, blank=True)

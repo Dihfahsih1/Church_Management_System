@@ -62,8 +62,12 @@ url(r'^Revenue/Thanks-Giving/Edit/(?P<pk>\d+)', views.edit_thanks_giving,name='e
 url(r'^Revenue/Thanks-giving/Add', views.record_thanks_giving,name='record-thanks-giving'),
 url(r'^Reports/Thanks-giving/List', views.thanks_giving_report,name='thanks-giving-report'),
 
-url(r'^Revenue/Donations/Add', views.record_donations, name='record-donations'),
-url(r'^Reports/Donations/List', views.donations_report, name='donations-report'),
+url(r'^Revenue/Other-Sources/Add', views.record_donations, name='record-donations'),
+url(r'^Reports/Other-Sources/List', views.donations_report, name='donations-report'),
+url(r'^Archives/Other-Sources/', views.donationsarchivessearch, name='donationsarchivessearch'),
+url(r'^Revenue/Other-Sources/Edit/(?P<pk>\d+)', views.edit_donation,name='edit-donation'),
+
+
 url(r'^Pledges/Add-Item/', views.add_Pledge_Items ,name='add-pledge-item'),
 
 url(r'^allowancereport/', views.allowancereport, name='allowancereport'),
@@ -131,7 +135,7 @@ url(r'^offeringsarchivessearch/', views.offeringsarchivessearch, name='offerings
 
 url(r'^Archives/Salaries/', views.salariespaidarchivessearch, name='salariespaidarchivessearch'),
 url(r'^Archives/Seeds/', views.seedsarchivessearch, name='seeds-archives-search'),
-url(r'^Archives/Donations/', views.donationsarchivessearch, name='donationsarchivessearch'),
+
 
 url(r'^Archives/Building-Renovations/', views.BuildingRenovationarchivessearch, name='BuildingRenovationarchivessearch'),
 
@@ -168,7 +172,7 @@ url(r'^Petty-Expenses/Airtime/', views.airtime_data_report, name='airtime-data-r
 
 
 url(r'^Employee/Salary/Delete/(?P<pk>\d+)', views.delete_salary_paid,name='delete-salary-paid'),
-url(r'^Revenue/Donations/Edit/(?P<pk>\d+)', views.edit_donation,name='edit-donation'),
+
 
 
 #slider urls

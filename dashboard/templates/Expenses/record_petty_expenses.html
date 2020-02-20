@@ -47,7 +47,9 @@
 						          {{ form.Date|as_crispy_field}}
                       {{ form.Payment_Made_To|as_crispy_field}}
                       {{ form.Petty_Cash_Reason|as_crispy_field}}
+                      {{ form.Other_Expenditure|as_crispy_field}}
                       {{ form.Amount|as_crispy_field}}
+                      
                       <input type="hidden" id="general" name="Reason_filtering" value="petty">
 						        <button type="submit" class="btn btn-primary" name="button">Submit</button>
 						      </form>
@@ -58,6 +60,18 @@
 		</div>
 	</div>
 </div>
-</div>
 
+</div>
+<script type="text/javascript">
+  
+$("#id_Petty_Cash_Reason").change(function () {
+if ($(this).val() === "Other") {
+    $('#div_id_Other_Expenditure').show();
+
+} else {
+    $('#div_id_Other_Expenditure').hide();
+}
+});
+$("#id_Petty_Cash_Reason").trigger("change");
+</script>
 {% endblock %}

@@ -70,7 +70,7 @@ def index(request):
 
     current_month = datetime.now().month
     day = datetime.now().today
-    total_current_donations = Donations.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
+    total_current_donations = Revenues.objects.filter(Revenue_filter='others',Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_current_donations['totals'])!=None:
         int(total_current_donations["totals"])
         donations=total_current_donations["totals"]
@@ -80,7 +80,7 @@ def index(request):
 
 
     one_week_ago = datetime.today() - timedelta(days=7)
-    total_weekly_donations = Donations.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
+    total_weekly_donations = Revenues.objects.filter(Revenue_filter='others',Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
     if (total_weekly_donations['totals'])!=None:
         int(total_weekly_donations["totals"])
         d_donations=total_weekly_donations["totals"]
@@ -89,7 +89,7 @@ def index(request):
         d_donations = 0
 
 
-    total_current_thanks = ThanksGiving.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
+    total_current_thanks = Revenues.objects.filter(Revenue_filter='thanks',Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_current_thanks['totals'])!=None:
         int(total_current_thanks["totals"])
         thanks=total_current_thanks["totals"]
@@ -97,7 +97,7 @@ def index(request):
         total_current_thanks = 0
         thanks = 0
 
-    total_weekly_thanks = ThanksGiving.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
+    total_weekly_thanks = Revenues.objects.filter(Revenue_filter='thanks',Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
     if (total_weekly_thanks['totals'])!=None:
         int(total_weekly_thanks["totals"])
         d_thanks=total_weekly_thanks["totals"]
@@ -106,7 +106,7 @@ def index(request):
         d_thanks = 0         
 
     
-    total_current_seeds = Seeds.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
+    total_current_seeds = Revenues.objects.filter(Revenue_filter='seeds',Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_current_seeds['totals'])!=None:
         int(total_current_seeds["totals"])
         seeds=total_current_seeds["totals"]
@@ -115,7 +115,7 @@ def index(request):
         seeds = 0
 
     
-    total_weekly_seeds = Seeds.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
+    total_weekly_seeds = Revenues.objects.filter(Revenue_filter='seeds',Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
     if (total_weekly_seeds['totals'])!=None:
         int(total_weekly_seeds["totals"])
         d_seeds=total_weekly_seeds["totals"]
@@ -123,7 +123,7 @@ def index(request):
         total_weekly_seeds = 0
         d_seeds = 0
 
-    total_current_offerings = Offerings.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Total_Offering"))
+    total_current_offerings = Revenues.objects.filter(Revenue_filter='offering',Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_current_offerings['totals'])!=None:
         int(total_current_offerings["totals"])
         offerings=total_current_offerings["totals"]
@@ -131,7 +131,7 @@ def index(request):
         total_current_offerings = 0
         offerings = 0
 
-    total_weekly_offerings = Offerings.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Total_Offering"))
+    total_weekly_offerings = Revenues.objects.filter(Revenue_filter='offering',Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
     if (total_weekly_offerings['totals'])!=None:
         int(total_weekly_offerings["totals"])
         d_offerings=total_weekly_offerings["totals"]
@@ -140,7 +140,7 @@ def index(request):
         d_offerings = 0
 
 #TITHES
-    total_current_tithes = Tithes.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
+    total_current_tithes = Revenues.objects.filter(Revenue_filter='tithes',Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_current_tithes['totals'])!=None:
         int(total_current_tithes["totals"])
         tithes=total_current_tithes["totals"]
@@ -148,7 +148,7 @@ def index(request):
         total_current_tithes=0
         tithes = 0
 
-    total_weekly_tithes = Tithes.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
+    total_weekly_tithes = Revenues.objects.filter(Revenue_filter='tithes',Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
     if (total_weekly_tithes['totals'])!=None:
         int(total_weekly_tithes["totals"])
         d_tithes=total_weekly_tithes["totals"]
@@ -157,14 +157,14 @@ def index(request):
         d_tithes = 0 
 
 #BUILDING
-    total_current_building = BuildingRenovation.objects.filter(Archived_Status='NOT-ARCHIVED', Date__month=current_month).aggregate(totals=models.Sum("Total_Collection"))
+    total_current_building = BuildingRenovation.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Total_Collection"))
     if (total_current_building['totals'])!=None:
         int(total_current_building["totals"])
         building=total_current_building["totals"]
     else:
         total_current_building=0
         building = 0
-    total_weekly_building = BuildingRenovation.objects.filter(Archived_Status='NOT-ARCHIVED', Date__gte=one_week_ago).aggregate(totals=models.Sum("Total_Collection"))
+    total_weekly_building = BuildingRenovation.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Total_Collection"))
     if (total_weekly_building['totals'])!=None:
         int(total_weekly_building["totals"])
         d_building=total_weekly_building["totals"]
@@ -207,7 +207,7 @@ def index(request):
         d_pledges = 0    
     
     #monthly main expenses
-    total_main_expenses = Expenditures.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
+    total_main_expenses = Expenditures.objects.filter(Reason_filtering='main',Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_main_expenses['totals'])!=None:
         int(total_main_expenses["totals"])
         expenses=total_main_expenses["totals"]
@@ -216,7 +216,7 @@ def index(request):
         expenses = 0
 
         #weekly main expenses
-    total_weekly_expenses = Expenditures.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
+    total_weekly_expenses = Expenditures.objects.filter(Reason_filtering='main',Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
     if (total_weekly_expenses['totals'])!=None:
         int(total_weekly_expenses["totals"])
         d_expenses=total_weekly_expenses["totals"]
@@ -225,7 +225,7 @@ def index(request):
         d_expenses = 0  
 
     #Total general expenses of the current month of the year.
-    total_general_expenses = Expenditures.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
+    total_general_expenses = Expenditures.objects.filter(Reason_filtering='general',Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_general_expenses['totals'])!=None:
         int(total_general_expenses["totals"])
         general=total_general_expenses["totals"]
@@ -233,7 +233,7 @@ def index(request):
         total_general_expenses = 0
         general = 0
         #Total general expenses of the week.
-    weekly_general_expenses = Expenditures.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
+    weekly_general_expenses = Expenditures.objects.filter(Reason_filtering='general',Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
     if (weekly_general_expenses['totals'])!=None:
         int(weekly_general_expenses["totals"])
         d_general=weekly_general_expenses["totals"]
@@ -242,7 +242,7 @@ def index(request):
         d_general = 0
 
     #Monthly Petty Cash expenses
-    total_petty_expenses = Expenditures.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
+    total_petty_expenses = Expenditures.objects.filter(Reason_filtering='petty',Date__month=current_month).aggregate(totals=models.Sum("Amount"))
     if (total_petty_expenses['totals'])!=None:
         int(total_petty_expenses["totals"])
         petty=total_petty_expenses["totals"]
@@ -251,7 +251,7 @@ def index(request):
         petty = 0
 
     #weekly Petty Cash expenses
-    weekly_petty_expenses = Expenditures.objects.filter(Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
+    weekly_petty_expenses = Expenditures.objects.filter(Reason_filtering='petty',Date__gte=one_week_ago).aggregate(totals=models.Sum("Amount"))
     if (weekly_petty_expenses['totals'])!=None:
         int(weekly_petty_expenses["totals"])
         d_petty=weekly_petty_expenses["totals"]
@@ -1008,90 +1008,64 @@ def thanksgivingarchivessearch(request):
 
 
      ###################################################
-    #                   DONATIONS MODULE                #
+    #                  OTHER REVENUE SOURCES MODULE                #
      ###################################################
 @login_required
 def record_donations(request):
     if request.method=="POST":
-        form=DonationsForm(request.POST)
+        form=RevenuesForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('donations-report')
     else:
-        form=DonationsForm()
-        today = timezone.now()
-        month = today.strftime('%B')
-        context={'form':form, 'month':month}
+        form=RevenuesForm()
+        context={'form':form,}
         return render(request, 'Donations/record_donations.html',context)
 @login_required
 def donations_report(request):
     if request.method=='POST':
-        archived_year=request.POST['archived_year']
-        archived_month = request.POST['archived_month']
-        all_expenses = Donations.objects.all()
-        for expense in all_expenses:
-            date=expense.Date
-            amount=expense.Amount
-            name = expense.Donated_By
-            reason = expense.Reason
-            expense_archiveobj=DonationsReportArchive()
-            expense_archiveobj.Name = name
-            expense_archiveobj.Date=date
-            expense_archiveobj.Reason=reason
-            expense_archiveobj.Amount=amount
-            expense_archiveobj.archivedyear= archived_year
-            expense_archiveobj.archivedmonth =archived_month
-            expense_archiveobj.save()
-        all_expenses.delete()
-        message="The Monthly Donations report has been Archived"
-        context={'message':message}
-        return render(request, 'Donations/donationsindex.html', context)
-    months = ['January', 'February', 'March', 'April', 'May', 'June',
-              'July', 'August','September', 'October', 'November','December']
-    years = datetime.now().year
-    total = Donations.objects.aggregate(totals=models.Sum("Amount"))
-    total_amount = total["totals"]
-    mth = datetime.now().month
-    day=datetime.now()
-
-    items =Donations.objects.all()
-    context = {'day':day,'total_amount':total_amount,'items': items,'months':months,'years':years,}
+        items = Revenues.objects.all()
+        for item in items:
+            item.Archived_Status = 'ARCHIVED'
+            item.save()
+        messages.success(request, f'Other Sources Of Revenue Report has been Archived')
+        return redirect('donations-report')
+    today = datetime.now()
+    years=today.year
+    context={}
+    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED",Revenue_filter='others')
+    context['items']=items
+    context['years']=years
+    context['today']=today
     return render(request, 'Donations/donationsindex.html', context)
 
 def edit_donation(request, pk):
-    item = get_object_or_404(Donations, pk=pk)
+    item = get_object_or_404(Revenues, pk=pk)
     if request.method == "POST":
-        form = DonationsForm(request.POST, instance=item)
+        form = RevenuesForm(request.POST, instance=item)
         if form.is_valid():
             form.save()
             return redirect('donations-report')
     else:
         today = datetime.now()
         month = today.strftime('%B')
-        form = DonationsForm(instance=item)        
+        form = RevenuesForm(instance=item)        
         context={'form':form, 'month':month}
     return render(request, 'Donations/edit_donations.html', context)
 @login_required
 def donationsarchivessearch(request):
+    today = datetime.now()
+    years=today.year
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
-        archived_reports = DonationsReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
-        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September', 'October', 'November', 'December']
-        years = datetime.now().year
-        years = [yr,2019,2018,2017]
-        donations = DonationsReportArchive.objects.all()
-        today = datetime.now()
-        total = archived_reports.aggregate(totals=models.Sum("Amount"))
-        total_amount = total["totals"]
-        context = {'archived_reports': archived_reports,'months': months,'years': years,'expenses': donations,
-                   'total_amount': total_amount,'today': today,'report_year': report_year,'report_month': report_month}
+        archived_reports = Revenues.objects.filter(Archived_Status='ARCHIVED',Revenue_filter='others', Date__month=report_month, Date__year=report_year)
+        mth=int(report_month)
+        report_month=calendar.month_name[mth]
+        context = {'archived_reports': archived_reports,'years': years,'today': today,
+                  'report_year':report_year,'report_month': report_month}
         return render(request, "Donations/donationssarchive.html", context)
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'November', 'December']
-    years = datetime.now().year
-    years = [yr,2019,2018,2017]
-    donations = DonationsReportArchive.objects.all()
-    context = {'months': months,'years': years,'donations': donations}
+    context = {'years': years}
     return render(request, "Donations/donationssarchive.html", context)
 
 
