@@ -5,7 +5,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Allowances</small></h2>
+                    <h1><i class="fa fa fa-calendar-check-o"></i>ALLOWANCES MODULE</h1>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -20,7 +20,7 @@
                     | <a href="#">Salaries</a>
                  <div class="separator"></div>   
                 </div>
-                <h4 style="text-align: center">Record Allowances given out in the month of {{current_month}} </h4>
+                <h3 style="text-align: center">Record Allowances given out in the month of {{current_month}} </h3>
             <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
                     <ul class="nav nav-tabs bordered">
@@ -36,21 +36,17 @@
                     </ul>
                     <br/>
 					<div class="col-lg-6 col-offset-8 centered">
-
 					    <div class="col-md-10">
-
 					      {% load crispy_forms_tags %}
-
-						      <form method="post" enctype="multipart/form-data">
-
-						      {% csrf_token %}
-
-						          {{ form|crispy }}
-
-						      <button type="submit" class="btn btn-primary" name="button">Submit</button>
-
-						      </form>
-					         
+					      <form method="POST" enctype="multipart/form-data">
+					        {% csrf_token %}
+                            {{ form.Date|as_crispy_field}}
+                            {{ form.Member_Name|as_crispy_field}}
+                            {{ form.Amount|as_crispy_field}}
+                            {{ form.Notes|as_crispy_field}}
+                            <input type="hidden" id="allowance" name="Reason_filtering" value="allowance">
+					        <button type="submit" class="btn btn-primary" name="button">Submit</button>
+					      </form>
 					    </div>
 					</div>
 				</div>

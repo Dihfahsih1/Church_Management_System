@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Salaries Report</title>
+    <title>Allowances Report</title>
     <style type="text/css">
         @page {
             size: A4;
@@ -61,30 +61,32 @@
                uccbwaise1@gmail.com<br>
          </div>
         <div class="list-group">
-            <h2 style="align-content:center"> Monthly Salaries Paid Report for the month of {{ month }}</h2>
+            <h2 style="align-content:center"> Monthly Allowances Given Report for the month of {{ month }}</h2>
         </div>
 
         <table class="table" border="2">
             <thead>
             <tr style="font-size:larger">
                 <th>Date</th>
-                <th>Name</th>
+                <th>Allowance Given To</th>
+                <th>Reason</th>
                 <th>Amount</th>
             </tr>
             </thead>
             <tbody>
-            {% for salary in salaries %}
+            {% for allowance in allowances %}
                 <tr style="font-size:large">
-                    <td>{{ salary.Date }}</td>
-                    <td>{{ salary.Name}}</td>
-                    <td>Shs:{{ salary.Amount}}</td>
+                    <td>{{ allowance.Date }}</td>
+                    <td>{{ allowance.Member_Name}}</td>
+                    <td>{{ allowance.Notes}}</td>
+                    <td>Shs:{{ allowance.Amount}}</td>
 
                 </tr>
             {% endfor %}
               <tr>
                   <td class="jumbotron"><h3>TOTAL</h3></td>
-                  <td class="jumbotron"><h3>----------------------</h3></td>
-                  <td class="jumbotron"><h3>Shs. {{ totalsalary }}</h3></td>
+                  <td class="jumbotron"><h3>----------------------</h3><h3>----------------------</h3></td>
+                  <td class="jumbotron"><h3>Shs. {{ totalAllowance }}</h3></td>
               </tr>
             </tbody>
         </table>

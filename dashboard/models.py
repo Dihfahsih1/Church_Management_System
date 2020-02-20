@@ -138,14 +138,17 @@ class BuildingRenovation(Model):
 
 class Expenditures(Model):
     Date = models.DateField(null=True, blank=True)
-    Payment_Made_To = models.CharField(max_length=100,blank=False)
+    Payment_Made_To = models.CharField(max_length=100,blank=True, null=True)
     Amount = models.IntegerField()
     Reason_filtering=models.CharField(max_length=100, blank=True, null=True)
     Main_Expense_Reason=models.CharField(max_length=100, choices=main,blank=True, null=True)
     General_Expenses_Reason=models.CharField(max_length=100, choices=general, blank=True, null=True)
     Petty_Cash_Reason=models.CharField(max_length=100, choices=petty, blank=True, null=True)
     Other_Expenditure=models.CharField(max_length=100, blank=True, null=True)
+    Notes=models.CharField(max_length=100, blank=True, null=True)
     Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
+    Member_Name = models.ForeignKey('Members', on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
+
     def __str__(self):
         return self.Reason_filtering
 
