@@ -1419,6 +1419,17 @@ class allowances_archived_pdf(View):
         allowancecontext = {'report_month': report_month,'report_year':report_year,'today': today,
         'total_amount': total_amount,'request': request,'archived': archived,}
         return Render.render('Allowances/allowancearchivepdf.html', allowancecontext)
+
+class allowancereceipt(View):
+    def get(self, request, pk):
+        data= get_object_or_404(Expenditures,pk=pk)
+        today = datetime.now()
+        context = {
+            'today': today,
+            'data': data,
+            'request': request,
+        }
+        return Render.render('Allowances/allowance_receipt.html', context)        
 ###############################
       # PLEDGES MODULE#
 ###############################
