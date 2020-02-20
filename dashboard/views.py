@@ -697,7 +697,7 @@ def Offeringsreport (request):
     today = datetime.now()
     years=today.year
     context={}
-    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED")
+    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED",Revenue_filter='offering')
     context['items']=items
     context['years']=years
     context['today']=today
@@ -758,92 +758,66 @@ class offeringsarchivepdf(View):
 @login_required
 def add_seeds(request):
     if request.method=="POST":
-        form=ExpendituresForm(request.POST)
+        form=RevenuesForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('Seeds-report')
     else:
-        form=ExpendituresForm()
+        form=RevenuesForm()
         context={'form':form}
         return render(request, 'Seeds/add_seeds.html',context)  
 @login_required
 def Seedsreport (request):
     if request.method=='POST':
-        archived_year=request.POST['archived_year']
-        archived_month = request.POST['archived_month']
-        #all the available expense in the expenses table
-        all_expenses = Seeds.objects.all()
-        for expense in all_expenses:
-            date=expense.Date
-            name=expense.Seed_Made_By
-            amount=expense.Amount
-            # the expense archive object
-            expense_archiveobj=SeedsReportArchive()
-            #attached values to expense_archiveobj
-            expense_archiveobj.Date=date
-            expense_archiveobj.Seed_Made_By = name
-            expense_archiveobj.Amount=amount
-            expense_archiveobj.archivedyear = archived_year
-            expense_archiveobj.archivedmonth = archived_month
-            expense_archiveobj.save()
-            #deleting all the expense from reports table
-        all_expenses.delete()
-        message="The Monthly Seeds Report has been Archived"
-        context={'message':message}
-        return render(request, 'Seeds/Seedsindex.html', context)
-    months = ['January','February','March','April','May','June','July','August','September','October','November','December']
-    years = datetime.now().year
-    today = timezone.now()
-    current_month = today.strftime('%B')
-    total = Seeds.objects.aggregate(totals=models.Sum("Amount"))
-    total_amount = total["totals"]
-    mth = datetime.now().month
-    items =Seeds.objects.all()
-    day=datetime.now()
-    context = {'day':day,'total_amount':total_amount,'items': items,'months':months,'years':years,'current_month':current_month
-    }
+        items = Revenues.objects.all()
+        for item in items:
+            item.Archived_Status = 'ARCHIVED'
+            item.save()
+            messages.success(request, f'Seeds Offerings Report has been Archived')
+            return redirect('Seeds-report')
+    today = datetime.now()
+    years=today.year
+    context={}
+    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED",Revenue_filter='seeds')
+    context['items']=items
+    context['years']=years
+    context['today']=today
     return render(request, 'Seeds/Seedsindex.html', context)
 
 @login_required
 def seedsarchivessearch(request):
+    today = datetime.now()
+    years=today.year
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
-        archived_reports = SeedsReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
-        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September', 'October', 'November', 'December']
-        years = datetime.now().year
-        seeds = SeedsReportArchive.objects.all()
-        today = timezone.now()
-        total = archived_reports.aggregate(totals=models.Sum("Amount"))
-        total_amount = total["totals"]
-        context = {'archived_reports': archived_reports,'months': months,'years': years,'seeds': seeds,
-                   'total_amount': total_amount,'today': today,'report_year': report_year,'report_month': report_month
-                   }
+        archived_reports = Revenues.objects.filter(Archived_Status='ARCHIVED',Revenue_filter='seeds', Date__month=report_month, Date__year=report_year)
+        mth=int(report_month)
+        report_month=calendar.month_name[mth]
+        context = {'archived_reports': archived_reports,'years': years,'today': today,
+                  'report_year':report_year,'report_month': report_month}
         return render(request, "Seeds/seedsarchive.html", context)
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'November', 'December']
-    years = datetime.now().year
-    seeds = SeedsReportArchive.objects.all()
-    context = {'months': months,'years': years,'seeds': seeds}
+    context = {'years': years}
     return render(request, "Seeds/seedsarchive.html", context)
 
 def edit_seed(request, pk):
-    item = get_object_or_404(Seeds, pk=pk)
+    item = get_object_or_404(Revenues, pk=pk)
     if request.method == "POST":
-        form = SeedsForm(request.POST, instance=item)
+        form = RevenuesForm(request.POST, instance=item)
         if form.is_valid():
             form.save()
             return redirect('Seeds-report')
     else:
         today = timezone.now()
         month = today.strftime('%B')
-        form = SeedsForm(instance=item)        
+        form = RevenuesForm(instance=item)        
         context={'form':form, 'month':month}
     return render(request, 'Seeds/edit_seeds.html', context)
 
 class seed_offering_receipt(View):
     def get(self, request, pk):
-        seeds= get_object_or_404(Seeds,pk=pk)
-        today = timezone.now()
+        seeds= get_object_or_404(Revenues,pk=pk)
+        today = datetime.now()
         context = { 'today': today,'seeds': seeds,'request': request,}
         return Render.render('Seeds/seed_offerings_receipt.html', context)
 

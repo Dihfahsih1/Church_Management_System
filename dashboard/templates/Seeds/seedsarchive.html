@@ -1,112 +1,128 @@
 {% extends "app/base_site.html" %}
 {% block content %}
+{% load humanize %}
 <head>
-  <title>UCC Bwaise | Archived Seed Offering for the month of {{report_month}} {{ report_year }}</title>
+  <title>UCC Bwaise | Archived Petty Cash Expenses for the month of {{report_month}} {{ report_year }}</title>
 </head>
 <div class="right_col" role="main">
-    <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="x_panel">
-                <div class="x_title">
-                    <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Seeds</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                </div>
-                 <div class="x_content quick-link">
-                    <span style="color:red"><b>Other Archived Reports:</b></span>
-                        <a href="{% url 'expensesarchivessearch'  %}"> Main Expenses</a></li>
-                        |<a href="{% url 'general-expensesarchives-search'  %}">General Expenses</a></li>
-                        |<a href="{% url 'tithesarchivessearch'  %}"> Tithes</a></li>
-                        |<a href="{% url 'offeringsarchivessearch'  %}"> Offerings</a></li>
-                        |<a href="{% url 'pledgesarchivessearch'  %}"> Pledges</a></li>
-                        |<a href="{% url 'sundryarchivessearch'  %}"> Petty Expenses</a></li>
-                        |<a href="{% url 'allowancearchivessearch'  %}"> Allowances</a></li>
-                        |<a href="{% url 'salariespaidarchivessearch'  %}"> Salaries</a></li>
-                        |<a href="{% url 'donationsarchivessearch'  %}"> Donations</a></li>
-                        |<a href="{% url 'thanksgivingarchivessearch'  %}"> Thanks Giving</a></li>
-                    <div class="separator"></div>
-                </div>
-            <div class="x_content">
-                <div class="" data-example-id="togglable-tabs">
-                    <ul class="nav nav-tabs bordered">
-                        <li role="presentation"><a href="{% url 'Seeds-report' %}"><i
-                                    class="fa fa-list-ol"></i> List of Seeds</a>
-                        </li>
-                        <li role="presentation"><a href="{% url 'add-seeds' %}"><i
-                              class="fa fa-plus-square-o"></i> Record Seeds</a>
-                         </li>
-                        <li role="presentation" class="active"><a href="#"><i
-                              class="fa fa-plus-square-o"></i> Seeds Archived</a>
-                         </li>
-                    </ul>
-                    <br/>
-                      <h4><i class='glyphicon glyphicon-arrow-down'></i>Please search for the archived Seeds by <b>Year</b> and <b>Month</b></h4><br>
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+            <h1><i class="fa fa fa-calendar-check-o"></i>SEED OFFERINGS MODULE</h1>
+            <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content quick-link">
+          <span style="color:red"><b>Other Reports:</b></span>
+          <a href="{% url  'expenditurereport' %}"> Main Expenses</a>
+          |<a href="{% url 'general-expenses-report' %}"> General Expenses</a>
+          |<a href="{% url 'Offeringsreport' %}"> Offerings</a>
+          |<a href="{% url 'Tithesreport' %}"> Tithes</a>
+          |<a href="{% url 'Pledgesreport' %}"> Pledges</a>
+          |<a href="{% url 'sundryreport' %}"> Petty Expenses</a>
+          |<a href="{% url 'allowancereport' %}"> Allowances</a>
+          |<a href="{% url 'current-month-salaries' %}"> Salaries</a>
+          |<a href="{% url 'donations-report' %}"> Doantions</a>
+          |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a>
+          |<a href="{% url 'Building-Renovation-report' %}"> Building</a>
+        </div>
+        <div class="separator"></div>
 
-                      <form class="x_content" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="form-row">
-                          <div class="col-lg-12" style="background-color: rgb(227, 237, 239">
-                           <div class="col-lg-3">
-                            <label >Year</label>
-                            <input type="text" name="report_year" width="2%">
-                            </div>
-                            <div class="col-lg-3">
-                            <label>Month</label>
-                            <select  name="report_month" id="inlineFormCustomSelect">
-                                {% for report_month in months %}
-                                <option selected="Select Month"> Select Month</option>
-                                   <option class="btn-success" name="{{ report_month }}" value="{{ report_month }}">{{ report_month }}
-                                   </option>
-                                {% endfor %}
-                            </select>
-                            </div>
-                             <div class="col-lg-2">
-                              <button type="submit" class="btn btn-info">Search <span class='glyphicon glyphicon-search'></span></button>
-                             </div>
-                            </div>
-                          </div>
-                        </form><br> <br>
-                        <div class="tab-content">
-                             <div class="tab-pane fade in active" id="tab_invoice_list">
-                                <div class="x_content">                     
-                                  <table id="invoice-table" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-
-                                  <tbody>
-                                  {% for archived in archived_reports  %}
-                                      <tr>
-                                          <td>{{ archived.Date }}</td>
-                                          <td>{{ archived.Seed_Made_By }}</td>
-                                          <td>{{ archived.Amount }}</td>
-                                      </tr>
-                                  {% endfor %}
-                                </tbody>
-                                <td>Total</td><td><pre>  </pre></td><td><b style="color: red">Shs.{{total_amount}}</b></td>
-                                <thead class="font-weight-bold ">
-                                        <tr>
-                                        <td>Date</td>
-                                          <td>Name</td>
-                                        <td>Amount</td>
-                                         </tr>
-                                </thead>
-                                 {% if archived_reports %}
-                                     <h2 style="text-align: center">Monthly Archived Tithes Reports For the financial cycle of  <b>{{ report_month }} {{ report_year }}</b>  </h2>
-                                      {% elif archived_reports == empty %}
-                                      <p style="color: red"><i class='glyphicon glyphicon-arrow-up'></i>You have not yet made any search!, please do so</p>
-
-                                     <h2 > No archived Data in the query you have made of the cycle {{ report_month }} {{ report_year }}</h2>
-                                  {% endif %}
-                              </table>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+        <h3>Searching For Archived Seed Offerings</h3>
+        <div class="separator"></div>
+        <div class="x_content">
+          <div class="" data-example-id="togglable-tabs">
+            <ul class="nav nav-tabs bordered">
+                <li role="presentation" ><a href="{% url 'Seeds-report' %}"><i
+                            class="fa fa-list-ol"></i> List of Seeds</a>
+                </li>
+                <li role="presentation"><a href="{% url 'add-seeds' %}"><i
+                      class="fa fa-plus-square-o"></i> Record Seed</a>
+                </li>
+                    <li role="presentation" class="active"><a href="{% url 'seeds-archives-search' %}"><i
+                      class="fa fa-plus-square-o"></i> Seeds Archived</a>
+                    </li>
+                    </li>
+                    
+            </ul><br>
+            <h4><i class='glyphicon glyphicon-arrow-down'></i>Please search for the archived Seed Offerings by <b>Year</b> and <b>Month</b></h4><br>
+            <form class="x_content" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-row">
+                <div class="col-lg-12" style="background-color: rgb(227, 237, 239">
+                  <div class="col-lg-3" style="margin-top: 8px">
+                    <label >Year</label>
+                    <input type="text" placeholder="Enter Year, e.g. 2020" name="report_year" width="2%" required="required">
                   </div>
+                  <div class="col-lg-3" style="margin-top: 8px">
+                    <label>Month</label>
+                    <select  name="report_month" id="inlineFormCustomSelect" required="required" style="cursor: pointer">
+                      <option></option>
+                      <option class="btn-success" name="1" value="1">January</option>
+                      <option class="btn-success" name="2" value="2">February</option>
+                      <option class="btn-success" name="3" value="3">March</option>
+                      <option class="btn-success" name="4" value="4">April</option>
+                      <option class="btn-success" name="5" value="5">May</option>
+                      <option class="btn-success" name="6" value="6">June</option>
+                      <option class="btn-success" name="7" value="7">July</option>
+                      <option class="btn-success" name="8" value="8">August</option>
+                      <option class="btn-success" name="9" value="9">September</option>
+                      <option class="btn-success" name="10" value="10">October</option>
+                      <option class="btn-success" name="11" value="11">November</option>
+                      <option class="btn-success" name="12" value="12">December</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-2">
+                    <button type="submit" class="btn btn-info">Search <span class='glyphicon glyphicon-search'></span></button>
+                 </div>
+                </div>
+              </div>
+            </form><br> <br>
+          <div class="tab-content">
+           <div class="tab-pane fade in active" id="tab_invoice_list">
+              <div class="x_content"> 
+              {% if archived_reports %}
+                   <h2 style="text-align: center">Monthly Archived Seed Offerings For the financial cycle of  <b>{{ report_month }} {{ report_year }}</b>  </h2>
+                {% elif archived_reports == empty %}
+                    <p style="color: red"><i class='glyphicon glyphicon-arrow-up'></i>You have not yet made any search!, please do so</p>
+                    {% else %}
+                     <h2 > No archived Data in the query you have made of the cycle {{ report_month }} {{ report_year }}</h2>                     
+                   {% endif %}                     
+                   <table id="invoice-table" class=" sum_table table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    <thead>
+                      <tr>
+                        <td>Date</td>
+                        <td>Member Name</td>
+                        <td>Service</td>
+                        <td>Amount <i class=" glyphicon glyphicon-arrow-right"></i> (<span style="font-weight: bolder; color:red" class="totalCol"></span>)</td>
+                        <td>Archived Status</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for item in archived_reports %}
+                        <tr class="totalColumn">
+                          <td>{{ item.Date}}</td>
+                          <td>{{ item.Member_Name}}</td>
+                          <td>{{ item.Service}}</td>
+                          <td class="rowDataSd">{{ item.Amount}}</td>
+                          <td>{{ item.Archived_Status}}</td>
+                          <td>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 {% endblock content%}

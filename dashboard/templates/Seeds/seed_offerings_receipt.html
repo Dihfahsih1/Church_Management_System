@@ -42,7 +42,7 @@
                 border: none;
                 height: 1px;
                 /* Set the hr color */
-                color: #333; /* old IE */
+                color: blue; /* old IE */
                 background-color: #fff; /* Modern Browsers */
             }
         </style>
@@ -62,13 +62,17 @@
         <div class='details'>
             <h1 align="center"><u> SEED OFFERING RECEiPT</u></h1>
             <hr class="hrItem">
-            <strong style="font-size: large"><pre>Date:</strong><u>{{ seeds.Date }}                    </pre></u>
-            <strong style="font-size: large"><pre>Received From:</strong><u>{{ seeds.Seed_Made_By}}                  </pre> </u>
-           <strong style="font-size: large"><pre>Amount :</strong><u> Shs. {{ seeds.Amount}}                      </pre></u>
-           <i><pre>Received with thanks by:<u>                  </pre> </u></i>
+            <strong style="font-size: large"><pre>Date: </strong><u>{{ seeds.Date }}</pre></u>
+            <strong style="font-size: large"><pre>Received From: </strong><u>{{ seeds.Member_Name}}</pre></u>
+            <strong style="font-size: large"><pre>Service: </strong><u> Shs.{{ seeds.Service}}</pre></u>
+           <strong style="font-size: large"><pre>Amount: </strong><u> Shs.{{ seeds.Amount}}</pre></u>
+           <i><pre>Received with thanks by:<u>                                </pre> </u></i>
 
         </div>
-  </div>
+  </div><br><br>
+      <hr class="hrItem">
+      <i>Thank You for supporting the Ministry, God Bless You</i>
+<p style="font-size: smaller; text-align: left; color: red">Generated on: {{ today }}</p>
 
 </body>
 </html>

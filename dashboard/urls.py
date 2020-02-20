@@ -30,12 +30,19 @@ url(r'^General-Expenses/Archived/', views.general_expenses_archives_search, name
 url(r'^Main-Expenses/Archived/', views.main_expenses_archives_search, name='expensesarchivessearch'),
 url(r'^Petty-Cash/Archived/', views.petty_cash_archives_search, name='sundryarchivessearch'),
 
-
+#Offerings Module
 url(r'^Revenues/Offerings/Report', views.Offeringsreport, name='Offeringsreport'),
 url(r'^edit_offerings/(?P<pk>\d+)', views.edit_offerings ,name='edit-offerings'),
 url(r'^offeringspdf/', views.offeringspdf.as_view() ,name='offeringspdf'),
 url(r'^offeringsarchivepdf/', views.offeringsarchivepdf.as_view(), name='offeringsarchivepdf'),
 url(r'^Record-Offerings/', views.Enter_Offerings, name='Enter_Offerings'),
+
+#Seeds Module
+url(r'^Revenue/Seeds/Add/', views.add_seeds, name='add-seeds'),
+url(r'^Revenues/Seeds-Report', views.Seedsreport, name='Seeds-report'),
+url(r'^Revenue/Seeds/Edit/(?P<pk>\d+)', views.edit_seed,name='edit-seed'),
+url(r'^Receipts/Seed-Offering/(?P<pk>\d+)', views.seed_offering_receipt.as_view() ,name='seed-offering-receipt'),
+url(r'^Archives/Seeds/', views.seedsarchivessearch, name='seeds-archives-search'),
 
 
 url(r'^Enter-Records/Allowances', views.give_allowance, name='give-allowance'),
@@ -66,7 +73,6 @@ url(r'^Archived/Pledge-Debt/Invoice/(?P<pk>\d+)', views.pledge_debt_invoice.as_v
 url(r'^allowancereceipt/(?P<pk>\d+)', views.allowancereceipt.as_view() ,name='allowancereceipt'),
 url(r'^tithesreceipt/(?P<pk>\d+)', views.tithesreceipt.as_view() ,name='tithesreceipt'),
 url(r'^pledgesreceipt/(?P<pk>\d+)', views.pledgesreceipt.as_view() ,name='pledgesreceipt'),
-url(r'^Receipts/Seed-Offering/(?P<pk>\d+)', views.seed_offering_receipt.as_view() ,name='seed-offering-receipt'),
 
 url(r'^expenditurearchive/', views.expenditurearchive, name='expenditurearchive'),
 url(r'^allowancearchive/', views.allowancearchive, name='allowancearchive'),
@@ -145,9 +151,9 @@ url(r'^Employees/Pay/(?P<pk>\d+)', views.paying_employees, name='pay-employee'),
 url(r'^Employees/Salary/Paid/', views.paid_salary, name='paid-salary'),
 url(r'^Employees/Salary/Paid-List/', views.current_month_salary_paid, name='current-month-salaries'),
 url(r'^Petty-Expenses/Airtime/', views.airtime_data_report, name='airtime-data-report'),
-url(r'^Revenue/Seeds/Add/', views.add_seeds, name='add-seeds'),
-url(r'^Reports/Seeds/List', views.Seedsreport, name='Seeds-report'),
-url(r'^Revenue/Seeds/Edit/(?P<pk>\d+)', views.edit_seed,name='edit-seed'),
+
+
+
 url(r'^Employee/Salary/Delete/(?P<pk>\d+)', views.delete_salary_paid,name='delete-salary-paid'),
 url(r'^Revenue/Donations/Edit/(?P<pk>\d+)', views.edit_donation,name='edit-donation'),
 url(r'^Revenue/Thanks-Giving/Edit/(?P<pk>\d+)', views.edit_thanks_giving,name='edit-thanks-giving'),
