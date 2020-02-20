@@ -1,4 +1,5 @@
 <!doctype html>
+{% load humanize %}
 <html>
 <head>
     <meta charset="utf-8">
@@ -21,7 +22,7 @@
             padding: 5px;
             vertical-align: top;
             border-top: 1px solid #000;
-            text-align: center;
+            text-align: left;
         }
 
         .table thead th {
@@ -68,7 +69,7 @@
                uccbwaise1@gmail.com<br>
          </div>
         <div class="list-group">
-            <h2 style="align-content:center"> Monthly Tithes Archived Report</h2>
+            <h2 style="align-content:center"> Tithes Archived Report For {{report_month}} {{report_year}}</h2>
         </div>
 
         <table class="table" border="2">
@@ -84,13 +85,13 @@
             {% for tithes in archived_tithes  %}
                 <tr style="font-size:large">
                     <td>{{ tithes.Date }}</td>
-                    <td>{{ tithes.Service }}</td>
                     <td>{{ tithes.Member_Name }}</td>
-                    <td>Shs:{{ tithes.Amount }}</td>
+                    <td>{{ tithes.Service }}</td>
+                    <td>{{ tithes.Amount |intcomma }}</td>
 
                 </tr>
             {% endfor %}
-            <tr><td><b>Total Amount:</b> </td> <td>______________  </td><td><b>{{ total_amount}}</b></td></tr>
+            <tr><td><b>Total Amount:</b> </td> <td>______________  </td><td>______________  </td><td><b>Shs.{{ total_amount|intcomma}}</b></td></tr>
             </tbody>
         </table>
     </div>

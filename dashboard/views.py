@@ -916,16 +916,16 @@ class tithesreceipt(View):
         return Render.render('Tithes/tithesreceipt.html', context)
 
 class tithesarchivepdf(View):
-    def get(self, request, report_month, report_year):
-        
-        
-        manth=strptime(report_month, '%B').tm_mon
-        print(manth)
-        archived_tithes = Revenues.objects.filter(Archived_Status='ARCHIVED',Revenue_filter='tithes',Date__month=manth, Date__year=report_year)
+    def get(self, request, report_month, report_year):        
+        month=strptime(report_month, '%B').tm_mon
+        print(month)
+        archived_tithes = Revenues.objects.filter(Archived_Status='ARCHIVED',Revenue_filter='tithes',Date__month=month, Date__year=report_year)
         today = datetime.now()
         total = archived_tithes.aggregate(totals=models.Sum("Amount"))
         total_amount = total["totals"]
         tithescontext = {
+            'report_month': report_month,
+            'report_year':report_year,
             'today': today,
             'total_amount': total_amount,
             'request': request,
@@ -935,10 +935,78 @@ class tithesarchivepdf(View):
 
 def member_annual_tithes(request, pk):
     years = datetime.now().year
-    tithes=Revenues.objects.filter(Member_Name_id=pk, archivedyear=years)
+    tithes=Revenues.objects.filter(Member_Name_id=pk, Date__year=years)
     members=Members.objects.filter(id=pk)
     tithescontext={'tithes':tithes, 'members':members}
     return render(request, 'Tithes/member_annual_tithes.html', tithescontext) 
+
+
+   ###################################################
+    #               THANKS GIVING MODULE                #
+     ###################################################
+@login_required
+def record_thanks_giving(request):
+    if request.method=="POST":
+        form=RevenuesForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('thanks-giving-report')
+    else:
+        form=RevenuesForm()
+        today = datetime.now()
+        month = today.strftime('%b')
+        context={'form':form, 'month':month}
+        return render(request, 'ThanksGiving/record_thanks_giving.html',context)
+@login_required
+def thanks_giving_report(request):
+    if request.method=='POST':
+        items = Revenues.objects.all()
+        for item in items:
+            item.Archived_Status = 'ARCHIVED'
+            item.save()
+        messages.success(request, f'Thanks Giving Report has been Archived')
+        return redirect('thanks-giving-report')
+    today = datetime.now()
+    years=today.year
+    context={}
+    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED",Revenue_filter='thanks')
+    context['items']=items
+    context['years']=years
+    context['today']=today
+    return render(request, 'ThanksGiving/thanksgivingindex.html', context)
+
+def edit_thanks_giving(request, pk):
+    item = get_object_or_404(Revenues, pk=pk)
+    if request.method == "POST":
+        form = RevenuesForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('thanks-giving-report')
+    else:
+        today = timezone.now()
+        form = RevenuesForm(instance=item)        
+        context={'form':form}
+    return render(request, 'ThanksGiving/edit_thanks_giving.html', context)
+
+@login_required
+def thanksgivingarchivessearch(request):
+    today = datetime.now()
+    years=today.year
+    if request.method == 'POST':
+        report_year = request.POST['report_year']
+        report_month = request.POST['report_month']
+        archived_reports = Revenues.objects.filter(Archived_Status='ARCHIVED',Revenue_filter='thanks', Date__month=report_month, Date__year=report_year)
+        mth=int(report_month)
+        report_month=calendar.month_name[mth]
+        context = {'archived_reports': archived_reports,'years': years,'today': today,
+                  'report_year':report_year,'report_month': report_month}
+        return render(request, "ThanksGiving/thanksgivingarchivessearch.html", context)
+    context = {'years': years}
+    return render(request, "ThanksGiving/thanksgivingarchivessearch.html", context)
+
+
+
+
      ###################################################
     #                   DONATIONS MODULE                #
      ###################################################
@@ -1027,92 +1095,7 @@ def donationsarchivessearch(request):
     return render(request, "Donations/donationssarchive.html", context)
 
 
-     ###################################################
-    #               THANKS GIVING MODULE                #
-     ###################################################
-@login_required
-def record_thanks_giving(request):
-    if request.method=="POST":
-        form=ThanksGivingForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('thanks-giving-report')
-    else:
-        form=ThanksGivingForm()
-        today = timezone.now()
-        month = today.strftime('%B')
-        context={'form':form, 'month':month}
-        return render(request, 'ThanksGiving/record_thanks_giving.html',context)
-@login_required
-def thanks_giving_report(request):
-    if request.method=='POST':
-        archived_year=request.POST['archived_year']
-        archived_month = request.POST['archived_month']
-        all_expenses = ThanksGiving.objects.all()
-        for expense in all_expenses:
-            date=expense.Date
-            amount=expense.Amount
-            name = expense.Thanks_Giving_By
-            reason = expense.Service
-            expense_archiveobj=ThanksGivingReportArchive()
-            expense_archiveobj.Thanks_Giving_By = name
-            expense_archiveobj.Date=date
-            expense_archiveobj.Service=reason
-            expense_archiveobj.Amount=amount
-            expense_archiveobj.archivedyear= archived_year
-            expense_archiveobj.archivedmonth =archived_month
-            expense_archiveobj.save()
-        all_expenses.delete()
-        message="The Monthly Thanks Giving report has been Archived"
-        context={'message':message}
-        return render(request, 'ThanksGiving/thanksgivingindex.html', context)
-    months = ['January', 'February', 'March', 'April', 'May', 'June',
-              'July', 'August','September', 'October', 'November','December']
-    years = datetime.now().year
-    total = ThanksGiving.objects.aggregate(totals=models.Sum("Amount"))
-    total_amount = total["totals"]
-    mth = datetime.now().month
-    day=datetime.now()
-    items =ThanksGiving.objects.all()
-    context = {'day':day,'total_amount':total_amount,'items': items,'months':months,'years':years,}
-    return render(request, 'ThanksGiving/thanksgivingindex.html', context)
-
-def edit_thanks_giving(request, pk):
-    item = get_object_or_404(ThanksGiving, pk=pk)
-    if request.method == "POST":
-        form = ThanksGivingForm(request.POST, instance=item)
-        if form.is_valid():
-            form.save()
-            return redirect('thanks-giving-report')
-    else:
-        today = timezone.now()
-        month = today.strftime('%B')
-        form = ThanksGivingForm(instance=item)        
-        context={'form':form, 'month':month}
-    return render(request, 'ThanksGiving/edit_thanks_giving.html', context)
-@login_required
-def thanksgivingarchivessearch(request):
-    if request.method == 'POST':
-        report_year = request.POST['report_year']
-        report_month = request.POST['report_month']
-        archived_reports = ThanksGivingReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
-        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September', 'October', 'November', 'December']
-        years = datetime.now().year
-        years = [yr,2019,2018,2017]
-        thanksgiving = ThanksGivingReportArchive.objects.all()
-        today = timezone.now()
-        total = archived_reports.aggregate(totals=models.Sum("Amount"))
-        total_amount = total["totals"]
-        context = {'archived_reports': archived_reports,'months': months,'years': years,'expenses': thanksgiving,
-                   'total_amount': total_amount,'today': today,'report_year': report_year,'report_month': report_month}
-        return render(request, "ThanksGiving/thanksgivingarchivessearch.html", context)
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'November', 'December']
-    years = datetime.now().year
-    years = [yr,2019,2018,2017]
-    thanksgiving = ThanksGivingReportArchive.objects.all()
-    context = {'months': months,'years': years,'thanksgiving': thanksgiving}
-    return render(request, "ThanksGiving/thanksgivingarchivessearch.html", context)
-
+  
 
        
 
@@ -1547,15 +1530,6 @@ class Expenditurespdf(View):
             'totalExpenditures': totalExpenditures,
         }
         return Render.render('Expenses/Expenditurespdf.html',Expenditurescontext)
-
-
-
-        ####################################################
-        #        ARCHIVING OF THE MONTHLY REPORTS           #
-        ####################################################
-
-
-
 def expenditurearchive(request):
     expensesarchived = ExpensesReportArchive.objects.all().order_by('-Date')
     total = AllowanceReportArchive.objects.aggregate(totals=models.Sum("Amount"))
@@ -1577,14 +1551,6 @@ def Expendituresarchive(request):
         'Expendituresarchived': Expendituresarchived
                }
     return render(request, 'Expenses/Expendituresarchive.html', context)
-
-
-
-
-
- ####################################################
-#       PRINTING THE RECEIPTS                        #
- ####################################################
 
 class expensereceipt(View):
     def get(self, request, pk):
@@ -1640,6 +1606,8 @@ class Expendituresarchivepdf(View):
             'archived_Expenditures': archived_Expenditures,
         }
         return Render.render('Expenses/Expendituresarchivepdf.html', Expenditurescontext)
+
+
 ###############################
       # PLEDGES MODULE#
 ###############################

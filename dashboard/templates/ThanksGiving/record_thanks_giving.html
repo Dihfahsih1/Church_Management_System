@@ -1,59 +1,59 @@
 
+
 {% extends "app/base_site.html" %}
 {% block content %}
 <div class="right_col" role="main">
     <div class="row">
-    	<div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Thanks Giving</small></h2>
+                    <h1><i class="fa fa fa-calendar-check-o"></i> THANKS GIVING OR LOVE OFFERING MODULE</h1>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
                     </ul>
                     <div class="clearfix"></div>
                 </div>
+                <div class="separator"></div>
                 <div class="x_content quick-link">
                     <span style="color:red"><b>Quick Links:</b></span>
                     <a href="{% url 'Enter_Offerings' %}">Offerings</a>
                     | <a href="{% url 'Offeringsreport' %}">List of offerings</a>
                     | <a href="{% url 'Enter_Tithes' %}">Tithes</a>
                     | <a href="{% url 'Tithesreport' %}">List of Tithes</a>
-                    | <a href="{% url 'add-seeds' %}">Seeds</a>
-                    | <a href="{% url 'record-thanks-giving'%}">Thanks Giving</a>
-                    | <a href="{% url 'record-donations' %}">Donations</a>
-                    <div class="separator"></div>
+                    | <a href="#">Seeds</a>
+                    | <a href="#">Thanks Giving</a>
+                    | <a href="#">Donations</a>
                 </div>
-		  	    <div class="x_content">
-		            <div class="" data-example-id="togglable-tabs">
-		                <ul class="nav nav-tabs bordered">
-		                    <li role="presentation"><a href="{% url 'thanks-giving-report' %}"><i class="fa fa-list-ol"></i> List of Thanks Giving</a>
+                <div class="separator"></div>
+                <h2 style="text-align: center">Record Thanks Giving By a Member</h2>
+                <div class="x_content">
+                    <div class="" data-example-id="togglable-tabs">
+                    <ul class="nav nav-tabs bordered">
+                      <ul class="nav nav-tabs bordered">
+                        <li role="presentation" ><a href="{% url 'thanks-giving-report' %}"><i class="fa fa-list-ol"></i>Thanks Giving Report</a>
                          </li>
-		                    <li role="presentation"class="active"><a href="{% url 'record-thanks-giving' %}"><i
-	                            class="fa fa-plus-square-o"></i> Record Thanks Giving</a>
-		                    </li>
-                             <li role="presentation"><a href="{% url 'thanksgivingarchivessearch'%}"><i
+                        <li role="presentation" class="active"><a href="{% url 'record-thanks-giving' %}"><i class="fa fa-plus-square-o"></i> Record Thanks Giving</a>
+                        </li>
+                        <li role="presentation"><a href="{% url 'thanksgivingarchivessearch'%}"><i
                               class="glyphicon glyphicon-king"></i> Thanks Givings Archived</a>
-                            </li>
-                            
-		                </ul>
-		                <br/>
-                         <h2 style="text-align: center">Record Thanks Giving</h2>
-                      <p>{{ msg}}</p>
-						<div style="margin-left: 25%"class="col-lg-4 col-md-4 col-sm-4 justify-content-center">
-						{% load crispy_forms_tags %}
-							<form method="POST" enctype="multipart/form-data" >
-								{% csrf_token %}
-								{{ form.Date|as_crispy_field}}
-                                {{ form.Thanks_Giving_By|as_crispy_field}}
-								{{ form.Service|as_crispy_field}}
-								{{ form.Amount|as_crispy_field}}
-							<button type="submit" class="btn btn-primary" name="button">Submit</button>
-							</form>
-						</div>
-			        </div>
-		        </div>
-                {% include 'messages.html' %}
+                        </li>
+                    </ul>
+                        <br/>
+                        <div style="margin-left: 25%"class="col-lg-4 col-md-4 col-sm-4 justify-content-center">
+                        {% load crispy_forms_tags %}
+                            <form method="POST" enctype="multipart/form-data" >
+                                {% csrf_token %}
+                                {{ form.Date|as_crispy_field}}
+                                {{ form.Member_Name|as_crispy_field}}
+                                {{ form.Service|as_crispy_field}}
+                                {{ form.Amount|as_crispy_field}}
+                                <input type="hidden" id="thanks" name="Revenue_filter" value="thanks">
+                            <button type="submit" class="btn btn-primary" name="button">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

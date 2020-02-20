@@ -57,6 +57,11 @@ url(r'^Enter-Records/Allowances', views.give_allowance, name='give-allowance'),
 url(r'^Enter_Pledges/', views.Enter_Pledges, name='Enter_Pledges'),
 url(r'^Building-Renovations/', views.record_building_collections, name='record-building-collections'),
 
+url(r'^Archives/Thanks-Giving/', views.thanksgivingarchivessearch, name='thanksgivingarchivessearch'),
+url(r'^Revenue/Thanks-Giving/Edit/(?P<pk>\d+)', views.edit_thanks_giving,name='edit-thanks-giving'),
+url(r'^Revenue/Thanks-giving/Add', views.record_thanks_giving,name='record-thanks-giving'),
+url(r'^Reports/Thanks-giving/List', views.thanks_giving_report,name='thanks-giving-report'),
+
 url(r'^Revenue/Donations/Add', views.record_donations, name='record-donations'),
 url(r'^Reports/Donations/List', views.donations_report, name='donations-report'),
 url(r'^Pledges/Add-Item/', views.add_Pledge_Items ,name='add-pledge-item'),
@@ -127,7 +132,7 @@ url(r'^offeringsarchivessearch/', views.offeringsarchivessearch, name='offerings
 url(r'^Archives/Salaries/', views.salariespaidarchivessearch, name='salariespaidarchivessearch'),
 url(r'^Archives/Seeds/', views.seedsarchivessearch, name='seeds-archives-search'),
 url(r'^Archives/Donations/', views.donationsarchivessearch, name='donationsarchivessearch'),
-url(r'^Archives/Thanks-Giving/', views.thanksgivingarchivessearch, name='thanksgivingarchivessearch'),
+
 url(r'^Archives/Building-Renovations/', views.BuildingRenovationarchivessearch, name='BuildingRenovationarchivessearch'),
 
 # url(r'^expenditure_report_archive/', views.expenditure_report_archive, name='expenditure_report_archive'),
@@ -164,9 +169,7 @@ url(r'^Petty-Expenses/Airtime/', views.airtime_data_report, name='airtime-data-r
 
 url(r'^Employee/Salary/Delete/(?P<pk>\d+)', views.delete_salary_paid,name='delete-salary-paid'),
 url(r'^Revenue/Donations/Edit/(?P<pk>\d+)', views.edit_donation,name='edit-donation'),
-url(r'^Revenue/Thanks-Giving/Edit/(?P<pk>\d+)', views.edit_thanks_giving,name='edit-thanks-giving'),
-url(r'^Revenue/Thanks-giving/Add', views.record_thanks_giving,name='record-thanks-giving'),
-url(r'^Reports/Thanks-giving/List', views.thanks_giving_report,name='thanks-giving-report'),
+
 
 #slider urls
 url(r'^frontend/slider/index/$', views.SliderListView.as_view(), name='slider_list'),
