@@ -114,6 +114,9 @@
                       {% endfor %}
                     </tbody>
                   </table>
+                  {% if archived_reports %}
+                  <a href="{% url 'tithesarchivepdf' %}" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"> PRINT THE ARCHIVE</span></a>
+                  {% endif %}
                 </div>
               </div>
             </div>

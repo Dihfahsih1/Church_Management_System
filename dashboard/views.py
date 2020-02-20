@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .forms import *
 from .models import *
+from time import strptime
 from .render import Render
 from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
@@ -890,9 +891,11 @@ class tithespdf(View):
         tithes = Revenues.objects.filter(Archived_Status='NOT-ARCHIVED',Revenue_filter='tithes').order_by('-Date')
         today = datetime.now()
         month=today.strftime('%B')
+        year=today.year
         total = tithes.aggregate(totals=models.Sum("Amount"))
         total_amount = total["totals"]
         context = {
+           'year' : year,
             'today': today,
             'month': month,
             'total_amount': total_amount,
@@ -905,6 +908,7 @@ class tithesreceipt(View):
         tithes= get_object_or_404(Revenues,pk=pk)
         today = timezone.now()
         context = {
+
             'today': today,
             'tithes': tithes,
             'request': request,
@@ -913,8 +917,12 @@ class tithesreceipt(View):
 
 class tithesarchivepdf(View):
     def get(self, request, report_month, report_year):
-        archived_tithes = Reveunes.objects.filter(Date__month=report_month, Date__year=report_year)
-        today = timezone.now()
+        
+        
+        manth=strptime(report_month, '%B').tm_mon
+        print(manth)
+        archived_tithes = Revenues.objects.filter(Archived_Status='ARCHIVED',Revenue_filter='tithes',Date__month=manth, Date__year=report_year)
+        today = datetime.now()
         total = archived_tithes.aggregate(totals=models.Sum("Amount"))
         total_amount = total["totals"]
         tithescontext = {

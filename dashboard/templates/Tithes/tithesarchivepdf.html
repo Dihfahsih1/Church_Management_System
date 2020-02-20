@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Salaries Report</title>
+    <title>Tithes Report</title>
     <style type="text/css">
         @page {
             size: A4;
@@ -76,6 +76,7 @@
             <tr style="font-size:larger">
                 <th>Date</th>
                 <th>Name</th>
+                <th>Service</th>
                 <th>Amount</th>
             </tr>
             </thead>
@@ -83,7 +84,8 @@
             {% for tithes in archived_tithes  %}
                 <tr style="font-size:large">
                     <td>{{ tithes.Date }}</td>
-                    <td>{{ tithes.Tithe_Made_By }}</td>
+                    <td>{{ tithes.Service }}</td>
+                    <td>{{ tithes.Member_Name }}</td>
                     <td>Shs:{{ tithes.Amount }}</td>
 
                 </tr>

@@ -20,7 +20,7 @@
             padding: 5px;
             vertical-align: top;
             border-top: 1px solid #000;
-            text-align: center;
+            text-align: left;
         }
         .table thead th {
             vertical-align: bottom;
@@ -63,14 +63,15 @@
                uccbwaise1@gmail.com<br>
          </div>
         <div class="list-group">
-            <h2 style="align-content:center">Tithes Report for the month of {{ month }}</h2>
+            <h2 style="align-content:center">Tithes Report for the month of {{ month }} {{year}}</h2>
         </div>
 
-        <table class="table" border="2">
+        <table class="table" border="0.5">
             <thead>
             <tr style="font-size:larger">
                 <th>Date</th>
                 <th>Name</th>
+                <th>Service</th>
                 <th>Amount</th>
             </tr>
             </thead>
@@ -79,14 +80,16 @@
                 <tr style="font-size:large">
 
         <td>{{ ex.Date}}</td>
-        <td>{{ ex.Tithe_Made_By}}</td>
+        <td>{{ ex.Member_Name}}</td>
+        <td>{{ ex.Service }}</td>
         <td>{{ ex.Amount }}</td>
         </tr>
             {% endfor %}
               <tr>
                   <td class="jumbotron"><h3>TOTAL</h3></td>
                   <td class="jumbotron"><h3>----------------------</h3></td>
-                  <td class="jumbotron"><h3>Shs. {{ totalexpense }}</h3></td>
+                  <td class="jumbotron"><h3>----------------------</h3></td>
+                  <td class="jumbotron"><h3>Shs. {{ total_amount }}</h3></td>
               </tr>
             </tbody>
         </table>
