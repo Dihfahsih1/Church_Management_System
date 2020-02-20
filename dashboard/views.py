@@ -662,7 +662,6 @@ def visitors_list(request):
     #                 OFFERINGS MODULE                  #
      ###################################################
 
-#recording offerings
 @login_required
 def Enter_Offerings(request):
     if request.method=="POST":
@@ -675,7 +674,6 @@ def Enter_Offerings(request):
         form=RevenuesForm()
         return render(request, 'Offerings/record_offerings.html',{'form':form})
 
-#edit offerings
 def edit_offerings(request, pk):
     item = get_object_or_404(Revenues, pk=pk)
     if request.method == "POST":
@@ -694,7 +692,7 @@ def Offeringsreport (request):
         for item in items:
             item.Archived_Status = 'ARCHIVED'
             item.save()
-        messages.success(request, f'All Building Collections have been Archived')
+        messages.success(request, f'General Offerings Report has been Archived')
         return redirect('Offeringsreport')
     today = datetime.now()
     years=today.year
@@ -757,17 +755,16 @@ class offeringsarchivepdf(View):
         #################################################
         #        SEEDS OFFERING MODULE                  #
         #################################################
+@login_required
 def add_seeds(request):
     if request.method=="POST":
-        form=SeedsForm(request.POST)
+        form=ExpendituresForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('Seeds-report')
     else:
-        form=SeedsForm()
-        today = timezone.now()
-        month = today.strftime('%B')
-        context={'form':form, 'month':month}
+        form=ExpendituresForm()
+        context={'form':form}
         return render(request, 'Seeds/add_seeds.html',context)  
 @login_required
 def Seedsreport (request):
@@ -2940,7 +2937,7 @@ def church_delete(request, church_pk):
     #                 BUILDING MODULE                  #
      ###################################################
 
-#recording offerings
+
 @login_required
 def record_building_collections(request):
     if request.method=="POST":
