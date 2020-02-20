@@ -1412,12 +1412,12 @@ def allowancearchivessearch(request):
 class allowances_archived_pdf(View):
     def get(self, request, report_month, report_year):        
         month=strptime(report_month, '%B').tm_mon
-        archived_allowance = Expenditures.objects.filter(Archived_Status='ARCHIVED', Reason_filtering='allowance',Date__month=month, Date__year=report_year)
+        archived = Expenditures.objects.filter(Archived_Status='ARCHIVED', Reason_filtering='allowance',Date__month=month, Date__year=report_year)
         today = datetime.now()
-        total = archived_allowance.aggregate(totals=models.Sum("Amount"))
+        total = archived.aggregate(totals=models.Sum("Amount"))
         total_amount = total["totals"]
         allowancecontext = {'report_month': report_month,'report_year':report_year,'today': today,
-        'total_amount': total_amount,'request': request,'archived_allowance': archived_allowance,}
+        'total_amount': total_amount,'request': request,'archived': archived,}
         return Render.render('Allowances/allowancearchivepdf.html', allowancecontext)
 ###############################
       # PLEDGES MODULE#
