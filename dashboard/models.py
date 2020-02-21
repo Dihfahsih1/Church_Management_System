@@ -152,6 +152,8 @@ class Revenues(Model):
     Other_Notes=models.CharField(max_length=10000, blank=True, null=True)
     def __str__(self):
         return str(self.Revenue_filter)
+    class Meta:
+        ordering = ['-Date']    
         
 class Members(models.Model):
     date = models.DateTimeField(auto_now=True)

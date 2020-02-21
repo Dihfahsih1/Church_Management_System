@@ -398,7 +398,7 @@ def record_building_collections(request):
         if form.is_valid():
             form.save()
             messages.success(request, f'Building Collections have been recorded')
-            return redirect('record-building-collections')
+            return redirect('Building-Renovation-report')
     else:
         form=RevenuesForm()
         return render(request, 'BuildingRenovation/record_building_collections.html',{'form':form})
@@ -426,7 +426,7 @@ def Building_Renovation_report(request):
     today = datetime.now()
     years=today.year
     context={}
-    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED",Revenue_filter='build')
+    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED",Revenue_filter='build').order_by('-id')
     context['items']=items
     context['years']=years
     context['today']=today
@@ -717,7 +717,7 @@ class tithesarchivepdf(View):
         return Render.render('Tithes/tithesarchivepdf.html', tithescontext)
 
 def member_annual_tithes(request, pk):
-    years = datetime.now().year
+    years = timezone.now().year
     tithes=Revenues.objects.filter(Member_Name_id=pk, Date__year=years).order_by('-id')
     total = tithes.aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
@@ -1036,7 +1036,7 @@ def petty_cash_report (request):
     today = datetime.now()
     years=today.year
     context={}
-    items = Expenditures.objects.filter(Archived_Status="NOT-ARCHIVED",Reason_filtering='petty')
+    items = Expenditures.objects.filter(Archived_Status="NOT-ARCHIVED",Reason_filtering='petty').order_by('-Date')
     context['items']=items
     context['years']=years
     context['today']=today
