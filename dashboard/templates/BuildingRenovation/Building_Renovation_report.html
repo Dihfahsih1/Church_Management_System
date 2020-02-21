@@ -8,7 +8,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Building Collections</small></h2>
+                    <h1><i class="fa fa fa-calendar-check-o"></i> <b> BUILDING COLLECTIONS MODULE </b></h1>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -70,13 +70,13 @@
                                 <tr class="totalColumn">
                                 <td>{{ item.Date}}</td>
                                 <td>{{ item.Service}}</td>
-                                <td class="rowDataSd">{{ item.Total_Collection}}</td>
+                                <td class="rowDataSd">{{ item.Amount}}</td>
                                   <td>{{ item.Archived_Status}}</td>
                                 <td>{{ item.Other_Notes}}</td>
 
                                 <td>
                                   <div class="mb-4">
-                                        <a href="#"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit">Edit</span></a>
+                                        <a href="{% url 'edit-building-collections' item.pk %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit">Edit</span></a>
                                   </div></td>
                                   {% endfor %}
                                 </tr>
@@ -89,9 +89,10 @@
                      </div>
                    </div>
 
+                  {% if items%}
                   <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
-                        <a href="#" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"></span></a>
-                       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">Archive</span></button>
+                       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">ARCHIVE REPORT</span></button>
+                  {%endif%}     
                
                  <!-- Button trigger modal -->
 <!-- Modal -->

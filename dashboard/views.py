@@ -388,9 +388,67 @@ def visitors_list(request):
 
 
      ###################################################
-    #                 OFFERINGS MODULE                  #
+        #                 REVENUES                #
      ###################################################
+#Building     
+@login_required
+def record_building_collections(request):
+    if request.method=="POST":
+        form=RevenuesForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Building Collections have been recorded')
+            return redirect('record-building-collections')
+    else:
+        form=RevenuesForm()
+        return render(request, 'BuildingRenovation/record_building_collections.html',{'form':form})
 
+def edit_building_collections(request, pk):
+    item = get_object_or_404(Revenues, pk=pk)
+    if request.method == "POST":
+        form = RevenuesForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Building Collections have been updated')
+            return redirect('Building-Renovation-report')
+    else:
+        form = RevenuesForm(instance=item)
+    return render(request, 'BuildingRenovation/edit_building_collections.html', {'form': form})
+
+def Building_Renovation_report(request):
+    if request.method=='POST':
+        items = Revenues.objects.all()
+        for item in items:
+            item.Archived_Status = 'ARCHIVED'
+            item.save()
+        messages.success(request, f'All Building Collections have been Archived')
+        return redirect('Building-Renovation-report')
+    today = datetime.now()
+    years=today.year
+    context={}
+    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED",Revenue_filter='build')
+    context['items']=items
+    context['years']=years
+    context['today']=today
+    return render(request, 'BuildingRenovation/Building_Renovation_report.html', context)
+
+@login_required
+def BuildingRenovationarchivessearch(request):
+    if request.method == 'POST':
+        report_year = request.POST['report_year']
+        report_month = request.POST['report_month']
+        archived_reports = Revenues.objects.filter(Archived_Status='ARCHIVED',Revenue_filter='build', Date__month=report_month, Date__year=report_year)
+        years = datetime.now().year
+        today = datetime.now()
+        context = {'archived_reports': archived_reports,'years': years,
+                  'today': today,'report_year': report_year,'report_month': report_month
+                   }
+        return render(request, "BuildingRenovation/buildingarchive.html", context)
+    years = datetime.now().year
+    context = {'years': years,}
+    return render(request, "BuildingRenovation/buildingarchive.html", context)
+
+#Offerings
 @login_required
 def Enter_Offerings(request):
     if request.method=="POST":
@@ -2245,61 +2303,6 @@ def church_delete(request, church_pk):
                                              request=request,
                                              )
     return JsonResponse(data)
-
-
-
-     ###################################################
-    #                 BUILDING MODULE                  #
-     ###################################################
-
-
-@login_required
-def record_building_collections(request):
-    if request.method=="POST":
-        form=RevenuesForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, f'Building Collections have been recorded')
-            return redirect('record-building-collections')
-    else:
-        form=RevenuesForm()
-        return render(request, 'BuildingRenovation/record_building_collections.html',{'form':form})
-
-
-def Building_Renovation_report(request):
-    if request.method=='POST':
-        items = Revenues.objects.all()
-        for item in items:
-            item.Archived_Status = 'ARCHIVED'
-            item.save()
-        messages.success(request, f'All Building Collections have been Archived')
-        return redirect('Building-Renovation-report')
-    today = datetime.now()
-    years=today.year
-    context={}
-    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED",Revenue_filter='build')
-    context['items']=items
-    context['years']=years
-    context['today']=today
-    return render(request, 'BuildingRenovation/Building_Renovation_report.html', context)
-
-@login_required
-def BuildingRenovationarchivessearch(request):
-    if request.method == 'POST':
-        report_year = request.POST['report_year']
-        report_month = request.POST['report_month']
-        archived_reports = Revenues.objects.filter(Archived_Status='ARCHIVED',Revenue_filter='build', Date__month=report_month, Date__year=report_year)
-        years = datetime.now().year
-        today = datetime.now()
-        context = {'archived_reports': archived_reports,'years': years,
-                  'today': today,'report_year': report_year,'report_month': report_month
-                   }
-        return render(request, "BuildingRenovation/buildingarchive.html", context)
-    years = datetime.now().year
-    context = {'years': years,}
-    return render(request, "BuildingRenovation/buildingarchive.html", context)
-
-
 
 ########################################################################################################
 #                                       DASHBOARD                                                       #

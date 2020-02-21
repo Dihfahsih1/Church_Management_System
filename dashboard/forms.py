@@ -50,10 +50,11 @@ class ExpendituresForm(forms.ModelForm):
 class RevenuesForm(forms.ModelForm):
     class Meta:
         model=Revenues
-        fields=('Other_Sources','Revenue_filter','Archived_Status','Date','Member_Name','Service','Amount')
+        fields=('Other_Notes','Other_Sources','Revenue_filter','Archived_Status','Date','Member_Name','Service','Amount')
         widgets = {
             'Date': DatePickerInput(),
-            'Other_Sources': TextInput(attrs={'placeholder': 'e.g lwaki olimulamu missions'})
+            'Other_Sources': TextInput(attrs={'placeholder': 'e.g lwaki olimulamu missions'}),
+            'Other_Notes': TextInput(attrs={'placeholder': 'Something like title'})
         }                 
 
 class PledgesCashedOutForm(forms.ModelForm):
@@ -82,14 +83,6 @@ class SalariesPaidForm(forms.ModelForm):
         model = SalariesPaid
         fields = ('Salary_Id','Name','Salary_Amount','Month_being_cleared','Date_of_paying_salary')
 
-
-class BuildingRenovationForm(forms.ModelForm):
-    class Meta:
-        model=BuildingRenovation
-        fields = ('Archived_Status','Date','Total_Collection','Service','Other_Notes')
-        widgets = {
-            'Date': DatePickerInput(),
-        }        
 class PledgesForm(forms.ModelForm):
     class Meta:
         model=Pledges

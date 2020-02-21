@@ -64,6 +64,7 @@ url(r'^Archived/Tithes/', views.tithesarchivessearch, name='tithesarchivessearch
 
 url(r'^Enter_Pledges/', views.Enter_Pledges, name='Enter_Pledges'),
 url(r'^Building-Renovations/', views.record_building_collections, name='record-building-collections'),
+url(r'^Revenue/Building-Collections/Edit/(?P<pk>\d+)', views.edit_building_collections,name='edit-building-collections'),
 
 url(r'^Archives/Thanks-Giving/', views.thanksgivingarchivessearch, name='thanksgivingarchivessearch'),
 url(r'^Revenue/Thanks-Giving/Edit/(?P<pk>\d+)', views.edit_thanks_giving,name='edit-thanks-giving'),
