@@ -20,7 +20,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 import calendar
 def web(request):
     news = News.published.all().order_by('-id')
-    events = Event.published.all().order_by('-from_date')
+    events = Event.published.all().order_by('-id')
     images = Image.published.all().order_by('-id')
     members = Members.published.all().order_by('-id')
     employees = StaffDetails.published.all()
@@ -2014,7 +2014,6 @@ def image_delete(request, image_pk):
 
 # ###################################===>BEGINNING OF NEWS MODULE<===###############################################
 
-
 class NewsListView(ListView):
     model = News
     template_name = 'news/news_list.html'
@@ -2077,7 +2076,7 @@ def news_view(request, news_pk):
 
 def news_detail(request, news_pk):
     news = get_object_or_404(News, pk=news_pk)
-    more_news = News.published.order_by('-date')[:5]
+    more_news = News.published.order_by('-date')[:15]
     context = {
         'news': news,
         'more_news': more_news
@@ -2182,7 +2181,7 @@ def event_view(request, event_pk):
 
 def event_detail(request, event_pk):
     event = get_object_or_404(Event, pk=event_pk)
-    more_events = Event.published.order_by('-from_date')[:5]
+    more_events = Event.published.order_by('-id')[:15]
     context = {
         'event': event,
         'more_events': more_events

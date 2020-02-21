@@ -137,16 +137,36 @@
             </div>
         </div>
 <script type="text/javascript">
-    $("#id_Activity_Type").change(function () {
-    if ($(this).val() === "Church_Program") {
-        $('#id_Start_Time').show();
-        
+$("#id_Activity_Type").change(function () {
+if ($(this).val() === "Events") {
+    $('#div_id_event_title').show();
+    $('#div_id_event_for').show();
+    $('#div_id_event_place').show();
+    $('#div_id_from_date').show();
+    $('#div_id_to_date').show();
+    $('#div_id_image').show();
 
-    } 
-        else {
-        $('#id_End_Time').hide();
+    $('#div_id_Start_Time').hide();
+    $('#div_id_End_Time').hide();
+    $('#div_id_Day').hide();
+    $('#div_id_Note').hide();
+    $('#div_id_Is_View_on_Web').hide();
 
-    }
+} else {
+     $('#div_id_event_title').hide();
+    $('#div_id_event_for').hide();
+    $('#div_id_event_place').hide();
+    $('#div_id_from_date').hide();
+    $('#div_id_to_date').hide();
+    $('#div_id_image').hide();
+
+    $('#div_id_Start_Time').show();
+    $('#div_id_End_Time').show();
+    $('#div_id_Day').show();
+    $('#div_id_Note').show();
+    $('#div_id_Is_View_on_Web').show();
+
+}
 });
 $("#id_Activity_Type").trigger("change");
 </script>

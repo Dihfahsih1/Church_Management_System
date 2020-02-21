@@ -18,8 +18,8 @@
             <div class="row justify-content-center">
                 {% for event in events %}
                     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="single-event">
-                            <div class="img">
+                        <div class="single-event" style="max-height: 489px">
+                            <div class="img" style="max-height: 189px">
                                 {% if event.image %}
                                     <img src="{{ event.image.url }}" alt="">
                                 {% endif %}
