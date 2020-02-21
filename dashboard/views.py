@@ -1058,24 +1058,19 @@ def petty_cash_archives_search(request):
     context = {'years': years}
     return render(request, "Expenses/petty_cash_archived_search.html", context)
 
-class Expenditurespdf(View):
+class main_expenditure_report_pdf(View):
     def get(self, request):
         current_month = datetime.now().month
-        Expenditures = Expenditures.objects.all()
-        today = timezone.now()
+        expenses = Expenditures.objects.filter(Archived_Status='NOT-ARCHIVED', Reason_filtering='main',Date__month=current_month)
+        today = datetime.now()
+        year=today.year
         month = today.strftime('%B')
-        totalExpenditures = 0
-        for instance in Expenditures:
-            totalExpenditures += instance.Amount
-        Expenditurescontext ={
-            ''
-            'month': month,
-            'today':today,
-            'Expenditures':Expenditures,
-            'request': request,
-            'totalExpenditures': totalExpenditures,
+        totalexpense = 0
+        for instance in expenses:
+            totalexpense += instance.Amount
+        context ={'year':year,'month': month,'today':today,'expenses':expenses,'request': request,'totalexpense': totalexpense,
         }
-        return Render.render('Expenses/Expenditurespdf.html',Expenditurescontext)
+        return Render.render('Expenses/pdf_main_expenditure_report.html',context)
 
 #Allowances Module
 def give_allowance(request):

@@ -1,19 +1,20 @@
 {% extends "app/base_site.html" %}
 {% block content %}
+{% load humanize %}
 <head>
-  <title>UCC Bwaise | Building Report as of {{today}}</title>
+  <title>UCC Bwaise | main expenses for the month of {{report_month}} {{ report_year }}</title>
 </head>
 <div class="right_col" role="main">
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-          <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Building Collections</small></h2>
-          <ul class="nav navbar-right panel_toolbox">
-            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-            </li>
-          </ul>
-          <div class="clearfix"></div>
+            <h1><i class="fa fa fa-calendar-check-o"></i> <b>MAIN EXPENSES MODULE</b></h1>
+            <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
         </div>
         <div class="x_content quick-link">
           <span style="color:red"><b>Other Reports:</b></span>
@@ -29,19 +30,18 @@
           |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a>
           |<a href="{% url 'Building-Renovation-report' %}"> Building</a>
         </div>
-        <div class="separator"></div>
 
-        <h3>Main Expenses Module</h3>
+        <h2 style="text-align: center">The Main Expenses Report as of {{today}}</h2>
         <div class="separator"></div>
         <div class="x_content">
           <div class="" data-example-id="togglable-tabs">
             <ul class="nav nav-tabs bordered">
               <li role="presentation" class="active"><a href="{% url 'expenditurereport' %}"><i class="fa fa-list-ol"></i> Main Expenses Report </a></li>
               <li role="presentation"><a href="{% url 'enter_expenditure' %}"><i class="fa fa-plus-square-o"></i> Record Main Expense</a></li>
-              <li role="presentation" ><a href="{% url 'expensesarchivessearch' %}"><i class="fa fa-list-ol"></i> Archived Main Expenses</a></li>
+              <li role="presentation" ><a href="{% url 'expensesarchivessearch' %}"><i class="glyphicon glyphicon-king"></i> Archived Main Expenses</a></li>
             </ul>
             <br/>
-            <h2 style="text-align: center">The Main Expenses Report as of {{today}}</h2>
+            
             <h4 style="color: green; font-weight: 120%"><b>{{ message }}</b></h4>
             <div class="tab-content">
               <div class="tab-pane fade in active" id="tab_invoice_list">
@@ -78,12 +78,13 @@
               </div>
             </div>
           </div>
-
+          {% if items%}
           <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
-          <a href="#" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"> PRINT REPORT</span></a>
+          <a href="{% url 'mainpdf' %}" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"> PRINT REPORT</span></a>
           <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">ARCHIVE</span></button>
-       
+          {% endif %}
             <!-- Button trigger modal -->
+          
           <!-- Modal -->
           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">

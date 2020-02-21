@@ -30,6 +30,8 @@ url(r'^General-Expenses/Archived/', views.general_expenses_archives_search, name
 url(r'^Main-Expenses/Archived/', views.main_expenses_archives_search, name='expensesarchivessearch'),
 url(r'^Petty-Cash/Archived/', views.petty_cash_archives_search, name='sundryarchivessearch'),
 
+url(r'^Main-Expenses-Report/pdf/', views.main_expenditure_report_pdf.as_view(), name='mainpdf'),
+
 url(r'^General-Expenses-Archived/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.general_expenses_archived_pdf.as_view(), name='generalarchivepdf'),
 url(r'^Main-Expenses-Archived/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.main_expenses_archived_pdf.as_view(), name='mainarchivepdf'),
 
