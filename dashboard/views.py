@@ -718,9 +718,11 @@ class tithesarchivepdf(View):
 
 def member_annual_tithes(request, pk):
     years = datetime.now().year
-    tithes=Revenues.objects.filter(Member_Name_id=pk, Date__year=years).order_by('id')
+    tithes=Revenues.objects.filter(Member_Name_id=pk, Date__year=years).order_by('-id')
+    total = tithes.aggregate(totals=models.Sum("Amount"))
+    total_amount = total["totals"]
     members=Members.objects.filter(id=pk)
-    tithescontext={'tithes':tithes, 'members':members}
+    tithescontext={'tithes':tithes, 'members':members, 'total_amount':total_amount}
     return render(request, 'Tithes/member_annual_tithes.html', tithescontext) 
 
 

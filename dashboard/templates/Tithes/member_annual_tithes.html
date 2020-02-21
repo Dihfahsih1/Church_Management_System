@@ -43,7 +43,7 @@
                         <table id="invoice-table" class=" sum_table invoice table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                            
                           <thead>
-                              <tr >
+                              <tr ><td>#SL</td>
                                   <td>Date</td>
                                   <td>Service</td>
                                   <td>Amount <i class=" glyphicon glyphicon-arrow-right"></i> <b>(<span style="font-weight: bolder; color:red" class="totalCol"></span>)</b></td>
@@ -52,6 +52,7 @@
                           <tbody> 
                               {% for item in tithes%}
                              <tr class="totalColumn">
+                              <td>{{ item.id}}</td>
                               <td>{{ item.Date}}</td>
                               <td>{{ item.Service}}</td>
                               <td class="rowDataSd">{{ item.Amount}}</td>
@@ -60,7 +61,8 @@
                              {%endfor%}
                              
                           </tbody>
-                        </table> 
+                        </table><br>
+                        <h3>TOTAL ANNUAL TITHES = Shs.{{total_amount |intcomma}}</h3> 
                       </div>
                       
                     </div>
