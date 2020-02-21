@@ -68,7 +68,7 @@
                uccbwaise1@gmail.com<br>
          </div>
         <div class="list-group">
-            <h2 style="align-content:center"> {{ month }} General Offerings Archived Report</h2>
+            <h2 style="align-content:center"> {{ report_month}} {{report_year}} General Offerings Archived Report</h2>
         </div>
 
         <table class="table" border="0.5">
@@ -84,11 +84,11 @@
                 <tr style="font-size:large">
                     <td>{{ offerings.Date }}</td>
                     <td>{{ offerings.Service }}</td>
-                    <td>Shs:{{ offerings.Amount }}</td>
+                    <td>{{ offerings.Amount }}</td>
 
                 </tr>
             {% endfor %}
-            <tr><td><b>Total Amount:</b> </td> <td>______________ </td><td><b>{{ total_amount}}</b></td></tr>
+            <tr><td><b>Total Amount:</b> </td> <td>______________ </td><td><b>Shs. {{ total_amount}}</b></td></tr>
             </tbody>
         </table>
     </div>

@@ -505,6 +505,23 @@ def offeringsarchivessearch(request):
         return render(request, "Offerings/offeringsarchive.html", context)
     context = {'years': years}
     return render(request, "Offerings/offeringsarchive.html", context)
+class offeringsarchivepdf(View):
+    def get(self, request, report_year, report_month):
+        month=strptime(report_month, '%B').tm_mon
+        archived_offerings = Revenues.objects.filter(Date__month=month, Date__year=report_year, Archived_Status='ARCHIVED',Revenue_filter='offering').order_by('-Date')
+        today = datetime.now()
+        month=today.strftime('%B')
+        total = archived_offerings.aggregate(totals=models.Sum("Amount"))
+        total_amount = total["totals"]
+        offeringscontext = {
+            'report_year':report_year,
+            'report_month':report_month,
+            'today': today,
+            'month': month,
+            'total_amount': total_amount,
+            'request': request,
+            'archived_offerings': archived_offerings,}
+        return Render.render('Offerings/offeringsarchivepdf.html', offeringscontext)    
 #offering
 class offeringspdf(View):
     def get(self, request):
@@ -523,25 +540,8 @@ class offeringspdf(View):
             'totalexpense': totalexpense,
         }
         return Render.render('Offerings/offeringspdf.html', context)
-class offeringsarchivepdf(View):
-    def get(self, request):
-        archived_offerings = Revenues.objects.filter(Archived_Status='NOT-ARCHIVED',Revenue_filter='offering').order_by('-Date')
-        today = datetime.now()
-        month=today.strftime('%B')
-        total = archived_offerings.aggregate(totals=models.Sum("Amount"))
-        total_amount = total["totals"]
-        offeringscontext = {
-            'today': today,
-            'month': month,
-            'total_amount': total_amount,
-            'request': request,
-            'archived_offerings': archived_offerings,}
-        return Render.render('Offerings/offeringsarchivepdf.html', offeringscontext)
 
-    
-        #################################################
-        #        SEEDS OFFERING MODULE                  #
-        #################################################
+#SEEDS OFFERING MODULE    
 @login_required
 def add_seeds(request):
     if request.method=="POST":
@@ -608,11 +608,7 @@ class seed_offering_receipt(View):
         context = { 'today': today,'seeds': seeds,'request': request,}
         return Render.render('Seeds/seed_offerings_receipt.html', context)
 
-
-
-     ###################################################
-    #                  TITHES MODULE                    #
-     ###################################################
+#TITHES MODULE 
 @login_required
 def recording_tithes(request):
     if request.method=="POST":
@@ -648,9 +644,10 @@ def Tithesreport (request):
         messages.success(request, f'Tithes Report has been Archived')
         return redirect('Tithesreport')
     today = datetime.now()
+    month = today.month
     years=today.year
     context={}
-    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED",Revenue_filter='tithes')
+    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED",Revenue_filter='tithes',Date__month=month, Date__year=years)
     context['items']=items
     context['years']=years
     context['today']=today
@@ -674,10 +671,11 @@ def tithesarchivessearch(request):
 
 class tithespdf(View):
     def get(self, request):
-        tithes = Revenues.objects.filter(Archived_Status='NOT-ARCHIVED',Revenue_filter='tithes').order_by('-Date')
         today = datetime.now()
-        month=today.strftime('%B')
+        mth=today.month
         year=today.year
+        tithes = Revenues.objects.filter(Archived_Status='NOT-ARCHIVED',Revenue_filter='tithes',Date__month=mth, Date__year=year).order_by('-Date')
+        month=today.strftime('%B')
         total = tithes.aggregate(totals=models.Sum("Amount"))
         total_amount = total["totals"]
         context = {
@@ -720,7 +718,7 @@ class tithesarchivepdf(View):
 
 def member_annual_tithes(request, pk):
     years = datetime.now().year
-    tithes=Revenues.objects.filter(Member_Name_id=pk, Date__year=years)
+    tithes=Revenues.objects.filter(Member_Name_id=pk, Date__year=years).order_by('id')
     members=Members.objects.filter(id=pk)
     tithescontext={'tithes':tithes, 'members':members}
     return render(request, 'Tithes/member_annual_tithes.html', tithescontext) 

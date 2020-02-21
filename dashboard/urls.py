@@ -48,7 +48,7 @@ url(r'^allowancearchivessearch/', views.allowancearchivessearch, name='allowance
 url(r'^Revenues/Offerings/Report', views.Offeringsreport, name='Offeringsreport'),
 url(r'^edit_offerings/(?P<pk>\d+)', views.edit_offerings ,name='edit-offerings'),
 url(r'^offeringspdf/', views.offeringspdf.as_view() ,name='offeringspdf'),
-url(r'^offeringsarchivepdf/', views.offeringsarchivepdf.as_view(), name='offeringsarchivepdf'),
+url(r'^offeringsarchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.offeringsarchivepdf.as_view(), name='offeringsarchivepdf'),
 url(r'^Record-Offerings/', views.Enter_Offerings, name='Enter_Offerings'),
 
 #Seeds Module
