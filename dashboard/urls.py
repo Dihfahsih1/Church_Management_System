@@ -30,6 +30,9 @@ url(r'^General-Expenses/Archived/', views.general_expenses_archives_search, name
 url(r'^Main-Expenses/Archived/', views.main_expenses_archives_search, name='expensesarchivessearch'),
 url(r'^Petty-Cash/Archived/', views.petty_cash_archives_search, name='sundryarchivessearch'),
 
+url(r'^General-Expenses-Archived/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.general_expenses_archived_pdf.as_view(), name='generalarchivepdf'),
+url(r'^Main-Expenses-Archived/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.main_expenses_archived_pdf.as_view(), name='mainarchivepdf'),
+
 url(r'^Allowances/Add/', views.give_allowance, name='give-allowance'),
 url(r'^Report/Allowances/', views.allowancereport, name='allowancereport'),
 url(r'^Edit/allowance/(?P<pk>\d+)', views.edit_allowance ,name='edit_allowance'),
@@ -78,14 +81,6 @@ url(r'^Revenue/Other-Sources/Edit/(?P<pk>\d+)', views.edit_donation,name='edit-d
 
 
 url(r'^Pledges/Add-Item/', views.add_Pledge_Items ,name='add-pledge-item'),
-
-
-
-
-
-
-
-url(r'^expenditurepdf/', views.expenditurepdf.as_view() ,name='expenditurepdf'),
 url(r'^pledgespdf/', views.pledgespdf.as_view() ,name='pledgespdf'),
 
 

@@ -109,6 +109,9 @@
                     </tbody>
                   </table>
                 </div>
+                {% if archived_reports %}
+                  <a href="{% url 'mainarchivepdf' report_month report_year %}" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"> PRINT REPORT</span></a>
+                {% endif %}
               </div>
             </div>
           </div>

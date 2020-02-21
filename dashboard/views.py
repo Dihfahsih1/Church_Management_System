@@ -863,17 +863,6 @@ def donationsarchivessearch(request):
                 #          GENERAL, MAIN, PETTY EXPENSES MODULES              #
                  #############################################################
 
-@login_required
-def enter_main_expenses(request):
-    if request.method=="POST":
-        form=ExpendituresForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('expenditurereport')
-    else:
-        form=ExpendituresForm()
-        context = {'form': form, }
-        return render(request, 'Expenses/pay_main_expenses.html',context)
 
 @login_required
 def enter_general_expenses(request):
@@ -885,7 +874,64 @@ def enter_general_expenses(request):
     else:
         form=ExpendituresForm()
         context = {'form': form, }
-        return render(request, 'Expenses/pay_general_expenses.html',context)        
+        return render(request, 'Expenses/pay_general_expenses.html',context)
+
+def edit_general_expense(request, pk):
+    item = get_object_or_404(Expenditures, pk=pk)
+    if request.method == "POST":
+        form = ExpendituresForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('general-expenses-report')
+    else:
+        form = ExpendituresForm(instance=item)
+    return render(request, 'Expenses/edit_general_expense.html', {'form': form})        
+@login_required
+def general_expenses_archives_search(request):
+    today = datetime.now()
+    years=today.year
+    if request.method == 'POST':
+        report_year = request.POST['report_year']
+        report_month = request.POST['report_month']
+        archived_reports = Expenditures.objects.filter(Archived_Status='ARCHIVED', Reason_filtering='general',Date__month=report_month, Date__year=report_year)
+        mth=int(report_month)
+        report_month=calendar.month_name[mth]
+        context = {'archived_reports': archived_reports,'years': years,'today': today,
+                  'report_year': report_year,'report_month': report_month}
+        return render(request, "Expenses/general_expenses_archived_search.html", context)
+    context = {'years': years}
+    return render(request, "Expenses/general_expenses_archived_search.html", context) 
+    
+class general_expenses_archived_pdf(View):
+    def get(self, request, report_month, report_year):        
+        month=strptime(report_month, '%B').tm_mon
+        archived = Expenditures.objects.filter(Archived_Status='ARCHIVED', Reason_filtering='general',Date__month=month, Date__year=report_year)
+        today = datetime.now()
+        total = archived.aggregate(totals=models.Sum("Amount"))
+        total_amount = total["totals"]
+        context = {'report_month': report_month,'report_year':report_year,'today': today,
+        'total_amount': total_amount,'request': request,'archived': archived,}
+        return Render.render('Expenses/generel_expenses_archived_pdf.html', context)
+
+
+@login_required
+def general_expenses_report (request):
+    if request.method=='POST':
+        items = Expenditures.objects.all()
+        for item in items:
+            item.Archived_Status = 'ARCHIVED'
+            item.save()
+        messages.success(request, f'All General Expenses have been Archived')
+        return redirect('general-expenses-report')
+    today = datetime.now()
+    years=today.year
+    context={}
+    items = Expenditures.objects.filter(Archived_Status="NOT-ARCHIVED",Reason_filtering='general')
+    context['items']=items
+    context['years']=years
+    context['today']=today
+    return render(request, 'Expenses/General_Expenses_report.html', context)
+
 @login_required
 def enter_petty_expenses(request):
     if request.method == "POST":
@@ -900,16 +946,18 @@ def enter_petty_expenses(request):
         context={'form': form, 'current_month': current_month}
         return render(request, 'Expenses/record_petty_expenses.html', context )
 
-def edit_general_expense(request, pk):
-    item = get_object_or_404(Expenditures, pk=pk)
-    if request.method == "POST":
-        form = ExpendituresForm(request.POST, instance=item)
+
+@login_required
+def enter_main_expenses(request):
+    if request.method=="POST":
+        form=ExpendituresForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('general-expenses-report')
+            return redirect('expenditurereport')
     else:
-        form = ExpendituresForm(instance=item)
-    return render(request, 'Expenses/edit_general_expense.html', {'form': form})
+        form=ExpendituresForm()
+        context = {'form': form, }
+        return render(request, 'Expenses/pay_main_expenses.html',context)
 
 def edit_main_expense(request, pk):
     item = get_object_or_404(Expenditures, pk=pk)
@@ -951,25 +999,6 @@ def main_expenses_report (request):
     context['today']=today
     return render(request, 'Expenses/Main_Expenses_report.html', context)
 
-
-@login_required
-def general_expenses_report (request):
-    if request.method=='POST':
-        items = Expenditures.objects.all()
-        for item in items:
-            item.Archived_Status = 'ARCHIVED'
-            item.save()
-        messages.success(request, f'All General Expenses have been Archived')
-        return redirect('general-expenses-report')
-    today = datetime.now()
-    years=today.year
-    context={}
-    items = Expenditures.objects.filter(Archived_Status="NOT-ARCHIVED",Reason_filtering='general')
-    context['items']=items
-    context['years']=years
-    context['today']=today
-    return render(request, 'Expenses/General_Expenses_report.html', context)
-
 @login_required
 def main_expenses_archives_search(request):
     today = datetime.now()
@@ -985,24 +1014,17 @@ def main_expenses_archives_search(request):
         return render(request, "Expenses/main_expenses_archived_search.html", context)
     context = {'years': years}
     return render(request, "Expenses/main_expenses_archived_search.html", context)
+class main_expenses_archived_pdf(View):
+    def get(self, request, report_month, report_year):        
+        month=strptime(report_month, '%B').tm_mon
+        archived = Expenditures.objects.filter(Archived_Status='ARCHIVED', Reason_filtering='main',Date__month=month, Date__year=report_year)
+        today = datetime.now()
+        total = archived.aggregate(totals=models.Sum("Amount"))
+        total_amount = total["totals"]
+        context = {'report_month': report_month,'report_year':report_year,'today': today,
+        'total_amount': total_amount,'request': request,'archived': archived,}
+        return Render.render('Expenses/main_expenses_archived_pdf.html', context)
 
-@login_required
-def general_expenses_archives_search(request):
-    today = datetime.now()
-    years=today.year
-    if request.method == 'POST':
-        report_year = request.POST['report_year']
-        report_month = request.POST['report_month']
-        mth=int(report_month)
-        report_month=calendar.month_name[mth]
-        archived_reports = Expenditures.objects.filter(Archived_Status='ARCHIVED', Reason_filtering='general',Date__month=report_month, Date__year=report_year)
-        context = {'archived_reports': archived_reports,'years': years,'today': today,
-                  'report_year': report_year,'report_month': report_month}
-        return render(request, "Expenses/general_expenses_archived_search.html", context)
-    context = {'years': years}
-    return render(request, "Expenses/general_expenses_archived_search.html", context) 
-
-@login_required
 def petty_cash_report (request):
     if request.method=='POST':
         items = Expenditures.objects.all()
@@ -1035,26 +1057,6 @@ def petty_cash_archives_search(request):
         return render(request, "Expenses/petty_cash_archived_search.html", context)
     context = {'years': years}
     return render(request, "Expenses/petty_cash_archived_search.html", context)
-
-
-#Printing Expenditure Report
-class expenditurepdf(View):
-    def get(self, request):
-        current_month = datetime.now().month
-        expense = Expenditures.objects.filter(Date__month=current_month).order_by('-Date')
-        today = timezone.now()
-        month = today.strftime('%B')
-        totalexpense = 0
-        for instance in expense:
-            totalexpense += instance.Amount
-        expensecontext ={
-            'month': month,
-            'today':today,
-            'expense':expense,
-            'request': request,
-            'totalexpense': totalexpense,
-        }
-        return Render.render('Expenses/expenditurepdf.html',expensecontext)
 
 class Expenditurespdf(View):
     def get(self, request):
