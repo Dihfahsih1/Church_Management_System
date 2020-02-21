@@ -125,17 +125,6 @@ class User(AbstractBaseUser , PermissionsMixin):
     def __str__(self):
         return self.Role
 
-
-class BuildingRenovation(Model):
-    Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
-    Date = models.DateField(null=True, blank=True)
-    Total_Collection = models.IntegerField()
-    Service=models.CharField(max_length=100, choices=services, blank=False)
-    Other_Notes=models.TextField(max_length=10000, blank=True, null=True)
-    
-    def __str__(self):
-        return self.Archived_Status
-
 class Expenditures(Model):
     Date = models.DateField(null=True, blank=True)
     Payment_Made_To = models.CharField(max_length=100,blank=True, null=True)
@@ -160,18 +149,9 @@ class Revenues(Model):
     Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
     Revenue_filter=models.CharField(max_length=100, blank=True, null=True)
     Other_Sources=models.CharField(max_length=100, blank=True, null=True)
+    Other_Notes=models.TextField(max_length=10000, blank=True, null=True)
     def __str__(self):
         return str(self.Revenue_filter)
-
-class AllowanceReportArchive(models.Model):
-    Date = models.DateField(null=True, blank=True)
-    Staff = models.CharField( max_length=100,null=True)
-    Amount = models.IntegerField()
-    archivedmonth = models.CharField(max_length=100,null=True)
-    archivedyear = models.CharField(max_length=100,null=True)
-
-    def __str__(self):
-        return 'Name: {1}  Amount:{0}'.format(self.Staff, self.Amount)
         
 class Members(models.Model):
     date = models.DateTimeField(auto_now=True)
@@ -353,12 +333,7 @@ class SalariesPaidReportArchive(models.Model):
     archivedyear = models.CharField(max_length=100,null=True)
     def __str__(self):
         return self.Name
-class Allowance(models.Model):
-    Date = models.DateField(null=True, blank=True)
-    Name =  models.ForeignKey(Members, on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
-    Amount = models.IntegerField()
-    def __str__(self):
-        return self.Name 
+
 #PLEDGES MODEL
 class PledgeItem(Model):
     Date = models.DateField(blank=True, null=True)

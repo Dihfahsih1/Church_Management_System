@@ -63,14 +63,6 @@ class PledgesCashedOutForm(forms.ModelForm):
         widgets = {'Date': DatePickerInput(),
           'Item_That_Needs_Pledges': TextInput(attrs={'placeholder': 'Item'}),} 
 
-class AllowanceForm(forms.ModelForm):
-    class Meta:
-        model=Allowance
-        fields = ('Date','Name','Amount')
-        widgets = {
-            'Date': DatePickerInput(),
-            
-        } 
 class StaffDetailsForm(forms.ModelForm):
     class Meta:
         model=StaffDetails
