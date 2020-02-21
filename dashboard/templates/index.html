@@ -17,6 +17,30 @@
         <!-- top tiles -->
         {% if user.Role == 'Admin' or user.Role == 'SuperAdmin'%}
     <div class="row ">
+        <!--Start of Annual summary tiles -->
+        <div class="row top_tiles">
+            <div class="separator"></div>
+            <h3 style="margin-left: 5%; font-weight: bolder; color: red">Annual Summary of {{ month }}</h3>
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                <div class="tile-stats">
+                     <b style="font-size: 20px"><p>&nbsp;Total Revenue</b></p>
+                    <div class="count red">{{Annualothers|intcomma}}</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                <div class="tile-stats">
+                    <p>&nbsp; <b style="font-size: 20px">Total Expenditure</b></p>
+                    <div class="count red">{{Annualthanks|intcomma}}</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                <div class="tile-stats">
+                    <p>&nbsp; <b style="font-size: 20px">Net Income</b></p>
+                    <div class="count red">{{annual_net|intcomma}}</div>
+                </div>
+            </div>
+        </div>
+        <!--Start of monthly summary tiles -->
         <div class="row top_tiles">
             <div class="separator"></div>
             <h3 style="margin-left: 5%; font-weight: bolder; color: red">Monthly Summary of {{ month }}</h3>
@@ -255,8 +279,8 @@
                             drilldown: null
                         },
                         {
-                            name: 'Donations',
-                            y: {{Other Sources}},
+                            name: 'Other Sources',
+                            y: {{donations}},
                             drilldown: null
                         }]
                     }],

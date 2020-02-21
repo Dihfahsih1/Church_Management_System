@@ -4,8 +4,8 @@ from . import views
 
 urlpatterns=[
 url(r'^$', views.web, name='index_public'),
-url(r'^Church-System', views.index ,name='index'),
 url(r'^feedback', views.contact, name='contact'),
+url(r'^Church-System', views.index, name='index'),
 url(r'^membership-online/$', views.OnlineRegistrationView.as_view(), name='online_registration'),
 url(r'^Church/Members', views.membership_wall, name='membership_wall'),
 url(r'^Church/Vision', views.abouts_vision, name='abouts_vision'),
