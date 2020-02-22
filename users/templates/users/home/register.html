@@ -50,10 +50,11 @@
 
 						{% for user in users %}
                       	<tr>
-						  <td>{{ forloop.counter}}</td>
+						   <td>{{ user.full_name.id}}</td>
 						  <td>{% if user.full_name.Photo %}
                            <img src="{{ user.full_name.Photo.url }}" width="150" />
                           {% endif %}</td>
+                         
 						  <td>{{ user.full_name}}</td>
                           <td>{{ user.Role}}</td>
                           <td>{{ user.email}}</td>
