@@ -36,11 +36,9 @@
                     <table id="invoice-table" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                       <thead>
                         <tr>
-                        	<th>#SL</th>
                         	<th>Photo</th>
                             <th>Name</th>
                             <th>Role</th>
-                            <th>Email</th>
                             <th>Phone</th>
                             <th>Action</th>
                         </tr>
@@ -50,14 +48,12 @@
 
 						{% for user in users %}
                       	<tr>
-						   <td>{{ user.full_name.id}}</td>
 						  <td>{% if user.full_name.Photo %}
                            <img src="{{ user.full_name.Photo.url }}" width="150" />
                           {% endif %}</td>
-                         
+
 						  <td>{{ user.full_name}}</td>
                           <td>{{ user.Role}}</td>
-                          <td>{{ user.email}}</td>
                           <td>{{ user.full_name.Telephone}}</td>
                           <td><a href="{% url 'delete-user' user.pk %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"></span></a>
                           	<a href="{% url 'user_update' user.pk %}"class="btn btn-success btn-sm "><span class="glyphicon glyphicon-edit"></span></a></td>
