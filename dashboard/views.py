@@ -1342,12 +1342,6 @@ def pledges_paid_list(request):
     context['lists']=lists
     return render(request, 'Pledges/pledges_paid_list.html',context)
 
-# def delete_pledges_paid(request, pk):
-#     pledges= get_object_or_404(PaidPledges, id=pk)
-#     if request.method == "GET":
-#         pledges.delete()
-#         messages.success(request, "Payment successfully deleted!")
-#         return redirect("pledges-paid-list")
 
 def delete_pledge(request, pk):
     pledges= get_object_or_404(Pledges, id=pk)
