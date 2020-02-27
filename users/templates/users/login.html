@@ -23,7 +23,7 @@
     background-image: url( "{% static 'img/uccb.jpg' %} ");
 }
 </style>
-<div class="right_col" role="main">
+<div class="right_col" role="main" style="background-color: white">
       <div class="row">
          <!--fade up notification upon successful redirect-->
             {% if messages %}
@@ -47,7 +47,7 @@
                     <form method="post" novalidate>
                         {% csrf_token %}
                        <div class="row"><div class="col-lg-3"></div>
-                            <fieldset class="form-group col-lg-6">  
+                            <fieldset class="form-group col-lg-8">  
                                 <div class="form-group" style="text-align: left;font-size: 120%">
                                 {{ form|crispy}}
                                 </div>      
