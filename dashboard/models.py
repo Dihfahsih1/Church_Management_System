@@ -166,7 +166,6 @@ class Members(models.Model):
     Telephone=models.CharField(max_length=100,null=True)
     Email=models.CharField(max_length=100,null=True, blank=True)
     Photo=models.ImageField(upload_to='avatars/', blank=False)
-    Archived_Status=models.CharField(max_length=100, choices=archive, null=True, blank=True, default='NOT-ARCHIVED')
     Gender=models.CharField(max_length=100, choices=sex, null=True, blank=True)
     Marital_Status=models.CharField(max_length=100, choices=status,null=True, blank=True)
     Marriage_Kind=models.CharField(max_length=100, choices=marriage,null=True, blank=True)
@@ -191,6 +190,8 @@ class Members(models.Model):
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS,null=True,blank=True)
     objects = models.Manager()
     published = PublishedStatusManager()
+
+    #if (self.Archived_Status == 'NOT-ARCHIVED'):
     def __str__(self):
         return self.First_Name + ' ' + self.Second_Name
     @property
@@ -199,6 +200,18 @@ class Members(models.Model):
 
     objects = models.Manager()
     published = PublishedStatusManager()
+class ArchivedMembers(models.Model):
+    Initials=models.CharField(max_length=100, choices=ini,null=True, blank=True)
+    First_Name=models.CharField(max_length=100,null=True)
+    Second_Name=models.CharField(max_length=100,null=True)
+    Home_Cell=models.CharField(max_length=100, choices=cell,null=True)
+    Residence=models.CharField(max_length=100,null=True)
+    Telephone=models.CharField(max_length=100,null=True)
+    Email=models.CharField(max_length=100,null=True, blank=True)
+    Photo=models.ImageField(upload_to='avatars/', blank=False)
+    def __str__(self):
+        return self.First_Name + ' ' + self.Second_Name
+
 class Visitors(models.Model):
 
     Photo=models.ImageField(upload_to='avatars/', blank=False)

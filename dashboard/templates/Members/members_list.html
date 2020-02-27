@@ -12,7 +12,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Members</small></h2>
+                        <h1><i class="fa fa fa-calendar-check-o"></i><b>CHURCH MEMBERSHIP</b></h1>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -34,12 +34,12 @@
                     <div class="separator"></div>
                 </div>
                     <p>{{ message }}</p>
-                    <h3 style="text-align: center">Church Membership</h3>
+                    <h3 style="text-align: center">List Of Church Members</h3>
             <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
 
                     <ul class="nav nav-tabs bordered">
-                        <li role="presentation"><a href="{% url 'members-list' %}"><i
+                        <li role="presentation" class="active"><a href="{% url 'members-list' %}"><i
                                 class="fa fa-list-ol"></i> Memebers List</a>
                         </li>
                           <li role="presentation"><a href="{% url 'members-archived' %}"><i
@@ -84,11 +84,8 @@
                                         <a href="{% url 'view-member' member.id  %}"class="btn btn-success btn-sm"><span class="glyphicon glyphicon-eye-open"></span></a>
                                         {%if request.user.Role == 'SuperAdmin'%}
                                         <a href="{% url 'annual-tithes' member.pk %}"class="btn btn-primary btn-sm "><span class="glyphicon glyphicon-euro"></span>Tithes</a>{%endif%}
-                                        {% if member.Archived_Status == 'NOT-ARCHIVED'%}
                                           <a href="{% url 'archive-member' member.pk %}"class="btn btn-warning btn-sm "><span class="glyphicon glyphicon-king"></span> Archive</a>
-                                          {% else %}
-                                          <a href="{% url 'archive-member' member.pk %}"class="btn btn-warning btn-sm "><span class="glyphicon glyphicon-king"></span> UN-Archive</a>
-                                          {% endif%}
+                                          
                                        
                                         <!-- Modal -->
                                            <!--  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
