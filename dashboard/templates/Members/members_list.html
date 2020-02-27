@@ -54,7 +54,6 @@
                          <table id="invoice-table" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                   <th>ID</th>
                                     <th>Photo</th>
                                     <th>First Name</th>
                                     <th>Second Name</th>
@@ -67,9 +66,8 @@
                             <tbody>
                                 {% for member in membership %}
                                 <tr> 
-                                     <td>{{ member.id}}</td>
                                      <td>{% if member.Photo %}
-                                        <img src="{{ member.Photo.url }}" width="150" />
+                                        <img src="{{ member.Photo.url }}" width="150" height="100" />
                                         {% endif %}
                                      </td>
                                      <td>{{ member.First_Name}}</td>
@@ -84,14 +82,14 @@
                                         {%if request.user.Role == 'SuperAdmin'%}
                                         <a href="{% url 'annual-tithes' member.pk %}"class="btn btn-primary btn-sm "><span class="glyphicon glyphicon-euro"></span> Annual Tithes</a>{%endif%}
                                          <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
-                                             <span class='glyphicon glyphicon-trash'> </span> Delete
+                                             <span class='glyphicon glyphicon-king'> </span> Archive
                                          </button>
                                         <!-- Modal -->
                                             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                               <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                   <div class="modal-header">
-                                                    <h4 class="modal-title" id="myModalLabel">Delete Member</h4>
+                                                    <h4 class="modal-title" id="myModalLabel">Archive Member</h4>
                                                   </div>
                                                   <div class="modal-body">
                                                       <h3>Are you sure you want to delete This Member?</h3>

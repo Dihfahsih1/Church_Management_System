@@ -112,7 +112,7 @@
                                         </table>
                                        
                                     </div>
-                                    {% if user.full_name.id != member_id %}
+                                    {% if user.full_name.id == member_id %}
                                     <h3><span> Hello <b>{{request.user.full_name.Initials}} {{request.user.full_name}}</b> Here Are Your Reports</span></h3><br><br>
                                     <h4><b>1. Pledges Report </h4><br>
                                     <table id="invoice-table" class=" table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
