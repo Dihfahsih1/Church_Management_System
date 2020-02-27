@@ -292,6 +292,12 @@ def members_list(request):
     context ={'membership': membership, 'day':day}
     return render(request, 'Members/members_list.html', context)
 
+def members_archived(request):
+    membership = Members.objects.filter(Archived_Status='ARCHIVED').order_by('-id')
+    day=datetime.now()
+    context ={'membership': membership, 'day':day}
+    return render(request, 'Members/members_list.html', context)
+
 #archiving member
 def archive_member(request, pk):
         member = Members.objects.get(pk=pk)
@@ -299,7 +305,11 @@ def archive_member(request, pk):
             member.Archived_Status='ARCHIVED'
             member.save()
             messages.success(request, f'A Church Member has been Archived')
-            return redirect('members-list')    
+        else:
+            member.Archived_Status='NOT-ARCHIVED'
+            member.save()
+            messages.success(request, f'A Member has been UN-Archived')
+        return redirect('members-list')    
 
 def membership_wall(request):
     all_members = Members.published.all()

@@ -140,6 +140,7 @@ url(r'^Members/Annual-Tithes/(?P<pk>\d+)', views.member_annual_tithes, name='ann
 url(r'^Membership/Register/', views.register_members, name='members-register'),
 url(r'^Visitors/Register/', views.register_visitors, name='visitors-register'),
 url(r'^Membership/List/', views.members_list, name='members-list'),
+url(r'^Archived/Members/List/', views.members_archived, name='members-archived'),
 url(r'^Visitors/List/', views.visitors_list, name='visitors-list'),
 url(r'^member_pledges_paid', views.member_pledges_paid, name='member_pledges_paid'),
 url(r'^Pledges/Cash/Paid', views.cashing_out_items, name='cashing-out-items'),
