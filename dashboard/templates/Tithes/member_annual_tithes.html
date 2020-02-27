@@ -2,7 +2,7 @@
 {% block content %}
 {% load humanize %}
 <head>
-  <title>UCC Bwaise | Annual Tithes Report of {% for name in members%} {{name.First_Name}} {{name.Second_Name}}{%endfor%}</title>
+  <title>UCC Bwaise | {{years}} Annual Tithes Report of {% for name in members%} {{name.First_Name}} {{name.Second_Name}}{%endfor%}</title>
 </head>
 <div class="right_col" role="main">
     <div class="row">
