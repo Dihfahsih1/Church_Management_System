@@ -102,7 +102,7 @@ url(r'^pledgesarchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.ple
 #Handling all PKs, IDs
 url(r'^Pledges-Made/Invoice/(?P<pk>\d+)', views.pledge_made_invoice.as_view(), name='pledge-made-invoice'),
 url(r'^Church-Member/Edit/(?P<pk>\d+)', views.edit_member ,name='edit-member'),
-url(r'^Church-Member/Delete/(?P<pk>\d+)', views.delete_member ,name='delete-member'),
+url(r'^Archive/Church-Member/(?P<pk>\d+)', views.archive_member ,name='archive-member'),
 url(r'^Employee/Delete/(?P<pk>\d+)', views.delete_employee ,name='delete-employee'),
 url(r'^Church-Visitor/Edit/(?P<pk>\d+)', views.edit_visitor ,name='edit-visitor'),
 url(r'^Church-Visitor/Delete/(?P<pk>\d+)', views.delete_visitor ,name='delete-visitor'),

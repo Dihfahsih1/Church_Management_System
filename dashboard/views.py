@@ -287,10 +287,19 @@ def register_visitors(request):
 #list of church members
 @login_required
 def members_list(request):
-    membership = Members.objects.all().order_by('-id')
+    membership = Members.objects.filter(Archived_Status='NOT-ARCHIVED').order_by('-id')
     day=datetime.now()
     context ={'membership': membership, 'day':day}
     return render(request, 'Members/members_list.html', context)
+
+#archiving member
+def archive_member(request, pk):
+        member = Members.objects.get(pk=pk)
+        if (member.Archived_Status == 'NOT-ARCHIVED'):
+            member.Archived_Status='ARCHIVED'
+            member.save()
+            messages.success(request, f'A Church Member has been Archived')
+            return redirect('members-list')    
 
 def membership_wall(request):
     all_members = Members.published.all()
@@ -344,16 +353,8 @@ def view_member(request, pk):
         context['form']=form
     return render(request,'Members/members_view.html',context)
 
-#delete member
-def delete_member(request, pk):
-    member= get_object_or_404(Members, id=pk)
-    if request.method == "GET":
-        member.delete()
-        messages.success(request, f'Member has been deleted successfully')
-        return redirect("members-list")
-    context= {'member': member}
-    return render(request, 'Members/members_delete.html', context)
 
+    
 #edit visitor    
 def edit_visitor(request, pk):
     item = get_object_or_404(Visitors, pk=pk)

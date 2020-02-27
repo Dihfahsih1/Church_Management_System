@@ -166,6 +166,7 @@ class Members(models.Model):
     Telephone=models.CharField(max_length=100,null=True)
     Email=models.CharField(max_length=100,null=True, blank=True)
     Photo=models.ImageField(upload_to='avatars/', blank=False)
+    Archived_Status=models.CharField(max_length=100, choices=archive, null=True, blank=True, default='NOT-ARCHIVED')
     Gender=models.CharField(max_length=100, choices=sex, null=True, blank=True)
     Marital_Status=models.CharField(max_length=100, choices=status,null=True, blank=True)
     Marriage_Kind=models.CharField(max_length=100, choices=marriage,null=True, blank=True)
