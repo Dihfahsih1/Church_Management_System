@@ -1,0 +1,3379 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 11.5
+-- Dumped by pg_dump version 11.5
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: adminpack; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS adminpack WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION adminpack; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION adminpack IS 'administrative functions for PostgreSQL';
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_group (
+    id integer NOT NULL,
+    name character varying(150) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO postgres;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_group_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_group_id_seq OWNED BY public.auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO postgres;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_group_permissions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_group_permissions_id_seq OWNED BY public.auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO postgres;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_permission_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_permission_id_seq OWNED BY public.auth_permission.id;
+
+
+--
+-- Name: dashboard_about; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_about (
+    id integer NOT NULL,
+    about_image character varying(100),
+    about text,
+    mission_description text,
+    "Is_View_on_Web" character varying(20),
+    vision_description text,
+    about_title character varying(100)
+);
+
+
+ALTER TABLE public.dashboard_about OWNER TO postgres;
+
+--
+-- Name: dashboard_about_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_about_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_about_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_about_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_about_id_seq OWNED BY public.dashboard_about.id;
+
+
+--
+-- Name: dashboard_archivedmembers; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_archivedmembers (
+    id integer NOT NULL,
+    "Initials" character varying(100),
+    "First_Name" character varying(100),
+    "Second_Name" character varying(100),
+    "Home_Cell" character varying(100),
+    "Residence" character varying(100),
+    "Telephone" character varying(100),
+    "Email" character varying(100),
+    "Photo" character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.dashboard_archivedmembers OWNER TO postgres;
+
+--
+-- Name: dashboard_archivedmembers_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_archivedmembers_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_archivedmembers_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_archivedmembers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_archivedmembers_id_seq OWNED BY public.dashboard_archivedmembers.id;
+
+
+--
+-- Name: dashboard_church; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_church (
+    id integer NOT NULL,
+    church_code character varying(130),
+    church_name character varying(130) NOT NULL,
+    address character varying(130) NOT NULL,
+    phone character varying(130) NOT NULL,
+    registration_date date,
+    email_address character varying(120) NOT NULL,
+    "Post_Office_Box" character varying(130),
+    footer character varying(130),
+    enable_frontend character varying(130) NOT NULL,
+    latitude character varying(130),
+    longitude character varying(130),
+    facebook_url character varying(130),
+    twitter_url character varying(130),
+    "linkedIn_url" character varying(130),
+    google_plus_url character varying(130),
+    youtube_url character varying(130),
+    instagram_url character varying(130),
+    pinterest_url character varying(130),
+    "frontend_Logo" character varying(100) NOT NULL,
+    "backend_Logo" character varying(100) NOT NULL,
+    status character varying(130),
+    maps_embedded_link character varying(1000),
+    church_mission character varying(1000) NOT NULL,
+    church_vision character varying(1000) NOT NULL
+);
+
+
+ALTER TABLE public.dashboard_church OWNER TO postgres;
+
+--
+-- Name: dashboard_church_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_church_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_church_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_church_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_church_id_seq OWNED BY public.dashboard_church.id;
+
+
+--
+-- Name: dashboard_contact; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_contact (
+    id integer NOT NULL,
+    name character varying(1000),
+    email character varying(130),
+    phone character varying(130),
+    subject character varying(130),
+    message text,
+    feedback text
+);
+
+
+ALTER TABLE public.dashboard_contact OWNER TO postgres;
+
+--
+-- Name: dashboard_contact_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_contact_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_contact_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_contact_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_contact_id_seq OWNED BY public.dashboard_contact.id;
+
+
+--
+-- Name: dashboard_event; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_event (
+    id integer NOT NULL,
+    event_title character varying(100),
+    event_for character varying(20),
+    event_place character varying(100) NOT NULL,
+    from_date date,
+    to_date date,
+    image character varying(100),
+    note text NOT NULL,
+    "Is_View_on_Web" character varying(20) NOT NULL,
+    date date NOT NULL,
+    "Activity_Type" character varying(20) NOT NULL,
+    "Day" character varying(20),
+    "End_Time" time without time zone,
+    "Program_Name" character varying(100),
+    "Start_Time" time without time zone
+);
+
+
+ALTER TABLE public.dashboard_event OWNER TO postgres;
+
+--
+-- Name: dashboard_event_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_event_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_event_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_event_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_event_id_seq OWNED BY public.dashboard_event.id;
+
+
+--
+-- Name: dashboard_expenditures; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_expenditures (
+    id integer NOT NULL,
+    "Date" date,
+    "Payment_Made_To" character varying(100),
+    "Amount" integer NOT NULL,
+    "Main_Expense_Reason" character varying(100),
+    "General_Expenses_Reason" character varying(100),
+    "Petty_Cash_Reason" character varying(100),
+    "Archived_Status" character varying(100),
+    "Reason_filtering" character varying(100),
+    "Other_Expenditure" character varying(100),
+    "Member_Name_id" integer,
+    "Notes" character varying(100)
+);
+
+
+ALTER TABLE public.dashboard_expenditures OWNER TO postgres;
+
+--
+-- Name: dashboard_expenditures_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_expenditures_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_expenditures_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_expenditures_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_expenditures_id_seq OWNED BY public.dashboard_expenditures.id;
+
+
+--
+-- Name: dashboard_gallery; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_gallery (
+    id integer NOT NULL,
+    gallery_title character varying(100) NOT NULL,
+    note text NOT NULL,
+    "Is_View_on_Web" character varying(20) NOT NULL
+);
+
+
+ALTER TABLE public.dashboard_gallery OWNER TO postgres;
+
+--
+-- Name: dashboard_gallery_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_gallery_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_gallery_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_gallery_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_gallery_id_seq OWNED BY public.dashboard_gallery.id;
+
+
+--
+-- Name: dashboard_image; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_image (
+    id integer NOT NULL,
+    gallery_image character varying(100),
+    image_caption character varying(100) NOT NULL,
+    gallery_title_id integer,
+    "Is_View_on_Web" character varying(20)
+);
+
+
+ALTER TABLE public.dashboard_image OWNER TO postgres;
+
+--
+-- Name: dashboard_image_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_image_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_image_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_image_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_image_id_seq OWNED BY public.dashboard_image.id;
+
+
+--
+-- Name: dashboard_members; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_members (
+    id integer NOT NULL,
+    "First_Name" character varying(100),
+    "Second_Name" character varying(100),
+    "Home_Cell" character varying(100),
+    "Residence" character varying(100),
+    "Telephone" character varying(100),
+    "Email" character varying(100),
+    "Photo" character varying(100) NOT NULL,
+    "Gender" character varying(100),
+    "Marital_Status" character varying(100),
+    "Marriage_Kind" character varying(100),
+    "Education_Level" character varying(100),
+    "Profession" character varying(100),
+    "Type_of_Work" character varying(100),
+    "Place_of_Work" character varying(100),
+    "Country" character varying(100),
+    "County" character varying(100),
+    "Parish" character varying(100),
+    "District" character varying(100),
+    "Sub_County" character varying(100),
+    "Village" character varying(100),
+    "Date_Of_Salvation" date,
+    "Date_Of_Birth" date,
+    "Date_Of_Joining_UCC_Bwaise" date,
+    "Ministry_Involved_In" character varying(100),
+    "Name_Of_Next_Of_Kin" character varying(100),
+    "Contact_Of_Next_Of_Kin" character varying(100),
+    "Residence_Of_Next_Of_Kin" character varying(100),
+    "Initials" character varying(100),
+    "Is_View_on_Web" character varying(20),
+    "Group" character varying(100),
+    "More_Info" text,
+    date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.dashboard_members OWNER TO postgres;
+
+--
+-- Name: dashboard_members_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_members_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_members_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_members_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_members_id_seq OWNED BY public.dashboard_members.id;
+
+
+--
+-- Name: dashboard_news; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_news (
+    id integer NOT NULL,
+    news_title character varying(100) NOT NULL,
+    date date NOT NULL,
+    image character varying(100),
+    news text NOT NULL,
+    "Is_View_on_Web" character varying(20) NOT NULL,
+    author character varying(1003)
+);
+
+
+ALTER TABLE public.dashboard_news OWNER TO postgres;
+
+--
+-- Name: dashboard_news_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_news_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_news_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_news_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_news_id_seq OWNED BY public.dashboard_news.id;
+
+
+--
+-- Name: dashboard_page; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_page (
+    id integer NOT NULL,
+    page_location character varying(100) NOT NULL,
+    page_title character varying(100) NOT NULL,
+    page_description text NOT NULL,
+    page_image character varying(100)
+);
+
+
+ALTER TABLE public.dashboard_page OWNER TO postgres;
+
+--
+-- Name: dashboard_page_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_page_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_page_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_page_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_page_id_seq OWNED BY public.dashboard_page.id;
+
+
+--
+-- Name: dashboard_paidpledges; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_paidpledges (
+    id integer NOT NULL,
+    "Pledge_Id" integer,
+    "Amount_Paid" integer,
+    "Date" date,
+    "Pledge_Made_By_id" integer,
+    "Reason_id" integer
+);
+
+
+ALTER TABLE public.dashboard_paidpledges OWNER TO postgres;
+
+--
+-- Name: dashboard_paidpledges_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_paidpledges_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_paidpledges_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_paidpledges_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_paidpledges_id_seq OWNED BY public.dashboard_paidpledges.id;
+
+
+--
+-- Name: dashboard_pledgeitem; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_pledgeitem (
+    id integer NOT NULL,
+    "Date" date,
+    "Item_That_Needs_Pledges" character varying(100) NOT NULL,
+    "Amount_Needed" integer,
+    "Pledge_Deadline" date
+);
+
+
+ALTER TABLE public.dashboard_pledgeitem OWNER TO postgres;
+
+--
+-- Name: dashboard_pledgeitem_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_pledgeitem_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_pledgeitem_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_pledgeitem_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_pledgeitem_id_seq OWNED BY public.dashboard_pledgeitem.id;
+
+
+--
+-- Name: dashboard_pledges; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_pledges (
+    id integer NOT NULL,
+    "Status" character varying(100),
+    "Date" date,
+    "Amount_Pledged" integer NOT NULL,
+    "Amount_Paid" integer,
+    "Balance" integer,
+    "Pledge_Made_By_id" integer,
+    "Reason_id" integer
+);
+
+
+ALTER TABLE public.dashboard_pledges OWNER TO postgres;
+
+--
+-- Name: dashboard_pledges_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_pledges_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_pledges_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_pledges_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_pledges_id_seq OWNED BY public.dashboard_pledges.id;
+
+
+--
+-- Name: dashboard_pledgescashedout; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_pledgescashedout (
+    id integer NOT NULL,
+    "Date" date,
+    "Item_Id" character varying(100),
+    "Amount_Needed" integer,
+    "Amount_Cashed_Out" integer,
+    "Item_That_Needs_Pledges" character varying(100)
+);
+
+
+ALTER TABLE public.dashboard_pledgescashedout OWNER TO postgres;
+
+--
+-- Name: dashboard_pledgescashedout_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_pledgescashedout_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_pledgescashedout_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_pledgescashedout_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_pledgescashedout_id_seq OWNED BY public.dashboard_pledgescashedout.id;
+
+
+--
+-- Name: dashboard_pledgesreportarchive; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_pledgesreportarchive (
+    id integer NOT NULL,
+    "Status" character varying(150),
+    "Pledge_Id" integer,
+    "Date" date,
+    "Reason" character varying(100),
+    "Pledged_Amount" integer,
+    "Amount_Paid" integer,
+    "Balance" integer,
+    archivedmonth character varying(100),
+    archivedyear character varying(100),
+    "Pledge_Made_By_id" integer
+);
+
+
+ALTER TABLE public.dashboard_pledgesreportarchive OWNER TO postgres;
+
+--
+-- Name: dashboard_pledgesreportarchive_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_pledgesreportarchive_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_pledgesreportarchive_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_pledgesreportarchive_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_pledgesreportarchive_id_seq OWNED BY public.dashboard_pledgesreportarchive.id;
+
+
+--
+-- Name: dashboard_revenues; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_revenues (
+    id integer NOT NULL,
+    "Date" date,
+    "Service" character varying(100),
+    "Amount" integer NOT NULL,
+    "Archived_Status" character varying(100),
+    "Revenue_filter" character varying(100),
+    "Member_Name_id" integer,
+    "Other_Sources" character varying(100),
+    "Other_Notes" character varying(10000)
+);
+
+
+ALTER TABLE public.dashboard_revenues OWNER TO postgres;
+
+--
+-- Name: dashboard_revenues_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_revenues_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_revenues_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_revenues_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_revenues_id_seq OWNED BY public.dashboard_revenues.id;
+
+
+--
+-- Name: dashboard_salariespaid; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_salariespaid (
+    id integer NOT NULL,
+    "Salary_Id" character varying(200),
+    "Name" character varying(200),
+    "Salary_Amount" integer NOT NULL,
+    "Month_being_cleared" date,
+    "Date_of_paying_salary" date
+);
+
+
+ALTER TABLE public.dashboard_salariespaid OWNER TO postgres;
+
+--
+-- Name: dashboard_salariespaid_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_salariespaid_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_salariespaid_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_salariespaid_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_salariespaid_id_seq OWNED BY public.dashboard_salariespaid.id;
+
+
+--
+-- Name: dashboard_salariespaidreportarchive; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_salariespaidreportarchive (
+    id integer NOT NULL,
+    "Salary_Id" character varying(200),
+    "Name" character varying(200),
+    "Salary_Amount" integer NOT NULL,
+    "Month_being_cleared" date,
+    "Date_of_paying_salary" date,
+    archivedmonth character varying(100),
+    archivedyear character varying(100)
+);
+
+
+ALTER TABLE public.dashboard_salariespaidreportarchive OWNER TO postgres;
+
+--
+-- Name: dashboard_salariespaidreportarchive_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_salariespaidreportarchive_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_salariespaidreportarchive_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_salariespaidreportarchive_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_salariespaidreportarchive_id_seq OWNED BY public.dashboard_salariespaidreportarchive.id;
+
+
+--
+-- Name: dashboard_slider; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_slider (
+    id integer NOT NULL,
+    slider_image character varying(100),
+    image_title character varying(100) NOT NULL,
+    modified timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.dashboard_slider OWNER TO postgres;
+
+--
+-- Name: dashboard_slider_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_slider_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_slider_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_slider_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_slider_id_seq OWNED BY public.dashboard_slider.id;
+
+
+--
+-- Name: dashboard_staffdetails; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_staffdetails (
+    id integer NOT NULL,
+    "UCC_Bwaise_Member" character varying(100),
+    "First_Name" character varying(100),
+    "Second_Name" character varying(100),
+    "Gender" character varying(100),
+    "Date_Of_Birth" date,
+    "Education_Level" character varying(100),
+    "Residence" character varying(100),
+    "Telephone" character varying(100),
+    "Photo" character varying(100),
+    "Faith" character varying(100),
+    "Date_of_paying_salary" date,
+    "Month_being_cleared" date,
+    "Salary_Amount" integer NOT NULL,
+    "Role" character varying(200),
+    "Date_of_employment" date NOT NULL,
+    "End_of_contract" date NOT NULL,
+    "Church_Member_id" integer,
+    "Is_View_on_Web" character varying(20)
+);
+
+
+ALTER TABLE public.dashboard_staffdetails OWNER TO postgres;
+
+--
+-- Name: dashboard_staffdetails_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_staffdetails_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_staffdetails_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_staffdetails_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_staffdetails_id_seq OWNED BY public.dashboard_staffdetails.id;
+
+
+--
+-- Name: dashboard_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    email character varying(255),
+    username character varying(30) NOT NULL,
+    "Role" character varying(250) NOT NULL,
+    is_active boolean NOT NULL,
+    is_staff boolean NOT NULL,
+    is_superuser boolean NOT NULL,
+    full_name_id integer,
+    "Is_View_on_Web" character varying(20)
+);
+
+
+ALTER TABLE public.dashboard_user OWNER TO postgres;
+
+--
+-- Name: dashboard_user_groups; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.dashboard_user_groups OWNER TO postgres;
+
+--
+-- Name: dashboard_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_user_groups_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_user_groups_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_user_groups_id_seq OWNED BY public.dashboard_user_groups.id;
+
+
+--
+-- Name: dashboard_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_user_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_user_id_seq OWNED BY public.dashboard_user.id;
+
+
+--
+-- Name: dashboard_user_user_permissions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.dashboard_user_user_permissions OWNER TO postgres;
+
+--
+-- Name: dashboard_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_user_user_permissions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_user_user_permissions_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_user_user_permissions_id_seq OWNED BY public.dashboard_user_user_permissions.id;
+
+
+--
+-- Name: dashboard_visitors; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_visitors (
+    id integer NOT NULL,
+    "Photo" character varying(100) NOT NULL,
+    "First_Name" character varying(100),
+    "Second_Name" character varying(100),
+    "Address" character varying(100),
+    "Telephone" character varying(100),
+    "Church" character varying(100)
+);
+
+
+ALTER TABLE public.dashboard_visitors OWNER TO postgres;
+
+--
+-- Name: dashboard_visitors_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dashboard_visitors_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dashboard_visitors_id_seq OWNER TO postgres;
+
+--
+-- Name: dashboard_visitors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dashboard_visitors_id_seq OWNED BY public.dashboard_visitors.id;
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO postgres;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_admin_log_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO postgres;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_admin_log_id_seq OWNED BY public.django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO postgres;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_content_type_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO postgres;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_content_type_id_seq OWNED BY public.django_content_type.id;
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_migrations (
+    id integer NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_migrations OWNER TO postgres;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_migrations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_migrations_id_seq OWNER TO postgres;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_migrations_id_seq OWNED BY public.django_migrations.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO postgres;
+
+--
+-- Name: auth_group id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group ALTER COLUMN id SET DEFAULT nextval('public.auth_group_id_seq'::regclass);
+
+
+--
+-- Name: auth_group_permissions id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: auth_permission id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission ALTER COLUMN id SET DEFAULT nextval('public.auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_about id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_about ALTER COLUMN id SET DEFAULT nextval('public.dashboard_about_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_archivedmembers id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_archivedmembers ALTER COLUMN id SET DEFAULT nextval('public.dashboard_archivedmembers_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_church id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_church ALTER COLUMN id SET DEFAULT nextval('public.dashboard_church_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_contact id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_contact ALTER COLUMN id SET DEFAULT nextval('public.dashboard_contact_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_event id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_event ALTER COLUMN id SET DEFAULT nextval('public.dashboard_event_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_expenditures id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_expenditures ALTER COLUMN id SET DEFAULT nextval('public.dashboard_expenditures_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_gallery id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_gallery ALTER COLUMN id SET DEFAULT nextval('public.dashboard_gallery_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_image id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_image ALTER COLUMN id SET DEFAULT nextval('public.dashboard_image_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_members id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_members ALTER COLUMN id SET DEFAULT nextval('public.dashboard_members_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_news id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_news ALTER COLUMN id SET DEFAULT nextval('public.dashboard_news_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_page id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_page ALTER COLUMN id SET DEFAULT nextval('public.dashboard_page_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_paidpledges id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_paidpledges ALTER COLUMN id SET DEFAULT nextval('public.dashboard_paidpledges_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_pledgeitem id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_pledgeitem ALTER COLUMN id SET DEFAULT nextval('public.dashboard_pledgeitem_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_pledges id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_pledges ALTER COLUMN id SET DEFAULT nextval('public.dashboard_pledges_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_pledgescashedout id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_pledgescashedout ALTER COLUMN id SET DEFAULT nextval('public.dashboard_pledgescashedout_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_pledgesreportarchive id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_pledgesreportarchive ALTER COLUMN id SET DEFAULT nextval('public.dashboard_pledgesreportarchive_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_revenues id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_revenues ALTER COLUMN id SET DEFAULT nextval('public.dashboard_revenues_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_salariespaid id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_salariespaid ALTER COLUMN id SET DEFAULT nextval('public.dashboard_salariespaid_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_salariespaidreportarchive id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_salariespaidreportarchive ALTER COLUMN id SET DEFAULT nextval('public.dashboard_salariespaidreportarchive_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_slider id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_slider ALTER COLUMN id SET DEFAULT nextval('public.dashboard_slider_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_staffdetails id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_staffdetails ALTER COLUMN id SET DEFAULT nextval('public.dashboard_staffdetails_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_user id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_user ALTER COLUMN id SET DEFAULT nextval('public.dashboard_user_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_user_groups id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_user_groups ALTER COLUMN id SET DEFAULT nextval('public.dashboard_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_user_user_permissions id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('public.dashboard_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: dashboard_visitors id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_visitors ALTER COLUMN id SET DEFAULT nextval('public.dashboard_visitors_id_seq'::regclass);
+
+
+--
+-- Name: django_admin_log id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log ALTER COLUMN id SET DEFAULT nextval('public.django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: django_content_type id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type ALTER COLUMN id SET DEFAULT nextval('public.django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: django_migrations id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_migrations ALTER COLUMN id SET DEFAULT nextval('public.django_migrations_id_seq'::regclass);
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_group (id, name) FROM stdin;
+1	Admins
+\.
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_group_permissions (id, group_id, permission_id) FROM stdin;
+1	1	1
+2	1	2
+3	1	3
+4	1	4
+5	1	5
+6	1	6
+7	1	7
+8	1	8
+9	1	9
+10	1	10
+11	1	11
+12	1	12
+13	1	13
+14	1	14
+15	1	15
+16	1	16
+17	1	17
+18	1	18
+19	1	19
+20	1	20
+21	1	21
+22	1	22
+23	1	23
+24	1	24
+25	1	25
+26	1	26
+27	1	27
+28	1	28
+29	1	29
+30	1	30
+31	1	31
+32	1	32
+33	1	33
+34	1	34
+35	1	35
+36	1	36
+37	1	37
+38	1	38
+39	1	39
+40	1	40
+41	1	41
+42	1	42
+43	1	43
+44	1	44
+45	1	45
+46	1	46
+47	1	47
+48	1	48
+49	1	49
+50	1	50
+51	1	51
+52	1	52
+53	1	53
+54	1	54
+55	1	55
+56	1	56
+57	1	57
+58	1	58
+59	1	59
+60	1	60
+61	1	61
+62	1	62
+63	1	63
+64	1	64
+65	1	65
+66	1	66
+67	1	67
+68	1	68
+69	1	69
+70	1	70
+71	1	71
+72	1	72
+73	1	73
+74	1	74
+75	1	75
+76	1	76
+77	1	77
+78	1	78
+79	1	79
+80	1	80
+81	1	81
+82	1	82
+83	1	83
+84	1	84
+85	1	85
+86	1	86
+87	1	87
+88	1	88
+89	1	89
+90	1	90
+91	1	91
+92	1	92
+93	1	93
+94	1	94
+95	1	95
+96	1	96
+97	1	97
+98	1	98
+99	1	99
+100	1	100
+101	1	101
+102	1	102
+103	1	103
+104	1	104
+105	1	105
+106	1	106
+107	1	107
+108	1	108
+109	1	109
+110	1	110
+111	1	111
+112	1	112
+113	1	113
+114	1	114
+115	1	115
+116	1	116
+117	1	117
+118	1	118
+119	1	119
+120	1	120
+121	1	121
+122	1	122
+123	1	123
+124	1	124
+125	1	125
+126	1	126
+127	1	127
+128	1	128
+129	1	129
+130	1	130
+131	1	131
+132	1	132
+133	1	133
+134	1	134
+135	1	135
+136	1	136
+137	1	137
+138	1	138
+139	1	139
+140	1	140
+141	1	141
+142	1	142
+143	1	143
+144	1	144
+145	1	145
+146	1	146
+147	1	147
+148	1	148
+149	1	149
+150	1	150
+151	1	151
+152	1	152
+153	1	153
+154	1	154
+155	1	155
+156	1	156
+157	1	157
+158	1	158
+159	1	159
+160	1	160
+161	1	161
+162	1	162
+163	1	163
+164	1	164
+165	1	165
+166	1	166
+167	1	167
+168	1	168
+169	1	169
+170	1	170
+171	1	171
+172	1	172
+173	1	173
+174	1	174
+175	1	175
+176	1	176
+\.
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add allowance report archive	1	add_allowancereportarchive
+2	Can change allowance report archive	1	change_allowancereportarchive
+3	Can delete allowance report archive	1	delete_allowancereportarchive
+4	Can view allowance report archive	1	view_allowancereportarchive
+5	Can add donations	2	add_donations
+6	Can change donations	2	change_donations
+7	Can delete donations	2	delete_donations
+8	Can view donations	2	view_donations
+9	Can add donations report archive	3	add_donationsreportarchive
+10	Can change donations report archive	3	change_donationsreportarchive
+11	Can delete donations report archive	3	delete_donationsreportarchive
+12	Can view donations report archive	3	view_donationsreportarchive
+13	Can add expenses report archive	4	add_expensesreportarchive
+14	Can change expenses report archive	4	change_expensesreportarchive
+15	Can delete expenses report archive	4	delete_expensesreportarchive
+16	Can view expenses report archive	4	view_expensesreportarchive
+17	Can add general expenses	5	add_generalexpenses
+18	Can change general expenses	5	change_generalexpenses
+19	Can delete general expenses	5	delete_generalexpenses
+20	Can view general expenses	5	view_generalexpenses
+21	Can add general expenses report archive	6	add_generalexpensesreportarchive
+22	Can change general expenses report archive	6	change_generalexpensesreportarchive
+23	Can delete general expenses report archive	6	delete_generalexpensesreportarchive
+24	Can view general expenses report archive	6	view_generalexpensesreportarchive
+25	Can add members	7	add_members
+26	Can change members	7	change_members
+27	Can delete members	7	delete_members
+28	Can view members	7	view_members
+29	Can add offerings	8	add_offerings
+30	Can change offerings	8	change_offerings
+31	Can delete offerings	8	delete_offerings
+32	Can view offerings	8	view_offerings
+33	Can add offerings report archive	9	add_offeringsreportarchive
+34	Can change offerings report archive	9	change_offeringsreportarchive
+35	Can delete offerings report archive	9	delete_offeringsreportarchive
+36	Can view offerings report archive	9	view_offeringsreportarchive
+37	Can add pledge item	10	add_pledgeitem
+38	Can change pledge item	10	change_pledgeitem
+39	Can delete pledge item	10	delete_pledgeitem
+40	Can view pledge item	10	view_pledgeitem
+41	Can add salaries paid	11	add_salariespaid
+42	Can change salaries paid	11	change_salariespaid
+43	Can delete salaries paid	11	delete_salariespaid
+44	Can view salaries paid	11	view_salariespaid
+45	Can add salaries paid report archive	12	add_salariespaidreportarchive
+46	Can change salaries paid report archive	12	change_salariespaidreportarchive
+47	Can delete salaries paid report archive	12	delete_salariespaidreportarchive
+48	Can view salaries paid report archive	12	view_salariespaidreportarchive
+49	Can add spend	13	add_spend
+50	Can change spend	13	change_spend
+51	Can delete spend	13	delete_spend
+52	Can view spend	13	view_spend
+53	Can add sundry	14	add_sundry
+54	Can change sundry	14	change_sundry
+55	Can delete sundry	14	delete_sundry
+56	Can view sundry	14	view_sundry
+57	Can add sundry report archive	15	add_sundryreportarchive
+58	Can change sundry report archive	15	change_sundryreportarchive
+59	Can delete sundry report archive	15	delete_sundryreportarchive
+60	Can view sundry report archive	15	view_sundryreportarchive
+61	Can add visitors	16	add_visitors
+62	Can change visitors	16	change_visitors
+63	Can delete visitors	16	delete_visitors
+64	Can view visitors	16	view_visitors
+65	Can add tithes report archive	17	add_tithesreportarchive
+66	Can change tithes report archive	17	change_tithesreportarchive
+67	Can delete tithes report archive	17	delete_tithesreportarchive
+68	Can view tithes report archive	17	view_tithesreportarchive
+69	Can add tithes	18	add_tithes
+70	Can change tithes	18	change_tithes
+71	Can delete tithes	18	delete_tithes
+72	Can view tithes	18	view_tithes
+73	Can add thanks giving report archive	19	add_thanksgivingreportarchive
+74	Can change thanks giving report archive	19	change_thanksgivingreportarchive
+75	Can delete thanks giving report archive	19	delete_thanksgivingreportarchive
+76	Can view thanks giving report archive	19	view_thanksgivingreportarchive
+77	Can add thanks giving	20	add_thanksgiving
+78	Can change thanks giving	20	change_thanksgiving
+79	Can delete thanks giving	20	delete_thanksgiving
+80	Can view thanks giving	20	view_thanksgiving
+81	Can add staff details	21	add_staffdetails
+82	Can change staff details	21	change_staffdetails
+83	Can delete staff details	21	delete_staffdetails
+84	Can view staff details	21	view_staffdetails
+85	Can add seeds report archive	22	add_seedsreportarchive
+86	Can change seeds report archive	22	change_seedsreportarchive
+87	Can delete seeds report archive	22	delete_seedsreportarchive
+88	Can view seeds report archive	22	view_seedsreportarchive
+89	Can add seeds	23	add_seeds
+90	Can change seeds	23	change_seeds
+91	Can delete seeds	23	delete_seeds
+92	Can view seeds	23	view_seeds
+93	Can add pledges report archive	24	add_pledgesreportarchive
+94	Can change pledges report archive	24	change_pledgesreportarchive
+95	Can delete pledges report archive	24	delete_pledgesreportarchive
+96	Can view pledges report archive	24	view_pledgesreportarchive
+97	Can add pledges cashed out	25	add_pledgescashedout
+98	Can change pledges cashed out	25	change_pledgescashedout
+99	Can delete pledges cashed out	25	delete_pledgescashedout
+100	Can view pledges cashed out	25	view_pledgescashedout
+101	Can add pledges	26	add_pledges
+102	Can change pledges	26	change_pledges
+103	Can delete pledges	26	delete_pledges
+104	Can view pledges	26	view_pledges
+105	Can add paid pledges	27	add_paidpledges
+106	Can change paid pledges	27	change_paidpledges
+107	Can delete paid pledges	27	delete_paidpledges
+108	Can view paid pledges	27	view_paidpledges
+109	Can add allowance	28	add_allowance
+110	Can change allowance	28	change_allowance
+111	Can delete allowance	28	delete_allowance
+112	Can view allowance	28	view_allowance
+113	Can add user	29	add_user
+114	Can change user	29	change_user
+115	Can delete user	29	delete_user
+116	Can view user	29	view_user
+117	Can add posts	30	add_posts
+118	Can change posts	30	change_posts
+119	Can delete posts	30	delete_posts
+120	Can view posts	30	view_posts
+121	Can add log entry	31	add_logentry
+122	Can change log entry	31	change_logentry
+123	Can delete log entry	31	delete_logentry
+124	Can view log entry	31	view_logentry
+125	Can add permission	32	add_permission
+126	Can change permission	32	change_permission
+127	Can delete permission	32	delete_permission
+128	Can view permission	32	view_permission
+129	Can add group	33	add_group
+130	Can change group	33	change_group
+131	Can delete group	33	delete_group
+132	Can view group	33	view_group
+133	Can add content type	34	add_contenttype
+134	Can change content type	34	change_contenttype
+135	Can delete content type	34	delete_contenttype
+136	Can view content type	34	view_contenttype
+137	Can add session	35	add_session
+138	Can change session	35	change_session
+139	Can delete session	35	delete_session
+140	Can view session	35	view_session
+141	Can view slider	36	view_slider
+142	Can add slider	36	add_slider
+143	Can change slider	36	change_slider
+144	Can delete slider	36	delete_slider
+145	Can view About	37	view_about
+146	Can add About	37	add_about
+147	Can change About	37	change_about
+148	Can delete About	37	delete_about
+149	Can view page	38	view_page
+150	Can add page	38	add_page
+151	Can change page	38	change_page
+152	Can delete page	38	delete_page
+153	Can view Gallery	39	view_gallery
+154	Can add Gallery	39	add_gallery
+155	Can change Gallery	39	change_gallery
+156	Can delete Gallery	39	delete_gallery
+157	Can view image	40	view_image
+158	Can add image	40	add_image
+159	Can change image	40	change_image
+160	Can delete image	40	delete_image
+161	Can view News	41	view_news
+162	Can add News	41	add_news
+163	Can change News	41	change_news
+164	Can delete News	41	delete_news
+165	Can view event	42	view_event
+166	Can add event	42	add_event
+167	Can change event	42	change_event
+168	Can delete event	42	delete_event
+169	Can view church	43	view_church
+170	Can add church	43	add_church
+171	Can change church	43	change_church
+172	Can delete church	43	delete_church
+173	Can add contact	44	add_contact
+174	Can change contact	44	change_contact
+175	Can delete contact	44	delete_contact
+176	Can view contact	44	view_contact
+177	Can add building renovation	45	add_buildingrenovation
+178	Can change building renovation	45	change_buildingrenovation
+179	Can delete building renovation	45	delete_buildingrenovation
+180	Can view building renovation	45	view_buildingrenovation
+181	Can add expenditures	46	add_expenditures
+182	Can change expenditures	46	change_expenditures
+183	Can delete expenditures	46	delete_expenditures
+184	Can view expenditures	46	view_expenditures
+185	Can add revenues	47	add_revenues
+186	Can change revenues	47	change_revenues
+187	Can delete revenues	47	delete_revenues
+188	Can view revenues	47	view_revenues
+189	Can add archived members	48	add_archivedmembers
+190	Can change archived members	48	change_archivedmembers
+191	Can delete archived members	48	delete_archivedmembers
+192	Can view archived members	48	view_archivedmembers
+\.
+
+
+--
+-- Data for Name: dashboard_about; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_about (id, about_image, about, mission_description, "Is_View_on_Web", vision_description, about_title) FROM stdin;
+3	about/IMG_3486.JPG	United Christian Centre Bwaise (UCC BWAISE) is a born again Christian church in Kampala Uganda East Africa.\r\nThe church is located on Bwaise – Nabweru road The lead pastor isPr. Joshua Zake ministering with a team of other associate pastors namely;\r\nPr. Sande Posiano Zakumumpa\r\n\r\nPr. Henry Musubize\r\n\r\nPr. Sanyu Rebecca\r\n\r\nand other preachers of the word including the following\r\n\r\nMr. Mukisa Kintu\r\n\r\nMr. John Bosco Buyuki\r\n\r\nMr. Charles Bunjo\r\n\r\nMr. Kasirye Eddie\r\n\r\nThe following are ministries at UCC-Bwaise\r\n\r\nWorship team\r\n\r\nChildren’s ministry\r\n\r\nYouth ministry\r\n\r\nWomen’s ministry\r\n\r\nMen’ministry\r\n\r\nTeen’s ministry\r\n\r\nEvangelism ministry\r\n\r\nUshers ministry\r\n\r\nVision: “Discovering and Doing God’s will” \r\nThis is accomplished with the help of a Church Mission – “Lwaki oli mulamu” (why are you alive) Teach Me To do your will, for you are my God(Psalms 143:10).(John 18:37)\r\n\r\nMission: " Lwaki Oli Mulamu(Why are you alive)"\r\n\r\nThis mission is accomplished by broadcasting on Christian radio with a program running on Innerman fm every Sunday morning at 7 – 8 am Uganda time .this frequency is also accessible online by app – InnerMan2 fm\r\n\r\nThe church also has an outreach ministry of ‘Lwaki oli mulamu’ (why are you alive) missions with seminars almost every month both within and outside the country.\r\n\r\nPastor Joshua Zake has written several audio and video messages and Christian books for spiritual nourishments such as;\r\n\r\n1. The inner burning\r\n\r\n2. An upright heart\r\n\r\n3. What can a Christian do amidst the storm\r\n\r\n4. Why are you Alive	‘‘WHY ARE YOU ALIVE’’\r\nIntroduction \r\nThis is a very fundamental question in our lives. It deals with the reason why someone is in existence. It is important for each one of us to discover why they are alive. So many people have failed to discover the purpose of their lives and many have actually come to the end of their ‘journeys’ without getting the slightest idea of why they ever lived.\r\nThe scriptures teach us that the of spirit “mankind” existed long before the creation of the world.\r\nThe creation of mankind happened in the eternity before God created any other thing in the physical world.\r\nWisdom  who is Christ , in Proverbs tell the story of what happened before the physical world was created - Prov 8:22  \r\nAs Christ tell the story he tells us of his moments with mankind in Spiritual world before the physical world was created \r\nVerse 31 “Rejoicing in the habitable part of his earth; and my delights were with the sons of men”.\r\n\r\nThe Psalmist through the prayer of Moses also reveals that spirit of mankind lived with God long before coming to the earth. \r\n\r\n “A Prayer of Moses the man of God. Lord, thou hast been our dwelling place in all generations”. Psalms 90:1\r\n\r\nAnd that spirit existed before the body and even the days of mankind were known to God even before he was manifested on earth. “Your eyes saw my unformed Body. All the days ordained for me were written in your book before one of them came to be. Psalm 139:16.\r\nThis actually explains why man’s spirit has got to return “to God, who gave it.” Ecclesiastes 12:7	Yes	Whenever God calls you to serve him for a long time commission, it’s very important to know what he has called you to and how to do it. Sometimes he may not give you the full details, but at least he always shows you the start and the end of that Commission. The vision is very important because it will be a guideline and a focus as you execute the commission.\r\n\r\nA vision being is a revelation of the full picture of God’s plan, will or purpose; it’s the ultimate goal that one should target to get to\r\nAs Ucc Bwaise, God has given us a focus of what He wants us to follow and emphasise in this ministry – Discovering and Doing God’s will.\r\n\r\nWe shall therefore divide this Vision in 3 segments\r\n1.\tGod’s will\r\n\r\n2.\tDiscovering\r\n\r\n3.\tDoing God’s will \r\n\r\nIn this Church vision, the core value is God’s will and therefore we must well understand it before we dare to discover and then go on doing it\r\nGod’s will is God’s heart, plan, choice, purpose, desire, and future over someone or something. This will is not obvious unto every one, it calls for discover after that you can then go on and do exactly that. \r\nGod’s will either refers to what He wants or does not want at a particular moment.\r\n\r\nThe does and don’ts are two things that even make up the commandments of God and the word of God.	Meaning of a Vision
+4	about/IMG_3458.JPG		God predestined a lot of things about mankind. He knows each person and He selected them for His purpose. According to the Bible, even before one is born, they are known to God.\r\n  “I knew you before I formed you in your mother’s womb.” Jeremiah 1: 5\r\n29”For God knew his people in advance, and he chose them to become like his Son, so that his son would be the firstborn, with many brothers and sister. 30 And having chosen them, he called them to come to him. And he gave them right standing with himself, and he promised them his glory.” Romans 8:29-30\r\n\r\nIt’s God who chose when the spirit mankind should come on planet earth and definitely when it shall return to Him.  God determines birthdays and death days as the Bible states that ‘The length of man’s life is decided beforehand.’ Job 14:5\r\n\r\nThe best way you can get to know why you are alive is by getting to know your origin. The Bible states in Genesis 1:26 that “Then God said, “And now we will make human beings; they will be like us and resemble us. They will have power over the fish, the birds and all animals, domestic and wild, large and small. So God created human beings, making them to be like to him. He created them male and female. In his own image in the image of God created He him male and female.”\r\nBeing in the image of God means that man is a spiritual being dwelling in the physical world walking a physical journey. Otherwise,   the citizenship of mankind is in heaven as stated by Paul in Philippians 3:20.  However, God determines sets the times for every mankind and the exact places where they should live. He brings one forth at a point in time to move them in His own direction. Man is God’s messenger, a person sent from Heaven with a peculiar mission on earth.\r\n “Iam the one who spoke and called him; I led him out and gave him success. Now come close to me and hear what I say. From the beginning I have spoken openly and have always made my words come true. The Holy God of Israel, the Lord who saves, says Iam the Lord your God, the one who wants to teach you for your own good and direct you in the way you should go.” Isaiah 48:15-17 \r\n\r\nThe Bible sometimes refers to human beings as ‘Christ’s Ambassadors’ 1 Corinthians 5:20 to show that man is a representative of the heavenly kingdom here on earth. As an ambassador, man is on a heavenly mission on earth. He is an instrument of transformation that is supposed to bring about change in places or systems wherever they go. Man is specifically designed and set apart for a particular purpose (Jeremiah 1:5) which purpose is ordained by God to be a fulfilment in lives of other people; families, nations and generally the entire creation. Man is a part of God’s original project and according to (Psalms 139:16) God scheduled every day of your life before you came to be.	Yes	-\tIndividual\r\n-\tGeneral\r\n-\tSeasonal\r\n-\tContributional / Personal\r\n\r\nI strongly believe that a lot of things happened before creation and basically before Mankind came on this planet Earth\r\nGod never does something for nothing!\r\n•\tWhy bring man on Earth\r\n-\tWhen the devil was thrown here the earth became hell of a place\r\n-\tNo barren Spirit- Messenger without message\r\n-\tProv. 8:22 Vs 31 - Wisdom (Christ tells the story of creation)\r\n-\tGen 1:26 -Let us make man.... so that....\r\n-\tJer 1:5, 1sh 49:1, \r\n•\tHow should man look like\r\n-\tEarthly  vessels for Spirit man Eccl 12:7( Male and Female)\r\n-\tSoul Spirit and Body\r\n-\tPs 139:14, 1 Jn 3:1, Jn 9:2\r\n•\tHow long should man live for – Birth day and Death days set\r\nPs 39:4, Job 14:5, Ps 90:12\r\n•\tWhere should the Spirit called mankind be de1ivered / stay\r\n-\tLocation and Parents\r\n-\tActs 17:24 -27\r\n-\tIsh 51:1, Deut 32: 18, 1cor 10:4- drank from same spiritual rock Christ but we are all different in many ways.\r\n\r\n\r\nADAMIC FALL AWAY AND CONSEQUENCES \r\nThis brought a roundabout in the plan and mission of God on planet earth - it became a rescue mission\r\n•\tMankind was created upright – Eccl 7:29\r\n•\tWhen sinned, he was Corrupted, Corroded Dis-figured \r\nNeed for Rescue; -\r\n-\t Revival\r\n-\t Restoration\r\n-\t Salvation \r\n-\tRomans 3:23  - For all have sinned, and come short of the glory of God;\r\n-\tRomans 5:12 - Wherefore, as by one man sin entered into the world, and death by sin; and so death passed upon all men, for that all have sinned:\r\n-\t\r\n•\tChrist came to seek and save the lost -  Luke 19:10\r\n\r\n\tIn this great rescue mission where there is reviving, restoring and saving mankind, a lot of work has to be done and Christ is the author of that great work -\r\n-\tHeb. 5:9 And being made perfect, he became the author of eternal salvation unto all them that obey him;\r\n-\tHeb. 12:2 Looking unto Jesus the author and finisher of our faith; who for the joy that was set before him endured the cross, despising the shame, and is set down at the right hand of the throne of God.\r\n-\tEphes. 4:8 Wherefore he saith, when he ascended up on high, he led captivity captive, and gave gifts unto men.\r\n\tNow that Christ started it, he gives us a great mission of reconciling mankind to God through different gifts and callings. Every one of us has a task therefore to discover oneself as in how did God prepare him or her to best serve his will \r\n-\t2Cor. 5:18 And all things are of God, who hath reconciled us to himself by Jesus Christ, and hath given to us the ministry of reconciliation;\r\nVs.19 To wit, that God was in Christ, reconciling the world unto himself, not imputing their trespasses unto them; and hath committed unto us the word of reconciliation. \r\n\tEvery one of us has a task of discovering and doing God’s will in the few years God gives you to live on this planet.	Types of God’s will
+5	about/IMG_3468.JPG		WHO ASKS WHY YOU ARE ALIVE?\r\nThe question “Why one is alive” can be asked by God, by fellow men or the individual Christian. \r\nIt is a very fundamental question which each one of should take time to meditate upon or else we abuse our stay on earth. This booklet is meant to help you to discover the reasons why you were created and why you are still on the face of the world. It will help you to know the reason and purpose for your being alive and how to set goals and ways of achieving a fulfilled life.\r\nWhen you are able to fully understand why you are alive, you will be able to make a difference during your time. This will enhance the quality of your life and set you on the road to success and fulfilment.\r\nBut this will take the spirit of the Lord; you will need to humble yourself before God to be able to know His will for your life. Whatever it is, the reason for your ‘being’ has a lot to do with your ‘creator’. \r\nThe only possible reason why you appeared in a particular city, town or even family was for you to be released to your own generation to serve mankind and bring all things in your sphere of influence under the ruler ship of Christ. As it is stated in 1Corinthians 10:31 \r\n\r\n1.\tBY GOD\r\nThrough the word of God we come to learn about man’s pre existence before coming into this world and therefore, there must be a reason why God decided to bring man on earth. There must have been a Godly plan which is called ‘God’s will’. \r\nGenerations after generations, God has been sending ‘lives’ on the planet earth for a specific period of time.  During the given number of days, months or years that one lives, God keeps checking on man’s progress but sometimes He wonders why some people, are still alive since they don’t seem to be doing what He sent them to do. This is very unfortunate and the Bible says that “The axe is already at the root of the trees, and every tree that does not produce good fruit will be cut down and thrown in fire.” Mathew 3:10\r\n\r\nMan is not an accident but a person appointed to be God’s servant even before he existed. According to Jeremiah 1:5, man has been set apart and appointed as God’s spokesperson. This means that each person has got what it takes to do God’s will. Whatever gifts God gives someone, He gives them so that one in turn gives them away in service to God. Everyone was created to share their life and talents with the community around them. When we become believers we also become God’s messengers. He wants to speak to the world through us and whatever we have gone through should be a message that God wants us to teach to others.	Yes	Each one of us was given a divine mission and God has a purpose for each one that is different from any other person’s. However, many people are unable to walk according to God’s divine calendar. \r\nDiscovering God’s will is very vital because it enables us to know what He wants us to do and what He does not want us to do. The Bible states that “It’s God’s privilege to conceal things and the king’s privilege to discover them.”Prov25:2\r\nIt’s a challenge for everyone who really wants to live for God and not for themselves to seek to discover God’s will. God’s will can be discovered in several ways including; \r\n\tNow that God’s will is not obvious to many people, there isn’t any of us upon whom God doesn’t have purpose! It leaves us with a challenge which we must solve – why am I alive?\r\n\tOur God communicates to us in many ways now that our understanding and perception is also diverse; some easily understand by hearing once and several time while others do by seeing, yet others need both.  \r\n\tGod communicates to us in several ways as he shares with us his heart though many times we still do not understand but that doesn’t stop his endeavours\r\n\tIt makes this communication easy if the one he is communicating to is very interested and therefore anxious or even attentive – 1Sam 3:1-9\r\n\tWe can therefore know his will through some of the following ways;-	HOW DO WE DISCOVER GOD’S WILL
+\.
+
+
+--
+-- Data for Name: dashboard_archivedmembers; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_archivedmembers (id, "Initials", "First_Name", "Second_Name", "Home_Cell", "Residence", "Telephone", "Email", "Photo") FROM stdin;
+1	Mr.	Kwagala	Sam	Kafunda Zone	Nabweru	0748687499	\N	avatars/IMG-20191224-WA0013.jpg
+\.
+
+
+--
+-- Data for Name: dashboard_church; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_church (id, church_code, church_name, address, phone, registration_date, email_address, "Post_Office_Box", footer, enable_frontend, latitude, longitude, facebook_url, twitter_url, "linkedIn_url", google_plus_url, youtube_url, instagram_url, pinterest_url, "frontend_Logo", "backend_Logo", status, maps_embedded_link, church_mission, church_vision) FROM stdin;
+1	church1	UNITED CHRISTIAN CENTER - BWAISE	Kafunda Bwaise	0772 614086	2020-02-06	uccbwaise1@gmail.com	6589 Kampala, Uganda	All Rights Reseved UCC Bwaise	Yes	\N	\N	https://web.facebook.com/uccbwaise1/	\N	\N	\N	https://www.youtube.com/channel/UCFMCB_zTwBQNunbpjBsPcSw/videos	\N	\N	logo/uccb.jpg	logo/uccchurch_WNKhacV.jpg	Active	https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7979.4856942634915!2d32.54923615200376!3d0.35241807093564126!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3788a86d81fbe8f3!2sUNITED%20CHRISTIAN%20CENTER%20(UCC%20BWAISE)!5e0!3m2!1sen!2sug!4v1580995133401!5m2!1sen!2sug	Why Are You Alive?	Discovering and Doing God's Will
+\.
+
+
+--
+-- Data for Name: dashboard_contact; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_contact (id, name, email, phone, subject, message, feedback) FROM stdin;
+2	Dihfahsih Mugoya	dihfahsihm@gmail.com	0751612792	\N		Spiritual Growth - What is it?\r\nSpiritual growth is detailed in 2 Peter 1:3-8, "His divine power has given us everything we need for life and godliness through our knowledge of him who called us by his own glory and goodness. Through these he has given us his very great and precious promises, so that through them you may participate in the divine nature and escape the corruption in the world caused by evil desires. For this very reason, make every effort to add to your faith goodness; and to goodness, knowledge; and to knowledge, self-control; and to self-control, perseverance; and to perseverance, godliness; and to godliness, brotherly kindness; and to brotherly kindness, love. For if you possess these qualities in increasing measure, they will keep you from being ineffective and unproductive in your knowledge of our Lord Jesus Christ."
+3	Kim Jane	lo@gmail.com	094889800	\N		Spiritual Growth - How is it done?\r\nIn order for spiritual growth to occur, you first need to make sure you possess a true spiritual life through faith in the Lord Jesus Christ. "And this is the testimony: God has given us eternal life, and this life is in his Son. He who has the Son has life; he who does not have the Son of God does not have life" (1 John 5:11-12). When you believe in Jesus Christ, the Holy Spirit lives inside of you (John 14:16-17) and you are a new creation in Christ! 2 Corinthians 5:17 says, "Therefore, if anyone is in Christ, he is a new creation; the old has gone, the new has come!" Your old nature, which is dominated by sin, is replaced with a new nature that is under the influence of God's Spirit (Romans 6-7). Spiritual growth can only occur in a person who knows the Lord Jesus Christ as his or her Savior.
+4	Ssempijja Jimmie	Jimmy@gmail.com	0847467783	\N		I just love UCC Bwaise
+5	Bagyenda Steven	bagsteves@gmail.com	0784948989	\N		A very transforming church where lives never remain the same
+6	Ziwa Kiweewa	diddfdddm@gmail.com	0751612792	Thank you	Awesome site	
+7	Desire Namuganyi	\N	\N	\N		Am glad am part of this church
+8	Ssempijja Jimmie	Jimmy@gmail.com	076557885768	Thank you	tfghujyvguk\r\nhhuuuygyu	
+\.
+
+
+--
+-- Data for Name: dashboard_event; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_event (id, event_title, event_for, event_place, from_date, to_date, image, note, "Is_View_on_Web", date, "Activity_Type", "Day", "End_Time", "Program_Name", "Start_Time") FROM stdin;
+1	Church's Vision and Mission	SuperAdmin	Church	2020-02-01	2020-03-01	images/FB_IMG_15614879910649330.jpg	Teaching all the members the church vision and mission so that everyone can explain it to other non church members	Yes	2020-02-06	Events	\N	\N	\N	\N
+2	Church Outting	Members	Gaba Beach	2020-02-29	2020-02-05	images/uccchurch.jpg	Church members getting together to have fan	Yes	2020-02-06	Events	\N	\N	\N	\N
+3	Women's Day	Members	UCC Bwaise	2020-02-06	2020-02-06	images/IMG_3563.JPG	Women of UCC Bwaise when they prepare to serve, they serve n mighty	Yes	2020-02-06	Events	\N	\N	\N	\N
+4	Baptism	Members	Church	2020-02-06	2020-02-06	images/inside1.jpg	baptising	Yes	2020-02-06	Events	\N	\N	\N	\N
+7	Conference	SuperAdmin	UCC Bwaise	2020-02-28	2020-03-07	images/1_1.jpg	annual lwaki olimulamu	Yes	2020-02-22	Events	\N	\N	\N	\N
+8	Computer Literacy	Members	UCC Bwaise	2020-02-25	2020-03-07	images/IMG_20191210_110351_741.JPG	Learning Computer Basics	Yes	2020-02-22	Events	\N	\N	\N	\N
+5	Health Sensitization	Members	UCC Bwaise	2020-03-01	2020-03-01	images/front1.JPG	Blood checking, health tips and other advice	Yes	2020-02-13	Church_Program	Monday	04:00:00	\N	09:00:00
+6	Bible Challenge	Members	UCC Bwaise	2020-02-22	2020-03-01	images/ps.jpg	Different Church Groups to participate	Yes	2020-02-13	Events	Monday	09:30:00	\N	07:00:00
+\.
+
+
+--
+-- Data for Name: dashboard_expenditures; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_expenditures (id, "Date", "Payment_Made_To", "Amount", "Main_Expense_Reason", "General_Expenses_Reason", "Petty_Cash_Reason", "Archived_Status", "Reason_filtering", "Other_Expenditure", "Member_Name_id", "Notes") FROM stdin;
+14	2020-02-14	Mathew	250000	\N	\N	Other	ARCHIVED	petty	gas cooker	\N	\N
+15	2020-02-20	Sam	250000	\N	\N	Other	ARCHIVED	petty	gas cooker	\N	\N
+16	2020-02-20	Sam	250000	\N	\N	Other	ARCHIVED	petty	gas cooker	\N	\N
+18	2020-02-20	\N	25000	\N	\N	\N	ARCHIVED	allowance	\N	13	Appreciation
+17	2020-02-20	\N	25000	\N	\N	\N	ARCHIVED	allowance	\N	10	Appreciation
+19	2020-02-21	Jimmy	30000	\N	\N	Lunch	ARCHIVED	petty	\N	\N	\N
+20	2020-02-21	NEMA	30000	Savings	\N	\N	ARCHIVED	main	\N	\N	\N
+6	2020-02-20	Kenny	23000	Medical Bills	\N	\N	ARCHIVED	main	\N	\N	\N
+5	2020-02-19	Dummy	8000	Love Offering	\N	\N	ARCHIVED	main	\N	\N	\N
+21	2020-02-22	Kenny	30000	\N	\N	Upkeep	ARCHIVED	petty	\N	\N	\N
+22	2020-02-21	NEMA	250000	\N	\N	Lunch	ARCHIVED	petty	\N	\N	\N
+1	2020-02-19	Jonah Kisaktye	300000	Water Bills	\N	\N	ARCHIVED	\N	\N	\N	\N
+2	2020-02-21	UNSWC	50000	Water Bills	\N	\N	ARCHIVED	\N	\N	\N	\N
+3	2020-02-19	Mr. James	3000	\N	Condolences	\N	ARCHIVED	\N	\N	\N	\N
+4	2020-02-20	Mathew	35000	\N	Stationery	\N	ARCHIVED	general	\N	\N	\N
+7	2020-02-20	Kenny	250000	\N	Condolences	\N	ARCHIVED	general	\N	\N	\N
+8	2020-02-19	Sam	35000	\N	Instruments	\N	ARCHIVED	general	\N	\N	\N
+9	2020-02-19	Jonah	2500078	\N	Condolences	\N	ARCHIVED	general	\N	\N	\N
+10	2020-02-19	Mr. James	20000	\N	\N	Upkeep	ARCHIVED	petty	\N	\N	\N
+11	2020-02-14	Mathew	250000	\N	\N	Other	ARCHIVED	petty	gas cooker	\N	\N
+12	2020-02-14	Mathew	250000	\N	\N	Other	ARCHIVED	petty	gas cooker	\N	\N
+13	2020-02-14	Mathew	250000	\N	\N	Other	ARCHIVED	petty	gas cooker	\N	\N
+\.
+
+
+--
+-- Data for Name: dashboard_gallery; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_gallery (id, gallery_title, note, "Is_View_on_Web") FROM stdin;
+1	Conference	Lwaki Oli Mulamu	Yes
+2	Youths	It was December 9th, 2019. UCC Bwaise youth ministry held a getting together dinner which was attended by many of the youths even those who were off the grid could not miss such an opportunity.	Yes
+3	New Church Building	Construction Underway	Yes
+4	Women's Day	They Ministered the whole week and climaxed it on Sunday with Special lunch	Yes
+5	Men's Day	Every man needs godly men connecting him to the church.\r\nI cannot imagine going through life without having a purpose or mission.\r\nEvery man wants to be a part of something that is bigger than himself.\r\nWith new ministries, find a champion and resource them toward a specific mission.	Yes
+\.
+
+
+--
+-- Data for Name: dashboard_image; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_image (id, gallery_image, image_caption, gallery_title_id, "Is_View_on_Web") FROM stdin;
+1	images/IMG_3543.JPG	Pastor Joshua and  Mummy Joy Zakes	1	Yes
+2	images/IMG_3609.JPG	Awesomeness	2	Yes
+3	images/build2_Ju9BowA.jpg	Inspecting Church New Hall	3	Yes
+4	images/uccchurch_NSlwsFi.jpg	Future UCC Bwaise Cathedral	3	Yes
+5	images/IMG_3487.JPG	Happiness	4	Yes
+6	images/IMG_3602.JPG	Food Session	4	Yes
+7	images/IMG_3485.JPG	Omukyala Mukama Yamutonda nag wanjawulo	4	Yes
+9	images/IMG_3495.JPG	Sermon Time	4	Yes
+10	images/IMG-20191224-WA0022.jpg	Get together dinner	2	Yes
+11	images/IMG-20191224-WA0007.jpg	Get together dinner	2	Yes
+12	images/IMG-20191224-WA0010.jpg	Get together dinner	2	Yes
+13	images/IMG-20191224-WA0012.jpg	Get together dinner	2	Yes
+14	images/IMG-20191224-WA0017.jpg	Get together dinner	2	Yes
+15	images/IMG-20191224-WA0018.jpg	Get together dinner	2	Yes
+16	images/IMG-20191224-WA0014_818pWHb.jpg	Get together dinner	2	Yes
+17	images/1.jpg	Ministering in mighty	5	Yes
+18	images/2.jpg	Ministering in mighty	5	Yes
+19	images/3.jpg	Ministering in mighty	5	Yes
+20	images/men.jpg	Ministering in mighty	5	Yes
+21	images/code.jpeg	Your get together dinner	2	Yes
+\.
+
+
+--
+-- Data for Name: dashboard_members; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_members (id, "First_Name", "Second_Name", "Home_Cell", "Residence", "Telephone", "Email", "Photo", "Gender", "Marital_Status", "Marriage_Kind", "Education_Level", "Profession", "Type_of_Work", "Place_of_Work", "Country", "County", "Parish", "District", "Sub_County", "Village", "Date_Of_Salvation", "Date_Of_Birth", "Date_Of_Joining_UCC_Bwaise", "Ministry_Involved_In", "Name_Of_Next_Of_Kin", "Contact_Of_Next_Of_Kin", "Residence_Of_Next_Of_Kin", "Initials", "Is_View_on_Web", "Group", "More_Info", date) FROM stdin;
+7	Mukisa	Ivan	Lugoba Zone	Lugoba	074783489898489	\N	avatars/w11.JPG	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	Mr.	Yes	God Is Able	\N	2020-02-27 10:31:02.309914+03
+1	Zake	Joshua	Katooke Zone	Lugoba	07848894	\N	avatars/FB_IMG_15614879910649330_gMpcJYk.jpg	Male	Married	Church_Marriage	Degree	Employed	Pastoral	Church	\N	\N	\N	\N	\N	\N	2020-02-03	2020-02-03	2020-02-03	Pastoral	\N	\N	\N	Pr.	Yes	Winners	Pr. Joshua Zake is the lead pastor of UCC Bwaise , He is married to a beautiful wife Joy Zake. He is a father of 2 girls and 2 boys.\r\n\r\nHe is also  an author of 4 Christian books, founder and vision bearer of Why Are You Alive (Lwaki Oli Mulamu)\r\nA Member of A Uganda Wit hout Orphans (AUWO)\r\n\r\nHe hosts Lwaki Oli Mulamu Radio Program on InnerMan FM 107.5 from 7:00am to 8:00am Ugandan Time every sunday.\r\n\r\nHe leads a team of dedicated  ministers at UCC Bwaise in missions of preaching why are you alive in different parts of the country.	2020-02-27 10:31:02.310911+03
+2	Nabachwa	Teddy	Kafunda Zone	Nabweru	235467777777777789	\N	avatars/IMG-20191224-WA0015.jpg	Female	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	Ms.	Yes	Biyinzika	\N	2020-02-27 10:31:02.312904+03
+4	Nusurah	Ayebare	Katooke Zone	Lugoba	0747885989	nusu@gmail.com	avatars/IMG-20191224-WA0011.jpg	Female	Single	Church_Marriage	Diploma	Employed	Saloon	Katooke	Uganda	Kyandondo	Nabweru	Nabweru	Nabweru	Katooke	2019-12-04	2020-01-27	2020-01-26	Worship Team	Sumayiyah	09774789	Katooke	Ms.	Yes	Overcomers		2020-02-27 10:31:02.3149+03
+14	Desire	Namuganyi	Kabira Zone	Nabweru	0754236758	\N	avatars/IMG-20200115-WA0003.jpg	Female	Single	\N	Diploma	Unemployed	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	Discipleship	\N	\N	\N	Ms.	Yes	God is Able		2020-02-27 10:31:02.315896+03
+12	Henry	Musubize	Lugoba Zone	Lugoba	07536277884	\N	avatars/pr_henry.JPG	Male	Single	\N	Certificate	Employed	Motor	Kampala	\N	\N	\N	\N	\N	\N	\N	\N	\N	Pastoral	\N	\N	\N	Pr.	Yes	Overcomers	\N	2020-02-27 11:05:53.781217+03
+3	Dihfahsih	Mugoya	Kafunda Zone	Nabweru	+256751612792	dihfahsihm@gmail.com	avatars/cool.JPG	Male	Single	Church_Marriage	Degree	Employed	Engineer	Canon Innovations Ltd	Uganda	Kyadondo	Maganjo	Wakiso	Nabweru	Nabweru South	2020-01-27	2020-02-03	2020-01-27	Discipleship	Winnie	09774789	Nabweru	Mr.	Yes	God is Able		2020-02-27 10:31:02.25805+03
+13	Rebecca	Sanyu Mirembe	Church Zone	Kasubi	0752678794	\N	avatars/pr_sanyu.JPG	Female	Single	\N	Certificate	Unemployed	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	Pastoral	\N	\N	\N	Pr.	Yes	Victors	\N	2020-02-27 10:31:02.261044+03
+11	Posiano	Zakumumpa	Church Zone	Mukono	0745367889	\N	avatars/pr.posian.JPG	Male	Married	Church_Marriage	Certificate	Employed	Business	Mukono	\N	\N	\N	\N	\N	\N	\N	\N	\N	Pastoral	\N	\N	\N	Pr.	Yes	Issachar	\N	2020-02-27 10:31:02.302931+03
+10	Yusuf	Lule	Kazo Zone	Kazo	0847887484	\N	avatars/26167418_570496569960970_5368404521942502125_n.jpg	Male	Married	Church_Marriage	Degree	Employed	Business	Kampala	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	Mr.	Yes	Overcomers	\N	2020-02-27 10:31:02.304929+03
+9	Odeke	Mable	Lugoba Zone	Lugoba	0893478784	\N	avatars/48967418_108314770240104_1882345597306929152_n.jpg	Female	Married	Church_Marriage	Degree	Employed	Secretary	Church	\N	\N	\N	\N	\N	\N	\N	\N	\N	Worship Team	\N	\N	\N	Mrs.	Yes	God is Able		2020-02-27 10:31:02.30692+03
+\.
+
+
+--
+-- Data for Name: dashboard_news; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_news (id, news_title, date, image, news, "Is_View_on_Web", author) FROM stdin;
+1	Women's Day	2020-02-05	images/w17.JPG	Enjoying great taste of food	Yes	2
+2	Foot Ball Team	2020-02-05	images/football_xnTRfPN.jpg	Ready for sports activities	Yes	2
+3	Inspecting New Church Building	2020-02-05	images/build2.jpg	The saints led by the building committee chairman, inspected the new church structure	Yes	2
+4	CHURCH MISSION  ‘‘WHY ARE YOU ALIVE’’	2020-02-06	images/IMG_3487_37EkVRQ.JPG	Introduction \r\nThis is a very fundamental question in our lives. It deals with the reason why someone is in existence. It is important for each one of us to discover why they are alive. So many people have failed to discover the purpose of their lives and many have actually come to the end of their ‘journeys’ without getting the slightest idea of why they ever lived.\r\nThe scriptures teach us that the of spirit “mankind” existed long before the creation of the world.\r\nThe creation of mankind happened in the eternity before God created any other thing in the physical world.\r\nWisdom  who is Christ , in Proverbs tell the story of what happened before the physical world was created - Prov 8:22  \r\nAs Christ tell the story he tells us of his moments with mankind in Spiritual world before the physical world was created \r\nVerse 31 “Rejoicing in the habitable part of his earth; and my delights were with the sons of men”.\r\n\r\nThe Psalmist through the prayer of Moses also reveals that spirit of mankind lived with God long before coming to the earth. \r\n\r\n “A Prayer of Moses the man of God. Lord, thou hast been our dwelling place in all generations”. Psalms 90:1	Yes	1
+5	HOW DO WE DISCOVER GOD’S WILL	2020-02-13	images/IMG_3528.JPG	Each one of us was given a divine mission and God has a purpose for each one that is different from any other person’s. However, many people are unable to walk according to God’s divine calendar. \r\nDiscovering God’s will is very vital because it enables us to know what He wants us to do and what He does not want us to do. The Bible states that “It’s God’s privilege to conceal things and the king’s privilege to discover them.”Prov25:2\r\nIt’s a challenge for everyone who really wants to live for God and not for themselves to seek to discover God’s will. God’s will can be discovered in several ways including; \r\n\tNow that God’s will is not obvious to many people, there isn’t any of us upon whom God doesn’t have purpose! It leaves us with a challenge which we must solve – why am I alive?\r\n\tOur God communicates to us in many ways now that our understanding and perception is also diverse; some easily understand by hearing once and several time while others do by seeing, yet others need both.  \r\n\tGod communicates to us in several ways as he shares with us his heart though many times we still do not understand but that doesn’t stop his endeavours\r\n\tIt makes this communication easy if the one he is communicating to is very interested and therefore anxious or even attentive – 1Sam 3:1-9\r\n\tWe can therefore know his will through some of the following ways;-	Yes	Admin
+6	WAYS OF DISCOVERING GOD'S WILL	2020-02-13	images/IMG_3489.JPG	\tPrayer; \r\n-\tTo us prayer is all about letting God know what we need, well some of the scriptures about prayer when read will give you this view. However when you read one that says before we pray he already knows what we need (Mat.6:7- 8), a question comes to mind why then pray?\r\n-\tPrayer times before God could be a moment when God gets our attention with an attitude we are going to let God know what we need, yet he is also ready to share his will with us now that in such times we are focused and attentive \r\n-\tMat.17:1 – mountain of transfiguration they was a two way communication\r\n-\tExod.3:3 - Moses by the burning bush…I will go over and see…”\r\n-\tPrayer is “two way traffic”. During prayer God speaks back and reveals His will to someone in a particular area of their concern. . \r\n\tRevelation; \r\n-\tThis is to disclose, to enlighten or illuminate\r\n-\tGod sometimes uses dreams when revealing to us his will\r\n-\tMany times God communicates to mankind through visions and dreams as he reveals his heart. Examples of people that God spoke to in dreams and visions include Joseph, Paul, Jeremiah, David, Peter e.t.c. \r\n-\tEph.1: 17 -18 -  That the God of our Lord Jesus Christ, the Father of glory, may give unto you the spirit of wisdom and revelation in the knowledge of him:\r\n18 The eyes of your understanding being enlightened; that ye may know what is the hope of his calling, and what the riches of the glory of his inheritance in the saints,\r\n-\tRoms 11:8-10 -   (According as it is written, God hath given them the spirit of slumber, eyes that they should not see, and ears that they should not hear;) unto this day.\r\n9 And David saith, Let their table be made a snare, and a trap, and a stumblingblock, and a recompence unto them:\r\n10 Let their eyes be darkened, that they may not see, and bow down their back alway.\r\n-\tLuk.24:16, 31 -   But their eyes were holden that they should not know him\r\nVs.31 -  And their eyes were opened, and they knew him; and he vanished out of their sight.\r\n-\tProv.25:2 -  It is the glory of God to conceal a thing: but the honour of kings is to search out a matter\r\n\tDeut.29:29 -  The secret things belong unto the LORD our God: but those things which are revealed belong unto us and to our children for ever, that we may do all the words of this law \r\n\r\n\tConviction of the heart.- This is one of the most common ways by which God makes his will known to mankind. Conviction is easy because it involves ones heart yet some of the other ways are somehow difficult because one has to be concentrated in order to know God’s will. It becomes even easier if one has got a heart of flesh and not a” strong heart”. “I will give you a new heart and put a new spirit in you: I will remove from you your heart of stone and give you a heart of fresh. And I will put my spirit in you and move you to follow my decree and be care free to keep my laws. “Ezekiel 36:26-27\r\n\r\nA heart of flesh is one that easily melts when God moves it which is unlike for a strong one.\r\nGod can put it upon ones heart to do something as the case was for Nehemiah “ I went to Jerusalem, and after staying there three days I set out during the night with a few men. I had not told anyone what my God had put in my heart to do for Jerusalem. There were no mounts with me except the one I was riding on.” Nehemiah: 2:11-12  \r\n\tGod’s Word; \r\n\tThrough God’s written word or “LOGOS”; \r\n\t2Timothy 3:16 - All scripture [is] given by inspiration of God, and [is] profitable for doctrine, for reproof, for correction, for instruction in righteousness:\r\n \r\n-\tEven when Christ came into this world, he did God’s will by living according to scriptures\r\n-\tLuke 4:21 And he began to say unto them, This day is this scripture fulfilled in your ears.\r\n-\tJohn 19:28 After this, Jesus knowing that all things were now accomplished, that the scripture might be fulfilled, saith, I thirst.\r\n\r\n-\tJohn 19:36 For these things were done, that the scripture should be fulfilled, A bone of him shall not be broken.\r\n\r\n-\tJohn 19:37 And again another scripture saith, They shall look on him whom they pierced.\r\n\r\n-\tJohn 20:9 For as yet they knew not the scripture, that he must rise again from the dead.\r\n-\t\r\n\tThrough God’s spoken word or “RHEMA”; \r\n\tThrough prophesies; \r\n\tThrough Word of knowledge (according to Isaiah 34:16 the word of God has every detail Ezekiel 3:1- eats the scroll and Jeremiah 15:16 - also ate God’s word.\r\n\tThrough leaders; God puts us under someone for a purpose and He expects us to submit under that authority. He uses such leaders to groom us into the people that He wants us to be. So God can communicate to people through their leaders. For example God used Moses and Joshua to communicate to the Israelites as He used Paul to speak to Timothy. Deuteronomy 34:9 and 1Timothy 4:14 respectively. \r\n\r\n\r\n\tTendencies and repeated challenges facing you\r\n-\tThere are things in life that one feels a concern and such a unique care about which is not the same case with other people.\r\n-\tOne may even try to draw the attention of other people to the same concern when for them they do not realise anything as related to issue of concern.\r\n-\t This personal concern many times is a message from God making the specific person notice that need so as to do something about it and so obey the heart of God by doing his will.\r\n-\tSometimes the attraction may even be annoying yet it’s what God wants you to correct or do something about.\r\n-\tSome of these concerns are seasonal yet others are part of one’s life – it’s a sign that one is wired accordingly.\r\n-\tThis tendency is like putting a responsibility upon yourself when everyone else is mindless or silent about something – no one chooses you but you choose yourself.\r\n-\tPeter always did this probably little did he know he was later to be a leader , a man of responsibility\r\n\tMat.16:18 – Simon peter answers “ you are the Christ”\r\n\tMatthew 14:28 And Peter answered him and said, Lord, if it be thou, bid me come unto thee on the water.\r\n\tMatthew 19:27 Then answered Peter and said unto him, Behold, we have forsaken all, and followed thee; what shall we have therefore?\r\n\tMatthew 26:58 But Peter followed him afar off unto the high priest's palace, and went in, and sat with the servants, to see the end.\r\n\tMatthew 16:22 Then Peter took him, and began to rebuke him, saying, Be it far from thee, Lord: this shall not be unto thee.\r\n\tMark 9:5 And Peter answered and said to Jesus, Master, it is good for us to be here: and let us make three tabernacles; one for thee, and one for Moses, and one for Elias.\r\n\r\nAs  we endeavour to discover and do God’s will, when one asks oneself this question “why are you alive”  it helps very much in refocusing back to roots which is the heart of God where we find the blue print of every one’s divine purpose of creation on this planet.	Yes	PR. Joshua Zake
+\.
+
+
+--
+-- Data for Name: dashboard_page; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_page (id, page_location, page_title, page_description, page_image) FROM stdin;
+1	Header	Sports	UCC BwaiseFootball Team	images/football.jpg
+2	Footer	About	Footer Info	images/2_wm6fyXk.jpg
+\.
+
+
+--
+-- Data for Name: dashboard_paidpledges; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_paidpledges (id, "Pledge_Id", "Amount_Paid", "Date", "Pledge_Made_By_id", "Reason_id") FROM stdin;
+9	5	5000	2020-02-06	2	6
+10	6	100000	2020-02-08	7	7
+15	7	150000	2020-02-01	4	8
+16	7	50000	2020-02-17	4	8
+17	6	5000	2020-02-08	7	7
+18	6	200000	2020-02-08	7	7
+19	6	95000	2020-02-08	7	7
+20	8	800000	2020-02-15	4	9
+21	8	200000	2020-02-15	4	9
+22	10	90000	2020-02-17	14	6
+23	10	5000	2020-02-17	14	6
+24	11	200000	2020-02-18	10	10
+25	12	120000	2020-02-21	10	11
+12	9	200000	2020-02-15	\N	9
+13	9	100000	2020-02-15	\N	9
+\.
+
+
+--
+-- Data for Name: dashboard_pledgeitem; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_pledgeitem (id, "Date", "Item_That_Needs_Pledges", "Amount_Needed", "Pledge_Deadline") FROM stdin;
+6	2020-02-06	Building	100000	2020-02-07
+7	2020-02-08	Buying Machines	500000	2020-03-07
+9	2020-02-15	Renovaton	2000000	2020-02-29
+8	2020-02-15	Lwaki Olimulamu Conference	3000000	2020-01-05
+10	2020-02-19	Orphans	200000	2020-02-27
+11	2020-02-21	Radio Program	100000	2020-02-29
+\.
+
+
+--
+-- Data for Name: dashboard_pledges; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_pledges (id, "Status", "Date", "Amount_Pledged", "Amount_Paid", "Balance", "Pledge_Made_By_id", "Reason_id") FROM stdin;
+13	UNPAID	2020-02-22	80000	\N	\N	10	8
+12	PAID	2020-02-21	120000	\N	\N	10	11
+11	PAID	2020-02-18	200000	\N	\N	10	10
+10	PAID	2020-02-17	95000	\N	\N	14	6
+6	PAID	2020-02-08	400000	\N	\N	7	7
+5	PAID	2020-02-06	5000	\N	\N	2	6
+7	PAID	\N	200000	\N	\N	4	8
+8	PAID	2020-02-15	1000000	\N	\N	4	9
+9	PAID	2020-02-15	300000	\N	\N	\N	9
+\.
+
+
+--
+-- Data for Name: dashboard_pledgescashedout; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_pledgescashedout (id, "Date", "Item_Id", "Amount_Needed", "Amount_Cashed_Out", "Item_That_Needs_Pledges") FROM stdin;
+1	\N	6	100000	5000	Building
+2	\N	7	500000	100000	Buying Machines
+3	2020-02-09	6	100000	95000	Building
+4	2020-02-23	11	100000	100000	Radio Program
+5	2020-02-23	10	200000	200000	Orphans
+\.
+
+
+--
+-- Data for Name: dashboard_pledgesreportarchive; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_pledgesreportarchive (id, "Status", "Pledge_Id", "Date", "Reason", "Pledged_Amount", "Amount_Paid", "Balance", archivedmonth, archivedyear, "Pledge_Made_By_id") FROM stdin;
+1	\N	7	\N	Conference	200000	\N	\N	February	2020	4
+2	PAID	8	2020-02-15	Conference	10000	\N	\N	February	2020	4
+5	PAID	5	2020-02-06	Building	5000	\N	\N	February	2020	2
+4	PAID	6	2020-02-08	Buying Machines	400000	\N	\N	February	2020	7
+3	PAID	9	2020-02-15	Renovaton	300000	\N	\N	February	2020	\N
+\.
+
+
+--
+-- Data for Name: dashboard_revenues; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_revenues (id, "Date", "Service", "Amount", "Archived_Status", "Revenue_filter", "Member_Name_id", "Other_Sources", "Other_Notes") FROM stdin;
+1	2020-02-19	Wednesday Service	250000	ARCHIVED	offering	\N	\N	\N
+24	2020-02-17	Bible Study Service	30000	ARCHIVED	tithes	4	\N	\N
+13	2020-02-17	Sunday Second Service	250000	ARCHIVED	tithes	14	\N	\N
+34	2020-02-09	Sunday Third Service	25000	ARCHIVED	build	\N	\N	Church Repair
+26	2020-01-20	Friday Overnight	100000	ARCHIVED	tithes	10	\N	\N
+28	2020-05-22	Bible Study Service	5000	ARCHIVED	tithes	10	\N	\N
+40	2020-02-22	Youth Service	6780	NOT-ARCHIVED	tithes	7	\N	\N
+41	2020-02-22	Sunday Third Service	4500	NOT-ARCHIVED	tithes	10	\N	\N
+27	2020-04-21	Sunday Second Service	25000	ARCHIVED	tithes	10	\N	\N
+23	2020-03-21	Sunday First Service	20000	ARCHIVED	tithes	10	\N	\N
+2	2020-03-03	Wednesday Service	250000	ARCHIVED	offering	\N	\N	\N
+38	2020-03-02	Friday Overnight	25000	ARCHIVED	tithes	7	\N	\N
+31	2020-02-23	Sunday First Service	6000	ARCHIVED	offering	\N	\N	\N
+21	2020-02-22	Sunday First Service	30000	ARCHIVED	build	\N	\N	Renovations
+29	2020-02-22	Youth Service	30000	ARCHIVED	tithes	9	\N	\N
+20	2020-02-22	Youth Service	25000	ARCHIVED	build	\N	\N	New Church
+15	2020-02-21	Bible Study Service	20000	ARCHIVED	thanks	10	\N	\N
+10	2020-02-21	Wednesday Service	80000	ARCHIVED	seeds	10	\N	\N
+32	2020-02-21	Friday Overnight	30000	ARCHIVED	build	\N	\N	Renovations
+8	2020-02-21	Wednesday Service	90000	ARCHIVED	offering	\N	\N	\N
+18	2020-02-21	Youth Service	100000	ARCHIVED	tithes	2	\N	\N
+19	2020-02-21	Bible Study Service	25000	ARCHIVED	offering	\N	\N	\N
+25	2020-02-21	Wednesday Service	30000	ARCHIVED	offering	\N	\N	\N
+35	2020-02-21	Sunday First Service	25000	ARCHIVED	tithes	3	\N	\N
+9	2020-02-20	Friday Overnight	80000	ARCHIVED	seeds	11	\N	\N
+39	2020-02-20	Sunday Third Service	25000	ARCHIVED	offering	\N	\N	\N
+37	2020-02-20	Home Cell Service	25000	ARCHIVED	tithes	7	\N	\N
+17	2020-02-20	\N	36000	ARCHIVED	others	\N	Mwanyangiri Missions	\N
+16	2020-02-20	\N	25000	ARCHIVED	others	\N	Mbale Mission	\N
+3	2020-02-20	Friday Overnight	250000	ARCHIVED	seeds	1	\N	\N
+4	2020-02-20	Youth Service	2400	ARCHIVED	offering	\N	\N	\N
+5	2020-02-20	Home Cell Service	250000	ARCHIVED	seeds	2	\N	\N
+36	2019-02-21	Bible Study Service	25000	ARCHIVED	tithes	\N	\N	\N
+22	2021-02-21	Friday Overnight	250000	ARCHIVED	tithes	\N	\N	\N
+12	2020-02-20	Youth Service	35000	ARCHIVED	tithes	\N	\N	\N
+7	2020-02-20	Home Cell Service	230000	ARCHIVED	offering	\N	\N	\N
+6	2020-02-20	Friday Overnight	250000	ARCHIVED	seeds	7	\N	\N
+11	2020-02-20	Home Cell Service	250000	ARCHIVED	seeds	1	\N	\N
+14	2020-02-20	Friday Overnight	34000	ARCHIVED	thanks	9	\N	\N
+33	2020-02-20	Home Cell Service	25000	ARCHIVED	build	\N	\N	New Church
+30	2020-02-19	Sunday Second Service	250000	ARCHIVED	offering	\N	\N	\N
+\.
+
+
+--
+-- Data for Name: dashboard_salariespaid; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_salariespaid (id, "Salary_Id", "Name", "Salary_Amount", "Month_being_cleared", "Date_of_paying_salary") FROM stdin;
+1	7	Mukisa Ivan	5000000	2020-02-01	2020-02-08
+\.
+
+
+--
+-- Data for Name: dashboard_salariespaidreportarchive; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_salariespaidreportarchive (id, "Salary_Id", "Name", "Salary_Amount", "Month_being_cleared", "Date_of_paying_salary", archivedmonth, archivedyear) FROM stdin;
+\.
+
+
+--
+-- Data for Name: dashboard_slider; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_slider (id, slider_image, image_title, modified) FROM stdin;
+1	sliders/w7.JPG	When daddy and mummy are hugging - Wow	2020-02-13 14:15:45.176+03
+11	sliders/IMG_3526.JPG	What a warm hug from the Admin to his wife.	2020-02-08 13:51:42.915+03
+12	sliders/IMG_3523.JPG	What a smile from this Couple	2020-02-05 21:07:06.688+03
+13	sliders/IMG_3517.JPG	Ivan and His wonderful Wife	2020-02-05 21:08:14.447+03
+14	sliders/IMG_3514.JPG	Hugging has never been this passionate	2020-02-05 21:09:11.555+03
+15	sliders/w10.JPG	It seems it was an awhile hug, so passionate	2020-02-13 14:16:59.879+03
+16	sliders/w20.JPG	Kanzu's are not for only burial and kwanjula, So smart	2020-02-13 14:18:24.998+03
+17	sliders/w21.JPG	God refurbishes us, Mr. Mubiru doesn't look 50 years	2020-02-13 14:19:41.751+03
+18	sliders/IMG_3520.JPG	My husband is the most handsome guy, she says	2020-02-13 14:21:02.178+03
+19	sliders/w8.JPG	He never expected it!, that was incredible	2020-02-13 14:30:02.744+03
+20	sliders/IMG_3478.JPG	Of course Mr. Buyuki missed his rib by his side	2020-02-13 14:25:38.062+03
+21	sliders/w14.JPG	Perfect Joy, When you see couples hugging each other!	2020-02-22 02:34:07.533761+03
+\.
+
+
+--
+-- Data for Name: dashboard_staffdetails; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_staffdetails (id, "UCC_Bwaise_Member", "First_Name", "Second_Name", "Gender", "Date_Of_Birth", "Education_Level", "Residence", "Telephone", "Photo", "Faith", "Date_of_paying_salary", "Month_being_cleared", "Salary_Amount", "Role", "Date_of_employment", "End_of_contract", "Church_Member_id", "Is_View_on_Web") FROM stdin;
+1	Yes	\N	\N	\N	\N	\N	\N	\N		\N	\N	\N	5000000	Security	2020-02-08	2020-02-09	7	Yes
+\.
+
+
+--
+-- Data for Name: dashboard_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_user (id, password, last_login, email, username, "Role", is_active, is_staff, is_superuser, full_name_id, "Is_View_on_Web") FROM stdin;
+4	pbkdf2_sha256$150000$t4PNWc6woL4t$iehISAYYjR4QKQrVDcNQHwaExeDTQ+Sl4JJekxU4BhE=	2020-02-22 21:49:01.791509+03	yusufulule@gmail.com	superadmin2	Admin	t	f	f	10	Yes
+2	pbkdf2_sha256$150000$xXyH54eiKRfb$xHsuJYetzKXb8Lmts4BKaRq+Lp/JQUz3JrCytt6UkzY=	2020-02-27 08:24:08.033375+03	uccbwaise2@gmail.com	superadmin	SuperAdmin	t	t	t	1	Yes
+9	pbkdf2_sha256$150000$9Z0gcJnsFJF3$cXsU0dxQ+0OSwTJUNArylzs8mjxbIUW5f1rGI51SF2E=	\N	\N	secretary	Secretary	t	f	f	9	Yes
+\.
+
+
+--
+-- Data for Name: dashboard_user_groups; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: dashboard_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: dashboard_visitors; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_visitors (id, "Photo", "First_Name", "Second_Name", "Address", "Telephone", "Church") FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+5	2020-02-07 09:40:03.814+03	1	Contact object (1)	3		44	2
+10	2020-02-18 21:06:53.126268+03	6	hhdfj	2	[{"changed": {"fields": ["Date"]}}]	45	2
+11	2020-02-18 21:07:24.978349+03	5	fr	2	[{"changed": {"fields": ["Date"]}}]	45	2
+12	2020-02-18 21:33:21.766577+03	4	dfghjkl	2	[{"changed": {"fields": ["archivedyear"]}}]	45	2
+13	2020-02-18 21:34:12.826938+03	1	Building the house of God	2	[]	45	2
+14	2020-02-19 13:16:55.977248+03	1	Jonah Kisaktye	2	[{"changed": {"fields": ["Archived_Status"]}}]	46	2
+15	2020-02-19 13:31:58.168691+03	2	UNSWC	2	[{"changed": {"fields": ["Archived_Status"]}}]	46	2
+16	2020-02-19 16:56:37.303506+03	9	Jonah	2	[{"changed": {"fields": ["Reason_filtering"]}}]	46	2
+17	2020-02-19 16:56:55.01013+03	8	Sam	2	[{"changed": {"fields": ["Reason_filtering"]}}]	46	2
+18	2020-02-19 23:12:53.105696+03	2	2020-03-03	2	[{"changed": {"fields": ["Archived_Status"]}}]	47	2
+19	2020-02-20 10:23:53.108814+03	6	2020-02-20	2	[{"changed": {"fields": ["Archived_Status"]}}]	47	2
+20	2020-02-20 10:23:59.611417+03	5	2020-02-20	2	[{"changed": {"fields": ["Archived_Status"]}}]	47	2
+21	2020-02-20 10:25:20.862059+03	6	2020-02-20	2	[{"changed": {"fields": ["Archived_Status"]}}]	47	2
+22	2020-02-20 11:20:50.59744+03	6	2020-02-20	2	[{"changed": {"fields": ["Archived_Status"]}}]	47	2
+23	2020-02-20 11:21:24.094848+03	6	2020-02-20	2	[]	47	2
+24	2020-02-20 12:39:02.593822+03	12	2020-02-20	2	[{"changed": {"fields": ["Archived_Status"]}}]	47	2
+25	2020-02-20 13:59:43.016199+03	13	2020-02-17	2	[{"changed": {"fields": ["Archived_Status"]}}]	47	2
+26	2020-02-20 22:23:04.081287+03	17	allowance	2	[{"changed": {"fields": ["Archived_Status"]}}]	46	2
+27	2020-02-21 00:17:16.251717+03	17	allowance	2	[{"changed": {"fields": ["Archived_Status"]}}]	46	2
+28	2020-02-21 13:34:13.285776+03	6	main	2	[{"changed": {"fields": ["Archived_Status"]}}]	46	2
+29	2020-02-21 13:34:26.422242+03	5	main	2	[{"changed": {"fields": ["Archived_Status"]}}]	46	2
+\.
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_content_type (id, app_label, model) FROM stdin;
+1	dashboard	allowancereportarchive
+2	dashboard	donations
+3	dashboard	donationsreportarchive
+4	dashboard	expensesreportarchive
+5	dashboard	generalexpenses
+6	dashboard	generalexpensesreportarchive
+7	dashboard	members
+8	dashboard	offerings
+9	dashboard	offeringsreportarchive
+10	dashboard	pledgeitem
+11	dashboard	salariespaid
+12	dashboard	salariespaidreportarchive
+13	dashboard	spend
+14	dashboard	sundry
+15	dashboard	sundryreportarchive
+16	dashboard	visitors
+17	dashboard	tithesreportarchive
+18	dashboard	tithes
+19	dashboard	thanksgivingreportarchive
+20	dashboard	thanksgiving
+21	dashboard	staffdetails
+22	dashboard	seedsreportarchive
+23	dashboard	seeds
+24	dashboard	pledgesreportarchive
+25	dashboard	pledgescashedout
+26	dashboard	pledges
+27	dashboard	paidpledges
+28	dashboard	allowance
+29	dashboard	user
+30	blog	posts
+31	admin	logentry
+32	auth	permission
+33	auth	group
+34	contenttypes	contenttype
+35	sessions	session
+36	dashboard	slider
+37	dashboard	about
+38	dashboard	page
+39	dashboard	gallery
+40	dashboard	image
+41	dashboard	news
+42	dashboard	event
+43	dashboard	church
+44	dashboard	contact
+45	dashboard	buildingrenovation
+46	dashboard	expenditures
+47	dashboard	revenues
+48	dashboard	archivedmembers
+\.
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_migrations (id, app, name, applied) FROM stdin;
+1	contenttypes	0001_initial	2020-02-14 20:35:40.569673+03
+2	contenttypes	0002_remove_content_type_name	2020-02-14 20:35:40.688709+03
+3	auth	0001_initial	2020-02-14 20:35:40.916106+03
+4	auth	0002_alter_permission_name_max_length	2020-02-14 20:35:41.235252+03
+5	auth	0003_alter_user_email_max_length	2020-02-14 20:35:41.270171+03
+6	auth	0004_alter_user_username_opts	2020-02-14 20:35:41.314001+03
+7	auth	0005_alter_user_last_login_null	2020-02-14 20:35:41.347036+03
+8	auth	0006_require_contenttypes_0002	2020-02-14 20:35:41.354002+03
+9	auth	0007_alter_validators_add_error_messages	2020-02-14 20:35:41.384615+03
+10	auth	0008_alter_user_username_max_length	2020-02-14 20:35:41.411322+03
+11	auth	0009_alter_user_last_name_max_length	2020-02-14 20:35:41.440546+03
+12	auth	0010_alter_group_name_max_length	2020-02-14 20:35:41.473396+03
+13	auth	0011_update_proxy_permissions	2020-02-14 20:35:41.502003+03
+14	dashboard	0001_initial	2020-02-14 20:35:43.953249+03
+15	admin	0001_initial	2020-02-14 20:35:45.258248+03
+16	admin	0002_logentry_remove_auto_add	2020-02-14 20:35:45.407286+03
+17	admin	0003_logentry_add_action_flag_choices	2020-02-14 20:35:45.458354+03
+18	dashboard	0002_auto_20200203_1346	2020-02-14 20:35:45.562117+03
+19	dashboard	0003_auto_20200203_1356	2020-02-14 20:35:45.783275+03
+20	dashboard	0004_members_initials	2020-02-14 20:35:46.070849+03
+21	dashboard	0005_auto_20200205_1215	2020-02-14 20:35:46.149302+03
+22	dashboard	0006_slider	2020-02-14 20:35:46.20708+03
+23	dashboard	0007_about	2020-02-14 20:35:46.320132+03
+24	dashboard	0008_gallery_image_page	2020-02-14 20:35:46.614349+03
+25	dashboard	0009_news	2020-02-14 20:35:46.817105+03
+26	dashboard	0010_event	2020-02-14 20:35:46.956246+03
+27	dashboard	0011_auto_20200205_2303	2020-02-14 20:35:46.981224+03
+28	dashboard	0012_church	2020-02-14 20:35:47.113235+03
+29	dashboard	0013_image_is_view_on_web	2020-02-14 20:35:47.148818+03
+30	dashboard	0014_auto_20200206_1528	2020-02-14 20:35:47.189023+03
+31	dashboard	0015_auto_20200206_2154	2020-02-14 20:35:47.423208+03
+32	dashboard	0016_church_maps_embedded_link	2020-02-14 20:35:47.457297+03
+33	dashboard	0017_contact	2020-02-14 20:35:47.562852+03
+34	dashboard	0018_auto_20200207_0910	2020-02-14 20:35:47.621407+03
+35	dashboard	0019_contact_feedback	2020-02-14 20:35:47.64523+03
+36	dashboard	0020_auto_20200207_0923	2020-02-14 20:35:47.674269+03
+37	dashboard	0021_members_group	2020-02-14 20:35:47.712239+03
+38	dashboard	0022_auto_20200212_2145	2020-02-14 20:35:47.878451+03
+39	dashboard	0023_auto_20200212_2252	2020-02-14 20:35:47.90037+03
+40	dashboard	0024_auto_20200212_2259	2020-02-14 20:35:47.927547+03
+41	dashboard	0025_auto_20200213_0004	2020-02-14 20:35:47.950139+03
+42	dashboard	0026_auto_20200213_1043	2020-02-14 20:35:48.065167+03
+43	dashboard	0027_auto_20200213_1153	2020-02-14 20:35:48.114063+03
+44	dashboard	0028_auto_20200213_1154	2020-02-14 20:35:48.158974+03
+45	dashboard	0029_auto_20200213_1211	2020-02-14 20:35:48.204088+03
+46	dashboard	0030_about_about_title	2020-02-14 20:35:48.22761+03
+47	dashboard	0031_auto_20200213_1338	2020-02-14 20:35:48.551256+03
+48	dashboard	0032_auto_20200213_1513	2020-02-14 20:35:48.612692+03
+49	dashboard	0033_auto_20200213_1602	2020-02-14 20:35:48.696944+03
+50	dashboard	0034_auto_20200213_1846	2020-02-14 20:35:48.74363+03
+51	dashboard	0035_members_more_info	2020-02-14 20:35:48.784141+03
+52	dashboard	0036_auto_20200214_0019	2020-02-14 20:35:48.825595+03
+53	sessions	0001_initial	2020-02-14 20:35:48.924016+03
+54	dashboard	0037_tithesreportarchive_service	2020-02-15 18:50:04.107922+03
+55	dashboard	0038_auto_20200215_1851	2020-02-15 18:51:46.853256+03
+56	dashboard	0039_auto_20200217_0044	2020-02-17 00:45:07.290663+03
+57	dashboard	0040_members_date	2020-02-17 17:11:14.106342+03
+58	dashboard	0041_auto_20200217_1715	2020-02-17 17:15:08.536498+03
+59	dashboard	0042_auto_20200218_1213	2020-02-18 12:13:38.612054+03
+60	dashboard	0043_auto_20200218_1239	2020-02-18 12:39:17.463967+03
+61	dashboard	0044_buildingrenovation	2020-02-18 15:16:07.94181+03
+62	dashboard	0045_auto_20200218_1533	2020-02-18 15:33:53.189925+03
+63	dashboard	0046_buildingrenovation_archived_status	2020-02-18 16:21:54.143707+03
+64	dashboard	0047_auto_20200218_1628	2020-02-18 16:28:52.113526+03
+65	dashboard	0048_auto_20200218_1820	2020-02-18 18:20:25.106086+03
+66	dashboard	0049_auto_20200218_1840	2020-02-18 18:41:03.697091+03
+67	dashboard	0050_auto_20200218_1924	2020-02-18 19:25:00.820204+03
+68	dashboard	0051_auto_20200218_2050	2020-02-18 20:50:10.103898+03
+69	dashboard	0052_auto_20200218_2234	2020-02-18 22:34:47.450409+03
+70	dashboard	0053_auto_20200219_1112	2020-02-19 11:12:23.450894+03
+71	dashboard	0054_expenditures_archived_status	2020-02-19 11:21:11.119055+03
+72	dashboard	0055_expenditures_reason_filtering	2020-02-19 15:01:58.160987+03
+73	dashboard	0056_auto_20200219_2203	2020-02-19 22:03:50.658515+03
+74	dashboard	0057_revenues_other_sources	2020-02-20 14:55:55.056893+03
+75	dashboard	0058_auto_20200220_1558	2020-02-20 15:58:54.126542+03
+76	dashboard	0059_expenditures_member_name	2020-02-20 20:40:30.618995+03
+77	dashboard	0060_expenditures_notes	2020-02-20 21:30:14.831289+03
+78	dashboard	0061_auto_20200220_2219	2020-02-20 22:19:24.491885+03
+79	dashboard	0062_auto_20200221_0921	2020-02-21 09:22:12.734212+03
+80	dashboard	0063_auto_20200221_1006	2020-02-21 10:06:48.694668+03
+81	dashboard	0064_auto_20200221_1013	2020-02-21 10:13:16.12747+03
+82	dashboard	0065_auto_20200221_2159	2020-02-21 21:59:24.592581+03
+83	dashboard	0066_members_archived_status	2020-02-27 09:50:36.015031+03
+84	dashboard	0067_auto_20200227_1134	2020-02-27 11:35:07.212305+03
+\.
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
+32iydxjil4bqip7pl0ppkgrk4777915j	OWUwNWNkODIwNTNjY2M0YmJmOGRjZTI4ODhkYWRkYTdhN2Q2ZGJkMTp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhYWE5MGQxMjRkODk2Y2IwYmMwMDlhMDBmMTMwNTg2MTNlMmEyOTcwIn0=	2020-02-18 19:59:01.734+03
+64rll1o4ystz00tzb82lhq03vc50extv	OWUwNWNkODIwNTNjY2M0YmJmOGRjZTI4ODhkYWRkYTdhN2Q2ZGJkMTp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhYWE5MGQxMjRkODk2Y2IwYmMwMDlhMDBmMTMwNTg2MTNlMmEyOTcwIn0=	2020-02-21 14:59:07.23+03
+90khtxhhivs4nx0j2fkhf5o8pl14uvbn	ZDM5ZTY2ZDMwYTcwMTc5ODY3NDk5MzdmMTYwYWZmZGZjZWZiYjBmMDp7Il9hdXRoX3VzZXJfaWQiOiI0IiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJlZWQxZTQyODFmZmU5YzQwY2VmNmEwOGZkZDA2YmYzMzhiMzFlOWRlIn0=	2020-02-26 20:52:57.328+03
+cx8huj20lhstxeblw517udeuwctrt6hu	OWUwNWNkODIwNTNjY2M0YmJmOGRjZTI4ODhkYWRkYTdhN2Q2ZGJkMTp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhYWE5MGQxMjRkODk2Y2IwYmMwMDlhMDBmMTMwNTg2MTNlMmEyOTcwIn0=	2020-02-23 01:55:17.338+03
+d3pcq4dnslcaf8eewlc2c68h2dyhcvw7	OWUwNWNkODIwNTNjY2M0YmJmOGRjZTI4ODhkYWRkYTdhN2Q2ZGJkMTp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhYWE5MGQxMjRkODk2Y2IwYmMwMDlhMDBmMTMwNTg2MTNlMmEyOTcwIn0=	2020-02-23 16:58:20.039+03
+df00tgc91pf8x1eib3kc5x7ke847ily1	OWUwNWNkODIwNTNjY2M0YmJmOGRjZTI4ODhkYWRkYTdhN2Q2ZGJkMTp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhYWE5MGQxMjRkODk2Y2IwYmMwMDlhMDBmMTMwNTg2MTNlMmEyOTcwIn0=	2020-02-23 15:59:00.812+03
+div43f28m4v3j2d9mwjyw2wstxzju459	ZjkxMmQyYzZjOGZkZTk1NGU1MDQyMTU2NDJlYWUyNzRhYjMxMjc0OTp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIxZjc1YTVjZDQ1ZDQwMTMyYzNkMGZlZTgzNDI2ODA2YmJlYjEwY2U3In0=	2020-02-20 01:36:31.253+03
+eyyk9csqhokr7f6ttzn7tdytm22k8zjb	OWUwNWNkODIwNTNjY2M0YmJmOGRjZTI4ODhkYWRkYTdhN2Q2ZGJkMTp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhYWE5MGQxMjRkODk2Y2IwYmMwMDlhMDBmMTMwNTg2MTNlMmEyOTcwIn0=	2020-02-19 12:46:12.728+03
+lmu3ylfo62dq98w8hxnys1s5dszhlf0f	ZDM5ZTY2ZDMwYTcwMTc5ODY3NDk5MzdmMTYwYWZmZGZjZWZiYjBmMDp7Il9hdXRoX3VzZXJfaWQiOiI0IiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJlZWQxZTQyODFmZmU5YzQwY2VmNmEwOGZkZDA2YmYzMzhiMzFlOWRlIn0=	2020-02-26 22:58:07.088+03
+loe9ugk4xtzl385qspnsu5w9x9soxaxs	OWUwNWNkODIwNTNjY2M0YmJmOGRjZTI4ODhkYWRkYTdhN2Q2ZGJkMTp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhYWE5MGQxMjRkODk2Y2IwYmMwMDlhMDBmMTMwNTg2MTNlMmEyOTcwIn0=	2020-02-20 19:51:37.398+03
+m0llct13bacqrfn94aoz0w8vhnbksyyv	NjcwY2RlMDQ0OTRjNmYyMjRmMzUzZjA1Y2Q1MTAzNjNjMTgxMTEyYzp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIwMGU2ZDY5YmM3NGExZTliNWY1ZTY0OTNmM2JkMDAyMDRkYmRmMDM2In0=	2020-02-17 14:28:19.125+03
+oj8gy8xky4qfksseir0a50usq35qsbgb	MTg2MTE3ZTYzYTM3MDk3N2MzZDExNGY3NmZlYWY1ZDJiNjQ2NmM2YTp7fQ==	2020-02-24 18:24:20.538+03
+vgagczwmepjxrma3m0gflvvyjmc589og	OWUwNWNkODIwNTNjY2M0YmJmOGRjZTI4ODhkYWRkYTdhN2Q2ZGJkMTp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhYWE5MGQxMjRkODk2Y2IwYmMwMDlhMDBmMTMwNTg2MTNlMmEyOTcwIn0=	2020-02-22 20:38:20.859+03
+xu3c0mz0ph7xdyexexwwuz7g4rnvoqiv	OWUwNWNkODIwNTNjY2M0YmJmOGRjZTI4ODhkYWRkYTdhN2Q2ZGJkMTp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhYWE5MGQxMjRkODk2Y2IwYmMwMDlhMDBmMTMwNTg2MTNlMmEyOTcwIn0=	2020-02-21 10:05:47.586+03
+djz6de31tw467xtcqlq4prfx7270z9ln	OWUwNWNkODIwNTNjY2M0YmJmOGRjZTI4ODhkYWRkYTdhN2Q2ZGJkMTp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhYWE5MGQxMjRkODk2Y2IwYmMwMDlhMDBmMTMwNTg2MTNlMmEyOTcwIn0=	2020-02-28 21:52:50.272745+03
+73nb4mgnu070pgt3oopfwfm1dhgp82al	ZDM5ZTY2ZDMwYTcwMTc5ODY3NDk5MzdmMTYwYWZmZGZjZWZiYjBmMDp7Il9hdXRoX3VzZXJfaWQiOiI0IiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJlZWQxZTQyODFmZmU5YzQwY2VmNmEwOGZkZDA2YmYzMzhiMzFlOWRlIn0=	2020-03-07 21:13:19.588218+03
+7wnbhxyhf1vyk7tie3vy9fpctq9sn03x	OWUwNWNkODIwNTNjY2M0YmJmOGRjZTI4ODhkYWRkYTdhN2Q2ZGJkMTp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhYWE5MGQxMjRkODk2Y2IwYmMwMDlhMDBmMTMwNTg2MTNlMmEyOTcwIn0=	2020-03-08 21:44:28.516154+03
+x5334thfoclcmzxsp7qsk2pn8if8tmx9	OWUwNWNkODIwNTNjY2M0YmJmOGRjZTI4ODhkYWRkYTdhN2Q2ZGJkMTp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhYWE5MGQxMjRkODk2Y2IwYmMwMDlhMDBmMTMwNTg2MTNlMmEyOTcwIn0=	2020-03-06 16:31:47.708157+03
+zjknoquc9ojqkq551nc8sw2hxre2a9uj	OWUwNWNkODIwNTNjY2M0YmJmOGRjZTI4ODhkYWRkYTdhN2Q2ZGJkMTp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhYWE5MGQxMjRkODk2Y2IwYmMwMDlhMDBmMTMwNTg2MTNlMmEyOTcwIn0=	2020-02-29 21:30:53.475029+03
+vfj0bm6ybeioyteituuj8bg83abj6qgy	ZDY0ZTBhMDY1MzZkYmI5MDlkZWM5NzBjYWI4NDNhMzFjN2Q4NTAzNjp7Il9hdXRoX3VzZXJfaWQiOiI3IiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI0NDczZGE0YjEyNmM4MGI4ZWI3ZjU5ZWM5N2UxNWJiNTkzMDQ5YWJiIn0=	2020-03-07 01:11:39.568906+03
+ep7cszow9qtsil0fmxb1gyoorewzzgsq	ZDM5ZTY2ZDMwYTcwMTc5ODY3NDk5MzdmMTYwYWZmZGZjZWZiYjBmMDp7Il9hdXRoX3VzZXJfaWQiOiI0IiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJlZWQxZTQyODFmZmU5YzQwY2VmNmEwOGZkZDA2YmYzMzhiMzFlOWRlIn0=	2020-03-07 01:13:00.997033+03
+pxguhs9sep5skez610mnjar9ntnf8sqg	ZDM5ZTY2ZDMwYTcwMTc5ODY3NDk5MzdmMTYwYWZmZGZjZWZiYjBmMDp7Il9hdXRoX3VzZXJfaWQiOiI0IiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJlZWQxZTQyODFmZmU5YzQwY2VmNmEwOGZkZDA2YmYzMzhiMzFlOWRlIn0=	2020-03-03 00:27:44.034595+03
+p9p5yvdcebgjkms42jd4dudho7jnrn0i	OWUwNWNkODIwNTNjY2M0YmJmOGRjZTI4ODhkYWRkYTdhN2Q2ZGJkMTp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhYWE5MGQxMjRkODk2Y2IwYmMwMDlhMDBmMTMwNTg2MTNlMmEyOTcwIn0=	2020-03-12 11:05:53.860005+03
+\.
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_group_id_seq', 1, true);
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 176, true);
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 192, true);
+
+
+--
+-- Name: dashboard_about_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_about_id_seq', 5, true);
+
+
+--
+-- Name: dashboard_archivedmembers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_archivedmembers_id_seq', 1, true);
+
+
+--
+-- Name: dashboard_church_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_church_id_seq', 1, true);
+
+
+--
+-- Name: dashboard_contact_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_contact_id_seq', 8, true);
+
+
+--
+-- Name: dashboard_event_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_event_id_seq', 8, true);
+
+
+--
+-- Name: dashboard_expenditures_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_expenditures_id_seq', 22, true);
+
+
+--
+-- Name: dashboard_gallery_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_gallery_id_seq', 5, true);
+
+
+--
+-- Name: dashboard_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_image_id_seq', 21, true);
+
+
+--
+-- Name: dashboard_members_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_members_id_seq', 14, true);
+
+
+--
+-- Name: dashboard_news_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_news_id_seq', 6, true);
+
+
+--
+-- Name: dashboard_page_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_page_id_seq', 2, true);
+
+
+--
+-- Name: dashboard_paidpledges_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_paidpledges_id_seq', 25, true);
+
+
+--
+-- Name: dashboard_pledgeitem_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_pledgeitem_id_seq', 11, true);
+
+
+--
+-- Name: dashboard_pledges_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_pledges_id_seq', 13, true);
+
+
+--
+-- Name: dashboard_pledgescashedout_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_pledgescashedout_id_seq', 5, true);
+
+
+--
+-- Name: dashboard_pledgesreportarchive_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_pledgesreportarchive_id_seq', 5, true);
+
+
+--
+-- Name: dashboard_revenues_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_revenues_id_seq', 41, true);
+
+
+--
+-- Name: dashboard_salariespaid_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_salariespaid_id_seq', 1, true);
+
+
+--
+-- Name: dashboard_salariespaidreportarchive_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_salariespaidreportarchive_id_seq', 1, false);
+
+
+--
+-- Name: dashboard_slider_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_slider_id_seq', 21, true);
+
+
+--
+-- Name: dashboard_staffdetails_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_staffdetails_id_seq', 1, true);
+
+
+--
+-- Name: dashboard_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: dashboard_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_user_id_seq', 9, true);
+
+
+--
+-- Name: dashboard_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Name: dashboard_visitors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_visitors_id_seq', 1, false);
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 29, true);
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 48, true);
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 84, true);
+
+
+--
+-- Name: auth_group auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_0cd325b0_uniq UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_01ab375a_uniq UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_about dashboard_about_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_about
+    ADD CONSTRAINT dashboard_about_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_archivedmembers dashboard_archivedmembers_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_archivedmembers
+    ADD CONSTRAINT dashboard_archivedmembers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_church dashboard_church_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_church
+    ADD CONSTRAINT dashboard_church_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_contact dashboard_contact_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_contact
+    ADD CONSTRAINT dashboard_contact_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_event dashboard_event_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_event
+    ADD CONSTRAINT dashboard_event_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_expenditures dashboard_expenditures_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_expenditures
+    ADD CONSTRAINT dashboard_expenditures_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_gallery dashboard_gallery_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_gallery
+    ADD CONSTRAINT dashboard_gallery_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_image dashboard_image_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_image
+    ADD CONSTRAINT dashboard_image_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_members dashboard_members_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_members
+    ADD CONSTRAINT dashboard_members_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_news dashboard_news_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_news
+    ADD CONSTRAINT dashboard_news_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_page dashboard_page_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_page
+    ADD CONSTRAINT dashboard_page_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_paidpledges dashboard_paidpledges_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_paidpledges
+    ADD CONSTRAINT dashboard_paidpledges_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_pledgeitem dashboard_pledgeitem_Item_That_Needs_Pledges_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_pledgeitem
+    ADD CONSTRAINT "dashboard_pledgeitem_Item_That_Needs_Pledges_key" UNIQUE ("Item_That_Needs_Pledges");
+
+
+--
+-- Name: dashboard_pledgeitem dashboard_pledgeitem_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_pledgeitem
+    ADD CONSTRAINT dashboard_pledgeitem_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_pledges dashboard_pledges_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_pledges
+    ADD CONSTRAINT dashboard_pledges_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_pledgescashedout dashboard_pledgescashedout_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_pledgescashedout
+    ADD CONSTRAINT dashboard_pledgescashedout_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_pledgesreportarchive dashboard_pledgesreportarchive_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_pledgesreportarchive
+    ADD CONSTRAINT dashboard_pledgesreportarchive_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_revenues dashboard_revenues_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_revenues
+    ADD CONSTRAINT dashboard_revenues_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_salariespaid dashboard_salariespaid_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_salariespaid
+    ADD CONSTRAINT dashboard_salariespaid_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_salariespaidreportarchive dashboard_salariespaidreportarchive_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_salariespaidreportarchive
+    ADD CONSTRAINT dashboard_salariespaidreportarchive_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_slider dashboard_slider_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_slider
+    ADD CONSTRAINT dashboard_slider_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_staffdetails dashboard_staffdetails_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_staffdetails
+    ADD CONSTRAINT dashboard_staffdetails_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_user dashboard_user_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_user
+    ADD CONSTRAINT dashboard_user_email_key UNIQUE (email);
+
+
+--
+-- Name: dashboard_user_groups dashboard_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_user_groups
+    ADD CONSTRAINT dashboard_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_user_groups dashboard_user_groups_user_id_group_id_2c570fca_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_user_groups
+    ADD CONSTRAINT dashboard_user_groups_user_id_group_id_2c570fca_uniq UNIQUE (user_id, group_id);
+
+
+--
+-- Name: dashboard_user dashboard_user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_user
+    ADD CONSTRAINT dashboard_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_user_user_permissions dashboard_user_user_perm_user_id_permission_id_550d0c70_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_user_user_permissions
+    ADD CONSTRAINT dashboard_user_user_perm_user_id_permission_id_550d0c70_uniq UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: dashboard_user_user_permissions dashboard_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_user_user_permissions
+    ADD CONSTRAINT dashboard_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_user dashboard_user_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_user
+    ADD CONSTRAINT dashboard_user_username_key UNIQUE (username);
+
+
+--
+-- Name: dashboard_visitors dashboard_visitors_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_visitors
+    ADD CONSTRAINT dashboard_visitors_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_76bd3d3b_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_name_a6ea08ec_like ON public.auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON public.auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON public.auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_permission_content_type_id_2f476e4b ON public.auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: dashboard_expenditures_Member_Name_id_7bc96d06; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "dashboard_expenditures_Member_Name_id_7bc96d06" ON public.dashboard_expenditures USING btree ("Member_Name_id");
+
+
+--
+-- Name: dashboard_image_gallery_title_id_9676d8f3; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX dashboard_image_gallery_title_id_9676d8f3 ON public.dashboard_image USING btree (gallery_title_id);
+
+
+--
+-- Name: dashboard_paidpledges_Pledge_Made_By_id_f9668881; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "dashboard_paidpledges_Pledge_Made_By_id_f9668881" ON public.dashboard_paidpledges USING btree ("Pledge_Made_By_id");
+
+
+--
+-- Name: dashboard_paidpledges_Reason_id_48cb47e6; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "dashboard_paidpledges_Reason_id_48cb47e6" ON public.dashboard_paidpledges USING btree ("Reason_id");
+
+
+--
+-- Name: dashboard_pledgeitem_Item_That_Needs_Pledges_59dec05b_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "dashboard_pledgeitem_Item_That_Needs_Pledges_59dec05b_like" ON public.dashboard_pledgeitem USING btree ("Item_That_Needs_Pledges" varchar_pattern_ops);
+
+
+--
+-- Name: dashboard_pledges_Pledge_Made_By_id_e0f3dcfb; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "dashboard_pledges_Pledge_Made_By_id_e0f3dcfb" ON public.dashboard_pledges USING btree ("Pledge_Made_By_id");
+
+
+--
+-- Name: dashboard_pledges_Reason_id_dff79f38; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "dashboard_pledges_Reason_id_dff79f38" ON public.dashboard_pledges USING btree ("Reason_id");
+
+
+--
+-- Name: dashboard_pledgesreportarchive_Pledge_Made_By_id_91cdf44b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "dashboard_pledgesreportarchive_Pledge_Made_By_id_91cdf44b" ON public.dashboard_pledgesreportarchive USING btree ("Pledge_Made_By_id");
+
+
+--
+-- Name: dashboard_revenues_Member_Name_id_7c5d9a45; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "dashboard_revenues_Member_Name_id_7c5d9a45" ON public.dashboard_revenues USING btree ("Member_Name_id");
+
+
+--
+-- Name: dashboard_staffdetails_Church_Member_id_f0684c0b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "dashboard_staffdetails_Church_Member_id_f0684c0b" ON public.dashboard_staffdetails USING btree ("Church_Member_id");
+
+
+--
+-- Name: dashboard_user_email_01012f67_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX dashboard_user_email_01012f67_like ON public.dashboard_user USING btree (email varchar_pattern_ops);
+
+
+--
+-- Name: dashboard_user_full_name_id_7c7af222; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX dashboard_user_full_name_id_7c7af222 ON public.dashboard_user USING btree (full_name_id);
+
+
+--
+-- Name: dashboard_user_groups_group_id_54086039; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX dashboard_user_groups_group_id_54086039 ON public.dashboard_user_groups USING btree (group_id);
+
+
+--
+-- Name: dashboard_user_groups_user_id_a915c7fc; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX dashboard_user_groups_user_id_a915c7fc ON public.dashboard_user_groups USING btree (user_id);
+
+
+--
+-- Name: dashboard_user_user_permissions_permission_id_70269958; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX dashboard_user_user_permissions_permission_id_70269958 ON public.dashboard_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: dashboard_user_user_permissions_user_id_ea9b20c2; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX dashboard_user_user_permissions_user_id_ea9b20c2 ON public.dashboard_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: dashboard_user_username_f9d39e85_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX dashboard_user_username_f9d39e85_like ON public.dashboard_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON public.django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_admin_log_user_id_c564eba6 ON public.django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_expire_date_a5c62663; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_session_expire_date_a5c62663 ON public.django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_permission_id_84c5c92e_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: dashboard_expenditures dashboard_expenditur_Member_Name_id_7bc96d06_fk_dashboard; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_expenditures
+    ADD CONSTRAINT "dashboard_expenditur_Member_Name_id_7bc96d06_fk_dashboard" FOREIGN KEY ("Member_Name_id") REFERENCES public.dashboard_members(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: dashboard_image dashboard_image_gallery_title_id_9676d8f3_fk_dashboard; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_image
+    ADD CONSTRAINT dashboard_image_gallery_title_id_9676d8f3_fk_dashboard FOREIGN KEY (gallery_title_id) REFERENCES public.dashboard_gallery(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: dashboard_paidpledges dashboard_paidpledge_Pledge_Made_By_id_f9668881_fk_dashboard; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_paidpledges
+    ADD CONSTRAINT "dashboard_paidpledge_Pledge_Made_By_id_f9668881_fk_dashboard" FOREIGN KEY ("Pledge_Made_By_id") REFERENCES public.dashboard_members(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: dashboard_paidpledges dashboard_paidpledge_Reason_id_48cb47e6_fk_dashboard; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_paidpledges
+    ADD CONSTRAINT "dashboard_paidpledge_Reason_id_48cb47e6_fk_dashboard" FOREIGN KEY ("Reason_id") REFERENCES public.dashboard_pledgeitem(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: dashboard_pledges dashboard_pledges_Pledge_Made_By_id_e0f3dcfb_fk_dashboard; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_pledges
+    ADD CONSTRAINT "dashboard_pledges_Pledge_Made_By_id_e0f3dcfb_fk_dashboard" FOREIGN KEY ("Pledge_Made_By_id") REFERENCES public.dashboard_members(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: dashboard_pledges dashboard_pledges_Reason_id_dff79f38_fk_dashboard_pledgeitem_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_pledges
+    ADD CONSTRAINT "dashboard_pledges_Reason_id_dff79f38_fk_dashboard_pledgeitem_id" FOREIGN KEY ("Reason_id") REFERENCES public.dashboard_pledgeitem(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: dashboard_pledgesreportarchive dashboard_pledgesrep_Pledge_Made_By_id_91cdf44b_fk_dashboard; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_pledgesreportarchive
+    ADD CONSTRAINT "dashboard_pledgesrep_Pledge_Made_By_id_91cdf44b_fk_dashboard" FOREIGN KEY ("Pledge_Made_By_id") REFERENCES public.dashboard_members(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: dashboard_revenues dashboard_revenues_Member_Name_id_7c5d9a45_fk_dashboard; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_revenues
+    ADD CONSTRAINT "dashboard_revenues_Member_Name_id_7c5d9a45_fk_dashboard" FOREIGN KEY ("Member_Name_id") REFERENCES public.dashboard_members(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: dashboard_staffdetails dashboard_staffdetai_Church_Member_id_f0684c0b_fk_dashboard; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_staffdetails
+    ADD CONSTRAINT "dashboard_staffdetai_Church_Member_id_f0684c0b_fk_dashboard" FOREIGN KEY ("Church_Member_id") REFERENCES public.dashboard_members(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: dashboard_user dashboard_user_full_name_id_7c7af222_fk_dashboard_members_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_user
+    ADD CONSTRAINT dashboard_user_full_name_id_7c7af222_fk_dashboard_members_id FOREIGN KEY (full_name_id) REFERENCES public.dashboard_members(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: dashboard_user_groups dashboard_user_groups_group_id_54086039_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_user_groups
+    ADD CONSTRAINT dashboard_user_groups_group_id_54086039_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: dashboard_user_groups dashboard_user_groups_user_id_a915c7fc_fk_dashboard_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_user_groups
+    ADD CONSTRAINT dashboard_user_groups_user_id_a915c7fc_fk_dashboard_user_id FOREIGN KEY (user_id) REFERENCES public.dashboard_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: dashboard_user_user_permissions dashboard_user_user__permission_id_70269958_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_user_user_permissions
+    ADD CONSTRAINT dashboard_user_user__permission_id_70269958_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: dashboard_user_user_permissions dashboard_user_user__user_id_ea9b20c2_fk_dashboard; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_user_user_permissions
+    ADD CONSTRAINT dashboard_user_user__user_id_ea9b20c2_fk_dashboard FOREIGN KEY (user_id) REFERENCES public.dashboard_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_content_type_id_c4bce8eb_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_user_id_c564eba6_fk_dashboard_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_dashboard_user_id FOREIGN KEY (user_id) REFERENCES public.dashboard_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
