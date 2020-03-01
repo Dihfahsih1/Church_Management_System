@@ -84,28 +84,29 @@
     <div class="fakeLoader"></div>
     <div class="container body" >
         <div class="main_container">
-                    {% block sidebar %}
-                            <div class="col-md-3 left_col {% block sidebar_class %} {% endblock sidebar_class %}">
-                                {% include "app/sidebar.html" %}
-                            </div>
-                    {% endblock sidebar %}
-                {% block top_navigation %}
-                    <div class="top_nav">
-                      {% include "app/top_navigation.html" %}
-                   </div>
-                {% endblock top_navigation %}
+            {% block sidebar %}
+                <div class="col-md-3 left_col {% block sidebar_class %} {% endblock sidebar_class %}">
+                    {% include "app/sidebar.html" %}
+                </div>
+            {% endblock sidebar %}
 
-                {% block content %}
-                    <h3 style="color: red">
-                      {{ message }}
-                    </h3>
-                {% endblock content %}
+            {% block top_navigation %}
+                <div class="top_nav">
+                  {% include "app/top_navigation.html" %}
+                </div>
+            {% endblock top_navigation %}
 
-                {% block footer %}
+            {% block content %}
+                <h3 style="color: red">
+                  {{ message }}
+                </h3>
+            {% endblock content %}
+
+            {% block footer %}
                 <footer>
                      {% include "app/footer.html" %}
                 </footer>  
-                {% endblock footer %}
+            {% endblock footer %}
 
         </div>
     </div>
