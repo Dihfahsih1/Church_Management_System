@@ -2577,8 +2577,9 @@ def index(request):
     Annualsalaries=int(A_salaries["totals"])
 
     #in case the totals are Zero
-    if (A_salaries,A_allowance,A_petty,A_general,A_main,A_petty,A_build,A_seeds,A_tithes,A_offering,A_others,A_thanks,
-        total_petty_expenses,total_current_tithes,total_general_expenses, total_current_salaries, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== 0:
+    if (A_salaries,A_allowance,A_petty,A_general,A_main,A_petty,A_build,A_seeds,A_tithes,A_offering,A_others,
+        A_thanks, total_petty_expenses,total_current_tithes,total_general_expenses, total_current_salaries, 
+        total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== 0:
         total_monthly_incomes = 0
         annual_revenues = 0
         annual_expenditure = 0
@@ -2603,7 +2604,7 @@ def index(request):
     else:
         annual_revenues = Annualtithes+ Annualoffering + Annualseeds + Annualthanks + Annualothers + Annualbuilding
         annual_expenditure =  Annualallowances + Annualmain+Annualsalaries+ Annualgeneral+ Annualpetty
-        total_monthly_incomes =  tithes + offerings + seeds + thanks + donations + building
+        total_monthly_incomes =  pledges + tithes + offerings + seeds + thanks + donations + building
         total_monthly_expenditure =  allowances + expenses + general + petty+ salaries
         net_income = total_monthly_incomes - total_monthly_expenditure
         annual_net = annual_revenues-annual_expenditure
