@@ -86,7 +86,7 @@ class SalariesPaidForm(forms.ModelForm):
 class PledgesForm(forms.ModelForm):
     class Meta:
         model=Pledges
-        fields = ('Status','Amount_Paid','Balance','Date','Pledge_Made_By','Reason','Amount_Pledged')
+        fields = ('Archived_Status','Status','Amount_Paid','Balance','Date','Pledge_Made_By','Reason','Amount_Pledged')
         widgets = {
             'Date': DatePickerInput(),
         }

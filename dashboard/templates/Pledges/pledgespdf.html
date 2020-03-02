@@ -68,23 +68,21 @@
             <tr style="font-size:larger">
                 <th>Date</th>
                 <th>Name</th>
-                <th>Group</th>
                 <th>Reason</th>
                 <th>Amount Pledged</th>
-                <td>Amount Paid <i class=" glyphicon glyphicon-arrow-right"></i> <b>(<span style="font-weight: bolder; color:red" class="totalCol"></span>)</b></td>
+                <th>Amount Paid</th>
                 <th>Balance</th>
             </tr>
             </thead>
             <tbody>
             {% for ex in ple %}
-                <tr style="font-size:large" class="totalColumn">
+                <tr style="font-size:larger">
                     <td>{{ ex.Date}}</td>
-                    <td>{{ ex.Pledge_Made_By  }}</td>
-                    <td>{{ ex.Pledge_Made_By.Group  }}</td>
-                    <td>{{ ex.Reason  }}</td>
-                    <td>{{ ex.Amount_Pledged }}</td>
-                    <td class="rowDataSd">{{ ex.total_pledge_paid }}</td>
-                    <td>{{ ex.Pledge_Balance }}</td>
+                    <td>{{ ex.Pledge_Made_By}}</td>
+                    <td>{{ ex.Reason}}</td>
+                    <td>{{ ex.Amount_Pledged}}</td>
+                    <td>{{ ex.total_pledge_paid}}</td>
+                    <td>{{ ex.Pledge_Balance}}</td>
                 </tr>
             {% endfor %}
               <tr>

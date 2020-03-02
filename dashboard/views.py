@@ -1423,71 +1423,37 @@ class pledgesreceipt(View):
 @login_required
 def Pledgesreport(request):
     if request.method=='POST':
-        archived_year=request.POST['archived_year']
-        archived_month = request.POST['archived_month']
-        all_expenses = Pledges.objects.all()
-        for expense in all_expenses:
-            pledge_id=expense.id
-            status = expense.Status
-            date=expense.Date
-            name=expense.Pledge_Made_By
-            reason=expense.Reason
-            pledged_amount= expense.Amount_Pledged
-
-            expense_archiveobj=PledgesReportArchive()
-            expense_archiveobj.Pledge_Id=pledge_id
-            expense_archiveobj.Status=status
-            expense_archiveobj.Date=date
-            expense_archiveobj.Pledge_Made_By = name
-            expense_archiveobj.Reason = reason
-            expense_archiveobj.Pledged_Amount=pledged_amount
-            expense_archiveobj.archivedyear= archived_year
-            expense_archiveobj.archivedmonth =archived_month
-            expense_archiveobj.save()
-        messages.success(request, "The Pledges Report has been Archived")
-        return render(request, 'Pledges/pledgesindex.html')
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'August', 'September', 'October', 'November','December']
-    years = datetime.now().year
-    total = Pledges.objects.aggregate(totals=models.Sum("Amount_Pledged"))
-    total_amount = total["totals"]
-    day=datetime.now()
-    mth = datetime.now().month
-    items =Pledges.objects.all().order_by('-Date')
-    context = {
-        'day':day,
-        'mth':mth,
-        'total_amount':total_amount,
-        'items':items,
-        'months':months,
-        'years':years,
-    }
+        items = Pledges.objects.all()
+        for item in items:
+            item.Archived_Status = 'ARCHIVED'
+            item.save()
+        messages.success(request, f'All Pledges have been Archived')
+        return redirect('Pledgesreport')
+    today = datetime.now()
+    years=today.year
+    context={}
+    items = Pledges.objects.filter(Archived_Status="NOT-ARCHIVED")
+    context['items']=items
+    context['years']=years
+    context['today']=today
     return render(request, 'Pledges/pledgesindex.html', context)
 
 @login_required
 def pledgesarchivessearch(request):
+    today = datetime.now()
+    years=today.year
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
-        archived_reports = PledgesReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
-        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                  'August','September', 'October', 'November', 'December']
-        years = datetime.now().year
-#getting years automatically without hard coding.... <<pending>>
-
-        pledges = PledgesReportArchive.objects.all()
-        today = timezone.now()
-        total = archived_reports.aggregate(totals=models.Sum("Pledged_Amount"))
-        total_amount = total["totals"]
-        context = {'archived_reports': archived_reports,'months': months,'years': years,'expenses': pledges,'total_amount': total_amount,'today': today,'report_year': report_year,
-                   'report_month': report_month}
+        archived_reports = Pledges.objects.filter(Archived_Status='ARCHIVED', Date__month=report_month, Date__year=report_year)
+        mth=int(report_month)
+        report_month=calendar.month_name[mth]
+        context = {'archived_reports': archived_reports,'years': years,'today': today,
+                  'report_year': report_year,'report_month': report_month}
         return render(request, "Pledges/pledgesarchive.html", context)
+    context = {'years': years}
+    return render(request, "Pledges/pledgesarchive.html", context)   
 
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-              'August', 'September', 'October', 'November', 'December']
-    years = datetime.now().year
-    pledges = PledgesReportArchive.objects.all()
-    context = {'months': months, 'years': years, 'pledges': pledges}
-    return render(request, "Pledges/pledgesarchive.html", context)
 
 class pledgesarchivepdf(View):
     def get(self, request, report_month, report_year):

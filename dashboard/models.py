@@ -413,6 +413,8 @@ class Pledges(Model):
     Amount_Pledged = models.IntegerField()
     Amount_Paid = models.IntegerField(blank=True, null=True)
     Balance = models.IntegerField(blank=True, null=True)
+    Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
+
     def __str__(self):
         return self.Pledge_Made_By
 

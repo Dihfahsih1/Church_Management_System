@@ -1,14 +1,14 @@
 {% extends "app/base_site.html" %}
 {% block content %}
 <head>
-  <title>UCC Bwaise | Pledges Report as of {{day}}</title>
+  <title>UCC Bwaise | Pledges Report as of {{today}}</title>
 </head>
 <div class="right_col" role="main">
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Pledges</small></h2>
+                    <h1><b><i class="fa fa fa-calendar-check-o"></i> PLEDGES MODULE</b></h1>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -97,8 +97,7 @@
                                   <a href="{% url 'pledge-made-invoice' item.id %}"><button class="btn btn-info"><span class="glyphicon glyphicon-print"> Invoice</span></button></a> 
                                   <a href="{% url 'edit_pledges' item.id  %}" ><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button></a>        
                                   </td>
-                                  {% endif%} 
-
+                                  {% endif%}
                                   {% endfor %}
                                 </tr>
                               </tbody>
@@ -109,58 +108,45 @@
                     </div>
                   </div>
                   <p><a href="{% url 'pledgespdf' %}" target="_new" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-print"> PRINT REPORT</span></a></p>
-                  {% if mth == December %}
                   <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
                   
                           
-                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">Archive</span></button> 
-                  {% endif %}     
+                  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">ARCHIVE</span></button>
+                      
                  <!-- Button trigger modal -->
 
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Pledges report archiving</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                           <h4 class="text-danger"><b><u>Ensure You archive the Correct Month and Year(Church Cycle)</u></b></h4>
-                        <form class="x_content" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="form-row">
-                          <div class="col-lg-12" style="background-color: rgb(227, 237, 239">
-                           <div class="col-lg-3">
-                            <label >Year</label>
-                            <input type="text" name="archived_year" value="{{years}}" width="1%">
-                            </div><br><br><br>
-                            <div class="col-lg-3">
-                            <label>Month</label>
-                            <select  name="archived_month" id="inlineFormCustomSelect">
-                                <option selected> Select Month</option>
-                                {% for report_month in months %}
-                                   <option class="btn-success" name="{{ report_month }}" value="{{ report_month }}">{{ report_month }}
-                                   </option>
-                                {% endfor %}
-                            </select>
-                            </div><br><br><br>
-                             <div class="col-lg-6">
-                              <button type="submit" class="btn btn-info">Submit <span class='glyphicon glyphicon-send'></span></button>
-                             </div>
-                            </div>
-                          </div>
-                        </form>
-                          </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      
+                 <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Pledges report archiving</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
                 </div>
+                <div class="modal-body">
+                  <h4 class="text-danger"><b>Confirmation</b></h4>
+                  <form class="x_content" method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="form-row">
+                    <div class="col-lg-12" style="background-color: rgb(227, 237, 239">
+                     <h3>Are You Yure You Want To ARCHIVE this report<b>?</b></h3>
+                      <br>
+                      <div class="col-lg-6">
+                        <button type="submit" class="btn btn-info">YES <span class='glyphicon glyphicon-send'></span></button>
+                      </div>
+                    </div>
+                  </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">NO</button>
                 </div>
               </div>
             </div>
+          </div>
           </div>
         </div>
       </div>
