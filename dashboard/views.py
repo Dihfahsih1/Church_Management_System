@@ -1199,7 +1199,8 @@ class allowancereceipt(View):
             'data': data,
             'request': request,
         }
-        return Render.render('Allowances/allowance_receipt.html', context)        
+        return Render.render('Allowances/allowance_receipt.html', context) 
+
 ###############################
       # PLEDGES MODULE#
 ###############################
@@ -1323,42 +1324,31 @@ def member_pledges_paid(request):
             return render(request, 'Pledges/paying_pledges_update.html', context)
 
 def archived_pledge_debts(request):
-    debts=PledgesReportArchive.objects.filter(Q(Status='UNPAID') | Q(Status='PARTIAL') | Q(Status='PAID'))
-    #PledgesReportArchive.objects.filter(Status='PAID').delete()
+    debts=Pledges.objects.filter(Q(Status='UNPAID') | Q(Status='PARTIAL'))
     context={'debts':debts}
     return render(request, "Pledges/archived_pledge_debts.html", context)
 
 def settle_pledge_debt(request, pk):
-    items = get_object_or_404(PledgesReportArchive, Pledge_Id=pk)
+    items = get_object_or_404(Pledges, id=pk)
     if request.method == "POST":
-        form = PledgesReportArchiveForm(request.POST, request.FILES, instance=items)
+        form = TestingForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('pledges-paid-list')
     else:
-        form = PledgesReportArchiveForm(instance=items)
-        retrieving_id=PledgesReportArchive.objects.filter(Pledge_Id=pk)
+        form = UpdatePledgesForm(instance=items)
+        retrieving_id=Pledges.objects.filter(id=pk)
         context={'form':form,'retrieving_id':retrieving_id}
         return render(request, 'Pledges/settle_pledge_debt.html', context)
 
-def member_settle_pledge_debt(request):
-    if request.method == "POST":
-        form =  PaidPledgesForm(request.POST,request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('archived-pledge-debts')
-        else:
-            form = PaidPledgesForm()
-            message="Pledge amount updated saccessfully!"
-            context={'form':form,'message':message}
-            return render(request, 'Pledges/settle_pledge_debt.html', context)
 
-def delete_bad_debt(request, pk):
-    retrieving_id=PledgesReportArchive.objects.filter(id=pk)
-    if request.method == "GET":
-        retrieving_id.delete()
-        messages.success(request, "Archive successfully deleted!")
-        return redirect('archived-pledge-debts')
+
+# def delete_bad_debt(request, pk):#flag bad debts instead of deleting them
+#     retrieving_id=PledgesReportArchive.objects.filter(id=pk)
+#     if request.method == "GET":
+#         retrieving_id.delete()
+#         messages.success(request, "Archive successfully deleted!")
+#         return redirect('archived-pledge-debts')
 
 @login_required
 def pledges_paid_list(request):
@@ -1457,9 +1447,10 @@ def pledgesarchivessearch(request):
 
 class pledgesarchivepdf(View):
     def get(self, request, report_month, report_year):
-        archived_pledges = PledgesReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
+        month=strptime(report_month, '%B').tm_mon
+        archived_pledges = Pledges.objects.filter(Archived_Status='ARCHIVED', Date__year=report_year, Date__month=month)
         today = datetime.now()
-        total = archived_pledges.aggregate(totals=models.Sum("Pledged_Amount"))
+        total = archived_pledges.aggregate(totals=models.Sum("Amount_Paid"))
         total_amount = total["totals"]
         pledgescontext = {
             'today': today,
@@ -1471,7 +1462,7 @@ class pledgesarchivepdf(View):
 
 class pledge_debt_invoice(View):
     def get(self, request, pk):
-        debt = PledgesReportArchive.objects.get(Q(Status='UNPAID') | Q(Status='PARTIAL'), Pledge_Id=pk)
+        debt = Pledges.objects.get(Q(Status='UNPAID') | Q(Status='PARTIAL'), id=pk)
         today = datetime.now()
         debtcontext = {
             'today': today,

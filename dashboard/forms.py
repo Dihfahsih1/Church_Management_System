@@ -90,10 +90,16 @@ class PledgesForm(forms.ModelForm):
         widgets = {
             'Date': DatePickerInput(),
         }
+class TestingForm(forms.ModelForm):
+    class Meta:
+        model = Pledges
+        fields = ('Amount_Paid', 'Pledge_Id')
+
+
 class UpdatePledgesForm(forms.ModelForm):
     class Meta:
         model=Pledges
-        fields = ('Reason','Pledge_Made_By','Amount_Paid','Date')
+        fields = ('Amount_Paid','Date')
         widgets = {
 
             'Date': DatePickerInput(),

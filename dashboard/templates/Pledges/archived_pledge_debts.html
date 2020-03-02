@@ -74,44 +74,20 @@
                                   <td>{{ db.Pledge_Made_By }}</td>
                                   <td>{{ db.Reason}}</td>
                                   <td>{{ db.updatestatus}}</td>
-                                  <td>{{ db.Pledged_Amount }}</td>
+                                  <td>{{ db.Amount_Pledged }}</td>
                                   <td>{{ db.total_pledge_paid}}</td>
                                   <td>{{ db.Pledge_Balance}}</td>
                                   <td><div class="mb-4">
-                                  {% if db.total_pledge_paid >= db.Pledged_Amount  %}
+                                  {% if db.updatestatus == 'PAID'  %}
                                     <b class="btn btn-btn btn-sm "><span class="glyphicon glyphicon-thumbs-up"></span> Debt Settled</b>
 
-                                    |<a href="{% url 'settled-pledge-receipt' db.Pledge_Id %}"><button class="btn btn-warning"><span class="glyphicon glyphicon-qrcode"> Receipt</span></button></a>
+                                    | <a href="{% url 'settled-pledge-receipt' db.Pledge_Id %}"><button class="btn btn-warning"><span class="glyphicon glyphicon-qrcode"> Receipt</span></button></a>
 
-                                    |<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
-                                             <span class='glyphicon glyphicon-trash'> </span> Delete
-                                    </button>
                                   {% else %}
-                                  <a href="{% url 'settle-pledge-debt' db.Pledge_Id %}"><button class="btn btn-success">Settle Debt</button></a>|
-                                    <a href="{% url 'pledge-invoice' db.Pledge_Id %}"><button class="btn btn-info">Invoice</button></a>
-                                  {% endif%}
-
-                                  {% if db.total_pledge_paid == 0  %}
-                                  <a href="{% url 'delete-bad-debt' db.Pledge_Id %}"><button class="btn btn-danger">Bad Debt</button></a></td>
+                                  <a href="{% url 'settle-pledge-debt' db.id %}"><button class="btn btn-success">Settle Debt</button></a>|
+                                    <a href="{% url 'pledge-invoice' db.id %}"><button class="btn btn-info">Invoice</button></a> 
                                   {% endif%}
                                   </tr>
-                                  <!-- Modal -->
-                                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                              <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                  <div class="modal-header">
-                                                    <h4 class="modal-title" id="myModalLabel">Delete </h4>
-                                                  </div>
-                                                  <div class="modal-body">
-                                                      <h3>Are you sure you want to delete Archived Pledge ?</h3>
-                                                  </div>
-                                                  <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                    <a href="{% url 'delete-bad-debt' db.id %}" class="btn btn-danger bt-sm" role="button">Confirm</a>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>
                                 </tbody>
                                 {% endfor %}
                             </table>

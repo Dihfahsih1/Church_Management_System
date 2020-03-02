@@ -6,7 +6,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Pledges</small></h2>
+            <h1><i class="fa fa fa-calendar-check-o"></i> CHURCH PLEDGES</h1>
             <ul class="nav navbar-right panel_toolbox">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
@@ -37,7 +37,7 @@
                  <li role="presentation"><a href="{% url 'Pledgesreport' %}"><i
                             class="fa fa-list-ol"></i> List of Pledges</a>
                 </li>
-                <li role="presentation"  class="active"><a href="{% url 'pledgesarchivessearch' %}"><i
+                <li role="presentation"><a href="{% url 'pledgesarchivessearch' %}"><i
                       class="fa fa-plus-square-o"></i> Pledges Archived</a>
                 </li> 
                  <li role="presentation" ><a href="{% url 'archived-pledge-debts' %}"><i
@@ -52,20 +52,20 @@
               </ul>
             {% load crispy_forms_tags %}
             <br>
-            <form method="POST" enctype="multipart/form-data" action="{% url 'member-settle-pledge-debt' %}" >
+            <form method="POST" enctype="multipart/form-data" action="" >
             {% csrf_token %}
                 {% for pledge_id in retrieving_id %}
                 <div class="form-row col-lg-3" id="st">
                     <label> Pledge_Id</label>
-                    <input type="text" name="Pledge_Id" id="Pledge_Id" maxlength="100" class="textinput textInput form-control" value="{{ pledge_id.Pledge_Id }}">
-                </div> 
+                    <input type="text" name="Pledge_Id" id="Pledge_Id" maxlength="100" class="textinput textInput form-control" value="{{ pledge_id.id }}">
+                </div>
                 {% endfor%} 
-                <div class="col-lg-6">
-                    {{ form.Pledge_Made_By|as_crispy_field }}
+                <div class="col-lg-3"></div>
+                <div class="col-lg-3">
                
             	    {{ form.Date|as_crispy_field }}
-            
-            	    {{ form.Amount_Paid|as_crispy_field }}
+            	      <label for="id_paid_amount">Amount Paid</label>
+                   <input type="number" value="{{items.Pledge_Balance}}" name="Amount_Paid" required id="id_paid_amount" class="textinput textInput form-control" min='1' max='{{items.Pledge_Balance}}'>
             	
                 <button type="submit" class="btn btn-primary" name="button">Submit</button>
                 </div>

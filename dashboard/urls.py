@@ -152,8 +152,8 @@ url(r'^Pledges/History/List', views.pledges_paid_list, name='pledges-paid-list')
 # url(r'^Pledges/Paid/Delete/(?P<pk>\d+)/', views.delete_pledges_paid, name='delete-pledges-paid'),
 url(r'^Pledges/Archived/Debts', views.archived_pledge_debts, name='archived-pledge-debts'),
 url(r'^Pledges/Archived/Settling-Debt/(?P<pk>\d+)', views.settle_pledge_debt, name='settle-pledge-debt'),
-url(r'^Pledges/Archived/Debt_settling', views.member_settle_pledge_debt, name='member-settle-pledge-debt'),
-url(r'^Pledges/Archived/Delete-Bad-debt/(?P<pk>\d+)', views.delete_bad_debt, name='delete-bad-debt'),
+#url(r'^Pledges/Archived/Debt_settling', views.member_settle_pledge_debt, name='member-settle-pledge-debt'),
+#url(r'^Pledges/Archived/Delete-Bad-debt/(?P<pk>\d+)', views.delete_bad_debt, name='delete-bad-debt'),
 
 
 #Employees

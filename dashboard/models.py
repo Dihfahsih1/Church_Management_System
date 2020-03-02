@@ -410,9 +410,10 @@ class Pledges(Model):
     Date = models.DateField(null=True, blank=True)
     Pledge_Made_By = models.ForeignKey(Members, on_delete=models.SET_NULL,  max_length=100,null=True, blank=False)
     Reason = models.ForeignKey(PledgeItem, on_delete=models.SET_NULL,  max_length=100, blank=True, null=True)
-    Amount_Pledged = models.IntegerField()
-    Amount_Paid = models.IntegerField(blank=True, null=True)
+    Amount_Pledged = models.IntegerField(default=0,blank=True, null=True)
+    Amount_Paid = models.IntegerField(default=0,blank=True, null=True)
     Balance = models.IntegerField(blank=True, null=True)
+    Pledge_Id = models.CharField(max_length=100,blank=True, null=True)
     Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
 
     def __str__(self):
@@ -425,18 +426,19 @@ class Pledges(Model):
     #using decorators to archive the calculations
     @property
     def total_pledge_paid(self):
-        results = PaidPledges.objects.filter(Pledge_Id=self.id).aggregate(totals=models.Sum("Amount_Paid"))
+        results=Pledges.objects.filter(Pledge_Id=self.id).values('Amount_Paid').aggregate(totals=models.Sum("Amount_Paid"))
         if (results['totals']):
-            return results["totals"]
+                return results["totals"]
+                print(results)
         else:
-            return 0 
-    @property
+            return 0
+    @property 
     def Pledge_Balance(self):
         results=self.Amount_Pledged - self.total_pledge_paid
         return results
     @property
     def updatestatus(self):
-        if (self.total_pledge_paid >= self.Amount_Pledged):
+        if (self.Pledge_Balance <= 0):
             self.Status = self.paid
             self.save()
             return self.Status
