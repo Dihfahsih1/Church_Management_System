@@ -15,8 +15,6 @@
           </div>
                 <div class="x_content quick-link">
                     <span style="color:red"><b>Quick Links:</b></span>
-                        <a href="{% url 'archived-pledge-debts' %}"> Unsettled Pledges</a>
-                        |<a href="{% url 'pledges-paid-list' %}"> All Pledges Paid</a>
                         |<a href="{% url 'pledgesarchivessearch' %}"> Pledges Archived</a>
                         |<a href="{% url 'Pledgesreport' %}"> Pledges Reports</a>
                     <div class="separator"></div>
@@ -40,9 +38,6 @@
                 </li>
                 <li role="presentation"><a href="{% url 'pledgesarchivessearch' %}"><i
                               class="fa fa-plus-square-o"></i> Pledges Archived</a>
-                </li>
-                 <li role="presentation"><a href="{% url 'pledges-paid-list' %}"><i
-                              class="fa fa-plus-square-o"></i> Pledges Paid</a>
                 </li>
               </ul> <br/>
 				{% load crispy_forms_tags %}
