@@ -352,10 +352,13 @@ class SalariesPaidReportArchive(models.Model):
 
 #PLEDGES MODEL
 class PledgeItem(Model):
+
     Date = models.DateField(blank=True, null=True)
     Item_That_Needs_Pledges = models.CharField(max_length=100, unique=True)
     Amount_Needed = models.IntegerField(blank=True, null=True)
     Pledge_Deadline = models.DateField(blank=True, null=True)
+    Archived_Status = models.CharField(max_length=100, blank=True, null=True, choices=archive, default="NOT-ARCHIVED")
+
     def __str__(self):
         return self.Item_That_Needs_Pledges
     @property 
@@ -464,60 +467,6 @@ class PaidPledges(Model):
     Amount_Paid = models.IntegerField(blank=True, null=True)
     Date = models.DateField(null=True, blank=True) 
          
-    
-class PledgesReportArchive(Model):
-    Status = models.CharField(max_length=150, null=True)
-    Pledge_Id = models.IntegerField(null=True, blank=True)
-    Date = models.DateField(null=True, blank=True)
-    Pledge_Made_By = models.ForeignKey(Members, on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
-    Reason = models.CharField(max_length=100, null=True)
-    Pledged_Amount=models.IntegerField(null=True, blank=True)
-    Amount_Paid = models.IntegerField(null=True, blank=True)
-    Balance = models.IntegerField(null=True, blank=True)
-    archivedmonth = models.CharField(max_length=100,null=True)
-    archivedyear = models.CharField(max_length=100,null=True)
-
-    # using decorators
-    @property
-    def total_pledge_paid(self):
-        results = PaidPledges.objects.filter(Pledge_Id=self.Pledge_Id).aggregate(totals=models.Sum("Amount_Paid"))
-        if (results['totals']):
-            return results["totals"]
-        else:
-            return 0 
-    @property
-    def all_pledges_total(self):
-        results = PaidPledges.objects.aggregate(totals=models.Sum(self.total_pledge_paid))
-        if (results['totals']):
-            return results["totals"]
-        else:
-            return 0 
-            
-    @property
-    def Pledge_Balance(self):
-        results=self.Pledged_Amount - self.total_pledge_paid
-        return results 
-    @property
-    def updatestatus(self):
-        if (self.total_pledge_paid >= self.Pledged_Amount):
-            self.Status = "PAID"
-            self.save()
-            return self.Status
-
-        elif (self.total_pledge_paid == 0):
-            self.Status = "UNPAID"
-            self.save()
-            return self.Status
-
-        elif (self.total_pledge_paid < self.Pledged_Amount):
-            self.Status = "PARTIAL"
-            self.save()
-            return self.Status
-        else:
-            return self.Status     
-    def __str__(self):
-        return 'Pledge_Made_By: {1}  Amount_Paid:{0}'.format(self.Pledge_Made_By, self.Amount_Paid) 
-
 class Slider(models.Model):
     slider_image = models.ImageField(upload_to='sliders/', null=True, blank=False)
     image_title = models.CharField(max_length=100)

@@ -1233,8 +1233,21 @@ def add_Pledge_Items(request):
         return render(request, 'Pledges/add_Pledge_Item.html',context)
 @login_required
 def list_of_pledge_items(request):
+    if request.method=='POST':
+        items = PledgeItem.objects.all()
+        for item in items:
+            item_id=item.id
+            results=PledgesCashedOut.objects.filter(Item_Id=item_id).aggregate(totals=models.Sum("Amount_Cashed_Out"))
+            tots=results['totals'] or 0
+            print(tots)
+            print(item.Amount_Needed)
+            if(tots>=item.Amount_Needed):
+                item.Archived_Status = 'ARCHIVED'
+                item.save()
+        messages.success(request, f'All Pledges have been Archived')
+        return redirect('list-of-pledge-items')
     current_year=datetime.now().year
-    items = PledgeItem.objects.filter(Date__year=current_year).order_by('-Date')
+    items = PledgeItem.objects.filter(Archived_Status='NOT-ARCHIVED').order_by('-Date')
     context ={'items': items}
     return render(request, 'Pledges/list_of_pledge_items.html',context)
 

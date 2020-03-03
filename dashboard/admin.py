@@ -12,8 +12,6 @@ class PledgeItemAdmin(admin.ModelAdmin):
 class PledgesAdmin(admin.ModelAdmin):
     list_display = ('total_pledge_paid','Pledge_Balance','updatestatus')
 
-class PledgesReportArchiveAdmin(admin.ModelAdmin):
-    list_display = ('total_pledge_paid','Pledge_Balance','updatestatus') 
 class StaffDetailsAdmin(admin.ModelAdmin):
     list_display = ('total_salary_paid','full_name','Balance','basic_salary')
 class MembersAdmin(admin.ModelAdmin):

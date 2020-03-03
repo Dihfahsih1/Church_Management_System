@@ -134,19 +134,13 @@ class VisitorsForm(forms.ModelForm):
 class PledgeItemsForm(forms.ModelForm):
     class Meta:
           model = PledgeItem
-          fields = ('Item_That_Needs_Pledges','Amount_Needed','Pledge_Deadline','Date')
+          fields = ('Archived_Status','Item_That_Needs_Pledges','Amount_Needed','Pledge_Deadline','Date')
           widgets = {
             'Date': DatePickerInput(),
             'Pledge_Deadline': DatePickerInput(),
             'Item_That_Needs_Pledges': TextInput(attrs={'placeholder': 'Item'}),
           }                
-class PledgesReportArchiveForm(forms.ModelForm):
-    class Meta:
-        model= PledgesReportArchive
-        fields = ('Status','Pledge_Id','Date','Pledge_Made_By','Reason', 'Amount_Paid') 
-        widgets = {
-            'Date': DatePickerInput(),
-        }  
+
 
 class AboutForm(forms.ModelForm):
     class Meta:
