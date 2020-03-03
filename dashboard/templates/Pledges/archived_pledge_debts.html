@@ -81,7 +81,7 @@
                                   {% if db.updatestatus == 'PAID'  %}
                                     <b class="btn btn-btn btn-sm "><span class="glyphicon glyphicon-thumbs-up"></span> Debt Settled</b>
 
-                                    | <a href="{% url 'settled-pledge-receipt' db.Pledge_Id %}"><button class="btn btn-warning"><span class="glyphicon glyphicon-qrcode"> Receipt</span></button></a>
+                                    | <a href="{% url 'settled-pledge-receipt' db.id %}"><button class="btn btn-warning"><span class="glyphicon glyphicon-qrcode"> Receipt</span></button></a>
 
                                   {% else %}
                                   <a href="{% url 'settle-pledge-debt' db.id %}"><button class="btn btn-success">Settle Debt</button></a>|

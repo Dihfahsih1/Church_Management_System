@@ -99,7 +99,7 @@ class TestingForm(forms.ModelForm):
 class UpdatePledgesForm(forms.ModelForm):
     class Meta:
         model=Pledges
-        fields = ('Amount_Paid','Date')
+        fields = ('Amount_Paid','Date', 'Pledge_Made_By')
         widgets = {
 
             'Date': DatePickerInput(),

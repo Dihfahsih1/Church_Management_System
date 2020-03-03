@@ -1298,16 +1298,19 @@ def pledge_view(request, pledge_pk):
 #function that invokes the template for inputing the date and pledge amount paid by the member
 @login_required
 def paying_pledges(request, pk):
+    context={}
     items = get_object_or_404(Pledges, id=pk)
     if request.method == "POST":
-        form = UpdatePledgesForm(request.POST, request.FILES, instance=items)
+        form = TestingForm(request.POST, request.FILES, instance=items)
         if form.is_valid():
             form.save()
             return redirect('Pledgesreport')
     else:
         form = UpdatePledgesForm(instance=items)
         retrieving_id=Pledges.objects.filter(id=pk)
-        context={'form':form, 'retrieving_id': retrieving_id}
+        context['form']=form
+        context['items']=items
+        context['retrieving_id']=retrieving_id
         return render(request, 'Pledges/paying_pledges_update.html', context)
 
 #processing the pledge payment that the member has made
@@ -1431,7 +1434,7 @@ def Pledgesreport(request):
 @login_required
 def pledgesarchivessearch(request):
     today = datetime.now()
-    years=today.year
+    years=today.year 
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
@@ -1486,7 +1489,7 @@ class pledge_made_invoice(View):
 #print receipt for archived pledges that have been settled.        
 class settled_archived_pledge_receipt(View):
     def get(self, request, pk):
-        settled= PledgesReportArchive.objects.get(Status='PAID', Pledge_Id=pk)
+        settled= Pledges.objects.get(Status='PAID', id=pk, Archived_Status='ARCHIVED')
         today = datetime.now()
         context = {
             'today': today,
