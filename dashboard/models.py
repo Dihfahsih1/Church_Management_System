@@ -352,7 +352,6 @@ class SalariesPaidReportArchive(models.Model):
 
 #PLEDGES MODEL
 class PledgeItem(Model):
-
     Date = models.DateField(blank=True, null=True)
     Item_That_Needs_Pledges = models.CharField(max_length=100, unique=True)
     Amount_Needed = models.IntegerField(blank=True, null=True)
@@ -420,7 +419,7 @@ class Pledges(Model):
     Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
 
     def __str__(self):
-        return self.Pledge_Made_By
+        return self.Archived_Status
 
     @property
     def Total_Amount_Pledged(self):

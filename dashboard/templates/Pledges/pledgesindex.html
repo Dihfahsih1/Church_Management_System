@@ -47,10 +47,7 @@
                         </li>
                         <li role="presentation"><a href="{% url 'pledgesarchivessearch' %}"><i
                               class="fa fa-plus-square-o"></i> Pledges Archived</a>
-                        </li> 
-                         <li role="presentation"><a href="{% url 'archived-pledge-debts' %}"><i
-                              class="fa fa-plus-square-o"></i> Archived Pledge Debts</a>
-                         </li>
+                        </li>
                           <li role="presentation"><a href="{% url 'pledges-paid-list' %}"><i
                               class="fa fa-plus-square-o"></i> Pledges Paid</a>
                         </li> 
@@ -88,10 +85,7 @@
                                   <td>{{ item.updatestatus}}</td>
                                   {% if item.total_pledge_paid >= item.Amount_Pledged  %}
                                   <td><a href="{% url 'pledgesreceipt' item.id %}" ><button class="btn btn-warning"><span class="glyphicon glyphicon-print"> Receipt</span></button></a>
-                                   <a href="{% url 'edit_pledges' item.id  %}" ><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button></a>  
-                                  {% if user.Role == Admin or user.Role == SuperAdmin %}
-                                  <a href="{% url 'delete-pledge' item.id  %}" ><button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>Delete</button></a></td>
-                                   {% endif %}
+                                   <a href="{% url 'edit_pledges' item.id  %}" ><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button></a> 
                                   {% else %}
                                   <td>
                                   <a href="{% url 'paying_pledges' item.id %}"><button class="btn btn-success"><span class="glyphicon glyphicon-circle-arrow-right"> Pay</span></button></a>

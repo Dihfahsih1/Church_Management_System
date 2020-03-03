@@ -41,9 +41,6 @@
                         <li role="presentation"><a href="{% url 'pledgesarchivessearch' %}"><i
                               class="fa fa-plus-square-o"></i> Pledges Archived</a>
                         </li> 
-                         <li role="presentation" class="active"><a href="{% url 'archived-pledge-debts' %}"><i
-                              class="fa fa-plus-square-o"></i> Archived Pledge Debts</a>
-                         </li>
                           <li role="presentation"><a href="{% url 'pledges-paid-list' %}"><i
                               class="fa fa-plus-square-o"></i> Pledges Paid</a>
                         </li> 
@@ -84,7 +81,7 @@
                                     | <a href="{% url 'settled-pledge-receipt' db.id %}"><button class="btn btn-warning"><span class="glyphicon glyphicon-qrcode"> Receipt</span></button></a>
 
                                   {% else %}
-                                  <a href="{% url 'settle-pledge-debt' db.id %}"><button class="btn btn-success">Settle Debt</button></a>|
+                                  <a href="#"><button class="btn btn-success">Settle Debt</button></a>|
                                     <a href="{% url 'pledge-invoice' db.id %}"><button class="btn btn-info">Invoice</button></a> 
                                   {% endif%}
                                   </tr>
