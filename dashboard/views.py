@@ -1217,7 +1217,6 @@ def Enter_Pledges(request):
         return render(request, 'Pledges/enter_pledge.html',{'form':form})
 @login_required
 def add_Pledge_Items(request):
-    
     if request.method=="POST":
         form=PledgeItemsForm(request.POST)
         if form.is_valid():
@@ -1228,7 +1227,7 @@ def add_Pledge_Items(request):
     else:
         form=PledgeItemsForm()
         current_year=datetime.now().year
-        items = PledgeItem.objects.filter(Date__year=current_year)
+        items = PledgeItem.objects.filter(Date__year=current_year, Archived_Status='NOT-ARCHIVED')
         context={'form':form, 'items':items, 'current_year':current_year}
         return render(request, 'Pledges/add_Pledge_Item.html',context)
 @login_required

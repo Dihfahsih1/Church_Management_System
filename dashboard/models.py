@@ -363,7 +363,6 @@ class PledgeItem(Model):
     @property 
     def Total_Item_Cashout(self):
         results = PledgesCashedOut.objects.filter(Item_Id=self.id).aggregate(totals=models.Sum("Amount_Cashed_Out"))
-        
         if (results['totals']):
             return results["totals"]
         else:
