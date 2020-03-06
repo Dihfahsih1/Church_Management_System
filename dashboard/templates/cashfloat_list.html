@@ -68,7 +68,9 @@
                           <td>{{ item.Notes}}</td>
                           <td>
                           <div class="mb-4">
+                            {% if mth == item.Date.month%}
                                 <a href="{% url 'edit-cashfloat' item.pk %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit">Update</span></a>
+                            {% endif %}    
                           </div>
                           </td>
                         </tr>

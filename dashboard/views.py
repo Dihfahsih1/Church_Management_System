@@ -2296,8 +2296,10 @@ def church_delete(request, church_pk):
 ########################################################################################################
 @login_required
 def index(request):
+
     current_year = datetime.now().year #Annual
     current_month = datetime.now().month #Monthly
+    get_cash_float= CashFloat.objects.get(Date__month=current_month or None, Date__year=current_year)
     one_week_ago = datetime.today() - timedelta(days=7) #Weekly
     day = datetime.now().today #Today
 
@@ -2537,13 +2539,14 @@ def index(request):
     #in case the totals are Zero
     if (annual_revenue, annual_paid_pledges,annual_expenses,A_salaries,pledgecash,
         total_petty_expenses,total_current_tithes,total_general_expenses, total_current_salaries, 
-        total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== 0:
+        total_current_offerings,total_current_pledges,total_allowances,total_main_expenses, get_cash_float)== 0:
         total_monthly_incomes = 0
         annual_revenues = 0
         annual_expenditure = 0
         total_monthly_expenditure =  0
         total_general_expenses = 0
         pledges = 0
+        net_float = 0
 
         #calculating net income
         net_income = total_monthly_incomes - total_monthly_expenditure
@@ -2568,11 +2571,13 @@ def index(request):
         total_monthly_expenditure = total_cash_out + allowances + expenses + general + petty+ salaries
 
         net_income = total_monthly_incomes - total_monthly_expenditure
+        net_float = int(get_cash_float) - total_monthly_expenditure
         annual_net = annual_revenues-annual_expenditure
         today = timezone.now()
         month = today.strftime('%B')
+        mth=calendar.month_name[current_month]
         context={
-        'current_month':current_month, 'current_year':current_year,
+        'mth':mth, 'current_year':current_year,
         'annual_revenues':annual_revenues, 'annual_expenditure':annual_expenditure,'annual_net':annual_net,
         'total_current_building':total_current_building, 'd_building': d_building,"building":building,
         'd_donations':d_donations,'d_tithes':d_tithes,'d_offerings':d_offerings,
@@ -2581,7 +2586,7 @@ def index(request):
         'petty':petty,'allowances':allowances,'seeds':seeds,'general':general, 'expenses':expenses,'tithes':tithes, 
         'offerings':offerings, 'pledges':pledges, 'net_income':net_income,'thanks':thanks,'donations':donations,
         'd_petty':d_petty,'d_allowances':d_allowances,'d_salaries':d_salaries, 'd_general':d_general,'d_expenses':d_expenses,
-        }
+        'get_cash_float':get_cash_float, 'net_float':net_float}
         return render(request,'index.html', context)
 
 #All monthly revenues
@@ -2642,9 +2647,10 @@ def record_cashfloat(request):
         return render(request, 'give_cash_float.html',context)    
 
 def cashfloat_lst(request):
+    mth = datetime.now().month
     current_year = datetime.now().year
-    lists=CashFloat.objects.filter(Date__year=current_year)
-    return render(request, 'cashfloat_list.html',{'lists':lists,'current_year':current_year})
+    lists=CashFloat.objects.filter(Date__year=current_year).order_by('-Date')
+    return render(request, 'cashfloat_list.html',{'lists':lists,'current_year':current_year, 'mth': mth})
 
 def edit_cash_float(request, pk):
     item = get_object_or_404(CashFloat, pk=pk)

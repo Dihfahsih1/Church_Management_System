@@ -54,8 +54,8 @@ url(r'^REVENUES/', views.total_revenues, name='total_revenues'),
 url(r'^EXPENSES/', views.total_expenses, name='total_expenses'),
 
 #CASHFLOAT
-url(r'^CASHFLOAT/', views.cashfloat_lst, name='cashfloat-list'),
-url(r'^LIST-CASHFLOAT/', views.record_cashfloat, name='record-cashfloat'),
+url(r'^CASHFLOAT/LIST', views.cashfloat_lst, name='cashfloat-list'),
+url(r'^RECORD-CASHFLOAT/', views.record_cashfloat, name='record-cashfloat'),
 url(r'^EDIT-CASHFLOAT/(?P<pk>\d+)', views.edit_cash_float ,name='edit-cashfloat'),
 
 #Seeds Module
