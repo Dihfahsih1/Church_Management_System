@@ -128,7 +128,7 @@ def view_employee(request, pk):
         get_name = StaffDetails.objects.filter(id=pk)
         context['get_name']=get_name
         context['form']=form
-        print(form.instance.UCC_Bwaise_Member)
+        (form.instance.UCC_Bwaise_Member)
     return render(request,'Employees/employee_view.html',context)
 
 def paying_employees(request, pk):
@@ -295,7 +295,7 @@ def members_list(request):
 def members_archived(request):
     membership = ArchivedMembers.objects.all().order_by('-id')
     for i in membership:
-        print(i.Home_Cell)
+        (i.Home_Cell)
     day=datetime.now()
     context ={'membership': membership, 'day':day}
     return render(request, 'Members/members_archived.html',context) 
@@ -1277,7 +1277,7 @@ def pledge_cash_out(request, pk):
 def cashing_out_items(request):
     if request.method == "POST":
         form =  PledgesCashedOutForm(request.POST,request.FILES)
-        print(form)
+        (form)
         if form.is_valid():
             
             form.save() 
@@ -1364,7 +1364,7 @@ def paying_pledges(request, pk):
 #     context['month']=month
 #     current_month = datetime.now().month
 #     lists = PaidPledges.objects.all().values('Pledge_Id','Pledge_Made_By__First_Name','Pledge_Made_By__Second_Name','Reason__Item_That_Needs_Pledges').annotate(Amount_Paid=Sum('Amount_Paid'))
-#     print(lists)
+#     (lists)
 #     context['lists']=lists
 #     return render(request, 'Pledges/pledges_paid_list.html',context)
 
@@ -1493,7 +1493,7 @@ class pledge_made_invoice(View):
         }
         return Render.render('Pledges/pledges_made_invoice.html', debtcontext) 
 
-#print receipt for archived pledges that have been settled.        
+# receipt for archived pledges that have been settled.        
 # class settled_archived_pledge_receipt(View):
 #     def get(self, request, pk):
 #         settled= Pledges.objects.get(Status='PAID', id=pk, Archived_Status='ARCHIVED')
