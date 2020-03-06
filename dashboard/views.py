@@ -328,7 +328,7 @@ def archive_member(request, pk):
 
         member_details.delete()    
         messages.success(request, "The Member has been Archived")
-        return render(request, 'Members/members_archived.html') 
+        return redirect('members-list')
 
 def membership_wall(request):
     all_members = Members.published.all()
