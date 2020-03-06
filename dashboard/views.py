@@ -2301,7 +2301,7 @@ def index(request):
     one_week_ago = datetime.today() - timedelta(days=7) #Weekly
     day = datetime.now().today #Today
 
-   
+   #WEEKLY REVENUES
     total_weekly_donations = Revenues.objects.filter(Revenue_filter='others',Date__gte=one_week_ago,Archived_Status='NOT-ARCHIVED').aggregate(totals=models.Sum("Amount"))
     if (total_weekly_donations['totals'])!=None:
         int(total_weekly_donations["totals"])
@@ -2348,14 +2348,7 @@ def index(request):
     else:
         total_weekly_thanks = 0
         d_thanks = 0 
-     #weekly Petty Cash expenses
-    weekly_petty_expenses = Expenditures.objects.filter(Reason_filtering='petty',Date__gte=one_week_ago,Archived_Status='NOT-ARCHIVED').aggregate(totals=models.Sum("Amount"))
-    if (weekly_petty_expenses['totals'])!=None:
-        int(weekly_petty_expenses["totals"])
-        d_petty=weekly_petty_expenses["totals"]
-    else:
-        weekly_petty_expenses = 0
-        d_petty = 0 
+
     total_current_donations = Revenues.objects.filter(Revenue_filter='others',Archived_Status='NOT-ARCHIVED',Date__month=current_month,Date__year=current_year).aggregate(totals=models.Sum("Amount"))
     if (total_current_donations['totals'])!=None:
         int(total_current_donations["totals"])
@@ -2364,6 +2357,17 @@ def index(request):
         total_current_donations = 0 
         donations = 0
 
+
+    #WEEKLY EXPENSES    
+     #weekly Petty Cash expenses
+    weekly_petty_expenses = Expenditures.objects.filter(Reason_filtering='petty',Date__gte=one_week_ago,Archived_Status='NOT-ARCHIVED').aggregate(totals=models.Sum("Amount"))
+    if (weekly_petty_expenses['totals'])!=None:
+        int(weekly_petty_expenses["totals"])
+        d_petty=weekly_petty_expenses["totals"]
+    else:
+        weekly_petty_expenses = 0
+        d_petty = 0 
+    
     weekly_allowances = Expenditures.objects.filter(Reason_filtering='allowance',Date__gte=one_week_ago,Archived_Status='NOT-ARCHIVED').aggregate(totals=models.Sum("Amount"))
     if(weekly_allowances['totals'])!=None:
         int(weekly_allowances["totals"])
@@ -2371,15 +2375,6 @@ def index(request):
     else:
         weekly_allowances = 0
         d_allowances=0
-
-    #weekly salaries
-    total_weekly_salaries = SalariesPaid.objects.filter(Date_of_paying_salary__gte=one_week_ago).aggregate(totals=models.Sum("Salary_Amount"))
-    if (total_weekly_salaries['totals'])!=None:
-        int(total_weekly_salaries["totals"])
-        d_salaries=total_weekly_salaries["totals"]
-    else:
-        total_weekly_salaries = 0
-        d_salaries = 0
 
     #Total general expenses of the week.
     weekly_general_expenses = Expenditures.objects.filter(Reason_filtering='general',Date__gte=one_week_ago,Archived_Status='NOT-ARCHIVED').aggregate(totals=models.Sum("Amount"))
@@ -2399,6 +2394,16 @@ def index(request):
         total_weekly_expenses = 0
         d_expenses = 0  
 
+    #weekly salaries
+    total_weekly_salaries = SalariesPaid.objects.filter(Date_of_paying_salary__gte=one_week_ago).aggregate(totals=models.Sum("Salary_Amount"))
+    if (total_weekly_salaries['totals'])!=None:
+        int(total_weekly_salaries["totals"])
+        d_salaries=total_weekly_salaries["totals"]
+    else:
+        total_weekly_salaries = 0
+        d_salaries = 0    
+    
+    #MONTHLY REVENUES
     total_weekly_pledges = PaidPledges.objects.filter(Date__month=current_month,Date__year=current_year).aggregate(totals=models.Sum("Amount_Paid"))
     if (total_weekly_pledges['totals'])!=None:
         int(total_weekly_pledges["totals"])
@@ -2413,8 +2418,7 @@ def index(request):
         thanks=total_current_thanks["totals"]
     else:
         total_current_thanks = 0
-        thanks = 0     
-
+        thanks = 0  
     
     total_current_seeds = Revenues.objects.filter(Revenue_filter='seeds',Archived_Status='NOT-ARCHIVED',Date__month=current_month,Date__year=current_year).aggregate(totals=models.Sum("Amount"))
     if (total_current_seeds['totals'])!=None:
@@ -2505,45 +2509,34 @@ def index(request):
         allowances=total_allowances["totals"]    
     else:
         total_allowances = 0
-        allowances=0     
+        allowances=0 
+
+    #current month pledges paid
+    pledgecash = PledgesCashedOut.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount_Cashed_Out"))
+    if (pledgecash['totals'])!=None:
+        int(pledgecash["totals"])
+        total_cash_out=pledgecash["totals"]    
+    else:
+        pledgecash = 0
+        total_cash_out=0       
  
+    #ANNUAL REVENUE
+    annual_revenue=Revenues.objects.filter(Date__year=current_year).aggregate(totals=models.Sum("Amount"))
+    revenues_in_a_year=int(annual_revenue["totals"])
+    annual_paid_pledges = PaidPledges.objects.filter(Date__year=current_year).aggregate(totals=models.Sum("Amount_Paid"))
+    annual_pledges_paid=int(annual_paid_pledges["totals"])
 
-    A_thanks = Revenues.objects.filter(Revenue_filter='thanks',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
-    Annualthanks=int(A_thanks["totals"])
-
-    A_others=Revenues.objects.filter(Revenue_filter='others',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
-    Annualothers=int(A_others["totals"])
-
-    A_offering = Revenues.objects.filter(Revenue_filter='offering',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
-    Annualoffering=int(A_offering["totals"])
-
-    A_tithes=Revenues.objects.filter(Revenue_filter='tithes',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
-    Annualtithes=int(A_tithes["totals"])
-
-    A_seeds = Revenues.objects.filter(Revenue_filter='seeds',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
-    Annualseeds=int(A_seeds["totals"])
-
-    A_build= Revenues.objects.filter(Revenue_filter='build',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
-    Annualbuilding=int(A_build["totals"])
-
-    A_general=Expenditures.objects.filter(Reason_filtering='general',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
-    Annualgeneral=int(A_others["totals"])
-
-    A_main=Expenditures.objects.filter(Reason_filtering='main',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
-    Annualmain=int(A_main["totals"])
-
-    A_petty = Expenditures.objects.filter(Reason_filtering='petty',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
-    Annualpetty=int(A_petty["totals"])
-
-    A_allowance=Expenditures.objects.filter(Reason_filtering='allowance',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
-    Annualallowances=int(A_allowance["totals"])
-
+    #ANNUAL EXPENDITURE
+    annual_expenses=Expenditures.objects.filter(Date__year=current_year).aggregate(totals=models.Sum("Amount"))
+    expenses_in_a_year=int(annual_expenses["totals"])
     A_salaries=SalariesPaid.objects.filter(Date_of_paying_salary__year=current_year).aggregate(totals=models.Sum("Salary_Amount"))
     Annualsalaries=int(A_salaries["totals"])
-
+    pledgecash = PledgesCashedOut.objects.filter(Date__year=current_year).aggregate(totals=models.Sum("Amount_Cashed_Out"))
+    Annualpledgecashed=int(pledgecash["totals"])
+   
     #in case the totals are Zero
-    if (A_salaries,A_allowance,A_petty,A_general,A_main,A_petty,A_build,A_seeds,A_tithes,A_offering,A_others,
-        A_thanks, total_petty_expenses,total_current_tithes,total_general_expenses, total_current_salaries, 
+    if (annual_revenue, annual_paid_pledges,annual_expenses,A_salaries,pledgecash,
+        total_petty_expenses,total_current_tithes,total_general_expenses, total_current_salaries, 
         total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== 0:
         total_monthly_incomes = 0
         annual_revenues = 0
@@ -2554,7 +2547,7 @@ def index(request):
 
         #calculating net income
         net_income = total_monthly_incomes - total_monthly_expenditure
-        annual_net = annual_revenues-annual_expenditure
+        annual_net = annual_revenues - annual_expenditure
         today = timezone.now()
         month = today.strftime('%B')
         context={'annual_revenues':annual_revenues, 'annual_expenditure':annual_expenditure,
@@ -2565,14 +2558,15 @@ def index(request):
         }
         return render(request,'index.html', context)
 
-    #if there are moneys, calculate incomes and total expenditure.
+    #if there are moneys, calculate revenues, incomes and total expenditure.
     else:
-        pledgecash = PledgesCashedOut.objects().filter(Date__month=current_month).aggregate(totals=models.Sum("Amount_Cashed_Out"))
-        total_cash_out=int(pledgecash["totals"])
-        annual_revenues = Annualtithes + Annualoffering + Annualseeds + Annualthanks + Annualothers + Annualbuilding
-        annual_expenditure =  total_cash_out + Annualallowances + Annualmain + Annualsalaries + Annualgeneral + Annualpetty
+       
+        annual_revenues = revenues_in_a_year + annual_pledges_paid
+        annual_expenditure =   expenses_in_a_year + Annualpledgecashed + Annualsalaries 
+
         total_monthly_incomes =  pledges + tithes + offerings + seeds + thanks + donations + building
-        total_monthly_expenditure =  allowances + expenses + general + petty+ salaries
+        total_monthly_expenditure = total_cash_out + allowances + expenses + general + petty+ salaries
+
         net_income = total_monthly_incomes - total_monthly_expenditure
         annual_net = annual_revenues-annual_expenditure
         today = timezone.now()
@@ -2590,3 +2584,29 @@ def index(request):
         }
         return render(request,'index.html', context)
 
+#All monthly revenues
+def total_revenues(request):
+    current_month = datetime.now().month #Monthly
+    total_revenues = Revenues.objects.filter(Date__month=current_month, Archived_Status='NOT-ARCHIVED')\
+    .values('Date','Revenue_filter').annotate(Amount=Sum('Amount'))
+    total = total_revenues.aggregate(totals=models.Sum("Amount"))
+    total_amount = total["totals"]
+    context={'total_revenues':total_revenues,'total_amount':total_amount}
+    return render(request, 'total_revenues.html', context)
+
+#All monthly expenditures
+def total_expenses(request):
+    current_month = datetime.now().month #Monthly
+    total_expenses = Expenditures.objects.filter(Date__month=current_month, Archived_Status='NOT-ARCHIVED')\
+    .values('Date','Reason_filtering').annotate(Amount=Sum('Amount'))
+    total = total_expenses.aggregate(totals=models.Sum("Amount"))
+    month=calendar.month_name[current_month]
+
+    pledgecash = PledgesCashedOut.objects.filter(Date__month=current_month)\
+    .values('Date','Item_That_Needs_Pledges').annotate(Amount_Cashed_Out=Sum('Amount_Cashed_Out'))
+    cash = pledgecash.aggregate(totals=models.Sum("Amount_Cashed_Out"))
+   
+    
+    total_amount = total["totals"] + cash['totals']
+    context={'total_expenses':total_expenses,'total_amount':total_amount, 'pledgecash': pledgecash, 'month':month}
+    return render(request, 'total_expenses.html', context)

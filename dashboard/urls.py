@@ -50,6 +50,8 @@ url(r'^edit_offerings/(?P<pk>\d+)', views.edit_offerings ,name='edit-offerings')
 url(r'^offeringspdf/', views.offeringspdf.as_view() ,name='offeringspdf'),
 url(r'^offeringsarchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.offeringsarchivepdf.as_view(), name='offeringsarchivepdf'),
 url(r'^Record-Offerings/', views.Enter_Offerings, name='Enter_Offerings'),
+url(r'^REVENUES/', views.total_revenues, name='total_revenues'),
+url(r'^EXPENSES/', views.total_expenses, name='total_expenses'),
 
 #Seeds Module
 url(r'^Revenue/Seeds/Add/', views.add_seeds, name='add-seeds'),
@@ -114,7 +116,6 @@ url(r'^Member/View/(?P<pk>\d+)', views.view_member ,name='view-member'),
 #url(r'^Pledge/Delete/(?P<pk>\d+)', views.delete_pledge ,name='delete-pledge'),
 url(r'^Pledges-Item/Delete/(?P<pk>\d+)', views.delete_pledge_item ,name='delete-pledge-item'),
 url(r'^Pledges-Item/Edit/(?P<pk>\d+)', views.edit_pledge_item ,name='edit-pledge-item'),
-
 
 url(r'^Pledgesreport/', views.Pledgesreport, name='Pledgesreport'),
 url(r'^Building-Renovations-Report/', views.Building_Renovation_report, name='Building-Renovation-report'),
