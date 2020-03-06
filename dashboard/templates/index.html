@@ -43,29 +43,23 @@
         <!--Start of monthly summary tiles -->
         <div class="row top_tiles">
             <div class="separator"></div>
-            <h2 class="red" style="margin-left: 5%;"><b>Monthly Summary of {{ month }}</b></h2>
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+            <h2 class="red" style="margin-left: 5%;"><b>Monthly Summary of <i><u>{{ month }}</u></i></b></h2>
+            <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
                      <p class="fa fa-dollar"><b style="font-size:15px"><a href="{% url 'total_revenues'  %}">&nbsp;Total Revenue</a></b></p>
                     <p class=" red" style="font-size: 26px">{{total_monthly_incomes|intcomma}}</p>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+            <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
                     <p class="fa fa-dollar">&nbsp; <b style="font-size: 15px"><a href="{% url 'total_expenses'  %}">Total Expenditure</a></b></p>
                     <p class=" red" style="font-size: 26px">{{total_monthly_expenditure|intcomma}}</p>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+            <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
                     <p class="fa fa-dollar">&nbsp; <b style="font-size: 15px">Net Income</b></p>
                     <p class="red" style="font-size: 26px">{{net_income|intcomma}}</p>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 15px">Total Pledges Paid</b></p>
-                    <p class=" red" style="font-size: 26px">{{pledges|intcomma}}</p>
                 </div>
             </div>
         </div>
@@ -147,7 +141,7 @@
             </div>
              <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 100%">Pledges Paid</b></p>
+                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 100%">Cash Out</b></p>
                     <p class="blue" style="font-size: 14px"  ><b>Shs.{{ d_pledges|intcomma}}</b></p>
                 </div>
             </div>

@@ -2587,17 +2587,25 @@ def index(request):
 #All monthly revenues
 def total_revenues(request):
     current_month = datetime.now().month #Monthly
-    total_revenues = Revenues.objects.filter(Date__month=current_month, Archived_Status='NOT-ARCHIVED')\
+    current_year = datetime.now().year
+    total_revenues = Revenues.objects.filter(Archived_Status='NOT-ARCHIVED')\
     .values('Date','Revenue_filter').annotate(Amount=Sum('Amount'))
     total = total_revenues.aggregate(totals=models.Sum("Amount"))
-    total_amount = total["totals"]
-    context={'total_revenues':total_revenues,'total_amount':total_amount}
+    
+    total_current_pledges = Pledges.objects.filter(Archived_Status='NOT-ARCHIVED')\
+    .values('Date','Reason__Item_That_Needs_Pledges').annotate(Amount_Paid=Sum('Amount_Paid'))
+    pledges = total_current_pledges.aggregate(totals=models.Sum("Amount_Paid"))
+    month=calendar.month_name[current_month]
+
+    total_amount = total["totals"] + pledges['totals']
+    context={'total_revenues':total_revenues,'total_amount':total_amount,'month':month, \
+    'total_current_pledges':total_current_pledges}
     return render(request, 'total_revenues.html', context)
 
 #All monthly expenditures
 def total_expenses(request):
     current_month = datetime.now().month #Monthly
-    total_expenses = Expenditures.objects.filter(Date__month=current_month, Archived_Status='NOT-ARCHIVED')\
+    total_expenses = Expenditures.objects.filter(Archived_Status='NOT-ARCHIVED')\
     .values('Date','Reason_filtering').annotate(Amount=Sum('Amount'))
     total = total_expenses.aggregate(totals=models.Sum("Amount"))
     month=calendar.month_name[current_month]
