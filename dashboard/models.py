@@ -401,7 +401,10 @@ class PledgesCashedOut(Model):
     Item_Id = models.CharField(max_length=100, blank=True, null=True)
     Amount_Needed = models.IntegerField(blank=True, null=True)
     Amount_Cashed_Out = models.IntegerField(blank=True, null=True)
-    
+
+    def __str__(self):
+        return self.Item_That_Needs_Pledges
+        
 class Pledges(Model):
     paid = 'PAID'
     partial = 'PARTIAL'

@@ -2406,8 +2406,6 @@ def index(request):
     else:
         total_weekly_pledges = 0
         d_pledges = 0
-    
-
 
     total_current_thanks = Revenues.objects.filter(Revenue_filter='thanks',Archived_Status='NOT-ARCHIVED',Date__month=current_month,Date__year=current_year).aggregate(totals=models.Sum("Amount"))
     if (total_current_thanks['totals'])!=None:
@@ -2569,8 +2567,10 @@ def index(request):
 
     #if there are moneys, calculate incomes and total expenditure.
     else:
-        annual_revenues = Annualtithes+ Annualoffering + Annualseeds + Annualthanks + Annualothers + Annualbuilding
-        annual_expenditure =  Annualallowances + Annualmain+Annualsalaries+ Annualgeneral+ Annualpetty
+        pledgecash = PledgesCashedOut.objects().filter(Date__month=current_month).aggregate(totals=models.Sum("Amount_Cashed_Out"))
+        total_cash_out=int(pledgecash["totals"])
+        annual_revenues = Annualtithes + Annualoffering + Annualseeds + Annualthanks + Annualothers + Annualbuilding
+        annual_expenditure =  total_cash_out + Annualallowances + Annualmain + Annualsalaries + Annualgeneral + Annualpetty
         total_monthly_incomes =  pledges + tithes + offerings + seeds + thanks + donations + building
         total_monthly_expenditure =  allowances + expenses + general + petty+ salaries
         net_income = total_monthly_incomes - total_monthly_expenditure
