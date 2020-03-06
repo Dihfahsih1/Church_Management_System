@@ -53,6 +53,11 @@ url(r'^Record-Offerings/', views.Enter_Offerings, name='Enter_Offerings'),
 url(r'^REVENUES/', views.total_revenues, name='total_revenues'),
 url(r'^EXPENSES/', views.total_expenses, name='total_expenses'),
 
+#CASHFLOAT
+url(r'^CASHFLOAT/', views.cashfloat_lst, name='cashfloat-list'),
+url(r'^LIST-CASHFLOAT/', views.record_cashfloat, name='record-cashfloat'),
+url(r'^EDIT-CASHFLOAT/(?P<pk>\d+)', views.edit_cash_float ,name='edit-cashfloat'),
+
 #Seeds Module
 url(r'^Revenue/Seeds/Add/', views.add_seeds, name='add-seeds'),
 url(r'^Revenues/Seeds-Report', views.Seedsreport, name='Seeds-report'),

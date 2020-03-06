@@ -404,7 +404,7 @@ class PledgesCashedOut(Model):
 
     def __str__(self):
         return self.Item_That_Needs_Pledges
-        
+
 class Pledges(Model):
     paid = 'PAID'
     partial = 'PARTIAL'
@@ -672,3 +672,7 @@ class Contact(models.Model):
     feedback = models.TextField(max_length=100000, blank=True, null=True)
 
 
+class CashFloat(models.Model):
+    Date = models.DateField(null=True, blank=True)
+    Amount = models.IntegerField(default=0)
+    Notes = models.TextField(max_length=100000, blank=True, null=True)

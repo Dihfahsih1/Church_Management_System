@@ -2618,3 +2618,42 @@ def total_expenses(request):
     total_amount = total["totals"] + cash['totals']
     context={'total_expenses':total_expenses,'total_amount':total_amount, 'pledgecash': pledgecash, 'month':month}
     return render(request, 'total_expenses.html', context)
+
+#CASH FLOAT
+
+@login_required
+def record_cashfloat(request):
+    current_year = datetime.now().year
+    current_month = datetime.now().month
+    month=calendar.month_name[current_month]
+    get_data= CashFloat.objects.filter(Date__month=current_month or None, Date__year=current_year)
+    if request.method=="POST":
+        form=CashFloatForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('cashfloat-list')
+    else:
+        if get_data:
+            mesg="You have already given out the float"
+            context={'mesg':mesg, 'month':month, 'current_year':current_year}
+            return render(request, 'give_cash_float.html',context) 
+        form=CashFloatForm()
+        context={'form':form,}
+        return render(request, 'give_cash_float.html',context)    
+
+def cashfloat_lst(request):
+    current_year = datetime.now().year
+    lists=CashFloat.objects.filter(Date__year=current_year)
+    return render(request, 'cashfloat_list.html',{'lists':lists,'current_year':current_year})
+
+def edit_cash_float(request, pk):
+    item = get_object_or_404(CashFloat, pk=pk)
+    if request.method == "POST":
+        form = CashFloatForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Cashfloat Update was successful")
+            return redirect('cashfloat-list')
+    else:
+        form = CashFloatForm(instance=item)
+        return render(request, 'give_cash_float.html', {'form': form})
