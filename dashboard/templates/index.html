@@ -154,24 +154,30 @@
     <div class="row top_tiles">
         <h3>Cash Float Information for {{mth}}</h3>
         <div class="separator"></div>
-        <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+        <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
                      <p class="fa fa-dollar">&nbsp;<b style="font-size: 17px">Cash Float Given</b></p>
                     <div class="count red">{{get_cash_float|intcomma}}</div>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
                     <p class="fa fa-dollar">&nbsp; <b style="font-size: 17px">Expenditures</b></p>
                     <div class="count red">{{total_monthly_expenditure|intcomma}}</div>
                 </div>
             </div>
-             <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+             <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
                     <p class="fa fa-dollar">&nbsp; <b style="font-size: 17px">Net Cash Float</b></p>
                     <div class="count red">{{net_float|intcomma}}</div>
                 </div>
             </div>
+                <div class="col-md-3 col-sm-4 col-xs-4 tile_stats_count">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 17px">Next Month Float</b></p><br>
+                       <b style="font-size: 17px; color: red"> New Amount + {{net_float|intcomma}}</b>
+                    </div>
+                </div>
 
     </div>    
 </div>
