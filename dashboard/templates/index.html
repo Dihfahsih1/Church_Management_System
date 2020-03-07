@@ -41,25 +41,46 @@
             </div>
         </div>
         <!--Start of monthly summary tiles -->
+<div class="row ">
+        <!--Start of Annual summary tiles -->
+    <div class="row top_tiles">
+        <div class="separator"></div>
+        <h2 class="red" style="margin-left: 5%;"><b>Cash Float Information for <i><u>{{ month }}</u></i></b></h2>
+        <div class="separator"></div>
+            <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+                <div class="tile-stats">
+                     <p class="fa fa-dollar">&nbsp;<b style="font-size: 15px">Cash Float Given</b></p>
+                    <div class="count red">{{get_cash_float|intcomma}}</div>
+                </div>
+            </div>
+             <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+                <div class="tile-stats">
+                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 15px">Net Cash Float</b></p>
+                    <div class="count red">{{net_float|intcomma}}</div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4 tile_stats_count">
+                <div class="tile-stats">
+                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 15px">Next Month Float</b></p><br>
+                   <b style="font-size: 26px; color: red"> New Amount + {{net_float|intcomma}}</b>
+                </div>
+            </div>
+
+    </div>    
+</div>
         <div class="row top_tiles">
             <div class="separator"></div>
             <h2 class="red" style="margin-left: 5%;"><b>Monthly Summary of <i><u>{{ month }}</u></i></b></h2>
-            <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+            <div class="col-md-5 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
                      <p class="fa fa-dollar"><b style="font-size:15px"><a href="{% url 'total_revenues'  %}">&nbsp;Total Revenue</a></b></p>
                     <p class=" red" style="font-size: 26px">{{total_monthly_incomes|intcomma}}</p>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+            <div class="col-md-5 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
                     <p class="fa fa-dollar">&nbsp; <b style="font-size: 15px"><a href="{% url 'total_expenses'  %}">Total Expenditure</a></b></p>
                     <p class=" red" style="font-size: 26px">{{total_monthly_expenditure|intcomma}}</p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 15px">Net Income</b></p>
-                    <p class="red" style="font-size: 26px">{{net_income|intcomma}}</p>
                 </div>
             </div>
         </div>
@@ -147,40 +168,43 @@
             </div>
         </div>    
     </div>
-       
-{%endif%}
- <div class="row ">
+
+{% elif user.Role == 'Secretary'  %}
+<div class="row ">
         <!--Start of Annual summary tiles -->
     <div class="row top_tiles">
-        <h3>Cash Float Information for {{mth}}</h3>
         <div class="separator"></div>
-        <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+        <h2 class="red" style="margin-left: 5%;"><b>Cash Float Information for <i><u>{{ month }}</u></i></b></h2>
+        <div class="separator"></div>
+            <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
-                     <p class="fa fa-dollar">&nbsp;<b style="font-size: 17px">Cash Float Given</b></p>
+                     <p class="fa fa-dollar">&nbsp;<b style="font-size: 15px">Cash Float Given</b></p>
                     <div class="count red">{{get_cash_float|intcomma}}</div>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+            <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 17px">Expenditures</b></p>
+                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 17px">Total Expenditure</b></p>
                     <div class="count red">{{total_monthly_expenditure|intcomma}}</div>
                 </div>
             </div>
-             <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+           <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 17px">Net Cash Float</b></p>
+                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 15px">Net Cash Float</b></p>
                     <div class="count red">{{net_float|intcomma}}</div>
                 </div>
             </div>
-                <div class="col-md-3 col-sm-4 col-xs-4 tile_stats_count">
-                    <div class="tile-stats">
-                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 17px">Next Month Float</b></p><br>
-                       <b style="font-size: 17px; color: red"> New Amount + {{net_float|intcomma}}</b>
-                    </div>
+            <!--   <div class="col-md-4 col-sm-4 col-xs-4 tile_stats_count">
+                <div class="tile-stats">
+                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 15px">Next Month Float</b></p><br>
+                   <b style="font-size: 26px; color: red"> New Amount + {{net_float|intcomma}}</b>
                 </div>
+            </div> -->
 
     </div>    
 </div>
+{%endif%}
+
         <!-- /top tiles -->
 
         <script>
