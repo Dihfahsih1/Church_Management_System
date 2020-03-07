@@ -1113,7 +1113,7 @@ def give_allowance(request):
             return redirect('allowancereport')   
     else:
         form = ExpendituresForm()
-        items=Expenditures.filter(Date__month=current_month, Date__year=current_year)
+        items=Expenditures.objects.filter(Date__month=current_month, Date__year=current_year)
         context={'form': form, 'items': items}
         return render(request, 'Allowances/record_new_allowance.html',context)
 

@@ -140,10 +140,11 @@ class Expenditures(Model):
     def __str__(self):
         return self.Reason_filtering
     
-    current_month = datetime.now().month
-    current_year = datetime.now().year
+    
     @property
     def cash_float(self):
+        current_month = datetime.now().month
+        current_year = datetime.now().year
         Float_Cash=CashFloat.objects.filter(Date__month=current_month, Date__year=current_year ).values('Amount').aggregate(totals=models.Sum("Amount"))
         if (Float_Cash['totals']):
             return Float_Cash["totals"]
@@ -152,6 +153,8 @@ class Expenditures(Model):
 
     @property
     def expenses_total(self):
+        current_month = datetime.now().month
+        current_year = datetime.now().year
         total_expenses=Expenditures.objects.filter(Date__month=current_month, Date__year=current_year ).values('Amount').aggregate(totals=models.Sum("Amount"))
         if (total_expenses['totals']):
             return total_expenses["totals"]
@@ -159,9 +162,11 @@ class Expenditures(Model):
             return 0
 
     @property
-    def salaries_total(self):        
+    def salaries_total(self): 
+        current_month = datetime.now().month
+        current_year = datetime.now().year       
         total_salaries=SalariesPaid.objects.filter(Date_of_paying_salary__month=current_month, Date_of_paying_salary__year=current_year )\
-        .values('Amount').aggregate(totals=models.Sum("Amount"))
+        .values('Salary_Amount').aggregate(totals=models.Sum("Salary_Amount"))
         if (total_salaries['totals']):
             return total_salaries["totals"]
         else:
@@ -169,7 +174,7 @@ class Expenditures(Model):
 
     @property
     def net_float(self):
-        results = self.cash_float - (self.expenses_total + self.total_salaries)
+        results = self.cash_float - (self.expenses_total + self.salaries_total)
         print(results)
         return results
 
