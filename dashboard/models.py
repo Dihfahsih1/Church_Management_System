@@ -137,10 +137,18 @@ class Expenditures(Model):
     Notes=models.CharField(max_length=100, blank=True, null=True)
     Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
     Member_Name = models.ForeignKey('Members', on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
-
+    
     def __str__(self):
         return self.Reason_filtering
+        
+   # @property
+   # def net_float(self):
+   #  floating = CashFloat.objects.all()
+   #  if(floating):
+   #      print(floating)
 
+   #     return self.
+   
 class Revenues(Model):
     Date = models.DateField(null=True, blank=True)
     Service=models.CharField(max_length=100, choices=services, null=True, blank=True)
@@ -150,6 +158,7 @@ class Revenues(Model):
     Revenue_filter=models.CharField(max_length=100, blank=True, null=True)
     Other_Sources=models.CharField(max_length=100, blank=True, null=True)
     Other_Notes=models.CharField(max_length=10000, blank=True, null=True)
+
     def __str__(self):
         return str(self.Revenue_filter)
     class Meta:
@@ -157,7 +166,7 @@ class Revenues(Model):
         
 class Members(models.Model):
     date = models.DateTimeField(auto_now=True)
-    Group=models.CharField(max_length=100, choices=grouping, null=True, blank=True, default="God Is Able")
+    Group = models.CharField(max_length=100, choices=grouping, null=True, blank=True, default="God Is Able")
     Initials=models.CharField(max_length=100, choices=ini,null=True, blank=True)
     First_Name=models.CharField(max_length=100,null=True)
     Second_Name=models.CharField(max_length=100,null=True)
@@ -213,7 +222,6 @@ class ArchivedMembers(models.Model):
         return self.First_Name + ' ' + self.Second_Name
 
 class Visitors(models.Model):
-
     Photo=models.ImageField(upload_to='avatars/', blank=False)
     First_Name=models.CharField(max_length=100, null=True)
     Second_Name=models.CharField(max_length=100, null=True)
@@ -433,7 +441,6 @@ class Pledges(Model):
         results=Pledges.objects.filter(Pledge_Id=self.id).values('Amount_Paid').aggregate(totals=models.Sum("Amount_Paid"))
         if (results['totals']):
                 return results["totals"]
-                print(results)
         else:
             return 0
     @property 
@@ -520,7 +527,6 @@ class Page(models.Model):
     page_title = models.CharField( max_length=100)
     page_description = models.TextField(max_length=300)
     page_image = models.ImageField(upload_to='images/', null=True, blank=False)
-
     objects = models.Manager()
     header = PublishedHeaderPageManager()
     footer = PublishedFooterPageManager()

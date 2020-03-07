@@ -176,32 +176,44 @@
         <div class="separator"></div>
         <h2 class="red" style="margin-left: 5%;"><b>Cash Float Information for <i><u>{{ month }}</u></i></b></h2>
         <div class="separator"></div>
-            <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
-                <div class="tile-stats">
-                     <p style="font-size: 20px" class="fa fa-dollar">&nbsp;<b>Cash Float Given</b></p>
-                    <div class="count red">{{get_cash_float|intcomma}}</div>
-                </div>
+        <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+            <div class="tile-stats">
+                 <p style="font-size: 20px" class="fa fa-dollar">&nbsp;<b>Cash Float Given</b></p>
+                <div class="count red">{{get_cash_float|intcomma}}</div>
             </div>
-            <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
-                <div class="tile-stats">
-                    <p style="font-size: 20px" class="fa fa-dollar">&nbsp; <b>Total Expenditure</b></p>
-                    <div class="count red">{{total_monthly_expenditure|intcomma}}</div>
-                </div>
+        </div>
+        <a href="{% url 'total_expenses'  %}"><div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+            <div class="tile-stats">
+                <p style="font-size: 20px" class="fa fa-dollar">&nbsp; <b>Total Expenditure</b></p>
+                <div class="count red">{{total_monthly_expenditure|intcomma}}</div>
             </div>
-           <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
-                <div class="tile-stats">
-                    <p style="font-size: 20px" class="fa fa-dollar">&nbsp; <b >Net Cash Float</b></p>
-                    <div class="count red">{{net_float|intcomma}}</div>
-                </div>
+        </div></a>
+       <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+            <div class="tile-stats" id='update'>
+                <p style="font-size: 20px" class="fa fa-dollar">&nbsp; <b >Net Cash Float</b></p>
+                <div class="count red">{{net_float|intcomma}}</div>
             </div>
-            <!--   <div class="col-md-4 col-sm-4 col-xs-4 tile_stats_count">
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 15px">Next Month Float</b></p><br>
-                   <b style="font-size: 26px; color: red"> New Amount + {{net_float|intcomma}}</b>
-                </div>
-            </div> -->
-
+        </div>
     </div>    
+</div>
+ <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel tile overflow_hidden">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2 class="head-title">Monthly Financial Statistics as of {{day}}</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div id="contain" style=" width: 99%; vertical-align: top; height:250px;"></div>
+                </div>
+            </div>
+
+        </div>
+    </div> 
 </div>
 {%endif%}
 
@@ -214,8 +226,52 @@
 
                 })
         </script>
+ <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Highcharts.chart('contain', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text:'UCC Bwaise month of {{month}} Expenditure'
+            },
+            xAxis: {
+                categories: [
+                 '<strong style="color: red; font-weight:bolder">Gen Expenses</strong>', 
+                 '<strong style="color: red; font-weight:bolder">Main Expenses</strong>',
+                 '<strong style="color: red; font-weight:bolder">Petty Expenses</strong>',
+                 '<strong style="color: red; font-weight:bolder">Allowances</strong>',
+                 '<strong style="color: red; font-weight:bolder">Salaries</strong>'
+                 ]
+            },
 
-        <script>
+            yAxis: {
+                title: {
+                    text: ' Money Spent'
+                }
+            },
+            tooltip: {
+                pointFormat: '<span style="color:{series.color}">Shs.</span><b>{point.y}</b>',
+                shared: true
+            },
+            series: [ {
+                    name:'Bar Chart showing Expenses made in {{month}}',
+                    data: [{{general}},{{expenses}},{{petty}},{{allowances}},{{salaries}}
+                    ]
+                }
+                ,
+
+            ],
+
+            credits: {
+                enabled: false
+            }
+        })
+        ;
+    });
+</script>
+
+    <script>
             document.addEventListener('DOMContentLoaded', function () {
                 Highcharts.chart('container', {
                     chart: {
@@ -265,8 +321,6 @@
                 })
                 ;
             });
-
-
             document.addEventListener('DOMContentLoaded', function () {
                 var myChart = Highcharts.chart('messages', {
                     chart: {
@@ -386,7 +440,7 @@
             });
 
         </script>
-  {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' %}
+  {% if request.user.Role == 'Admin' or user.Role == 'SuperAdmin' %}
         <div class="row">
 
             <div class="col-md-12 col-sm-12 col-xs-12">
