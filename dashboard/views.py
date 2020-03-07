@@ -2567,7 +2567,7 @@ def index(request):
         annual_expenditure =   expenses_in_a_year + Annualpledgecashed + Annualsalaries 
 
         total_monthly_incomes =  pledges + tithes + offerings + seeds + thanks + donations + building
-        total_monthly_expenditure = total_cash_out + allowances + expenses + general + petty+ salaries
+        total_monthly_expenditure =  allowances + expenses + general + petty+ salaries #+ total_salaries
 
         net_income = total_monthly_incomes - total_monthly_expenditure
 
