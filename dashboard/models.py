@@ -139,15 +139,38 @@ class Expenditures(Model):
     
     def __str__(self):
         return self.Reason_filtering
+    
+    current_month = datetime.now().month
+    current_year = datetime.now().year
+    @property
+    def cash_float(self):
+        Float_Cash=CashFloat.objects.filter(Date__month=current_month, Date__year=current_year ).values('Amount').aggregate(totals=models.Sum("Amount"))
+        if (Float_Cash['totals']):
+            return Float_Cash["totals"]
+        else:
+            return 0
 
-   @property
-   def net_float(self):
-    floating = CashFloat.objects.all()
-    if(floating):
-        print(floating)
+    @property
+    def expenses_total(self):
+        total_expenses=Expenditures.objects.filter(Date__month=current_month, Date__year=current_year ).values('Amount').aggregate(totals=models.Sum("Amount"))
+        if (total_expenses['totals']):
+            return total_expenses["totals"]
+        else:
+            return 0
 
-       return self.
-   
+    @property
+    def salaries_total(self):        
+        total_salaries=SalariesPaid.objects.filter(Date_of_paying_salary__month=current_month, Date_of_paying_salary__year=current_year )\
+        .values('Amount').aggregate(totals=models.Sum("Amount"))
+        if (total_salaries['totals']):
+            return total_salaries["totals"]
+        else:
+            return 0
+
+    @property
+    def net_float(self):
+        self.cash_float - (self.expenses_total + self.total_salaries)
+
 
 class Revenues(Model):
     Date = models.DateField(null=True, blank=True)

@@ -19,7 +19,9 @@ class MembersAdmin(admin.ModelAdmin):
 class SalariesPaidAdmin(admin.ModelAdmin):
     list_display = ('total_salary_paid','Balance') 
 class OfferingsReportArchiveAdmin(admin.ModelAdmin):
-    list_display = ('total_offerings')            
+    list_display = ('total_offerings') 
+class ExpendituresAdmin(admin.ModelAdmin):
+    list_display = ('net_float')                
 admin.site.register(StaffDetails)
 admin.site.register(Revenues)
 admin.site.register(Pledges)
