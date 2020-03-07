@@ -87,7 +87,6 @@ member=(('Yes','Yes'),('No','No'))
 class PublishedStatusManager(models.Manager):
     def get_queryset(self):
         return super(PublishedStatusManager, self).get_queryset().filter(Is_View_on_Web='Yes')
-
 class UserManager(BaseUserManager):
     def create_user(self, username,password=None):
         if not username:
@@ -140,15 +139,16 @@ class Expenditures(Model):
     
     def __str__(self):
         return self.Reason_filtering
-        
-   # @property
-   # def net_float(self):
-   #  floating = CashFloat.objects.all()
-   #  if(floating):
-   #      print(floating)
 
-   #     return self.
+   @property
+   def net_float(self):
+    floating = CashFloat.objects.all()
+    if(floating):
+        print(floating)
+
+       return self.
    
+
 class Revenues(Model):
     Date = models.DateField(null=True, blank=True)
     Service=models.CharField(max_length=100, choices=services, null=True, blank=True)
@@ -602,7 +602,6 @@ class Event(models.Model):
     image = models.ImageField(upload_to='images/', null=True ,blank=True)
     note = models.TextField(blank=True)
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS)
-
     Start_Time = models.TimeField(blank=True, null=True)
     End_Time = models.TimeField(blank=True, null=True)
     Program_Name = models.CharField(max_length=100, blank=True, null=True)
@@ -629,7 +628,6 @@ class PublishedChurchManager(models.Manager):
 class EnableFrontendManager(models.Manager):
     def get_queryset(self):
         return super(EnableFrontendManager, self).get_queryset().filter(enable_frontend='Yes')
-
 
 class Church(models.Model):
     church_vision = models.CharField(max_length=1000, default="vision")
@@ -676,7 +674,6 @@ class Contact(models.Model):
     subject = models.CharField(max_length=130, blank=True, null=True)
     message = models.TextField(max_length=130, blank=True, null=True)
     feedback = models.TextField(max_length=100000, blank=True, null=True)
-
 
 class CashFloat(models.Model):
     Date = models.DateField(null=True, blank=True)
