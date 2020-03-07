@@ -42,7 +42,10 @@
 					        {% csrf_token %}
                             {{ form.Date|as_crispy_field}}
                             {{ form.Member_Name|as_crispy_field}}
-                            {{ form.Amount|as_crispy_field}}
+                             <div class="form-group">
+                                <label for="paid_amount"> Amount </label>
+                                <input type="number" value="" name="Amount" required id="paid_amount" class="textinput textInput form-control" min='1' max='{{form.net_float}}'>
+                            </div>
                             {{ form.Notes|as_crispy_field}}
                             <input type="hidden" id="allowance" name="Reason_filtering" value="allowance">
 					        <button type="submit" class="btn btn-primary" name="button">Submit</button>
