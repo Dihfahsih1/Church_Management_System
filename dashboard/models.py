@@ -175,7 +175,6 @@ class Expenditures(Model):
     @property
     def net_float(self):
         results = self.cash_float - (self.expenses_total + self.salaries_total)
-        print(results)
         return results
 
 
