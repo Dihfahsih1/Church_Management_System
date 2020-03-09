@@ -58,7 +58,7 @@
                          <table id="invoice-table" class=" table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>#SL</th>
+                                    
                                     <th>Name</th>
                                     <th>Group</th>
                                     <th>Reason</th>
@@ -73,7 +73,6 @@
                                 {% for item in items%}
                                 {% if item.Pledge_Made_By != None %}
                                 <tr>
-                                  <td>{{ item.id}}</td>
                                   <td>{{ item.Pledge_Made_By}}</td>
                                   <td>{{ item.Pledge_Made_By.Group}}</td>
                                   <td>{{ item.Reason}}</td>

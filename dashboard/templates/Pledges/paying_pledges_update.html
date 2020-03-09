@@ -53,34 +53,32 @@
                     margin: 0 auto;
                     overflow: hidden;
                     padding: 10px 0;
-                    align-items: center;
                     justify-content: space-around;
                     display: block;
                     float: none;
+                    
                 }
                 </style>
-                
-              <div class="col-md-3" id="addstyle">
+                <br>
 
-              {% for pledge_id in retrieving_id %}
+               {% for pledge_id in retrieving_id %}
               <div class="form-group" id="st">
                   <label> Pledge_Id</label>
                   <input type="text" name="Pledge_Id" id="Pledge_Id" maxlength="100" class="textinput textInput form-control" value="{{pledge_id.id }}">
               </div>
-                  <h4 style="text-align: center"><b>{{pledge_id.Pledge_Made_By.Initials}} {{pledge_id.Pledge_Made_By}}</b>  Fullfilling a pledge</h4>
+                  <h4 style="text-align: center"><b>{{pledge_id.Pledge_Made_By.Initials}} {{pledge_id.Pledge_Made_By}}</b>  Fullfilling {% if pledge_id.Pledge_Made_By.Gender == 'Female' %} Her Pledge {% else %} His Pledge {%endif%}</h4>
               
               {% endfor%}
               <div class="separator"></div>
-              <div class="form-group">
-            	    {{ form.Date|as_crispy_field }}
-            	</div>
-               
-            	 <div class="form-group">
-                    <label for="id_paid_amount"> Amount Paid</label>
-                    <input type="number" value="" name="Amount_Paid" required id="id_paid_amount" class="textinput textInput form-control" min='1' max='{{items.Pledge_Balance}}'>
+              <div class="col-md-3 form-group">
+                  {{ form.Date|as_crispy_field }}
                 </div>
-
-                <button style = "float: right" type="submit" class="btn btn-primary" name="button">Submit</button>
+              <div class="col-md-3" id="addstyle">
+            	  <div class="form-group">
+                    <label for="id_paid_amount"> Amount Being Paid</label>
+                    <input type="number" value="{{items.Pledge_Balance}}" name="Amount_Paid" required id="id_paid_amount" class="textinput textInput form-control" min='1' max='{{items.Pledge_Balance}}'>
+                </div>
+               <button style = "float: right" type="submit" class="btn btn-primary" name="button">Submit</button>
             </div>
             </form>
           </div>
