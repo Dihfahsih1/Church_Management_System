@@ -986,7 +986,7 @@ def enter_main_expenses(request):
             return redirect('expenditurereport')
     else:
         form=ExpendituresForm()
-        context = {'form': form, }
+        context = {'form': form}
         return render(request, 'Expenses/pay_main_expenses.html',context)
 
 def edit_main_expense(request, pk):
