@@ -428,12 +428,11 @@ class PledgeItem(Model):
             return results["totals"]
         else:
             return 0 
-            
     @property
     def Item_money_balance(self):
         results=self.Total_Amount_Pledged-self.Item_money_received
         return results
-
+        
 class PledgesCashedOut(Model):
     Date = models.DateField(blank=True, null=True)
     Item_That_Needs_Pledges = models.CharField( max_length=100, blank=True, null=True)
