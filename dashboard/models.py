@@ -464,7 +464,7 @@ class Pledges(Model):
     def Total_Amount_Pledged(self):
         return self._foo
         
-    #using decorators to archive the calculations
+    ##using decorators to archive the calculations
     @property
     def total_pledge_paid(self):
         results=Pledges.objects.filter(Pledge_Id=self.id).values('Amount_Paid').aggregate(totals=models.Sum("Amount_Paid"))
