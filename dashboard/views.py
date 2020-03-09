@@ -2553,7 +2553,9 @@ def index(request):
         annual_net = annual_revenues - annual_expenditure
         today = timezone.now()
         month = today.strftime('%B')
-        context={'annual_revenues':annual_revenues, 'annual_expenditure':annual_expenditure,
+        context={
+        'total_current_salaries':total_current_salaries,
+        'annual_revenues':annual_revenues, 'annual_expenditure':annual_expenditure,
         'annual_net':annual_net, 'total_current_building':total_current_building, 'd_building': d_building, 'building':building, 'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,'total_current_seeds':total_current_seeds,'total_general_expenses':total_general_expenses,'total_petty_expenses':total_petty_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
         'general':general,'allowances':allowances,'seeds':seeds, 'expenses':expenses,'day':day,
         'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income,'thanks':thanks,'donations':donations
@@ -2589,7 +2591,10 @@ def index(request):
         'total_current_building':total_current_building, 'd_building': d_building,"building":building,
         'd_donations':d_donations,'d_tithes':d_tithes,'d_offerings':d_offerings,
         'd_seeds':d_seeds,'d_thanks':d_thanks,'d_pledges':d_pledges,'day':day,
-        'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_general_expenses':total_general_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
+        'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,
+        'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,
+        'total_general_expenses':total_general_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,
+        'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
         'petty':petty,'allowances':allowances,'seeds':seeds,'general':general, 'expenses':expenses,'tithes':tithes, 
         'offerings':offerings, 'pledges':pledges, 'net_income':net_income,'thanks':thanks,'donations':donations,
         'd_petty':d_petty,'d_allowances':d_allowances,'d_salaries':d_salaries, 'd_general':d_general,'d_expenses':d_expenses,
@@ -2616,19 +2621,24 @@ def total_revenues(request):
 
 #All monthly expenditures
 def total_expenses(request):
+    current_year = datetime.now().year
     current_month = datetime.now().month #Monthly
     total_expenses = Expenditures.objects.filter(Archived_Status='NOT-ARCHIVED')\
     .values('Date','Reason_filtering').annotate(Amount=Sum('Amount'))
     total = total_expenses.aggregate(totals=models.Sum("Amount"))
     month=calendar.month_name[current_month]
 
+    total_current_salaries = SalariesPaid.objects.filter(Date_of_paying_salary__year=current_year\
+    ,Date_of_paying_salary__month=current_month).values('Name','Date_of_paying_salary').annotate(Salary_Amount=Sum("Salary_Amount"))
+    totalSalaries = total_current_salaries.aggregate(totalsal=models.Sum("Salary_Amount"))
     pledgecash = PledgesCashedOut.objects.filter(Date__month=current_month)\
     .values('Date','Item_That_Needs_Pledges').annotate(Amount_Cashed_Out=Sum('Amount_Cashed_Out'))
     cash = pledgecash.aggregate(totals=models.Sum("Amount_Cashed_Out"))
    
     
-    total_amount = total["totals"] + cash['totals']
-    context={'total_expenses':total_expenses,'total_amount':total_amount, 'pledgecash': pledgecash, 'month':month}
+    total_amount = total["totals"] + totalSalaries['totalsal']
+    context={'total_current_salaries':total_current_salaries,'total_expenses':total_expenses,'total_amount':total_amount, 
+    'pledgecash': pledgecash, 'month':month}
     return render(request, 'total_expenses.html', context)
 
 #CASH FLOAT
