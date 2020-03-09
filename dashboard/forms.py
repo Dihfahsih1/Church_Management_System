@@ -101,13 +101,13 @@ class CashFloatForm(forms.ModelForm):
 class TestingForm(forms.ModelForm):
     class Meta:
         model = Pledges
-        fields = ('Amount_Paid', 'Pledge_Id')
+        fields = ('Amount_Paid', 'Pledge_Id','Pledge_Made_By', 'Reason')
 
 
 class UpdatePledgesForm(forms.ModelForm):
     class Meta:
         model=Pledges
-        fields = ('Amount_Paid','Date', 'Pledge_Made_By')
+        fields = ('Date', 'Pledge_Made_By', 'Reason')
         widgets = {
 
             'Date': DatePickerInput(),

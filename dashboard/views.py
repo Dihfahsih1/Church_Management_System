@@ -1319,7 +1319,7 @@ def paying_pledges(request, pk):
             form.save()
             return redirect('Pledgesreport')
     else:
-        form = UpdatePledgesForm()
+        form = UpdatePledgesForm(instance=items)
         retrieving_id=Pledges.objects.filter(id=pk)
         context['form']=form
         context['items']=items
