@@ -1314,18 +1314,17 @@ def paying_pledges(request, pk):
     context={}
     items = get_object_or_404(Pledges, id=pk)
     if request.method == "POST":
-        form = TestingForm(request.POST, request.FILES, instance=items)
+        form = TestingForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('Pledgesreport')
     else:
-        form = UpdatePledgesForm(instance=items)
+        form = UpdatePledgesForm()
         retrieving_id=Pledges.objects.filter(id=pk)
         context['form']=form
         context['items']=items
         context['retrieving_id']=retrieving_id
         return render(request, 'Pledges/paying_pledges_update.html', context)
-
 # def settle_pledge_debt(request, pk):
 #     items = get_object_or_404(Pledges, id=pk)
 #     if request.method == "POST":
