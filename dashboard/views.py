@@ -2654,7 +2654,8 @@ def record_cashfloat(request):
         form=CashFloatForm()
         context={'form':form,}
         return render(request, 'give_cash_float.html',context)    
-
+        
+#list of all cash float given out
 def cashfloat_lst(request):
     mth = datetime.now().month
     current_year = datetime.now().year
