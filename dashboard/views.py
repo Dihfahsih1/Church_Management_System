@@ -1104,8 +1104,8 @@ class main_expenditure_report_pdf(View):
 
 #Allowances Module
 def give_allowance(request):
-    current_month = datetime.now().month
-    current_year = datetime.now().year
+    month = datetime.now().month
+    current_month = calendar.month_name[month]
     if request.method=="POST":
         form=ExpendituresForm(request.POST)
         if form.is_valid():
@@ -1113,8 +1113,7 @@ def give_allowance(request):
             return redirect('allowancereport')   
     else:
         form = ExpendituresForm()
-        items=Expenditures.objects.filter(Date__month=current_month, Date__year=current_year)
-        context={'form': form, 'items': items}
+        context={'form': form, 'current_month': current_month}
         return render(request, 'Allowances/record_new_allowance.html',context)
 
 def edit_allowance(request, pk):

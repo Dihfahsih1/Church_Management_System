@@ -48,7 +48,10 @@
 						        {{ form.Date|as_crispy_field}}
                                 {{ form.Payment_Made_To|as_crispy_field}}
                                 {{ form.General_Expenses_Reason|as_crispy_field}}
-                                {{ form.Amount|as_crispy_field}}
+                                <div class="form-group">
+                                  <label for="id_Amount"> Amount Paid</label>
+                                  <input type="number" value="" name="Amount" required id="id_Amount" class="textinput textInput form-control" min='1' max='{{form.instance.net_float}}'>
+                                </div>
                                 <input type="hidden" id="general" name="Reason_filtering" value="general">
 
 						      <button type="submit" class="btn btn-primary" name="button">Submit</button>
