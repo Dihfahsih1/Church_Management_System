@@ -2512,7 +2512,40 @@ def index(request):
         allowances=total_allowances["totals"]    
     else:
         total_allowances = 0
-        allowances=0 
+        allowances=0
+
+    #ANNUAL EXPENSES AND REVENUES
+    #annual revenues
+    A_thanks = Revenues.objects.filter(Revenue_filter='thanks',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
+    Annualthanks=int(A_thanks["totals"])
+
+    A_others=Revenues.objects.filter(Revenue_filter='others',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
+    Annualothers=int(A_others["totals"])
+
+    A_offering = Revenues.objects.filter(Revenue_filter='offering',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
+    Annualoffering=int(A_offering["totals"])
+
+    A_tithes=Revenues.objects.filter(Revenue_filter='tithes',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
+    Annualtithes=int(A_tithes["totals"])
+
+    A_seeds = Revenues.objects.filter(Revenue_filter='seeds',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
+    Annualseeds=int(A_seeds["totals"])
+
+    A_build= Revenues.objects.filter(Revenue_filter='build',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
+    Annualbuilding=int(A_build["totals"])
+     
+    #expenses
+    A_general=Expenditures.objects.filter(Reason_filtering='general',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
+    Annualgeneral=int(A_others["totals"])
+
+    A_main=Expenditures.objects.filter(Reason_filtering='main',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
+    Annualmain=int(A_main["totals"])
+
+    A_petty = Expenditures.objects.filter(Reason_filtering='petty',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
+    Annualpetty=int(A_petty["totals"])
+
+    A_allowance=Expenditures.objects.filter(Reason_filtering='allowance',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
+    Annualallowances=int(A_allowance["totals"])
 
     #current month pledges paid
     pledgecash = PledgesCashedOut.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount_Cashed_Out"))
@@ -2585,6 +2618,12 @@ def index(request):
         month = today.strftime('%B')
         mth=calendar.month_name[current_month]
         context={
+        'Annualthanks':Annualthanks, 'Annualothers':Annualothers, 'Annualoffering':Annualoffering,
+        'Annualtithes':Annualtithes,'Annualseeds':Annualseeds,'Annualbuilding':Annualbuilding,
+        'Annualgeneral':Annualgeneral,'Annualmain':Annualmain,'Annualpetty':Annualpetty,
+        'Annualallowances':Annualallowances,'annual_pledges_paid':annual_pledges_paid, 'Annualsalaries':Annualsalaries, 
+        'Annualpledgecashed':Annualpledgecashed,
+
         'get_cash_float':get_cash_float, 'net_float':net_float,'new_float':new_float,
         'mth':mth, 'current_year':current_year,'current_month': current_month,
         'annual_revenues':annual_revenues, 'annual_expenditure':annual_expenditure,'annual_net':annual_net,
