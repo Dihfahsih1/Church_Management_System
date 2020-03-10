@@ -464,63 +464,9 @@
 
         </script>
 
-        <script>
-            
-                  //annual expenses and revenues graph
-            document.addEventListener('DOMContentLoaded', function () {
-            Highcharts.chart('wrapper', {
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text:'{{current_year}} Financial Stats'
-                },
-                xAxis: {
-                    categories: [
-                    '<strong>Offerings</strong>', 
-                    '<strong>Tithes</strong>',
-                    '<strong>Seeds</strong>', 
-                    '<strong>Donations</strong>',
-                     '<strong>Thanks Giving</strong>',
-                     '<strong>Building Collections</strong>',
-                     '<strong>Pledges Paid</strong>',
-                     '<strong style="color: red; font-weight:bolder">Gen Expenses</strong>', 
-                     '<strong style="color: red; font-weight:bolder">Main Expenses</strong>',
-                     '<strong style="color: red; font-weight:bolder">Petty Expenses</strong>',
-                     '<strong style="color: red; font-weight:bolder">Allowances</strong>',
-                     '<strong style="color: red; font-weight:bolder">Salaries</strong>'
-                     '<strong style="color: red; font-weight:bolder">Pledge Cashed Items</strong>'
-                     ]
-                },
 
-                yAxis: {
-                    title: {
-                        text: 'Church Balance Sheet'
-                    }
-                },
-                tooltip: {
-                    pointFormat: '<span style="color:{series.color}">Shs.</span><b>{point.y}</b>',
-                    shared: true
-                },
-                series: [ {
-                        name:'ANNUAL REVENUES AND EXPENSES',
-                        data: [{{ Annualoffering }},{{ Annualtithes }},{{ Annualseeds }},{{ Annualothers }},{{Annualthanks}},{{Annualbuilding}},{{annual_pledges_paid}},
-                        {{Annualgeneral}},{{Annualmain}},{{Annualpetty}},{{Annualallowances}},{{Annualsalaries}},{{Annualpledgecashed}}
-                        ]
-                    }
-                    ,
-
-                ],
-
-                credits: {
-                    enabled: false
-                }
-            })
-            ;
-            });
-        </script>
   {% if request.user.Role == 'Admin' or user.Role == 'SuperAdmin' %}
-  <div class="row">
+<!--   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel tile overflow_hidden">
             <div class="x_panel">
@@ -533,12 +479,66 @@
                 </div>
                 <div class="x_content">
                     <div id="wrapper" style=" width: 99%; vertical-align: top; height:250px;"></div>
+                        <script>
+                        //annual expenses and revenues graph
+                        document.addEventListener('DOMContentLoaded', function () {
+                        Highcharts.chart('wrapper', {
+                        chart: {
+                        type: 'column'
+                        },
+                        title: {
+                        text:'{{current_year}} Financial Stats'
+                        },
+                        xAxis: {
+                        categories: [
+                        '<strong>Offerings</strong>', 
+                        '<strong>Tithes</strong>',
+                        '<strong>Seeds</strong>', 
+                        '<strong>Donations</strong>',
+                        '<strong>Thanks Giving</strong>',
+                        '<strong>Building Collections</strong>',
+                        '<strong>Pledges Paid</strong>',
+                        '<strong style="color: red; font-weight:bolder">Gen Expenses</strong>', 
+                        '<strong style="color: red; font-weight:bolder">Main Expenses</strong>',
+                        '<strong style="color: red; font-weight:bolder">Petty Expenses</strong>',
+                        '<strong style="color: red; font-weight:bolder">Allowances</strong>',
+                        '<strong style="color: red; font-weight:bolder">Salaries</strong>'
+                        '<strong style="color: red; font-weight:bolder">Pledge Cashed Items</strong>'
+                        ]
+                        },
+
+                        yAxis: {
+                        title: {
+                        text: 'Church Balance Sheet'
+                        }
+                        },
+                        tooltip: {
+                        pointFormat: '<span style="color:{series.color}">Shs.</span><b>{point.y}</b>',
+                        shared: true
+                        },
+                        series: [ {
+                        name:'ANNUAL REVENUES AND EXPENSES',
+                        data: [{{ Annualoffering }},{{ Annualtithes }},{{ Annualseeds }},{{ Annualothers }},{{Annualthanks}},{{Annualbuilding}},{{annual_pledges_paid}},
+                        {{Annualgeneral}},{{Annualmain}},{{Annualpetty}},{{Annualallowances}},{{Annualsalaries}},{{Annualpledgecashed}}
+                        ]
+                        }
+                        ,
+
+                        ],
+
+                        credits: {
+                        enabled: false
+                        }
+                        })
+                        ;
+                        });
+                    </script>
                 </div>
             </div>
 
         </div>
     </div> 
-</div>
+</div> -->
 
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -613,8 +613,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Description</label>
                                                 <div class="col-sm-9">
-                                                    <textarea class="form-control" style="height:55px;" id="descr"
-                                                              name="descr"></textarea>
+                                                    <textarea class="form-control" style="height:55px;" id="descr" name="descr"></textarea>
                                                 </div>
                                             </div>
                                         </form>
@@ -710,6 +709,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
