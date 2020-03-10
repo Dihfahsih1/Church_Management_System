@@ -2,6 +2,7 @@
 
 {% extends "app/base_site.html" %}
 {% block content %}
+{% load humanize%}
 <div class="right_col" role="main">
     <div class="row">
     	<div class="col-md-12 col-sm-12 col-xs-12">
@@ -54,7 +55,7 @@
                         {% endif %}
 
                         {% if mesg %}
-                          <h2>{{ mesg }} for the month of <b style="color: red">{{month}} {{current_year}}</b></h2>
+                          <h2>{{ mesg }} of Shs.<b> {{total_float|intcomma}} </b> for the month of <b style="color: red">{{month}} {{current_year}}</b></h2>
                         {% endif %}
 			        </div>
 		        </div>

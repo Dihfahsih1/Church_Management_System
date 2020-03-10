@@ -1509,8 +1509,8 @@ class pledge_made_invoice(View):
 def airtime_data_report(request):
     mth = datetime.now().day
     today = datetime.now()
-    get_airtime=Expenditures.objects.filter(Reason_For_Payment='Airtime/Data', Date__day=mth)
-    total = Expenditures.objects.filter(Reason_For_Payment='Airtime/Data',Date__day=mth).aggregate(totals=models.Sum("Amount"))
+    get_airtime=Expenditures.objects.filter(Petty_Cash_Reason='Airtime/Data', Date__day=mth)
+    total = Expenditures.objects.filter(Petty_Cash_Reason='Airtime/Data',Date__day=mth).aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
     context={'get_airtime':get_airtime, 'total_amount':total_amount, 'today':today}
     return render(request,'Expenses/airtime_data_report.html', context)
@@ -2648,7 +2648,9 @@ def record_cashfloat(request):
     current_year = datetime.now().year
     current_month = datetime.now().month
     month=calendar.month_name[current_month]
-    get_data= CashFloat.objects.filter(Date__month=current_month or None, Date__year=current_year)
+    get_data = CashFloat.objects.filter(Date__month=current_month or None, Date__year=current_year)
+    total_amount = get_data.aggregate(totals=models.Sum('Amount'))
+    total_float = total_amount["totals"]
     if request.method=="POST":
         form=CashFloatForm(request.POST)
         if form.is_valid():
@@ -2657,7 +2659,7 @@ def record_cashfloat(request):
     else:
         if get_data:
             mesg="You have already given out the float"
-            context={'mesg':mesg, 'month':month, 'current_year':current_year}
+            context={'mesg':mesg, 'month':month, 'current_year':current_year,'total_float':total_float}
             return render(request, 'give_cash_float.html',context) 
         form=CashFloatForm()
         context={'form':form,}

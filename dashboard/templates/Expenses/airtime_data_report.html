@@ -68,12 +68,18 @@
                                   <td>{{ item.Amount}}</td>
                                   <td>
                                      <div class="mb-4">
-                                        <a href="#" target="_new"><button class="btn btn-success"><span class="glyphicon glyphicon-qrcode">Receipt </span></button></a> |
+                                       <!--  <a href="#" target="_new"><button class="btn btn-success"><span class="glyphicon glyphicon-qrcode"> Voucher </span></button></a> | -->
                                         <a href="#" ><button class="btn btn-info"><span class="glyphicon glyphicon-edit">Edit </span></button></a>
-                                       {% endfor %}
-                                     </div></td></tr>
+                                      
+                                     </div></td>
+                                  
+                                    </tr>
+                                    {% endfor %}
+                                  
+                                    <tr>
+                                      <b><td colspan='2'>Total</td><td><b>Shs.{{total_amount}}</b></td>
+                                    </tr>
                              </tbody>
-                             <td>Total</td><td><pre>  </pre></td><td><b style="color: red">Shs.{{total_amount}}</b></td>
                             </table>
                             
                     </div>

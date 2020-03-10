@@ -9,13 +9,14 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-          <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Building Collections</small></h2>
+          <h1><i class="fa fa fa-calendar-check-o"></i><b>PETTY CASH MODULE</b> </h1>
           <ul class="nav navbar-right panel_toolbox">
             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
             </li>
           </ul>
           <div class="clearfix"></div>
         </div>
+        <h2 style="text-align: center">The Petty Cash Expenses Report as of {{today}}</h2>
         <div class="x_content quick-link">
           <span style="color:red"><b>Other Reports:</b></span>
           <a href="{% url  'expenditurereport' %}"> Main Expenses</a>
@@ -30,9 +31,8 @@
           |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a>
           |<a href="{% url 'Building-Renovation-report' %}"> Building</a>
         </div>
-        <div class="separator"></div>
-
-        <h3>Petty Cash Expenses Module</h3>
+        
+        
         <div class="separator"></div>
         <div class="x_content">
           <div class="" data-example-id="togglable-tabs">
@@ -47,7 +47,7 @@
                             class="fa fa-plus-square-o"></i> Petty Expenses Archived</a></li>
             </ul>
             <br/>
-            <h2 style="text-align: center">The Petty Cash Expenses Report as of {{today}}</h2>
+            
             <h4 style="color: green; font-weight: 120%"><b>{{ message }}</b></h4>
             <div class="tab-content">
               <div class="tab-pane fade in active" id="tab_invoice_list">
