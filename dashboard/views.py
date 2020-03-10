@@ -684,6 +684,11 @@ def Tithesreport (request):
     return render(request, 'Tithes/tithesindex.html', context)    
 
 @login_required
+def Annual_Tithes(request):
+    current_year = datetime.now().year
+    get_all_tithes=Revenues.objects.filter(Revenue_filter='tithes',Date__year=current_year)\
+    .values('','','').annotate(Amount=Sum('Amount'))
+@login_required
 def tithesarchivessearch(request):
     today = datetime.now()
     years=today.year
