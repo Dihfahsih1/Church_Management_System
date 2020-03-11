@@ -21,21 +21,29 @@
         <div class="row top_tiles">
             <div class="separator"></div>
             <h1 style="margin-left: 5%;color: red"><b>Annual Financial Summary of {{ current_year }}</b></h1>
-            <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
-                     <p class="fa fa-dollar">&nbsp;<b style="font-size: 17px">Total Revenue</b></p>
+                     <p class="fa fa-dollar">&nbsp;<b style="font-size: 17px">Total Annual Revenue</b></p>
                     <div class="count red">{{annual_revenues|intcomma}}</div>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+             <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                <a href="{% url 'cashfloat-list' %}">
                 <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 17px">Total Expenditure</b></p>
+                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 17px">Total Annual Cash Float</b></p>
+                    <div class="count red">{{total_annual_float|intcomma}}</div>
+                </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                <div class="tile-stats">
+                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 17px">Total Annual Expenditure</b></p>
                     <div class="count red">{{annual_expenditure|intcomma}}</div>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
                 <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 17px">Net Income</b></p>
+                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 17px">Annual Net Income</b></p>
                     <div class="count red">{{annual_net|intcomma}}</div>
                 </div>
             </div>

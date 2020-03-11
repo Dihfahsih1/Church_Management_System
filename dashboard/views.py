@@ -2613,6 +2613,7 @@ def index(request):
         total_monthly_incomes =  pledges + tithes + offerings + seeds + thanks + donations + building
         total_monthly_expenditure =  allowances + expenses + general + petty+ salaries #+ total_salaries
         net_income = total_monthly_incomes - total_monthly_expenditure
+        #calculating annual cashfloat given out
         cash_float= CashFloat.objects.filter(Date__year=current_year)
         for i in cash_float:
             if (i.Date.month == current_month): 
@@ -2636,7 +2637,7 @@ def index(request):
         'Annualtithes':Annualtithes,'Annualseeds':Annualseeds,'Annualbuilding':Annualbuilding,
         'Annualgeneral':Annualgeneral,'Annualmain':Annualmain,'Annualpetty':Annualpetty,
         'Annualallowances':Annualallowances,'annual_pledges_paid':annual_pledges_paid, 'Annualsalaries':Annualsalaries, 
-        'Annualpledgecashed':Annualpledgecashed,
+        'Annualpledgecashed':Annualpledgecashed,'total_annual_float':total_annual_float,
 
         'get_cash_float':get_cash_float, 'net_float':net_float,'new_float':new_float,
         'mth':mth, 'current_year':current_year,'current_month': current_month,
