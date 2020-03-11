@@ -686,11 +686,13 @@ def Tithesreport (request):
 @login_required
 def Annual_Tithes(request):
     current_year = datetime.now().year
-    get_all_tithes=Revenues.objects.annotate(total=Sum('Amount'))\
-    .filter(Revenue_filter='tithes',Date__year=current_year).values('Member_Name__First_Name')
-    
+    get_all_tithes=Revenues.objects\
+    .filter(Revenue_filter='tithes',Date__year=current_year)\
+    .values('Member_Name__First_Name')\
+    .annotate(total=Sum('Amount'))
     context={'get_all_tithes':get_all_tithes, 'current_year':current_year}
     return render(request, "Tithes/current_year_tithes.html", context)
+
 @login_required
 def tithesarchivessearch(request):
     today = datetime.now()
@@ -764,7 +766,7 @@ def member_annual_tithes(request, pk):
     return render(request, 'Tithes/member_annual_tithes.html', tithescontext) 
 
 
-   ###################################################
+     ###################################################
     #               THANKS GIVING MODULE                #
      ###################################################
 @login_required
@@ -831,7 +833,7 @@ def thanksgivingarchivessearch(request):
 
 
      ###################################################
-    #                  OTHER REVENUE SOURCES MODULE                #
+    #      OTHER REVENUE SOURCES MODULE                #
      ###################################################
 @login_required
 def record_donations(request):
@@ -844,6 +846,7 @@ def record_donations(request):
         form=RevenuesForm()
         context={'form':form,}
         return render(request, 'Donations/record_donations.html',context)
+
 @login_required
 def donations_report(request):
     if request.method=='POST':
@@ -875,6 +878,7 @@ def edit_donation(request, pk):
         form = RevenuesForm(instance=item)        
         context={'form':form, 'month':month}
     return render(request, 'Donations/edit_donations.html', context)
+
 @login_required
 def donationsarchivessearch(request):
     today = datetime.now()
@@ -892,14 +896,9 @@ def donationsarchivessearch(request):
     return render(request, "Donations/donationssarchive.html", context)
 
 
-
-
-
-
-
-                 #############################################################
-                #          GENERAL, MAIN, PETTY EXPENSES MODULES              #
-                 #############################################################
+     #############################################################
+    #          GENERAL, MAIN, PETTY EXPENSES MODULES              #
+     #############################################################
 
 
 @login_required
@@ -2610,22 +2609,25 @@ def index(request):
 
     #if there are moneys, calculate revenues, incomes and total expenditure.
     else:
-       
-        annual_revenues = revenues_in_a_year + annual_pledges_paid
         annual_expenditure =   expenses_in_a_year + Annualpledgecashed + Annualsalaries 
-
         total_monthly_incomes =  pledges + tithes + offerings + seeds + thanks + donations + building
         total_monthly_expenditure =  allowances + expenses + general + petty+ salaries #+ total_salaries
-
         net_income = total_monthly_incomes - total_monthly_expenditure
-
         cash_float= CashFloat.objects.filter(Date__year=current_year)
         for i in cash_float:
             if (i.Date.month == current_month): 
                 get_cash_float= i.Amount
                 net_float = int(get_cash_float) - total_monthly_expenditure
                 new_float = net_float + get_cash_float
+        
+        annual_cashfloat=cash_float.aggregate(totals=Sum('Amount'))
+        if (annual_cashfloat['totals'])!=None:
+            total_annual_float=int(annual_cashfloat["totals"])
+        else:
+            total_annual_float = 0
+        annual_revenues = (revenues_in_a_year + annual_pledges_paid) - total_annual_float
         annual_net = annual_revenues-annual_expenditure
+        
         today = timezone.now()
         month = today.strftime('%B')
         mth=calendar.month_name[current_month]
