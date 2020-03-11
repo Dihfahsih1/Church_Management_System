@@ -72,6 +72,7 @@ url(r'^Tithes/receipt/(?P<pk>\d+)', views.tithesreceipt.as_view() ,name='tithesr
 url(r'^tithes/archivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.tithesarchivepdf.as_view(), name='tithesarchivepdf'),
 url(r'^Edit/tithes/(?P<pk>\d+)', views.edit_tithes ,name='edit-tithes'),
 url(r'^Tithesreport/', views.Tithesreport, name='Tithesreport'),
+url(r'^General-Annual-Tithes/', views.Annual_Tithes, name='Annual-Tithes'),
 url(r'^Archived/Tithes/', views.tithesarchivessearch, name='tithesarchivessearch'),
 
 url(r'^Enter_Pledges/', views.Enter_Pledges, name='Enter_Pledges'),
