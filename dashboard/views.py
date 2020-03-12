@@ -2627,8 +2627,7 @@ def index(request):
         else:
             total_annual_float = 0
         annual_revenues = (revenues_in_a_year + annual_pledges_paid) - total_annual_float
-        annual_net = annual_revenues-annual_expenditure
-        
+        annual_net = annual_revenues-annual_expenditure  
         today = timezone.now()
         month = today.strftime('%B')
         mth=calendar.month_name[current_month]
@@ -2638,7 +2637,6 @@ def index(request):
         'Annualgeneral':Annualgeneral,'Annualmain':Annualmain,'Annualpetty':Annualpetty,
         'Annualallowances':Annualallowances,'annual_pledges_paid':annual_pledges_paid, 'Annualsalaries':Annualsalaries, 
         'Annualpledgecashed':Annualpledgecashed,'total_annual_float':total_annual_float,
-
         'get_cash_float':get_cash_float, 'net_float':net_float,'new_float':new_float,
         'mth':mth, 'current_year':current_year,'current_month': current_month,
         'annual_revenues':annual_revenues, 'annual_expenditure':annual_expenditure,'annual_net':annual_net,
