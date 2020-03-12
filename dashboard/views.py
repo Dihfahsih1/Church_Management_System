@@ -2584,7 +2584,7 @@ def index(request):
     #in case the totals are Zero
     if (annual_revenue, annual_paid_pledges,annual_expenses,A_salaries,pledgecash,
         total_petty_expenses,total_current_tithes,total_general_expenses, total_current_salaries, 
-        total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== 0:
+        total_current_offerings,total_current_pledges,total_allowances,total_main_expenses,total_cash_out)== 0:
         total_monthly_incomes = 0
         annual_revenues = 0
         annual_expenditure = 0
@@ -2611,7 +2611,7 @@ def index(request):
     else:
         annual_expenditure =   expenses_in_a_year + Annualpledgecashed + Annualsalaries 
         total_monthly_incomes =  pledges + tithes + offerings + seeds + thanks + donations + building
-        total_monthly_expenditure =  allowances + expenses + general + petty+ salaries #+ total_salaries
+        total_monthly_expenditure =  allowances + expenses + general + petty+ salaries + total_cash_out
         net_income = total_monthly_incomes - total_monthly_expenditure
         #calculating annual cashfloat given out
         cash_float= CashFloat.objects.filter(Date__year=current_year)
@@ -2626,25 +2626,29 @@ def index(request):
             total_annual_float=int(annual_cashfloat["totals"])
         else:
             total_annual_float = 0
+
         annual_revenues = (revenues_in_a_year + annual_pledges_paid) - total_annual_float
         annual_net = annual_revenues-annual_expenditure  
         today = timezone.now()
         month = today.strftime('%B')
         mth=calendar.month_name[current_month]
         context={
+
         'Annualthanks':Annualthanks, 'Annualothers':Annualothers, 'Annualoffering':Annualoffering,
         'Annualtithes':Annualtithes,'Annualseeds':Annualseeds,'Annualbuilding':Annualbuilding,
         'Annualgeneral':Annualgeneral,'Annualmain':Annualmain,'Annualpetty':Annualpetty,
         'Annualallowances':Annualallowances,'annual_pledges_paid':annual_pledges_paid, 'Annualsalaries':Annualsalaries, 
         'Annualpledgecashed':Annualpledgecashed,'total_annual_float':total_annual_float,
         'get_cash_float':get_cash_float, 'net_float':net_float,'new_float':new_float,
+
         'mth':mth, 'current_year':current_year,'current_month': current_month,
         'annual_revenues':annual_revenues, 'annual_expenditure':annual_expenditure,'annual_net':annual_net,
         'total_current_building':total_current_building, 'd_building': d_building,"building":building,
         'd_donations':d_donations,'d_tithes':d_tithes,'d_offerings':d_offerings,
         'd_seeds':d_seeds,'d_thanks':d_thanks,'d_pledges':d_pledges,'day':day,
+
         'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,
-        'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,
+        'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_cash_out':total_cash_out,
         'total_general_expenses':total_general_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,
         'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
         'petty':petty,'allowances':allowances,'seeds':seeds,'general':general, 'expenses':expenses,'tithes':tithes, 
