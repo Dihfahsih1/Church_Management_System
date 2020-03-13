@@ -56,6 +56,7 @@
 
                         {% if mesg %}
                           <h2>{{ mesg }} of Shs.<b> {{total_float|intcomma}} </b> for the month of <b style="color: red">{{month}} {{current_year}}</b></h2>
+                          <p>Do you just want to <a href="{% url 'edit-cashfloat'form.id%}">Up date the amount?</a></p>
                         {% endif %}
 			        </div>
 		        </div>
