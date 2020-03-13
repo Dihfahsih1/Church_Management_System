@@ -70,7 +70,8 @@
                             {{ form.Month_being_cleared|as_crispy_field }}
                         </div>
                         <div class="col-lg-12">
-                            {{ form.Salary_Amount|as_crispy_field }}
+                              <label for="id_paid_amount"> Amount Paid</label>
+                               <input type="number" value="{{form.instance.Balance}}" name="Salary_Amount" required id="id_paid_amount" class="textinput textInput form-control" min='1' max='{{form.instance.Balance}}'>
                         </div>
 
 				   </div>

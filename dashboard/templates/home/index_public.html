@@ -266,9 +266,6 @@
                     </div>
                 </div>    
             </div>
-            <!-- <div class="more text-right" style="margin-top: -7%">
-            <a class="link glbscl-link-btn hvr-bs" href="{% url 'event_wall' %}">More Activities</a>
-           </div> -->
         </div>
     </section>
 
@@ -289,7 +286,7 @@
                         {% if member.Initials != 'Pr.'%}                 
                             <div class="single-gallery">
                                 {% if member.Photo %}
-                                    <img src="{{ member.Photo.url }}" data-fancybox="images" style="border-radius: 40%; height: 150px" >
+                                    <img src="{{ member.Photo.url }}" data-fancybox="images" style="border-radius: 40%; height: 160px" >
                                 {% endif %} 
                                 <span style="text-align: left;">
                                     <h2> {{member.Initials}} {{member.First_Name}} {{member.Second_Name}}</h2>
