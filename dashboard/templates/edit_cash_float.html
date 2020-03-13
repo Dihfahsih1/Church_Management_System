@@ -1,0 +1,63 @@
+
+
+{% extends "app/base_site.html" %}
+{% block content %}
+{% load humanize%}
+<div class="right_col" role="main">
+    <div class="row">
+    	<div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h1><b><i class="fa fa fa-calendar-check-o"></i> CASHFLOAT MODULE</b></h1>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content quick-link">
+                    <span style="color:red"><b>Quick Links:</b></span>
+                    <a href="{% url 'expenditurereport' %}">Expenses</a>
+                    | <a href="{% url 'Offeringsreport' %}">Revenues</a>
+                    | <a href="{% url 'list-of-pledge-items' %}">Pledges</a>
+                    | <a href="{% url 'members-list' %}">Church Members</a>
+                    | <a href="{% url 'Tithesreport' %}">Monthly Reports</a>
+                    | <a href="{% url 'expensesarchivessearch' %}">Archived Data</a>
+                    | <a href="{% url 'about_list' %}">Manage Website</a>
+                
+                </div>
+		  	    <div class="x_content">
+		            <div class="" data-example-id="togglable-tabs">
+		                <ul class="nav nav-tabs bordered">
+		                    <li role="presentation" ><a href="{% url 'cashfloat-list' %}"><i
+		                                class="fa fa-list-ol"></i> Cash Float List</a>
+		                    </li>
+		                    <li role="presentation"><a href="{% url 'record-cashfloat' %}"><i
+	                            class="fa fa-plus-square-o"></i> Give Cash Float</a>
+		                    </li>
+
+                            <li role="presentation"class="active"><a href="#"><i
+                                class="fa fa-plus-square-o"></i> Edit Cash Float</a>
+                            </li>
+		                </ul>
+		                <br/>
+                         
+
+                         <h2 style="text-align: center">Update Cash Float</h2>
+						<div style="margin-left: 25%"class="col-lg-4 col-md-4 col-sm-4 justify-content-center">
+						{% load crispy_forms_tags %}
+							<form method="POST" enctype="multipart/form-data" >
+								{% csrf_token %}
+								{{ form.Amount|as_crispy_field}}
+                                <!-- <input type="hidden" id="offering" name="Revenue_filter" value="offering"> -->
+							<button type="submit" class="btn btn-primary" name="button">Submit</button>
+							</form>
+						</div>
+                        
+			        </div>
+		        </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
