@@ -2715,7 +2715,7 @@ def record_cashfloat(request):
     else:
         if get_data:
             mesg="You have already given out the float"
-            context={'mesg':mesg, 'month':month, 'current_year':current_year,'total_float':total_float}
+            context={'mesg':mesg, 'get_data':get_data,'month':month, 'current_year':current_year,'total_float':total_float}
             return render(request, 'give_cash_float.html',context) 
         form=CashFloatForm()
         context={'form':form,}
@@ -2738,4 +2738,4 @@ def edit_cash_float(request, pk):
             return redirect('cashfloat-list')
     else:
         form = CashFloatForm(instance=item)
-        return render(request, 'give_cash_float.html', {'form': form})
+        return render(request, 'edit_cash_float.html', {'form': form})
