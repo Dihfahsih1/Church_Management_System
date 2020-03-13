@@ -214,10 +214,15 @@
     $('.sum_table span.totalCol').text("Total Amount: " + total);</script>
 
 <!--fading up messages alert-->
-        <script type="text/javascript">
+<!--  <script type="text/javascript">
     $("#success-alert").fadeTo(3210, 8000).slideUp(10000, function(){
         $("#success-alert").slideUp(2000);
-    });</script>
+    });
+</script> -->
+
+<script>
+ $("#success-alert").delay(5000).fadeOut('slow');
+</script>
         <script>
             $.fakeLoader();
             $(function () {
