@@ -24,7 +24,7 @@
                     | <a href="{% url 'Tithesreport' %}">Monthly Reports</a>
                     | <a href="{% url 'expensesarchivessearch' %}">Archived Data</a>
                     | <a href="{% url 'about_list' %}">Manage Website</a>
-                
+                 <div class="separator"></div>
                 </div>
 		  	    <div class="x_content">
 		            <div class="" data-example-id="togglable-tabs">
@@ -50,6 +50,7 @@
 								{% csrf_token %}
                                 {{ form.Date|as_crispy_field}}
 								{{ form.Amount|as_crispy_field}}
+                                {{ form.Notes|as_crispy_field}}
 
                                 <!-- <input type="hidden" id="offering" name="Revenue_filter" value="offering"> -->
 							<button type="submit" class="btn btn-primary" name="button">Submit</button>

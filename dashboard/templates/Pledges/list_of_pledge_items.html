@@ -10,7 +10,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Members</small></h2>
+                        <h1><i class="fa fa fa-calendar-check-o"></i><b>PLEDGES MODULE</b></h1>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -18,11 +18,12 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content quick-link">
-                        <span>Quick Link:</span>
+                        <span style="color:red"><b>Quick Link:</b></span>
                         <a href="{% url 'members-register' %}">Register Member</a>
                         | <a href="{% url 'members-list' %}">Members List</a>
                         | <a href="{% url 'visitors-register' %}">Register Visitor</a>
                         | <a href="{% url 'visitors-list' %}">Visitors List</a>
+                        <div class="separator"></div>
                     </div>
                     <h3 style="text-align: center; color: green">{{ message }}</h3>
            
@@ -85,6 +86,7 @@
                                       {% elif item.Item_money_received > 0 %}
                                         <a href="{% url 'pledge-cash-out' item.id %}"class="btn btn-success btn-sm"><span class="glyphicon glyphicon-euro"> </span> Cash Out</a>
                                          <a href="{% url 'delete-pledge-item' item.id %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"> Delete</span></a>
+
                                       {% else %}
                                         <a href="{% url 'edit-pledge-item' item.id %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                                          <a href="{% url 'delete-pledge-item' item.id %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"> Delete</span></a>
