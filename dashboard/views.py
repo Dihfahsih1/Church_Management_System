@@ -2614,9 +2614,12 @@ def index(request):
         total_monthly_expenditure =  allowances + expenses + general + petty+ salaries + total_cash_out
         net_income = total_monthly_incomes - total_monthly_expenditure
         #calculating annual cashfloat given out
+
         cash_float= CashFloat.objects.filter(Date__year=current_year)
+        #Weekly cash float given out.
+        one_week_ago = datetime.today() - timedelta(days=7) 
         for i in cash_float:
-            if (i.Date.month == current_month): 
+            if (i.Date.month == one_week_ago): 
                 get_cash_float= i.Amount
                 net_float = int(get_cash_float) - total_monthly_expenditure
                 new_float = net_float + get_cash_float
@@ -2626,33 +2629,29 @@ def index(request):
             total_annual_float=int(annual_cashfloat["totals"])
         else:
             total_annual_float = 0
-
         annual_revenues = (revenues_in_a_year + annual_pledges_paid) - total_annual_float
         annual_net = annual_revenues-annual_expenditure  
         today = timezone.now()
         month = today.strftime('%B')
         mth=calendar.month_name[current_month]
         context={
-
         'Annualthanks':Annualthanks, 'Annualothers':Annualothers, 'Annualoffering':Annualoffering,
         'Annualtithes':Annualtithes,'Annualseeds':Annualseeds,'Annualbuilding':Annualbuilding,
         'Annualgeneral':Annualgeneral,'Annualmain':Annualmain,'Annualpetty':Annualpetty,
         'Annualallowances':Annualallowances,'annual_pledges_paid':annual_pledges_paid, 'Annualsalaries':Annualsalaries, 
         'Annualpledgecashed':Annualpledgecashed,'total_annual_float':total_annual_float,
-        'get_cash_float':get_cash_float, 'net_float':net_float,'new_float':new_float,
-
+        'get_cash_float':get_cash_float,'net_float':net_float,'new_float':new_float,
         'mth':mth, 'current_year':current_year,'current_month': current_month,
         'annual_revenues':annual_revenues, 'annual_expenditure':annual_expenditure,'annual_net':annual_net,
         'total_current_building':total_current_building, 'd_building': d_building,"building":building,
         'd_donations':d_donations,'d_tithes':d_tithes,'d_offerings':d_offerings,
         'd_seeds':d_seeds,'d_thanks':d_thanks,'d_pledges':d_pledges,'day':day,
-
         'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,
         'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_cash_out':total_cash_out,
         'total_general_expenses':total_general_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,
         'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
         'petty':petty,'allowances':allowances,'seeds':seeds,'general':general, 'expenses':expenses,'tithes':tithes, 
-        'offerings':offerings, 'pledges':pledges, 'net_income':net_income,'thanks':thanks,'donations':donations,
+        'offerings':offerings,'pledges':pledges,'net_income':net_income,'thanks':thanks,'donations':donations,
         'd_petty':d_petty,'d_allowances':d_allowances,'d_salaries':d_salaries, 'd_general':d_general,'d_expenses':d_expenses,
         }
         return render(request,'index.html', context)
@@ -2701,10 +2700,11 @@ def total_expenses(request):
 
 @login_required
 def record_cashfloat(request):
+    one_week_ago = datetime.today() - timedelta(days=7) #Weekly
     current_year = datetime.now().year
     current_month = datetime.now().month
     month=calendar.month_name[current_month]
-    get_data = CashFloat.objects.filter(Date__month=current_month or None, Date__year=current_year)
+    get_data = CashFloat.objects.filter(Date__gte=one_week_ago or None, Date__year=current_year)
     total_amount = get_data.aggregate(totals=models.Sum('Amount'))
     total_float = total_amount["totals"]
     if request.method=="POST":
