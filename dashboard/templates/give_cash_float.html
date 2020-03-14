@@ -55,7 +55,7 @@
                         {% endif %}
 
                         {% if mesg %}
-                          <h2>{{ mesg }} of Shs.<b> {{total_float|intcomma}} </b> for the month of <b style="color: red">{{month}} {{current_year}}</b></h2>
+                          <h2>{{ mesg }} of Shs.<b> {{total_float|intcomma}} </b> for this week <b style="color: red">{{month}} {{current_year}}</b></h2>
                           {% for item in get_data%}
                           <h3>Do you just want to <a href="{% url 'edit-cashfloat' item.id %}"><b style=" color: green"><u>Up date the amount?</u></b></a></h3>
                           {% endfor %}
