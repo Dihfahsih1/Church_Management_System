@@ -2616,6 +2616,7 @@ def index(request):
         #calculating annual cashfloat given out
 
         cash_float= CashFloat.objects.filter(Date__year=current_year)
+
         #Weekly cash float given out.
         one_week_ago = datetime.today() - timedelta(days=7) 
         for i in cash_float:
@@ -2623,6 +2624,7 @@ def index(request):
                 get_cash_float= i.Amount
                 net_float = int(get_cash_float) - total_monthly_expenditure
                 new_float = net_float + get_cash_float
+        
         
         annual_cashfloat=cash_float.aggregate(totals=Sum('Amount'))
         if (annual_cashfloat['totals'])!=None:
@@ -2634,18 +2636,21 @@ def index(request):
         today = timezone.now()
         month = today.strftime('%B')
         mth=calendar.month_name[current_month]
+
         context={
         'Annualthanks':Annualthanks, 'Annualothers':Annualothers, 'Annualoffering':Annualoffering,
         'Annualtithes':Annualtithes,'Annualseeds':Annualseeds,'Annualbuilding':Annualbuilding,
         'Annualgeneral':Annualgeneral,'Annualmain':Annualmain,'Annualpetty':Annualpetty,
         'Annualallowances':Annualallowances,'annual_pledges_paid':annual_pledges_paid, 'Annualsalaries':Annualsalaries, 
         'Annualpledgecashed':Annualpledgecashed,'total_annual_float':total_annual_float,
+
         'get_cash_float':get_cash_float,'net_float':net_float,'new_float':new_float,
         'mth':mth, 'current_year':current_year,'current_month': current_month,
         'annual_revenues':annual_revenues, 'annual_expenditure':annual_expenditure,'annual_net':annual_net,
         'total_current_building':total_current_building, 'd_building': d_building,"building":building,
         'd_donations':d_donations,'d_tithes':d_tithes,'d_offerings':d_offerings,
         'd_seeds':d_seeds,'d_thanks':d_thanks,'d_pledges':d_pledges,'day':day,
+
         'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,
         'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_cash_out':total_cash_out,
         'total_general_expenses':total_general_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,
