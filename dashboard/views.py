@@ -2618,7 +2618,7 @@ def index(request):
         one_week_ago = datetime.today() - timedelta(days=7) 
         cash_float= CashFloat.objects.filter(Date__gte=one_week_ago, Date__year=current_year)
         for i in cash_float:
-            if (i.Date.month == one_week_ago): 
+            if (one_week_ago): 
                 get_cash_float= i.Amount
                 net_float = int(get_cash_float) - total_monthly_expenditure
                 new_float = net_float + get_cash_float 
