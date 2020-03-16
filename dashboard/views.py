@@ -2486,7 +2486,6 @@ def index(request):
     else:
         total_current_pledges = 0
         pledges = 0
-
     
     #monthly main expenses
     total_main_expenses = Expenditures.objects.filter(Reason_filtering='main',Archived_Status='NOT-ARCHIVED',Date__month=current_month,Date__year=current_year).aggregate(totals=models.Sum("Amount"))
@@ -2505,7 +2504,6 @@ def index(request):
     else:
         total_general_expenses = 0
         general = 0
-   
 
     #Monthly Petty Cash expenses
     total_petty_expenses = Expenditures.objects.filter(Reason_filtering='petty',Archived_Status='NOT-ARCHIVED',Date__month=current_month,Date__year=current_year).aggregate(totals=models.Sum("Amount"))
