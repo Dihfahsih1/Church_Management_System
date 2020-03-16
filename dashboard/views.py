@@ -2605,6 +2605,7 @@ def index(request):
         }
         #return the index of the user dashboard
         return render(request,'index.html', context)
+
     #if there are moneys, calculate revenues, incomes and total expenditure.
     else:
         annual_expenditure =   expenses_in_a_year + Annualpledgecashed + Annualsalaries 
@@ -2613,16 +2614,14 @@ def index(request):
         net_income = total_monthly_incomes - total_monthly_expenditure
         #calculating annual cashfloat given out
 
-        cash_float= CashFloat.objects.filter(Date__year=current_year)
-
         #Weekly cash float given out.
         one_week_ago = datetime.today() - timedelta(days=7) 
+        cash_float= CashFloat.objects.filter(Date__gte=one_week_ago, Date__year=current_year)
         for i in cash_float:
             if (i.Date.month == one_week_ago): 
                 get_cash_float= i.Amount
                 net_float = int(get_cash_float) - total_monthly_expenditure
                 new_float = net_float + get_cash_float 
-        
         
         annual_cashfloat=cash_float.aggregate(totals=Sum('Amount'))
         if (annual_cashfloat['totals'])!=None:
@@ -2642,7 +2641,7 @@ def index(request):
         'Annualallowances':Annualallowances,'annual_pledges_paid':annual_pledges_paid, 'Annualsalaries':Annualsalaries, 
         'Annualpledgecashed':Annualpledgecashed,'total_annual_float':total_annual_float,
 
-        'net_float':net_float,'new_float':new_float,
+        'get_cash_float':get_cash_float,'net_float':net_float,'new_float':new_float,
         'mth':mth, 'current_year':current_year,'current_month': current_month,
         'annual_revenues':annual_revenues, 'annual_expenditure':annual_expenditure,'annual_net':annual_net,
         'total_current_building':total_current_building, 'd_building': d_building,"building":building,
