@@ -2725,10 +2725,12 @@ def record_cashfloat(request):
         
 #list of all cash float given out
 def cashfloat_lst(request):
+    one_week_ago = datetime.now() - timedelta(days=7)
+    print(one_week_ago)
     mth = datetime.now().month
     current_year = datetime.now().year
     lists=CashFloat.objects.filter(Date__year=current_year).order_by('-Date')
-    return render(request, 'cashfloat_list.html',{'lists':lists,'current_year':current_year, 'mth': mth})
+    return render(request, 'cashfloat_list.html',{'one_week_ago':one_week_ago,'lists':lists,'current_year':current_year, 'mth': mth})
 
 def edit_cash_float(request, pk):
     item = get_object_or_404(CashFloat, pk=pk)
