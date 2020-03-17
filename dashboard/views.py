@@ -1,7 +1,9 @@
 #views
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
 from django.contrib.messages.views import SuccessMessageMixin
-from datetime import datetime, timedelta
+from django.utils.dateformat import DateFormat
+from django.utils.formats import get_format
+from datetime import datetime, timedelta   
 from django.contrib import messages
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
@@ -2726,6 +2728,7 @@ def record_cashfloat(request):
 #list of all cash float given out
 def cashfloat_lst(request):
     one_week_ago = datetime.now() - timedelta(days=7)
+    one_week_ago.format('Y-m-d')
     print(one_week_ago)
     mth = datetime.now().month
     current_year = datetime.now().year
