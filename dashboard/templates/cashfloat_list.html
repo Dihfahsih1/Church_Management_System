@@ -2,6 +2,7 @@
 
 {% extends "app/base_site.html" %}
 {% block content %}
+{% load humanize %}
 <head>
   <title>UCC Bwaise | Cash Float</title>
 </head>
@@ -69,7 +70,7 @@
                           <td>{{ item.Notes}}</td>
                           <td>
                           <div class="mb-4">
-                            {% if item.Date|date:'Y-m-d' == one_week_ago|date:'Y-m-d'  %}
+                            {% if one_week_ago >= 11  %}
                                 <a href="{% url 'edit-cashfloat' item.pk %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit">Update</span></a>
                                 {% else %}
                                 <h1>Testing just</h1>

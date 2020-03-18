@@ -2727,9 +2727,8 @@ def record_cashfloat(request):
         
 #list of all cash float given out
 def cashfloat_lst(request):
-    one_week_ago = datetime.now() - timedelta(days=7)
-    one_week_ago.format('Y-m-d')
-    print(one_week_ago)
+    x = datetime.now() - timedelta(days=7)
+    one_week_ago=x.day
     mth = datetime.now().month
     current_year = datetime.now().year
     lists=CashFloat.objects.filter(Date__year=current_year).order_by('-Date')
