@@ -1337,58 +1337,7 @@ def paying_pledges(request, pk):
         context['items']=items
         context['retrieving_id']=retrieving_id
         return render(request, 'Pledges/paying_pledges_update.html', context)
-# def settle_pledge_debt(request, pk):
-#     items = get_object_or_404(Pledges, id=pk)
-#     if request.method == "POST":
-#         form = TestingForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('archived-pledge-debts')
-#     else:
-#         form = UpdatePledgesForm(instance=items)
-#         retrieving_id=Pledges.objects.filter(id=pk)
-#         context={'form':form,'retrieving_id':retrieving_id}
-#         return render(request, 'Pledges/settle_pledge_debt.html', context)
-
-
-#processing the pledge payment that the member has made
-# @login_required
-# def member_pledges_paid(request):
-#     if request.method == "POST":
-#         form =  PaidPledgesForm(request.POST,request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('Pledgesreport')
-#         else:
-#             form = PaidPledgesForm()
-#             context={'form':form}
-#             return render(request, 'Pledges/paying_pledges_update.html', context)
-
-# def archived_pledge_debts(request):
-#     debts=Pledges.objects.filter(Q(Status='UNPAID') | Q(Status='PARTIAL'))
-#     context={'debts':debts}
-#     return render(request, "Pledges/archived_pledge_debts.html", context)
-
-
-# @login_required
-# def pledges_paid_list(request):
-#     context = {}
-#     today = datetime.now()
-#     month = today.strftime('%B')
-#     context['month']=month
-#     current_month = datetime.now().month
-#     lists = PaidPledges.objects.all().values('Pledge_Id','Pledge_Made_By__First_Name','Pledge_Made_By__Second_Name','Reason__Item_That_Needs_Pledges').annotate(Amount_Paid=Sum('Amount_Paid'))
-#     (lists)
-#     context['lists']=lists
-#     return render(request, 'Pledges/pledges_paid_list.html',context)
-
-
-# def delete_pledge(request, pk):
-#     pledges= get_object_or_404(Pledges, id=pk)
-#     if request.method == "GET":
-#         pledges.delete()
-#         messages.success(request, "Pledge successfully deleted!")
-#         return redirect("Pledgesreport")          
+                
 def edit_pledges(request, pk):
     item = get_object_or_404(Pledges, pk=pk)
     if request.method == "POST":
