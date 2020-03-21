@@ -899,7 +899,7 @@ def donationsarchivessearch(request):
 
 
      #############################################################
-    #          GENERAL, MAIN, PETTY EXPENSES MODULES              #
+    #    GENERAL, MAIN, PETTY EXPENSES MODULES [expenses module]  #
      #############################################################
 
 

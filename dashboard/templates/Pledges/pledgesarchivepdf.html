@@ -1,4 +1,5 @@
 <!doctype html>
+{% load humanize %}
 <html>
 <head>
     <meta charset="utf-8">
@@ -69,7 +70,7 @@
          </div>
 
         <div class="list-group">
-            <h2 style="align-content:center"> Monthly Pledges Archived Report</h2>
+            <h2 style="align-content:center"> Monthly Pledges Paid Archived Report</h2>
         </div>
 
         <table class="table" border="1">
@@ -80,7 +81,6 @@
                 <th>Reason</th>
                 <th>Amount Pledge</th>
                 <th>Amount Paid</th>
-                <th>Balance</th>
                 <th>Status</th>
             </tr>
             </thead>
@@ -94,14 +94,13 @@
                     <td>{{ pledges.Date }}</td>
                     <td>{{ pledges.Pledge_Made_By }}</td>
                     <td>{{ pledges.Reason }}</td>
-                    <td>{{ pledges.Amount_Pledged}}</td>
-                    <td>{{ pledges.total_pledge_paid}}</td>
-                    <td>{{ pledges.Pledge_Balance }}</td>
+                    <td>{{ pledges.Amount_Pledged|intcomma}}</td>
+                    <td>{{ pledges.total_pledge_paid|intcomma}}</td>
                     <td>{{ pledges.Status }}</td>
 
                 </tr>
             {% endfor %}
-            <tr><td><b>Total Amount:</b> </td><td>______________ </td> <td>______________ </td><td><b>{{ total_amount}}</b></td></tr>
+            <tr><td><b>Total Amount:</b> </td><td>______________ </td> <td>______________ </td><td><b>{{ total_amount|intcomma}}</b></td></tr>
             </tbody>
         </table>
     </div>
