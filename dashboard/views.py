@@ -1,4 +1,3 @@
-#views
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.dateformat import DateFormat
@@ -382,10 +381,7 @@ def view_member(request, pk):
         get_name = Members.objects.filter(id=pk)
         context['get_name']=get_name
         context['form']=form
-    return render(request,'Members/members_view.html',context)
-
-
-    
+    return render(request,'Members/members_view.html',context)  
 #edit visitor    
 def edit_visitor(request, pk):
     item = get_object_or_404(Visitors, pk=pk)
@@ -435,6 +431,7 @@ def record_building_collections(request):
         form=RevenuesForm()
         return render(request, 'BuildingRenovation/record_building_collections.html',{'form':form})
 
+#editing building collections
 def edit_building_collections(request, pk):
     item = get_object_or_404(Revenues, pk=pk)
     if request.method == "POST":
@@ -447,6 +444,7 @@ def edit_building_collections(request, pk):
         form = RevenuesForm(instance=item)
     return render(request, 'BuildingRenovation/edit_building_collections.html', {'form': form})
 
+# generate building report
 def Building_Renovation_report(request):
     if request.method=='POST':
         items = Revenues.objects.all()
@@ -464,6 +462,7 @@ def Building_Renovation_report(request):
     context['today']=today
     return render(request, 'BuildingRenovation/Building_Renovation_report.html', context)
 
+#Search for archived building reports
 @login_required
 def BuildingRenovationarchivessearch(request):
     if request.method == 'POST':
@@ -480,7 +479,7 @@ def BuildingRenovationarchivessearch(request):
     context = {'years': years,}
     return render(request, "BuildingRenovation/buildingarchive.html", context)
 
-#Offerings
+#Offerings module
 @login_required
 def Enter_Offerings(request):
     if request.method=="POST":
@@ -492,7 +491,7 @@ def Enter_Offerings(request):
     else:
         form=RevenuesForm()
         return render(request, 'Offerings/record_offerings.html',{'form':form})
-
+#edit offerings
 def edit_offerings(request, pk):
     item = get_object_or_404(Revenues, pk=pk)
     if request.method == "POST":
@@ -504,6 +503,8 @@ def edit_offerings(request, pk):
     else:
         form = RevenuesForm(instance=item)
     return render(request, 'Offerings/record_offerings.html', {'form': form})
+
+# generating offerings report
 @login_required
 def Offeringsreport (request):
     if request.method=='POST':
@@ -522,6 +523,7 @@ def Offeringsreport (request):
     context['today']=today
     return render(request, 'Offerings/offeringsindex.html', context)
 
+#search for the archived offerings
 @login_required
 def offeringsarchivessearch(request):
     today = datetime.now()
@@ -537,6 +539,8 @@ def offeringsarchivessearch(request):
         return render(request, "Offerings/offeringsarchive.html", context)
     context = {'years': years}
     return render(request, "Offerings/offeringsarchive.html", context)
+
+#generate offering archived report pdf    
 class offeringsarchivepdf(View):
     def get(self, request, report_year, report_month):
         month=strptime(report_month, '%B').tm_mon
