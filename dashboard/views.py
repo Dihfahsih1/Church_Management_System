@@ -720,7 +720,7 @@ class tithespdf(View):
         today = datetime.now()
         mth=today.month
         year=today.year
-        tithes = Revenues.objects.filter(Archived_Status='NOT-ARCHIVED',Revenue_filter='tithes',Date__month=mth, Date__year=year).order_by('-Date')
+        tithes = Revenues.objects.filter(Revenue_filter='tithes',Date__month=mth, Date__year=year).order_by('-Date')
         month=today.strftime('%B')
         total = tithes.aggregate(totals=models.Sum("Amount"))
         total_amount = total["totals"]
