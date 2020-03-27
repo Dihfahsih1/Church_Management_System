@@ -835,9 +835,6 @@ def thanksgivingarchivessearch(request):
     context = {'years': years}
     return render(request, "ThanksGiving/thanksgivingarchivessearch.html", context)
 
-
-
-
      ###################################################
     #      OTHER REVENUE SOURCES MODULE                #
      ###################################################
@@ -905,8 +902,6 @@ def donationsarchivessearch(request):
      #############################################################
     #    GENERAL, MAIN, PETTY EXPENSES MODULES [expenses module]  #
      #############################################################
-
-
 @login_required
 def enter_general_expenses(request):
     if request.method=="POST":
