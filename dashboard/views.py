@@ -2567,14 +2567,19 @@ def index(request):
         #Weekly cash float given out.
         one_week_ago = datetime.today() - timedelta(days=7) 
         cash_float= CashFloat.objects.filter(Date__gte=one_week_ago, Date__year=current_year)
-        print(cash_float)
-        for i in cash_float:
-            if (one_week_ago): 
-                get_cash_float= i.Amount
-                net_float = int(get_cash_float) - total_monthly_expenditure
-                new_float = net_float + get_cash_float
-                 
-        annual_cashfloat=cash_float.aggregate(totals=Sum('Amount'))
+        if cash_float:
+            for i in cash_float:
+                if (one_week_ago): 
+                    get_cash_float= i.Amount
+                    net_float = int(get_cash_float) - total_monthly_expenditure
+                    new_float = net_float + get_cash_float
+        else:
+            get_cash_float = 0
+            net_float = 0
+            new_float = 0
+
+        annual_float= CashFloat.objects.filter(Date__year=current_year)
+        annual_cashfloat=annual_float.aggregate(totals=Sum('Amount'))
         if (annual_cashfloat['totals'])!=None:
             total_annual_float=int(annual_cashfloat["totals"])
         else:
@@ -2657,7 +2662,7 @@ def record_cashfloat(request):
     current_year = datetime.now().year
     current_month = datetime.now().month
     month=calendar.month_name[current_month]
-    get_data = CashFloat.objects.filter(Date__gte=one_week_ago or None, Date__year=current_year)
+    get_data = CashFloat.objects.filter(Date__gte=one_week_ago or None)
     total_amount = get_data.aggregate(totals=models.Sum('Amount'))
     total_float = total_amount["totals"]
     if request.method=="POST":
