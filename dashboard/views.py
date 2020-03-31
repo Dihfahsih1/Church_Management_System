@@ -2648,14 +2648,12 @@ def total_expenses(request):
     .values('Date','Item_That_Needs_Pledges').annotate(Amount_Cashed_Out=Sum('Amount_Cashed_Out'))
     cash = pledgecash.aggregate(totals=models.Sum("Amount_Cashed_Out"))
    
-    
     total_amount = total["totals"] + totalSalaries['totalsal']
     context={'total_current_salaries':total_current_salaries,'total_expenses':total_expenses,'total_amount':total_amount, 
     'pledgecash': pledgecash, 'month':month}
     return render(request, 'total_expenses.html', context)
 
 #CASH FLOAT
-
 @login_required
 def record_cashfloat(request):
     one_week_ago = datetime.today() - timedelta(days=7) #Weekly
