@@ -2474,7 +2474,6 @@ def index(request):
         allowances=0
 
     #ANNUAL EXPENSES AND REVENUES
-    #annual revenues
     A_thanks = Revenues.objects.filter(Revenue_filter='thanks',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
     Annualthanks=int(A_thanks["totals"])
 
