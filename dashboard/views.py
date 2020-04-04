@@ -1003,7 +1003,7 @@ def edit_main_expense(request, pk):
         form = ExpendituresForm(request.POST, instance=item)
         if form.is_valid():
             form.save()
-            return redirect('sundryreport')
+            return redirect('expenditurereport')
     else:
         form = ExpendituresForm(instance=item)
     return render(request, 'Expenses/edit_main_expense.html', {'form': form})
