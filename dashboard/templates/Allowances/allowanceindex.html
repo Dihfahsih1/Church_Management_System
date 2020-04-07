@@ -30,7 +30,6 @@
           |<a href="{% url 'Building-Renovation-report' %}"> Building</a>
         </div>
         <div class="separator"></div>
-
         <h2 style="text-align: center">The Allowances Given Report as of {{today}}</h2>
         <div class="separator"></div>
         <div class="x_content">
@@ -90,9 +89,6 @@
           <a href="{% url 'allowancespdf' %}" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"> PRINT REPORT</span></a>
           <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">ARCHIVE</span></button>
           {% endif %}
-            <!-- Button trigger modal -->
-          
-          <!-- Modal -->
           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
