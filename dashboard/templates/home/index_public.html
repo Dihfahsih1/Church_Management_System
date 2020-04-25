@@ -2,10 +2,11 @@
 {% load static total_tags %}
 {% load static contact_tags %}
 {% block content %}
-<div class="container-fluid" style="margin-left:1%; margin-right: 2%">
+<div class="container-fluid" style="margin-left:1%; margin-right: 1%">
+
     <div class="slider-area owl-carousel">
     {% for slider in sliders %}
-        <div class="single-slider" style="height: 400px;" >
+        <div class="single-slider" style="height: 400px;width:100%" >
             <div class="img">
                 {% if slider.slider_image %}
                     <img src="{{ slider.slider_image.url }}" alt="">
@@ -69,7 +70,7 @@
                 </div>
             </div>
         </div>
-        <div class="row justify-content-center"style="width:100%; margin-left:2px">
+        <div class="row justify-content-center"style="width:97.5%; margin-left:2px">
             <div class="gallery-carousel owl-carousel">    
                 {% for image in images %}                 
                 <div class="single-gallery" style="height: 250px;">
@@ -102,7 +103,7 @@
         <div class="row justify-content-center" style="width:100%; margin-left: -3%">
             {% for news in news %}
               {% if forloop.counter <= 3 %}
-                <div class="col-lg-4" style="margin-left: -2%">
+                <div class="col-lg-4" style="margin-left: -1%; ">
                     <div class="single-news" style="height: 458px;">
                         <div class="img" style="height: 180px">
                             {% if news.image %}
@@ -261,7 +262,7 @@
                 </div>
             </div>
         </div>
-        <div class="row justify-content-center" style="width:100%;margin-left:2px">
+        <div class="row justify-content-center" style="width:97.5%;margin-left:2px">
             <div class="gallery-carousel owl-carousel">    
                 {% for member in members %}
                 {% if forloop.counter <= 12 %}
@@ -298,8 +299,7 @@
             </div>
         </div>
             <div class="col-lg-12">
-
-                <div class="col-lg-5 testimonial-area bg-with-black" style="float:right">
+                <div class="col-lg-5 testimonial-area bg-with-black" style="float:right; margin-right: 12px">
                     <div class="col-lg-12" style="height: 250px">
                         <div class="testimonial-carousel owl-carousel">
                             {% for data in feeback %}
