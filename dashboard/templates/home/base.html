@@ -33,11 +33,14 @@
         <link rel="stylesheet" href="{% static 'css/front/jquery.fancybox.min.css' %}">
         <link rel="stylesheet" href="{% static 'css/front/theme/slate-gray.css' %}">
         <link rel="stylesheet" href="{% static 'css/front/responsive.css' %}">
+        <!-- <link rel="stylesheet" href="{% static 'css/jazzberry-jam.css' %}"> -->
+        <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+
         <script src="{% static 'js/front/jquery-ui.js' %}"></script>
         <script src="{% static 'js/jquery.validate.js' %}"></script>
         {% endblock stylesheets %}
+        <link rel="stylesheet" href="static/css/style.min.css">
               <style>
-              /* Make the image fully responsive */
               .carousel-inner img {
                   width: 100%;
                   height: 100%;
@@ -69,7 +72,7 @@
                  
                     {% if request.user.is_authenticated %}                    
                         <div class="hta-box">
-                            <span style="font-weight:120%; color: white">{{request.user.full_name.Initials}} {{request.user.full_name}}</i></span>
+                            <span style="font-weight:120%; color: white"> {{request.user.full_name.Initials}} {{request.user.full_name}}</i></span>
                             <a class="text btn btn-primary" href="{% url 'logout' %}"><span class="fa fa-sign-out">Log Out</span></a>
                         </div>
                     {% else %}
@@ -259,15 +262,16 @@
 <!-- /footer content -->
 <!-- Scripts -->
 <script src="{% static 'vendors/jquery-ui/jquery-ui.js' %}"></script>
-<script src="stylesheet" href="{% static 'js/owl.carousel.min.js' %}"></script>
-<script src="stylesheet" href="{% static 'js/counterup.min.js' %}"></script>
-<script src="stylesheet" href="{% static 'js/jquery.meanmenu.js' %}"></script>
-<script src="stylesheet" href="{% static 'js/jquery.fancybox.min.js' %}"></script>
-<script src="stylesheet" href="{% static 'js/jquery.scrollUp.js' %}"></script>
-<script src="stylesheet" href="{% static 'js/jquery.waypoints.min.js' %}"></script>
-<script src="stylesheet" href="{% static 'js/popper.min.js' %}"></script>
-<script src="stylesheet" href="{% static 'js/bootstrap.min.js' %}"></script>
-<script src="stylesheet" href="{% static 'js/theme.js' %}"></script>
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/counterup.min.js' %}"></script>
+<script src="{% static 'js/jquery.meanmenu.js' %}"></script>
+<script src="{% static 'js/jquery.fancybox.min.js' %}"></script>
+<script src="{% static 'js/jquery.scrollUp.js' %}"></script>
+<script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/theme.js' %}"></script>
+<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
 
 </body>
 </div>

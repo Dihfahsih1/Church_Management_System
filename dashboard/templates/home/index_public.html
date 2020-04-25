@@ -77,10 +77,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-center" style="margin-top: -5%">
+                <div class="row justify-content-center" style="margin-top: -5%; margin-left: -2%">
                     <div class="gallery-carousel owl-carousel">    
                         {% for image in images %}                 
-                        <div class="single-gallery" style="height: 200px">
+                        <div class="single-gallery" style="height: 200px" style="margin-left: -20%">
                             <a href="{% url 'image_view' image.pk %}">
                                 {% if image.gallery_image %}
                                     <img src="{{ image.gallery_image.url }}" data-fancybox="images" alt=""  height="50px">
