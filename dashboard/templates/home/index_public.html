@@ -6,7 +6,7 @@
     <section class="page-gallery-area" style="margin-top: -8%;">
         <div class="slider-area owl-carousel">
         {% for slider in sliders %}
-            <div class="single-slider" style="height: 800px;" >
+            <div class="single-slider" style="height: 400px;" >
                 <div class="img">
                     {% if slider.slider_image %}
                         <img src="{{ slider.slider_image.url }}" alt="">
@@ -67,7 +67,7 @@
         </div>
     </section>
 
-    <section class="page-gallery-area" style="margin-top: -8%">
+    <section class="page-gallery-area" style="margin-top: -5%">
         <div class="container">
             <div class="row">
                 <div class="row">
@@ -77,10 +77,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-center" style="margin-top: -5%; margin-left: -2%">
+                <div class="row justify-content-center"style="width:90%">
                     <div class="gallery-carousel owl-carousel">    
                         {% for image in images %}                 
-                        <div class="single-gallery" style="height: 200px" style="margin-left: -20%">
+                        <div class="single-gallery" style="height: 200px;">
                             <a href="{% url 'image_view' image.pk %}">
                                 {% if image.gallery_image %}
                                     <img src="{{ image.gallery_image.url }}" data-fancybox="images" alt=""  height="50px">
@@ -159,7 +159,6 @@
             </div>
         </div>
     </section>
-
     <section class="page-gallery-area" style="margin-top: -8%">
         <div class="container">
             <div class="row">
@@ -279,7 +278,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-center" style="margin-top: -5%">
+                <div class="row justify-content-center" style="margin-top: -5%;width:90%">
                     <div class="gallery-carousel owl-carousel">    
                         {% for member in members %}
                         {% if forloop.counter <= 12 %}
@@ -306,20 +305,30 @@
             </div>   
         </div>
     </section>
-
-     <section class="latest-event" style="margin-top: -8%">
-        <div class="container">
-            <div class="row">
                 <div class="row">
-                    <div class="col-12" style="background-color: #f3f0f0">
+                    <div class="col-lg-12" style="background-color: #f3f0f0">
                         <div class="section-title text-center">
                             <h2 class="title">Church <span class="inner">Feedback</span></h2>
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-center" style="margin-top: -5%">
-                    <div class="col-lg-12" style="height: 380px">
-                        <div class="col-lg-5" style="height: 250px">
+                    <div class="col-lg-12">
+
+                        <div class="col-lg-5 testimonial-area bg-with-black" style="float:right">
+                            <div class="col-lg-12" style="height: 250px">
+                                <div class="testimonial-carousel owl-carousel">
+                                    {% for data in feeback %}
+                                    <div class="single-testimonial">
+                                        <div class="content"  style="height: 310px">
+                                            <h2 class="name">{{data.name}}</h2>
+                                            <p class="text"> {{data.feedback}}</p>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
                             <div class="contact-form-area">
                                 <h2 class="contact-page-title">We would like to hear from You</h2>
                                 <form action="{% url 'contact' %}"
@@ -365,7 +374,7 @@
                                                 <input type="text" name="phone" id="phone" placeholder="Phone" required="required">
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                                             <div class="contact-input-box">
                                                 <textarea name="feedback" id="message" required="required"
                                                       placeholder="Feed Back *">
@@ -383,23 +392,7 @@
                                 </form>
                             </div>
                         </div>
-                        <h2 class="contact-page-title"style="float: right;">What others are saying</h2>
-                        <div class="col-lg-6 testimonial-area bg-with-black" style="float: right; margin-top: -2%">
-                            <div class="col-lg-12" style="margin-top: -11%;height: 250px">
-                                <div class="testimonial-carousel owl-carousel">
-                                    {% for data in feeback %}
-                                    <div class="single-testimonial">
-                                        <div class="content"  style="height: 310px">
-                                            <h2 class="name">{{data.name}}</h2>
-                                            <p class="text"> {{data.feedback}}</p>
-                                        </div>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>  
+                    </div> 
             </div>
         </div>
         <script type="text/javascript">
