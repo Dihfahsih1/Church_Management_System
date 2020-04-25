@@ -3,20 +3,19 @@
 {% load static contact_tags %}
 <body>
 {% block content %}
-    <section class="page-gallery-area" style="margin-top: -8%;">
-        <div class="slider-area owl-carousel">
-        {% for slider in sliders %}
-            <div class="single-slider" style="height: 400px;" >
-                <div class="img">
-                    {% if slider.slider_image %}
-                        <img src="{{ slider.slider_image.url }}" alt="">
-                    {% endif %}
-                </div>
-                
+<div class="container-fluid" style="margin-left:2%; margin-right: 2%">
+    <div class="slider-area owl-carousel">
+    {% for slider in sliders %}
+        <div class="single-slider" style="height: 400px;" >
+            <div class="img">
+                {% if slider.slider_image %}
+                    <img src="{{ slider.slider_image.url }}" alt="">
+                {% endif %}
             </div>
-        {% endfor %}
+            
         </div>
-    </section>
+    {% endfor %}
+    </div>
 
     <div class="container">
         <div class="row">
@@ -35,369 +34,357 @@
         </div>
     </div> 
 
-    <section class="page-gallery-area" style="margin-top: -8%">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 ">
-                    {% for about in abouts %}
-                    {% if forloop.counter == 1 %}
-                    <span class="hover" style="color: black; ">
-                        {{ about.about|truncatewords:180|linebreaks }}
-                        <a href="{% url 'about_detail' about.pk %}"><b>... More</b></a>
-                    </span>
-                    {% endif %}
-                    {% endfor %}
-                </div>
+  
+    <div class="row" style="width:100%">
+        <div class="col-lg-6 ">
+            {% for about in abouts %}
+            {% if forloop.counter == 1 %}
+            <span class="hover" style="color: black; ">
+                {{ about.about|truncatewords:180|linebreaks }}
+                <a href="{% url 'about_detail' about.pk %}"><b>... More</b></a>
+            </span>
+            {% endif %}
+            {% endfor %}
+        </div>
 
-                <div class="col-lg-6 text-center">
-                    <section class="slider-area owl-carousel ">
-                        {% for slider in sliders %}
-                            <div class="single-slider">
-                                <div class="img">
-                                    {% if slider.slider_image %}
-                                        <img src="{{ slider.slider_image.url }}" alt="">
-                                    {% endif %}
-                                </div>
-                                <h2 class="title animated"> {{slider.image_title}} </h2>
-                            </div>
-                        {% endfor %}
-                    </section>
+        <div class="col-lg-6 text-center">
+            <section class="slider-area owl-carousel ">
+                {% for slider in sliders %}
+                    <div class="single-slider">
+                        <div class="img">
+                            {% if slider.slider_image %}
+                                <img src="{{ slider.slider_image.url }}" alt="">
+                            {% endif %}
+                        </div>
+                        <h2 class="title animated"> {{slider.image_title}} </h2>
+                    </div>
+                {% endfor %}
+            </section>
+        </div>
+    </div>
+    <div class="row">
+        <div class="row">
+            <div class="col-12" style="background-color: #f3f0f0">
+                <div class="section-title text-center">
+                    <h2 class="title">Church <span class="inner">Highlights</span></h2>
                 </div>
             </div>
         </div>
-    </section>
-
-    <section class="page-gallery-area" style="margin-top: -5%">
-        <div class="container">
-            <div class="row">
-                <div class="row">
-                    <div class="col-12" style="background-color: #f3f0f0">
-                        <div class="section-title text-center">
-                            <h2 class="title">Church <span class="inner">Highlights</span></h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row justify-content-center"style="width:90%">
-                    <div class="gallery-carousel owl-carousel">    
-                        {% for image in images %}                 
-                        <div class="single-gallery" style="height: 200px;">
-                            <a href="{% url 'image_view' image.pk %}">
-                                {% if image.gallery_image %}
-                                    <img src="{{ image.gallery_image.url }}" data-fancybox="images" alt=""  height="50px">
-                                {% endif %} 
-                                <span class="content">
-                                    <h3 class="title">{{image.gallery_title}}</h3>
-                                    <div class="text">{{image.image_caption}}</div>
-                                </span>
-                            </a>
-                        </div> 
-                        {% endfor %}
-                    </div> 
-                    <div class="more text-right" style="margin-top: -7%">
-                        <a class="link glbscl-link-btn hvr-bs" href="{% url 'gallery_wall' %}">More</a>
-                    </div> 
+        <div class="row justify-content-center"style="width:100%">
+            <div class="gallery-carousel owl-carousel">    
+                {% for image in images %}                 
+                <div class="single-gallery" style="height: 250px;">
+                    <a href="{% url 'image_view' image.pk %}">
+                        {% if image.gallery_image %}
+                            <img src="{{ image.gallery_image.url }}" data-fancybox="images" alt=""  height="50px">
+                        {% endif %} 
+                        <span class="content">
+                            <h3 class="title">{{image.gallery_title}}</h3>
+                            <div class="text">{{image.image_caption}}</div>
+                        </span>
+                    </a>
                 </div> 
-            </div>  
+                {% endfor %}
+            </div> 
+            <div class="more text-right" style="margin-top: -5%; float: right">
+                <a class="link glbscl-link-btn hvr-bs" href="{% url 'gallery_wall' %}">More Highlights</a>
+            </div> 
         </div>
-    </section>
+    </div>
+    <div class="row">
+        <div class="row">
+            <div class="col-12" style="background-color: #f3f0f0">
+                <div class="section-title text-center">
+                    <h2 class="title">Latest <span class="inner">Gospel Teachings</span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+        <div class="row justify-content-center" style="width:100%; margin-left: -4%">
+            {% for news in news %}
+              {% if forloop.counter <= 3 %}
+                <div class="col-lg-4" style="margin-left: -2%">
+                    <div class="single-news" style="height: 458px;">
+                        <div class="img" style="height: 180px">
+                            {% if news.image %}
+                                <img src="{{ news.image.url }}"
+                                     alt="">
+                            {% endif %}
+                        </div>
 
-    <section class="page-gallery-area" style="margin-top: -6%">
-        <div class="container">
-            <div class="row">
-                <div class="row">
-                    <div class="col-12" style="background-color: #f3f0f0">
-                        <div class="section-title text-center">
-                            <h2 class="title">Latest <span class="inner">Gospel Teachings</span></h2>
+                        <div class="content">
+                            <ul class="meta">
+                                <li class="info"><span class="icon"><i class="fa fa-user"></i></span>By :
+                                {{ news.author.full_name.Initials }} {{ news.author.full_name }} - {{ news.author}}
+                                </li>
+
+                                <li class="info"><span class="icon"><i class="far fa-calendar-alt"></i></span>
+                                    {{ news.date }}
+                                </li>
+                            </ul>
+
+                            <h2 class="title"><a href="{{ news.get_absolute_url }}">{{ news.news_title }}</a></h2>
+
+                            <p class="text">
+                                {{ news.news|truncatewords:20|linebreaks }}
+                            </p>
+
+                            <div class="more text-right">
+                                <a class="link hvr-bs"
+                                   href="{% url 'news_detail' news.pk %}"><b>....</b>continue</a>
+                            </div>
+
                         </div>
                     </div>
                 </div>
+                {% endif %}
+            {% endfor %}
 
-                <div class="row justify-content-center"style="margin-top: -5%">
-                    {% for news in news %}
-                      {% if forloop.counter <= 3 %}
-                        <div class="col-lg-4">
-                            <div class="single-news" style="height: 458px; margin-left:-2px">
-                                <div class="img" style="height: 180px">
-                                    {% if news.image %}
-                                        <img src="{{ news.image.url }}"
-                                             alt="">
-                                    {% endif %}
-                                </div>
-
-                                <div class="content">
-                                    <ul class="meta">
-                                        <li class="info"><span class="icon"><i class="fa fa-user"></i></span>By :
-                                        {{ news.author.full_name.Initials }} {{ news.author.full_name }} - {{ news.author}}
-                                        </li>
-
-                                        <li class="info"><span class="icon"><i class="far fa-calendar-alt"></i></span>
-                                            {{ news.date }}
-                                        </li>
-                                    </ul>
-
-                                    <h2 class="title"><a href="{{ news.get_absolute_url }}">{{ news.news_title }}</a></h2>
-
-                                    <p class="text">
-                                        {{ news.news|truncatewords:20|linebreaks }}
-                                    </p>
-
-                                    <div class="more text-right">
-                                        <a class="link hvr-bs"
-                                           href="{% url 'news_detail' news.pk %}"><b>....</b>continue</a>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        {% endif %}
-                    {% endfor %}
-
-                </div>
+        </div>
+     </div> 
+     </div>  
            <!--   <div class="more text-right" style="margin-top: -14%">
             <a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">More</a>
            </div> -->
+    <div class="row">
+        <div class="row">
+            <div class="col-12" style="background-color: #f3f0f0">
+                <div class="section-title text-center">
+                    <h2 class="title">Church <span class="inner">Activities</span></h2>
+                </div>
             </div>
         </div>
-    </section>
-    <section class="page-gallery-area" style="margin-top: -8%">
-        <div class="container">
-            <div class="row">
-                <div class="row">
-                    <div class="col-12" style="background-color: #f3f0f0">
-                        <div class="section-title text-center">
-                            <h2 class="title">Church <span class="inner">Activities</span></h2>
-                        </div>
+         <div class="container-fluid">
+        <div class="row justify-content-center" style="width:100%;">
+
+        {% for event in events %}
+        {% if forloop.counter <= 2 %}
+        
+            <div class="col-lg-4">
+                <div class="single-event" style="height: 550px; margin-left: -8%">
+                    <div class="img">
+                        {% if event.image %}
+                            <img src="{{ event.image.url }}"
+                                 alt="">
+                        {% endif %}
+                    </div>
+                    <div class="content">
+                        <h2 class="title"><a href="{{ event.get_absolute_url }}">{{ event.event_title }}</a>
+                        </h2>
+                        <ul class="list">
+                            <li class="info"><span class="icon"><i
+                                    class="fa fa-user"></i></span>{{ event.event_for }} (Event for)
+                            </li>
+                            <li class="info"><span class="icon"><i
+                                    class="fa fa-calendar"></i></span>{{ event.from_date }}
+                                (Start Date)
+                            </li>
+                            <li class="info"><span class="icon"><i
+                                    class="fa fa-calendar"></i></span>{{ event.to_date }}
+                                (End Date)
+                            </li>
+                            <li class="info"><span class="icon"><i
+                                    class="fa fa-map-marker"></i></span>{{ event.event_place }}
+                            </li>
+                        </ul>
+                        <div class="more text-right">
+                            <a href="{% url 'event_detail' event.pk %}"class="link hvr-bs"><b>....</b>Details
+                            </a>
+                           </div>
                     </div>
                 </div>
-
-                <div class="row justify-content-center" style="margin-top: -5%">
-                {% for event in events %}
-                {% if forloop.counter <= 2 %}
-                    <div class="col-lg-4" style="margin-right: -2%">
-                        <div class="single-event" style="height: 550px">
-                            <div class="img">
-                                {% if event.image %}
-                                    <img src="{{ event.image.url }}"
-                                         alt="">
-                                {% endif %}
-                            </div>
-                            <div class="content">
-                                <h2 class="title"><a href="{{ event.get_absolute_url }}">{{ event.event_title }}</a>
-                                </h2>
-                                <ul class="list">
-                                    <li class="info"><span class="icon"><i
-                                            class="fa fa-user"></i></span>{{ event.event_for }} (Event for)
-                                    </li>
-                                    <li class="info"><span class="icon"><i
-                                            class="fa fa-calendar"></i></span>{{ event.from_date }}
-                                        (Start Date)
-                                    </li>
-                                    <li class="info"><span class="icon"><i
-                                            class="fa fa-calendar"></i></span>{{ event.to_date }}
-                                        (End Date)
-                                    </li>
-                                    <li class="info"><span class="icon"><i
-                                            class="fa fa-map-marker"></i></span>{{ event.event_place }}
-                                    </li>
+            </div>
+            {% endif %}
+          {% endfor %}
+    
+            <div class="col-lg-4">
+                <a href="#program">
+                <div class="single-event" style="height: 560px;">
+                    <div class="content">
+                        <h2 class="title">Church Weekly Program
+                        </h2>
+                        <ul class="list">
+                            <li class="info"><b>Monday </b>
+                             <ul>   
+                            <li>Prayer Alter (9:00am - 4:00pm)</li>
+                             <li>Ministers In Word (6:00pm - 8:00pm)</li><!-- 
+                             <li>Worship Team (5:00pm - 7:00pm)</li> -->
+                             <li>Youth Service (7:00pm - 9:30pm)</li>
+                             </ul>
+                            </li>
+                           <li class="info"><b>Tuesday </b>
+                            <ul>
+                            <li>Home Cell Fellowships (5:00pm - 8:00pm)</li>
+                            </ul>
+                            </li>
+                            <li class="info"><b>Wednesday </b>
+                            <ul>
+                             <li>Revival Service (5:00pm - 8:00pm)</li>
+                            </ul> 
+                            </li>
+                            <li class="info"><b>Thursday </b>
+                                <ul>
+                                 <li>Counselling and Guidance (9:00am - 4:00pm)</li>
                                 </ul>
-                                <div class="more text-right">
-                                    <a href="{% url 'event_detail' event.pk %}"class="link hvr-bs"><b>....</b>Details
-                                    </a>
-                                   </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                    {% endfor %}
-
-                    <div class="col-lg-4">
-                        <a href="#program">
-                        <div class="single-event" style="height: 560px; margin-right: -12%">
-                            <div class="content">
-                                <h2 class="title">Church Weekly Program
-                                </h2>
-                                <ul class="list">
-                                    <li class="info"><b>Monday </b>
-                                     <ul>   
-                                    <li>Prayer Alter (9:00am - 4:00pm)</li>
-                                     <li>Ministers In Word (6:00pm - 8:00pm)</li>
-                                     <li>Worship Team (5:00pm - 7:00pm)</li>
-                                     <li>Youth Service (7:00pm - 9:30pm)</li>
-                                     </ul>
-                                    </li>
-                                   <li class="info"><b>Tuesday </b>
-                                    <ul>
-                                    <li>Home Cell Fellowships (5:00pm - 8:00pm)</li>
-                                    </ul>
-                                    </li>
-                                    <li class="info"><b>Wednesday </b>
-                                    <ul>
-                                     <li>Revival Service (5:00pm - 8:00pm)</li>
-                                    </ul> 
-                                    </li>
-                                    <li class="info"><b>Thursday </b>
-                                        <ul>
-                                         <li>Counselling and Guidance (9:00am - 4:00pm)</li>
-                                        </ul>
-                                    </li>
-                                    <li class="info"><b>Friday </b>
-                                      <ul>
-                                        <li>Bible Study (5:00pm - 7:00pm)</li>
-                                        <li>Prayer Night (8:00pm - 11:00pm)</li>
-                                      </ul>
-                                    </li>
-                                    <li class="info"><b>Saturday </b><br>
-                                        <ul>
-                                         <li>Practices (9:00am - 4:00pm)</li>
-                                        </ul>
-                                    </li>
-                                     <li class="info"><b>Sunday </b>
-                                        <ul>
-                                        <li>First Service (6:30am - 9:00am)</li>
-                                         <li>Second Service (9:00am - 11:00am)</li>
-                                        <li>Third Service (11:00am - 2:30pm)</li>
-                                        </ul>
-                                    </li>
+                            </li>
+                            <li class="info"><b>Friday </b>
+                              <ul>
+                                <li>Bible Study (5:00pm - 7:00pm)</li>
+                                <li>Prayer Night (8:00pm - 11:00pm)</li>
+                              </ul>
+                            </li>
+                            <li class="info"><b>Saturday </b><br>
+                                <ul>
+                                 <li>Practices (9:00am - 4:00pm)</li>
                                 </ul>
-                            </div>
-                        </div>
-                        </a>
+                            </li>
+                             <li class="info"><b>Sunday </b>
+                                <ul>
+                                <li>First Service (6:30am - 9:00am)</li>
+                                 <li>Second Service (9:00am - 11:00am)</li>
+                                <li>Third Service (11:00am - 2:30pm)</li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
-                </div>    
+                </div>
+                </a>
             </div>
         </div>
-    </section>
+        </div> 
+    </div>
 
-    <section class="page-gallery-area" style="margin-top: -10%">
-        <div class="container">
-            <div class="row">
-                <div class="row">
-                    <div class="col-12" style="background-color: #f3f0f0">
-                        <div class="section-title text-center">
-                            <h2 class="title">Church <span class="inner">Members</span></h2>
-                        </div>
-                    </div>
+    <div class="row">
+        <div class="row">
+            <div class="col-12" style="background-color: #f3f0f0">
+                <div class="section-title text-center">
+                    <h2 class="title">Church <span class="inner">Members</span></h2>
                 </div>
-                <div class="row justify-content-center" style="margin-top: -5%;width:90%">
-                    <div class="gallery-carousel owl-carousel">    
-                        {% for member in members %}
-                        {% if forloop.counter <= 12 %}
-                        {% if member.Initials != 'Pr.'%}                 
-                            <div class="single-gallery">
-                                {% if member.Photo %}
-                                    <img src="{{ member.Photo.url }}" data-fancybox="images" style="border-radius: 40%; height: 160px" >
-                                {% endif %} 
-                                <span style="text-align: left;">
-                                    <h2> {{member.Initials}} {{member.First_Name}} {{member.Second_Name}}</h2>
-                                    <div class="text">Group: {{member.Group}}</div>
-                                    <div class="text">Home Cell: {{member.Home_Cell}}</div>
-                                    <div class="text">Residence: {{member.Residence}}</div>
-                                </span>
-                            </div> 
-                        {% endif %}
-                        {% endif %}
-                        {% endfor %}
+            </div>
+        </div>
+        <div class="row justify-content-center" style="width:100%">
+            <div class="gallery-carousel owl-carousel">    
+                {% for member in members %}
+                {% if forloop.counter <= 12 %}
+                {% if member.Initials != 'Pr.'%}                 
+                    <div class="single-gallery">
+                        {% if member.Photo %}
+                            <img src="{{ member.Photo.url }}" data-fancybox="images" style="border-radius: 40%; height: 160px" >
+                        {% endif %} 
+                        <span style="text-align: left;">
+                            <h2> {{member.Initials}} {{member.First_Name}} {{member.Second_Name}}</h2>
+                            <div class="text">Group: {{member.Group}}</div>
+                            <div class="text">Home Cell: {{member.Home_Cell}}</div>
+                            <div class="text">Residence: {{member.Residence}}</div>
+                        </span>
                     </div> 
-                    <div class="more text-right" style="margin-top: -7%">
-                        <a class="link glbscl-link-btn hvr-bs" href="{% url 'membership_wall' %}">More </a>
-                   </div>
-                </div>    
-            </div>   
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+           </div>
+           <br>
+                <div class="more text-right" style="margin-top:-5%">
+                <a class="link glbscl-link-btn hvr-bs" href="{% url 'membership_wall' %}">More Members </a>
+            </div> 
+            
         </div>
-    </section>
-                <div class="row">
-                    <div class="col-lg-12" style="background-color: #f3f0f0">
-                        <div class="section-title text-center">
-                            <h2 class="title">Church <span class="inner">Feedback</span></h2>
-                        </div>
-                    </div>
+    </div>
+    
+    <div class="row">      
+        <div class="row">
+            <div class="col-lg-12" style="background-color: #f3f0f0">
+                <div class="section-title text-center">
+                    <h2 class="title">Church <span class="inner">Feedback</span></h2>
                 </div>
-                    <div class="col-lg-12">
+            </div>
+        </div>
+            <div class="col-lg-12">
 
-                        <div class="col-lg-5 testimonial-area bg-with-black" style="float:right">
-                            <div class="col-lg-12" style="height: 250px">
-                                <div class="testimonial-carousel owl-carousel">
-                                    {% for data in feeback %}
-                                    <div class="single-testimonial">
-                                        <div class="content"  style="height: 310px">
-                                            <h2 class="name">{{data.name}}</h2>
-                                            <p class="text"> {{data.feedback}}</p>
-                                        </div>
-                                    </div>
-                                    {% endfor %}
+                <div class="col-lg-5 testimonial-area bg-with-black" style="float:right">
+                    <div class="col-lg-12" style="height: 250px">
+                        <div class="testimonial-carousel owl-carousel">
+                            {% for data in feeback %}
+                            <div class="single-testimonial">
+                                <div class="content"  style="height: 310px">
+                                    <h2 class="name">{{data.name}}</h2>
+                                    <p class="text"> {{data.feedback}}</p>
                                 </div>
                             </div>
+                            {% endfor %}
                         </div>
-                        <div class="col-lg-5">
-                            <div class="contact-form-area">
-                                <h2 class="contact-page-title">We would like to hear from You</h2>
-                                <form action="{% url 'contact' %}"
-                                      method="POST"
-                                      id="contact_us"
-                                      name="contact_us">
-                                    {% csrf_token %}
-                                    <div class="row">
-                                        {% if request.user.is_authenticated %}
-                                          <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                                            <div class="contact-input-box">
-                                                <input type="text" name="name" id="username" value="{{ request.user.full_name }}">
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="contact-input-box">
-                                                <textarea style = 'text-align: left;'name="feedback" id="message" required="required"
-                                                      placeholder="Feed Back">
-                                                </textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-12" style="margin-top: -7%">
-                                            <div class="contact-input-box text-right">
-                                                <input class="glbscl-link-btn hvr-bs" type="submit" name="submit" id="submit"
-                                                       value="Submit">
-                                            </div>
-                                        </div>
-                                        {% else %}
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                                            <div class="contact-input-box">
-                                                <input type="text" name="name" id="name" 
-                                                       placeholder="Name" required="required">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                                            <div class="contact-input-box">
-                                                <input type="email" name="email" id="email" 
-                                                       placeholder="Email" required="required">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                                            <div class="contact-input-box">
-                                                <input type="text" name="phone" id="phone" placeholder="Phone" required="required">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                                            <div class="contact-input-box">
-                                                <textarea name="feedback" id="message" required="required"
-                                                      placeholder="Feed Back *">
-                                                </textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-12" style="margin-top: -7%">
-                                            <div class="contact-input-box text-right">
-                                                <input class="glbscl-link-btn hvr-bs" type="submit" name="submit" id="submit"
-                                                       value="Submit">
-                                            </div>
-                                        </div>
-                                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="contact-form-area">
+                        <h2 class="contact-page-title">We would like to hear from You</h2>
+                        <form action="{% url 'contact' %}"
+                              method="POST"
+                              id="contact_us"
+                              name="contact_us">
+                            {% csrf_token %}
+                            <div class="row">
+                                {% if request.user.is_authenticated %}
+                                  <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="contact-input-box">
+                                        <input type="text" name="name" id="username" value="{{ request.user.full_name }}">
                                     </div>
-                                </form>
+                                </div>
+                                <div class="col-12">
+                                    <div class="contact-input-box">
+                                        <textarea style = 'text-align: left;'name="feedback" id="message" required="required"
+                                              placeholder="Feed Back">
+                                        </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12" style="margin-top: -7%">
+                                    <div class="contact-input-box text-right">
+                                        <input class="glbscl-link-btn hvr-bs" type="submit" name="submit" id="submit"
+                                               value="Submit">
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="contact-input-box">
+                                        <input type="text" name="name" id="name" 
+                                               placeholder="Name" required="required">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="contact-input-box">
+                                        <input type="email" name="email" id="email" 
+                                               placeholder="Email" required="required">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="contact-input-box">
+                                        <input type="text" name="phone" id="phone" placeholder="Phone" required="required">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="contact-input-box">
+                                        <textarea name="feedback" id="message" required="required"
+                                              placeholder="Feed Back *">
+                                        </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12" style="margin-top: -7%">
+                                    <div class="contact-input-box text-right">
+                                        <input class="glbscl-link-btn hvr-bs" type="submit" name="submit" id="submit"
+                                               value="Submit">
+                                    </div>
+                                </div>
+                                {% endif %}
                             </div>
-                        </div>
-                    </div> 
+                        </form>
+                    </div>
+                </div>
             </div>
+    </div>
         </div>
         <script type="text/javascript">
             document.getElementById('username').readOnly = true;
         </script>
     </section> 
+</div>    
 {% endblock %}
 </body>

@@ -50,6 +50,7 @@
 
 </head>
 <body>
+
 <header>
     <div class="header-top-area">
         <div class="container">
@@ -155,12 +156,13 @@
     </div>
 
 </header>
-
+<div class="container-fluid">
 {% block content %}
 {% endblock content %}
 {% include "home/scripts.html" %}
 
 <!-- footer content -->
+
 <footer>
     <div class="footer-top-area" id="program">
         <div class="containerfluid">
@@ -258,6 +260,8 @@
         </div>
     </div>
 </footer>
+</div>
+
 <!-- /footer content -->
 <!-- Scripts -->
 <script src="{% static 'vendors/jquery-ui/jquery-ui.js' %}"></script>
@@ -273,6 +277,5 @@
 <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
 
 </body>
-</div>
 </html>
 
