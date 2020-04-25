@@ -368,7 +368,6 @@ def edit_member(request, pk):
     else:
         form = MembersForm(instance=item)
     return render(request, 'Members/register_members.html', {'form': form})
-
 #view member    
 def view_member(request, pk):
     context={}

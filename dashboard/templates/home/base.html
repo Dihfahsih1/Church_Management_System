@@ -23,19 +23,26 @@
         <title>UCC - Bwaise</title>
         
         {% block stylesheets %}
-            <!-- CSS -->
-            <link rel="stylesheet" href="{% static 'vendors/bootstrap/dist/css/bootstrap.min.css' %}">
-            <link rel="stylesheet" href="{% static 'vendors/jquery-ui/jquery-ui.css' %}">
-            <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-            <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
-            <link rel="stylesheet" href="{% static 'css/animate.css' %}">
-            <link rel="stylesheet" href="{% static 'css/jazzberry-jam.css' %}">
-            <link rel="stylesheet" href="{% static 'css/meanmenu.css' %}">
-            <link rel="stylesheet" href="{% static 'css/jquery.fancybox.css' %}">
-            <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
-            <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-            <script src="{% static 'js/jquery.validate.js' %}"></script>
+        <!-- CSS -->
+        <link rel="stylesheet" href="{% static 'css/front/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/front/jquery-ui.css' %}">
+        <link rel="stylesheet" href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/front/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/front/animate.css' %}">
+        <link rel="stylesheet" href="{% static 'css/front/meanmenu.css' %}">
+        <link rel="stylesheet" href="{% static 'css/front/jquery.fancybox.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/front/theme/slate-gray.css' %}">
+        <link rel="stylesheet" href="{% static 'css/front/responsive.css' %}">
+        <script src="{% static 'js/front/jquery-ui.js' %}"></script>
+        <script src="{% static 'js/jquery.validate.js' %}"></script>
         {% endblock stylesheets %}
+              <style>
+              /* Make the image fully responsive */
+              .carousel-inner img {
+                  width: 100%;
+                  height: 100%;
+              }
+              </style>
 
     {% endblock head %}
 
@@ -252,15 +259,15 @@
 <!-- /footer content -->
 <!-- Scripts -->
 <script src="{% static 'vendors/jquery-ui/jquery-ui.js' %}"></script>
-<link rel="stylesheet" href="{% static 'js/owl.carousel.min.js' %}">
-<link rel="stylesheet" href="{% static 'js/counterup.min.js' %}">
-<link rel="stylesheet" href="{% static 'js/jquery.meanmenu.js' %}">
-<link rel="stylesheet" href="{% static 'js/jquery.fancybox.min.js' %}">
-<link rel="stylesheet" href="{% static 'js/jquery.scrollUp.js' %}">
-<link rel="stylesheet" href="{% static 'js/jquery.waypoints.min.js' %}">
-<link rel="stylesheet" href="{% static 'js/popper.min.js' %}">
-<link rel="stylesheet" href="{% static 'js/bootstrap.min.js' %}">
-<link rel="stylesheet" href="{% static 'js/theme.js' %}">
+<script src="stylesheet" href="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="stylesheet" href="{% static 'js/counterup.min.js' %}"></script>
+<script src="stylesheet" href="{% static 'js/jquery.meanmenu.js' %}"></script>
+<script src="stylesheet" href="{% static 'js/jquery.fancybox.min.js' %}"></script>
+<script src="stylesheet" href="{% static 'js/jquery.scrollUp.js' %}"></script>
+<script src="stylesheet" href="{% static 'js/jquery.waypoints.min.js' %}"></script>
+<script src="stylesheet" href="{% static 'js/popper.min.js' %}"></script>
+<script src="stylesheet" href="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="stylesheet" href="{% static 'js/theme.js' %}"></script>
 
 </body>
 </div>
