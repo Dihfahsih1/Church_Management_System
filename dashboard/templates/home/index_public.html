@@ -1,10 +1,11 @@
 {% extends 'home/base.html' %}
 {% load static total_tags %}
 {% load static contact_tags %}
+{% load staticfiles %}
 {% block content %}
-<div class="container-fluid" style="margin-left:1%; margin-right: 1%">
+<div class="container-fluid" style="margin-right: 1%">
 
-    <div class="slider-area owl-carousel">
+ <!--    <div class="slider-area owl-carousel">
     {% for slider in sliders %}
         <div class="single-slider" style="height: 400px;width:100%" >
             <div class="img">
@@ -15,6 +16,73 @@
             
         </div>
     {% endfor %}
+    </div> -->
+
+    <div class="row">
+      <div class="slider-area owl-carousel">
+        <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" style="background-image: url({% static 'img/uccchurch.jpg'%});height:430px; " >
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="hero-slides-content">
+                            <h3 data-animation="fadeInUp" data-delay="100ms"  style="color:white;">YOU ARE WELCOME TO</h3>
+                            <h2 data-animation="fadeInUp" data-delay="200ms" style="color:white;">UNITED CHRISTIAN CENTER  (UCC Bwaise)</h2>
+                            <h5 data-animation="fadeInUp" data-delay="300ms" style="color:white;">Where we discover and do the will of God in our lives.</h5>
+                            <a href="#" class="btn crose-btn" data-animation="fadeInUp" data-delay="1500ms">About Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" style="background-image: url({% static 'img/uccchurch.jpg'%});height:430px;">
+            <!-- Post Content -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="hero-slides-content">
+                            <h2 data-animation="fadeInUp" data-delay="100ms">Why Are You Alive</h2>
+                            <p data-animation="fadeInUp" data-delay="130ms"><h3 style = "color:white">Are you what really God has in his blueprint for you or you are something else from what exactly God purposed you to be</h3></p>
+                            <a href="#" class="btn crose-btn" data-animation="fadeInUp" data-delay="700ms">find out More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" style="background-image: url({% static 'img/uccchurch.jpg'%});height:430px;">
+            <!-- Post Content -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="hero-slides-content">
+                            <h2 data-animation="fadeInUp" data-delay="100ms">Discovering and Doing God's will</h2>
+                            <p data-animation="fadeInUp" data-delay="110ms">What is the will of God? How do you discover God's will and carry it out in your life? UCC Bwaise looks at what the Bible says about God's will and especially why it is important. Jesus prayed, "Thy will be done." Knowing God's will must go beyond understanding it but taking action.(Matthew 7:21, Matthew 12:50, 1 John 2:15-17)</p>
+                            <a href="#" class="btn crose-btn" data-animation="fadeInUp" data-delay="500ms">find out More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Single Hero Slide -->
+        <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" style="background-image: url({% static 'img/uccchurch.jpg'%});height:430px;">
+            <!-- Post Content -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="hero-slides-content">
+                            <h2 data-animation="fadeInUp" data-delay="100ms">Who Are You</h2>
+                            <p data-animation="fadeInUp" data-delay="120ms">I am saved by God’s grace, raised up with Christ and seated with Him in heavenly places (Ephesians 2:5-6; Colossians 2:12).</p>
+
+                                           
+                            <a href="#" class="btn crose-btn" data-animation="fadeInUp" data-delay="500ms">find out More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
     </div>
 
     <div class="container">
@@ -129,7 +197,7 @@
                                 {{ news.news|truncatewords:20|linebreaks }}
                             </p>
 
-                            <div class="more text-right">
+                            <div class="more text-right" style="font-size:2vw">
                                 <a class="link hvr-bs"
                                    href="{% url 'news_detail' news.pk %}"><b>....</b>continue</a>
                             </div>
@@ -187,7 +255,7 @@
                                     class="fa fa-map-marker"></i></span>{{ event.event_place }}
                             </li>
                         </ul>
-                        <div class="more text-right">
+                        <div class="more text-right" style="font-size:2vw">
                             <a href="{% url 'event_detail' event.pk %}"class="link hvr-bs"><b>....</b>Details
                             </a>
                            </div>
@@ -266,7 +334,8 @@
             <div class="gallery-carousel owl-carousel">    
                 {% for member in members %}
                 {% if forloop.counter <= 12 %}
-                {% if member.Initials != 'Pr.'%}                 
+                {% if member.Initials != 'Pr.'%} 
+                   <a href="{% url 'member-detail' member.id %}">                
                     <div class="single-gallery">
                         {% if member.Photo %}
                             <img src="{{ member.Photo.url }}" data-fancybox="images" style="border-radius: 40%; height: 160px" >
@@ -278,6 +347,7 @@
                             <div class="text">Residence: {{member.Residence}}</div>
                         </span>
                     </div> 
+                    </a>
                 {% endif %}
                 {% endif %}
                 {% endfor %}

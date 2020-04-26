@@ -24,6 +24,9 @@
         
         {% block stylesheets %}
         <!-- CSS -->
+        <link rel="stylesheet" href="{% static 'css/front/classy-nav.css' %}">
+        <link rel="stylesheet" href="{% static 'css/front/magnific-popup.css' %}">
+        <link rel="stylesheet" href="{% static 'css/front/font-awesome.min.css' %}">
         <link rel="stylesheet" href="{% static 'css/front/bootstrap.min.css' %}">
         <link rel="stylesheet" href="{% static 'css/front/jquery-ui.css' %}">
         <link rel="stylesheet" href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}">
@@ -34,6 +37,7 @@
         <link rel="stylesheet" href="{% static 'css/front/theme/slate-gray.css' %}">
         <link rel="stylesheet" href="{% static 'css/front/responsive.css' %}">
         <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/top_header.css' %}">
         <!-- <link rel="stylesheet" href="{% static 'css/jazzberry-jam.css' %}"> -->
         <script src="{% static 'js/front/jquery-ui.js' %}"></script>
         <script src="{% static 'js/jquery.validate.js' %}"></script>
@@ -49,7 +53,7 @@
     {% endblock head %}
 
 </head>
-<body>
+<body style="background-color: #f8f9fa">
 
 <header>
     <div class="header-top-area">
@@ -180,18 +184,7 @@
                                     font:500px;
                                 }
                             </style>
-                          <div class="col-lg-6" style=" color: white;float: right;">
-                                <b><u>Friday</u></b><br>
-                                 Bible Study (5:00pm - 7:00pm)<br>
-                                 Night Prayer (7:00pm - 11:00pm)<br>
-                                <b><u>Saturday</u></b><br>
-                                Choir Practices<br>
-                                <b><u>Sunday</b></u><br>
-                                First Service (6:30am - 9:00am)</br>
-                                Second Service (9:00am - 11:00am)</br>
-                                Third Service (11:00am - 2:30pm)</br> 
-                                Youths Practices (5:30pm - 7:30pm)</br>
-                            </div>
+                            <div class="row" style="margin-left: 5px">
                             <div class="col-lg-6" style=" color: white; ">
                                <b><u>Monday</u></b><br>
                                 Prayer Alter (10:00am - 4:00pm)<br>
@@ -205,6 +198,19 @@
                                 <b><u>Thursday</u></b><br>
                                     Counselling (10:00pam - 5:00pm)<br>  
                             </div>
+                            <div class="col-lg-6" style=" color: white;">
+                                <b><u>Friday</u></b><br>
+                                 Bible Study (5:00pm - 7:00pm)<br>
+                                 Night Prayer (7:00pm - 11:00pm)<br>
+                                <b><u>Saturday</u></b><br>
+                                Choir Practices<br>
+                                <b><u>Sunday</b></u><br>
+                                First Service (6:30am - 9:00am)</br>
+                                Second Service (9:00am - 11:00am)</br>
+                                Third Service (11:00am - 2:30pm)</br> 
+                                Youths Practices (5:30pm - 7:30pm)</br>
+                            </div>
+                           </div>
                               
 
                         </p>
