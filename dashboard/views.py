@@ -1975,8 +1975,6 @@ class NewsListView(ListView):
 def news_wall(request):
     news = News.published.all()
     return render(request, 'news/news_wall.html', {'news': news})
-
-
 class NewsCreateView(CreateView):
     model = News
     template_name = 'news/news_create.html'
@@ -2034,6 +2032,44 @@ def news_detail(request, news_pk):
         'more_news': more_news
     }
     return render(request, 'news/news_detail.html', context)
+
+def membership_wall(request):
+    all_members = Members.published.all()
+    paginator = Paginator(all_members, 8)  # 6 members on each page
+    page = request.GET.get('page')
+    try:
+        members_list = paginator.page(page)
+    except PageNotAnInteger:
+            # If page is not an integer deliver the first page
+        members_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range deliver last page of results
+        members_list = paginator.page(paginator.num_pages)
+    context={'page':page, 'members_list': members_list}    
+    return render(request, 'Members/members_wall.html', context)
+
+    #member details
+def member_detail(request, pk):
+    member = get_object_or_404(Members, pk=pk)
+    mem_details=Members.objects.all()
+    more_details = Members.published.order_by('-date')
+    paginator = Paginator(mem_details, 7)  # 9 members on each page
+    page = request.GET.get('page')
+    try:
+        members_list = paginator.page(page)
+    except PageNotAnInteger:
+            # If page is not an integer deliver the first page
+        members_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range deliver last page of results
+        members_list = paginator.page(paginator.num_pages)
+    context = {
+         'page':page,
+        'member': member,
+        'more_details': more_details,
+        'members_list': members_list
+    }
+    return render(request, 'Members/member_details.html', context)
 
 
 def news_delete(request, news_pk):

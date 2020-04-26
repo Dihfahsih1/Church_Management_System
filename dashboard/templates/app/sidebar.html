@@ -1,3 +1,4 @@
+{%load staticfiles%}
 {% if user.is_authenticated %}
 <div class="left_col scroll-view" style="background-color: #2C4257">
     <style type="text/css">
@@ -15,7 +16,9 @@
     </style>
     <div>
          <a href="{% url 'profile' %}"><img src="{{ request.user.full_name.Photo.url }}" width="200" height="130" class="center"  /></a>
-        <h3 style="font-weight:bolder; color: white; text-align: center"> {{user.full_name.Initials}} {{user.full_name}}</h3>
+        <h3 style="font-weight:bolder; color: white; text-align: center"> 
+            <img src="{% static 'img/onlineIcon.png' %}" alt="active"/ width="10px">
+        {{user.full_name.Initials}} {{user.full_name}}</h3>
         <h5 style="font-weight:bold; color: white; text-align: center">UCC Bwaise {{user.Role}}</h5>
     </div>
     <div class="clearfix"></div>
@@ -190,7 +193,7 @@
                         <li><a href="#">Northern Region</a></li>
                     </ul>
                 </li>
-
+                 <li><button class="btn btn-danger"><a class="fa fa-share " href="{% url 'logout'%}"> </a><b>Logout</b></button></li>
                 {% endif %}
 
             </ul>
