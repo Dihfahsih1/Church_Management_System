@@ -72,7 +72,11 @@
                  
                     {% if request.user.is_authenticated %}                    
                         <div class="hta-box">
-                            <span style="font-weight:120%; color: white"> {{request.user.full_name.Initials}} {{request.user.full_name}}</i></span>
+                            <img src="{% static 'img/onlineIcon.png' %}"
+                                 alt="active"/ width="10px">
+                            <span style="font-weight:100%; color: white"> 
+                             
+                            {{request.user.full_name.Initials}} {{request.user.full_name}}</i></span>
                             <a class="text btn btn-primary" href="{% url 'logout' %}"><span class="fa fa-sign-out">Log Out</span></a>
                         </div>
                     {% else %}
@@ -255,7 +259,7 @@
 
             <p class="copyright">
                 {% church_footer %} &copy;2001<script>new Date().getFullYear()>2010&&document.write(" - "+new Date().getFullYear());</script>| 
-                    Website Developed by<a href="https://mugoyadihfahsih.000webhostapp.com"> <b style="font-size: 90%; color: yellow"> Mugoya Dihfahsih</b></a>
+                    Website Developed by<a href="https://mugoyadihfahsih.000webhostapp.com" target="_blank"> <b style="font-size: 90%; color: yellow"> Mugoya Dihfahsih</b></a>
                 
             </p>
         </div>

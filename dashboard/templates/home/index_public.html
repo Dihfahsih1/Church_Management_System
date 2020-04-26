@@ -21,13 +21,13 @@
         <div class="row">
             <div class="col-12">
                 <div class="section-title text-center">
-                    <h1 class="title"><span class="inner">{% church_name %} </span></h1><br>
+                    <h1 class="title"><span class="inner" style="font-size:4vw">{% church_name %} </span></h1><br>
                     <a href="{% url 'abouts_vision' %}">
-                        <h2 class="more text" style="font-size: 300%"><span class="inner"> VISION: </span>{% church_vision %}</h2>
+                        <h3 class="more text" style="font-size:4vw"><span class="inner"> VISION: </span>{% church_vision %}</h3>
                     </a>
                     <br>
                     <a href="{% url 'abouts_mission' %}">
-                        <h3 class="more text" style="font-size: 300%"><span class="inner"> MISSION: </span>{% church_mission %}</h3><br><span style="font-size: 200%; padding-top:50%">( lwaki oli mulamu? )</span>
+                        <h4 class="more text" style="font-size:4vw"><span class="inner"> MISSION: </span>{% church_mission %}</h4><br><span style="font-size:3vw; padding-top:50%">( lwaki oli mulamu? )</span>
                     </a>
                 </div>
             </div>
@@ -36,10 +36,10 @@
 
   
     <div class="row" style="width:100%">
-        <div class="col-lg-6 ">
+        <div class="col-lg-6 " style="color: black;font-size:4vw">
             {% for about in abouts %}
             {% if forloop.counter == 1 %}
-            <span class="hover" style="color: black; ">
+            <span class="hover">
                 {{ about.about|truncatewords:180|linebreaks }}
                 <a href="{% url 'about_detail' about.pk %}"><b>... More</b></a>
             </span>
