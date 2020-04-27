@@ -344,8 +344,7 @@ def membership_wall(request):
         # If page is out of range deliver last page of results
         members_list = paginator.page(paginator.num_pages)
     context={'page':page, 'members_list': members_list}    
-    return render(request, 'Members/members_wall.html', context)
-
+    return render(request, 'Members/members_wall.html', context) 
 #Church Pastors
 def church_pastors(request):
     pastors = Members.published.all()
@@ -353,7 +352,7 @@ def church_pastors(request):
 
 #Administrative Team
 def church_administration(request):
-    staffs = User.published.filter(Q(Role='Admin') | Q(Role='SuperAdmin') | Q(Role='Secretary')| Q(Role='Youth Leader'))
+    staffs = User.published.filter(Q(Role='Assistant_Admin') | Q(Role='Admin') | Q(Role='SuperAdmin') | Q(Role='Secretary')| Q(Role='Youth Leader'))
     return render(request, 'Members/administration_team.html', {'staffs': staffs})  
 
 #edit member

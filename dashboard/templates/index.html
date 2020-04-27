@@ -15,7 +15,7 @@
 {% load humanize %}
 <div class="right_col" role="main"> 
         <!-- top tiles -->
-        {% if user.Role == 'Admin' or user.Role == 'SuperAdmin'%}
+        {% if user.Role == 'Admin' or user.Role == 'Assistant_Admin' or user.Role == 'SuperAdmin'%}
     <div class="row ">
         <!--Start of Annual summary tiles -->
         <div class="row top_tiles">
@@ -563,7 +563,7 @@
         </script>
 
 
-  {% if request.user.Role == 'Admin' or user.Role == 'SuperAdmin' %}
+  {% if request.user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
 <!--   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel tile overflow_hidden">
@@ -662,7 +662,7 @@
     {% if user.Role == 'Ordinary' or user.Role == 'Website Admin' %}
     <h1> Welcome to UCC Bwaise Church System</h1> 
     {% endif%}
-{% if user.Role == 'Admin' or user.Role == 'SuperAdmin' %}
+{% if user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'  %}
         <div class="row">
             <div class="col-md-8 col-sm-8 col-xs-12">
 

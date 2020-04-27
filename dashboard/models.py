@@ -27,6 +27,7 @@ ROLE_CHOICES = (
     ('Members', 'Members'),
     ('Secretary', 'Secretary'),
     ('Admin', 'Admin'),
+    
     ('Building Chair', 'Building Chair'),
     ('Marrieds Leader', 'Marrieds Leader'),
     ('Youth Leader', 'Youth Leader'),
@@ -78,6 +79,7 @@ roles=(
    ('Marrieds Leader', 'Marrieds Leader'),
    ('Youth Leader', 'Youth Leader'),
    ('Ordinary', 'Ordinary'), 
+   ('Assistant_Admin', 'Assistant_Admin'),
    ('Website Admin', 'Website Admin'),  
 )
 rol=(('Security','Security'),('Secretary','Secretary'),('Church-Welfare','Church-Welfare'),('Admin','Admin'))
