@@ -1,0 +1,153 @@
+{% extends 'home/base.html' %}
+{% load static total_tags %}
+
+<body>
+
+{% block content %}
+
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">UCC Bwaise Member Details</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href="{% url 'membership_wall' %}">Members</a></li>
+                <li><a href="javascript:void(0);">Member Details</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="page-news-details-area">
+        <div class="container">
+            <div class="row">
+                
+                    <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                        <div class="page-news-details">
+                             <h2 class="title">{{ member.Initials }}{{ member.full_name }} Details</h2>
+                            <div class="banner">
+                                {% if member.Photo %}
+                                    <img src="{{ member.Photo.url }}"
+                                         alt="member photo" >
+                                {% endif %}
+                            </div>
+
+                            <ul class="meta">
+                                <li class="info"><span class="icon"><i class="fa fa-user"></i></span> {{ member.full_name }}
+                                </li>
+                                <li class="info"><span class="icon"><i class="fa fa-calendar"></i></span> {{ member.Ministry_Involved_In }}
+                                </li>
+                            </ul>
+
+                           
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="single-event">
+                                            <div class="content">
+                                                <ul class="list">
+                                                    <li class="info"><b>First Name :</b> {{member.First_Name}}</li>
+                                                    <li class="info"><b>Last Name: </b>{{member.Second_Name}}</li>
+                                                    <li class="info"><b>Group: </b>{{member.Group}}</li>
+                                                    <li class="info"><b>Home Cell:</b> {{member.Home_Cell}}</li>
+                                                    <li class="info"><b>Residence:</b>  {{member.Residence}}</li>
+                                                    <li class="info"><b>Telephone:</b>  {{member.Telephone}}</li>
+                                                    <li class="info"><b>Email:</b>  {{member.Email}}</li>
+                                                    <li class="info"><b>Gender: </b> {{member.Gender}}</li>
+                                                    <li class="info"><b>Marital Status:</b>  {{member.Marital_Status}}</li>
+                                                    <li class="info"><b>Type of Marriage: </b> {{member.Marriage_Kind}}</li>
+                                                    <li class="info"><b>Education Level: </b> {{member.Education_Level}}</li>
+                                                    <li class="info"><b>Type Of Work: </b> {{member.Type_of_Work}}</li>
+                                                </ul>
+                                            </div>
+                                        </div>  
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="single-event">
+                                            <div class="content">
+                                                <ul class="list">
+                                                    <li class="info"><b>Country:</b>  {{member.Country}}</li>
+                                                    <li class="info"><b>County: </b> {{member.County}}</li>
+                                                    <li class="info"><b>Parish: </b> {{member.Parish}}</li>
+                                                    <li class="info"><b>District:</b>  {{member.District}}</li>
+                                                    <li class="info"><b>Sub County:</b> {{member.Sub_County}}</li>
+                                                    <li class="info"><b>Village: </b> {{member.Village}}</li>
+                                                    <li class="info"><b>Salvation Date: </b> {{member.Date_Of_Salvation}}</li>
+                                                    <li class="info"><b>Joining UCC Bwaise: </b>{{member.Date_Of_Joining_UCC_Bwaise}}</li>
+                                                    <li class="info"><b>Birth Date: </b> {{member.Date_Of_Birth}}</li>
+                                                    <li class="info"><b>Next of Kin:</b>  {{member.Name_Of_Next_Of_Kin}}</li>
+                                                    <li class="info"><b>Ministry:</b>  {{member.Ministry_Involved_In}}</li>
+                                                    <li class="info"><b>Profession:</b> {{member.Profession}}</li>
+                                                </ul>
+                                            </div>
+                                        </div> 
+                                        
+                                    </div>
+                                
+                                   </div>
+                                </div>
+                                
+                            </div>
+
+                            <div class="share-news">
+                                <h4 class="name">Share :</h4>
+                                <ul class="social">
+                                    <li><a class="icon" href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a class="icon" href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a class="icon" href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a class="icon" href="#"><i class="fa fa-google-plus"></i></a></li>
+                                </ul>
+                            </div>
+
+                            </div>
+                    </div>
+                <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-12">
+                    <div class="sidebar">
+                        <div class="sidebar-widget">
+                            <h2 class="sidebar-title">Church Members</h2>
+                            <ul class="widget-news">
+                                {% for details in members_list %}
+                                    <li>
+                                        <a href="{% url 'member-detail' details.pk %}">
+                                         <span class="img">
+                                             {% if details.Photo %}
+                                                 <img src="{{ details.Photo.url }}" alt="">
+                                             {% endif %}
+                                         </span>
+
+                                            <span class="content">
+                                             <span class="meta">
+                                                 <span class="info"><span class="icon"><i
+                                                         class="fa fa-user"></i></span>{{ details.full_name }}</span>
+                                                 <span class="info"><span class="icon"><i
+                                                         class="fa fa-calendar"></i></span> {{ details.Residence }}</span>
+                                             </span>
+                                             <span class="title">{{ details.Ministry_Involved_In }}</span>
+                                         </span>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+
+                            </ul>
+                        </div>
+                            {% if members_list.has_other_pages %}
+              <nav aria-label="Page navigation conatiner" style="text-align: center">
+              <ul class="pagination justify-content-center">
+                {% if members_list.has_previous %}
+                <li><a href="?page={{ members_list.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+                {% endif %}
+                {% if members_list.has_next %}
+                <li><a href="?page={{ members_list.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+               {% endif %}
+              </ul>
+              </nav>
+            {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+</body>
