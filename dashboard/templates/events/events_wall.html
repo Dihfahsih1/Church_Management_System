@@ -24,7 +24,6 @@
                                     <img src="{{ event.image.url }}" alt="">
                                 {% endif %}
                             </div>
-
                             <div class="content">
                                 <h2 class="title"><a href="{{ event.get_absolute_url }}">{{ event.event_title }}</a>
                                 </h2>
@@ -38,7 +37,7 @@
                                         
                                     </li>
                                     <li class="info"><span class="icon"><i
-                                            class="fas fa-map-marker"></i></span>{{ event.event_place }}
+                                            class="fa fa-map-marker"></i></span>{{ event.event_place }}
                                     </li>
                                 </ul>
                                 <div class="more text-center">
@@ -52,7 +51,6 @@
             </div>
         </div>
     </section>
-
 {% endblock %}
 
 </body>
