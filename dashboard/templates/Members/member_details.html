@@ -25,6 +25,7 @@
                              <h2 class="title">{{ member.Initials }}{{ member.full_name }} Details</h2>
                             <div class="banner">
                                 {% if member.Photo %}
+
                                     <img src="{{ member.Photo.url }}"
                                          alt="member photo" >
                                 {% endif %}
@@ -86,6 +87,10 @@
                                 
                                    </div>
                                 </div>
+                                {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
+                                   <button class="more text-right"><a class="link glbscl-link-btn hvr-bs" href="{% url 'edit-member' member.id %}">Update Details</a></button>
+
+                                {% endif %}   
                                 
                             </div>
 
@@ -106,8 +111,23 @@
                         <div class="sidebar-widget">
                             <h2 class="sidebar-title">Church Members</h2>
                             <ul class="widget-news">
-                                {% for details in members_list %}
+                                  <style type="text/css">
+                                    img {
+                                        border-radius: 30%;
+
+                                        }
+                                    .center {
+                                      display: block;
+                                      margin-top: 13px;
+                                      margin-left: auto;
+                                      margin-right: auto;
+                                      width: 70%;
+                                    }
+                                </style>
+                                  <!-- <i>{{ forloop.counter }}</i> -->
+                                  {% for details in members_list %}
                                     <li>
+                                        
                                         <a href="{% url 'member-detail' details.pk %}">
                                          <span class="img">
                                              {% if details.Photo %}
