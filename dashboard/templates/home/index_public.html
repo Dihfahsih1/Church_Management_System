@@ -372,13 +372,16 @@
                     <div class="col-lg-12" style="height: 250px">
                         <div class="testimonial-carousel owl-carousel">
                             {% for data in feeback %}
+                            {% if forloop.counter <= 5 %}
                             <div class="single-testimonial">
                                 <div class="content"  style="height: 310px">
                                     <h2 class="name">{{data.name}}</h2>
                                     <p class="text"> {{data.feedback}}</p>
                                 </div>
                             </div>
+                            {% endif %}
                             {% endfor %}
+
                         </div>
                     </div>
                 </div>
