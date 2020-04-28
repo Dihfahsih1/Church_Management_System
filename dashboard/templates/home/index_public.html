@@ -368,13 +368,14 @@
             </div>
         </div>
             <div class="col-lg-12">
-                <div class="col-lg-5 testimonial-area bg-with-black" style="float:right; margin-right: 12px">
+                <div class="row">
+                <div class="col-lg-5 testimonial-area" style="margin-right: 12px">
                     <div class="col-lg-12" style="height: 250px">
                         <div class="testimonial-carousel owl-carousel">
                             {% for data in feeback %}
                             {% if forloop.counter <= 5 %}
                             <div class="single-testimonial">
-                                <div class="content"  style="height: 310px">
+                                <div class="content"  style="height: 250px">
                                     <h2 class="name">{{data.name}}</h2>
                                     <p class="text"> {{data.feedback}}</p>
                                 </div>
@@ -396,9 +397,12 @@
                             <div class="row">
                                 {% if request.user.is_authenticated %}
                                   <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="contact-input-box">
-                                        <input type="text" name="name" id="username" value="{{ request.user.full_name }}">
+                                    <div class="contact-input-box" id="usename">
+                                        <input type="text" name="name" value="{{ request.user.full_name }}">
                                     </div>
+                                    <script type="text/javascript">
+                                        document.getElementById('usename').readOnly = true;
+                                    </script>
                                 </div>
                                 <div class="col-12">
                                     <div class="contact-input-box">
@@ -449,6 +453,7 @@
                         </form>
                     </div>
                 </div>
+              </div>
             </div>
           </div>
          </section>

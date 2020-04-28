@@ -2730,3 +2730,14 @@ def edit_cash_float(request, pk):
     else:
         form = CashFloatForm(instance=item)
         return render(request, 'edit_cash_float.html', {'form': form})
+
+
+#learning python basics
+# class Example:
+#     def __init__(self,a, b):
+#         self.a=b
+#         self.b=b
+#     def add(self):
+#         return self.a + self.b
+# e=Example(8,9)
+# print(e.add())                
