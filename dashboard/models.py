@@ -422,6 +422,7 @@ class PledgeItem(Model):
     def Pledge_Amount_Remaining(self):
         results=self.Amount_Needed-self.Total_Amount_Pledged
         return results
+        
     #total money paid for a particular item
     @property
     def Item_money_received(self):
