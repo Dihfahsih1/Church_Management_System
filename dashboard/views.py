@@ -65,7 +65,7 @@ class OnlineRegistrationView(SuccessMessageMixin,CreateView):
     def form_valid(self, form):
         member = form.save(commit=False)
         member.save()
-        return redirect('index_public')    
+        return redirect('MemberAccountRegister')    
 
 
     ##################################
