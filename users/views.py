@@ -45,18 +45,15 @@ def reset_user_password(request, user_pk):
     return render(request, 'users/home/reset_user_password.html', context)
 @login_required
 def view_profile(request):
-    context = {}
-    all_users = User.objects.all()
-    for i in all_users:
-        member_id = i.full_name_id
-        print(member_id)
-        pledges=Pledges.objects.filter(Pledge_Made_By_id=member_id)
-        tithes=Revenues.objects.filter(Revenue_filter='tithes',Member_Name_id=member_id)
-        thanks=Revenues.objects.filter(Revenue_filter='thanks',Member_Name_id=member_id)
-        context['thanks']=thanks
-        context['pledges']=pledges
-        context['tithes']=tithes
-        context['member_id']=member_id
+    context={}
+    member_id=request.user.full_name.id
+    pledges=Pledges.objects.filter(Pledge_Made_By_id=member_id)
+    tithes=Revenues.objects.filter(Revenue_filter='tithes',Member_Name_id=member_id)
+    thanks=Revenues.objects.filter(Revenue_filter='thanks',Member_Name_id=member_id)
+    context['thanks']=thanks
+    context['pledges']=pledges
+    context['tithes']=tithes
+    context['member_id']=member_id
     return render(request, 'users/home/profile.html',context)
 @login_required
 def edit_profile(request):
