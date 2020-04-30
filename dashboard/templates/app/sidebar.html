@@ -194,6 +194,8 @@
                     </ul>
                 </li>
                  <li><button class="btn btn-danger"><a class="fa fa-share " href="{% url 'logout'%}"> </a><b>Logout</b></button></li>
+                 {% else %}
+                 <li><a><i class="glyphicon glyphicon-user"></i> Become Church Member<span class="fa fa-chevron-down"></span></a></li>
                 {% endif %}
 
             </ul>
