@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import messages
 from .forms import *
-from dashboard.forms import UserForm
+from dashboard.forms import *
 from dashboard.models import *
 from python_utils import *
 from dashboard.views import *
@@ -43,7 +43,7 @@ def reset_user_password(request, user_pk):
     context = {'mod_user': user,
                'password': password}
     return render(request, 'users/home/reset_user_password.html', context)
-
+@login_required
 def view_profile(request):
     context = {}
     all_users = User.objects.all()
@@ -58,10 +58,12 @@ def view_profile(request):
         context['tithes']=tithes
         context['member_id']=member_id
     return render(request, 'users/home/profile.html',context)
-
+@login_required
 def edit_profile(request):
+    get_member = Members.objects.get(id=request.user.full_name.id)
     if request.method == 'POST':
-        form = UserForm(request.POST or None, request.FILES or None, instance=request.user)
+
+        form = MembersForm(request.POST or None, request.FILES or None, instance=get_member)
 
         if form.is_valid():
             form.save()
@@ -69,12 +71,12 @@ def edit_profile(request):
             return redirect('profile')
 
         else:
-            form = UserForm(instance=request.user)
+            form = MembersForm(instance=get_member)
             args = {'form': form}
             return render(request, 'users/home/update_profile.html', args)
 
     else:
-        form = UserForm(instance=request.user)
+        form = MembersForm(instance=get_member)
         args = {'form': form}
         return render(request, 'users/home/update_profile.html', args)            
 @login_required
@@ -103,7 +105,7 @@ def MemberAccountRegister(request):
     else:
         form = MembershipAccountForm()
         return render(request, 'users/home/membershipaccount.html', {'form': form,'members':members})
-
+@login_required
 def delete_user(request,pk):
     user= get_object_or_404(User, id=pk)
     if request.method == "GET":
@@ -112,7 +114,7 @@ def delete_user(request,pk):
         return redirect("register")
     context= {'user': user}
     return render(request, 'users/home/delete_user.html', context)
-
+@login_required
 def user_update(request, user_pk):
     user = get_object_or_404(User, pk=user_pk)
     if request.method == "POST":

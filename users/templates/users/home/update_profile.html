@@ -23,7 +23,7 @@
 
                     <div class="x_content quick-link">
                         <span>Quick Link:</span>
-                        <a href="#">My Profile</a>
+                        <a href="{% url 'edit-profile' %}">Update Profile</a>
                         | <a href="#">Reset Password</a>
                         | <a href="#">Log Out</a>
                     </div>
@@ -52,35 +52,16 @@
 
                                          {% load crispy_forms_tags %}
 
-            <form method="POST" enctype="multipart/form-data" >
-                {% csrf_token %}
-                <div class="form-row">
-                        <div class="form-group col-md-12 mb-0">
-
-                            <p class="text-muted well well-sm no-shadow"
-                               style="margin-top: 10px;">
-                                <strong>Basic Information:</strong>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-3 mb-0">
-                            {{ form.full_name|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-3 mb-0">
-                            {{ form.full_name.Home_Cell|as_crispy_field }}
-                        </div>
-                        
-
-                    <div class="form-row">
-                        <div class="form-group col-md-12 mb-0">
-                            <br></br>
-                        </div>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary" name="button">Submit</button>
-            </form>
+                                                <form method="POST" enctype="multipart/form-data" >
+                                                    {% csrf_token %}
+                                                    <div class="form-row">
+                                                            <div class="form-group">
+                                                             {{form|crispy}}
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    <button type="submit" class="btn btn-primary" name="button">Submit</button>
+                                                </form>
 
                                             </div>
 

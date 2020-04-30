@@ -811,6 +811,15 @@
                 </div>
             </div>
         </div>
+        {% else %}
+          <ul class="nav nav-tabs bordered">
+            <li role="presentation"><a href="{% url 'profile' %}"><i
+                    class="fa fa-eye"></i> View Profile</a>
+            </li>
+            <li role="presentation"><a href="{% url 'edit-profile' %}"><i
+                    class="fa fa-pencil-square-o"></i> Update Profile</a>
+            </li>
+        </ul>
         {% endif%}
     </div>
 
