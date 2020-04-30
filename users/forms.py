@@ -43,7 +43,7 @@ class MembershipAccountForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['first_name','second_name','username','Is_View_on_Web']
+        fields = ['full_name','username','Is_View_on_Web']
         # 'roles'
         labels = {
             'username': 'Username',

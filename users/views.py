@@ -96,17 +96,10 @@ def MemberAccountRegister(request):
     if request.method == 'POST':
         form = MembershipAccountForm(request.POST)
         if form.is_valid():
-            for i in members:
-                fname=i.First_Name
-                sname=i.Second_Name
-                FirstName=form.cleaned_data.get('first_name')
-                SecondName=form.cleaned_data.get('second_name')
-                if ((fname==FirstName) and (sname==SecondName)):
-                    form.save()
-                    username = form.cleaned_data.get('username')
-                    messages.success(request, f'Account has been created successfully!, You can now login')
-                    return redirect('login')
-                messages.success(request, f'Names didnt much')    
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Account has been created successfully!, You can now login')
+            return redirect('login')
     else:
         form = MembershipAccountForm()
         return render(request, 'users/home/membershipaccount.html', {'form': form,'members':members})
