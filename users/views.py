@@ -91,6 +91,19 @@ def register(request):
 		form = RegisterForm()
 	return render(request, 'users/home/register.html', {'form': form,'users':users})
 
+def MemberAccountRegister(request):
+    members=Members.objects.all()
+    if request.method == 'POST':
+        form = MembershipAccountForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Account has been created successfully!, You can now login')
+            return redirect('register')
+    else:
+        form = MembershipAccountForm()
+        return render(request, 'users/home/membershipaccount.html', {'form': form,'members':members})
+
 def delete_user(request,pk):
     user= get_object_or_404(User, id=pk)
     if request.method == "GET":

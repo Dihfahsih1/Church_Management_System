@@ -111,9 +111,11 @@ class UserManager(BaseUserManager):
         user_obj.save(using=self._db)
         return user_obj    
 class User(AbstractBaseUser , PermissionsMixin):
+    first_name= models.CharField(max_length=255, unique=True, blank=True, null=True)
+    second_name= models.CharField(max_length=255, unique=True, blank=True, null=True)
     email = models.EmailField(max_length=255, unique=True, blank=True, null=True)
     username = models.CharField(max_length=30, unique=True)
-    Role = models.CharField(max_length=250, choices=roles)
+    Role = models.CharField(max_length=250, choices=roles, blank=True, null=True)
     full_name =  models.ForeignKey('Members', on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
     is_active = models.BooleanField(default=True)   # can login
     is_staff = models.BooleanField(default=False)  # staff user non superuser
