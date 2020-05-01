@@ -2051,6 +2051,7 @@ def membership_wall(request):
 def member_detail(request, pk):
     member = get_object_or_404(Members, pk=pk)
     mem_details=Members.objects.all()
+    number_of_registered_members=mem_details.count()
     more_details = Members.published.order_by('-date')
     paginator = Paginator(mem_details, 7)  # 9 members on each page
     page = request.GET.get('page')
@@ -2066,7 +2067,8 @@ def member_detail(request, pk):
          'page':page,
         'member': member,
         'more_details': more_details,
-        'members_list': members_list
+        'members_list': members_list,
+        'number_of_registered_members':number_of_registered_members
     }
     return render(request, 'Members/member_details.html', context)
 

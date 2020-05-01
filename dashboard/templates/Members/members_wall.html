@@ -18,15 +18,16 @@
             <div class="row">
             {% for member in members_list %}                
                     <div class="col-lg-3">
+                        
                         <div class="single-event" style="height: 415px">
                             <div class="img" style="max-height: 170px">
                                  {% if member.Photo %}
                                     <img src="{{ member.Photo.url }}" data-fancybox="images" style="border-radius: 40%;" >
                                 {% endif %} 
                             </div>
-
+                            <a href="{% url 'member-detail' member.id %}"> 
                             <div class="content">
-                                <h2 class="title"><a href="{% url 'member-detail' member.id %}"> {{member.Initials}} {{member.First_Name}} {{member.Second_Name}}</a>
+                                <h2 class="title">{{member.Initials}} {{member.First_Name}} {{member.Second_Name}}
                                 </h2>
                                 <ul class="list">
                                     <li class="info"><span class="icon"><i
@@ -44,11 +45,11 @@
                                             class="fa fa-map-marker"></i></span>Ministry: {{ member.Ministry_Involved_In }}
                                         
                                     </li>
-                                   <button class="more text-right"><a class="link glbscl-link-btn hvr-bs" href="{% url 'member-detail' member.id %}">View Details</a></button>
-                                </ul> 
-                                    
+                                </ul>
                                 </div>
+                            </a>
                             </div>
+                            
                         </div>
                    {% endfor %}
 
