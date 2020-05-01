@@ -87,9 +87,11 @@
                                 
                                    </div>
                                 </div>
-                                {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' or user.full_name.id == member.id %}
-                                   <button class="more text-right"><a class="link glbscl-link-btn hvr-bs" href="{% url 'edit-member' member.id %}">Update Details</a></button>
-
+                                
+                                 {% if user.full_name.id == member.id %}  
+                                  <button class="more text-right"><a class="link glbscl-link-btn hvr-bs" href="{% url 'edit-member' member.id %}">Update Your Details</a></button>
+                                  {% elif request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
+                                   <button class="more text-right"><a class="link glbscl-link-btn hvr-bs" href="{% url 'edit-member' member.id %}">Update {{user.full_name}} Details</a></button>
                                 {% endif %}   
                                 
                             </div>
