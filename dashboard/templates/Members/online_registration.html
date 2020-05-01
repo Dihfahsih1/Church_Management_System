@@ -95,6 +95,17 @@
                         <div class="form-group col-md-3 mb-0" id="Marriage_Kind">
                             {{ form.Marriage_Kind|as_crispy_field }}
                         </div>
+                        <script type="text/javascript">
+                             $("#id_Marital_Status").change(function () {
+                            if ($(this).val() === "Married") {
+                                $('#Marriage_Kind').hide();
+
+                            } else {
+                                $('#Marriage_Kind').hide();
+                            }
+                            });
+                            $("#id_Marital_Status").trigger("change");
+                        </script>
                     </div>
                     <hr>
                     <div class="form-row">
@@ -217,11 +228,6 @@
             </form>
         </div>
     </section>
-
-    <link href="{% static 'vendors/datepicker/datepicker.css' %}" rel="stylesheet">
-
-    <script src="{% static 'vendors/datepicker/datepicker.js' %}"></script>
-
   <!--   <script type="text/javascript">
 
         $('#dob').datepicker({startView: 2});
