@@ -355,7 +355,7 @@ def church_administration(request):
     staffs = User.published.filter(Q(Role='Assistant_Admin') | Q(Role='Admin') | Q(Role='SuperAdmin') | Q(Role='Secretary')| Q(Role='Youth Leader'))
     return render(request, 'Members/administration_team.html', {'staffs': staffs})  
 
-#edit member
+#edit member detail
 def edit_member(request, pk):
     item = get_object_or_404(Members, pk=pk)
     if request.method == "POST":
