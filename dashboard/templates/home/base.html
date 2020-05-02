@@ -258,6 +258,12 @@
                         </ul>
                     </div>
                 </div>
+                {% if user.is_authenticated %}
+                <li><button class="btn btn-danger"><a class="fa fa-share " href="{% url 'logout'%}"> </a><b>Logout</b></button></li>
+
+                {% else %}
+                  <li><button class="btn btn-success"><a class="fa fa-share " href="{% url 'login'%}"> </a><b>Login</b></button></li>
+                {% endif %}
             </div>
         </div>
     </div>
