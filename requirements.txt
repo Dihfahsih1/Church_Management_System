@@ -62,7 +62,6 @@ django-jquery==3.1.0
 django-js-asset==1.2.2
 django-markdownx==2.0.28
 django-mobile==0.7.0
--e git+https://github.com/Innox/Education.git@f5bb21a3c02f563a1c33df7545a788da51397763#egg=django_model_report&subdirectory=venv\lib\site-packages\django-model-report
 django-multiupload==0.5.2
 django-recaptcha==2.0.5
 django-redis==4.10.0
