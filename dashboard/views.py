@@ -2289,6 +2289,80 @@ def church_delete(request, church_pk):
                                              )
     return JsonResponse(data)
 
+# ###################################===>BEGINNING OF MINISTRIES MODULE<===###############################################
+
+
+class MinistryListView(ListView):
+    model = Ministry
+    template_name = 'Ministry/Ministry_list.html'
+    context_object_name = 'ministry'
+
+
+def Ministry_wall(request):
+    ministry = Ministry.published.all()
+    return render(request, 'Ministry/ministry_wall.html', {'ministry': ministry})
+
+
+class MinistryCreateView(CreateView):
+    model = Ministry
+    template_name = 'Ministry/ministry_create.html'
+    fields = ('name', 'leader', 'details', 'photo','Is_View_on_Web')
+
+    def form_valid(self, form):
+        ministry = form.save(commit=False)
+        ministry.save()
+        return redirect('ministry-list')
+
+
+class MinistryUpdateView(UpdateView):
+    model = Ministry
+    template_name = 'Ministry/update_ministry.html'
+    pk_url_kwarg = 'ministry_pk'
+    fields = ('name', 'leader', 'details', 'photo','Is_View_on_Web')
+    def form_valid(self, form):
+        ministry = form.save(commit=False)
+        ministry.save()
+        return redirect('ministry-list')
+
+
+def save_ministry_form(request, form, template_name):
+    data = dict()
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            data['form_is_valid'] = True
+            ministry = Ministry.objects.all()
+            data['html_ministry_list'] = render_to_string('Ministry/ministry_list.html', {
+                'ministry': ministry
+            })
+        else:
+            data['form_is_valid'] = False
+    context = {'form': form}
+    data['html_form'] = render_to_string(template_name, context, request=request)
+    return JsonResponse(data)
+
+
+def ministry_view(request, event_pk):
+    ministry = get_object_or_404(Ministry, pk=ministry_pk)
+    if request.method == 'POST':
+        form = MinistryForm(request.POST, instance=ministry)
+    else:
+        form = MinistryForm(instance=ministry)
+    return redirect(request, form, 'Ministry/ministry_view.html')
+
+
+def ministry_detail(request, event_pk):
+    ministry = get_object_or_404(Ministry, pk=ministry_pk)
+    more_details = Ministry.published.order_by('-id')[:15]
+    context = {
+        'ministry': ministry,
+        'more_details': more_details
+    }
+    return render(request, 'Ministry/ministry_detail.html', context)
+
+
+
+
 ########################################################################################################
 #                                       DASHBOARD                                                       #
 ########################################################################################################
