@@ -204,8 +204,15 @@ class churchForm(forms.ModelForm):
             'fax': TextInput(attrs={'placeholder': 'Fax'}),
             'footer': TextInput(attrs={'placeholder': 'Footer'}),
             'registration_date': DatePickerInput(),
+
         }
 class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
         fields = ('name', 'email', 'phone', 'subject','message','feedback')
+
+
+class MinistryForm(forms.ModelForm):
+    class Meta:
+        model = Ministry
+        fields = ('name', 'leader', 'photos', 'details')

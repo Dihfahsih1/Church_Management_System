@@ -230,4 +230,13 @@ url(r'^administrator/church/add/$', views.churchCreateView.as_view(), name='chur
 url(r'^administrator/church/update/(?P<church_pk>\d+)/$', views.churchUpdateView.as_view(), name='church_update'),
 url(r'^administrator/church/(?P<church_pk>\d+)/view/$', views.church_view, name='church_view'),
 url(r'^administrator/church/(?P<church_pk>\d+)/delete/$', views.church_delete, name='church_delete'),
+
+#Ministry
+url(r'^Ministry/list/$', views.MinistryListView.as_view(), name='ministry-list'),
+url(r'^Ministry/$', views.ministry_wall, name='ministry-wall'),
+url(r'^Ministry/add/$', views.MinistryCreateView.as_view(), name='ministry-create'),
+url(r'^Ministry/edit/(?P<ministry_pk>\d+)/$', views.MinistryUpdateView.as_view(), name='ministry-update'),
+url(r'^Ministry/view/(?P<ministry_pk>\d+)/$', views.ministry_view, name='ministry-view'),
+url(r'^Ministry/event-detail/(?P<ministry_pk>\d+)/$', views.ministry_detail, name='ministry-detail'),
+
 ]
