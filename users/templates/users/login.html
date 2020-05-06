@@ -37,11 +37,20 @@
                     </ul>
                 </div>
             </div>       
-           {% endif %}      
+           {% endif %} 
+             <ul class="nav navbar-nav navbar-right">
+                   <li class="nav-item">
+                        <a href="{% url 'index_public' %}"
+                           class="nav-link border border-dark grey-text rounded waves-effect">
+                            <h3 class="fa fa-globe mr-3" style="font:100px">Visit Website</h3>
+                        </a>
+                    </li>
+                </ul>      
         <div class="login_wrapper">
             <div class="animate form login_form">
-                
+
                 <section class="first-info border login_content" style="color:black">
+
                     <h3 class="border-bottom" style=" font-weight:bolder">CHURCH WEB SYSTEM </h3>
                 <div class="separator"></div>
                     <form method="post" novalidate>

@@ -124,7 +124,7 @@ class PaidPledgesForm(forms.ModelForm):
 class MembersForm(forms.ModelForm):
     class Meta:
         model= Members
-        fields = ('More_Info','Is_View_on_Web','Group','Initials','First_Name','Second_Name','Telephone','Residence','Gender', 'Home_Cell','Photo','Marital_Status','Marriage_Kind',
+        fields = ('More_Info','Is_View_on_Web','Email','Group','Initials','First_Name','Second_Name','Telephone','Residence','Gender', 'Home_Cell','Photo','Marital_Status','Marriage_Kind',
             'Education_Level','Profession','Type_of_Work','Place_of_Work','Country','County','Parish','District','Sub_County',
             'Village','Date_Of_Salvation','Date_Of_Joining_UCC_Bwaise','Ministry_Involved_In','Name_Of_Next_Of_Kin',
             'Contact_Of_Next_Of_Kin','Residence_Of_Next_Of_Kin','Date_Of_Birth')
