@@ -215,4 +215,4 @@ class ContactForm(forms.ModelForm):
 class MinistryForm(forms.ModelForm):
     class Meta:
         model = Ministry
-        fields = ('name', 'leader', 'photos', 'details')
+        fields = ('name', 'leader', 'photos', 'details','Is_View_on_Web')

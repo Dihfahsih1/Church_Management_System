@@ -245,7 +245,11 @@ class Ministry(models.Model):
     leader = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100)
     details = models.TextField(max_length=10000000, null=True, blank=True)
     photos = models.ImageField(upload_to='avatars/', blank=False) 
-
+    Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS,null=True,blank=True)
+    objects = models.Manager()
+    published = PublishedStatusManager()
+    def __str__(self):
+        return self.name
 class ArchivedMembers(models.Model):
     Initials=models.CharField(max_length=100, choices=ini,null=True, blank=True)
     First_Name=models.CharField(max_length=100,null=True)

@@ -117,6 +117,12 @@
                         <li><a href="{% url 'employee-list' %}">Employee List</a></li>
                     </ul>
                 </li>
+                <li><a><i class="fa fa-list"></i> Manage Ministries <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="{% url 'ministry-create' %}">Add Ministry</a></li>
+                        <li><a href="{% url 'ministry-list' %}">Ministries List</a></li>
+                    </ul>
+                </li>
 
                 {% endif %}
                   {% if request.user.Role == 'Website Admin' or user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}

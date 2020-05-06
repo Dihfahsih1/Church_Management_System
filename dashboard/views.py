@@ -2298,7 +2298,7 @@ class MinistryListView(ListView):
     context_object_name = 'ministry'
 
 
-def Ministry_wall(request):
+def ministry_wall(request):
     ministry = Ministry.published.all()
     return render(request, 'Ministry/ministry_wall.html', {'ministry': ministry})
 
@@ -2306,7 +2306,7 @@ def Ministry_wall(request):
 class MinistryCreateView(CreateView):
     model = Ministry
     template_name = 'Ministry/ministry_create.html'
-    fields = ('name', 'leader', 'details', 'photo','Is_View_on_Web')
+    fields = ('name', 'leader', 'details', 'photos','Is_View_on_Web')
 
     def form_valid(self, form):
         ministry = form.save(commit=False)
@@ -2318,7 +2318,7 @@ class MinistryUpdateView(UpdateView):
     model = Ministry
     template_name = 'Ministry/update_ministry.html'
     pk_url_kwarg = 'ministry_pk'
-    fields = ('name', 'leader', 'details', 'photo','Is_View_on_Web')
+    fields = ('name', 'leader', 'details', 'photos','Is_View_on_Web')
     def form_valid(self, form):
         ministry = form.save(commit=False)
         ministry.save()
