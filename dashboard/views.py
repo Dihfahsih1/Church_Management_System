@@ -24,12 +24,12 @@ def web(request):
     events = Event.published.all().order_by('-id')
     images = Image.published.all().order_by('-id')
     members = Members.published.all().order_by('-id')
+    ministry = Ministry.published.all().order_by('-id')
     employees = StaffDetails.published.all()
     sliders = Slider.objects.all().order_by('-id')
     abouts = About.objects.all()
     feeback= Contact.objects.all().order_by('-id')
     pages = Page.objects.all().order_by('-id')
-   
     context = {
         'pages' : pages,
         'feeback':feeback,
@@ -40,6 +40,7 @@ def web(request):
         'sliders' :sliders,
         'members': members,
         'employees': employees,
+        'ministry':ministry,
     }
     return render(request, 'home/index_public.html', context)
 
@@ -2342,7 +2343,7 @@ def save_ministry_form(request, form, template_name):
     return JsonResponse(data)
 
 
-def ministry_view(request, event_pk):
+def ministry_view(request, ministry_pk):
     ministry = get_object_or_404(Ministry, pk=ministry_pk)
     if request.method == 'POST':
         form = MinistryForm(request.POST, instance=ministry)
@@ -2351,7 +2352,7 @@ def ministry_view(request, event_pk):
     return redirect(request, form, 'Ministry/ministry_view.html')
 
 
-def ministry_detail(request, event_pk):
+def ministry_detail(request, ministry_pk):
     ministry = get_object_or_404(Ministry, pk=ministry_pk)
     more_details = Ministry.published.order_by('-id')[:15]
     context = {

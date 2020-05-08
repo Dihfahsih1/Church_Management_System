@@ -127,14 +127,13 @@
                                         <li><a href="{% url 'church_administration' %}">Administrative</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#">Ministries <span class="icon fa fa-chevron-down"></span></a>
+                                <li><a href="#">Membership <span class="icon fa fa-chevron-down"></span></a>
                                     <ul class="drop">
-                                        <li><a href="#">Children's Ministry</a></li>
-                                        <li><a href="#">Youth's Ministry</a></li>
-                                        <li><a href="#">Evangelism Ministry</a></li>
-                                        <li><a href="#">Married's Ministry</a></li>
+                                        <li><a href="{% url 'membership_wall' %}">Members</a></li>
+                                        <li><a href="{% url 'online_registration' %}">Register</a></li>
                                     </ul>
                                 </li>
+                                <li><a href="{% url 'ministry-wall' %}">Ministries</a></li>
                                 <li><a href="#">Projects</a></li>
                                 <li><a href="https://www.youtube.com/channel/UCFMCB_zTwBQNunbpjBsPcSw/videos" target="_blank">Youtube Channel</a></li>
                                 <li><a href="{% url 'event_wall' %}">Events</a></li>
