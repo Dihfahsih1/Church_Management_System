@@ -398,11 +398,8 @@
                                 {% if request.user.is_authenticated %}
                                   <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="contact-input-box" id="usename">
-                                        <input type="text" name="name" value="{{ request.user.full_name }}">
+                                        <input type="text" name="name" value="{{ request.user.full_name }}" readonly="true">
                                     </div>
-                                    <script type="text/javascript">
-                                        document.getElementById('usename').readOnly = true;
-                                    </script>
                                 </div>
                                 <div class="col-12">
                                     <div class="contact-input-box">

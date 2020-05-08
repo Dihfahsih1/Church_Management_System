@@ -135,7 +135,7 @@
                                 </li>
                                 <li><a href="{% url 'ministry-wall' %}">Ministries</a></li>
                                 <li><a href="#">Projects</a></li>
-                                <li><a href="https://www.youtube.com/channel/UCFMCB_zTwBQNunbpjBsPcSw/videos" target="_blank">Youtube Channel</a></li>
+                                <li><a href="https://www.youtube.com/channel/UCFMCB_zTwBQNunbpjBsPcSw/videos" target="_blank">YouTube Channel</a></li>
                                 <li><a href="{% url 'event_wall' %}">Events</a></li>
                                 <li><a href="{% url 'gallery_wall' %}">Gallery</a></li>
                                 <li><a href="{% url 'contact' %}">Contact Us</a></li>
@@ -257,12 +257,7 @@
                         </ul>
                     </div>
                 </div>
-                {% if user.is_authenticated %}
-                <li><button class="btn btn-danger"><a class="fa fa-share " href="{% url 'logout'%}"> </a><b>Logout</b></button></li>
-
-                {% else %}
-                  <li><button class="btn btn-success"><a class="fa fa-share " href="{% url 'login'%}"> </a><b>Login</b></button></li>
-                {% endif %}
+                
             </div>
         </div>
     </div>
@@ -270,11 +265,17 @@
         <div class="container text-center">
 
             <p class="copyright">
-                {% church_footer %} &copy;2001<script>new Date().getFullYear()>2010&&document.write(" - "+new Date().getFullYear());</script>| 
+                {% church_footer %} &copy;1997<script>new Date().getFullYear()>2010&&document.write(" - "+new Date().getFullYear());</script> | 
                     Website Developed by<a href="https://mugoyadihfahsih.000webhostapp.com" target="_blank"> <b style="font-size: 90%; color: yellow"> Mugoya Dihfahsih</b></a>
                 
             </p>
         </div>
+        {% if user.is_authenticated %}
+                <button class="btn btn-danger"><a class="fa fa-share " href="{% url 'logout'%}"> </a><b>Logout</b></button>
+
+                {% else %}
+                  <button class="btn btn-success"><a class="fa fa-share " href="{% url 'login'%}"> </a><b>Login</b></button>
+                {% endif %}
     </div>
 </footer>
 </div>
