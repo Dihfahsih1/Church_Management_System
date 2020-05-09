@@ -2806,3 +2806,4 @@ def edit_cash_float(request, pk):
     else:
         form = CashFloatForm(instance=item)
         return render(request, 'edit_cash_float.html', {'form': form})
+
