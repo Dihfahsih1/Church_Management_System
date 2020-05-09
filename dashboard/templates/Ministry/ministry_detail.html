@@ -1,0 +1,71 @@
+{% extends 'home/base.html' %}
+{% load static total_tags %}
+
+<body>
+
+{% block content %}
+
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">Ministry Details</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href="{% url 'event_wall' %}">Ministry</a></li>
+                <li><a href="javascript:void(0);">Detail</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="page-event-details-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                    <div class="page-event-details">
+                        <div class="banner">
+                            {% if ministry.photos %}
+                                <img src="{{ ministry.photos.url }}"
+                                     alt="">
+                            {% endif %}
+                        </div>
+                        <h2 class="title">{{ ministry.name }}</h2>
+                        <ul class="event-meta">
+                            <li class="info"><span class="icon"><i class="fa fa-user"></i> Leader:</span> {{ ministry.leader }}
+                            </li>
+                        </ul>
+                        <h2 class="info-title">Ministry Information :</h2>
+                        <div class="text">{{ministry.details|linebreaks}}</div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-12">
+                    <div class="sidebar">
+                        <div class="sidebar-widget">
+                            <h2 class="sidebar-title">All Ministries</h2>
+                            <ul class="widget-event">
+                                {% for i in more_details %}
+                                    <li>
+                                       <a href="{% url 'ministry-detail' i.pk %}">
+                                         <span class="img">
+                                             {% if i.photos %}
+                                                 <img src="{{ i.photos.url }}" alt="">
+                                             {% endif %}
+                                         </span>
+                                          <span class="content">
+                                            <span class="title">{{ i.name }}</span>
+                                         </span>
+                                       </a>  
+                                    </li>
+                                {% endfor %}
+
+                            </ul>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+</body>

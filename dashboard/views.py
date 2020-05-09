@@ -69,9 +69,8 @@ class OnlineRegistrationView(SuccessMessageMixin,CreateView):
         return redirect('MemberAccountRegister')    
 
 
-    ##################################
-    #        Employee Module         #
-    ##################################
+
+    ###############Employee Module ###################
 
 def employee_register(request):
     if request.method=="POST":
