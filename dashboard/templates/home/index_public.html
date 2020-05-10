@@ -103,11 +103,11 @@
 
   
     <div class="row" style="width:100%">
-        <div class="col-lg-6 " style="color: black;font-size:4vw">
+        <div class="col-lg-6 ">
             {% for about in abouts %}
-            {% if forloop.counter == 1 %}
-            <span class="hover">
-                {{ about.about|truncatewords:180|linebreaks }}
+            {% if about.id == 3 %}
+            <span class="info" >
+                <p style="font-size:20px">{{ about.about|truncatewords:100 }}</p>
                 <a href="{% url 'about_detail' about.pk %}"><b>... More</b></a>
             </span>
             {% endif %}
