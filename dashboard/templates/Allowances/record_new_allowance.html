@@ -44,7 +44,7 @@
                             {{ form.Member_Name|as_crispy_field}}
                             <div class="form-group">
                               <label for="id_Amount"> Amount Paid</label>
-                              <input type="number" value="" name="Amount" required id="id_Amount" class="textinput textInput form-control" min='1' max='{{form.instance.net_float}}'>
+                              <input type="number" value="" name="Amount" required id="id_Amount" class="textinput textInput form-control">
                             </div>
                             {{ form.Notes|as_crispy_field}}
                             <input type="hidden" id="allowance" name="Reason_filtering" value="allowance">
