@@ -497,7 +497,7 @@ def Enter_Offerings(request):
 #edit offerings
 @login_required
 def edit_offerings(request, pk):
-    if request.user.Role == 'SuperAdmin':
+    if request.user.Role == 'SuperAdmin' or 'Secretary':
         item = get_object_or_404(Revenues, pk=pk)
         if request.method == "POST":
             form = RevenuesForm(request.POST, instance=item)
@@ -509,7 +509,7 @@ def edit_offerings(request, pk):
             form = RevenuesForm(instance=item)
         return render(request, 'Offerings/record_offerings.html', {'form': form})
     else:
-        return HttpResponse('You are forbidden from accessing this page')    
+        return HttpResponse('You are forbidden from accessing this functionality')    
 
 # generating offerings report
 @login_required
