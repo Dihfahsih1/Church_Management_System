@@ -142,7 +142,6 @@ class Expenditures(Model):
     def __str__(self):
         return self.Reason_filtering
     
-    
     @property
     def cash_float(self):
         current_month = datetime.now().month
