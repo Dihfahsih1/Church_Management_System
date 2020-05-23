@@ -43,7 +43,6 @@ url(r'^allowancespdf/', views.allowancespdf.as_view() ,name='allowancespdf'),
 url(r'^allowancearchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.allowances_archived_pdf.as_view(), name='allowancearchivepdf'),
 url(r'^allowancearchivessearch/', views.allowancearchivessearch, name='allowancearchivessearch'),
 
-
 #REVENUE MODULE
 url(r'^Revenues/Offerings/Report', views.Offeringsreport, name='Offeringsreport'),
 url(r'^edit_offerings/(?P<pk>\d+)', views.edit_offerings ,name='edit-offerings'),
