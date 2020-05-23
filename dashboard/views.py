@@ -72,7 +72,7 @@ class OnlineRegistrationView(SuccessMessageMixin,CreateView):
 
 
     ###############Employee Module ###################
-
+@login_required
 def employee_register(request):
     if request.method=="POST":
         form=StaffDetailsForm(request.POST, request.FILES,)
@@ -100,7 +100,7 @@ def employee_list(request):
     mth = today.strftime('%B')
     context ={'mth':mth,'employees': employees}
     return render(request, 'Employees/employee_list.html', context)
-
+@login_required
 def edit_employee(request, pk):
     item = get_object_or_404(StaffDetails, pk=pk)
     if request.method == "POST":
@@ -117,7 +117,7 @@ def edit_employee(request, pk):
         form = StaffDetailsForm(instance=item)        
         context={'form':form, 'month':month, 'message':message, 'get_name':get_name}
     return render(request, 'Employees/record_employee.html', context)
-
+@login_required
 def view_employee(request, pk):
     context={}
     employee = get_object_or_404(StaffDetails, id=pk)
@@ -132,7 +132,7 @@ def view_employee(request, pk):
         context['form']=form
         (form.instance.UCC_Bwaise_Member)
     return render(request,'Employees/employee_view.html',context)
-
+@login_required
 def paying_employees(request, pk):
     items = get_object_or_404(StaffDetails, id=pk)
     if request.method == "POST":
@@ -142,7 +142,7 @@ def paying_employees(request, pk):
         retrieve_employee_id = StaffDetails.objects.filter(id=pk)
         context = {'form': form, 'retrieve_employee_id': retrieve_employee_id}
         return render(request, 'Employees/pay_employee.html', context)
-
+@login_required
 def paid_salary(request):
     if request.method == "POST":
         form = SalariesPaidForm(request.POST, request.FILES)
@@ -155,7 +155,8 @@ def paid_salary(request):
             context = {'form': form}
             return render(request, 'Employees/pay_employee.html', context)
 
- #archive salaries report           
+ #archive salaries report 
+@login_required          
 def current_month_salary_paid(request):
     current_month = datetime.now().month
     current_year = datetime.now().year
@@ -210,7 +211,7 @@ def current_month_salary_paid(request):
         'years':years,
     }
     return render(request, 'Employees/current_month_salaries_paid.html',context)
-
+@login_required
 def delete_salary_paid(request,pk):
     salary= get_object_or_404(SalariesPaid, id=pk)
     if request.method == "GET":
@@ -219,6 +220,7 @@ def delete_salary_paid(request,pk):
         return redirect("current-month-salaries")
 
 #Search for the archived salaries reports
+@login_required
 def salariespaidarchivessearch(request):
     if request.method == 'POST':
         report_year = request.POST['report_year']
@@ -293,7 +295,7 @@ def members_list(request):
     day=datetime.now()
     context ={'membership': membership, 'day':day}
     return render(request, 'Members/members_list.html', context)
-
+@login_required
 def members_archived(request):
     membership = ArchivedMembers.objects.all().order_by('-id')
     for i in membership:
@@ -303,6 +305,7 @@ def members_archived(request):
     return render(request, 'Members/members_archived.html',context) 
 
 #archiving member
+@login_required
 def archive_member(request, pk):
     if request.method=='GET':
         member_details = Members.objects.filter(pk=pk)
@@ -431,6 +434,7 @@ def record_building_collections(request):
         return render(request, 'BuildingRenovation/record_building_collections.html',{'form':form})
 
 #editing building collections
+@login_required
 def edit_building_collections(request, pk):
     item = get_object_or_404(Revenues, pk=pk)
     if request.method == "POST":
@@ -491,17 +495,21 @@ def Enter_Offerings(request):
         form=RevenuesForm()
         return render(request, 'Offerings/record_offerings.html',{'form':form})
 #edit offerings
+@login_required
 def edit_offerings(request, pk):
-    item = get_object_or_404(Revenues, pk=pk)
-    if request.method == "POST":
-        form = RevenuesForm(request.POST, instance=item)
-        if form.is_valid():
-            form.save()
-            messages.success(request, f'Offerings have been updated')
-            return redirect('Offeringsreport')
+    if request.user.Role == 'SuperAdmin':
+        item = get_object_or_404(Revenues, pk=pk)
+        if request.method == "POST":
+            form = RevenuesForm(request.POST, instance=item)
+            if form.is_valid():
+                form.save()
+                messages.success(request, f'Offerings have been updated')
+                return redirect('Offeringsreport')
+        else:
+            form = RevenuesForm(instance=item)
+        return render(request, 'Offerings/record_offerings.html', {'form': form})
     else:
-        form = RevenuesForm(instance=item)
-    return render(request, 'Offerings/record_offerings.html', {'form': form})
+        return HttpResponse('You are forbidden from accessing this page')    
 
 # generating offerings report
 @login_required
@@ -761,6 +769,8 @@ class tithesarchivepdf(View):
         }
         return Render.render('Tithes/tithesarchivepdf.html', tithescontext)
 
+
+@login_required
 def member_annual_tithes(request, pk):
     years = timezone.now().year
     tithes=Revenues.objects.filter(Member_Name_id=pk, Date__year=years).order_by('-pk')
@@ -1114,6 +1124,7 @@ class main_expenditure_report_pdf(View):
         return Render.render('Expenses/pdf_main_expenditure_report.html',context)
 
 #Allowances Module
+@login_required
 def give_allowance(request):
     month = datetime.now().month
     current_month = calendar.month_name[month]
@@ -1127,6 +1138,8 @@ def give_allowance(request):
         context={'form': form, 'current_month': current_month}
         return render(request, 'Allowances/record_new_allowance.html',context)
 
+
+@login_required
 def edit_allowance(request, pk):
     item = get_object_or_404(Expenditures, pk=pk)
     if request.method == "POST":
@@ -1274,6 +1287,7 @@ def edit_pledge_item(request, pk):
     return render(request, 'Pledges/edit_pledge_item.html', {'form': form}, {'messages': messages})
 
 #Expendituresing money on the pledged item
+@login_required
 def pledge_cash_out(request, pk):
     items = get_object_or_404(PledgeItem, id=pk)
     if request.method == "POST":
@@ -1287,6 +1301,8 @@ def pledge_cash_out(request, pk):
         context={'form':form, 'cashout': cashout}
         return render(request, 'Pledges/pledge_cash_out.html', context)
 
+
+@login_required
 def cashing_out_items(request):
     if request.method == "POST":
         form =  PledgesCashedOutForm(request.POST,request.FILES)
@@ -1302,6 +1318,8 @@ def cashing_out_items(request):
             context={'form':form}
             return render(request, 'Pledges/pledge_cash_out.html', context)
 
+
+@login_required
 def delete_pledge_item(request, pk):
     item= get_object_or_404(PledgeItem, id=pk)
     if request.method == "GET":
@@ -1466,6 +1484,7 @@ class pledge_made_invoice(View):
 #         }
 #         return Render.render('Pledges/settled_archived_pledges_receipt.html', context)               
 #airtime report
+@login_required
 def airtime_data_report(request):
     mth = datetime.now().day
     today = datetime.now()
@@ -2166,7 +2185,10 @@ def event_view(request, event_pk):
         form = EventForm(request.POST, instance=event)
     else:
         form = EventForm(instance=event)
-    return save_vehicle_form(request, form, 'events/includes/partial_event_view.html')
+        context={
+            'form':form
+        }
+    return render(request, context, 'events/includes/partial_event_view.html')
 
 
 def event_detail(request, event_pk):
