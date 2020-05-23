@@ -497,7 +497,7 @@ def Enter_Offerings(request):
 #edit offerings
 @login_required
 def edit_offerings(request, pk):
-    if request.user.Role == 'SuperAdmin' or 'Secretary':
+    if request.user.Role == 'SuperAdmin' or 'Secretary ' or 'Admin' or 'Assistant_Admin':
         item = get_object_or_404(Revenues, pk=pk)
         if request.method == "POST":
             form = RevenuesForm(request.POST, instance=item)
