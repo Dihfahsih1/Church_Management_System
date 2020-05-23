@@ -45,8 +45,6 @@
             <link href="{% static 'schools/css/routine.css' %}" rel="stylesheet">
 
             {# <link href="{% static 'schools/css/tables.css' %}" rel="stylesheet"> #}
-            <!--Attendance -->
-            <link href="{% static 'schools/css/attendance.css' %}" rel="stylesheet">
             <!--Toastr -->
             <link href="{% static 'css/toastr.min.css' %}" rel="stylesheet">
         {% endblock stylesheets %}
@@ -146,14 +144,10 @@
         <script src="/static/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
         <!-- starrr -->
         <script src="/static/vendors/starrr/dist/starrr.js"></script>
-
-        <script src="{% static 'schools/js/attendance.js' %}"></script>
         <script src="{% static 'js/toastr.min.js' %}"></script>
-
         <script src="{% static 'vendors/Highcharts/code/highcharts.src.js' %}"></script>
         <script src="{% static 'vendors/Highcharts/code/highcharts-3d.js' %}"></script>
         <script src="{% static 'vendors/Highcharts/code/modules/exporting.js' %}"></script>
-
         <script src="{% static 'js/fakeLoader.min.js' %}"></script>
 
     {{ block.super }}
@@ -260,30 +254,6 @@
                     setTheme('theme-light');
                 }
             })();
-        </script>
-
-        <script>
-            $('.full-screen-handle').on('click', function (event) {
-                event.preventDefault();
-                if ((document.fullScreenElement && document.fullScreenElement !== null) ||
-                    (!document.mozFullScreen && !document.webkitIsFullScreen)) {
-                    if (document.documentElement.requestFullScreen) {
-                        document.documentElement.requestFullScreen();
-                    } else if (document.documentElement.mozRequestFullScreen) {
-                        document.documentElement.mozRequestFullScreen();
-                    } else if (document.documentElement.webkitRequestFullScreen) {
-                        document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
-                    }
-                } else {
-                    if (document.cancelFullScreen) {
-                        document.cancelFullScreen();
-                    } else if (document.mozCancelFullScreen) {
-                        document.mozCancelFullScreen();
-                    } else if (document.webkitCancelFullScreen) {
-                        document.webkitCancelFullScreen();
-                    }
-                }
-            });
         </script>
 
     <!-- Custom Theme Scripts -->
