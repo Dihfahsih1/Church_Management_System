@@ -233,13 +233,11 @@ class Members(models.Model):
 
     #if (self.Archived_Status == 'NOT-ARCHIVED'):
     def __str__(self):
-        return self.First_Name + ' ' + self.Second_Name
+        if self.is_active == True:
+            return str(self.First_Name )+ ' ' + str(self.Second_Name)
     @property
     def full_name(self):
         return str(self.First_Name) + ' ' + str(self.Second_Name)
-
-    objects = models.Manager()
-    published = PublishedStatusManager()
 class Ministry(models.Model):
     name = models.CharField(max_length=100, unique=True)
     leader = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100)
