@@ -476,7 +476,7 @@ class Pledges(Model):
 
     @property
     def Total_Amount_Pledged(self):
-        return self._foo
+        return self.Amount_Pledged
         
     ##using decorators to archive the calculations
     @property

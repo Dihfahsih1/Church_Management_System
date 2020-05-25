@@ -1156,6 +1156,7 @@ def allowancereport(request):
 class allowancespdf(View):
     def get(self, request):
         current_month = datetime.now().month
+        current_year = datetime.now.year
         allowances = Expenditures.objects.filter( Archived_Status='NOT-ARCHIVED',Date__month=current_month,Date__year=current_year).order_by('-Date')
         today = datetime.now()
         year=today.year
@@ -1646,83 +1647,6 @@ def about_delete(request, about_pk):
                                              request=request,
                                              )
     return JsonResponse(data)
-
-# ###################################===>BEGINNING OF IMAGE MODULE<===###############################################
-
-
-class ImageListView(ListView):
-    model = Image
-    template_name = 'images/image_list.html'
-    context_object_name = 'images'
-
-
-class ImageCreateView(CreateView):
-    model = Image
-    template_name = 'images/image_create.html'
-    fields = ('gallery_title', 'gallery_image', 'image_caption')
-
-    def form_valid(self, form):
-        image = form.save(commit=False)
-        image.save()
-        return redirect('image_list')
-
-
-class ImageUpdateView(UpdateView):
-    model = Image
-    template_name = 'images/update_image.html'
-    pk_url_kwarg = 'image_pk'
-    fields = ('gallery_title', 'gallery_image', 'image_caption')
-
-    def form_valid(self, form):
-        image = form.save(commit=False)
-        image.save()
-        return redirect('image_list')
-
-
-def save_image_form(request, form, template_name):
-    data = dict()
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-            data['form_is_valid'] = True
-            images = Image.objects.all()
-            data['html_image_list'] = render_to_string('images/includes/partial_image_list.html', {
-                'images': images
-            })
-        else:
-            data['form_is_valid'] = False
-    context = {'form': form}
-    data['html_form'] = render_to_string(template_name, context, request=request)
-    return JsonResponse(data)
-
-
-def image_view(request, image_pk):
-    image = get_object_or_404(Image, pk=image_pk)
-    if request.method == 'POST':
-        form = ImageForm(request.POST, instance=image)
-    else:
-        form = ImageForm(instance=image)
-    return save_image_form(request, form, 'images/includes/partial_image_view.html')
-
-
-def image_delete(request, image_pk):
-    image = get_object_or_404(Image, pk=image_pk)
-    data = dict()
-    if request.method == 'POST':
-        image.delete()
-        data['form_is_valid'] = True
-        images = Image.objects.all()
-        data['html_image_list'] = render_to_string('images/includes/partial_image_list.html', {
-            'images': images
-        })
-    else:
-        context = {'image': image}
-        data['html_form'] = render_to_string('images/includes/partial_image_delete.html',
-                                             context,
-                                             request=request,
-                                             )
-    return JsonResponse(data)
-
 
 
 # ###################################===>BEGINNING OF PAGE MODULE<===###############################################

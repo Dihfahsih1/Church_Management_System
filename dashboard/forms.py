@@ -34,7 +34,7 @@ class UserEmailForm(forms.ModelForm):
                 return email
         except User.DoesNotExist:
             return email
-        raise ValidationError("This email is already used.")
+        return "This email is already used."
 
 class ExpendituresForm(forms.ModelForm):
     class Meta:
