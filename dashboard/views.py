@@ -297,7 +297,7 @@ def members_list(request):
     return render(request, 'Members/members_list.html', context)
 @login_required
 def members_archived(request):
-    membership = ArchivedMembers.objects.all().order_by('-id')
+    membership = Members.objects.filter(is_active=False).order_by('-id')
     for i in membership:
         (i.Home_Cell)
     day=datetime.now()
@@ -307,32 +307,15 @@ def members_archived(request):
 #archiving member
 @login_required
 def archive_member(request, pk):
-    if request.method=='GET':
-        member_details = Members.objects.filter(pk=pk)
-        for member in member_details:
-            
-            ini=member.Initials
-            email=member.Email
-            pho=member.Photo
-            fname = member.First_Name
-            sname=member.Second_Name
-            cell=member.Home_Cell
-            res=member.Residence
-            tel= member.Telephone
-
-            member_archiveobj=ArchivedMembers()
-            member_archiveobj.Initials=ini
-            member_archiveobj.Email=email
-            member_archiveobj.Photo=pho
-            member_archiveobj.First_Name = fname
-            member_archiveobj.Second_Name = sname
-            member_archiveobj.Home_Cell=cell
-            member_archiveobj.Residence= res
-            member_archiveobj.Telephone =tel
-            member_archiveobj.save()
-
-        member_details.delete()    
-        messages.success(request, "The Member has been Archived")
+    if request.method == "GET":
+        Members.objects.filter(id=pk).update(is_active=False)
+        messages.success(request, f'Member has been Archived')
+        return redirect('members-list')
+@login_required            
+def unarchive_member(request, pk):
+    if request.method == "GET":
+        Members.objects.filter(id=pk).update(is_active=True)
+        messages.success(request, f'Member has been Un-archived')
         return redirect('members-list')
 
 def membership_wall(request):

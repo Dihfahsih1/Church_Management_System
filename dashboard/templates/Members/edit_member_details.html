@@ -35,10 +35,10 @@
                                     Memebers List</a>
                             </li>
                            
-                            <li role="presentation" class="fa fa-list-ol"><a href="#"><i class="fa fa-plus-square-o"></i> Edit Member                                  Member</a>
+                            <li role="presentation"  class="active"><a href="#"><i class="fa fa-plus-square-o"></i> Edit Member                                  Member</a>
                             </li>
                             {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
-                            <li role="presentation" class="active"><a href="{% url 'members-register' %}"><i
+                            <li role="presentation"><a href="{% url 'members-register' %}"><i
                                         class="fa fa-plus-square-o"></i> Add Member</a>
                             </li>
                             {% endif %}
