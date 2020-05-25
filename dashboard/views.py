@@ -317,21 +317,6 @@ def unarchive_member(request, pk):
         Members.objects.filter(id=pk).update(is_active=True)
         messages.success(request, f'Member has been Un-archived')
         return redirect('members-list')
-
-def membership_wall(request):
-    all_members = Members.published.all()
-    paginator = Paginator(all_members, 8)  # 6 members on each page
-    page = request.GET.get('page')
-    try:
-        members_list = paginator.page(page)
-    except PageNotAnInteger:
-            # If page is not an integer deliver the first page
-        members_list = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range deliver last page of results
-        members_list = paginator.page(paginator.num_pages)
-    context={'page':page, 'members_list': members_list}    
-    return render(request, 'Members/members_wall.html', context) 
 #Church Pastors
 def church_pastors(request):
     pastors = Members.published.all()
@@ -1457,17 +1442,7 @@ class pledge_made_invoice(View):
         }
         return Render.render('Pledges/pledges_made_invoice.html', debtcontext) 
 
-# receipt for archived pledges that have been settled.        
-# class settled_archived_pledge_receipt(View):
-#     def get(self, request, pk):
-#         settled= Pledges.objects.get(Status='PAID', id=pk, Archived_Status='ARCHIVED')
-#         today = datetime.now()
-#         context = {
-#             'today': today,
-#             'settled': settled,
-#             'request': request,
-#         }
-#         return Render.render('Pledges/settled_archived_pledges_receipt.html', context)               
+               
 #airtime report
 @login_required
 def airtime_data_report(request):
@@ -1479,17 +1454,14 @@ def airtime_data_report(request):
     context={'get_airtime':get_airtime, 'total_amount':total_amount, 'today':today}
     return render(request,'Expenses/airtime_data_report.html', context)
 
-
-
-                            #################################
-                            #         SLIDER VIEW
-                            #################################
+    #################################
+    #        SLIDER VIEW          
+    #################################
 
 class SliderListView(ListView):
     model = Slider
     template_name = 'sliders/slider_list.html'
     context_object_name = 'sliders'
-
 
 class SliderCreateView(CreateView):
     model = Slider
@@ -1649,7 +1621,7 @@ def about_delete(request, about_pk):
     return JsonResponse(data)
 
 
-# ###################################===>BEGINNING OF PAGE MODULE<===###############################################
+#########################===>BEGINNING OF PAGE MODULE<===########################
 
 
 class PageListView(ListView):
@@ -1676,12 +1648,10 @@ class PageCreateView(CreateView):
     model = Page
     template_name = 'pages/page_create.html'
     fields = ('page_location', 'page_title', 'page_description', 'page_image')
-
     def form_valid(self, form):
         page = form.save(commit=False)
         page.save()
         return redirect('page_list')
-
 
 class PageUpdateView(UpdateView):
     model = Page
@@ -1693,7 +1663,6 @@ class PageUpdateView(UpdateView):
         page = form.save(commit=False)
         page.save()
         return redirect('page_list')
-
 
 def save_page_form(request, form, template_name):
     data = dict()
@@ -1739,8 +1708,7 @@ def page_delete(request, page_pk):
                                              )
     return JsonResponse(data)
 
-# ###################################===>BEGINNING OF GALLERY MODULE<===###############################################
-
+###################===>BEGINNING OF GALLERY MODULE<===#########################
 
 class GalleryListView(ListView):
     model = Gallery
@@ -1817,7 +1785,7 @@ def gallery_delete(request, gallery_pk):
     return JsonResponse(data)
 
 
-# ###################################===>BEGINNING OF IMAGE MODULE<===###############################################
+#####################===>BEGINNING OF IMAGE MODULE<===##########################
 class ImageListView(ListView):
     model = Image
     template_name = 'images/image_list.html'
@@ -1891,17 +1859,16 @@ def image_delete(request, image_pk):
                                              )
     return JsonResponse(data)
 
-# ###################################===>BEGINNING OF NEWS MODULE<===###############################################
-
+###################===>BEGINNING OF NEWS MODULE<===########################
 class NewsListView(ListView):
     model = News
     template_name = 'news/news_list.html'
     context_object_name = 'news'
 
-
 def news_wall(request):
     news = News.published.all()
     return render(request, 'news/news_wall.html', {'news': news})
+
 class NewsCreateView(CreateView):
     model = News
     template_name = 'news/news_create.html'
@@ -1911,7 +1878,6 @@ class NewsCreateView(CreateView):
         news = form.save(commit=False)
         news.save()
         return redirect('news_list')
-
 
 class NewsUpdateView(UpdateView):
     model = News
@@ -1932,9 +1898,7 @@ def save_news_form(request, form, template_name):
             form.save()
             data['form_is_valid'] = True
             newss = News.objects.all()
-            data['html_news_list'] = render_to_string('news/includes/partial_news_list.html', {
-                'news': newss
-            })
+            data['html_news_list'] = render_to_string('news/includes/partial_news_list.html', {'news': newss})
         else:
             data['form_is_valid'] = False
     context = {'form': form}
@@ -1954,10 +1918,7 @@ def news_view(request, news_pk):
 def news_detail(request, news_pk):
     news = get_object_or_404(News, pk=news_pk)
     more_news = News.published.order_by('-date')[:15]
-    context = {
-        'news': news,
-        'more_news': more_news
-    }
+    context = {'news': news,'more_news': more_news}
     return render(request, 'news/news_detail.html', context)
 
 def membership_wall(request):
@@ -1974,8 +1935,8 @@ def membership_wall(request):
         members_list = paginator.page(paginator.num_pages)
     context={'page':page, 'members_list': members_list}    
     return render(request, 'Members/members_wall.html', context)
-
     #member details
+
 def member_detail(request, pk):
     member = get_object_or_404(Members, pk=pk)
     mem_details=Members.objects.all()
@@ -2009,24 +1970,18 @@ def news_delete(request, news_pk):
         data['form_is_valid'] = True  # This is just to play along with the existing code
         news = News.objects.all()
         data['html_news_list'] = render_to_string('news/includes/partial_news_list.html', {
-            'news': news
-        })
+            'news': news})
     else:
         context = {'news': news}
         data['html_form'] = render_to_string('news/includes/partial_news_delete.html',
-                                             context,
-                                             request=request,
-                                             )
+                                             context, request=request,)
     return JsonResponse(data)
 
-# ###################################===>BEGINNING OF EVENT MODULE<===###############################################
-
-
+####################===>BEGINNING OF EVENT MODULE<===#####################
 class EventListView(ListView):
     model = Event
     template_name = 'events/event_list.html'
     context_object_name = 'events'
-
 
 def event_wall(request):
     events = Event.published.all()
