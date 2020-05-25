@@ -1,7 +1,6 @@
 {% for slider in sliders %}
     <tr>
         <td>{{ slider.id }}</td>
-        <td>{{ slider.school }}</td>
         <td>
             {% if slider.slider_image %}
                 <img src="{{ slider.slider_image.url }}"
