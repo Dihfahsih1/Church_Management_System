@@ -23,7 +23,7 @@ def web(request):
     news = News.published.all().order_by('-id')
     events = Event.published.all().order_by('-id')
     images = Image.published.all().order_by('-id')
-    members = Members.published.all().order_by('-id')
+    members = Members.published.filter(is_active=True).order_by('-id')
     ministry = Ministry.published.all().order_by('-id')
     employees = StaffDetails.published.all()
     sliders = Slider.objects.all().order_by('-id')
@@ -291,7 +291,7 @@ def register_visitors(request):
 #list of church members
 @login_required
 def members_list(request):
-    membership = Members.objects.all().order_by('-id')
+    membership = Members.objects.filter(is_active=True).order_by('-id')
     day=datetime.now()
     context ={'membership': membership, 'day':day}
     return render(request, 'Members/members_list.html', context)
@@ -370,7 +370,8 @@ def edit_member(request, pk):
             return redirect('members-list')
     else:
         form = MembersForm(instance=item)
-    return render(request, 'Members/register_members.html', {'form': form})
+        context = {'form': form}
+    return render(request, 'Members/edit_member_details.html', context)
 #view member    
 def view_member(request, pk):
     context={}
