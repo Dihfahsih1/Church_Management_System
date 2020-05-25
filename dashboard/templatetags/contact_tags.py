@@ -16,21 +16,17 @@ def email_address():
     church = Church.objects.get(id=1)
     church_email_address = church.email_address
     return church_email_address
-
-
 @register.simple_tag
 def Post_Office_Box():
     church = Church.objects.get(id=1)
     church_post_number = church.Post_Office_Box
     return church_post_number
 
-
 @register.simple_tag
 def church_address():
     church = Church.objects.get(id=1)
     church_area_address = church.address
     return church_area_address
-
 
 @register.simple_tag
 def church_latitude():
