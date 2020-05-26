@@ -771,7 +771,7 @@ class tithesarchivepdf(View):
 @login_required
 def member_annual_tithes(request, pk):
     years = timezone.now().year
-    tithes=Revenues.objects.filter(Member_Name_id=pk, Date__year=years).order_by('-pk')
+    tithes=Revenues.objects.filter(Member_Name_id=pk, Date__year=years,Revenue_filter='tithes').order_by('-pk')
     total = tithes.aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
     members=Members.objects.filter(id=pk)
