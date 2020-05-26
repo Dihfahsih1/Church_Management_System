@@ -13,6 +13,20 @@ url(r'^Church/Vision', views.abouts_vision, name='abouts_vision'),
 url(r'^Church-Mission', views.abouts_mission, name='abouts_mission'),
 url(r'^Pastoral-Team', views.church_pastors, name='church_pastors'),
 url(r'^Administrative-Team', views.church_administration, name='church_administration'),
+#ARCHIVED REPORTS SEARCH
+url(r'^pledgesarchivessearch/', views.pledgesarchivessearch, name='pledgesarchivessearch'),
+url(r'^offeringsarchivessearch/', views.offeringsarchivessearch, name='offeringsarchivessearch'),
+url(r'^Archives/Salaries/', views.salariespaidarchivessearch, name='salariespaidarchivessearch'),
+url(r'^Archives/Seeds/', views.seedsarchivessearch, name='seeds-archives-search'),
+url(r'^Archives/Building-Renovations/', views.BuildingRenovationarchivessearch, name='BuildingRenovationarchivessearch'),
+url(r'^General-Expenses/Archived/', views.general_expenses_archives_search, name='general-expensesarchives-search'),
+url(r'^Main-Expenses/Archived/', views.main_expenses_archives_search, name='expensesarchivessearch'),
+url(r'^Petty-Cash/Archived/', views.petty_cash_archives_search, name='sundryarchivessearch'),
+url(r'^allowancearchivessearch/', views.allowancearchivessearch, name='allowancearchivessearch'),
+url(r'^Archives/Other-Sources/', views.donationsarchivessearch,
+        name='donationsarchivessearch'),
+url(r'^Archived/Tithes/', views.tithesarchivessearch, name='tithesarchivessearch'),
+url(r'^Archives/Thanks-Giving/', views.thanksgivingarchivessearch, name='thanksgivingarchivessearch'),
 
 #EXPENDITURE MODULE URLS
 url(r'^Expenses/Main-Expenses', views.enter_main_expenses, name='enter_expenditure'),
@@ -21,27 +35,19 @@ url(r'^Expenses/General-Expenses/Enter', views.enter_general_expenses, name='ent
 url(r'^Edit/General-Expense/(?P<pk>\d+)', views.edit_general_expense ,name='edit-general-expense'),
 url(r'^Main-Expense/Edit/(?P<pk>\d+)', views.edit_main_expense ,name='edit-main-expense'),
 url(r'^Petty-Expense/Edit/(?P<pk>\d+)', views.edit_petty_cash ,name='edit-petty-cash'),
-
 url(r'^Reports/Main-Expenses/', views.main_expenses_report, name='expenditurereport'),
 url(r'^Reports/General-Expenses/', views.general_expenses_report, name='general-expenses-report'),
 url(r'^Reports/Sundry-Report/', views.petty_cash_report, name='sundryreport'),
-
-url(r'^General-Expenses/Archived/', views.general_expenses_archives_search, name='general-expensesarchives-search'),
-url(r'^Main-Expenses/Archived/', views.main_expenses_archives_search, name='expensesarchivessearch'),
-url(r'^Petty-Cash/Archived/', views.petty_cash_archives_search, name='sundryarchivessearch'),
-
 url(r'^Main-Expenses-Report/pdf/', views.main_expenditure_report_pdf.as_view(), name='mainpdf'),
-
 url(r'^General-Expenses-Archived/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.general_expenses_archived_pdf.as_view(), name='generalarchivepdf'),
 url(r'^Main-Expenses-Archived/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.main_expenses_archived_pdf.as_view(), name='mainarchivepdf'),
-
 url(r'^Allowances/Add/', views.give_allowance, name='give-allowance'),
 url(r'^Report/Allowances/', views.allowancereport, name='allowancereport'),
 url(r'^Edit/allowance/(?P<pk>\d+)', views.edit_allowance ,name='edit_allowance'),
 url(r'^Receipt/Allowance/(?P<pk>\d+)', views.allowancereceipt.as_view() ,name='allowance-receipt'),
 url(r'^allowancespdf/', views.allowancespdf.as_view() ,name='allowancespdf'),
 url(r'^allowancearchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.allowances_archived_pdf.as_view(), name='allowancearchivepdf'),
-url(r'^allowancearchivessearch/', views.allowancearchivessearch, name='allowancearchivessearch'),
+
 
 #REVENUE MODULE
 url(r'^Revenues/Offerings/Report', views.Offeringsreport, name='Offeringsreport'),
@@ -75,20 +81,17 @@ url(r'^tithes/archivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.tit
 url(r'^Edit/tithes/(?P<pk>\d+)', views.edit_tithes ,name='edit-tithes'),
 url(r'^Tithesreport/', views.Tithesreport, name='Tithesreport'),
 url(r'^General-Annual-Tithes/', views.Annual_Tithes, name='Annual-Tithes'),
-url(r'^Archived/Tithes/', views.tithesarchivessearch, name='tithesarchivessearch'),
 
 url(r'^Enter_Pledges/', views.Enter_Pledges, name='Enter_Pledges'),
 url(r'^Building-Renovations/', views.record_building_collections, name='record-building-collections'),
 url(r'^Revenue/Building-Collections/Edit/(?P<pk>\d+)', views.edit_building_collections,name='edit-building-collections'),
 
-url(r'^Archives/Thanks-Giving/', views.thanksgivingarchivessearch, name='thanksgivingarchivessearch'),
 url(r'^Revenue/Thanks-Giving/Edit/(?P<pk>\d+)', views.edit_thanks_giving,name='edit-thanks-giving'),
 url(r'^Revenue/Thanks-giving/Add', views.record_thanks_giving,name='record-thanks-giving'),
 url(r'^Reports/Thanks-giving/List', views.thanks_giving_report,name='thanks-giving-report'),
 
 url(r'^Revenue/Other-Sources/Add', views.record_donations, name='record-donations'),
 url(r'^Reports/Other-Sources/List', views.donations_report, name='donations-report'),
-url(r'^Archives/Other-Sources/', views.donationsarchivessearch, name='donationsarchivessearch'),
 url(r'^Revenue/Other-Sources/Edit/(?P<pk>\d+)', views.edit_donation,name='edit-donation'),
 
 
@@ -98,15 +101,9 @@ url(r'^pledgespdf/', views.pledgespdf.as_view() ,name='pledgespdf'),
 
 # url(r'^Archived/Pledge-Debt/Receipt/(?P<pk>\d+)', views.settled_archived_pledge_receipt.as_view() ,name='settled-pledge-receipt'),
 url(r'^Archived/Pledge-Debt/Invoice/(?P<pk>\d+)', views.pledge_debt_invoice.as_view() ,name='pledge-invoice'),
-
-
 url(r'^pledgesreceipt/(?P<pk>\d+)', views.pledgesreceipt.as_view() ,name='pledgesreceipt'),
-
-
 #url(r'^sundryarchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.sundryarchivepdf.as_view(), name='sundryarchivepdf'),
 url(r'^pledgesarchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.pledgesarchivepdf.as_view(), name='pledgesarchivepdf'),
-
-
 #Handling all PKs, IDs
 url(r'^Pledges-Made/Invoice/(?P<pk>\d+)', views.pledge_made_invoice.as_view(), name='pledge-made-invoice'),
 url(r'^Church-Member/Edit/(?P<pk>\d+)', views.edit_member ,name='edit-member'),
@@ -116,10 +113,7 @@ url(r'^Un-Archive/Church-Member/(?P<pk>\d+)',
 url(r'^Employee/Delete/(?P<pk>\d+)', views.delete_employee ,name='delete-employee'),
 url(r'^Church-Visitor/Edit/(?P<pk>\d+)', views.edit_visitor ,name='edit-visitor'),
 url(r'^Church-Visitor/Delete/(?P<pk>\d+)', views.delete_visitor ,name='delete-visitor'),
-
-
 url(r'^edit_pledges/(?P<pk>\d+)', views.edit_pledges ,name='edit_pledges'),
-
 url(r'^Employee/Edit/(?P<pk>\d+)', views.edit_employee ,name='edit-employee'),
 url(r'^Employee/View/(?P<pk>\d+)', views.view_employee ,name='view-employee'),
 url(r'^Member/View/(?P<pk>\d+)', views.view_member ,name='view-member'),
@@ -129,12 +123,6 @@ url(r'^Pledges-Item/Edit/(?P<pk>\d+)', views.edit_pledge_item ,name='edit-pledge
 
 url(r'^Pledgesreport/', views.Pledgesreport, name='Pledgesreport'),
 url(r'^Building-Renovations-Report/', views.Building_Renovation_report, name='Building-Renovation-report'),
-#Archived reports search
-url(r'^pledgesarchivessearch/', views.pledgesarchivessearch, name='pledgesarchivessearch'),
-url(r'^offeringsarchivessearch/', views.offeringsarchivessearch, name='offeringsarchivessearch'),
-url(r'^Archives/Salaries/', views.salariespaidarchivessearch, name='salariespaidarchivessearch'),
-url(r'^Archives/Seeds/', views.seedsarchivessearch, name='seeds-archives-search'),
-url(r'^Archives/Building-Renovations/', views.BuildingRenovationarchivessearch, name='BuildingRenovationarchivessearch'),
 
 # url(r'^expenditure_report_archive/', views.expenditure_report_archive, name='expenditure_report_archive'),
 #membership 
