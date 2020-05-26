@@ -46,26 +46,29 @@
                         <table id="invoice-table" class=" sum_table invoice table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                            
                           <thead>
-                              <tr ><td>#SL</td>
+                              <tr >
                                   <td>Date</td>
                                   <td>Service</td>
-                                  <td>Amount <i class=" glyphicon glyphicon-arrow-right"></i> <b>(<span style="font-weight: bolder; color:red" class="totalCol"></span>)</b></td>
-                              </tr>
+                                  <td>Amount</td>
+                                  <td>Status</td>
+                                </tr>
                           </thead>
                           <tbody> 
                               {% for item in tithes%}
-                             <tr class="totalColumn">
-                              <td>{{ item.id}}</td>
+                             <tr>
                               <td>{{ item.Date}}</td>
                               <td>{{ item.Service}}</td>
-                              <td class="rowDataSd">{{ item.Amount}}</td>
+                              <td >{{item.Amount|intcomma}}</td>
+                              <td>{{item.Archived_Status}}</td>
                               
                              </tr> 
                              {%endfor%}
                              
                           </tbody>
                         </table><br>
-                        <h3>TOTAL ANNUAL TITHES = Shs.{{total_amount |intcomma}}</h3> 
+                        <h3>TOTAL ANNUAL TITHES OF <b style="font-weight: bolder; color:red" >
+                          {% for name in members%}{{name.Initials}} {{name.First_Name}} 
+                          {{name.Second_Name}}{%endfor%}</b> is Shs.{{total_amount |intcomma}}</h3> 
                       </div>
                       
                     </div>
