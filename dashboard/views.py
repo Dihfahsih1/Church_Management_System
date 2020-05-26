@@ -670,7 +670,13 @@ def Tithesreport (request):
 def Annual_Tithes(request):
     current_year = datetime.now().year
     get_all_members=Members.objects.filter(is_active=True)
-    context={'get_all_members':get_all_members, 'current_year':current_year}
+    results = Revenues.objects.filter(Archived_Status='ARCHIVED',
+                                          Revenue_filter='tithes', Date__year=current_year).aggregate(totals=models.Sum("Amount"))
+    if (results['totals']):
+        all_tithes = results["totals"]
+    else:
+        all_tithes = 0  
+    context={'all_tithes': all_tithes,'get_all_members':get_all_members, 'current_year':current_year}
     return render(request, "Tithes/current_year_tithes.html", context)
 
 @login_required

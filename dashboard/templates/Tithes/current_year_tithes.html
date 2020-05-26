@@ -16,7 +16,7 @@
                     </ul>
                     <div class="clearfix"></div>
                 </div>
-                    <h3 style="text-align: center">General Annual Tithes Collected in {{current_year}}</h3>
+                    <h3 style="text-align: center"><b>General Annual Tithes Collected in {{current_year}}</b></h3>
                     
                      <p><b>NB:</b> Click In Each Member Name For Tithes Details</p>
               <div class="x_content">
@@ -48,15 +48,15 @@
                            
                           <thead>
                               <tr >
-                                  <td>Name</td>
-                                  <td>Amount <i class=" glyphicon glyphicon-arrow-right"></i> <b>(<span style="font-weight: bolder; color:red" class="totalCol"></span>)</b></td>
+                                  <td>Member Name</td>
+                                  <td>Total Tithes <i class=" glyphicon glyphicon-arrow-right"></i> <b>(<span style="font-weight: bolder; color:red">{{all_tithes|intcomma}}</span>)</b></td>
                               </tr>
                           </thead>
                           <tbody> 
                               {% for item in get_all_members%}
-                             <tr class="totalColumn">
+                             <tr>
                               <td><a href="{% url 'annual-tithes' item.pk%}"> {{item.First_Name}} {{ item.Second_Name}}</a></td>
-                              <td class="rowDataSd">{{ item.total_tithe}}</td>
+                              <td>{{ item.total_tithe|intcomma}}</td>
                               
                              </tr> 
                              {%endfor%}
