@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>Tithe Collection</title>
 
-        {% load staticfiles %}
+        {% load static %}
+        {% load humanize %}
 
     <link type="text/css" rel="stylesheet" href="{% static '/css/bootstrap.css' %}"/>
     <link type="text/css" rel="stylesheet" href="{% static '/styles.css' %}"/>
@@ -68,7 +69,7 @@
             <strong style="font-size: large;"><pre>Tithe Date:</strong><u>{{ tithes.Date }}</pre></u>
             <strong style="font-size: large"><pre>Received From:</strong><u><b style="color:red; font-size: 20px"> {{ tithes.Member_Name.Initials}} {{ tithes.Member_Name}}</b></pre></u>
             <strong style="font-size: large"><pre>Service:</strong><u>{{ tithes.Service}}</pre></u>
-           <strong style="font-size: large"><pre>Amount Tithed:</strong><u> Shs.{{ tithes.Amount}}</pre></u>
+           <strong style="font-size: large"><pre>Amount Tithed:</strong><u> Shs.{{ tithes.Amount|intcomma}}</pre></u>
             <i><pre>Received with thanks by:<u>                          </pre> </u></i>
 
         </div>
