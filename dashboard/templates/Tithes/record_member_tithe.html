@@ -1,0 +1,77 @@
+{% extends "app/base_site.html" %}
+{% block content %}
+<div class="right_col" role="main">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h1><i class="fa fa fa-calendar-check-o"></i> <b>TITHES MODULE</b></h1>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="separator"></div>
+                <div class="x_content quick-link">
+                    <span style="color:red"><b>Quick Links:</b></span>
+                    <a href="{% url 'Enter_Offerings' %}">Offerings</a>
+                    | <a href="{% url 'Offeringsreport' %}">List of offerings</a>
+                    | <a href="{% url 'Enter_Tithes' %}">Tithes</a>
+                    | <a href="{% url 'Tithesreport' %}">List of Tithes</a>
+                    | <a href="#">Seeds</a>
+                    | <a href="#">Thanks Giving</a>
+                    | <a href="#">Donations</a>
+                    <div class="separator"></div>
+                </div>
+                <h2 style="text-align: center">Record A Tithe Made By <span style="color:red"><b>{{get_member_name}}</b></span></h2>
+
+
+                <div class="x_content">
+                    <div class="" data-example-id="togglable-tabs">
+                        <ul class="nav nav-tabs bordered">
+                            <li role="presentation"><a href="{% url 'Tithesreport' %}"><i class="fa fa-list-ol"></i>
+                                    List of Tithes</a>
+                            </li>
+                            <li role="presentation" class="active"><a href="{% url 'Enter_Tithes' %}"><i
+                                        class="fa fa-plus-square-o"></i> Record Tithes</a>
+                            </li>
+                            <li role="presentation"><a href="{% url 'tithesarchivessearch'  %}"><i
+                                        class="fa fa-plus-square-o"></i> Tithes Archived</a>
+                            </li>
+                            <li role="presentation"><a href="{% url 'Annual-Tithes' %}"><i
+                                        class="fa fa-plus-square-o"></i> Annual Tithes</a>
+                            </li>
+                        </ul>
+                        <br />
+                        <div style="margin-left: 25%" class="col-lg-4 col-md-4 col-sm-4 justify-content-center">
+                            {% load crispy_forms_tags %}
+                            <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ form.Date|as_crispy_field}}
+                                <div id="div_id_Member_Name" class="form-group">
+                                    <label for ='id_Member_Name'>Member Name</label>
+                                    <div class="">
+                                        <input type="text"class="numberinput form-control" value="{{get_member_name}}" readonly=True>
+                                    </div>
+                                </div>
+                                <div id='hid'>
+                                {{ form.Member_Name|as_crispy_field}}
+                                </div>
+                                <script type="text/javascript">
+                                    $('#hid').hide();
+                                </script>
+                                {{ form.Service|as_crispy_field}}
+                                {{ form.Amount|as_crispy_field}}
+                                <input type="hidden" id="tithes" name="Revenue_filter" value="tithes">
+                                <button type="submit" class="btn btn-primary" name="button">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

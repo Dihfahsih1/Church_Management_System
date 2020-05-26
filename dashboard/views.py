@@ -634,6 +634,24 @@ def recording_tithes(request):
         context={'form':form}
         return render(request, 'Tithes/record_tithes.html',context)
 
+#record member tithes after name search        
+def record_member_tithe(request, pk):
+    get_member_name=get_object_or_404(Members, pk=pk)
+    get_latest_tithe = Revenues.objects.filter(Member_Name__id=pk,Revenue_filter='tithes').latest('Date')
+    print(get_member_name)
+    if request.method=="POST":
+        form=RevenuesForm(request.POST)
+        print(form.errors)
+        if form.is_valid():
+            form.save()
+            return redirect('Tithesreport')
+    else:
+        form=RevenuesForm(instance=get_latest_tithe)
+        print(form)
+        today = datetime.now()
+        context={'form':form, 'get_member_name':get_member_name}
+    return render(request, 'Tithes/record_member_tithe.html',context)
+
 def edit_tithes(request, pk):
     item = get_object_or_404(Revenues, pk=pk)
     if request.method == "POST":
@@ -642,7 +660,8 @@ def edit_tithes(request, pk):
             form.save()
             return redirect('Tithesreport')
     else:
-        form = RevenuesForm(instance=item)        
+        form = RevenuesForm(instance=item) 
+        print(form)       
         context={'form':form}
     return render(request, 'Tithes/edit_tithes.html', context)
 
