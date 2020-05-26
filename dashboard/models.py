@@ -244,7 +244,7 @@ class Members(models.Model):
         return str(self.First_Name) + ' ' + str(self.Second_Name)
     def total_tithe(self):
         current_year = datetime.now().year
-        results = Revenues.objects.filter(Member_Name__id=self.id, Archived_Status='ARCHIVED',
+        results = Revenues.objects.filter(Member_Name__id=self.id,
                                           Revenue_filter='tithes', Date__year=current_year).aggregate(totals=models.Sum("Amount"))
         if (results['totals']):
             return results["totals"]
