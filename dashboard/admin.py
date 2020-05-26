@@ -15,7 +15,7 @@ class PledgesAdmin(admin.ModelAdmin):
 class StaffDetailsAdmin(admin.ModelAdmin):
     list_display = ('total_salary_paid','full_name','Balance','basic_salary')
 class MembersAdmin(admin.ModelAdmin):
-    list_display = ('full_name') 
+    list_display = ('full_name', 'total_tithe')
 class SalariesPaidAdmin(admin.ModelAdmin):
     list_display = ('total_salary_paid','Balance') 
 class OfferingsReportArchiveAdmin(admin.ModelAdmin):

@@ -2,7 +2,7 @@
 {% block content %}
 {% load humanize %}
 <head>
-  <title>UCC Bwaise | {{years}} Annual Tithes Report of {% for name in members%} {{name.First_Name}} {{name.Second_Name}}{%endfor%}</title>
+  <title>UCC Bwaise | {{years}} Annual Tithes Report of {{current_year}}</title>
 </head>
 <div class="right_col" role="main">
     <div class="row">
@@ -17,7 +17,8 @@
                     <div class="clearfix"></div>
                 </div>
                     <h3 style="text-align: center">General Annual Tithes Collected in {{current_year}}</h3>
-                     <p>{{ msg}}</p>
+                    
+                     <p><b>NB:</b> Click In Each Member Name For Tithes Details</p>
               <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
                     <ul class="nav nav-tabs bordered">
@@ -52,10 +53,10 @@
                               </tr>
                           </thead>
                           <tbody> 
-                              {% for item in get_all_tithes%}
+                              {% for item in get_all_members%}
                              <tr class="totalColumn">
-                              <td>{{ item.Member_Name__First_Name}}</td>
-                              <td class="rowDataSd">{{ item.Amount}}</td>
+                              <td><a href="{% url 'annual-tithes' item.pk%}"> {{item.First_Name}} {{ item.Second_Name}}</a></td>
+                              <td class="rowDataSd">{{ item.total_tithe}}</td>
                               
                              </tr> 
                              {%endfor%}

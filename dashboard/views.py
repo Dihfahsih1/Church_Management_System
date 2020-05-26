@@ -665,14 +665,12 @@ def Tithesreport (request):
     context['today']=today
     return render(request, 'Tithes/tithesindex.html', context)    
 
+
 @login_required
 def Annual_Tithes(request):
     current_year = datetime.now().year
-    get_all_tithes=Revenues.objects\
-    .filter(Revenue_filter='tithes',Date__year=current_year)\
-    .values('Member_Name__First_Name')\
-    .annotate(total=Sum('Amount'))
-    context={'get_all_tithes':get_all_tithes, 'current_year':current_year}
+    get_all_members=Members.objects.filter(is_active=True)
+    context={'get_all_members':get_all_members, 'current_year':current_year}
     return render(request, "Tithes/current_year_tithes.html", context)
 
 @login_required

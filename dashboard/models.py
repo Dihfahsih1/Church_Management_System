@@ -233,11 +233,21 @@ class Members(models.Model):
 
     #if (self.Archived_Status == 'NOT-ARCHIVED'):
     def __str__(self):
-        if self.is_active == True:
-            return str(self.First_Name )+ ' ' + str(self.Second_Name)
+        #if self.is_active == True:
+        return str(self.First_Name )+ ' ' + str(self.Second_Name)
+
+    #return full name    
     @property
     def full_name(self):
         return str(self.First_Name) + ' ' + str(self.Second_Name)
+    def total_tithe(self):
+        current_year = datetime.now().year
+        results = Revenues.objects.filter(Member_Name__id=self.id, Archived_Status='ARCHIVED',
+                                          Revenue_filter='tithes', Date__year=current_year).aggregate(totals=models.Sum("Amount"))
+        if (results['totals']):
+            return results["totals"]
+        else:
+            return 0     
 class Ministry(models.Model):
     name = models.CharField(max_length=100, unique=True)
     leader = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100)
