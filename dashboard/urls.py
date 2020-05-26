@@ -67,7 +67,7 @@ url(r'^Archives/Seeds/', views.seedsarchivessearch, name='seeds-archives-search'
 #Tithes Module
 url(r'^Revenues/Tithes/Add', views.recording_tithes,
         name='Enter_Tithes'), 
-    url(r'^Revenues/Member-Tithes/Add/(?P<pk>\d+)', views.record_member_tithe,
+url(r'^Revenues/Member-Tithes/Add/(?P<pk>\d+)', views.record_member_tithe,
     name='record-member-tithe'),
 url(r'^Print/Tithespdf/', views.tithespdf.as_view() ,name='tithespdf'),
 url(r'^Tithes/receipt/(?P<pk>\d+)', views.tithesreceipt.as_view() ,name='tithesreceipt'),

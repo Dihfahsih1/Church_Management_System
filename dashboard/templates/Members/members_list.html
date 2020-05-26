@@ -83,10 +83,10 @@
                                      <div class="mb-4">
                                         <a href="{% url 'edit-member' member.id  %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
                                         <a href="{% url 'view-member' member.id  %}"class="btn btn-success btn-sm"><span class="glyphicon glyphicon-eye-open"></span></a>
-                                        <a href="{% url 'record-member-tithe' member.id  %}" class="btn btn-success btn-sm"><span
-                                                class="glyphicon glyphicon-eye-open">Record Tithe</span></a>
+                                        <a href="{% url 'record-member-tithe' member.id  %}" class="btn btn-warning btn-sm"><span
+                                                class="glyphicon glyphicon-euro"></span> Record Tithe</a>
                                         {%if request.user.Role == 'SuperAdmin'%}
-                                          <a href="{% url 'archive-member' member.pk %}"class="btn btn-warning btn-sm "><span class="glyphicon glyphicon-king"></span> Archive</a>{%endif%}
+                                          <a href="{% url 'archive-member' member.pk %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-king"></span> Archive</a>{%endif%}
                                          {% endif %}
                                      </div>
                                      </td>
