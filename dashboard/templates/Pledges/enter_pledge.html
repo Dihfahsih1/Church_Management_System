@@ -6,7 +6,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Pledges</small></h2>
+            <h1><i class="fa fa fa-calendar-check-o"></i><b> Manage Church Pledges</b></h2>
             <ul class="nav navbar-right panel_toolbox">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
@@ -14,12 +14,23 @@
             <div class="clearfix"></div>
           </div>
                 <div class="x_content quick-link">
-                    <span style="color:red"><b>Quick Links:</b></span>
-                        |<a href="{% url 'pledgesarchivessearch' %}"> Pledges Archived</a>
-                        |<a href="{% url 'Pledgesreport' %}"> Pledges Reports</a>
-                    <div class="separator"></div>
+                  <span style="color:red"><b>Make Other Entries:</b></span>
+                  <a href="{% url  'enter_expenditure' %}"> Main</a>
+                  |<a href="{% url 'enter-general-expenses' %}"> General</a>
+                  |<a href="{% url 'enter_sundryexpense' %}"> Petty</a>
+                  |<a href="{% url 'record-cashfloat' %}"> Float</a>
+                  |<a href="{% url 'Enter_Offerings' %}"> Offerings</a>
+                  |<a href="{% url 'Enter_Tithes' %}"> Tithes</a>
+                  |<a href="{% url 'Enter_Pledges' %}"> Pledges</a>
+                  |<a href="{% url 'give-allowance' %}"> Allowances</a>
+                  |<a href="{% url 'employee-list' %}"> Salaries</a>
+                  |<a href="{% url 'record-donations' %}"> Doantions</a>
+                  |<a href="{% url 'add-seeds' %}"> Seeds</a>
+                  |<a href="{% url 'record-thanks-giving' %}"> TGiving</a>
+                  |<a href="{% url 'members-register' %}"> Membership</a>
+                  <div class="separator"></div>
                 </div>
-                <h2 style="text-align: center">Record All Pledges Made in a Month</h2>
+                <h1 style="text-align: center">Record All Pledges Made in a Month</h1>
                     <p>{{ message }}</p>
           <div class="x_content">
             <div class="" data-example-id="togglable-tabs">

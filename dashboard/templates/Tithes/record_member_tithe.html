@@ -14,14 +14,20 @@
                 </div>
                 <div class="separator"></div>
                 <div class="x_content quick-link">
-                    <span style="color:red"><b>Quick Links:</b></span>
-                    <a href="{% url 'Enter_Offerings' %}">Offerings</a>
-                    | <a href="{% url 'Offeringsreport' %}">List of offerings</a>
-                    | <a href="{% url 'Enter_Tithes' %}">Tithes</a>
-                    | <a href="{% url 'Tithesreport' %}">List of Tithes</a>
-                    | <a href="#">Seeds</a>
-                    | <a href="#">Thanks Giving</a>
-                    | <a href="#">Donations</a>
+                    <span style="color:red"><b>Make Other Entries:</b></span>
+                    <a href="{% url  'enter_expenditure' %}"> Main</a>
+                    |<a href="{% url 'enter-general-expenses' %}"> General</a>
+                    |<a href="{% url 'enter_sundryexpense' %}"> Petty</a>
+                    |<a href="{% url 'record-cashfloat' %}"> Float</a>
+                    |<a href="{% url 'Enter_Offerings' %}"> Offerings</a>
+                    |<a href="{% url 'Enter_Tithes' %}"> Tithes</a>
+                    |<a href="{% url 'Enter_Pledges' %}"> Pledges</a>
+                    |<a href="{% url 'give-allowance' %}"> Allowances</a>
+                    |<a href="{% url 'employee-list' %}"> Salaries</a>
+                    |<a href="{% url 'record-donations' %}"> Doantions</a>
+                    |<a href="{% url 'add-seeds' %}"> TGiving</a>
+                    |<a href="{% url 'record-thanks-giving' %}"> TGiving</a>
+                    |<a href="{% url 'members-register' %}"> Membership</a>
                     <div class="separator"></div>
                 </div>
                 <h2 style="text-align: center">Record A Tithe Made By <span style="color:red"><b>{{get_member_name}}</b></span></h2>

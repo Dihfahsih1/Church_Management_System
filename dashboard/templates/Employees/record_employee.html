@@ -6,7 +6,7 @@
     	<div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Employee</small></h2>
+                        <h1><i class="fa fa fa-calendar-check-o"></i> <b>EMPLOYEE MODULE</b></h1>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -14,14 +14,22 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content quick-link">
-                        <span>Quick Link:</span>
-                        <a href="{% url 'members-register' %}">Register Member</a>
-                        | <a href="{% url 'members-list' %}">Members List</a>
-                        | <a href="{% url 'visitors-register' %}">Register Visitor</a>
-                        | <a href="{% url 'visitors-list' %}">Visitors List</a>
-                        <a href="{% url 'visitors-list' %}">Employee List</a>
+                        <span style="color:red"><b>Make Other Entries:</b></span>
+                        <a href="{% url  'enter_expenditure' %}"> Main</a>
+                        |<a href="{% url 'enter-general-expenses' %}"> General</a>
+                        |<a href="{% url 'enter_sundryexpense' %}"> Petty</a>
+                        |<a href="{% url 'record-cashfloat' %}"> Float</a>
+                        |<a href="{% url 'Enter_Offerings' %}"> Offerings</a>
+                        |<a href="{% url 'Enter_Tithes' %}"> Tithes</a>
+                        |<a href="{% url 'Enter_Pledges' %}"> Pledges</a>
+                        |<a href="{% url 'give-allowance' %}"> Allowances</a>
+                        |<a href="{% url 'employee-list' %}"> Salaries</a>
+                        |<a href="{% url 'record-donations' %}"> Doantions</a>
+                        |<a href="{% url 'add-seeds' %}"> Seeds</a>
+                        |<a href="{% url 'record-thanks-giving' %}"> TGiving</a>
+                        |<a href="{% url 'members-register' %}"> Membership</a>
+                        <div class="separator"></div>
                     </div>
-                    <div class="separator"></div>
                     {% for i in get_name %}
                     <h2 style="text-align: center">{{message}} of {{ i.First_Name}} {{ i.Second_Name}}</h2>
                     {% endfor %}

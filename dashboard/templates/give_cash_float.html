@@ -16,15 +16,21 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content quick-link">
-                    <span style="color:red"><b>Quick Links:</b></span>
-                    <a href="{% url 'expenditurereport' %}">Expenses</a>
-                    | <a href="{% url 'Offeringsreport' %}">Revenues</a>
-                    | <a href="{% url 'list-of-pledge-items' %}">Pledges</a>
-                    | <a href="{% url 'members-list' %}">Church Members</a>
-                    | <a href="{% url 'Tithesreport' %}">Monthly Reports</a>
-                    | <a href="{% url 'expensesarchivessearch' %}">Archived Data</a>
-                    | <a href="{% url 'about_list' %}">Manage Website</a>
-                 <div class="separator"></div>
+                    <span style="color:red"><b>Make Other Entries:</b></span>
+                    <a href="{% url  'enter_expenditure' %}"> Main</a>
+                    |<a href="{% url 'enter-general-expenses' %}"> General</a>
+                    |<a href="{% url 'enter_sundryexpense' %}"> Petty</a>
+                    |<a href="{% url 'record-cashfloat' %}"> Float</a>
+                    |<a href="{% url 'Enter_Offerings' %}"> Offerings</a>
+                    |<a href="{% url 'Enter_Tithes' %}"> Tithes</a>
+                    |<a href="{% url 'Enter_Pledges' %}"> Pledges</a>
+                    |<a href="{% url 'give-allowance' %}"> Allowances</a>
+                    |<a href="{% url 'employee-list' %}"> Salaries</a>
+                    |<a href="{% url 'record-donations' %}"> Doantions</a>
+                    |<a href="{% url 'add-seeds' %}"> TGiving</a>
+                    |<a href="{% url 'record-thanks-giving' %}"> TGiving</a>
+                    |<a href="{% url 'members-register' %}"> Membership</a>
+                    <div class="separator"></div>
                 </div>
 		  	    <div class="x_content">
 		            <div class="" data-example-id="togglable-tabs">
