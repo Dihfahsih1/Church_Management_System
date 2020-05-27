@@ -476,7 +476,7 @@ def edit_offerings(request, pk):
                 return redirect('Offeringsreport')
         else:
             form = RevenuesForm(instance=item)
-        return render(request, 'Offerings/record_offerings.html', {'form': form})
+        return render(request, 'Offerings/edit_offerings.html', {'form': form})
     else:
         return HttpResponse('You are forbidden from accessing this functionality')    
 

@@ -347,8 +347,6 @@ class SalariesPaid(models.Model):
             for i in staffs:
                 salary=i.Salary_Amount
                 return salary
-                
-    
     @property
     def total_salary_paid(self):
         if StaffDetails.objects.filter(Church_Member_id=self.Salary_Id):
@@ -416,7 +414,6 @@ class PledgeItem(Model):
     Amount_Needed = models.IntegerField(blank=True, null=True)
     Pledge_Deadline = models.DateField(blank=True, null=True)
     Archived_Status = models.CharField(max_length=100, blank=True, null=True, choices=archive, default="NOT-ARCHIVED")
-
     def __str__(self):
         return self.Item_That_Needs_Pledges
     @property 
@@ -430,7 +427,7 @@ class PledgeItem(Model):
     def Amount_needed_after_cashout(self):
         results=self.Amount_Needed-self.Total_Item_Cashout
         return results
-             
+        
     @property
     def Total_Amount_Pledged(self):
         results = Pledges.objects.filter(Reason__Item_That_Needs_Pledges=self.Item_That_Needs_Pledges).aggregate(totals=models.Sum("Amount_Pledged"))
