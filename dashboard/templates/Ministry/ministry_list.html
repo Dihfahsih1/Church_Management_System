@@ -33,11 +33,14 @@
 
                             <ul class="nav nav-tabs bordered">
                                 <li role="presentation" class="active"><a href="{% url 'event_list' %}"><i
-                                        class="fa fa-list-ol"></i> Event List</a>
+                                        class="fa fa-list-ol"></i> Ministries List</a>
                                 </li>
+                                 {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
+
                                 <li role="presentation"><a href="{% url 'event_create' %}"><i
-                                        class="fa fa-plus-square-o"></i> Add Event</a>
+                                        class="fa fa-plus-square-o"></i> Add Ministry</a>
                                 </li>
+                                {% endif %}
                             </ul>
                             <br/>
 
@@ -71,6 +74,8 @@
                                                 {% endif %}
                                             </td>
                                             <td>{{ i.Is_View_on_Web }}</td>
+                                            {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
+
                                             <td>
                                                 <button type="button"
                                                         class="btn btn-warning btn-sm js-view-news"
@@ -80,6 +85,7 @@
                                                 <a href="{% url 'ministry-update' i.pk %}" class="btn btn-info btn-sm">
                                                     <span class="fa fa-pencil-square-o"></span> Edit</a>
                                             </td>
+                                            {% endif %}
                                             {% endfor %}
                                             </tr>
                                             </tbody>
