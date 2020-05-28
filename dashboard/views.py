@@ -2723,7 +2723,7 @@ def edit_cash_float(request, pk):
         return render(request, 'edit_cash_float.html', {'form': form})
 
 ######################<=======CHURCH GROUPS==========>#######################
-def church_group(request):
+def church_groups(request):
     able_group=Members.objects.filter(is_active=True, Group="God is Able")
     winners_group=Members.objects.filter(is_active=True, Group="Winners")
     overcomers_group=Members.objects.filter(is_active=True, Group="Overcomers")
@@ -2738,4 +2738,4 @@ def church_group(request):
         'victors_group':victors_group,
         'Issachar_group': Issachar_group,
     }
-    return render(request, 'church_groups.html', context)
+    return render(request, 'Groups/church_groups.html', context)
