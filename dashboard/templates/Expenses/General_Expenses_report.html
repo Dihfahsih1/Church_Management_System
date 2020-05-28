@@ -71,11 +71,13 @@
                           <td>{{ item.General_Expenses_Reason}}</td>
                           <td class="rowDataSd">{{ item.Amount}}</td>
                           <td>{{ item.Archived_Status}}</td>
+                          {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
                           <td>
                           <div class="mb-4">
                                 <a href="{% url 'edit-general-expense' item.pk %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit">Update</span></a>
                           </div>
                           </td>
+                          {%endif%}
                         </tr>
                       {% endfor %}
                     </tbody>
@@ -84,11 +86,15 @@
               </div>
             </div>
           </div>
+          
            {% if items%}
           <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
           <a href="#" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"> PRINT REPORT</span></a>
+          {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
           <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">ARCHIVE</span></button>
          {% endif %}
+        {% endif %}
+        <a href="#" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"> PRINT REPORT</span></a>
             <!-- Button trigger modal -->
           <!-- Modal -->
           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

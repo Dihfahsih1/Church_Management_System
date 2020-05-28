@@ -9,7 +9,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-            <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Petty Cash Expenses</small></h2>
+            <h1><i class="fa fa fa-calendar-check-o"></i><b> Manage Church Petty Cash Expenses</b></h1>
             <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -40,8 +40,10 @@
             <ul class="nav nav-tabs bordered">
               <li role="presentation" class="active"><a href="{% url 'sundryreport' %}"><i
                           class="fa fa-list-ol"></i> Petty Cash Report</a></li>
+              {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
               <li role="presentation"><a href="{% url 'enter_sundryexpense' %}"><i
                     class="fa fa-plus-square-o"></i> Record Petty Expense</a></li>
+                    {% endif %}
               <li role="presentation"><a href="{% url 'airtime-data-report' %}"><i
                           class="fa fa-plus-square-o"></i> Airtime-Data Payments</a> </li>
               <li role="presentation"><a href="{% url 'sundryarchivessearch' %}"><i

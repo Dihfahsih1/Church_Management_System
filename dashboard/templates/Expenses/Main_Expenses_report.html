@@ -29,15 +29,18 @@
           |<a href="{% url 'donations-report' %}"> Doantions</a>
           |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a>
           |<a href="{% url 'Building-Renovation-report' %}"> Building</a>
+          <div class="separator"></div>
         </div>
 
-        <h2 style="text-align: center">The Main Expenses Report as of {{today}}</h2>
+        <h1 style="text-align: center">The Main Expenses Report as of {{today}}</h1>
         <div class="separator"></div>
         <div class="x_content">
           <div class="" data-example-id="togglable-tabs">
             <ul class="nav nav-tabs bordered">
               <li role="presentation" class="active"><a href="{% url 'expenditurereport' %}"><i class="fa fa-list-ol"></i> Main Expenses Report </a></li>
+              {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
               <li role="presentation"><a href="{% url 'enter_expenditure' %}"><i class="fa fa-plus-square-o"></i> Record Main Expense</a></li>
+              {% endif %}
               <li role="presentation" ><a href="{% url 'expensesarchivessearch' %}"><i class="glyphicon glyphicon-king"></i> Archived Main Expenses</a></li>
             </ul>
             <br/>
@@ -65,11 +68,13 @@
                           <td>{{ item.Main_Expense_Reason}}</td>
                           <td class="rowDataSd">{{ item.Amount}}</td>
                           <td>{{ item.Archived_Status}}</td>
+                          {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
                           <td>
                           <div class="mb-4">
                                 <a href="{% url 'edit-main-expense' item.pk %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit">Update</span></a>
                           </div>
                           </td>
+                          {% endif %}
                         </tr>
                       {% endfor %}
                     </tbody>
@@ -79,9 +84,12 @@
             </div>
           </div>
           {% if items%}
-          <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
-          <a href="{% url 'mainpdf' %}" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"> PRINT REPORT</span></a>
-          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">ARCHIVE</span></button>
+            
+            <a href="{% url 'mainpdf' %}" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"> PRINT REPORT</span></a>
+            {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
+            <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">ARCHIVE</span></button>
+            {% endif %}
           {% endif %}
             <!-- Button trigger modal -->
           
