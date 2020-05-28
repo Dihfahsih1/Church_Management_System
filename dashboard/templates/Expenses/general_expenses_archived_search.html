@@ -36,12 +36,20 @@
         <div class="x_content">
           <div class="" data-example-id="togglable-tabs">
               <ul class="nav nav-tabs bordered">
+                {% if request.user.Role == 'Secretary' or .user.Role == 'Admin' or .user.Role == 'SuperAdmin' or .user.Role == 'Assistant_Admin' %}
+                <li role="presentation"><a href="{% url 'enter-general-expenses' %}"><i class="fa fa-plus-square-o"></i> Record General
+                    Expense</a></li>
+                <li role="presentation"><a href="{% url 'general-expenses-report' %}"><i class="fa fa-list-ol"></i> List of General
+                    Expenses</a></li>
+                <li role="presentation" class="active"><a href="{% url 'general-expensesarchives-search' %}"><i
+                      class="glyphicon glyphicon-king"></i> General Expenses Archived</a></li>
+                      
+                {% else %}    
               <li role="presentation" ><a href="{% url 'general-expenses-report' %}"><i
               class="fa fa-list-ol" ></i> List of General Expenses</a></li>
-              <li role="presentation"><a href="{% url 'enter-general-expenses' %}"><i
-                    class="fa fa-plus-square-o"></i> Record General Expense</a></li>
               <li role="presentation" class="active"><a href="{% url 'general-expensesarchives-search' %}"><i
                     class="glyphicon glyphicon-king"></i> General Expenses Archived</a></li>
+              {% endif %}
             </ul><br>
             <h4><i class='glyphicon glyphicon-arrow-down'></i>Please search for the archived General Expenses by <b>Year</b> and <b>Month</b></h4><br>
             <form class="x_content" method="POST" enctype="multipart/form-data">

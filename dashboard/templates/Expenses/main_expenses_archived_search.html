@@ -1,6 +1,7 @@
 {% extends "app/base_site.html" %}
 {% block content %}
 {% load humanize %}
+{% load user_access_to_pages %}
 <head>
   <title>UCC Bwaise | main expenses for the month of {{report_month}} {{ report_year }}</title>
 </head>
@@ -34,9 +35,19 @@
         <div class="x_content">
           <div class="" data-example-id="togglable-tabs">
             <ul class="nav nav-tabs bordered">
-              <li role="presentation"><a href="{% url 'expenditurereport' %}"><i class="fa fa-list-ol"></i> Main Expenses Report </a></li>
+              {% if request.user.Role == 'Secretary' or .user.Role == 'Admin' or .user.Role == 'SuperAdmin' or .user.Role == 'Assistant_Admin' %}
               <li role="presentation"><a href="{% url 'enter_expenditure' %}"><i class="fa fa-plus-square-o"></i> Record Main Expense</a></li>
+              
+              <li role="presentation"><a href="{% url 'expenditurereport' %}"><i class="fa fa-list-ol"></i> Main Expenses Report </a></li>
+    
               <li role="presentation" class="active" ><a href="{% url 'expensesarchivessearch' %}"><i class="fa fa-list-ol"></i> Archived Main Expenses</a></li>
+            {% else %}
+            <li role="presentation"><a href="{% url 'expenditurereport' %}"><i class="fa fa-list-ol"></i> Main Expenses Report </a>
+            </li>
+            
+            <li role="presentation" class="active"><a href="{% url 'expensesarchivessearch' %}"><i class="fa fa-list-ol"></i>
+                Archived Main Expenses</a></li>
+              {% endif %}  
             </ul><br>
             <h4><i class='glyphicon glyphicon-arrow-down'></i>Please search for the archived Main Expenses by <b>Year</b> and <b>Month</b></h4><br>
             <form class="x_content" method="POST" enctype="multipart/form-data">
