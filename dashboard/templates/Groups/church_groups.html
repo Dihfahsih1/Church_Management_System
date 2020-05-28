@@ -31,9 +31,19 @@
                 </div>
                 <p>{{ message }}</p>
                 <h1 style="text-align: center;">All Church Groups</h1>
+                <div class="separator"></div>
                 <div class="x_content">
                     <div class="" data-example-id="togglable-tabs">
-
+                        <ul class="nav nav-tabs bordered">
+                            <li role="presentation"><a href="{% url 'home-cells' %}"><i
+                                        class="glyphicon glyphicon-home"></i>
+                                    Home Cells</a>
+                            </li>
+                            <li role="presentation" class="active"><a href="{% url 'church-groups' %}"><i class="glyphicon glyphicon-cloud"></i> Church
+                                    Groups</a>
+                            </li>
+                        </ul>
+                        <br />
                         <ul class="nav nav-tabs bordered">
                             <li role="presentation">
                                 <button class="btn btn-warning" data-toggle="modal"
@@ -102,10 +112,10 @@
                                                                     {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
                                         
                                                                     <div class="mb-4">
-                                                                        <a href="{% url 'edit-visitor' visitor.id  %}" class="btn btn-info btn-sm"><span
+                                                                        <a href="#" class="btn btn-info btn-sm"><span
                                                                                 class="fa fa-pencil-square-o"></span> Edit</a>
                                         
-                                                                        <a href="{% url 'delete-visitor' visitor.id  %}" class="btn btn-danger btn-sm "><span
+                                                                        <a href="#" class="btn btn-danger btn-sm "><span
                                                                                 class="glyphicon glyphicon-trash"></span> Delete</a>
                                                                     </div>
                                                                     {% endif %}
@@ -162,11 +172,11 @@
                                                                     {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
                         
                                                                     <div class="mb-4">
-                                                                        <a href="{% url 'edit-visitor' visitor.id  %}"
+                                                                        <a href="#"
                                                                             class="btn btn-info btn-sm"><span
                                                                                 class="fa fa-pencil-square-o"></span> Edit</a>
                         
-                                                                        <a href="{% url 'delete-visitor' visitor.id  %}"
+                                                                        <a href="#"
                                                                             class="btn btn-danger btn-sm "><span
                                                                                 class="glyphicon glyphicon-trash"></span> Delete</a>
                                                                     </div>
@@ -224,11 +234,11 @@
                                                                     {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
                         
                                                                     <div class="mb-4">
-                                                                        <a href="{% url 'edit-visitor' visitor.id  %}"
+                                                                        <a href="#"
                                                                             class="btn btn-info btn-sm"><span
                                                                                 class="fa fa-pencil-square-o"></span> Edit</a>
                         
-                                                                        <a href="{% url 'delete-visitor' visitor.id  %}"
+                                                                        <a href="#"
                                                                             class="btn btn-danger btn-sm "><span
                                                                                 class="glyphicon glyphicon-trash"></span> Delete</a>
                                                                     </div>
@@ -286,11 +296,11 @@
                                                                     {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
                         
                                                                     <div class="mb-4">
-                                                                        <a href="{% url 'edit-visitor' visitor.id  %}"
+                                                                        <a href="#"
                                                                             class="btn btn-info btn-sm"><span
                                                                                 class="fa fa-pencil-square-o"></span> Edit</a>
                         
-                                                                        <a href="{% url 'delete-visitor' visitor.id  %}"
+                                                                        <a href="#"
                                                                             class="btn btn-danger btn-sm "><span
                                                                                 class="glyphicon glyphicon-trash"></span> Delete</a>
                                                                     </div>
@@ -349,11 +359,11 @@
                                                                     {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
                         
                                                                     <div class="mb-4">
-                                                                        <a href="{% url 'edit-visitor' visitor.id  %}"
+                                                                        <a href="#"
                                                                             class="btn btn-info btn-sm"><span
                                                                                 class="fa fa-pencil-square-o"></span> Edit</a>
                         
-                                                                        <a href="{% url 'delete-visitor' visitor.id  %}"
+                                                                        <a href="#"
                                                                             class="btn btn-danger btn-sm "><span
                                                                                 class="glyphicon glyphicon-trash"></span> Delete</a>
                                                                     </div>
@@ -412,11 +422,11 @@
                                                                     {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
                         
                                                                     <div class="mb-4">
-                                                                        <a href="{% url 'edit-visitor' visitor.id  %}"
+                                                                        <a href="#"
                                                                             class="btn btn-info btn-sm"><span
                                                                                 class="fa fa-pencil-square-o"></span> Edit</a>
                         
-                                                                        <a href="{% url 'delete-visitor' visitor.id  %}"
+                                                                        <a href="#"
                                                                             class="btn btn-danger btn-sm "><span
                                                                                 class="glyphicon glyphicon-trash"></span> Delete</a>
                                                                     </div>
@@ -436,7 +446,9 @@
                         </div>
 
                     </div>
-                    <h1 style="color: khaki;">Dear {{request.user.full_name}}, your group is {{request.user.full_name.Group}}</h1>
+                    <h1 style="color: khaki;">Hey {{request.user.full_name.Initials}}
+                        {{request.user.full_name.First_Name}}
+                        your group is {{request.user.full_name.Group}}</h1>
                 </div>
             </div>
         </div>
