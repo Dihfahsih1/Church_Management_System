@@ -12,37 +12,42 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h1><i class="fa fa fa-calendar-check-o"></i><b>CHURCH MEMBERSHIP</b></h1>
+                        <h1 style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b>CHURCH MEMBERSHIP</b></h1>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
                         </ul>
                         <div class="clearfix"></div>
                     </div>
-                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+                   
                     <div class="x_content quick-link">
                     <span style="color:red"><b>Other Reports:</b></span>
                         <a href="{% url  'expenditurereport' %}"> Main Expenses</a></li>
                         |<a href="{% url 'general-expenses-report' %}"> General Expenses</a></li>
                         |<a href="{% url 'Offeringsreport' %}"> Offerings</a></li>
-                        |<a href="{% url 'Tithesreport' %}"> Tithes</a></li>
+                        
                         |<a href="{% url 'Pledgesreport' %}"> Pledges</a></li>
                         |<a href="{% url 'sundryreport' %}"> Petty Expenses</a></li>
+                        {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
                         |<a href="{% url 'allowancereport' %}"> Allowances</a></li>
                         |<a href="{% url 'current-month-salaries' %}"> Salaries</a></li>
+                        |<a href="{% url 'Tithesreport' %}"> Tithes</a></li>
                         |<a href="{% url 'donations-report' %}"> Doantions</a></li>
                         |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a></li>
+                        {% endif %}
                     <div class="separator"></div>
                     </div>
-                    {% endif %}
+                    
                     <p>{{ message }}</p>
-                    <h3 style="text-align: center">List Of Church Members</h3>
+            <h1 style="text-align: center">List Of Church Members</h1>
             <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
-
                     <ul class="nav nav-tabs bordered">
                         <li role="presentation" class="active"><a href="{% url 'members-list' %}"><i
                                 class="fa fa-list-ol"></i> Memebers List</a>
+                        </li>
+                        <li role="presentation"><a href="{% url 'visitors-list' %}"><i class="fa fa-list-ol"></i> Visitors
+                                List</a>
                         </li>
                         {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
                           <li role="presentation"><a href="{% url 'members-archived' %}"><i
@@ -86,7 +91,8 @@
                                         <a href="{% url 'record-member-tithe' member.id  %}" class="btn btn-warning btn-sm"><span
                                                 class="glyphicon glyphicon-euro"></span> Record Tithe</a>
                                         {%if request.user.Role == 'SuperAdmin'%}
-                                          <a href="{% url 'archive-member' member.pk %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-king"></span> Archive</a>{%endif%}
+                                          <a href="{% url 'archive-member' member.pk %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-king"></span> Archive</a>
+                                          {%endif%}
                                          {% endif %}
                                      </div>
                                      </td>
@@ -101,5 +107,6 @@
           </div>
         </div>
     </div>
+</div>
 </div>
 {% endblock content %}
