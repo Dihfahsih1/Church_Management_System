@@ -32,20 +32,23 @@
                 <div class="" data-example-id="togglable-tabs">
 
                     <ul class="nav nav-tabs bordered">
+                      {% if request.user.Role == 'Secretary' or .user.Role == 'Admin' or .user.Role == 'SuperAdmin' or .user.Role == 'Assistant_Admin' %}
                         <li role="presentation"><a href="{% url 'add-pledge-item' %}"><i
                                       class="fa fa-plus-square-o"></i> Add Pledge Item</a>
                         </li>
-                         <li role="presentation"class="active"><a href="{% url 'list-of-pledge-items' %}"><i
-                                      class="fa fa-plus-square-o"></i> Pledge Item List</a>
+                         
+                        <li role="presentation"><a href="{% url 'Enter_Pledges' %}"><i class="fa fa-plus-square-o"></i> Record Pledges</a>
+                        </li>
+                        {% endif %}
+                        <li role="presentation" class="active"><a href="{% url 'list-of-pledge-items' %}"><i class="fa fa-plus-square-o"></i>
+                            Pledge Item List</a>
                         </li>
                         <li role="presentation" ><a href="{% url 'Pledgesreport' %}"><i
                                     class="fa fa-list-ol"></i> Pledges Made</a>
                         </li>
-                        <li role="presentation"><a href="{% url 'Enter_Pledges' %}"><i
-                              class="fa fa-plus-square-o"></i> Record Pledges</a>
-                        </li>
+                        
                         <li role="presentation"><a href="{% url 'pledgesarchivessearch' %}"><i
-                                      class="fa fa-plus-square-o"></i> Pledges Archived</a>
+                                      class="glyphicon glyphicon-king"></i> Pledges Archived</a>
                         </li>
                     </ul>
                     <br/> 
