@@ -2739,3 +2739,27 @@ def church_groups(request):
         'Issachar_group': Issachar_group,
     }
     return render(request, 'Groups/church_groups.html', context)
+
+######################<=======HOME CELLS==========>######################
+def home_cells(request):
+    Church=Members.objects.filter(is_active=True, Group="Church Zone")
+    Kabira=Members.objects.filter(is_active=True, Group="Kabira Zone")
+    Kafunda=Members.objects.filter(is_active=True, Group="Kafunda Zone'")
+    Lugoba=Members.objects.filter(is_active=True, Group="Lugoba Zone")
+    Kazo=Members.objects.filter(is_active=True, Group="Kazo Zone")
+    Gombolola=Members.objects.filter(is_active=True, Group="Gombolola Zone")
+    Kawaala=Members.objects.filter(is_active=True, Group="Kawaala Zone")
+    Katooke = Members.objects.filter(is_active=True, Group="Katooke Zone")
+    Bombo = Members.objects.filter(is_active=True, Group="Bombo Rd Zone")
+    context={
+        'Church': Church,
+        'Kafunda':Kafunda,
+        'Kabira':Kabira,
+        'Lugoba':Lugoba,
+        'Kazo':Kazo,
+        'Gombolola':Gombolola,
+        'Kawaala':Kawaala,
+        'Bombo': Bombo,
+        'Katooke': Katooke
+    }
+    return render(request, 'Groups/home_cells.html', context)

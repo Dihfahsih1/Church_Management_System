@@ -53,6 +53,7 @@ url(r'^Receipt/Allowance/(?P<pk>\d+)', views.allowancereceipt.as_view() ,name='a
 url(r'^allowancespdf/', views.allowancespdf.as_view() ,name='allowancespdf'),
 url(r'^allowancearchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.allowances_archived_pdf.as_view(), name='allowancearchivepdf'),
 url(r'^Church-Groups', views.church_groups, name='church-groups'),
+url(r'^Home-Cells', views.home_cells, name='home-cells'),
 
 #REVENUE MODULE
 url(r'^Revenues/Offerings/Report', views.Offeringsreport, name='Offeringsreport'),

@@ -5,7 +5,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h1 style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b> CHURCH GROUP MODULE</b>
+                    <h1 style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b> HOME CELL FELLOWSHIPS MODULE</b>
                     </h1>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -31,56 +31,76 @@
                     <div class="separator"></div>
                 </div>
                 <p>{{ message }}</p>
-                <h1 style="text-align: center;">All Church Groups</h1>
+                <h1 style="text-align: center;">All Church Home Cell Fellowships</h1>
                 <div class="x_content">
                     <div class="" data-example-id="togglable-tabs">
 
                         <ul class="nav nav-tabs bordered">
                             <li role="presentation">
-                                <button class="btn btn-warning" data-toggle="modal"
-                                 data-target="#able" style="padding: 30px; margin-left:20px">God Is Able
+                                <button class="btn-sm btn-default" data-toggle="modal" data-target="#church"
+                                    style="padding: 30px; margin-left:20px">Church Zone
                                 </button>
                             </li>
                             <li role="presentation">
-                                <button class="btn btn-info" data-toggle="modal" data-target="#Issachar" style="padding: 30px; margin-left:20px">Issachar
+                                <button class="btn-sm btn-default" data-toggle="modal" data-target="#kafunda"
+                                    style="padding: 30px; margin-left:20px">Kafunda Zone
                                 </button>
                             </li>
                             <li role="presentation">
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#Winners" style="padding: 30px; margin-left:20px">Winners
+                                <button class="btn-sm btn-default" data-toggle="modal" data-target="#kabira"
+                                    style="padding: 30px; margin-left:20px">Kabira Zone
                                 </button>
                             </li>
                             <li role="presentation">
-                                <button class="btn btn-default" data-toggle="modal" data-target="#Biyinzika" style="padding: 30px; margin-left:20px">Biyinzika
+                                <button class="btn-sm btn-default" data-toggle="modal" data-target="#gombolola"
+                                    style="padding: 30px; margin-left:20px">#Gombolola Zone
                                 </button>
                             </li>
                             <li role="presentation">
-                                <button class="btn btn-danger" data-toggle="modal" data-target="#Overcommers" style="padding: 30px; margin-left:20px">Overcommers
+                                <button class="btn-sm btn-default" data-toggle="modal" data-target="#kazo"
+                                    style="padding: 30px; margin-left:20px">Kazo Zone
                                 </button>
                             </li>
                             <li role="presentation">
-                                <button class="btn btn-success" data-toggle="modal" data-target="#Victors" style="padding: 30px; margin-left:20px">Victors
+                                <button class="btn-sm btn-default" data-toggle="modal" data-target="#katoke"
+                                    style="padding: 30px; margin-left:20px">Katooke Zone
+                                </button>
+                            </li>
+                            <li role="presentation">
+                                <button class="btn-sm btn-default" data-toggle="modal" data-target="#lugoba"
+                                    style="padding: 30px; margin-left:20px">Lugoba Zone
+                                </button>
+                            </li>
+                            <li role="presentation">
+                                <button class="btn-sm btn-default" data-toggle="modal" data-target="#bombo"
+                                    style="padding: 30px; margin-left:20px">Bombo Road
                                 </button>
                             </li>
                         </ul>
                         <br />
-                        
-                        <!-- God is Able Modal -->
-                        <div class="modal fade" id="able" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                        <!-- bombo Modal -->
+                        <div class="modal fade" id="bombo" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class=" container modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">UCC BWAISE GROUPS</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">
+                                            HOME CELL FELLOWSHIP MEMBERS</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <h4 class="text-danger" style="text-align: center;"><b>GOD IS ABLE GROUP</b></h4>
+                                        <h4 class="text-danger" style="text-align: center;"><b>Bombo Road Home Cell</b>
+                                        </h4>
                                         <div class="tab-content">
                                             <div class="tab-pane fade in active" id="tab_invoice_list">
                                                 <div class="x_content">
-                                                    <table id="invoice-table" class="table table-bordered dt-responsive nowrap" cellspacing="0"
-                                                        width="100%" style="background-color: ghostwhite;">
+                                                    <table id="invoice-table"
+                                                        class="table table-bordered dt-responsive nowrap"
+                                                        cellspacing="0" width="100%"
+                                                        style="background-color: ghostwhite;">
                                                         <thead>
                                                             <tr>
                                                                 <th>First Name</th>
@@ -92,7 +112,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            {% for item in able_group %}
+                                                            {% for item in Bombo %}
                                                             <tr>
                                                                 <td>{{ item.First_Name}}</td>
                                                                 <td>{{ item.Second_Name}}</td>
@@ -101,13 +121,17 @@
                                                                 <td>{{ item.Marital_Status}}</td>
                                                                 <td>
                                                                     {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
-                                        
+
                                                                     <div class="mb-4">
-                                                                        <a href="{% url 'edit-visitor' visitor.id  %}" class="btn btn-info btn-sm"><span
-                                                                                class="fa fa-pencil-square-o"></span> Edit</a>
-                                        
-                                                                        <a href="{% url 'delete-visitor' visitor.id  %}" class="btn btn-danger btn-sm "><span
-                                                                                class="glyphicon glyphicon-trash"></span> Delete</a>
+                                                                        <a href="{% url 'edit-visitor' visitor.id  %}"
+                                                                            class="btn btn-info btn-sm"><span
+                                                                                class="fa fa-pencil-square-o"></span>
+                                                                            Edit</a>
+
+                                                                        <a href="{% url 'delete-visitor' visitor.id  %}"
+                                                                            class="btn btn-danger btn-sm "><span
+                                                                                class="glyphicon glyphicon-trash"></span>
+                                                                            Delete</a>
                                                                     </div>
                                                                     {% endif %}
                                                                 </td>
@@ -118,24 +142,363 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Issachar Modal -->
-                        <div class="modal fade" id="Issachar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <!-- lugoba Modal -->
+                        <div class="modal fade" id="lugoba" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class=" container modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">UCC BWAISE GROUPS</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">HOME CELL FELLOWSHIP MEMBERS</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <h4 class="text-danger" style="text-align: center;"><b>Issachar GROUP</b></h4>
+                                        <h4 class="text-danger" style="text-align: center;"><b>Lugoba Zone Home Cell</b></h4>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active" id="tab_invoice_list">
+                                                <div class="x_content">
+                                                    <table id="invoice-table"
+                                                        class="table table-bordered dt-responsive nowrap"
+                                                        cellspacing="0" width="100%"
+                                                        style="background-color: ghostwhite;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>First Name</th>
+                                                                <th>Second Name</th>
+                                                                <th>Address</th>
+                                                                <th>Telephone</th>
+                                                                <th>Status</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for item in Lugoba %}
+                                                            <tr>
+                                                                <td>{{ item.First_Name}}</td>
+                                                                <td>{{ item.Second_Name}}</td>
+                                                                <td>{{ item.Residence}}</td>
+                                                                <td>{{ item.Telephone}}</td>
+                                                                <td>{{ item.Marital_Status}}</td>
+                                                                <td>
+                                                                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+
+                                                                    <div class="mb-4">
+                                                                        <a href="{% url 'edit-visitor' visitor.id  %}"
+                                                                            class="btn btn-info btn-sm"><span
+                                                                                class="fa fa-pencil-square-o"></span>
+                                                                            Edit</a>
+
+                                                                        <a href="{% url 'delete-visitor' visitor.id  %}"
+                                                                            class="btn btn-danger btn-sm "><span
+                                                                                class="glyphicon glyphicon-trash"></span>
+                                                                            Delete</a>
+                                                                    </div>
+                                                                    {% endif %}
+                                                                </td>
+                                                            </tr>
+                                                            {% endfor%}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- katoke Modal -->
+                        <div class="modal fade" id="katoke" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class=" container modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">HOME CELL FELLOWSHIP MEMBERS</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4 class="text-danger" style="text-align: center;"><b>Katoke Zone Home Cell</b></h4>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active" id="tab_invoice_list">
+                                                <div class="x_content">
+                                                    <table id="invoice-table"
+                                                        class="table table-bordered dt-responsive nowrap"
+                                                        cellspacing="0" width="100%"
+                                                        style="background-color: ghostwhite;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>First Name</th>
+                                                                <th>Second Name</th>
+                                                                <th>Address</th>
+                                                                <th>Telephone</th>
+                                                                <th>Status</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for item in Katooke %}
+                                                            <tr>
+                                                                <td>{{ item.First_Name}}</td>
+                                                                <td>{{ item.Second_Name}}</td>
+                                                                <td>{{ item.Residence}}</td>
+                                                                <td>{{ item.Telephone}}</td>
+                                                                <td>{{ item.Marital_Status}}</td>
+                                                                <td>
+                                                                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+
+                                                                    <div class="mb-4">
+                                                                        <a href="{% url 'edit-visitor' visitor.id  %}"
+                                                                            class="btn btn-info btn-sm"><span
+                                                                                class="fa fa-pencil-square-o"></span>
+                                                                            Edit</a>
+
+                                                                        <a href="{% url 'delete-visitor' visitor.id  %}"
+                                                                            class="btn btn-danger btn-sm "><span
+                                                                                class="glyphicon glyphicon-trash"></span>
+                                                                            Delete</a>
+                                                                    </div>
+                                                                    {% endif %}
+                                                                </td>
+                                                            </tr>
+                                                            {% endfor%}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- kazo Modal -->
+                        <div class="modal fade" id="kazo" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class=" container modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">HOME CELL FELLOWSHIP MEMBERS</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4 class="text-danger" style="text-align: center;"><b>Kazo Zone Home Cell</b></h4>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active" id="tab_invoice_list">
+                                                <div class="x_content">
+                                                    <table id="invoice-table"
+                                                        class="table table-bordered dt-responsive nowrap"
+                                                        cellspacing="0" width="100%"
+                                                        style="background-color: ghostwhite;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>First Name</th>
+                                                                <th>Second Name</th>
+                                                                <th>Address</th>
+                                                                <th>Telephone</th>
+                                                                <th>Status</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for item in Kazo %}
+                                                            <tr>
+                                                                <td>{{ item.First_Name}}</td>
+                                                                <td>{{ item.Second_Name}}</td>
+                                                                <td>{{ item.Residence}}</td>
+                                                                <td>{{ item.Telephone}}</td>
+                                                                <td>{{ item.Marital_Status}}</td>
+                                                                <td>
+                                                                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+
+                                                                    <div class="mb-4">
+                                                                        <a href="{% url 'edit-visitor' visitor.id  %}"
+                                                                            class="btn btn-info btn-sm"><span
+                                                                                class="fa fa-pencil-square-o"></span>
+                                                                            Edit</a>
+
+                                                                        <a href="{% url 'delete-visitor' visitor.id  %}"
+                                                                            class="btn btn-danger btn-sm "><span
+                                                                                class="glyphicon glyphicon-trash"></span>
+                                                                            Delete</a>
+                                                                    </div>
+                                                                    {% endif %}
+                                                                </td>
+                                                            </tr>
+                                                            {% endfor%}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- gombolola Modal -->
+                        <div class="modal fade" id="gombolola" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class=" container modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">HOME CELL FELLOWSHIP MEMBERS</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4 class="text-danger" style="text-align: center;"><b>Gombolola Zone Home Cell</b>
+                                        </h4>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active" id="tab_invoice_list">
+                                                <div class="x_content">
+                                                    <table id="invoice-table"
+                                                        class="table table-bordered dt-responsive nowrap"
+                                                        cellspacing="0" width="100%"
+                                                        style="background-color: ghostwhite;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>First Name</th>
+                                                                <th>Second Name</th>
+                                                                <th>Address</th>
+                                                                <th>Telephone</th>
+                                                                <th>Status</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for item in Gombolola %}
+                                                            <tr>
+                                                                <td>{{ item.First_Name}}</td>
+                                                                <td>{{ item.Second_Name}}</td>
+                                                                <td>{{ item.Residence}}</td>
+                                                                <td>{{ item.Telephone}}</td>
+                                                                <td>{{ item.Marital_Status}}</td>
+                                                                <td>
+                                                                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+
+                                                                    <div class="mb-4">
+                                                                        <a href="{% url 'edit-visitor' visitor.id  %}"
+                                                                            class="btn btn-info btn-sm"><span
+                                                                                class="fa fa-pencil-square-o"></span>
+                                                                            Edit</a>
+
+                                                                        <a href="{% url 'delete-visitor' visitor.id  %}"
+                                                                            class="btn btn-danger btn-sm "><span
+                                                                                class="glyphicon glyphicon-trash"></span>
+                                                                            Delete</a>
+                                                                    </div>
+                                                                    {% endif %}
+                                                                </td>
+                                                            </tr>
+                                                            {% endfor%}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- kabira Modal -->
+                        <div class="modal fade" id="kabira" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class=" container modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">HOME CELL FELLOWSHIP MEMBERS</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4 class="text-danger" style="text-align: center;"><b>Kabira Zone Home Cell</b></h4>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active" id="tab_invoice_list">
+                                                <div class="x_content">
+                                                    <table id="invoice-table"
+                                                        class="table table-bordered dt-responsive nowrap"
+                                                        cellspacing="0" width="100%"
+                                                        style="background-color: ghostwhite;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>First Name</th>
+                                                                <th>Second Name</th>
+                                                                <th>Address</th>
+                                                                <th>Telephone</th>
+                                                                <th>Status</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for item in Kabira %}
+                                                            <tr>
+                                                                <td>{{ item.First_Name}}</td>
+                                                                <td>{{ item.Second_Name}}</td>
+                                                                <td>{{ item.Residence}}</td>
+                                                                <td>{{ item.Telephone}}</td>
+                                                                <td>{{ item.Marital_Status}}</td>
+                                                                <td>
+                                                                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+
+                                                                    <div class="mb-4">
+                                                                        <a href="{% url 'edit-visitor' visitor.id  %}"
+                                                                            class="btn btn-info btn-sm"><span
+                                                                                class="fa fa-pencil-square-o"></span>
+                                                                            Edit</a>
+
+                                                                        <a href="{% url 'delete-visitor' visitor.id  %}"
+                                                                            class="btn btn-danger btn-sm "><span
+                                                                                class="glyphicon glyphicon-trash"></span>
+                                                                            Delete</a>
+                                                                    </div>
+                                                                    {% endif %}
+                                                                </td>
+                                                            </tr>
+                                                            {% endfor%}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- kafunda Modal -->
+                        <div class="modal fade" id="kafunda" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class=" container modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">HOME CELL FELLOWSHIP MEMBERS
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4 class="text-danger" style="text-align: center;"><b>Kafunda Zone Home Cell </b></h4>
                                         <div class="tab-content">
                                             <div class="tab-pane fade in active" id="tab_invoice_list">
                                                 <div class="x_content">
@@ -152,7 +515,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            {% for item in Issachar_group %}
+                                                            {% for item in Kafunda %}
                                                             <tr>
                                                                 <td>{{ item.First_Name}}</td>
                                                                 <td>{{ item.Second_Name}}</td>
@@ -165,11 +528,13 @@
                                                                     <div class="mb-4">
                                                                         <a href="{% url 'edit-visitor' visitor.id  %}"
                                                                             class="btn btn-info btn-sm"><span
-                                                                                class="fa fa-pencil-square-o"></span> Edit</a>
+                                                                                class="fa fa-pencil-square-o"></span>
+                                                                            Edit</a>
                         
                                                                         <a href="{% url 'delete-visitor' visitor.id  %}"
                                                                             class="btn btn-danger btn-sm "><span
-                                                                                class="glyphicon glyphicon-trash"></span> Delete</a>
+                                                                                class="glyphicon glyphicon-trash"></span>
+                                                                            Delete</a>
                                                                     </div>
                                                                     {% endif %}
                                                                 </td>
@@ -186,18 +551,19 @@
                             </div>
                         </div>
 
-                        <!-- Winners Modal -->
-                        <div class="modal fade" id="Winners" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <!-- church Modal -->
+                        <div class="modal fade" id="church" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class=" container modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">UCC BWAISE GROUPS</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">HOME CELL FELLOWSHIP MEMBERS
+                                        </h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <h4 class="text-danger" style="text-align: center;"><b>Winners GROUP</b></h4>
+                                        <h4 class="text-danger" style="text-align: center;"><b>Church Zone Home Cell</b></h4>
                                         <div class="tab-content">
                                             <div class="tab-pane fade in active" id="tab_invoice_list">
                                                 <div class="x_content">
@@ -214,7 +580,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            {% for item in winners_group %}
+                                                            {% for item in Church %}
                                                             <tr>
                                                                 <td>{{ item.First_Name}}</td>
                                                                 <td>{{ item.Second_Name}}</td>
@@ -227,199 +593,13 @@
                                                                     <div class="mb-4">
                                                                         <a href="{% url 'edit-visitor' visitor.id  %}"
                                                                             class="btn btn-info btn-sm"><span
-                                                                                class="fa fa-pencil-square-o"></span> Edit</a>
+                                                                                class="fa fa-pencil-square-o"></span>
+                                                                            Edit</a>
                         
                                                                         <a href="{% url 'delete-visitor' visitor.id  %}"
                                                                             class="btn btn-danger btn-sm "><span
-                                                                                class="glyphicon glyphicon-trash"></span> Delete</a>
-                                                                    </div>
-                                                                    {% endif %}
-                                                                </td>
-                                                            </tr>
-                                                            {% endfor%}
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Biyinzika Modal -->
-                        <div class="modal fade" id="Biyinzika" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class=" container modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">UCC BWAISE GROUPS</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h4 class="text-danger" style="text-align: center;"><b>Biyinzika GROUP</b></h4>
-                                        <div class="tab-content">
-                                            <div class="tab-pane fade in active" id="tab_invoice_list">
-                                                <div class="x_content">
-                                                    <table id="invoice-table" class="table table-bordered dt-responsive nowrap" cellspacing="0"
-                                                        width="100%" style="background-color: ghostwhite;">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>First Name</th>
-                                                                <th>Second Name</th>
-                                                                <th>Address</th>
-                                                                <th>Telephone</th>
-                                                                <th>Status</th>
-                                                                <th>Actions</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {% for item in biyinzika_group %}
-                                                            <tr>
-                                                                <td>{{ item.First_Name}}</td>
-                                                                <td>{{ item.Second_Name}}</td>
-                                                                <td>{{ item.Residence}}</td>
-                                                                <td>{{ item.Telephone}}</td>
-                                                                <td>{{ item.Marital_Status}}</td>
-                                                                <td>
-                                                                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
-                        
-                                                                    <div class="mb-4">
-                                                                        <a href="{% url 'edit-visitor' visitor.id  %}"
-                                                                            class="btn btn-info btn-sm"><span
-                                                                                class="fa fa-pencil-square-o"></span> Edit</a>
-                        
-                                                                        <a href="{% url 'delete-visitor' visitor.id  %}"
-                                                                            class="btn btn-danger btn-sm "><span
-                                                                                class="glyphicon glyphicon-trash"></span> Delete</a>
-                                                                    </div>
-                                                                    {% endif %}
-                                                                </td>
-                                                            </tr>
-                                                            {% endfor%}
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <!-- Overcommers Modal -->
-                        <div class="modal fade" id="Overcommers" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class=" container modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">UCC BWAISE GROUPS</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h4 class="text-danger" style="text-align: center;"><b>Overcommers GROUP</b></h4>
-                                        <div class="tab-content">
-                                            <div class="tab-pane fade in active" id="tab_invoice_list">
-                                                <div class="x_content">
-                                                    <table id="invoice-table" class="table table-bordered dt-responsive nowrap" cellspacing="0"
-                                                        width="100%" style="background-color: ghostwhite;">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>First Name</th>
-                                                                <th>Second Name</th>
-                                                                <th>Address</th>
-                                                                <th>Telephone</th>
-                                                                <th>Status</th>
-                                                                <th>Actions</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {% for item in overcomers_group %}
-                                                            <tr>
-                                                                <td>{{ item.First_Name}}</td>
-                                                                <td>{{ item.Second_Name}}</td>
-                                                                <td>{{ item.Residence}}</td>
-                                                                <td>{{ item.Telephone}}</td>
-                                                                <td>{{ item.Marital_Status}}</td>
-                                                                <td>
-                                                                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
-                        
-                                                                    <div class="mb-4">
-                                                                        <a href="{% url 'edit-visitor' visitor.id  %}"
-                                                                            class="btn btn-info btn-sm"><span
-                                                                                class="fa fa-pencil-square-o"></span> Edit</a>
-                        
-                                                                        <a href="{% url 'delete-visitor' visitor.id  %}"
-                                                                            class="btn btn-danger btn-sm "><span
-                                                                                class="glyphicon glyphicon-trash"></span> Delete</a>
-                                                                    </div>
-                                                                    {% endif %}
-                                                                </td>
-                                                            </tr>
-                                                            {% endfor%}
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <!-- Victors Modal -->
-                        <div class="modal fade" id="Victors" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class=" container modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">UCC BWAISE GROUPS</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h4 class="text-danger" style="text-align: center;"><b>Victors GROUP</b></h4>
-                                        <div class="tab-content">
-                                            <div class="tab-pane fade in active" id="tab_invoice_list">
-                                                <div class="x_content">
-                                                    <table id="invoice-table" class="table table-bordered dt-responsive nowrap" cellspacing="0"
-                                                        width="100%" style="background-color: ghostwhite;">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>First Name</th>
-                                                                <th>Second Name</th>
-                                                                <th>Address</th>
-                                                                <th>Telephone</th>
-                                                                <th>Status</th>
-                                                                <th>Actions</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {% for item in victors_group %}
-                                                            <tr>
-                                                                <td>{{ item.First_Name}}</td>
-                                                                <td>{{ item.Second_Name}}</td>
-                                                                <td>{{ item.Residence}}</td>
-                                                                <td>{{ item.Telephone}}</td>
-                                                                <td>{{ item.Marital_Status}}</td>
-                                                                <td>
-                                                                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
-                        
-                                                                    <div class="mb-4">
-                                                                        <a href="{% url 'edit-visitor' visitor.id  %}"
-                                                                            class="btn btn-info btn-sm"><span
-                                                                                class="fa fa-pencil-square-o"></span> Edit</a>
-                        
-                                                                        <a href="{% url 'delete-visitor' visitor.id  %}"
-                                                                            class="btn btn-danger btn-sm "><span
-                                                                                class="glyphicon glyphicon-trash"></span> Delete</a>
+                                                                                class="glyphicon glyphicon-trash"></span>
+                                                                            Delete</a>
                                                                     </div>
                                                                     {% endif %}
                                                                 </td>
@@ -437,7 +617,8 @@
                         </div>
 
                     </div>
-                    <h1 style="color: khaki;">Dear {{request.user.full_name}}, your group is {{request.user.full_name.Group}}</h1>
+                    <h1 style="color: khaki;">Dear, Your home cell is 
+                        {{request.user.full_name.Home_Cell}}</h1>
                 </div>
             </div>
         </div>
