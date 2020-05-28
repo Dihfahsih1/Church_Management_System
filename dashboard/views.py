@@ -2742,15 +2742,15 @@ def church_groups(request):
 
 ######################<=======HOME CELLS==========>######################
 def home_cells(request):
-    Church=Members.objects.filter(is_active=True, Group="Church Zone")
-    Kabira=Members.objects.filter(is_active=True, Group="Kabira Zone")
-    Kafunda=Members.objects.filter(is_active=True, Group="Kafunda Zone'")
-    Lugoba=Members.objects.filter(is_active=True, Group="Lugoba Zone")
-    Kazo=Members.objects.filter(is_active=True, Group="Kazo Zone")
-    Gombolola=Members.objects.filter(is_active=True, Group="Gombolola Zone")
-    Kawaala=Members.objects.filter(is_active=True, Group="Kawaala Zone")
-    Katooke = Members.objects.filter(is_active=True, Group="Katooke Zone")
-    Bombo = Members.objects.filter(is_active=True, Group="Bombo Rd Zone")
+    Church = Members.objects.filter(is_active=True, Home_Cell="Church Zone")
+    Kabira=Members.objects.filter(is_active=True, Home_Cell="Kabira Zone")
+    Kafunda=Members.objects.filter(is_active=True, Home_Cell="Kafunda Zone'")
+    Lugoba=Members.objects.filter(is_active=True, Home_Cell="Lugoba Zone")
+    Kazo=Members.objects.filter(is_active=True, Home_Cell="Kazo Zone")
+    Gombolola=Members.objects.filter(is_active=True, Home_Cell="Gombolola Zone")
+    Kawaala=Members.objects.filter(is_active=True, Home_Cell="Kawaala Zone")
+    Katooke = Members.objects.filter(is_active=True, Home_Cell="Katooke Zone")
+    Bombo = Members.objects.filter(is_active=True, Home_Cell="Bombo Rd Zone")
     context={
         'Church': Church,
         'Kafunda':Kafunda,
