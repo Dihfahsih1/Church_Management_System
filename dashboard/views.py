@@ -2744,7 +2744,7 @@ def church_groups(request):
 def home_cells(request):
     Church = Members.objects.filter(is_active=True, Home_Cell="Church Zone")
     Kabira=Members.objects.filter(is_active=True, Home_Cell="Kabira Zone")
-    Kafunda=Members.objects.filter(is_active=True, Home_Cell="Kafunda Zone'")
+    Kafunda=Members.objects.filter(is_active=True, Home_Cell="Kafunda Zone")
     Lugoba=Members.objects.filter(is_active=True, Home_Cell="Lugoba Zone")
     Kazo=Members.objects.filter(is_active=True, Home_Cell="Kazo Zone")
     Gombolola=Members.objects.filter(is_active=True, Home_Cell="Gombolola Zone")
