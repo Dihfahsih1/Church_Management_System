@@ -10,7 +10,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-            <h1><i class="fa fa fa-calendar-check-o"></i> <b>MAIN EXPENSES MODULE</b></h1>
+            <h1 style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i> <b>MAIN EXPENSES MODULE</b></h1>
             <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -30,38 +30,44 @@
         |<a href="{% url 'seeds-archives-search' %}"> Doantions</a>
         |<a href="{% url 'thanksgivingarchivessearch' %}"> ThanksGiving</a>
         |<a href="{% url 'BuildingRenovationarchivessearch' %}"> Building</a>
+        <div class="separator"></div>
         </div>
+        
+        <h1 style="text-align: center;">Search For The Archived Main Expenses</h1>
         <div class="separator"></div>
         <div class="x_content">
           <div class="" data-example-id="togglable-tabs">
             <ul class="nav nav-tabs bordered">
               {% if request.user.Role == 'Secretary' or .user.Role == 'Admin' or .user.Role == 'SuperAdmin' or .user.Role == 'Assistant_Admin' %}
-              <li role="presentation"><a href="{% url 'enter_expenditure' %}"><i class="fa fa-plus-square-o"></i> Record Main Expense</a></li>
-              
-              <li role="presentation"><a href="{% url 'expenditurereport' %}"><i class="fa fa-list-ol"></i> Main Expenses Report </a></li>
-    
-              <li role="presentation" class="active" ><a href="{% url 'expensesarchivessearch' %}"><i class="fa fa-list-ol"></i> Archived Main Expenses</a></li>
-            {% else %}
+             <li role="presentation"><a href="{% url 'enter_expenditure' %}"><i class="fa fa-plus-square-o"></i> Record Main Expense</a></li>
+              {% endif %}
             <li role="presentation"><a href="{% url 'expenditurereport' %}"><i class="fa fa-list-ol"></i> Main Expenses Report </a>
             </li>
-            
             <li role="presentation" class="active"><a href="{% url 'expensesarchivessearch' %}"><i class="fa fa-list-ol"></i>
-                Archived Main Expenses</a></li>
-              {% endif %}  
+                Archived Main Expenses</a>
+            </li>
+                
             </ul><br>
             <h4><i class='glyphicon glyphicon-arrow-down'></i>Please search for the archived Main Expenses by <b>Year</b> and <b>Month</b></h4><br>
-            <form class="x_content" method="POST" enctype="multipart/form-data">
-              {% csrf_token %}
-              <div class="form-row">
-                <div class="col-lg-12" style="background-color: rgb(227, 237, 239">
-                  <div class="col-lg-3" style="margin-top: 8px">
-                    <label >Year</label>
-                    <input type="text" placeholder="Enter Year, e.g. 2020" name="report_year" width="2%" required="required">
+          <form class="x_content" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-row">
+              <div class="col-lg-12 " style="background-color: rgb(227, 237, 239)">
+                <div class="col-lg-2" style="margin-top: 8px">
+                </div>
+                <div class="col-lg-3" style="margin-top: 8px">
+                  <label>Year</label>
+                  <div class="form-group">
+                    <b><input class='form-control' type="number" placeholder="Enter Year, e.g. 2020" name="report_year" width="2%"
+                        required="required" value="{{report_year}}"></b>
                   </div>
-                  <div class="col-lg-3" style="margin-top: 8px">
-                    <label>Month</label>
-                    <select  name="report_month" id="inlineFormCustomSelect" required="required" style="cursor: pointer">
-                      <option></option>
+                </div>
+                <div class="col-lg-3" style="margin-top: 8px">
+                  <label>Month</label>
+                  <div class="form-group">
+                    <select class='form-control' name="report_month" value="" id="inlineFormCustomSelect" required="required"
+                      style="cursor: pointer">
+                      <option>{{report_month}}</option>
                       <option class="btn-success" name="1" value="1">January</option>
                       <option class="btn-success" name="2" value="2">February</option>
                       <option class="btn-success" name="3" value="3">March</option>
@@ -76,22 +82,28 @@
                       <option class="btn-success" name="12" value="12">December</option>
                     </select>
                   </div>
-                  <div class="col-lg-2">
-                    <button type="submit" class="btn btn-info">Search <span class='glyphicon glyphicon-search'></span></button>
-                 </div>
+                </div>
+                <div class="col-lg-2">
+                  <br>
+                  <button class='form-control' type="submit" class="btn btn-info">Search&nbsp; <span
+                      class='glyphicon glyphicon-search'></span></button>
+                </div>
+                <div class="col-lg-2" style="margin-top: 8px">
                 </div>
               </div>
-            </form><br> <br>
+            </div>
+          </form><br> <br>
+          {% if archived_reports %}
+          <h2 style="text-align: center">Monthly Archived Main Expenses For the financial cycle of <b>{{ report_month }}
+              {{ report_year }}</b> </h2>
+          {% elif archived_reports == empty %}
+          <p style="color: red"><i class='glyphicon glyphicon-arrow-up'></i>You have not yet made any search!, please do so</p>
+          {% else %}
+          <h2> No archived Data in the query you have made of the cycle {{ report_month }} {{ report_year }}</h2>
+          {% endif %}
           <div class="tab-content">
            <div class="tab-pane fade in active" id="tab_invoice_list">
-              <div class="x_content"> 
-              {% if archived_reports %}
-                   <h2 style="text-align: center">Monthly Archived Main Expenses For the financial cycle of  <b>{{ report_month }} {{ report_year }}</b>  </h2>
-                {% elif archived_reports == empty %}
-                    <p style="color: red"><i class='glyphicon glyphicon-arrow-up'></i>You have not yet made any search!, please do so</p>
-                    {% else %}
-                     <h2 > No archived Data in the query you have made of the cycle {{ report_month }} {{ report_year }}</h2>                     
-                   {% endif %}                     
+              <div class="x_content">
                    <table id="invoice-table" class=" sum_table table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                     <thead>
                       <tr>
