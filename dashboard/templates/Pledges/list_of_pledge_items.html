@@ -77,22 +77,25 @@
                                      <td>{{ item.Total_Amount_Pledged|intcomma}}</td>
                                      <th>{{ item.Item_money_received|intcomma}}</th>
                                      <th>{{ item.Item_money_balance|intcomma}}</th>
-                                     <td>
-                                     <div class="mb-6">
-                                       {% if item.Total_Item_Cashout == item.Amount_Needed  %}
-                                      <b class="btn btn-btn btn-sm "><span class="glyphicon glyphicon-thumbs-up"></span> FULLY CASHED</b>
-                                       <a href="{% url 'delete-pledge-item' item.id %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"> Delete</span></a>
+                                     
+                                    {% if request.user.Role == 'Secretary' or .user.Role == 'Admin' or .user.Role == 'SuperAdmin' or .user.Role == 'Assistant_Admin' %}
+                                        <td>
+                                        <div class="mb-6">
+                                          {% if item.Total_Item_Cashout == item.Amount_Needed  %}
+                                          <b class="btn btn-btn btn-sm "><span class="glyphicon glyphicon-thumbs-up"></span> FULLY CASHED</b>
+                                          <a href="{% url 'delete-pledge-item' item.id %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"> Delete</span></a>
 
-                                      {% elif item.Item_money_received > 0 %}
-                                        <a href="{% url 'pledge-cash-out' item.id %}"class="btn btn-success btn-sm"><span class="glyphicon glyphicon-euro"> </span> Cash Out</a>
-                                         <a href="{% url 'delete-pledge-item' item.id %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"> Delete</span></a>
+                                          {% elif item.Item_money_received > 0 %}
+                                            <a href="{% url 'pledge-cash-out' item.id %}"class="btn btn-success btn-sm"><span class="glyphicon glyphicon-euro"> </span> Cash Out</a>
+                                            <a href="{% url 'delete-pledge-item' item.id %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"> Delete</span></a>
 
-                                      {% else %}
-                                        <a href="{% url 'edit-pledge-item' item.id %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-                                         <a href="{% url 'delete-pledge-item' item.id %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"> Delete</span></a>
-                                      {% endif %} 
-                                     </div> 
-                                     </td> 
+                                          {% else %}
+                                            <a href="{% url 'edit-pledge-item' item.id %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                                            <a href="{% url 'delete-pledge-item' item.id %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"> Delete</span></a>
+                                          {% endif %} 
+                                        </div> 
+                                        </td> 
+                                     {% endif %}
                                 </tr>
                                 {% endfor%} 
                             </tbody>

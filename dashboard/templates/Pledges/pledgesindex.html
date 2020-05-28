@@ -32,14 +32,16 @@
             <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
                     <ul class="nav nav-tabs bordered">
+                      <td>
+                        {% if request.user.Role == 'Secretary' or .user.Role == 'Admin' or .user.Role == 'SuperAdmin' or .user.Role == 'Assistant_Admin' %}
                         <li role="presentation"><a href="{% url 'add-pledge-item' %}"><i
                               class="fa fa-plus-square-o"></i> Add Pledge Item</a>
                         </li>
+                        <li role="presentation"><a href="{% url 'Enter_Pledges' %}"><i class="fa fa-plus-square-o"></i> Record Pledge</a>
+                        </li>
+                        {% endif %}
                         <li role="presentation"><a href="{% url 'list-of-pledge-items' %}"><i
                                       class="fa fa-plus-square-o"></i> Pledge Item List</a>
-                        </li>
-                        <li role="presentation"><a href="{% url 'Enter_Pledges' %}"><i
-                              class="fa fa-plus-square-o"></i> Record Pledge</a>
                         </li>
                          <li role="presentation" class="active"><a href="{% url 'Pledgesreport' %}"><i
                                     class="fa fa-list-ol"></i> List of Pledges</a>
@@ -47,6 +49,7 @@
                         <li role="presentation"><a href="{% url 'pledgesarchivessearch' %}"><i
                               class="fa fa-plus-square-o"></i> Pledges Archived</a>
                         </li>
+                        
                     </ul>
                     <br/> 
                    <h2 style="text-align: center">The Pledges Made Report as at {{today}}</h2>
@@ -81,6 +84,7 @@
                                   <td>{{ item.total_pledge_paid}}</td>
                                   <td>{{ item.Pledge_Balance}}</td>
                                   <td>{{ item.updatestatus}}</td>
+                                  {% if request.user.Role == 'Secretary' or .user.Role == 'Admin' or .user.Role == 'SuperAdmin' or .user.Role == 'Assistant_Admin' %}
                                   {% if item.total_pledge_paid >= item.Amount_Pledged  %}
                                   <td><a href="{% url 'pledgesreceipt' item.id %}" ><button class="btn btn-warning"><span class="glyphicon glyphicon-print"></span></button></a>
                                    <a href="{% url 'edit_pledges' item.id  %}" ><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button></a> 
@@ -93,6 +97,7 @@
 
                                   {% endif%}
                                   {% endif%}
+                                  {% endif%}
                                   {% endfor %}
                                 </tr>
                               </tbody>
@@ -103,11 +108,12 @@
                     </div>
                   </div>
                   <p><a href="{% url 'pledgespdf' %}" target="_new" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-print"> PRINT REPORT</span></a></p>
+                  {% if request.user.Role == 'Secretary' or .user.Role == 'Admin' or .user.Role == 'SuperAdmin' or .user.Role == 'Assistant_Admin' %}
                   <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
                   
                           
                   <button type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">ARCHIVE</span></button>
-                      
+                  {% endif%}
                  <!-- Button trigger modal -->
 
          <!-- Modal -->
