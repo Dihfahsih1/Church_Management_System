@@ -24,7 +24,6 @@ from dal import autocomplete
 
 class Autocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
-        return Members.objects.none()
         qs = Members.objects.all()
         if self.q:
             qs = qs.filter(First_Name__istartswith=self.q)
