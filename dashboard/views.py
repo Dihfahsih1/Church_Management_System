@@ -19,6 +19,18 @@ from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.contrib.auth import update_session_auth_hash
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 import calendar
+from dal import autocomplete
+
+
+class Autocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        if not self.request.user.is_authenticated():
+            return Members.objects.none()
+            qs = Members.objects.all()
+        if self.q:
+            qs = qs.filter(name__istartswith=self.q)
+            return qs
+
 def web(request):
     news = News.published.all().order_by('-id')
     events = Event.published.all().order_by('-id')
