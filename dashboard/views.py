@@ -24,11 +24,10 @@ from dal import autocomplete
 
 class Autocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
-        if not self.request.user.is_authenticated():
-            return Members.objects.none()
-            qs = Members.objects.all()
+        return Members.objects.none()
+        qs = Members.objects.all()
         if self.q:
-            qs = qs.filter(name__istartswith=self.q)
+            qs = qs.filter(First_Name__istartswith=self.q)
             return qs
 
 def web(request):

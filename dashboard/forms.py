@@ -57,7 +57,9 @@ class RevenuesForm(forms.ModelForm):
             'Date': DatePickerInput(),
             'Other_Sources': TextInput(attrs={'placeholder': 'e.g lwaki olimulamu missions'}),
             'Other_Notes': TextInput(attrs={'placeholder': 'Something like title'}),
-            'Member_Name' : autocomplete.ModelSelect2(url='auto-complete')
+            'Member_Name' : autocomplete.ModelSelect2(url='auto-complete',
+            #attrs={'data-placeholder':'Type In The Name....', 'data-minimum-input-length':1}
+            )
         }                 
 
 class PledgesCashedOutForm(forms.ModelForm):
