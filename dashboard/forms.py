@@ -46,7 +46,9 @@ class ExpendituresForm(forms.ModelForm):
             'Date': DatePickerInput(),
             'Payment_Made_To': TextInput(attrs={'placeholder': 'Entity Receiving Money'}),
             'Other_Expenditure': TextInput(attrs={'placeholder': 'any other expense'}),
-            'Amount': TextInput(attrs={'placeholder': 'Shs.'})
+            'Amount': TextInput(attrs={'placeholder': 'Shs.'}),
+            'Member_Name': autocomplete.ModelSelect2(url='auto-complete',
+            attrs={'data-placeholder': 'Type here the name....', 'data-minimum-input-length': 1})
         }                 
 class RevenuesForm(forms.ModelForm):
     class Meta:
@@ -58,7 +60,7 @@ class RevenuesForm(forms.ModelForm):
             'Other_Sources': TextInput(attrs={'placeholder': 'e.g lwaki olimulamu missions'}),
             'Other_Notes': TextInput(attrs={'placeholder': 'Something like title'}),
             'Member_Name' : autocomplete.ModelSelect2(url='auto-complete',
-            #attrs={'data-placeholder':'Type In The Name....', 'data-minimum-input-length':1}
+            attrs={'data-placeholder':'Type here the name....', 'data-minimum-input-length':1}
             )
         }                 
 
@@ -94,6 +96,8 @@ class PledgesForm(forms.ModelForm):
         fields = ('Archived_Status','Status','Amount_Paid','Balance','Date','Pledge_Made_By','Reason','Amount_Pledged')
         widgets = {
             'Date': DatePickerInput(),
+            'Pledge_Made_By': autocomplete.ModelSelect2(url='auto-complete', attrs={
+            'data-placeholder': 'Type here the name....', 'data-minimum-input-length': 1})
         }
 
 class CashFloatForm(forms.ModelForm):

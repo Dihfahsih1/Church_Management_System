@@ -227,5 +227,6 @@ url(r'^Ministry/view/(?P<ministry_pk>\d+)/$', views.ministry_view, name='ministr
 url(r'^Ministry/ministry-detail/(?P<ministry_pk>\d+)/$', views.ministry_detail, name='ministry-detail'),
 
 
-url(r'^auto-complete/$', views.Autocomplete.as_view(), name='auto-complete'),
+    url(r'^auto-complete/$',
+        views.Autocomplete.as_view(), name='auto-complete'),
 ]

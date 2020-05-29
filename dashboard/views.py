@@ -26,7 +26,7 @@ class Autocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = Members.objects.all()
         if self.q:
-            qs = qs.filter(First_Name__istartswith=self.q)
+            qs = qs.filter(Q(First_Name__istartswith=self.q) | Q(Second_Name__istartswith=self.q))
             return qs
 
 def web(request):
