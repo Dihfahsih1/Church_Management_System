@@ -13,332 +13,320 @@
 {% endblock stylesheets %}
 {% block content %}
 {% load humanize %}
-<div class="right_col" role="main"> 
+{% if request.user.is_authenticated %}
+    <div class="right_col" role="main"> 
         <!-- top tiles -->
         {% if user.Role == 'Admin' or user.Role == 'Assistant_Admin' or user.Role == 'SuperAdmin'%}
-    <div class="row ">
-        <!--Start of Annual summary tiles -->
-        <div class="row top_tiles">
+        <div class="row ">
+            <!--Start of Annual summary tiles -->
+            <div class="row top_tiles">
+                <div class="separator"></div>
+                <h1 style="margin-left: 5%;color: red"><b>Annual Financial Summary of {{ current_year }}</b></h1>
+                <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp;<b style="font-size: 17px">Total Annual Revenue</b></p>
+                        <div class="count red">{{annual_revenues|intcomma}}</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                    <a href="{% url 'cashfloat-list' %}">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 17px">Total Annual Cash Float</b></p>
+                        <div class="count red">{{total_annual_float|intcomma}}</div>
+                    </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 17px">Total Annual Expenditure</b></p>
+                        <div class="count red">{{annual_expenditure|intcomma}}</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 17px">Annual Net Income</b></p>
+                        <div class="count red">{{annual_net|intcomma}}</div>
+                    </div>
+                </div>
+            </div>
+            <!--Start of monthly summary tiles -->
             <div class="separator"></div>
-            <h1 style="margin-left: 5%;color: red"><b>Annual Financial Summary of {{ current_year }}</b></h1>
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-                <div class="tile-stats">
-                     <p class="fa fa-dollar">&nbsp;<b style="font-size: 17px">Total Annual Revenue</b></p>
-                    <div class="count red">{{annual_revenues|intcomma}}</div>
-                </div>
+            <div class="row ">
+                <h1 style="margin-left: 5%;color: brown"><b>Summary For the Month of {{ month }} {{ current_year }}</b></h1>
+                    <!--Start of Annual summary tiles -->
+                <div class="row top_tiles">  
+                    <h2 class="blue" style="margin-left: 5%;"><b>Cash Float Information </b></h2>
+                        <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+                            <div class="tile-stats">
+                                <p class="fa fa-dollar">&nbsp;<b style="font-size: 15px">Cash Float Given</b></p>
+                                <div class="count blue">{{get_cash_float|intcomma}}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+                            <div class="tile-stats">
+                                <p class="fa fa-dollar">&nbsp; <b style="font-size: 15px">Net Cash Float</b></p>
+                                <div class="count blue">{{net_float|intcomma}}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-4 tile_stats_count">
+                            <div class="tile-stats">
+                                <p class="fa fa-dollar">&nbsp; <b style="font-size: 15px">Next Month Float</b></p><br>
+                            <b style="font-size: 26px; color: blue"> New Amount + {{net_float|intcomma}}</b>
+                            </div>
+                        </div>
+
+                </div>    
             </div>
-             <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-                <a href="{% url 'cashfloat-list' %}">
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 17px">Total Annual Cash Float</b></p>
-                    <div class="count red">{{total_annual_float|intcomma}}</div>
+            <div class="row top_tiles">
+                <h3 style="margin-left: 5%;font-weight: bold; color:green"><a href="{% url 'total_revenues'  %}">Total Monthly Revenue({{total_monthly_incomes|intcomma}}) </a> </h3>
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <a href="{% url 'Tithesreport'  %}">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Tithes</b></p>
+                        <p class="green" style="font-size: 19px" ><b>Shs.{{ tithes|intcomma }}</b></p>
+                    </div>
+                    </a>
                 </div>
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <a href="{% url 'Offeringsreport'  %}">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Offerings</b></p>
+                        <p class="green" style="font-size: 19px" ><b>Shs.{{ offerings|intcomma }}</b></p>
+                    </div>
                 </a>
-            </div>
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 17px">Total Annual Expenditure</b></p>
-                    <div class="count red">{{annual_expenditure|intcomma}}</div>
                 </div>
-            </div>
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 17px">Annual Net Income</b></p>
-                    <div class="count red">{{annual_net|intcomma}}</div>
-                </div>
-            </div>
-        </div>
-        <!--Start of monthly summary tiles -->
-<div class="separator"></div>
-<div class="row ">
-     <h1 style="margin-left: 5%;color: brown"><b>Summary For the Month of {{ month }} {{ current_year }}</b></h1>
-        <!--Start of Annual summary tiles -->
-    <div class="row top_tiles">  
-        <h2 class="blue" style="margin-left: 5%;"><b>Cash Float Information </b></h2>
-            <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
-                <div class="tile-stats">
-                     <p class="fa fa-dollar">&nbsp;<b style="font-size: 15px">Cash Float Given</b></p>
-                    <div class="count blue">{{get_cash_float|intcomma}}</div>
-                </div>
-            </div>
-             <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 15px">Net Cash Float</b></p>
-                    <div class="count blue">{{net_float|intcomma}}</div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-4 tile_stats_count">
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 15px">Next Month Float</b></p><br>
-                   <b style="font-size: 26px; color: blue"> New Amount + {{net_float|intcomma}}</b>
-                </div>
-            </div>
-
-    </div>    
-</div>
-        <div class="row top_tiles">
-            <h3 style="margin-left: 5%;font-weight: bold; color:green"><a href="{% url 'total_revenues'  %}">Total Monthly Revenue({{total_monthly_incomes|intcomma}}) </a> </h3>
-             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                <a href="{% url 'Tithesreport'  %}">
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Tithes</b></p>
-                    <p class="green" style="font-size: 19px" ><b>Shs.{{ tithes|intcomma }}</b></p>
-                </div>
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <a href="{% url 'Seeds-report'  %}">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Seeds</b></p>
+                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ seeds|intcomma }}</b></p>
+                    </div>
                 </a>
-            </div>
-             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                <a href="{% url 'Offeringsreport'  %}">
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Offerings</b></p>
-                    <p class="green" style="font-size: 19px" ><b>Shs.{{ offerings|intcomma }}</b></p>
                 </div>
-            </a>
-            </div>
-             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                <a href="{% url 'Seeds-report'  %}">
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Seeds</b></p>
-                    <p class="green" style="font-size: 19px"  ><b>Shs.{{ seeds|intcomma }}</b></p>
+                <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                    <a href="{% url 'thanks-giving-report'  %}">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Thanks Giving</b></p>
+                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ thanks|intcomma }}</b></p>
+                    </div>
+                </a>
                 </div>
-            </a>
-            </div>
-             <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
-                <a href="{% url 'thanks-giving-report'  %}">
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Thanks Giving</b></p>
-                    <p class="green" style="font-size: 19px"  ><b>Shs.{{ thanks|intcomma }}</b></p>
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <a href="{% url 'donations-report'  %}">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Other Sources</b></p>
+                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ donations|intcomma }}</b></p>
+                    </div>
+                </a>
                 </div>
-            </a>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                <a href="{% url 'donations-report'  %}">
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Other Sources</b></p>
-                    <p class="green" style="font-size: 19px"  ><b>Shs.{{ donations|intcomma }}</b></p>
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <a href="{% url 'total_revenues'  %}">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Building</b></p>
+                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ d_building|intcomma }}</b></p>
+                    </div>
+                </a>
                 </div>
-            </a>
             </div>
-             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                <a href="{% url 'total_revenues'  %}">
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Building</b></p>
-                    <p class="green" style="font-size: 19px"  ><b>Shs.{{ d_building|intcomma }}</b></p>
-                </div>
-            </a>
-            </div>
-        </div>
 
-        <div class="row top_tiles">
-            <h3 style="margin-left: 5%; font-weight: bold; color: green"><a href="{% url 'total_expenses'  %}">Total Monthly Expenditure ({{total_monthly_expenditure|intcomma}})</a></h3>
-             
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                <a href="{% url 'expenditurereport'  %}">
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Main Expenditure</b></p>
-                    <p class="green" style="font-size: 19px"  ><b>Shs.{{ expenses|intcomma }}</b></p>
-                </div>
-            </a>
-            </div>
-             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                <a href="{% url 'general-expenses-report'  %}">
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">General Expenses</b></p>
-                    <p class="green" style="font-size: 19px"  ><b>Shs.{{ general|intcomma }}</b></p>
-                </div>
-            </a>
-            </div>
-             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                <a href="{% url 'sundryreport'  %}">
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Petty Expenses</b></p>
-                    <p class="green" style="font-size: 19px"  ><b>Shs.{{ petty|intcomma }}</b></p>
-                </div>
-            </a>
-            </div>
-             <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
-                <a href="{% url 'allowancereport'  %}">
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Allowances</b></p>
-                    <p class="green" style="font-size: 19px"  ><b>Shs.{{ allowances|intcomma }}</b></p>
-                </div>
-            </a>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                <a href="{% url 'current-month-salaries'  %}">
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Salaries</b></p>
-                    <p class="green" style="font-size: 19px"  ><b>Shs.{{ salaries|intcomma}}</b></p>
-                </div>
-            </a>
-            </div>
-             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 100%">Cash Out</b></p>
-                    <p class="green" style="font-size: 14px"  ><b>Shs.{{ total_cash_out|intcomma}}</b></p>
-                </div>
-            </div>
-        </div>         
-
-
-
-<!--Start of weekly summary tiles -->
-       
- <div class="separator"></div> 
-      <h1 style="margin-left: 5%;color: pink"><b>Weekly Summary of {{ month }} {{ current_year }}</b></h1>        
-        <div class="row top_tiles">
-            <h3 style="margin-left: 5%;font-weight: bold; color:green">Weekly Revenue Summary (7 Days)</h3>
-             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-               
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Tithes</b></p>
-                    <p class="black" style="font-size: 19px" ><b>Shs.{{ d_tithes|intcomma }}</b></p>
-                </div>
-               
-            </div>
-             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-               
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Offerings</b></p>
-                    <p class="black" style="font-size: 19px" ><b>Shs.{{ d_offerings|intcomma }}</b></p>
-                </div>
-           
-            </div>
-             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-               
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Seeds</b></p>
-                    <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_seeds|intcomma }}</b></p>
-                </div>
-          
-            </div>
-             <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+            <div class="row top_tiles">
+                <h3 style="margin-left: 5%; font-weight: bold; color: green"><a href="{% url 'total_expenses'  %}">Total Monthly Expenditure ({{total_monthly_expenditure|intcomma}})</a></h3>
                 
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Thanks Giving</b></p>
-                    <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_thanks|intcomma }}</b></p>
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <a href="{% url 'expenditurereport'  %}">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Main Expenditure</b></p>
+                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ expenses|intcomma }}</b></p>
+                    </div>
+                </a>
                 </div>
-          
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-               
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Other Sources</b></p>
-                    <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_donations|intcomma }}</b></p>
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <a href="{% url 'general-expenses-report'  %}">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">General Expenses</b></p>
+                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ general|intcomma }}</b></p>
+                    </div>
+                </a>
                 </div>
-           
-            </div>
-             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Building</b></p>
-                    <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_building|intcomma }}</b></p>
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <a href="{% url 'sundryreport'  %}">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Petty Expenses</b></p>
+                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ petty|intcomma }}</b></p>
+                    </div>
+                </a>
                 </div>
-           
-            </div>
-        </div>        
-        <div class="row top_tiles">
-            <h3 style="margin-left: 5%; font-weight: bold; color: green">Weekly Expenditure Summary (7 Days)</h3>
-             
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                    <a href="{% url 'allowancereport'  %}">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Allowances</b></p>
+                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ allowances|intcomma }}</b></p>
+                    </div>
+                </a>
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <a href="{% url 'current-month-salaries'  %}">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Salaries</b></p>
+                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ salaries|intcomma}}</b></p>
+                    </div>
+                </a>
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 100%">Cash Out</b></p>
+                        <p class="green" style="font-size: 14px"  ><b>Shs.{{ total_cash_out|intcomma}}</b></p>
+                    </div>
+                </div>
+            </div>         
+
+
+
+    <!--Start of weekly summary tiles -->
+        
+            <div class="separator"></div> 
+            <h1 style="margin-left: 5%;color: pink"><b>Weekly Summary of {{ month }} {{ current_year }}</b></h1>        
+            <div class="row top_tiles">
+                <h3 style="margin-left: 5%;font-weight: bold; color:green">Weekly Revenue Summary (7 Days)</h3>
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                 
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Main Expenditure</b></p>
-                    <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_expenses|intcomma }}</b></p>
-                </div>
-          
-            </div>
-             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Tithes</b></p>
+                        <p class="black" style="font-size: 19px" ><b>Shs.{{ d_tithes|intcomma }}</b></p>
+                    </div>
                 
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">General Expenses</b></p>
-                    <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_general|intcomma }}</b></p>
                 </div>
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Offerings</b></p>
+                        <p class="black" style="font-size: 19px" ><b>Shs.{{ d_offerings|intcomma }}</b></p>
+                    </div>
             
-            </div>
-             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Petty Expenses</b></p>
-                    <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_petty|intcomma }}</b></p>
                 </div>
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Seeds</b></p>
+                        <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_seeds|intcomma }}</b></p>
+                    </div>
             
-            </div>
-             <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
-                
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Allowances</b></p>
-                    <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_allowances|intcomma }}</b></p>
                 </div>
-           
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Salaries</b></p>
-                    <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_salaries|intcomma}}</b></p>
-                </div>
+                <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                    
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Thanks Giving</b></p>
+                        <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_thanks|intcomma }}</b></p>
+                    </div>
             
-            </div>
-             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                <div class="tile-stats">
-                    <p class="fa fa-dollar">&nbsp; <b style="font-size: 100%">Cash Out</b></p>
-                    <p class="black" style="font-size: 14px"  ><b>Shs.{{ d_pledges|intcomma}}</b></p>
                 </div>
-            </div>
-        </div>    
-    </div>
-
-{% elif user.Role == 'Secretary'  %}
-<div class="row ">
-        <!--Start of Annual summary tiles -->
-    <div class="row top_tiles">
-        <div class="separator"></div>
-        <h2 class="red" style="margin-left: 5%;"><b>Cash Float Information for <i><u>{{ month }}</u></i></b></h2>
-        <div class="separator"></div>
-        <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
-            <div class="tile-stats">
-                 <p style="font-size: 20px" class="fa fa-dollar">&nbsp;<b>Cash Float Given</b></p>
-                <div class="count red">{{get_cash_float|intcomma}}</div>
-            </div>
-        </div>
-        <a href="{% url 'total_expenses'  %}"><div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
-            <div class="tile-stats">
-                <p style="font-size: 20px" class="fa fa-dollar">&nbsp; <b>Total Expenditure</b></p>
-                <div class="count red">{{total_monthly_expenditure|intcomma}}</div>
-            </div>
-        </div></a>
-       <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
-            <div class="tile-stats" id='update'>
-                <p style="font-size: 20px" class="fa fa-dollar">&nbsp; <b >Net Cash Float</b></p>
-                <div class="count red">{{net_float|intcomma}}</div>
-            </div>
-        </div>
-    </div>    
-</div>
- <div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel tile overflow_hidden">
-            <div class="x_panel">
-                <div class="x_title">
-                    <h2 class="head-title">Monthly Financial Statistics as of {{day}}</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                    </ul>
-                    <div class="clearfix"></div>
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Other Sources</b></p>
+                        <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_donations|intcomma }}</b></p>
+                    </div>
+            
                 </div>
-                <div class="x_content">
-                    <div id="contain" style=" width: 99%; vertical-align: top; height:250px;"></div>
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Building</b></p>
+                        <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_building|intcomma }}</b></p>
+                    </div>
+            
                 </div>
-            </div>
-
+            </div>        
+            <div class="row top_tiles">
+                <h3 style="margin-left: 5%; font-weight: bold; color: green">Weekly Expenditure Summary (7 Days)</h3>
+                
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Main Expenditure</b></p>
+                        <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_expenses|intcomma }}</b></p>
+                    </div>
+            
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">General Expenses</b></p>
+                        <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_general|intcomma }}</b></p>
+                    </div>
+                
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Petty Expenses</b></p>
+                        <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_petty|intcomma }}</b></p>
+                    </div>
+                
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                    
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Allowances</b></p>
+                        <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_allowances|intcomma }}</b></p>
+                    </div>
+            
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 145%">Salaries</b></p>
+                        <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_salaries|intcomma}}</b></p>
+                    </div>
+                
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <div class="tile-stats">
+                        <p class="fa fa-dollar">&nbsp; <b style="font-size: 100%">Cash Out</b></p>
+                        <p class="black" style="font-size: 14px"  ><b>Shs.{{ d_pledges|intcomma}}</b></p>
+                    </div>
+                </div>
+            </div>    
         </div>
-    </div> 
-</div>
-{%endif%}
- <div class="separator"></div> 
-
+        {%endif%}
+        {% if user.Role == 'Secretary' or user.Role == None %}
+        <ul class="nav nav-tabs bordered">
+            <li role="presentation"><a href="{% url 'profile' %}"><i class="fa fa-eye"></i> View Profile</a>
+            </li>
+            <li role="presentation"><a href="{% url 'edit-profile' %}"><i class="fa fa-pencil-square-o"></i> Update Profile</a>
+            </li>
+        </ul>
+        {%endif%}
+        {% if user.Role == 'Secretary'  %}
+                <div class="row ">
+                        <!--Start of Annual summary tiles -->
+                    <div class="row top_tiles">
+                        <div class="separator"></div>
+                        <h2 class="red" style="margin-left: 5%;"><b>Cash Float Information for <i><u>{{ month }}</u></i></b></h2>
+                        <div class="separator"></div>
+                        <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+                            <div class="tile-stats">
+                                <p style="font-size: 20px" class="fa fa-dollar">&nbsp;<b>Cash Float Given</b></p>
+                                <div class="count red">{{get_cash_float|intcomma}}</div>
+                            </div>
+                        </div>
+                        <a href="{% url 'total_expenses'  %}"><div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+                            <div class="tile-stats">
+                                <p style="font-size: 20px" class="fa fa-dollar">&nbsp; <b>Total Expenditure</b></p>
+                                <div class="count red">{{total_monthly_expenditure|intcomma}}</div>
+                            </div>
+                        </div></a>
+                    <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+                            <div class="tile-stats" id='update'>
+                                <p style="font-size: 20px" class="fa fa-dollar">&nbsp; <b >Net Cash Float</b></p>
+                                <div class="count red">{{net_float|intcomma}}</div>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+        {%endif%}
+        
         <!-- /top tiles -->
-
         <script>
             document.getElementById('update')
                 .addEventListener('click', function () {
@@ -346,52 +334,52 @@
 
                 })
         </script>
- <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        Highcharts.chart('contain', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text:'UCC Bwaise month of {{month}} Expenditure'
-            },
-            xAxis: {
-                categories: [
-                 '<strong style="color: red; font-weight:bolder">Gen Expenses</strong>', 
-                 '<strong style="color: red; font-weight:bolder">Main Expenses</strong>',
-                 '<strong style="color: red; font-weight:bolder">Petty Expenses</strong>',
-                 '<strong style="color: red; font-weight:bolder">Allowances</strong>',
-                 '<strong style="color: red; font-weight:bolder">Salaries</strong>'
-                 ]
-            },
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Highcharts.chart('contain', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text:'UCC Bwaise month of {{month}} Expenditure'
+                    },
+                    xAxis: {
+                        categories: [
+                        '<strong style="color: red; font-weight:bolder">Gen Expenses</strong>', 
+                        '<strong style="color: red; font-weight:bolder">Main Expenses</strong>',
+                        '<strong style="color: red; font-weight:bolder">Petty Expenses</strong>',
+                        '<strong style="color: red; font-weight:bolder">Allowances</strong>',
+                        '<strong style="color: red; font-weight:bolder">Salaries</strong>'
+                        ]
+                    },
 
-            yAxis: {
-                title: {
-                    text: ' Money Spent'
-                }
-            },
-            tooltip: {
-                pointFormat: '<span style="color:{series.color}">Shs.</span><b>{point.y}</b>',
-                shared: true
-            },
-            series: [ {
-                    name:'Bar Chart showing Expenses made in {{month}}',
-                    data: [{{general}},{{expenses}},{{petty}},{{allowances}},{{salaries}}
-                    ]
-                }
-                ,
+                    yAxis: {
+                        title: {
+                            text: ' Money Spent'
+                        }
+                    },
+                    tooltip: {
+                        pointFormat: '<span style="color:{series.color}">Shs.</span><b>{point.y}</b>',
+                        shared: true
+                    },
+                    series: [ {
+                            name:'Bar Chart showing Expenses made in {{month}}',
+                            data: [{{general}},{{expenses}},{{petty}},{{allowances}},{{salaries}}
+                            ]
+                        }
+                        ,
 
-            ],
+                    ],
 
-            credits: {
-                enabled: false
-            }
-        })
-        ;
-    });
-</script>
+                    credits: {
+                        enabled: false
+                    }
+                })
+                ;
+            });
+        </script>
 
-    <script>
+        <script>
             document.addEventListener('DOMContentLoaded', function () {
                 Highcharts.chart('container', {
                     chart: {
@@ -406,14 +394,14 @@
                         '<strong>Tithes</strong>',
                         '<strong>Seeds</strong>', 
                         '<strong>Donations</strong>',
-                         '<strong>Thanks Giving</strong>',
-                         '<strong>Building Collections</strong>',
-                         '<strong style="color: red; font-weight:bolder">Gen Expenses</strong>', 
-                         '<strong style="color: red; font-weight:bolder">Main Expenses</strong>',
-                         '<strong style="color: red; font-weight:bolder">Petty Expenses</strong>',
-                         '<strong style="color: red; font-weight:bolder">Allowances</strong>',
-                         '<strong style="color: red; font-weight:bolder">Salaries</strong>'
-                         ]
+                        '<strong>Thanks Giving</strong>',
+                        '<strong>Building Collections</strong>',
+                        '<strong style="color: red; font-weight:bolder">Gen Expenses</strong>', 
+                        '<strong style="color: red; font-weight:bolder">Main Expenses</strong>',
+                        '<strong style="color: red; font-weight:bolder">Petty Expenses</strong>',
+                        '<strong style="color: red; font-weight:bolder">Allowances</strong>',
+                        '<strong style="color: red; font-weight:bolder">Salaries</strong>'
+                        ]
                     },
 
                     yAxis: {
@@ -493,12 +481,12 @@
                             drilldown: null
                         },
 
-                         {
+                        {
                             name: 'Building Collections',
                             y: {{building}},
                             drilldown: null
                         },
-                          {
+                        {
                             name: 'Seeds',
                             y:{{seeds}},
                             drilldown: null
@@ -561,35 +549,25 @@
             });
 
         </script>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel tile overflow_hidden">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2 class="head-title">Church Monthly Financial Statistics as of {{day}}</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div id="container" style=" width: 99%; vertical-align: top; height:250px;"></div>
+                        </div>
+                    </div>
 
-
-  {% if request.user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
-
-<div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel tile overflow_hidden">
-            <div class="x_panel">
-                <div class="x_title">
-                    <h2 class="head-title">Church Monthly Financial Statistics as of {{day}}</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                    </ul>
-                    <div class="clearfix"></div>
                 </div>
-                <div class="x_content">
-                    <div id="container" style=" width: 99%; vertical-align: top; height:250px;"></div>
-                </div>
-            </div>
-
+            </div> 
         </div>
-    </div> 
-</div>
-{% endif%}
-
-    {% if user.Role == 'Ordinary' or user.Role == 'Website Admin' %}
-    <h1> Welcome to UCC Bwaise Church System</h1> 
-    {% endif%}
-{% if user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'  %}
         <div class="row">
             <div class="col-md-8 col-sm-8 col-xs-12">
 
@@ -617,7 +595,7 @@
                     </div>
                     <!-- calendar modal -->
                     <div id="CalenderModalNew" class="modal fade" tabindex="-1" role="dialog"
-                         aria-labelledby="myModalLabel" aria-hidden="true">
+                        aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
 
@@ -653,7 +631,7 @@
                         </div>
                     </div>
                     <div id="CalenderModalEdit" class="modal fade" tabindex="-1" role="dialog"
-                         aria-labelledby="myModalLabel" aria-hidden="true">
+                        aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
 
@@ -676,7 +654,7 @@
                                                 <label class="col-sm-3 control-label">Description</label>
                                                 <div class="col-sm-9">
                                                     <textarea class="form-control" style="height:55px;" id="descr2"
-                                                              name="descr"></textarea>
+                                                            name="descr"></textarea>
                                                 </div>
                                             </div>
 
@@ -738,30 +716,15 @@
                 </div>
             </div>
         </div>
-        {% else %}
-          <ul class="nav nav-tabs bordered">
-            <li role="presentation"><a href="{% url 'profile' %}"><i
-                    class="fa fa-eye"></i> View Profile</a>
-            </li>
-            <li role="presentation"><a href="{% url 'edit-profile' %}"><i
-                    class="fa fa-pencil-square-o"></i> Update Profile</a>
-            </li>
-        </ul>
-        {% endif%}
     </div>
 
-
-
+{% endif %}
 {% endblock content %}
-
 {% block javascripts %}
     {{ block.super }}
-   
     <!-- FullCalendar -->
     <script src="/static/vendors/moment/min/moment.min.js"></script>
     <script src="/static/vendors/fullcalendar/dist/fullcalendar.min.js"></script>
-    
-
 {% endblock javascripts %}
 
 
