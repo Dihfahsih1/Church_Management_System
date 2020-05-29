@@ -1,3 +1,4 @@
+from dal import autocomplete
 from django import forms
 from .models import *
 from django.forms import Textarea, TextInput, ChoiceField
@@ -55,7 +56,8 @@ class RevenuesForm(forms.ModelForm):
         widgets = {
             'Date': DatePickerInput(),
             'Other_Sources': TextInput(attrs={'placeholder': 'e.g lwaki olimulamu missions'}),
-            'Other_Notes': TextInput(attrs={'placeholder': 'Something like title'})
+            'Other_Notes': TextInput(attrs={'placeholder': 'Something like title'}),
+            'Member_Name' : autocomplete.ModelSelect2(url='auto-complete')
         }                 
 
 class PledgesCashedOutForm(forms.ModelForm):
