@@ -187,9 +187,11 @@ class NewsForm(forms.ModelForm):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ('start_date','project_title', 'image', 'project_description', 'Is_View_on_Web')
+        fields = ('start_date','project_title', 'image', 'project_description','project_leader', 'Is_View_on_Web')
         widgets = {
             'start_date': DatePickerInput(),
+            'project_leader': autocomplete.ModelSelect2(url='auto-complete', attrs={
+                'data-placeholder': 'Type here the name....', 'data-minimum-input-length': 1})
         }
 
 class EventForm(forms.ModelForm):

@@ -1898,7 +1898,7 @@ def image_delete(request, image_pk):
                                              )
     return JsonResponse(data)
 
-###################===>BEGINNING OF NEWS MODULE<===########################
+###################=============>BEGINNING OF NEWS MODULE<================########################
 class NewsListView(ListView):
     model = News
     template_name = 'news/news_list.html'
@@ -2016,7 +2016,87 @@ def news_delete(request, news_pk):
                                              context, request=request,)
     return JsonResponse(data)
 
-####################===>BEGINNING OF EVENT MODULE<===#####################
+###################=============>BEGINNING OF CHURCH PROJECT MODULE<================########################
+class ProjectsListView(ListView):
+    model = Project
+    template_name = 'Church-Projects/projects_list.html'
+    context_object_name = 'projects'
+
+def projects_wall(request):
+    projects = Project.published.all()
+    context = {'projects': projects}
+    return render(request, 'Church-Projects/projects_wall.html', context )
+
+class ProjectsCreateView(CreateView):
+    model = Project
+    template_name = 'Church-Projects/projects_create.html'
+    fields = ('project_title','project_leader','start_date','image', 'project_details', 'Is_View_on_Web')
+
+    def form_valid(self, form):
+        news = form.save(commit=False)
+        news.save()
+        return redirect('project_list')
+
+class ProjectUpdateView(UpdateView):
+    model = Project
+    template_name = 'Church-Projects/update_project.html'
+    pk_url_kwarg = 'project_pk'
+    fields = ('project_title','project_leader','start_date','image', 'project_details', 'Is_View_on_Web')
+
+
+    def form_valid(self, form):
+        news = form.save(commit=False)
+        news.save()
+        return redirect('projects_list')
+
+
+def save_projects_form(request, form, template_name):
+    data = dict()
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            data['form_is_valid'] = True
+            projects = Project.objects.all()
+            data['html_projects_list'] = render_to_string('Church-Projects/projects_list.html', {'projects': projects})
+        else:
+            data['form_is_valid'] = False
+    context = {'form': form}
+    data['html_form'] = render_to_string(template_name, context, request=request)
+    return JsonResponse(data)
+
+
+def projects_view(request, project_pk):
+    project = get_object_or_404(Project, pk=project_pk)
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, instance=project)
+    else:
+        form = ProjectForm(instance=project)
+    return save_projects_form(request, form, 'Church-Projects/includes/partial_project_view.html')
+
+
+def project_detail(request, project_pk):
+    project = get_object_or_404(Project, pk=project_pk)
+    more_projects = Project.published.order_by('-start_date')[:15]
+    context = {'project': project, 'more_projects': more_projects}
+    return render(request, 'Church-Projects/projects_detail.html', context)
+
+
+# def news_delete(request, news_pk):
+#     news = get_object_or_404(News, pk=news_pk)
+#     data = dict()
+#     if request.method == 'POST':
+#         news.delete()
+#         data['form_is_valid'] = True  # This is just to play along with the existing code
+#         news = News.objects.all()
+#         data['html_news_list'] = render_to_string('news/includes/partial_news_list.html', {
+#             'news': news})
+#     else:
+#         context = {'news': news}
+#         data['html_form'] = render_to_string('news/includes/partial_news_delete.html',
+#                                              context, request=request,)
+#     return JsonResponse(data)
+
+####################========>BEGINNING OF EVENT MODULE<============#####################
 class EventListView(ListView):
     model = Event
     template_name = 'events/event_list.html'

@@ -676,6 +676,7 @@ class Project(models.Model):
     start_date = models.DateField(null=True, blank=True)
     image = models.ImageField(upload_to='images/', null=True, blank=False)
     project_description = models.TextField()
+    project_leader = models.ForeignKey('Members', on_delete=models.CASCADE,null=True, blank=True)
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS)
     objects = models.Manager()
     published = PublishedStatusManager()

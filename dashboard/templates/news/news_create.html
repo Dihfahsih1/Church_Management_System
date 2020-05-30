@@ -3,7 +3,7 @@
 {% block title %} News {% endblock title %}
 
 {% load static i18n %}
-
+{% load widget_tweaks %}
 {% block javascript %}
     <script src="{% static 'schools/js/news.js' %}"></script>
 {% endblock %}
@@ -55,9 +55,16 @@
                                                       method="post"
                                                       enctype="multipart/form-data"
                                                       accept-charset="utf-8">{% csrf_token %}
-
-                                                    {% include 'home/form_template.html' %}
-
+                                                    
+                                                    {% for field in form %}
+                                                    <div class="form-group{% if field.errors %} has-error{% endif %}">
+                                                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                                        {% render_field field class="form-control" %}
+                                                        {% for error in field.errors %}
+                                                        <p class="help-block">{{ error }}</p>
+                                                        {% endfor %}
+                                                    </div>
+                                                    {% endfor %}
                                                     <div class="form-row">
                                                         <div class="form-group col-md-12 mb-0">
                                                             <div class="row">

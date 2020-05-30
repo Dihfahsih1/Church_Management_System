@@ -1,0 +1,90 @@
+{% extends 'home/base.html' %}
+{% load static  %}
+
+<body>
+
+    {% block content %}
+
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">Project Detail</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href="{% url 'projects_wall' %}">Projects</a></li>
+                <li><a href="javascript:void(0);">Projects Description</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="page-news-details-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                    <div class="page-news-details">
+
+                        <div class="banner">
+                            {% if project.image %}
+                            <img src="{{ project.image.url }}" alt="">
+                            {% endif %}
+                        </div>
+
+                        <ul class="meta">
+                            <li class="info"><span class="icon"><i class="fa fa-user"></i></span> Lead By / {{ project.project_leader }}
+                            </li>
+                            <li class="info"><span class="icon"><i class="fa fa-calendar"></i></span> {{ project.start_date }}
+                            </li>
+                        </ul>
+
+                        <h2 class="title">{{ project.project_title }}</h2>
+
+                        <p class="text">{{ project.project_decription|linebreaks }}</p>
+
+                        <div class="share-news">
+                            <h4 class="name">Share :</h4>
+                            <ul class="social">
+                                <li><a class="icon" href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a class="icon" href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a class="icon" href="#"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a class="icon" href="#"><i class="fa fa-google-plus"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-12">
+                    <div class="sidebar">
+                        <div class="sidebar-widget">
+                            <h2 class="sidebar-title">Gospel Series</h2>
+                            <ul class="widget-news">
+                                {% for project in more_projects %}
+                                <li>
+                                    <a href="{% url 'projects_detail' project.pk %}">
+                                        <span class="img">
+                                            {% if news.image %}
+                                            <img src="{{ project.image.url }}" alt="">
+                                            {% endif %}
+                                        </span>
+
+                                        <span class="content">
+                                            <span class="meta">
+                                                <span class="info"><span class="icon"><i class="fa fa-user"></i></span>
+                                                    Leader / {{ project.project_leader }}</span>
+                                                <span class="info"><span class="icon"><i
+                                                            class="fa fa-calendar"></i></span> {{ project.start_date }}</span>
+                                            </span>
+                                            <span class="title">{{ project.project_title }}</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                {% endfor %}
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% endblock %}
+
+</body>
