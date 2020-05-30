@@ -23,6 +23,7 @@ class OfferingsReportArchiveAdmin(admin.ModelAdmin):
 class ExpendituresAdmin(admin.ModelAdmin):
     list_display = ('net_float')                
 admin.site.register(StaffDetails)
+admin.site.register(Project)
 admin.site.register(CashFloat)
 admin.site.register(Revenues)
 admin.site.register(Pledges)

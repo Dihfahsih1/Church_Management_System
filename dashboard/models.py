@@ -670,7 +670,27 @@ class Event(models.Model):
     def get_absolute_url(self):
         return reverse('event_detail', args=[self.pk])
 
+#Church-Projects
+class Project(models.Model):
+    project_title = models.CharField(max_length=100)
+    start_date = models.DateField(null=True, blank=True)
+    image = models.ImageField(upload_to='images/', null=True, blank=False)
+    project_description = models.TextField()
+    Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS)
+    objects = models.Manager()
+    published = PublishedStatusManager()
 
+    class Meta:
+        default_permissions = ('view', 'add', 'change', 'delete')
+        verbose_name = ("Projects")
+        verbose_name_plural = ("Projects")
+        ordering = ['-start_date']
+
+    def __str__(self):
+        return self.project_title
+
+    def get_absolute_url(self):
+        return reverse('project_detail', args=[self.pk])
 class PublishedChurchManager(models.Manager):
     def get_queryset(self):
         return super(PublishedChurchManager, self).get_queryset().filter(status='Active')
