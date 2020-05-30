@@ -7,7 +7,7 @@
 
     <section class="page-breadcumb-area bg-with-black">
         <div class="container text-center">
-            <h2 class="title">Project Detail</h2>
+            <h2 class="title">Project Details</h2>
             <ul class="links">
                 <li><a href="{% url 'index_public' %}">Home</a></li>
                 <li><a href="{% url 'projects_wall' %}">Projects</a></li>
@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-lg-8 col-md-12 col-sm-12 col-12">
                     <div class="page-news-details">
-
+                        <h2 class="title">{{ project.project_title }}</h2>
                         <div class="banner">
                             {% if project.image %}
                             <img src="{{ project.image.url }}" alt="">
@@ -29,15 +29,15 @@
                         </div>
 
                         <ul class="meta">
-                            <li class="info"><span class="icon"><i class="fa fa-user"></i></span> Lead By / {{ project.project_leader }}
+                            <li class="info"><span class="icon"><i class="fa fa-user"></i></span> Project Leader -{{ project.project_leader }}
                             </li>
                             <li class="info"><span class="icon"><i class="fa fa-calendar"></i></span> {{ project.start_date }}
                             </li>
                         </ul>
 
-                        <h2 class="title">{{ project.project_title }}</h2>
+                        
 
-                        <p class="text">{{ project.project_decription|linebreaks }}</p>
+                        <p class="text">{{ project.project_description|linebreaks }}</p>
 
                         <div class="share-news">
                             <h4 class="name">Share :</h4>
@@ -53,25 +53,27 @@
                 <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-12">
                     <div class="sidebar">
                         <div class="sidebar-widget">
-                            <h2 class="sidebar-title">Gospel Series</h2>
+                            <h2 class="sidebar-title">All Projects</h2>
                             <ul class="widget-news">
                                 {% for project in more_projects %}
                                 <li>
-                                    <a href="{% url 'projects_detail' project.pk %}">
+                                    <a href="{% url 'project_detail' project.pk %}">
                                         <span class="img">
-                                            {% if news.image %}
+                                            {% if project.image %}
                                             <img src="{{ project.image.url }}" alt="">
                                             {% endif %}
                                         </span>
 
                                         <span class="content">
                                             <span class="meta">
+                                                <span class="title">{{ project.project_title }}</span>
+                                                <span class="info"><span class="icon"><i class="fa fa-calendar"></i>
+                                                </span> Commencement - {{ project.start_date }}</span>
                                                 <span class="info"><span class="icon"><i class="fa fa-user"></i></span>
-                                                    Leader / {{ project.project_leader }}</span>
-                                                <span class="info"><span class="icon"><i
-                                                            class="fa fa-calendar"></i></span> {{ project.start_date }}</span>
+                                                   Project Leader - {{ project.project_leader }}</span>
+                                                
                                             </span>
-                                            <span class="title">{{ project.project_title }}</span>
+                                            
                                         </span>
                                     </a>
                                 </li>

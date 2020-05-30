@@ -2027,26 +2027,29 @@ def projects_wall(request):
     context = {'projects': projects}
     return render(request, 'Church-Projects/projects_wall.html', context )
 
-class ProjectsCreateView(CreateView):
-    model = Project
-    template_name = 'Church-Projects/projects_create.html'
-    fields = ('project_title','project_leader','start_date','image', 'project_details', 'Is_View_on_Web')
-
-    def form_valid(self, form):
-        news = form.save(commit=False)
-        news.save()
-        return redirect('project_list')
+def ProjectsCreateView(request):
+    if request.method == "POST":
+        form = ProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            print(form.errors)
+            form.save()
+            messages.success(request, f'The Project has been Created')
+            return redirect('projects_list')   
+    else:
+        form=ProjectForm()
+        context = {'form': form}
+        return render(request, 'Church-Projects/projects_create.html',context)
 
 class ProjectUpdateView(UpdateView):
     model = Project
     template_name = 'Church-Projects/update_project.html'
     pk_url_kwarg = 'project_pk'
-    fields = ('project_title','project_leader','start_date','image', 'project_details', 'Is_View_on_Web')
+    fields = ('project_title','project_leader','start_date','image', 'project_description', 'Is_View_on_Web')
 
 
     def form_valid(self, form):
-        news = form.save(commit=False)
-        news.save()
+        project = form.save(commit=False)
+        project.save()
         return redirect('projects_list')
 
 
