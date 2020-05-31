@@ -110,7 +110,6 @@ THEMES = (
 class Theme(models.Model):
     name = models.CharField(max_length=40, blank=True, null=True)
     colour = models.CharField(max_length=40)
-    theme_image = models.ImageField(upload_to='theme/', null=True, blank=False)
     is_active = models.CharField(max_length=10, default='No', choices=OPTIONS)
     objects = models.Manager()
     class Meta:
