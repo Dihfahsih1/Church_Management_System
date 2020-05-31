@@ -29,14 +29,14 @@
                         </div>
 
                         <ul class="meta">
-                            <li class="info"><span class="icon"><i class="fa fa-user"></i></span> Project Leader -{{ project.project_leader }}
+                            <li class="info"><span class="icon"><i class="fa fa-user"></i></span> Project Leader: {{ project.project_leader }}
                             </li>
-                            <li class="info"><span class="icon"><i class="fa fa-calendar"></i></span> {{ project.start_date }}
+                            <li class="info"><span class="icon"><i class="fa fa-calendar"></i></span>Start Date: {{ project.start_date }}
                             </li>
                         </ul>
 
                         
-
+                        <h2>Project Description</h2>
                         <p class="text">{{ project.project_description|linebreaks }}</p>
 
                         <div class="share-news">
