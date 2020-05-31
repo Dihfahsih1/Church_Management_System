@@ -1,7 +1,9 @@
 body {
     background: #800000;
 }
-
+h1, h2, h3, h4, h5, h6{
+    color: #800000;
+}
 .nav_menu{
    background: linear-gradient(#800000, #e2e5e8), #0459af;
 }

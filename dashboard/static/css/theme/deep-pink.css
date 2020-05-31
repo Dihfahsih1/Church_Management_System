@@ -1,7 +1,6 @@
 body {
     background: #FF1493;
 }
-
 .nav_menu{
    background: linear-gradient(#FF1493, #e2e5e8), #0459af;
 }
@@ -26,7 +25,7 @@ body {
     background: #FF1493;
 }
 
-.nav_title {
+.nav_title, h1 {
     background: #FF1493;
 }
 
@@ -100,7 +99,7 @@ body {
     background: #FF1493;
 }
 
-.head-title , .head-title small{
+.head-title, h1 , .head-title small{
     color: #FF1493;
 }
 
