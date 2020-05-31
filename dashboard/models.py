@@ -745,6 +745,8 @@ class Contact(models.Model):
     subject = models.CharField(max_length=130, blank=True, null=True)
     message = models.TextField(max_length=130, blank=True, null=True)
     feedback = models.TextField(max_length=100000, blank=True, null=True)
+    def __str__(self):
+        return self.name
 
 class CashFloat(models.Model):
     Date = models.DateField(null=True, blank=True)

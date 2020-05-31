@@ -91,17 +91,20 @@
                                                 </td>
                                                 <td>
                                                     <button type="button" class="btn btn-warning btn-sm js-view-news"
-                                                        data-url="#">
+                                                        data-url="{% url 'projects_view' details.id %}">
                                                         <span class="glyphicon glyphicon-eye-open"></span> View
                                                     </button>
                                                     {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
-                                                    <a href="#"
-                                                        class="btn btn-info btn-sm">
-                                                        <span class="fa fa-pencil-square-o"></span> Edit</a>
-                                                    <button type="button" class="btn btn-danger btn-sm js-delete-news"
-                                                        data-url="#">
-                                                        <span class="glyphicon glyphicon-trash"></span> Delete
-                                                    </button>
+                                                    
+                                                        <a href="{% url 'project_update' details.id %}">
+                                                            <button type="button" class="btn btn-success btn-sm">
+                                                            <span class="fa fa-pencil-square-o">Update
+                                                     </span></button> </a>
+                                                    
+                                                    <!-- <button type="button" class="btn btn-success btn-sm js-view-news"
+                                                        data-url="{% url 'project_update' details.id %}">
+                                                        <span class="fa fa-pencil-square-o"></span> Update
+                                                    </button> -->
                                                     {% endif %}
                                                 </td>
                                             </tr>

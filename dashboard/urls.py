@@ -230,7 +230,7 @@ url(r'^Ministry/ministry-detail/(?P<ministry_pk>\d+)/$', views.ministry_detail, 
 url(r'^Projects/index/$', views.ProjectsListView.as_view(), name='projects_list'), 
 url(r'^Projects/$', views.projects_wall, name='projects_wall'),
 url(r'^Projects/add/$', views.ProjectsCreateView, name='projects_create'),
-url(r'^project/edit/(?P<project_pk>\d+)/$', views.ProjectUpdateView.as_view(), name='project_update'),
+url(r'^project/edit/(?P<project_pk>\d+)/$', views.ProjectUpdate, name='project_update'),
 url(r'^project/view/(?P<project_pk>\d+)/$', views.projects_view, name='projects_view'),
 url(r'^project/project-detail/(?P<project_pk>\d+)/$', views.project_detail, name='project_detail'),
 

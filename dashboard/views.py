@@ -2031,7 +2031,6 @@ def ProjectsCreateView(request):
     if request.method == "POST":
         form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
-            print(form.errors)
             form.save()
             messages.success(request, f'The Project has been Created')
             return redirect('projects_list')   
@@ -2039,19 +2038,6 @@ def ProjectsCreateView(request):
         form=ProjectForm()
         context = {'form': form}
         return render(request, 'Church-Projects/projects_create.html',context)
-
-class ProjectUpdateView(UpdateView):
-    model = Project
-    template_name = 'Church-Projects/update_project.html'
-    pk_url_kwarg = 'project_pk'
-    fields = ('project_title','project_leader','start_date','image', 'project_description', 'Is_View_on_Web')
-
-
-    def form_valid(self, form):
-        project = form.save(commit=False)
-        project.save()
-        return redirect('projects_list')
-
 
 def save_projects_form(request, form, template_name):
     data = dict()
@@ -2075,6 +2061,18 @@ def projects_view(request, project_pk):
     else:
         form = ProjectForm(instance=project)
     return save_projects_form(request, form, 'Church-Projects/includes/partial_project_view.html')
+
+def ProjectUpdate(request, project_pk):
+    item = get_object_or_404(Project, pk=project_pk)
+    if request.method == "POST":
+        form = ProjectForm(request.POST, request.FILES, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('projects_list')
+    else:
+        form = ProjectForm(instance=item)
+    return render(request, 'Church-Projects/update_project.html', {'form': form})
+
 
 
 def project_detail(request, project_pk):
