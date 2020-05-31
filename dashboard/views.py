@@ -21,6 +21,22 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 import calendar
 from dal import autocomplete
 
+# #######################################===>BEGINNING OF THEME MODULE<===############################################
+
+
+class ThemeListView(ListView):
+    model = Theme
+    template_name = 'themes/theme.html'
+    context_object_name = 'themes'
+
+def theme_activate(request, theme_pk):
+    theme = Theme.objects.get(pk=theme_pk)
+    unset_theme = Theme.objects.get(is_active='Yes')
+    unset_theme.is_active = 'No'
+    theme.is_active = 'Yes'
+    theme.save()
+    unset_theme.save()
+    return redirect('theme_list')
 
 class Autocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):

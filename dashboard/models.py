@@ -88,6 +88,36 @@ rol=(('Security','Security'),('Secretary','Secretary'),('Church-Welfare','Church
 education=(('Masters','Master'),('Degree','Degree'),('Diploma','Diploma'),('Certificate','Certificate'))
 rel =(('Born Again','Born Again'),('Others','Others'))
 member=(('Yes','Yes'),('No','No'))
+THEMES = (
+    ("jazzberry-jam", 'Jazzberry Jam'),
+    ("black", 'Black'),
+    ("umber", 'Umber'),
+    ("medium-purple", 'MediumPurple'),
+    ("lime-green", 'LimeGreen'),
+    ("rebecca-purple", 'RebeccaPurple'),
+    ("radical-red", 'Radical Red'),
+    ("dodger-blue", "DodgerBlue"),
+    ("maroon", "Maroon"),
+    ("dark-orange", "DarkOrange"),
+    ("deep-pink", "DeepPink"),
+    ("trinidad", "Trinidad"),
+    ("slate-gray", "SlateGray"),
+    ("light-sea-green", "LightSeaGreen"),
+    ("navy-blue", "Navy Blue"),
+    ("red", "Red"))
+
+
+class Theme(models.Model):
+    name = models.CharField(max_length=40, blank=True, null=True)
+    colour = models.CharField(max_length=40)
+    theme_image = models.ImageField(upload_to='theme/', null=True, blank=False)
+    is_active = models.CharField(max_length=10, default='No', choices=OPTIONS)
+    objects = models.Manager()
+    class Meta:
+        default_permissions = ('view', 'add', 'change', 'delete')
+    def __str__(self):
+        return '%s' % self.name
+
 class PublishedStatusManager(models.Manager):
     def get_queryset(self):
         return super(PublishedStatusManager, self).get_queryset().filter(Is_View_on_Web='Yes')

@@ -12,6 +12,10 @@ class PledgeItemAdmin(admin.ModelAdmin):
 class PledgesAdmin(admin.ModelAdmin):
     list_display = ('total_pledge_paid','Pledge_Balance','updatestatus')
 
+admin.site.register(Theme)
+class ThemeAdmin(admin.ModelAdmin):
+    list_display = ('name', 'colour', 'is_active')
+
 class StaffDetailsAdmin(admin.ModelAdmin):
     list_display = ('total_salary_paid','full_name','Balance','basic_salary')
 class MembersAdmin(admin.ModelAdmin):

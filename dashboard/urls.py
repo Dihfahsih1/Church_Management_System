@@ -235,4 +235,7 @@ url(r'^project/view/(?P<project_pk>\d+)/$', views.projects_view, name='projects_
 url(r'^project/project-detail/(?P<project_pk>\d+)/$', views.project_detail, name='project_detail'),
 
 url(r'^auto-complete/$', views.Autocomplete.as_view(), name='auto-complete'),
+url(r'^theme/$', views.ThemeListView.as_view(), name='theme_list'),
+url(r'^theme/activate/(?P<theme_pk>\d+)/$', views.theme_activate, name='theme_activate'),
+
 ]
