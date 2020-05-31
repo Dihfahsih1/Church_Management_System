@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" class="theme-dark">
+<html lang="en">
 <head>
-
-    {% load static  %}
+    {% load static  theme_tags %}
     {% load bootstrap4 %} {# import bootstrap4/bootstrap3 #}
     {% bootstrap_javascript jquery='full' %} {# Embed Bootstrap JS+jQuery #}
     {{ form.media }} {# Adds date-picker required JS and CSS #}
@@ -49,8 +48,7 @@
             <link href="{% static 'css/toastr.min.css' %}" rel="stylesheet">
         {% endblock stylesheets %}
         <!-- Custom Theme Style -->
-        <link href="/static/build/css/custom.css" rel="stylesheet">
-        <link href="/static/vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+        <link href="{% static 'build/css/custom.css' %}" rel="stylesheet">
         <style>
             .modal-header {
                 background-color: #73879C;
@@ -61,16 +59,46 @@
 
         </style>
 
-    {% endblock head %}
-        <style type="text/css">
-           @media 
-            only screen and (max-width: 760px),
-            (min-device-width: 768px) and (max-device-width: 1024px)
-              {
-                table, thead, tbody, th, td, tr { 
-                    font-size: 15px;
-                    display: inline-block;}          
-        </style>
+    
+      
+     <!--LOAD THEMES--> 
+        {% active_theme as active_flag %}
+        {% if active_flag == "black" %}
+        <link href="{% static 'css/theme/black.css' %}" rel="stylesheet">
+        {% elif active_flag == "dark-orange" %}
+        <link href="{% static 'css/theme/dark-orange.css' %}" rel="stylesheet">
+        {% elif active_flag == "deep-pink" %}
+        <link href="{% static 'css/theme/deep-pink.css' %}" rel="stylesheet">
+        {% elif active_flag == "dodger-blue" %}
+        <link href="{% static 'css/theme/dodger-blue.css' %}" rel="stylesheet">
+        {% elif active_flag == "jazzberry-jam" %}
+        <link href="{% static 'css/theme/jazzberry-jam.css' %}" rel="stylesheet">
+        {% elif active_flag == "light-sea-green" %}
+        <link href="{% static 'css/theme/light-sea-green.css' %}" rel="stylesheet">
+        {% elif active_flag == "maroon" %}
+        <link href="{% static 'css/theme/maroon.css' %}" rel="stylesheet">
+        {% elif active_flag == "medium-purple" %}
+        <link href="{% static 'css/theme/medium-purple.css' %}" rel="stylesheet">
+        {% elif active_flag == "navy-blue" %}
+        <link href="{% static 'css/theme/navy-blue.css' %}" rel="stylesheet">
+        {% elif active_flag == "radical-red" %}
+        <link href="{% static 'css/theme/radical-red.css' %}" rel="stylesheet">
+        {% elif active_flag == "rebecca-purple" %}
+        <link href="{% static 'css/theme/rebecca-purple.css' %}" rel="stylesheet">
+        {% elif active_flag == "red" %}
+        <link href="{% static 'css/theme/red.css' %}" rel="stylesheet">
+        {% elif active_flag == "slate-gray" %}
+        <link href="{% static 'css/theme/slate-gray.css' %}" rel="stylesheet">
+        {% elif active_flag == "trinidad" %}
+        <link href="{% static 'css/theme/trinidad.css' %}" rel="stylesheet">
+        {% elif active_flag == "umber" %}
+        <link href="{% static 'css/theme/umber.css' %}" rel="stylesheet">
+        {% elif active_flag == "lime-green" %}
+        <link href="{% static 'css/theme/lime-green.css' %}" rel="stylesheet">
+        {% else %}
+        <link href="{% static 'css/theme/slate-gray.css' %}" rel="stylesheet">
+        {% endif %}
+{% endblock head %}
 </head>
 <div style="max-width: 1220px">
 <body class="{% block body_class %}nav-md {% endblock body_class %}" >
@@ -200,27 +228,7 @@
         }
         );
     </script>
-<script>   
-     /* $('#example').DataTable({
-            drawCallback: function () {
-                var api = this.api();
-                $(api.table().footer()).html(
-                    api.column(4, { page: 'current' }).data().sum()
-                );
-            } */
-        
-</script>
 
-
-
-<!--Script for making the dataTables responsive onsmall screens --> 
-<script>
-    /* $(document).ready(function () {
-        var table = $('.invoice-table').DataTable({
-            responsive: true
-        });
-    }); */
-</script>
 
 <!--script for performing totals on the tables -->
 <script type="text/javascript">
@@ -252,31 +260,7 @@
     });
 </script>
 
-<script>
-    // function to set a given theme/color-scheme
-    function setTheme(themeName) {
-        localStorage.setItem('theme', themeName);
-        document.documentElement.className = themeName;
-    }
 
-    // function to toggle between light and dark theme
-    function toggleTheme() {
-        if (localStorage.getItem('theme') === 'theme-dark') {
-            setTheme('theme-light');
-        } else {
-            setTheme('theme-dark');
-        }
-    }
-
-    // Immediately invoked function to set the theme on initial load
-    (function () {
-        if (localStorage.getItem('theme') === 'theme-dark') {
-            setTheme('theme-dark');
-        } else {
-            setTheme('theme-light');
-        }
-    })();
-</script>
 
 <!-- Custom Theme Scripts -->
 <script src="/static/build/js/custom.js"></script>
