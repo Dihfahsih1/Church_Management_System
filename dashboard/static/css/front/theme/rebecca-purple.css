@@ -36,7 +36,7 @@
 
 @media print {
     header, footer , .page-breadcumb-area, .no-print{ display: none; }
-    .admission-form, .content-area, .container{width: 90% !important;}
+    .admission-form, .content-area, .container{width: 100% !important;}
     .admission-form{ border: 1px solid #6fb8ff; }
     @page { margin: 0; }
     .admission-form-title{
@@ -46,7 +46,6 @@
         padding-left: 10px;
     }
 }
-
 .clear {
     clear: both
 }
@@ -72,7 +71,7 @@
 }
 
 div#preloader {
-    background: #ffffff url("../../../../assets/images/front/loader.gif") no-repeat scroll center center;
+    background: #ffffff;
     height: 100%;
     left: 0;
     overflow: visible;
@@ -167,6 +166,7 @@ html {
 }
 
 body {
+    margin-left:10px;
     background: #fff;
     font-weight: normal;
     font-size: 15px;
@@ -539,7 +539,7 @@ button {}
 /*----------------------------------------*/
 
 .glbscl-link-btn {
-    background: #2A3F54 none repeat scroll 0 0;
+    background: #663399 none repeat scroll 0 0;
     border: 0 none;
     border-radius: 3px;
     color: #ffffff !important;
@@ -594,7 +594,7 @@ header {
 }
 
 .header-bottom-area {
-    background: #2A3F54 none repeat scroll 0 0;
+    background: #663399 none repeat scroll 0 0;
     bottom: 0;
     left: 0;
     position: absolute;
@@ -834,7 +834,7 @@ header {
 .top-banner-content {}
 
 .top-banner-content .intro {
-    color: #2A3F54;
+    color: #663399;
     font-size: 36px;
     font-weight: 400;
     line-height: 36px;
@@ -842,7 +842,7 @@ header {
 }
 
 .top-banner-content .title {
-    border-bottom: 1px solid #2A3F54;
+    border-bottom: 1px solid #663399;
     color: #474747;
     font-size: 42px;
     font-weight: 600;
@@ -868,7 +868,7 @@ header {
 }
 
 .top-banner-img::before {
-    background: #2A3F54 none repeat scroll 0 0;
+    background: #663399 none repeat scroll 0 0;
     content: "";
     height: 100%;
     left: 0;
@@ -938,11 +938,11 @@ header {
 }
 
 .section-title .title .inner {
-    color: #2A3F54;
+    color: #663399;
 }
 
 .single-faclities {
-    background: #2A3F54 none repeat scroll 0 0;
+    background: #663399 none repeat scroll 0 0;
     cursor: pointer;
     margin: 0 0 30px;
     padding: 27px 0 26px;
@@ -1061,7 +1061,7 @@ header {
 }
 
 .single-event .content .list .info .icon {
-    color: #2A3F54;
+    color: #663399;
     font-size: 16px;
     left: 0;
     position: absolute;
@@ -1198,7 +1198,7 @@ header {
 }
 
 .single-news .content .meta .info .icon {
-    color: #2A3F54;
+    color: #663399;
     margin-right: 3px;
 }
 
@@ -1226,7 +1226,7 @@ header {
 /* 1.8 Testimonial Area */
 
 .testimonial-area {
-    background: rgba(0, 0, 0, 0) url("../../../../assets/images/front/testimonial-bg.jpg") no-repeat fixed center center / cover;
+    background: rgba(0, 0, 0, 0);
     padding: 93px 0 91px;
 }
 
@@ -1340,7 +1340,7 @@ header {
 }
 
 .apply-now {
-    background: #2A3F54 none repeat scroll 0 0;
+    background: #663399 none repeat scroll 0 0;
     padding: 50px 20px 50px 86px;
 }
 
@@ -1353,16 +1353,19 @@ header {
 
 .apply-now .link {
     background: #ffffff none repeat scroll 0 0;
-    color: #2A3F54 !important;
+    color: #663399 !important;
     padding: 10px 14px;
 }
 
 /* 1.9 Footer */
 
-footer {}
+footer {
+    margin-left: -2px;
+    width: 1350px;
+}
 
 .footer-top-area {
-    background: #274665  none repeat scroll 0 0;
+    background: #663399  none repeat scroll 0 0;
     padding: 60px 0 18px;
 }
 
@@ -1439,7 +1442,7 @@ footer {}
 
 .footer-widget .social a:hover {
     background: #ffffff none repeat scroll 0 0;
-    color: #2A3F54;
+    color: #663399;
 }
 
 .footer-widget .address {
@@ -1479,7 +1482,7 @@ footer {}
 /*----------------------------------------*/
 
 .page-breadcumb-area {
-    background: rgba(0, 0, 0, 0) url("../../../../assets/images/front/breadcrumb-bg.jpg") no-repeat scroll center center / cover;
+    background: rgba(0, 0, 0, 0) ;
     padding: 35px 0 35px;
 }
 
@@ -1588,7 +1591,7 @@ footer {}
 }
 
 .page-news-details .meta .info .icon {
-    color: #2A3F54;
+    color: #663399;
     margin-right: 3px;
 }
 
@@ -1671,7 +1674,7 @@ footer {}
 }
 
 .sidebar-title::after {
-    background: #2A3F54 none repeat scroll 0 0;
+    background: #663399 none repeat scroll 0 0;
     bottom: 0;
     content: "";
     height: 1px;
@@ -1686,7 +1689,7 @@ footer {}
 }
 
 .widget-news li {
-    border-bottom: .5px solid #2A3F54;
+    border-bottom: .5px solid #663399;
     display: block;
     margin-bottom: 16px;
     padding-bottom: 15px;
@@ -1743,7 +1746,7 @@ footer {}
 }
 
 .widget-news a .content .meta .info .icon {
-    color: #2A3F54;
+    color: #663399;
     margin-right: 3px;
 }
 
@@ -1806,7 +1809,7 @@ footer {}
 }
 
 .page-event-details .event-meta li .icon {
-    color: #2A3F54;
+    color: #663399;
     margin-right: 8px;
 }
 
@@ -1829,7 +1832,7 @@ footer {}
 }
 
 .widget-event li {
-    border-bottom: .5px solid #2A3F54;
+    border-bottom: .5px solid #663399;
     display: block;
     margin: 0 0 20px;
     padding: 0 0 15px;
@@ -1887,7 +1890,7 @@ footer {}
 }
 
 .widget-event li a .content .event-meta .info .icon {
-    color: #2A3F54;
+    color: #663399;
     margin-right: 8px;
 }
 
@@ -1899,122 +1902,6 @@ footer {}
     padding: 100px 0 70px;
 }
 
-/* .single-teacher {
-    border: 1px solid #2489e5;
-    margin: 0 0 30px;
-}
-
-.single-teacher .img {
-    background: #f3f3f3 none repeat scroll 0 0;
-    padding: 8px 0;
-    text-align: center;
-}
-
-.single-teacher .img img {
-    border-radius: 100px;
-    height: 128px;
-}
-
-.single-teacher .info {
-    background: #ffffff none repeat scroll 0 0;
-    border-top: 1px solid #2489e5;
-    padding: 14px 0;
-    text-align: center;
-}
-
-.single-teacher .info .name {
-    font-size: 22px;
-    font-weight: 500;
-    line-height: 26px;
-    margin: 0 0 3px;
-}
-
-.single-teacher .info .desg {
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 22px;
-}
-
-.single-teacher .content {
-    background: #2489e5 none repeat scroll 0 0;
-    position: relative;
-    -webkit-transition: all 0.3s ease 0s;
-    transition: all 0.3s ease 0s;
-}
-
-.single-teacher:hover .content {
-    background: #0f3960 none repeat scroll 0 0;
-}
-
-.single-teacher .content .contact {
-    list-style: outside none none;
-    padding: 16px 8px;
-    -webkit-transition: all 0.3s ease 0s;
-    transition: all 0.3s ease 0s;
-}
-
-.single-teacher:hover .content .contact {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.single-teacher .content .contact li {
-    color: #ffffff;
-    display: block;
-    font-size: 18px;
-    letter-spacing: 0;
-    line-height: 28px;
-    padding-left: 22px;
-    position: relative;
-}
-
-.single-teacher .content .contact li .icon {
-    left: 0;
-    margin-right: 8px;
-    position: absolute;
-    top: 0;
-}
-
-.single-teacher .content .social {
-    left: 0;
-    list-style: outside none none;
-    opacity: 0;
-    padding: 0;
-    position: absolute;
-    right: 0;
-    text-align: center;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
-    -webkit-transition: all 0.3s ease 0s;
-    transition: all 0.3s ease 0s;
-    visibility: hidden;
-}
-
-.single-teacher:hover .content .social {
-    opacity: 1;
-    visibility: visible;
-}
-
-.single-teacher .content .social li {
-    display: inline-block;
-    margin-right: 6px;
-}
-
-.single-teacher .content .social li:last-child {
-    margin-right: 0;
-}
-
-.single-teacher .content .social li .link {
-    border: 1px solid #ffffff;
-    color: #ffffff;
-    display: block;
-    font-size: 26px;
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    width: 40px;
-} */
 
 .single-team {
     border: 1px solid #e9e9e9;
@@ -2027,12 +1914,12 @@ footer {}
 }
 
 .single-team:hover{
-    border-color: #2A3F54;
+    border-color: #663399;
     cursor: pointer;
 }
 
 .single-team .st-upper {
-    background: #2A3F54 none repeat scroll 0 0;
+    background: #663399 none repeat scroll 0 0;
     display: -webkit-flex;
     display: -moz-flex;
     display: -ms-flex;
@@ -2066,7 +1953,7 @@ footer {}
 }
 
 .single-team .st-content .social {
-    background: #2A3F54 none repeat scroll 0 0;
+    background: #663399 none repeat scroll 0 0;
     color: #fff;
     -webkit-flex: 1 1 50%;
     -moz-flex: 1 1 50%;
@@ -2122,7 +2009,7 @@ footer {}
 }
 
 .single-team .st-content .contact .icon {
-   color: #2A3F54;
+   color: #663399;
 }
 
 .single-team .st-content .name:hover,
@@ -2181,7 +2068,7 @@ footer {}
 
 .single-notice {
     background: #f8f7f7 none repeat scroll 0 0;
-    border: 1px solid #2A3F54;
+    border: 1px solid #663399;
     margin: 0 0 30px;
     padding: 24px 14px;
     transition: all 0.3s ease 0s;
@@ -2224,7 +2111,7 @@ footer {}
 }
 
 .single-notice  .meta .info .icon {
-    color: #2A3F54;
+    color: #663399;
     margin-right: 3px;
 }
 
@@ -2280,7 +2167,7 @@ footer {}
 }
 
 .page-notice  .meta .info .icon {
-    color: #2A3F54;
+    color: #663399;
     margin-right: 3px;
 }
 
@@ -2295,7 +2182,7 @@ footer {}
 }
 
 .widget-notice li {
-    border-bottom: .5px solid #2A3F54;
+    border-bottom: .5px solid #663399;
     display: block;
     margin: 0 0 20px;
     padding: 0 0 21px;
@@ -2334,10 +2221,10 @@ footer {}
 
 .widget-notice .date .icon {
     margin-right: 4px;
-    color: #2A3F54;
+    color: #663399;
 }
 .date .icon {
-    color: #2A3F54;
+    color: #663399;
 }
 
 /*----------------------------------------*/
@@ -2371,7 +2258,7 @@ footer {}
 }
 
 .gallery-section-title .title::after {
-    background: #2A3F54 none repeat scroll 0 0;
+    background: #663399 none repeat scroll 0 0;
     bottom: 0;
     content: "";
     height: 1px;
@@ -2482,7 +2369,7 @@ footer {}
 }
 
 .contact-page-title::after {
-    background: #2A3F54 none repeat scroll 0 0;
+    background: #663399 none repeat scroll 0 0;
     bottom: 0;
     content: "";
     height: 1px;
@@ -2502,7 +2389,7 @@ footer {}
 .contact-input-box input[type="text"],
 .contact-input-box input[type="email"],
 .contact-input-box textarea {
-    border: .5px solid #2A3F54;
+    border: .5px solid #663399;
     border-radius: 3px;
     color: #9f9f9f;
     font-size: 14px;
@@ -2524,7 +2411,7 @@ footer {}
 
 .single-contact-info {
     background: #f6f5f5 none repeat scroll 0 0;
-    border: .5px solid #2A3F54;
+    border: .5px solid #663399;
     margin-bottom: 30px;
     min-height: 120px;
     padding: 0 10px 6px;
@@ -2532,7 +2419,7 @@ footer {}
 }
 
 .single-contact-info .icon {
-    color: #2A3F54;
+    color: #663399;
     display: inline-block;
     font-size: 35px;
     line-height: 35px;

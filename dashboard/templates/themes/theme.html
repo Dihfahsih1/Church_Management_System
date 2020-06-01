@@ -29,12 +29,14 @@
                             <div class="theme-box">
 
                                 {% if theme.is_active == "Yes" %}
+                                {{ theme.name }}
                                 <button class="btn btn-success" style="background: {{ theme.colour }};
                                                                 border: 1px solid {{ theme.colour }};">
                                     <span class="glyphicon glyphicon-ok"></span> Active
                                 </button>
 
                                 {% else %}
+                                {{ theme.name }}
                                 <a href="{% url 'theme_activate' theme.pk %}">
                                     <button class="btn btn-success" style="background: {{ theme.colour }};
                                                                 border: 1px solid {{ theme.colour }};">Activate
@@ -48,6 +50,7 @@
                             <div class="theme-box">
 
                                 {% if theme.is_active == "Yes" %}
+                                {{ theme.name }}
                                 <button class="btn btn-success" style="background: {{ theme.colour }};
                                                                 border: 1px solid {{ theme.colour }};">
                                     <span class="glyphicon glyphicon-ok"></span> Active
@@ -55,6 +58,7 @@
 
                                 {% else %}
                                 <a href="{% url 'theme_activate' theme.pk %}">
+                                    {{ theme.name }}
                                     <button class="btn btn-success" style="background: {{ theme.colour }};
                                                                 border: 1px solid {{ theme.colour }};">Activate
                                     </button>

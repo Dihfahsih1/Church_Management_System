@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <script src="//platform-api.sharethis.com/js/sharethis.js#property=5c8e45b6da6ca80012e29a9c&product=sticky-share-buttons"></script>
-    {% load static %}
+    {% load static theme_tags %}
     {% load bootstrap4 %} {# import bootstrap4/bootstrap3 #}
     {% bootstrap_javascript jquery='full' %} {# Embed Bootstrap JS+jQuery #}
     {{ form.media }} {# Adds date-picker required JS and CSS #}
@@ -24,6 +24,11 @@
         <title>UCC - Bwaise</title>
         
         {% block stylesheets %}
+        
+        <!-- Custom Theme Style -->
+        <link href="{% static 'build/css/custom.css' %}" rel="stylesheet">
+        <!--LOAD THEMES-->
+        
         <!-- CSS -->
         <link rel="stylesheet" href="{% static 'css/front/classy-nav.css' %}">
         <link rel="stylesheet" href="{% static 'css/front/magnific-popup.css' %}">
@@ -35,15 +40,55 @@
         <link rel="stylesheet" href="{% static 'css/front/animate.css' %}">
         <link rel="stylesheet" href="{% static 'css/front/meanmenu.css' %}">
         <link rel="stylesheet" href="{% static 'css/front/jquery.fancybox.min.css' %}">
-        <link rel="stylesheet" href="{% static 'css/front/theme/slate-gray.css' %}">
+        {% active_theme as active_flag %}
+        {% if active_flag == "slate-gray" %}
+        <link href="{% static 'css/front/theme/slate-gray.css' %}" rel="stylesheet">
+        {% elif active_flag == "jazzberry-jam" %}
+        <link href="{% static 'css/front/theme/jazzberry-jam.css' %}" rel="stylesheet">
+        {% elif active_flag == "black" %}
+        <link href="{% static 'css/front/theme/black.css' %}" rel="stylesheet">
+        {% elif active_flag == "dark-orange" %}
+        <link href="{% static 'css/front/theme/dark-orange.css' %}" rel="stylesheet">
+        {% elif active_flag == "deep-pink" %}
+        <link href="{% static 'css/front/theme/deep-pink.css' %}" rel="stylesheet">
+        {% elif active_flag == "dodger-blue" %}
+        <link href="{% static 'css/front/theme/dodger-blue.css' %}" rel="stylesheet">
+        
+        {% elif active_flag == "light-sea-green" %}
+        <link href="{% static 'css/front/theme/light-sea-green.css' %}" rel="stylesheet">
+        {% elif active_flag == "maroon" %}
+        <link href="{% static 'css/front/theme/maroon.css' %}" rel="stylesheet">
+        {% elif active_flag == "medium-purple" %}
+        <link href="{% static 'css/front/theme/medium-purple.css' %}" rel="stylesheet">
+        {% elif active_flag == "navy-blue" %}
+        <link href="{% static 'css/front/theme/navy-blue.css' %}" rel="stylesheet">
+        {% elif active_flag == "radical-red" %}
+        <link href="{% static 'css/theme/radical-red.css' %}" rel="stylesheet">
+        {% elif active_flag == "rebecca-purple" %}
+        <link href="{% static 'css/front/theme/rebecca-purple.css' %}" rel="stylesheet">
+        {% elif active_flag == "red" %}
+        <link href="{% static 'css/front/theme/red.css' %}" rel="stylesheet">
+        
+        {% elif active_flag == "trinidad" %}
+        <link href="{% static 'css/front/theme/trinidad.css' %}" rel="stylesheet">
+        {% elif active_flag == "umber" %}
+        <link href="{% static 'css/front/theme/umber.css' %}" rel="stylesheet">
+        {% elif active_flag == "lime-green" %}
+        <link href="{% static 'css/front/theme/lime-green.css' %}" rel="stylesheet">
+        {% else %}
+        <link href="{% static 'css/front/theme/slate-gray.css' %}" rel="stylesheet">
+        {% endif %}
+        <!-- <link rel="stylesheet" href="{% static 'css/front/theme/slate-gray.css' %}">
+        <link rel="stylesheet" href="{% static 'css/front/theme/jazzberry-jam.css' %}"> -->
         <link rel="stylesheet" href="{% static 'css/front/responsive.css' %}">
         <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
         <link rel="stylesheet" href="{% static 'css/top_header.css' %}">
-        <!-- <link rel="stylesheet" href="{% static 'css/jazzberry-jam.css' %}"> -->
+        
         <script src="{% static 'js/front/jquery-ui.js' %}"></script>
         <script src="{% static 'js/jquery.validate.js' %}"></script>
         {% endblock stylesheets %}
-        
+
+      
               <style>
               .carousel-inner img {
                   width: 100%;
@@ -54,7 +99,8 @@
     {% endblock head %}
 
 </head>
-<body style="background-color: #f8f9fa">
+
+<body style="background-color: #f8f9fa;">
 
 <header>
     <div class="header-top-area">
@@ -164,29 +210,30 @@
     </div>
 
 </header>
-<div class="container-fluid">
+
 {% block content %}
+
+
 {% endblock content %}
 {% include "home/scripts.html" %}
 
 <!-- footer content -->
-
 <footer>
     <div class="footer-top-area" id="program">
-        <div class="containerfluid">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-7">
                     <div class="footer-widget">
-                        <h2 class="fw-title" style="text-align: center"><span > UCC Bwaise Weekly Services</span></h2>
-                        <p class="text" >
+                        <h2 class="fw-title" style="text-align: center"><span> UCC Bwaise Weekly Services</span></h2>
+                        <p class="text">
                             <style type="text/css">
-                                b{
-                                    font:500px;
+                                b {
+                                    font: 500px;
                                 }
                             </style>
-                            <div class="row" style="margin-left: 5px">
+                        <div class="row" style="margin-left: 5px">
                             <div class="col-lg-6" style=" color: white; ">
-                               <b><u>Monday</u></b><br>
+                                <b><u>Monday</u></b><br>
                                 Prayer Alter (10:00am - 4:00pm)<br>
                                 Ministers (6:00am - 8:00pm)<br>
                                 Youth Service (7:00pm - 9:30pm)<br>
@@ -196,22 +243,22 @@
                                 Revival Service (5:00pm - 8:00pm)<br>
 
                                 <b><u>Thursday</u></b><br>
-                                    Counselling (10:00pam - 5:00pm)<br>  
+                                Counselling (10:00pam - 5:00pm)<br>
                             </div>
                             <div class="col-lg-6" style=" color: white;">
                                 <b><u>Friday</u></b><br>
-                                 Bible Study (5:00pm - 7:00pm)<br>
-                                 Night Prayer (7:00pm - 11:00pm)<br>
+                                Bible Study (5:00pm - 7:00pm)<br>
+                                Night Prayer (7:00pm - 11:00pm)<br>
                                 <b><u>Saturday</u></b><br>
                                 Choir Practices<br>
                                 <b><u>Sunday</b></u><br>
                                 First Service (6:30am - 9:00am)</br>
                                 Second Service (9:00am - 11:00am)</br>
-                                Third Service (11:00am - 2:30pm)</br> 
+                                Third Service (11:00am - 2:30pm)</br>
                                 Youths Practices (5:30pm - 7:30pm)</br>
                             </div>
-                           </div>
-                              
+                        </div>
+
 
                         </p>
                     </div>
@@ -228,36 +275,34 @@
                         </ul>
                     </div>
                 </div>
-               
+
                 <div class="col-lg-3">
                     <div class="footer-widget">
                         <h2 class="fw-title">Get in Touch</h2>
                         <ul class="address">
                             <li><span class="icon"><i class="fa fa-phone"></i></span>
                                 {% phone_number %}
-                                
+
                             </li>
                             <li><span class="icon"><i class="fa fa-envelope"></i></span>
-                               {% email_address %} 
+                                {% email_address %}
                             </li>
                             <li><span class="icon"><i class="fa fa-map-marker"></i></span>
-                               {% church_address %} 
+                                {% church_address %}
                             </li>
                             <li> <span class="icon"><i class="fa fa-pencil"> P.O.Box</i></span>
-                               {%Post_Office_Box %} 
+                                {%Post_Office_Box %}
                             </li>
                         </ul><br>
-                           <ul class="social">
-                            <li><a href="{% facebook %}" target="_blank"><i
-                                    class="fa fa-facebook"></i></a></li>
-                            <li><a href="{% youtube%}" target="_blank"><i
-                                    class="fa fa-youtube"></i></a>
+                        <ul class="social">
+                            <li><a href="{% facebook %}" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="{% youtube%}" target="_blank"><i class="fa fa-youtube"></i></a>
                             </li>
 
                         </ul>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -265,21 +310,22 @@
         <div class="container text-center">
 
             <p class="copyright">
-                {% church_footer %} &copy;1997<script>new Date().getFullYear()>2010&&document.write(" - "+new Date().getFullYear());</script> | 
-                    Website Developed by<a href="https://mugoyadihfahsih.000webhostapp.com" target="_blank"> <b style="font-size: 90%; color: yellow"> Mugoya Dihfahsih</b></a>
-                
+                {% church_footer %} &copy;1997
+                <script>new Date().getFullYear() > 2010 && document.write(" - " + new Date().getFullYear());</script> |
+                Website Developed by<a href="https://mugoyadihfahsih.000webhostapp.com" target="_blank"> <b
+                        style="font-size: 90%; color: yellow"> Mugoya Dihfahsih</b></a>
+
             </p>
         </div>
         {% if user.is_authenticated %}
-                <button class="btn btn-danger"><a class="fa fa-share " href="{% url 'logout'%}"> </a><b>Logout</b></button>
+        <button class="btn btn-danger"><a class="fa fa-share " href="{% url 'logout'%}"> </a><b>Logout</b></button>
 
-                {% else %}
-                  <button class="btn btn-success"><a class="fa fa-share " href="{% url 'login'%}"> </a><b>Login</b></button>
-                {% endif %}
+        {% else %}
+        <button class="btn btn-success"><a class="fa fa-share " href="{% url 'login'%}"> </a><b>Login</b></button>
+        {% endif %}
+    </div>
     </div>
 </footer>
-</div>
-
 <!-- Scripts -->
 <script src="{% static 'vendors/jquery-ui/jquery-ui.js' %}"></script>
 <script src="{% static 'js/owl.carousel.min.js' %}"></script>
@@ -292,7 +338,8 @@
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/theme.js' %}"></script>
 <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
-
+<!-- Custom Theme Scripts -->
+<script src="{% static 'build/js/custom.js' %}"></script>
 </body>
 </html>
 

@@ -10,13 +10,6 @@
     {% block head %}
         {% block meta %}
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            <!-- Meta, title, CSS, favicons, etc. -->
-         <!--    <link type="text/css" rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}"/>
-            <script src="{% static 'js/jquery-3.3.1.js' %}"></script>
-            <script src="{% static 'js/rango-jquery.js' %}"></script>
-            <script src="{% static 'js/bootstrap.min.js' %}"></script>
-            <link type="text/css" rel="stylesheet" href="{% static 'css/main.css'%}">
-            -->
             <link rel="shortcut icon"/>
             <meta charset="utf-8">
             <meta charset="ISO-8859-15">
@@ -49,30 +42,22 @@
         {% endblock stylesheets %}
         <!-- Custom Theme Style -->
         <link href="{% static 'build/css/custom.css' %}" rel="stylesheet">
-        <style>
-            .modal-header {
-                background-color: #73879C;
-                color: #FFF;
-                font-size: 24px;
-                font-weight: 300
-            }
-
-        </style>
-
-    
-      
+     
      <!--LOAD THEMES--> 
         {% active_theme as active_flag %}
         {% if active_flag == "black" %}
         <link href="{% static 'css/theme/black.css' %}" rel="stylesheet">
+        {% elif active_flag == "slate-gray" %}
+        <link href="{% static 'css/theme/slate-gray.css' %}" rel="stylesheet">
+        {% elif active_flag == "jazzberry-jam" %}
+        <link href="{% static 'css/theme/jazzberry-jam.css' %}" rel="stylesheet">
         {% elif active_flag == "dark-orange" %}
         <link href="{% static 'css/theme/dark-orange.css' %}" rel="stylesheet">
         {% elif active_flag == "deep-pink" %}
         <link href="{% static 'css/theme/deep-pink.css' %}" rel="stylesheet">
         {% elif active_flag == "dodger-blue" %}
         <link href="{% static 'css/theme/dodger-blue.css' %}" rel="stylesheet">
-        {% elif active_flag == "jazzberry-jam" %}
-        <link href="{% static 'css/theme/jazzberry-jam.css' %}" rel="stylesheet">
+        
         {% elif active_flag == "light-sea-green" %}
         <link href="{% static 'css/theme/light-sea-green.css' %}" rel="stylesheet">
         {% elif active_flag == "maroon" %}
@@ -87,8 +72,7 @@
         <link href="{% static 'css/theme/rebecca-purple.css' %}" rel="stylesheet">
         {% elif active_flag == "red" %}
         <link href="{% static 'css/theme/red.css' %}" rel="stylesheet">
-        {% elif active_flag == "slate-gray" %}
-        <link href="{% static 'css/theme/slate-gray.css' %}" rel="stylesheet">
+        
         {% elif active_flag == "trinidad" %}
         <link href="{% static 'css/theme/trinidad.css' %}" rel="stylesheet">
         {% elif active_flag == "umber" %}
@@ -99,6 +83,14 @@
         <link href="{% static 'css/theme/slate-gray.css' %}" rel="stylesheet">
         {% endif %}
 {% endblock head %}
+<style>
+    .modal-header {
+        background-color: #73879C;
+        color: #FFF;
+        font-size: 24px;
+        font-weight: 300
+    }
+</style>
 </head>
 <div style="max-width: 1220px">
 <body class="{% block body_class %}nav-md {% endblock body_class %}" >
