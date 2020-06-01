@@ -5,7 +5,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h1 style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b> CHURCH GROUPS MODULE</b></h1>
+                    <h1 class="head-title" style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b> CHURCH GROUPS MODULE</b></h1>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -30,7 +30,7 @@
                     <div class="separator"></div>
                 </div>
                 <p>{{ message }}</p>
-                <h1 style="text-align: center;">All Church Groups</h1>
+                <h1 class="head-title" style="text-align: center;">All Church Groups</h1>
                 <div class="separator"></div>
                 <div class="x_content">
                     <div class="" data-example-id="togglable-tabs">
@@ -48,26 +48,47 @@
                             <li role="presentation">
                                 <button data-toggle="modal"
                                  data-target="#able" style=" background-color: yellow; padding: 30px; margin-left:20px">God Is Able
+                                    {% if request.user.full_name.Group == 'God is Able' %}
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                    </li>{% endif %}
                                 </button>
                             </li>
                             <li role="presentation">
                                 <button class="btn btn-success" data-toggle="modal" data-target="#Issachar" style="padding: 30px; margin-left:20px">Issachar
+                                    {% if request.user.full_name.Group == 'Issachar' %}
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                    </li>{% endif %}
                                 </button>
                             </li>
+                            
                             <li role="presentation">
+                                
                                 <button class="btn btn-primary" data-toggle="modal" data-target="#Winners" style="padding: 30px; margin-left:20px">Winners
+                                {% if request.user.full_name.Group == 'Winners' %}
+                                <span class="glyphicon glyphicon-ok"></span>
+                                </li>{% endif %}
                                 </button>
-                            </li>
+                                
+                            
                             <li role="presentation">
                                 <button class="btn btn-default" data-toggle="modal" data-target="#Biyinzika" style="padding: 30px; margin-left:20px">Biyinzika
+                                {% if request.user.full_name.Group == 'Biyinzika' %}
+                                <span class="glyphicon glyphicon-ok"></span>
+                                </li>{% endif %}
                                 </button>
                             </li>
                             <li role="presentation">
                                 <button class="btn btn-danger" data-toggle="modal" data-target="#Overcommers" style="padding: 30px; margin-left:20px">Overcommers
+                                {% if request.user.full_name.Group == 'Overcommers' %}
+                                <span class="glyphicon glyphicon-ok"></span>
+                                </li>{% endif %}
                                 </button>
                             </li>
                             <li role="presentation">
                                 <button  data-toggle="modal" data-target="#Victors" style=" color:white; background-color: purple; padding: 30px; margin-left:20px">Victors
+                                {% if request.user.full_name.Group == 'Victors' %}
+                                <span class="glyphicon glyphicon-ok"></span>
+                                </li>{% endif %}
                                 </button>
                             </li>
                         </ul>
