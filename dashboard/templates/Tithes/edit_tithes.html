@@ -5,26 +5,32 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h1><i class="fa fa fa-calendar-check-o"></i> TITHES MODULE</h1>
+                    <h1 style="text-align: center;" class="head-title"><i class="fa fa fa-calendar-check-o"></i> 
+                        <b>TITHES MODULE</b></h1>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
                     </ul>
                     <div class="clearfix"></div>
                 </div>
-                <div class="separator"></div>
                 <div class="x_content quick-link">
-                    <span style="color:red"><b>Quick Links:</b></span>
-                    <a href="{% url 'Enter_Offerings' %}">Offerings</a>
-                    | <a href="{% url 'Offeringsreport' %}">List of offerings</a>
-                    | <a href="{% url 'Enter_Tithes' %}">Tithes</a>
-                    | <a href="{% url 'Tithesreport' %}">List of Tithes</a>
-                    | <a href="#">Seeds</a>
-                    | <a href="#">Thanks Giving</a>
-                    | <a href="#">Donations</a>
+                    <span style="color:red"><b>Other Reports:</b></span>
+                    <a href="{% url  'expenditurereport' %}"> Main Expenses</a>
+                    |<a href="{% url 'general-expenses-report' %}"> General Expenses</a>
+                    |<a href="{% url 'Offeringsreport' %}"> Offerings</a>
+                    |<a href="{% url 'Tithesreport' %}"> Tithes</a>
+                    |<a href="{% url 'Pledgesreport' %}"> Pledges</a>
+                    |<a href="{% url 'sundryreport' %}"> Petty Expenses</a>
+                    |<a href="{% url 'allowancereport' %}"> Allowances</a>
+                    |<a href="{% url 'current-month-salaries' %}"> Salaries</a>
+                    |<a href="{% url 'donations-report' %}"> Doantions</a>
+                    |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a>
+                    |<a href="{% url 'Building-Renovation-report' %}"> Building</a>
+                    <div class="separator"></div>
                 </div>
+                
+                <h2 class="head-title" style="text-align: center">Edit A Tithe Made By {{ item }} </h2>
                 <div class="separator"></div>
-                <h2 style="text-align: center">Edit A Tithe Made By a Member</h2>
                 <div class="x_content">
                     <div class="" data-example-id="togglable-tabs">
                         <ul class="nav nav-tabs bordered">

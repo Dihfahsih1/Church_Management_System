@@ -653,6 +653,7 @@ def recording_tithes(request):
         form=RevenuesForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, f'Member Tithe has been recorded')
             return redirect('Tithesreport')
     else:
         form=RevenuesForm()
@@ -667,7 +668,7 @@ def record_member_tithe(request, pk):
         get_latest_tithe = Revenues.objects.filter(Member_Name__id=pk, Revenue_filter='tithes').latest('Date')
         if request.method=="POST":
             form=RevenuesForm(request.POST)
-            print(form.errors)
+            messages.success(request, f'Member Tithe has been recorded')
             if form.is_valid():
                 form.save()
                 return redirect('Tithesreport')
@@ -687,9 +688,8 @@ def edit_tithes(request, pk):
             form.save()
             return redirect('Tithesreport')
     else:
-        form = RevenuesForm(instance=item) 
-        print(form)       
-        context={'form':form}
+        form = RevenuesForm(instance=item)       
+        context={'form':form, 'item':item}
     return render(request, 'Tithes/edit_tithes.html', context)
 
 @login_required
