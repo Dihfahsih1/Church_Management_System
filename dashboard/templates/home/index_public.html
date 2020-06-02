@@ -218,7 +218,9 @@
         <div class="row col-lg-12">
             <div class="col-12" style="background-color: #f3f0f0">
                 <div class="section-title text-center">
-                    <h2 class="title">Church <span class="inner">Activities</span></h2>
+                    <h2 class="title"><a class="link glbscl-link-btn hvr-bs" href="{% url 'events_wall' %}">
+
+                    Church Activities</a></h2>
                 </div>
             </div>
         </div>
@@ -237,7 +239,7 @@
                         {% endif %}
                     </div>
                     <div class="content">
-                        <h2 class="title"><a href="{{ event.get_absolute_url }}">{{ event.event_title }}</a>
+                        <h2 class="title"><a href="{% url 'event_detail' event.pk %}">{{ event.event_title }}</a>
                         </h2>
                         <ul class="list">
                             <li class="info"><span class="icon"><i
@@ -255,10 +257,10 @@
                                     class="fa fa-map-marker"></i></span>{{ event.event_place }}
                             </li>
                         </ul>
-                        <div class="more text-right" style="font-size:2vw">
+                        <!-- <div class="more text-right" style="font-size:2vw">
                             <a href="{% url 'event_detail' event.pk %}"class="link hvr-bs"><b>....</b>Details
                             </a>
-                           </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -325,9 +327,11 @@
     <div class="row">
         <div class="row col-lg-12">
             <div class="col-12" style="background-color: #f3f0f0">
+                
                 <div class="section-title text-center">
-                    <h2 class="title">Church <span class="inner">Members</span></h2>
+                    <h2 class="title"> <a class="link glbscl-link-btn hvr-bs" href="{% url 'membership_wall' %}">Church Members</a></h2>
                 </div>
+                
             </div>
         </div>
         <div class="row justify-content-center" style="width:97.5%;margin-left:2px">
@@ -352,9 +356,9 @@
                 {% endfor %}
            </div>
            <br>
-                <div class="more text-right" style="margin-top:-5%">
+            <!-- <div class="more text-right" style="margin-top:-5%">
                 <a class="link glbscl-link-btn hvr-bs" href="{% url 'membership_wall' %}">More Members </a>
-            </div> 
+            </div>  -->
             
         </div>
     </div>
