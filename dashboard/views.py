@@ -364,7 +364,7 @@ def edit_member(request, pk):
             return redirect('members-list')
     else:
         form = MembersForm(instance=item)
-        context = {'form': form}
+        context = {'form': form, 'item':item}
     return render(request, 'Members/edit_member_details.html', context)
 #view member    
 def view_member(request, pk):
