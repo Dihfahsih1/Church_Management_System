@@ -34,25 +34,31 @@
                 <div class="x_content">
                     <div class="" data-example-id="togglable-tabs">
                         <ul class="nav nav-tabs bordered">
-                            <li role="presentation"><a href="{% url 'members-list' %}"><i class="glyphicon glyphicon-user"></i> List of Members</a>
+                            <li role="presentation">
+                                <a href="{% url 'members-list' %}">
+                                    <i class="glyphicon glyphicon-user"></i>List of Members</a>
                             </li>
-                            <li role="presentation"><a href="{% url 'Tithesreport' %}"><i
-                                        class="fa fa-list-ol"></i> List of Tithes</a>
+                            <li role="presentation">
+                                <a href="{% url 'Tithesreport' %}">
+                                    <i class="fa fa-list-ol"></i>List of Tithes</a>
                             </li>
-                            <li role="presentation"><a href="{% url 'Enter_Tithes' %}"><i
-                                  class="fa fa-plus-square-o"></i> Record Tithes</a>
+                            <li role="presentation">
+                                <a href="{% url 'Enter_Tithes' %}">
+                                    <i class="fa fa-plus-square-o"></i>Record Tithes</a>
                             </li>
-                            <li role="presentation"><a href="{% url 'tithesarchivessearch'  %}"><i
-                                  class="glyphicon glyphicon-king"></i> Tithes Archived</a>
+                            <li role="presentation">
+                                <a href="{% url 'tithesarchivessearch' %}">
+                                    <i class="glyphicon glyphicon-king"></i>Tithes Archived</a>
                             </li>
-                            <li role="presentation" class="active"><a href="#"><i
-                                  class="fa fa-plus-square-o"></i> Edit A Tithe</a>
+                            <li role="presentation" class="active">
+                                <a href="#">
+                                <i class="fa fa-plus-square-o"></i>Edit A Tithe</a>
                             </li>
                         </ul>
                         <br/>
-                        <div style="margin-left: 25%"class="col-lg-4 col-md-4 col-sm-4 justify-content-center">
+                        <div style="margin-left: 25%" class="col-lg-4 col-md-4 col-sm-4 justify-content-center">
                         {% load crispy_forms_tags %}
-                            <form method="POST" enctype="multipart/form-data" >
+                            <form method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 {{ form.Date|as_crispy_field}}
                                 {{ form.Member_Name|as_crispy_field}}
