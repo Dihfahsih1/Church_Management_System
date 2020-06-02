@@ -134,7 +134,9 @@
         <div class="row col-lg-12">
             <div class="col-lg-12" style="background-color: #f3f0f0">
                 <div class="section-title text-center">
-                    <h2 class="title">Church <span class="inner">Highlights</span></h2>
+                    <h2 class="title"><a class="link glbscl-link-btn hvr-bs" href="{% url 'gallery_wall' %}">
+
+                    Church  Highlights </a></h2>
                 </div>
             </div>
         </div>
@@ -154,16 +156,18 @@
                 </div> 
                 {% endfor %}
             </div> 
-            <div class="more text-right" style="margin-top: -5%; float: right">
+            <!-- <div class="more text-right" style="margin-top: -5%; float: right">
                 <a class="link glbscl-link-btn hvr-bs" href="{% url 'gallery_wall' %}">More Highlights</a>
-            </div> 
+            </div>  -->
         </div>
     </div>
     <div class="row">
         <div class="row col-lg-12">
             <div class="col-12" style="background-color: #f3f0f0" >
                 <div class="section-title text-center">
-                    <h2 class="title">Latest <span class="inner">Gospel Teachings</span></h2>
+                    <h2 class="title"> <a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">
+
+                    Latest Gospel Sermons</a></h2>
                 </div>
             </div>
         </div>
@@ -191,16 +195,16 @@
                                 </li>
                             </ul>
 
-                            <h2 class="title"><a href="{{ news.get_absolute_url }}">{{ news.news_title }}</a></h2>
+                            <h2 class="title"><a href="{% url 'news_detail' news.pk %}">{{ news.news_title }}</a></h2>
 
                             <p class="text">
-                                {{ news.news|truncatewords:20|linebreaks }}
+                               <a href="{% url 'news_detail' news.pk %}"> {{ news.news|truncatewords:20|linebreaks }}</a>
                             </p>
 
-                            <div class="more text-right" style="font-size:2vw">
+                            <!-- <div class="more text-right" style="font-size:2vw">
                                 <a class="link hvr-bs"
                                    href="{% url 'news_detail' news.pk %}"><b>....</b>continue</a>
-                            </div>
+                            </div> -->
 
                         </div>
                     </div>
@@ -218,7 +222,7 @@
         <div class="row col-lg-12">
             <div class="col-12" style="background-color: #f3f0f0">
                 <div class="section-title text-center">
-                    <h2 class="title"><a class="link glbscl-link-btn hvr-bs" href="{% url 'events_wall' %}">
+                    <h2 class="title"><a class="link glbscl-link-btn hvr-bs" href="{% url 'event_wall' %}">
 
                     Church Activities</a></h2>
                 </div>
@@ -367,7 +371,7 @@
         <div class="row col-lg-12">
             <div class="col-lg-12" style="background-color: #f3f0f0">
                 <div class="section-title text-center">
-                    <h2 class="title">Church <span class="inner">Feedback</span></h2>
+                    <h2 class="title"> <a class="link glbscl-link-btn hvr-bs" href="#">Church Feedback</a></h2>
                 </div>
             </div>
         </div>
