@@ -85,7 +85,7 @@ roles=(
    ('Website Admin', 'Website Admin'),  
 )
 rol=(('Security','Security'),('Secretary','Secretary'),('Church-Welfare','Church-Welfare'),('Admin','Admin'))
-education=(('Masters','Master'),('Degree','Degree'),('Diploma','Diploma'),('Certificate','Certificate'))
+education=(('Masters','Masters'),('Degree','Degree'),('Diploma','Diploma'),('Certificate','Certificate'))
 rel =(('Born Again','Born Again'),('Others','Others'))
 member=(('Yes','Yes'),('No','No'))
 THEMES = (
