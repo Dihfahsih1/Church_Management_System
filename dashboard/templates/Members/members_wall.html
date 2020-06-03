@@ -15,45 +15,45 @@
     <section class="page-event-area">
         <div class="container">
             <div class="row">
-            {% for member in members_list %}                
+                {% for member in members_list %}                
                     <div class="col-lg-4">
                         
-                        <div class="single-event" style="">
+                        <div class="single-event">
                             <div class="img" style="max-height: 170px">
                                  {% if member.Photo %}
                                     <img src="{{ member.Photo.url }}" data-fancybox="images" style="border-radius: 40%;" >
                                 {% endif %} 
                             </div>
                             <a href="{% url 'member-detail' member.id %}"> 
-                            <div class="content">
-                                <h2 class="head-title">{{member.Initials}} {{member.First_Name}} {{member.Second_Name}}
-                                </h2>
-                                <ul class="list">
-                                    <li class="info"><span class="icon"><i
-                                            class="fa fa-group"></i></span>Group: {{member.Group}}
-                                    </li>
-                                    <li class="info"><span class="icon"><i
-                                            class="fa fa-home"></i></span>Cell: {{ member.Home_Cell }}
-                                        
-                                    </li>
-                                    <li class="info"><span class="icon"><i
-                                            class="fa fa-map-marker"></i></span>Residence: {{ member.Residence }}
-                                        
-                                    </li>
-                                    <li class="info"><span class="icon"><i
-                                            class="fa fa-map-marker"></i></span>Ministry: {{ member.Ministry_Involved_In }}
-                                        
-                                    </li>
-                                </ul>
+                                <div class="content">
+                                    <h2 class="head-title">{{member.Initials}} {{member.First_Name}} {{member.Second_Name}}
+                                    </h2>
+                                    <ul class="list">
+                                        <li class="info"><span class="icon"><i
+                                                class="fa fa-group"></i></span>Group: {{member.Group}}
+                                        </li>
+                                        <li class="info"><span class="icon"><i
+                                                class="fa fa-home"></i></span>Cell: {{ member.Home_Cell }}
+                                            
+                                        </li>
+                                        <li class="info"><span class="icon"><i
+                                                class="fa fa-map-marker"></i></span>Residence: {{ member.Residence }}
+                                            
+                                        </li>
+                                        <li class="info"><span class="icon"><i
+                                                class="fa fa-map-marker"></i></span>Ministry: {{ member.Ministry_Involved_In }}
+                                            
+                                        </li>
+                                    </ul>
                                 </div>
                             </a>
-                            </div>
-                            
                         </div>
-                   {% endfor %}
+                            
+                    </div>
+                {% endfor %}
 
-                </div>
-                {% if members_list.has_other_pages %}
+            </div>
+            {% if members_list.has_other_pages %}
               <nav aria-label="Page navigation conatiner" style="text-align: center">
               <ul class="pagination justify-content-center">
                 {% if members_list.has_previous %}
@@ -68,10 +68,8 @@
             </div>
             
         </div>
-
         </div>
     </section>
 
 {% endblock %}
-
 </body>
