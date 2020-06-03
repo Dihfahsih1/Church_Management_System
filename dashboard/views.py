@@ -320,6 +320,8 @@ def members_list(request):
     day=datetime.now()
     context ={'membership': membership, 'day':day}
     return render(request, 'Members/members_list.html', context)
+
+
 @login_required
 def members_archived(request):
     membership = Members.objects.filter(is_active=False).order_by('-id')
@@ -336,12 +338,14 @@ def archive_member(request, pk):
         Members.objects.filter(id=pk).update(is_active=False)
         messages.success(request, f'Member has been Archived')
         return redirect('members-list')
+
 @login_required            
 def unarchive_member(request, pk):
     if request.method == "GET":
         Members.objects.filter(id=pk).update(is_active=True)
         messages.success(request, f'Member has been Un-archived')
         return redirect('members-list')
+
 #Church Pastors
 def church_pastors(request):
     pastors = Members.published.all()
@@ -365,6 +369,49 @@ def edit_member(request, pk):
         form = MembersForm(instance=item)
         context = {'form': form, 'item':item}
     return render(request, 'Members/edit_member_details.html', context)
+
+#Member wall(list of member details)    
+def membership_wall(request):
+    all_members = Members.published.all()
+    paginator = Paginator(all_members, 9)  # 9 members on each page
+    page = request.GET.get('page')
+    try:
+        members_list = paginator.page(page)
+    except PageNotAnInteger:
+            # If page is not an integer deliver the first page
+        members_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range deliver last page of results
+        members_list = paginator.page(paginator.num_pages)
+    context={'page':page, 'members_list': members_list}    
+    return render(request, 'Members/members_wall.html', context)
+    #member details
+
+#details of each member on the website
+def member_detail(request, pk):
+    member = get_object_or_404(Members, pk=pk)
+    mem_details=Members.objects.all()
+    number_of_registered_members=mem_details.count()
+    more_details = Members.published.order_by('-date')
+    paginator = Paginator(mem_details, 7)  # 9 members on each page
+    page = request.GET.get('page')
+    try:
+        members_list = paginator.page(page)
+    except PageNotAnInteger:
+            # If page is not an integer deliver the first page
+        members_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range deliver last page of results
+        members_list = paginator.page(paginator.num_pages)
+    context = {
+         'page':page,
+        'member': member,
+        'more_details': more_details,
+        'members_list': members_list,
+        'number_of_registered_members':number_of_registered_members
+    }
+    return render(request, 'Members/member_details.html', context)
+
 #view member    
 def view_member(request, pk):
     context={}
@@ -1920,31 +1967,6 @@ def image_view(request, image_pk):
     }
     return render(request, 'images/image_details.html', context)
 
-
-def member_detail(request, pk):
-    member = get_object_or_404(Members, pk=pk)
-    mem_details=Members.objects.all()
-    number_of_registered_members=mem_details.count()
-    more_details = Members.published.order_by('-date')
-    paginator = Paginator(mem_details, 7)  # 9 members on each page
-    page = request.GET.get('page')
-    try:
-        members_list = paginator.page(page)
-    except PageNotAnInteger:
-            # If page is not an integer deliver the first page
-        members_list = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range deliver last page of results
-        members_list = paginator.page(paginator.num_pages)
-    context = {
-         'page':page,
-        'member': member,
-        'more_details': more_details,
-        'members_list': members_list,
-        'number_of_registered_members':number_of_registered_members
-    }
-    return render(request, 'Members/member_details.html', context)
-
 def image_delete(request, image_pk):
     image = get_object_or_404(Image, pk=image_pk)
     data = dict()
@@ -2045,22 +2067,6 @@ def news_detail(request, news_pk):
         news_list = paginator.page(paginator.num_pages)
     context={'news':news,'page':page, 'news_list': news_list, 'more_news': more_news}
     return render(request, 'news/news_detail.html', context)
-
-def membership_wall(request):
-    all_members = Members.published.all()
-    paginator = Paginator(all_members, 8)  # 6 members on each page
-    page = request.GET.get('page')
-    try:
-        members_list = paginator.page(page)
-    except PageNotAnInteger:
-            # If page is not an integer deliver the first page
-        members_list = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range deliver last page of results
-        members_list = paginator.page(paginator.num_pages)
-    context={'page':page, 'members_list': members_list}    
-    return render(request, 'Members/members_wall.html', context)
-    #member details
 
 
 
