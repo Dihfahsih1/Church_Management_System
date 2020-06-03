@@ -16,9 +16,9 @@
         <div class="container">
             <div class="row">
             {% for member in members_list %}                
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         
-                        <div class="single-event" style="height: 415px">
+                        <div class="single-event" style="">
                             <div class="img" style="max-height: 170px">
                                  {% if member.Photo %}
                                     <img src="{{ member.Photo.url }}" data-fancybox="images" style="border-radius: 40%;" >
@@ -26,7 +26,7 @@
                             </div>
                             <a href="{% url 'member-detail' member.id %}"> 
                             <div class="content">
-                                <h2 class="title">{{member.Initials}} {{member.First_Name}} {{member.Second_Name}}
+                                <h2 class="head-title">{{member.Initials}} {{member.First_Name}} {{member.Second_Name}}
                                 </h2>
                                 <ul class="list">
                                     <li class="info"><span class="icon"><i
