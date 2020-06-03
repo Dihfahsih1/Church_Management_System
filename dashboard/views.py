@@ -1771,11 +1771,23 @@ class GalleryListView(ListView):
 
 
 def gallery_wall(request):
-    galleries = Gallery.published.all()
+    galleries = Gallery.published.all().order_by('-date')
     images = Image.objects.all()
+    paginator = Paginator(galleries, 3)  # 9 members on each page
+    page = request.GET.get('page')
+    try:
+        gallery_list = paginator.page(page)
+    except PageNotAnInteger:
+            # If page is not an integer deliver the first page
+        gallery_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range deliver last page of results
+        gallery_list = paginator.page(paginator.num_pages)
     context = {
+        'page':page,
         'galleries': galleries,
-        'images': images
+        'images': images,
+        'gallery_list': gallery_list,
     }
     return render(request, 'galleries/gallery_wall.html', context)
 
@@ -1901,7 +1913,7 @@ def image_view(request, image_pk):
         # If page is out of range deliver last page of results
         images_list = paginator.page(paginator.num_pages)
     context = {
-         'page':page,
+        'page':page,
         'image': image,
         'more_details': more_details,
         'images_list': images_list,

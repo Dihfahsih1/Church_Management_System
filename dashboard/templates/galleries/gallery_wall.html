@@ -21,7 +21,7 @@
                 <img src="{% static 'img/awesome.jpg'%}">
                 <b>Happiness engulfed the church when the admin hugged passionately his wife on women's day</b>
                  </div><br>
-                {% for gallery in galleries %}
+                {% for gallery in gallery_list %}
                     <div class="gallery-section-title">
                         <h2 class="title">{{ gallery.gallery_title }}</h2>
                         <div class="text">{{ gallery.note }}</div>
@@ -43,8 +43,18 @@
                     </div>
                 {% endfor %}
                 
-
-
+                {% if gallery_list.has_other_pages %}
+                <nav aria-label="Page navigation conatiner" style="text-align: center">
+                    <ul class="pagination justify-content-center">
+                        {% if gallery_list.has_previous %}
+                        <li><a href="?page={{ gallery_list.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+                        {% endif %}
+                        {% if gallery_list.has_next %}
+                        <li><a href="?page={{ gallery_list.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
             </div>
         </div>
     </section>
