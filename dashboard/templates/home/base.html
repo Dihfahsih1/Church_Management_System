@@ -164,6 +164,7 @@
                                     <li><a href="{% url 'index_public' %}">Home</a></li>
                                     <li><a href="#">About Us <span class="icon fa fa-chevron-down"></span></a>
                                         <ul class="drop">
+                                            <li><a href="{% url 'news_wall' %}">Sermons</a></li>
                                             <li><a href="{% url 'abouts_vision' %}">Vision</a></li>
                                             <li><a href="{% url 'abouts_mission' %}">Mission</a></li>
                                         </ul>
@@ -270,11 +271,11 @@
                             <div class="footer-widget">
                                 <h2 class="fw-title"><span>Quick Link:</span></h2>
                                 <ul class="links">
-                                    <li><a href="#">News</a></li>
-                                    <li><a href="#">Notice</a></li>
-                                    <li><a href="#">Event</a></li>
-                                    <li><a href="#">Gallery</a></li>
-                                    <li><a href="#">Members</a></li>
+                                    <li><a href="{% url 'news_wall' %}">Sermons</a></li>
+                                    <li><a href="{% url 'ministry-wall' %}">Ministries</a></li>
+                                    <li><a href="{% url 'event_wall' %}">Events</a></li>
+                                    <li><a href="{% url 'gallery_wall' %}">Gallery</a></li>
+                                    <li><a href="{% url 'membership_wall' %}">Members</a></li>
                                 </ul>
                             </div>
                         </div>

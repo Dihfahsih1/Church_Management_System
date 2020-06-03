@@ -18,7 +18,7 @@
     {% endfor %}
     </div> -->
 
-    <div class="row" style="margin-right: 1px;">
+    <div class="row">
       <div class="slider-area owl-carousel">
         <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
         style="height:430px;background-image: url({% static 'img/welcome.jpg'%}) " >
@@ -242,15 +242,15 @@
                                 </h2>
                                 <ul class="list">
                                     <li class="info"><span class="icon"><i
-                                            class="fa fa-user"></i></span>{{ event.event_for }} (Event for)
+                                            class="fa fa-user"></i></span>Leader: {{ event.event_for }}
                                     </li>
                                     <li class="info"><span class="icon"><i
-                                            class="fa fa-calendar"></i></span>{{ event.from_date }}
-                                        (Start Date)
+                                            class="fa fa-calendar"></i></span> Start Date: {{ event.from_date }}
+                                        
                                     </li>
                                     <li class="info"><span class="icon"><i
-                                            class="fa fa-calendar"></i></span>{{ event.to_date }}
-                                        (End Date)
+                                            class="fa fa-calendar"></i></span>End Date:{{ event.to_date }}
+                                        
                                     </li>
                                     <li class="info"><span class="icon"><i
                                             class="fa fa-map-marker"></i></span>{{ event.event_place }}

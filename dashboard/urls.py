@@ -69,15 +69,12 @@ url(r'^CASHFLOAT/LIST', views.cashfloat_lst, name='cashfloat-list'),
 url(r'^EDIT-CASHFLOAT/(?P<pk>\d+)', views.edit_cash_float ,name='edit-cashfloat'),
 
 #Seeds Module
-
 url(r'^Revenues/Seeds-Report', views.Seedsreport, name='Seeds-report'),
 url(r'^Revenue/Seeds/Edit/(?P<pk>\d+)', views.edit_seed,name='edit-seed'),
 url(r'^Receipts/Seed-Offering/(?P<pk>\d+)', views.seed_offering_receipt.as_view() ,name='seed-offering-receipt'),
 url(r'^Archives/Seeds/', views.seedsarchivessearch, name='seeds-archives-search'),
 
 #Tithes Module
- 
-
 url(r'^Print/Tithespdf/', views.tithespdf.as_view() ,name='tithespdf'),
 url(r'^Tithes/receipt/(?P<pk>\d+)', views.tithesreceipt.as_view() ,name='tithesreceipt'),
 url(r'^tithes/archivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.tithesarchivepdf.as_view(), name='tithesarchivepdf'),
