@@ -1,7 +1,6 @@
 {% extends 'home/base.html' %}
 
-{% load static contact_tags %}
-{% load static %}
+{% load static contact_tags  %}
 {% block content %}
 <div class="container-fluid" style="margin-right: 5px;" >
 
@@ -16,12 +15,12 @@
             
         </div>
     {% endfor %}
-    </div> -->
+    </div> url({% static 'img/welcome.jpg'%}) -->
 
     <div class="row">
       <div class="slider-area owl-carousel">
         <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
-        style="height:430px;background-image: url({% static 'img/welcome.jpg'%}) " >
+        style="height:430px;background-image: url({% static 'img/welcome.jpg' %})" >
             <div class="container">
                 <div class="row">
                     <div class="col-12">
@@ -35,7 +34,8 @@
             </div>
         </div>
 
-         <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" style="height:430px; background-image: url({% static 'img/w3.jpg'%});">
+         <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
+         style="height:430px; background-image: url({% static 'img/w3.jpg'%});">
             <!-- Post Content -->
             <div class="container">
                 <div class="row">
@@ -50,7 +50,8 @@
             </div>
         </div>
 
-         <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" style="background-image: url({% static 'img/w4.jpg'%});height:430px;">
+         <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
+         style="background-image: url({% static 'img/w4.jpg'%});height:430px;">
             <!-- Post Content -->
             <div class="container">
                 <div class="row">
@@ -65,26 +66,25 @@
             </div>
         </div>
 
-        <!-- Single Hero Slide -->
-        <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" style="background-image: url({% static 'img/welcome.jpg'%});height:430px;">
-            <!-- Post Content -->
+        <!-- Single Hero Slide 
+        <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
+        style="background-image: url({% static 'img/welcome.jpg'%});height:430px;">
+            
             <div class="container">
                 <div class="row">
                     <div class="col-12">
                         <div class="hero-slides-content">
                             <h2 data-animation="fadeInUp" data-delay="100ms">Who Are You</h2>
-                            <h3 data-animation="fadeInUp" data-delay="120ms" style="color:white;">I am saved by God’s grace, raised up with Christ and seated with Him in heavenly places (Ephesians 2:5-6; Colossians 2:12).</h3>
-
-                                           
+                            <h3 data-animation="fadeInUp" data-delay="120ms" style="color:white;">I am saved by God’s grace, raised up with Christ and seated with Him in heavenly places (Ephesians 2:5-6; Colossians 2:12).</h3>              
                             <a href="#" class="btn crose-btn" data-animation="fadeInUp" data-delay="500ms">find out More</a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
       </div>
     </div>
-<!-------------------------------------------About Church-------------------------------------------------->
+<!------------------------------------------- About Church Section -------------------------------------------------->
     <hr />
     <div class="row">
         <div class="col-lg-12">
@@ -134,7 +134,7 @@
     </div>
 
     <hr />
-    <!-------------------------------------------Church Highlights--------------------------------------------->
+    <!-------------------------------------------Church Highlights Section--------------------------------------------->
     <div class="row" style="margin-right: 1px;">
         <div class="col-lg-12" style="background-color: #f3f0f0">
             <div class="section-title text-center">
@@ -158,9 +158,6 @@
                     </div> 
                     {% endfor %}
                 </div> 
-                <!-- <div class="more text-right" style="margin-top: -5%; float: right">
-                    <a class="link glbscl-link-btn hvr-bs" href="{% url 'gallery_wall' %}">More Highlights</a>
-                </div>  -->
             </div>
         </div>
     </div>
@@ -170,13 +167,12 @@
     <div class="row" style="margin-right: 1px;">
         <div class="col-lg-12" style="background-color: #f3f0f0" >
             <div class="section-title text-center">
-                <h2 class="title"> <a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">
-
-                Latest Gospel Sermons</a></h2>
+                <h2 class="head-title"> <a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}"> Latest Gospel Sermons</a></h2>
             </div>
             <div class="container-fluid">
                 {% for news in news %} {% if forloop.counter <= 3 %}
-                    <div class="col-lg-4" style="margin-left: -1%;">
+                    <a href="{% url 'news_detail' news.pk %}">
+                        <div class="col-lg-4" style="margin-left: -1%;">
                         <div class="single-news">
                             <div class="img" style="height: 180px">
                                 {% if news.image %}
@@ -196,27 +192,19 @@
                                     </li>
                                 </ul>
 
-                                <h2 class="title"><a href="{% url 'news_detail' news.pk %}">{{ news.news_title }}</a></h2>
+                                <h2 class="title">{{ news.news_title }}</h2>
 
                                 <p class="text">
-                                <a href="{% url 'news_detail' news.pk %}"> {{ news.news|truncatewords:20|linebreaks }}</a>
+                                {{ news.news|truncatewords:20|linebreaks }}
                                 </p>
-
-                                <!-- <div class="more text-right" style="font-size:2vw">
-                                    <a class="link hvr-bs"
-                                    href="{% url 'news_detail' news.pk %}"><b>....</b>continue</a>
-                                </div> -->
 
                             </div>
                         </div>
-                    </div>
+                    </div></a>
                 {% endif %}{% endfor %}
             </div>
         </div>    
     </div>  
-           <!--   <div class="more text-right" style="margin-top: -14%">
-            <a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">More</a>
-           </div> -->
     <hr/>
     <!---------------------------------------- Church Activities ------------------------------------------>       
     <div class="row" style="margin-right: 1px;">
@@ -230,44 +218,43 @@
             <div class="container-fluid">
                 <div class="row" style="margin-left:2px">{% for event in events %}{% if forloop.counter <= 2 %}
                     <div class="col-lg-4">
-                        <div class="single-event" style="margin-left: -8%">
-                            <div class="img">
-                                {% if event.image %}
-                                    <img src="{{ event.image.url }}"
-                                        alt="">
-                                {% endif %}
+                        <a href="{% url 'event_detail' event.pk %}">
+                            <div class="single-event" style="margin-left: -8%">
+                                <div class="img">
+                                    {% if event.image %}
+                                        <img src="{{ event.image.url }}"
+                                            alt="">
+                                    {% endif %}
+                                </div>
+                                <div class="content">
+                                    <h2 class="title">{{ event.event_title }}
+                                    </h2>
+                                    <ul class="list">
+                                        <li class="info"><span class="icon"><i
+                                                class="fa fa-user"></i></span>Leader: {{ event.event_for }}
+                                        </li>
+                                        <li class="info"><span class="icon"><i
+                                                class="fa fa-calendar"></i></span> Start Date: {{ event.from_date }}
+                                            
+                                        </li>
+                                        <li class="info"><span class="icon"><i
+                                                class="fa fa-calendar"></i></span>End Date:{{ event.to_date }}
+                                            
+                                        </li>
+                                        <li class="info"><span class="icon"><i
+                                                class="fa fa-map-marker"></i></span>{{ event.event_place }}
+                                        </li>
+                                    </ul>
+                                    
+                                </div>
                             </div>
-                            <div class="content">
-                                <h2 class="title"><a href="{% url 'event_detail' event.pk %}">{{ event.event_title }}</a>
-                                </h2>
-                                <ul class="list">
-                                    <li class="info"><span class="icon"><i
-                                            class="fa fa-user"></i></span>Leader: {{ event.event_for }}
-                                    </li>
-                                    <li class="info"><span class="icon"><i
-                                            class="fa fa-calendar"></i></span> Start Date: {{ event.from_date }}
-                                        
-                                    </li>
-                                    <li class="info"><span class="icon"><i
-                                            class="fa fa-calendar"></i></span>End Date:{{ event.to_date }}
-                                        
-                                    </li>
-                                    <li class="info"><span class="icon"><i
-                                            class="fa fa-map-marker"></i></span>{{ event.event_place }}
-                                    </li>
-                                </ul>
-                                <!-- <div class="more text-right" style="font-size:2vw">
-                                    <a href="{% url 'event_detail' event.pk %}"class="link hvr-bs"><b>....</b>Details
-                                    </a>
-                                </div> -->
-                            </div>
-                        </div>
+                        </a>
                     </div>{% endif %}{% endfor %}
             
                     <div class="col-lg-4"><a href="#program">
                         <div class="single-event">
                             <div class="content">
-                                <h2 class="head-title">Church Weekly Program
+                                <h2 class="head-title"><u>Church Weekly Program</u>
                                 </h2>
                                 <ul class="list">
                                     <li class="info"><b>Monday </b>
@@ -320,7 +307,7 @@
         </div> 
     </div>
 <hr/>
-<!------------------------------------------------Church Members ----------------------------------------------->
+<!------------------------------------------------ Church Members ----------------------------------------------->
     <div class="row" style="margin-right: 1px;">
         <div class="col-lg-12" style="background-color: #f3f0f0">
             <div class="section-title text-center">
@@ -345,7 +332,6 @@
         </div>    
     </div>
     <hr />
-
     <!-----------------------------------------Church Feedback------------------------------------------------->
     <div class="row" style="margin-right: 1px;"> 
         <div class="col-lg-12" style="background-color: #f3f0f0">
@@ -445,6 +431,6 @@
 </div>
 <hr />
 {% endblock %}
-<script type="text/javascript">
+<script type="text/javascript"> 
     document.getElementById('username').readOnly = true;
 </script>
