@@ -18,7 +18,7 @@
         <div class="container">
             <div class="row justify-content-center">
 
-                {% for news in news %}
+                {% for news in news_list %}
                     <div class="col-lg-4 col-md-6 col-sm-8 col-12">
                         <div class="single-news">
                             <div class="img">
@@ -51,6 +51,18 @@
                 {% endfor %}
 
             </div>
+            {% if news_list.has_other_pages %}
+            <nav aria-label="Page navigation conatiner" style="text-align: center">
+                <ul class="pagination justify-content-center">
+                    {% if news_list.has_previous %}
+                    <li><a href="?page={{ news_list.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+                    {% endif %}
+                    {% if news_list.has_next %}
+                    <li><a href="?page={{ news_list.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
         </div>
     </section>
 
