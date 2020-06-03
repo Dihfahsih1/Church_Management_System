@@ -1,0 +1,116 @@
+{% extends 'home/base.html' %}
+
+<body>
+    {% block content %}
+
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">High lights</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href="{% url 'membership_wall' %}">All</a></li>
+                <li><a href="javascript:void(0);">Highlight Details</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="page-news-details-area">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                    <div class="page-news-details">
+                        <h2 class="title">The Details {{image.gallery_title}}</h2>
+                        <div class="banner">
+                            {% if image.gallery_image %}
+                            <img src="{{ image.gallery_image.url }}" alt="highlight photo">
+                            {% endif %}
+                        </div>
+
+                        <ul class="meta">
+                            <li class="info"><span class="icon"><i class="fa fa-user"></i></span> {{ image.image_caption }}
+                            </li>
+                        </ul>
+
+
+
+
+                        <div class="share-news">
+                            <h4 class="name">Share :</h4>
+                            <ul class="social">
+                                <li><a class="icon" href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a class="icon" href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a class="icon" href="#"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a class="icon" href="#"><i class="fa fa-google-plus"></i></a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-12">
+                    <div class="sidebar">
+                        <div class="sidebar-widget">
+                            <h2 class="sidebar-title">All Highlights</h2>
+                            <hr>
+                            <ul class="widget-news">
+                                <style type="text/css">
+                                    img {
+                                        border-radius: 30%;
+
+                                    }
+
+                                    .center {
+                                        display: block;
+                                        margin-top: 13px;
+                                        margin-left: auto;
+                                        margin-right: auto;
+                                        width: 70%;
+                                    }
+                                </style>
+                                <!-- <i>{{ forloop.counter }}</i> -->
+                                {% for details in images_list %}
+                                <li>
+
+                                    <a href="{% url 'image_view' details.pk %}">
+                                        <span class="img">
+                                        {% if details.gallery_image %}
+                                        <img src="{{ details.gallery_image.url }}" alt="highlight photo">
+                                        {% endif %}
+                                        </span>
+
+                                        <span class="content">
+                                            <span class="meta">
+                                                <span class="info"><span class="icon">
+                                                    <i class="fa fa-user"></i></span>{{ details.gallery_title }}</span>
+                                               
+                                            </span>
+                                        </span>
+                                    </a>
+                                </li>
+                                {% endfor %}
+
+                            </ul>
+                        </div>
+                        {% if images_list.has_other_pages %}
+                        <nav aria-label="Page navigation conatiner" style="text-align: center">
+                            <ul class="pagination justify-content-center">
+                                {% if images_list.has_previous %}
+                                <li><a href="?page={{ images_list.previous_page_number }}" class="page-link">&laquo;
+                                        PREV </a></li>
+                                {% endif %}
+                                {% if images_list.has_next %}
+                                <li><a href="?page={{ images_list.next_page_number }}" class="page-link"> NEXT
+                                        &raquo;</a></li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% endblock %}
+
+</body>
