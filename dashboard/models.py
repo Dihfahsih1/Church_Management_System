@@ -635,7 +635,7 @@ class Gallery(models.Model):
 class Image(models.Model):
     gallery_title = models.ForeignKey(Gallery, on_delete=models.CASCADE, blank=False, null=True)
     gallery_image = models.ImageField( upload_to='images/', null=True, blank=False)
-    image_caption = models.CharField( max_length=100)
+    image_caption = models.TextField( max_length=100000)
     date = models.DateField(auto_now_add=True)
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS, null=True, blank=False)
 
