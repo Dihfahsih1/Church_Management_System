@@ -101,279 +101,257 @@
             </div>
         </div> 
 
-  
-    <div class="row" style="width:100%">
-        <div class="col-lg-6 ">
-            {% for about in abouts %}
-            {% if about.id == 3 %}
-            <span class="info" >
-                <p style="font-size:20px">{{ about.about|truncatewords:100 }}</p>
-                <a href="{% url 'about_detail' about.pk %}"><b>... More</b></a>
-            </span>
-            {% endif %}
-            {% endfor %}
-        </div>
-
-        <div class="col-lg-6 text-center">
-            <section class="slider-area owl-carousel ">
-                {% for slider in sliders %}
-                    <div class="single-slider">
-                        <div class="img">
-                            {% if slider.slider_image %}
-                                <img src="{{ slider.slider_image.url }}" alt="">
-                            {% endif %}
-                        </div>
-                        <h2 class="title animated"> {{slider.image_title}} </h2>
-                    </div>
+<hr />
+<!-------------------------------------------About Church-------------------------------------------------->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-lg-6 ">
+                {% for about in abouts %}
+                {% if about.id == 3 %}
+                <span class="info" >
+                    <p style="font-size:20px">{{ about.about|truncatewords:100 }}</p>
+                    <a href="{% url 'about_detail' about.pk %}"><b>... More</b></a>
+                </span>
+                {% endif %}
                 {% endfor %}
-            </section>
+            </div>
+
+            <div class="col-lg-6 text-center">
+                <section class="slider-area owl-carousel ">
+                    {% for slider in sliders %}
+                        <div class="single-slider">
+                            <div class="img">
+                                {% if slider.slider_image %}
+                                    <img src="{{ slider.slider_image.url }}" alt="">
+                                {% endif %}
+                            </div>
+                            <h2 class="title animated"> {{slider.image_title}} </h2>
+                        </div>
+                    {% endfor %}
+                </section>
+            </div>
         </div>
     </div>
+
+    <hr />
+    <!-------------------------------------------Church Highlights--------------------------------------------->
     <div class="row">
-        <div class="row col-lg-12">
-            <div class="col-lg-12" style="background-color: #f3f0f0">
-                <div class="section-title text-center">
+        <div class="col-lg-12" style="background-color: #f3f0f0">
+            <div class="section-title text-center">
                     <h2 class="title"><a class="link glbscl-link-btn hvr-bs" href="{% url 'gallery_wall' %}">
 
                     Church  Highlights </a></h2>
-                </div>
             </div>
-        </div>
-        <div class="row justify-content-center"style="width:97.5%; margin-left:2px">
-            <div class="gallery-carousel owl-carousel">    
-                {% for image in images %}                 
-                <div class="single-gallery" style="height: 260px;">
-                    <a href="{% url 'image_view' image.pk %}">
-                        {% if image.gallery_image %}
-                            <img src="{{ image.gallery_image.url }}" data-fancybox="images" alt=""  height="50px">
-                        {% endif %} 
-                        <span class="content">
-                            <h3 class="title">{{image.gallery_title}}</h3>
-                            <div class="text">{{image.image_caption}}</div>
-                        </span>
-                    </a>
+            <div class="row justify-content-center"style="width:97.5%; margin-left:2px">
+                <div class="gallery-carousel owl-carousel">    
+                    {% for image in images %}                 
+                    <div class="single-gallery" style="height: 260px;">
+                        <a href="{% url 'image_view' image.pk %}">
+                            {% if image.gallery_image %}
+                                <img src="{{ image.gallery_image.url }}" data-fancybox="images" alt=""  height="50px">
+                            {% endif %} 
+                            <span class="content">
+                                <h3 class="title">{{image.gallery_title}}</h3>
+                                <div class="text">{{image.image_caption}}</div>
+                            </span>
+                        </a>
+                    </div> 
+                    {% endfor %}
                 </div> 
-                {% endfor %}
-            </div> 
-            <!-- <div class="more text-right" style="margin-top: -5%; float: right">
-                <a class="link glbscl-link-btn hvr-bs" href="{% url 'gallery_wall' %}">More Highlights</a>
-            </div>  -->
+                <!-- <div class="more text-right" style="margin-top: -5%; float: right">
+                    <a class="link glbscl-link-btn hvr-bs" href="{% url 'gallery_wall' %}">More Highlights</a>
+                </div>  -->
+            </div>
         </div>
     </div>
+    <hr />
+
+    <!---------------------------------------GOSPEL SERMONS-------------------------------------->
     <div class="row">
-        <div class="row col-lg-12">
-            <div class="col-12" style="background-color: #f3f0f0" >
-                <div class="section-title text-center">
-                    <h2 class="title"> <a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">
+        <div class="col-lg-12" style="background-color: #f3f0f0" >
+            <div class="section-title text-center">
+                <h2 class="title"> <a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">
 
-                    Latest Gospel Sermons</a></h2>
-                </div>
+                Latest Gospel Sermons</a></h2>
             </div>
-        </div>
-        <div class="container-fluid">
-        <div class="row justify-content-center" style="width:100%; margin-left: -3%">
-            {% for news in news %}
-              {% if forloop.counter <= 3 %}
-                <div class="col-lg-4" style="margin-left: -1%; ">
-                    <div class="single-news" style="height: 458px;">
-                        <div class="img" style="height: 180px">
-                            {% if news.image %}
-                                <img src="{{ news.image.url }}"
-                                     alt="">
-                            {% endif %}
-                        </div>
+            <div class="container-fluid">
+                {% for news in news %} {% if forloop.counter <= 3 %}
+                    <div class="col-lg-4" style="margin-left: -1%;">
+                        <div class="single-news">
+                            <div class="img" style="height: 180px">
+                                {% if news.image %}
+                                    <img src="{{ news.image.url }}"
+                                        alt="">
+                                {% endif %}
+                            </div>
 
-                        <div class="content">
-                            <ul class="meta">
-                                <li class="info"><span class="icon"><i class="fa fa-user"></i></span>By :
-                                {{ news.author.full_name.Initials }} {{ news.author.full_name }} - {{ news.author}}
-                                </li>
+                            <div class="content">
+                                <ul class="meta">
+                                    <li class="info"><span class="icon"><i class="fa fa-user"></i></span>By :
+                                    {{ news.author.full_name.Initials }} {{ news.author.full_name }} - {{ news.author}}
+                                    </li>
 
-                                <li class="info"><span class="icon"><i class="far fa-calendar-alt"></i></span>
-                                    {{ news.date }}
-                                </li>
-                            </ul>
+                                    <li class="info"><span class="icon"><i class="far fa-calendar-alt"></i></span>
+                                        {{ news.date }}
+                                    </li>
+                                </ul>
 
-                            <h2 class="title"><a href="{% url 'news_detail' news.pk %}">{{ news.news_title }}</a></h2>
+                                <h2 class="title"><a href="{% url 'news_detail' news.pk %}">{{ news.news_title }}</a></h2>
 
-                            <p class="text">
-                               <a href="{% url 'news_detail' news.pk %}"> {{ news.news|truncatewords:20|linebreaks }}</a>
-                            </p>
+                                <p class="text">
+                                <a href="{% url 'news_detail' news.pk %}"> {{ news.news|truncatewords:20|linebreaks }}</a>
+                                </p>
 
-                            <!-- <div class="more text-right" style="font-size:2vw">
-                                <a class="link hvr-bs"
-                                   href="{% url 'news_detail' news.pk %}"><b>....</b>continue</a>
-                            </div> -->
+                                <!-- <div class="more text-right" style="font-size:2vw">
+                                    <a class="link hvr-bs"
+                                    href="{% url 'news_detail' news.pk %}"><b>....</b>continue</a>
+                                </div> -->
 
+                            </div>
                         </div>
                     </div>
-                </div>
-                {% endif %}
-            {% endfor %}
-
-        </div>
-     </div> 
-     </div>  
+                {% endif %}{% endfor %}
+            </div>
+        </div>    
+    </div>  
            <!--   <div class="more text-right" style="margin-top: -14%">
             <a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">More</a>
            </div> -->
+    <hr/>
+    <!---------------------------------------- Church Activities ------------------------------------------>       
     <div class="row">
-        <div class="row col-lg-12">
-            <div class="col-12" style="background-color: #f3f0f0">
-                <div class="section-title text-center">
-                    <h2 class="title"><a class="link glbscl-link-btn hvr-bs" href="{% url 'event_wall' %}">
+        <div class="col-lg-12" style="background-color: #f3f0f0">
+            <div class="section-title text-center">
+                <h2 class="title"><a class="link glbscl-link-btn hvr-bs" href="{% url 'event_wall' %}">
 
-                    Church Activities</a></h2>
-                </div>
+                Church Activities</a></h2>
             </div>
-        </div>
-         <div class="container-fluid">
-        <div class="row justify-content-center" style="width:100%;margin-left:2px">
-
-        {% for event in events %}
-        {% if forloop.counter <= 2 %}
-        
-            <div class="col-lg-4">
-                <div class="single-event" style="height: 550px; margin-left: -8%">
-                    <div class="img">
-                        {% if event.image %}
-                            <img src="{{ event.image.url }}"
-                                 alt="">
-                        {% endif %}
-                    </div>
-                    <div class="content">
-                        <h2 class="title"><a href="{% url 'event_detail' event.pk %}">{{ event.event_title }}</a>
-                        </h2>
-                        <ul class="list">
-                            <li class="info"><span class="icon"><i
-                                    class="fa fa-user"></i></span>{{ event.event_for }} (Event for)
-                            </li>
-                            <li class="info"><span class="icon"><i
-                                    class="fa fa-calendar"></i></span>{{ event.from_date }}
-                                (Start Date)
-                            </li>
-                            <li class="info"><span class="icon"><i
-                                    class="fa fa-calendar"></i></span>{{ event.to_date }}
-                                (End Date)
-                            </li>
-                            <li class="info"><span class="icon"><i
-                                    class="fa fa-map-marker"></i></span>{{ event.event_place }}
-                            </li>
-                        </ul>
-                        <!-- <div class="more text-right" style="font-size:2vw">
-                            <a href="{% url 'event_detail' event.pk %}"class="link hvr-bs"><b>....</b>Details
-                            </a>
-                        </div> -->
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-          {% endfor %}
-    
-            <div class="col-lg-4">
-                <a href="#program">
-                <div class="single-event" style="height: 560px;">
-                    <div class="content">
-                        <h2 class="head-title">Church Weekly Program
-                        </h2>
-                        <ul class="list">
-                            <li class="info"><b>Monday </b>
-                             <ul>   
-                            <li>Prayer Alter (9:00am - 4:00pm)</li>
-                             <li>Ministers In Word (6:00pm - 8:00pm)</li><!-- 
-                             <li>Worship Team (5:00pm - 7:00pm)</li> -->
-                             <li>Youth Service (7:00pm - 9:30pm)</li>
-                             </ul>
-                            </li>
-                           <li class="info"><b>Tuesday </b>
-                            <ul>
-                            <li>Home Cell Fellowships (5:00pm - 8:00pm)</li>
-                            </ul>
-                            </li>
-                            <li class="info"><b>Wednesday </b>
-                            <ul>
-                             <li>Revival Service (5:00pm - 8:00pm)</li>
-                            </ul> 
-                            </li>
-                            <li class="info"><b>Thursday </b>
-                                <ul>
-                                 <li>Counselling and Guidance (9:00am - 4:00pm)</li>
+            
+            <div class="container-fluid">
+                <div class="row" style="margin-left:2px">{% for event in events %}{% if forloop.counter <= 2 %}
+                    <div class="col-lg-4">
+                        <div class="single-event" style="margin-left: -8%">
+                            <div class="img">
+                                {% if event.image %}
+                                    <img src="{{ event.image.url }}"
+                                        alt="">
+                                {% endif %}
+                            </div>
+                            <div class="content">
+                                <h2 class="title"><a href="{% url 'event_detail' event.pk %}">{{ event.event_title }}</a>
+                                </h2>
+                                <ul class="list">
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-user"></i></span>{{ event.event_for }} (Event for)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-calendar"></i></span>{{ event.from_date }}
+                                        (Start Date)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-calendar"></i></span>{{ event.to_date }}
+                                        (End Date)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-map-marker"></i></span>{{ event.event_place }}
+                                    </li>
                                 </ul>
-                            </li>
-                            <li class="info"><b>Friday </b>
-                              <ul>
-                                <li>Bible Study (5:00pm - 7:00pm)</li>
-                                <li>Prayer Night (8:00pm - 11:00pm)</li>
-                              </ul>
-                            </li>
-                            <li class="info"><b>Saturday </b><br>
-                                <ul>
-                                 <li>Practices (9:00am - 4:00pm)</li>
+                                <!-- <div class="more text-right" style="font-size:2vw">
+                                    <a href="{% url 'event_detail' event.pk %}"class="link hvr-bs"><b>....</b>Details
+                                    </a>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>{% endif %}{% endfor %}
+            
+                    <div class="col-lg-4"><a href="#program">
+                        <div class="single-event">
+                            <div class="content">
+                                <h2 class="head-title">Church Weekly Program
+                                </h2>
+                                <ul class="list">
+                                    <li class="info"><b>Monday </b>
+                                    <ul>   
+                                    <li>Prayer Alter (9:00am - 4:00pm)</li>
+                                    <!-- <li>Ministers In Word (6:00pm - 8:00pm)</li> -->
+                                    <!--<li>Worship Team (5:00pm - 7:00pm)</li> -->
+                                    <li>Youth Service (7:00pm - 9:30pm)</li>
+                                    </ul>
+                                    </li>
+                                    <li class="info"><b>Tuesday </b>
+                                    <ul>
+                                    <li>Home Cell Fellowships (5:00pm - 8:00pm)</li>
+                                    </ul>
+                                    </li>
+                                    <li class="info"><b>Wednesday </b>
+                                    <ul>
+                                    <li>Revival Service (5:00pm - 8:00pm)</li>
+                                    </ul> 
+                                    </li>
+                                    <li class="info"><b>Thursday </b>
+                                        <ul>
+                                        <li>Counselling and Guidance (9:00am - 4:00pm)</li>
+                                        </ul>
+                                    </li>
+                                    <li class="info"><b>Friday </b>
+                                    <ul>
+                                        <li>Bible Study (5:00pm - 7:00pm)</li>
+                                        <li>Prayer Night (8:00pm - 11:00pm)</li>
+                                    </ul>
+                                    </li>
+                                    <li class="info"><b>Saturday </b><br>
+                                        <ul>
+                                        <li>Practices (9:00am - 4:00pm)</li>
+                                        </ul>
+                                    </li>
+                                    <li class="info"><b>Sunday </b>
+                                        <ul>
+                                        <li>First Service (6:30am - 9:00am)</li>
+                                        <li>Second Service (9:00am - 11:00am)</li>
+                                        <li>Third Service (11:00am - 2:30pm)</li>
+                                        </ul>
+                                    </li>
                                 </ul>
-                            </li>
-                             <li class="info"><b>Sunday </b>
-                                <ul>
-                                <li>First Service (6:30am - 9:00am)</li>
-                                 <li>Second Service (9:00am - 11:00am)</li>
-                                <li>Third Service (11:00am - 2:30pm)</li>
-                                </ul>
-                            </li>
-                        </ul>
+                            </div>
+                        </div> </a>
                     </div>
                 </div>
-                </a>
-            </div>
-        </div>
+            </div>  
         </div> 
     </div>
-
+<hr/>
+<!------------------------------------------------Church Members ----------------------------------------------->
     <div class="row">
-        <div class="row col-lg-12">
-            <div class="col-12" style="background-color: #f3f0f0">
-                
-                <div class="section-title text-center">
-                    <h2 class="title"> <a class="link glbscl-link-btn hvr-bs" href="{% url 'membership_wall' %}">Church Members</a></h2>
+        <div class="col-lg-12" style="background-color: #f3f0f0">
+            <div class="section-title text-center">
+                <h2 class="title"> <a class="link glbscl-link-btn hvr-bs" href="{% url 'membership_wall' %}">Church Members</a></h2>
+            </div>            
+            <div class="row justify-content-center" style="width:97.5%;margin-left:2px">
+                <div class="gallery-carousel owl-carousel">{% for member in members %} {% if forloop.counter <= 12 %}{% if member.Initials != 'Pr.'%} 
+                    <a href="{% url 'member-detail' member.id %}">                
+                        <div class="single-gallery">
+                            {% if member.Photo %}
+                                <img src="{{ member.Photo.url }}" data-fancybox="images" style="border-radius: 40%; height: 185px" >
+                            {% endif %} 
+                            <span style="text-align: left;">
+                                <h2> {{member.Initials}} {{member.First_Name}} {{member.Second_Name}}</h2>
+                                <div class="text">Group: {{member.Group}}</div>
+                                <div class="text">Home Cell: {{member.Home_Cell}}</div>
+                            </span>
+                        </div> 
+                    </a>{% endif %}{% endif %}{% endfor %}
                 </div>
-                
             </div>
-        </div>
-        <div class="row justify-content-center" style="width:97.5%;margin-left:2px">
-            <div class="gallery-carousel owl-carousel">    
-                {% for member in members %}
-                {% if forloop.counter <= 12 %}
-                {% if member.Initials != 'Pr.'%} 
-                   <a href="{% url 'member-detail' member.id %}">                
-                    <div class="single-gallery">
-                        {% if member.Photo %}
-                            <img src="{{ member.Photo.url }}" data-fancybox="images" style="border-radius: 40%; height: 185px" >
-                        {% endif %} 
-                        <span style="text-align: left;">
-                            <h2> {{member.Initials}} {{member.First_Name}} {{member.Second_Name}}</h2>
-                            <div class="text">Group: {{member.Group}}</div>
-                            <div class="text">Home Cell: {{member.Home_Cell}}</div>
-                        </span>
-                    </div> 
-                    </a>
-                {% endif %}
-                {% endif %}
-                {% endfor %}
-           </div>
-           <br>
-            <!-- <div class="more text-right" style="margin-top:-5%">
-                <a class="link glbscl-link-btn hvr-bs" href="{% url 'membership_wall' %}">More Members </a>
-            </div>  -->
-            
-        </div>
+        </div>    
     </div>
-    
-    <div class="row">      
-        <div class="row col-lg-12">
-            <div class="col-lg-12" style="background-color: #f3f0f0">
-                <div class="section-title text-center">
-                    <h2 class="title"> <a class="link glbscl-link-btn hvr-bs" href="#">Church Feedback</a></h2>
-                </div>
+    <hr />
+
+    <!-----------------------------------------Church Feedback------------------------------------------------->
+    <div class="row"> 
+        <div class="col-lg-12" style="background-color: #f3f0f0">
+            <div class="section-title text-center">
+                <h2 class="title"> <a class="link glbscl-link-btn hvr-bs" href="#">Church Feedback</a></h2>
             </div>
-        </div>
             <div class="col-lg-12">
                 <div class="row">
                 <div class="col-lg-5 testimonial-area" style="margin-right: 12px">
@@ -457,11 +435,10 @@
                         </form>
                     </div>
                 </div>
-              </div>
             </div>
-          </div>
-         </section>
         </div>
+    </div> 
+</div>
 {% endblock %}
 <script type="text/javascript">
     document.getElementById('username').readOnly = true;
