@@ -19,17 +19,19 @@
         </div>
         <div class="x_content quick-link">
           <span style="color:red"><b>Other Reports:</b></span>
-          <a href="{% url  'expenditurereport' %}"> Main Expenses</a>
-          |<a href="{% url 'general-expenses-report' %}"> General Expenses</a>
-          |<a href="{% url 'Offeringsreport' %}"> Offerings</a>
-          |<a href="{% url 'Tithesreport' %}"> Tithes</a>
-          |<a href="{% url 'Pledgesreport' %}"> Pledges</a>
-          |<a href="{% url 'sundryreport' %}"> Petty Expenses</a>
-          |<a href="{% url 'allowancereport' %}"> Allowances</a>
-          |<a href="{% url 'current-month-salaries' %}"> Salaries</a>
-          |<a href="{% url 'donations-report' %}"> Doantions</a>
-          |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a>
-          |<a href="{% url 'Building-Renovation-report' %}"> Building</a>
+          <a href="{% url  'expenditurereport' %}"> Main Expenses</a></li>
+          |<a href="{% url 'general-expenses-report' %}"> General Expenses</a></li>
+          |<a href="{% url 'Offeringsreport' %}"> Offerings</a></li>
+          |<a href="{% url 'members-list' %}">Membership</a>
+          |<a href="{% url 'Pledgesreport' %}"> Pledges</a></li>
+          |<a href="{% url 'sundryreport' %}"> Petty Expenses</a></li>
+          {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+          |<a href="{% url 'allowancereport' %}"> Allowances</a></li>
+          |<a href="{% url 'current-month-salaries' %}"> Salaries</a></li>
+          |<a href="{% url 'Tithesreport' %}"> Tithes</a></li>
+          |<a href="{% url 'donations-report' %}"> Doantions</a></li>
+          |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a></li>
+          {% endif %}
           <div class="separator"></div>
         </div>
         
@@ -41,9 +43,12 @@
               <li role="presentation" class="active"><a href="{% url 'Offeringsreport' %}"><i
                           class="fa fa-list-ol"></i> List of offerings</a>
               </li>
+              {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
               <li role="presentation"><a href="{% url 'Enter_Offerings' %}"><i
                     class="fa fa-plus-square-o"></i> Record Offering</a>
                </li>
+               {% endif %}
+               
               <li role="presentation"><a href="{% url 'offeringsarchivessearch' %}"><i
                   class="fa fa-plus-square-o"></i> Offerings Archived</a>
              </li>
@@ -72,9 +77,12 @@
                           <td class="rowDataSd">{{ item.Amount}}</td>
                           <td>{{ item.Archived_Status}}</td>
                           <td>
+                          {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+
                           <div class="mb-4">
                                 <a href="{% url 'edit-offerings' item.pk %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit">Edit</span></a>
                           </div>
+                          {% endif %}
                           </td>
                         </tr>
                       {% endfor %}
@@ -85,11 +93,11 @@
             </div>
           </div>
           {% if items %}
-          <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
-
           <a href="{% url 'offeringspdf' %}" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"> PRINT REPORT</span></a>
-
-          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">ARCHIVE</span></button>
+            {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+              <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">ARCHIVE</span></button>
+            {% endif %}
           {% endif %}
             <!-- Button trigger modal -->
           

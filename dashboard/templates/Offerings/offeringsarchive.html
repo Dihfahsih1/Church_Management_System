@@ -43,9 +43,11 @@
               <li role="presentation"><a href="{% url 'Offeringsreport' %}"><i
                           class="fa fa-list-ol"></i> List of offerings</a>
               </li>
+               {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
               <li role="presentation"><a href="{% url 'Enter_Offerings' %}"><i
                     class="fa fa-plus-square-o"></i> Record Offering</a>
                </li>
+               {% endif %}
               <li role="presentation" class="active"><a href="{% url 'offeringsarchivessearch' %}"><i
                   class="fa fa-plus-square-o"></i> Offerings Archived</a>
               </li>
