@@ -1096,7 +1096,7 @@ def edit_petty_cash(request, pk):
             return redirect('sundryreport')
     else:
         form = ExpendituresForm(instance=item)
-    return render(request, 'Expenses/edit_petty_cash.html', {'form': form})
+    return render(request, 'Expenses/edit_petty_cash.html', {'item':item,'form': form})
 
 @login_required
 def main_expenses_report (request):

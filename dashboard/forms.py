@@ -44,9 +44,9 @@ class ExpendituresForm(forms.ModelForm):
         'Payment_Made_To','Main_Expense_Reason','General_Expenses_Reason','Petty_Cash_Reason','Amount')
         widgets = {
             'Date': DatePickerInput(),
-            'Payment_Made_To': TextInput(attrs={'placeholder': 'Entity Receiving Money'}),
             'Other_Expenditure': TextInput(attrs={'placeholder': 'any other expense'}),
             'Amount': TextInput(attrs={'placeholder': 'Shs.'}),
+
             'Member_Name': autocomplete.ModelSelect2(url='auto-complete',
             attrs={'data-placeholder': 'Type here the name....', 'data-minimum-input-length': 3})
         }                 
