@@ -76,10 +76,13 @@
                           <td class="rowDataSd">{{ item.Amount}}</td>
                           <td>{{ item.Archived_Status}}</td>
                           <td>
+                           {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+
                           <div class="mb-4">
                                 <a href="{% url 'edit-seed' item.pk %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"> Edit</span></a>
                                 <a href="{% url 'seed-offering-receipt' item.pk %}"class="btn btn-success btn-sm"><span class="glyphicon glyphicon-print"> Receipt</span></a>
                           </div>
+                          {% endif %}
                           </td>
                         </tr>
                       {% endfor %}
@@ -90,11 +93,14 @@
             </div>
           </div>
           {% if items %}
-          <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
+          
 
           <a href="#" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"> PRINT REPORT</span></a>
+                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
 
+          <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
           <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">ARCHIVE</span></button>
+          {% endif %}
           {% endif %}
             <!-- Button trigger modal -->
           
@@ -103,7 +109,7 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Offerings report archiving</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">Seeds report archiving</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
