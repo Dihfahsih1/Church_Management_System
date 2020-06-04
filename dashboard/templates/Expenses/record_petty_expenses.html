@@ -23,13 +23,14 @@
                     |<a href="{% url 'Enter_Pledges' %}"> Pledges</a>
                     |<a href="{% url 'give-allowance' %}"> Allowances</a>
                     |<a href="{% url 'employee-list' %}"> Salaries</a>
-                    |<a href="{% url 'record-donations' %}"> Doantions</a>
-                    |<a href="{% url 'add-seeds' %}"> TGiving</a>
-                    |<a href="{% url 'record-thanks-giving' %}"> TGiving</a>
+                    |<a href="{% url 'record-donations' %}"> Other Sources</a>
+                    |<a href="{% url 'add-seeds' %}"> ThanksGiving</a>
+                    |<a href="{% url 'record-thanks-giving' %}"> ThanksGiving</a>
                     |<a href="{% url 'members-register' %}"> Membership</a>
                     <div class="separator"></div>
                 </div>
-                <h1 style="text-align: center" class="head-title">Petty Cash Expenses Module</h>
+                <h1 style="text-align: center" class="head-title">Record Petty Cash Expense</h1>
+                <div class="separator"></div>
             <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
                     <ul class="nav nav-tabs bordered">
@@ -48,7 +49,7 @@
                     </ul>
                     <br/>
 					<div class="col-lg-6 col-offset-8 centered">
-               <h3>Record Petty Cash Payment</h3>
+               
 					    <div class="col-md-10">
 					      {% load crispy_forms_tags %}
 						      <form method="post" enctype="multipart/form-data">
@@ -59,7 +60,8 @@
                       {{ form.Other_Expenditure|as_crispy_field}}
                       <div class="form-group">
                       <label for="id_Amount"> Amount Paid</label>
-                      <input type="number" value="" name="Amount" required id="id_Amount" class="textinput textInput form-control" min='1' max='{{form.instance.net_float}}'>
+                      <!--max='{{form.instance.net_float}}'-->
+                      <input type="number" value="" name="Amount" required id="id_Amount" class="form-control" min='1' >
                     </div>
                       
                       <input type="hidden" id="general" name="Reason_filtering" value="petty">
