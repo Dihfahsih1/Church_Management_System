@@ -36,7 +36,7 @@
           <div class="separator"></div>
         </div>
 
-        <h3>Searching For Archived Thanks Giving Records</h3>
+        <h1 style="text-align:center">Searching For Archived Thanks Giving Records</h1>
         <div class="separator"></div>
         <div class="x_content">
           <div class="" data-example-id="togglable-tabs">
@@ -53,32 +53,44 @@
             <form class="x_content" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
               <div class="form-row">
-                <div class="col-lg-12" style="background-color: rgb(227, 237, 239">
+                <div class="col-lg-12 " style="background-color: rgb(227, 237, 239)">
+                  <div class="col-lg-2" style="margin-top: 8px">
+                  </div>
                   <div class="col-lg-3" style="margin-top: 8px">
-                    <label >Year</label>
-                    <input type="text" placeholder="Enter Year, e.g. 2020" name="report_year" width="2%" required="required">
+                    <label>Year</label>
+                    <div class="form-group">
+                      <b><input class='form-control' type="number" placeholder="Enter Year, e.g. 2020" name="report_year" width="2%"
+                          required="required" value="{{report_year}}"></b>
+                    </div>
                   </div>
                   <div class="col-lg-3" style="margin-top: 8px">
                     <label>Month</label>
-                    <select  name="report_month" id="inlineFormCustomSelect" required="required" style="cursor: pointer">
-                      <option></option>
-                      <option class="btn-success" name="1" value="1">January</option>
-                      <option class="btn-success" name="2" value="2">February</option>
-                      <option class="btn-success" name="3" value="3">March</option>
-                      <option class="btn-success" name="4" value="4">April</option>
-                      <option class="btn-success" name="5" value="5">May</option>
-                      <option class="btn-success" name="6" value="6">June</option>
-                      <option class="btn-success" name="7" value="7">July</option>
-                      <option class="btn-success" name="8" value="8">August</option>
-                      <option class="btn-success" name="9" value="9">September</option>
-                      <option class="btn-success" name="10" value="10">October</option>
-                      <option class="btn-success" name="11" value="11">November</option>
-                      <option class="btn-success" name="12" value="12">December</option>
-                    </select>
+                    <div class="form-group">
+                      <select class='form-control' name="report_month" value="" id="inlineFormCustomSelect" required="required"
+                        style="cursor: pointer">
+                        <option>{{report_month}}</option>
+                        <option class="btn-success" name="1" value="1">January</option>
+                        <option class="btn-success" name="2" value="2">February</option>
+                        <option class="btn-success" name="3" value="3">March</option>
+                        <option class="btn-success" name="4" value="4">April</option>
+                        <option class="btn-success" name="5" value="5">May</option>
+                        <option class="btn-success" name="6" value="6">June</option>
+                        <option class="btn-success" name="7" value="7">July</option>
+                        <option class="btn-success" name="8" value="8">August</option>
+                        <option class="btn-success" name="9" value="9">September</option>
+                        <option class="btn-success" name="10" value="10">October</option>
+                        <option class="btn-success" name="11" value="11">November</option>
+                        <option class="btn-success" name="12" value="12">December</option>
+                      </select>
+                    </div>
                   </div>
                   <div class="col-lg-2">
-                    <button type="submit" class="btn btn-info">Search <span class='glyphicon glyphicon-search'></span></button>
-                 </div>
+                    <br>
+                    <button class='form-control' type="submit" class="btn btn-info">Search &nbsp; <span
+                        class='glyphicon glyphicon-search'></span></button>
+                  </div>
+                  <div class="col-lg-2" style="margin-top: 8px">
+                  </div>
                 </div>
               </div>
             </form><br> <br>
