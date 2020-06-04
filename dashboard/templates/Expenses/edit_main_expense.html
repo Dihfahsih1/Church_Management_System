@@ -9,21 +9,31 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-            <h1><i class="fa fa fa-calendar-check-o"></i> <b>MAIN EXPENSES MODULE</b></h1>
+            <h1 class="head-title" style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i> <b>MAIN EXPENSES MODULE</b></h1>
             <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
             </ul>
             <div class="clearfix"></div>
         </div>
-                <div class="x_content quick-link">
-                    <span style="color:red"><b>Quick Links:</b></span>
-                    <a href="{% url 'enter_expenditure' %}">Main Expenditure</a>
-                    | <a href="{% url 'enter_sundryexpense' %}">Petty Expenditure</a>
-                    | <a href="{% url 'give-allowance' %}">Allowances</a>
-                    | <a href="#">Salaries</a>
-                 <div class="separator"></div>   
-                </div>
+        <div class="x_content quick-link">
+          <span style="color:red"><b>Other Reports:</b></span>
+          <a href="{% url  'expenditurereport' %}"> Main Expenses</a></li>
+          |<a href="{% url 'general-expenses-report' %}"> General Expenses</a></li>
+          |<a href="{% url 'Offeringsreport' %}"> Offerings</a></li>
+          |<a href="{% url 'members-list' %}">Membership</a>
+          |<a href="{% url 'Pledgesreport' %}"> Pledges</a></li>
+          |<a href="{% url 'sundryreport' %}"> Petty Expenses</a></li>
+          {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+          |<a href="{% url 'allowancereport' %}"> Allowances</a></li>
+          |<a href="{% url 'current-month-salaries' %}"> Salaries</a></li>
+          |<a href="{% url 'Tithesreport' %}"> Tithes</a></li>
+          |<a href="{% url 'donations-report' %}"> Doantions</a></li>
+          |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a></li>
+          {% endif %}
+          <div class="separator"></div>
+        </div>
+        <h1 style="text-align: center;" class="head-title">Edit Main Expense</h1>
             <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
                     <ul class="nav nav-tabs bordered">
@@ -40,7 +50,6 @@
                     </ul>
                     <br/>
 					<div class="col-lg-6 col-offset-8 centered">
-                          <h3>Updating Main Expenses</h3>
 					    <div class="col-md-10">
 					      {% load crispy_forms_tags %}
 						      <form method="post" enctype="multipart/form-data">
