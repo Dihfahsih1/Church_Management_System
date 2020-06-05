@@ -98,7 +98,6 @@
                         <li><a href="{% url 'expenditurereport'  %}"> Main Expenses Reports</a></li>
                         <li><a href="{% url 'general-expenses-report' %}"> General Expenses Reports</a></li>
                         <li><a href="{% url 'Offeringsreport'  %}"> Offerings Reports</a></li>
-                        <li><a href="{% url 'Pledgesreport'  %}"> Pledges Reports</a></li>
                         <li><a href="{% url 'sundryreport'  %}"> Petty Expenses Reports</a></li>
                        {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
                         <li><a href="{% url 'Tithesreport'  %}"> Tithe Reports</a></li>
@@ -214,7 +213,7 @@
                         <li><a href="#">Northern Region</a></li>
                     </ul>
                 </li>
-                 <li ><a href="{% url 'logout'%}"><button class="btn btn-danger"> <b class="fa fa-share">Logout</b></button></a></li>
+                 <li ><a href="{% url 'logout'%}"><button class="btn btn-danger"> <b >Logout</b></button></a></li>
                 
 
             </ul>
