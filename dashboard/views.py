@@ -1156,6 +1156,18 @@ class main_expenses_archived_pdf(View):
         'total_amount': total_amount,'request': request,'archived': archived,}
         return Render.render('Expenses/main_expenses_archived_pdf.html', context)
 
+class petty_expenses_archived_pdf(View):
+    def get(self, request, report_month, report_year):        
+        month=strptime(report_month, '%B').tm_mon
+        archived = Expenditures.objects.filter(Archived_Status='ARCHIVED', Reason_filtering='petty',\
+        Date__month=month, Date__year=report_year)
+        today = datetime.now()
+        total = archived.aggregate(totals=models.Sum("Amount"))
+        total_amount = total["totals"]
+        context = {'report_month': report_month,'report_year':report_year,'today': today,
+        'total_amount': total_amount,'request': request,'archived': archived,}
+        return Render.render('Expenses/sundryarchivepdf.html', context)
+
 def petty_cash_report (request):
     if request.method=='POST':
         items = Expenditures.objects.all()
@@ -1219,7 +1231,7 @@ class petty_expenditure_report_pdf(View):
             totalexpense += instance.Amount
         context ={'year':year,'month': month,'today':today,'expenses':expenses,'request': request,'totalexpense': totalexpense,
         }
-        return Render.render('Expenses/sundrypdf.html',context)
+        return Render.render('Expenses/sundrypd.html',context)
 
 
 #Allowances Module

@@ -55,6 +55,7 @@ url(r'^allowancearchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.a
 url(r'^Church-Groups', views.church_groups, name='church-groups'),
 url(r'^Home-Cells', views.home_cells, name='home-cells'),
 url(r'^Petty-Expenses-Report/pdf/', views.petty_expenditure_report_pdf.as_view(), name='pettypdf'),
+url(r'^Archived-Petty-Expenses/pdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.petty_expenses_archived_pdf.as_view(), name='archivedpettypdf'),
 
 #REVENUE MODULE
 url(r'^Revenues/Offerings/Report', views.Offeringsreport, name='Offeringsreport'),

@@ -127,7 +127,7 @@
                           <td>{{ item.Payment_Made_To}}</td>
                           <td>{{ item.Petty_Cash_Reason}}</td>
                           <td class="rowDataSd">{{ item.Amount}}</td>
-                          <td>{{ item.Archived_Status}}</td>
+                          <td>{{ item.Archived_Status}}</td>archivedpettypdf
                           <td>
                           </td>
                         </tr>
@@ -135,6 +135,10 @@
                     </tbody>
                   </table>
                 </div>
+                {% if archived_reports %}
+                <a href="{% url 'archivedpettypdf' report_month report_year %}" target="_new" class="btn btn-info bt-sm"
+                  role="button"><span class="glyphicon glyphicon-print"> PRINT REPORT</span></a>
+                {% endif %}
               </div>
             </div>
           </div>

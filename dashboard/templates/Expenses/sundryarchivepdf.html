@@ -1,8 +1,10 @@
 <!doctype html>
+{% load humanize %}
 <html>
+
 <head>
     <meta charset="utf-8">
-    <title>Sundry Expenditure Report</title>
+    <title>Petty Expenses Archived Report</title>
     <style type="text/css">
         @page {
             size: A4;
@@ -21,7 +23,7 @@
             padding: 5px;
             vertical-align: top;
             border-top: 1px solid #000;
-            text-align: center;
+            text-align: left;
         }
 
         .table thead th {
@@ -29,7 +31,7 @@
             border-bottom: 2px solid #000;
         }
 
-        .table tbody + tbody {
+        .table tbody+tbody {
             border-top: 2px solid #000;
         }
 
@@ -54,51 +56,54 @@
         }
     </style>
 </head>
+
 <body>
 
-<div class="container">
-    <div class="card">
-        <div class="card-header">
-            <h3>Generated on - {{ today | date:"d/m/Y" }}</h3>
-        </div>
-        <div align="center">
-                   <b>UCC - BWAISE </b><br>
-                 +256701614086<br>
-                 Nabweru, Kampala Rd<br>
-               uccbwaise1@gmail.com<br>
-         </div>
-        <div class="list-group">
-            <h2 style="align-content:center"> Small Expenses Monthly Archived Reports</h2>
-        </div>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h3>Generated on - {{ today | date:"d/m/Y" }}</h3>
+            </div>
+            <div align="center">
+                <b>UCC - BWAISE </b><br>
+                +256701614086<br>
+                Nabweru, Kampala Rd<br>
+                uccbwaise1@gmail.com<br>
+            </div>
+            <div class="list-group">
+                <h2 style="align-content:center"> {{report_month}} {{report_year}} Petty Expenses Archived Report </h2>
+            </div>
 
-        <table class="table" border="2">
-            <thead>
-            <tr style="font-size:larger">
-                <th>Date</th>
-                <th>Name</th>
-                <th>Reason </th>
-                <th>Amount</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for sun in archived_sundry %}
-                <tr style="font-size:large">
-                    <td>{{ sun.Date }}</td>
-                    <td>{{ sun.Name }}</td>
-                    <td>{{ sun.Reason }}</td>
-                    <td>{{ sun.Amount }}</td>
-                </tr>
-            {% endfor %}
-            <tr>
-                <td class="jumbotron"><h3>TOTAL</h3></td>
-                <td class="jumbotron"><h3>----------------------</h3></td>
-                <td class="jumbotron"><h3>----------------------</h3></td>
-                <td class="jumbotron"><h3>Shs. {{ total_amount }}</h3></td>
-            </tr>
-            </tbody>
-        </table>
+            <table class="table" border="0.5">
+                <thead>
+                    <tr style="font-size:larger">
+                        <th>Date</th>
+                        <th>Payment Made To</th>
+                        <th>Reason</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for g in archived  %}
+                    <tr>
+                        <td>{{ g.Date }}</td>
+                        <td>{{ g.Payment_Made_To }}</td>
+                        <td>{{ g.Petty_Cash_Reason }}</td>
+                        <td>{{ g.Amount |intcomma }}</td>
+
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td><b>Total Amount:</b></td>
+                        <td>______________ </td>
+                        <td>______________</td>
+                        <td><b>Shs.{{ total_amount|intcomma}}</b></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 
 </body>
+
 </html>
