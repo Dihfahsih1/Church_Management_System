@@ -10,45 +10,41 @@
 
 {% block stylesheets %}
     {{ block.super }}
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"/>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
 {% endblock stylesheets %}
 
 {% block content %}
     <div class="right_col" role="main">
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2><i class="fa fa-desktop"></i><small> Manage Page</small></h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                            </li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-
-                    <div class="x_content quick-link">
-                        <span>Quick Link:</span>
-                        <a href="#">Manage Frontend</a>
-                        | <a href="#">Manage Slider</a>
-                        | <a href="#">Frontend Setting</a>
-                        | <a href="#">Manage Notice</a>
-                        | <a href="#">Manage News</a>
-                        | <a href="#">Manage Holiday</a>
-                        | <a href="#">Manage Teacher</a>
-                        | <a href="#">Manage Employee</a>
-                    </div>
-
-                    <div class="x_content">
+                <div class="x_title">
+                    <h1 style="text-align: center;"><i class="fa fa-calendar"></i><b>WEBSITE PAGES MODULE</b></h1>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                
+                <div class="x_content quick-link">
+                    <span style="color:red"><b>quick-links:</b></span>
+                    <a href="{% url  'expenditurereport' %}"> Main Expenses</a></li>
+                    |<a href="{% url 'general-expenses-report' %}"> General Expenses</a></li>
+                    |<a href="{% url 'Offeringsreport' %}"> Offerings</a></li>
+                    |<a href="{% url 'members-list' %}">Membership</a>
+                    |<a href="{% url 'Pledgesreport' %}"> Pledges</a></li>
+                    |<a href="{% url 'sundryreport' %}"> Petty Expenses</a></li>
+                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+                    |<a href="{% url 'allowancereport' %}"> Allowances</a></li>
+                    |<a href="{% url 'current-month-salaries' %}"> Salaries</a></li>
+                    |<a href="{% url 'Tithesreport' %}"> Tithes</a></li>
+                    |<a href="{% url 'donations-report' %}"> Doantions</a></li>
+                    |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a></li>
+                    {% endif %}
+                    <div class="separator"></div>
+                </div>
+                <h1 style="text-align: center;">Create Website Pages</h1>
+                <div class="separator"></div>
+                <div class="x_content">
                         <div class="" data-example-id="togglable-tabs">
 
                             <ul class="nav nav-tabs bordered">
