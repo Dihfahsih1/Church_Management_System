@@ -116,7 +116,6 @@
                         <li><a href="{% url 'expensesarchivessearch' %}"> Main Expenses Archived</a></li>
                          <li><a href="{% url 'general-expensesarchives-search' %}"> General Expenses Archived</a></li>
                         <li><a href="{% url 'offeringsarchivessearch' %}"> Offerings Archived</a></li>
-                        
                         <li><a href="{% url 'pledgesarchivessearch' %}"> Pledges Archived</a></li>
                         <li><a href="{% url 'sundryarchivessearch' %}"> Petty Expenses Archived</a></li>
                         {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
