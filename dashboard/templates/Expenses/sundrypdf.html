@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+    {% load humanize %}
     <meta charset="utf-8">
     <title>Sundry Expenditure Report</title>
     <style type="text/css">
@@ -61,7 +62,7 @@
                uccbwaise1@gmail.com<br>
          </div>
         <div class="list-group">
-            <h2 style="align-content:center"> Small Expenditure Report for the month of {{ month }}</h2>
+            <h2 style="align-content:center"> Small Expenditure Report for the month of {{ month }} {{ year }}</h2>
         </div>
 
         <table class="table" border="2">
@@ -74,19 +75,19 @@
             </tr>
             </thead>
             <tbody>
-            {% for sun in sundry %}
+            {% for ex in expenses %}
                 <tr style="font-size:large">
-        <td>{{ sun.Date}}</td>
-        <td>{{ sun.PaymentMadeTo}}</td>
-        <td>{{ sun.ReasonForPayment }}</td>
-        <td>{{ sun.Amount }}</td>
+        <td>{{ ex.Date}}</td>
+        <td>{{ ex.Payment_Made_To}}</td>
+        <td>{{ ex.Petty_Cash_Reason }}</td>
+        <td>{{ ex.Amount|intcomma }}</td>
         </tr>
             {% endfor %}
               <tr>
                   <td class="jumbotron"><h3>TOTAL</h3></td>
                   <td class="jumbotron"><h3>----------------------</h3></td>
                   <td class="jumbotron"><h3>----------------------</h3></td>
-                  <td class="jumbotron"><h3>Shs. {{ totalsundry }}</h3></td>
+                  <td class="jumbotron"><h3>Shs. {{ totalexpense }}</h3></td>
               </tr>
             </tbody>
         </table>

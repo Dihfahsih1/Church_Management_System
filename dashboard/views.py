@@ -1205,6 +1205,23 @@ class main_expenditure_report_pdf(View):
         }
         return Render.render('Expenses/pdf_main_expenditure_report.html',context)
 
+class petty_expenditure_report_pdf(View):
+    def get(self, request):
+        current_month = datetime.now().month
+        current_year = datetime.now().year
+        expenses = Expenditures.objects.filter(Archived_Status='NOT-ARCHIVED', Reason_filtering='petty'\
+        ,Date__year=current_year)
+        today = datetime.now()
+        year=today.year
+        month = today.strftime('%B')
+        totalexpense = 0
+        for instance in expenses:
+            totalexpense += instance.Amount
+        context ={'year':year,'month': month,'today':today,'expenses':expenses,'request': request,'totalexpense': totalexpense,
+        }
+        return Render.render('Expenses/sundrypdf.html',context)
+
+
 #Allowances Module
 @login_required
 def give_allowance(request):
