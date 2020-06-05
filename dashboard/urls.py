@@ -235,4 +235,6 @@ url(r'^auto-complete/$', views.Autocomplete.as_view(), name='auto-complete'),
 url(r'^theme/$', views.ThemeListView.as_view(), name='theme_list'),
 url(r'^theme/activate/(?P<theme_pk>\d+)/$', views.theme_activate, name='theme_activate'),
 
+url(r'^tithes/annual/(?P<pk>\d+)/$', views.member_annual_tithes_pdf.as_view(), name='annual-tithes-pdf'),
+
 ]

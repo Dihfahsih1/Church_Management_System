@@ -692,7 +692,7 @@ class seed_offering_receipt(View):
         context = { 'today': today,'seeds': seeds,'request': request,}
         return Render.render('Seeds/seed_offerings_receipt.html', context)
 
-#TITHES MODULE 
+##############################<===========TITHES MODULE===========>################################# 
 @login_required
 def recording_tithes(request):
     if request.method=="POST":
@@ -771,6 +771,19 @@ def Annual_Tithes(request):
     context={'all_tithes': all_tithes,'get_all_members':get_all_members, 'current_year':current_year}
     return render(request, "Tithes/current_year_tithes.html", context)
 
+class member_annual_tithes_pdf(View):
+    def get(self, request, pk):
+        today = datetime.now()
+        year=today.year
+        get_member_name = get_object_or_404(Members, pk=pk)
+        tithes = Revenues.objects.filter(Member_Name__id = pk, Revenue_filter='tithes', Date__year=year).order_by('-Date')
+        month=today.strftime('%B')
+        total = tithes.aggregate(totals=models.Sum("Amount"))
+        total_amount = total["totals"]
+        context = {'year' : year,'month' : month, 'today': today,'total_amount': total_amount,
+            'request': request,'tithes': tithes,'get_member_name':get_member_name}
+        return Render.render('Tithes/memeber_annual_tithes_pdf.html', context)
+
 @login_required
 def tithesarchivessearch(request):
     today = datetime.now()
@@ -815,7 +828,6 @@ class tithesreceipt(View):
         tithes= get_object_or_404(Revenues,pk=pk)
         today = timezone.now()
         context = {
-
             'today': today,
             'tithes': tithes,
             'request': request,

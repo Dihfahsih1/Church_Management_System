@@ -49,14 +49,21 @@
                               <tr >
                                   <td>Member Name</td>
                                   <td>Total Tithes <i class=" glyphicon glyphicon-arrow-right"></i> <b>(<span style="font-weight: bolder; color:red">{{all_tithes|intcomma}}</span>)</b></td>
-                              </tr>
+                                  <td>Actions</td>
+                                </tr>
                           </thead>
                           <tbody> 
                               {% for item in get_all_members%}
                              <tr>
                               <td><a href="{% url 'annual-tithes' item.pk%}"> {{item.First_Name}} {{ item.Second_Name}}</a></td>
                               <td>{{ item.total_tithe|intcomma}}</td>
-                              
+
+                              <td>
+                                <div class="mb-4">
+                                  <a href="{% url 'annual-tithes-pdf' item.id %}" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-print">
+                                      Print Out</span></a>
+                                </div>
+                              </td>
                              </tr> 
                              {%endfor%}
                              
