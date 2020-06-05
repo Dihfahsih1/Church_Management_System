@@ -13,7 +13,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2><i class="fa fa-image"></i><small> Manage Gallery Image</small></h2>
+                        <h1 style="text-align: center;"><i class="fa fa-calendar"></i><b> GALLERY IMAGES MODULE</b></h1>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -22,11 +22,24 @@
                     </div>
 
                     <div class="x_content quick-link">
-                        <span>Quick Link:</span>
-                        <a href="#">Manage Gallery</a>
-                        | <a href="#">Manage Gallery Image</a>
+                        <span style="color:red"><b>quick-links:</b></span>
+                        <a href="{% url  'expenditurereport' %}"> Main Expenses</a></li>
+                        |<a href="{% url 'general-expenses-report' %}"> General Expenses</a></li>
+                        |<a href="{% url 'Offeringsreport' %}"> Offerings</a></li>
+                        |<a href="{% url 'members-list' %}">Membership</a>
+                        |<a href="{% url 'Pledgesreport' %}"> Pledges</a></li>
+                        |<a href="{% url 'sundryreport' %}"> Petty Expenses</a></li>
+                        {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+                        |<a href="{% url 'allowancereport' %}"> Allowances</a></li>
+                        |<a href="{% url 'current-month-salaries' %}"> Salaries</a></li>
+                        |<a href="{% url 'Tithesreport' %}"> Tithes</a></li>
+                        |<a href="{% url 'donations-report' %}"> Doantions</a></li>
+                        |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a></li>
+                        {% endif %}
+                        <div class="separator"></div>
                     </div>
-
+                    <h1 style="text-align: center;">Update Gallery Image Details</h1>
+                    <div class="separator"></div>
                     <div class="x_content">
                         <div class="" data-example-id="togglable-tabs">
 
@@ -41,7 +54,7 @@
                                         class="fa fa-plus-square-o"></i> Edit Image</a>
                                 </li>
                             </ul>
-
+                            
                             <div class="row">
                                 <div class="col-sm-offset-1 col-sm-8">
 
