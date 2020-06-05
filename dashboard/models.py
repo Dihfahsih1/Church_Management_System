@@ -155,7 +155,7 @@ class User(AbstractBaseUser , PermissionsMixin):
     objects = UserManager()
     published = PublishedStatusManager()
     def __str__(self):
-        return self.Role
+        return str(self.full_name)
 
 class Expenditures(Model):
     Date = models.DateField(null=True, blank=True)

@@ -1,5 +1,6 @@
 from django import forms
 from dashboard.models import User
+from dashboard.views import *
 
 class RegisterForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
@@ -19,6 +20,10 @@ class RegisterForm(forms.ModelForm):
             'full_name': {
                 'max_length': "Name can only be 25 characters in length"
             }
+        }
+        widgets = {
+            'full_name': autocomplete.ModelSelect2(url='auto-complete',
+            attrs={'data-placeholder': 'Type here the name....', 'data-minimum-input-length': 3})
         }
 
     def clean_password2(self):
