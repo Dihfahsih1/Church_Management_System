@@ -1194,7 +1194,7 @@ class main_expenditure_report_pdf(View):
         current_month = datetime.now().month
         current_year = datetime.now().year
         expenses = Expenditures.objects.filter(Archived_Status='NOT-ARCHIVED', Reason_filtering='main'\
-        ,Date__month=current_month,Date__year=current_year)
+        ,Date__year=current_year)
         today = datetime.now()
         year=today.year
         month = today.strftime('%B')
