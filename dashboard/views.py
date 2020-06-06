@@ -335,14 +335,18 @@ def members_archived(request):
 @login_required
 def archive_member(request, pk):
     if request.method == "GET":
-        Members.objects.filter(id=pk).update(is_active=False)
+        item = Members.objects.get(is_active=True, id=pk)
+        item.is_active='False'
+        item.save()
         messages.success(request, f'Member has been Archived')
         return redirect('members-list')
 
 @login_required            
 def unarchive_member(request, pk):
     if request.method == "GET":
-        Members.objects.filter(id=pk).update(is_active=True)
+        item = Members.objects.get(is_active=False, id=pk)
+        item.is_active='True'
+        item.save()
         messages.success(request, f'Member has been Un-archived')
         return redirect('members-list')
 

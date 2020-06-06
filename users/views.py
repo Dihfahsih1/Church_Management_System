@@ -78,17 +78,19 @@ def edit_profile(request):
         return render(request, 'users/home/update_profile.html', args)            
 @login_required
 def register(request):
-	users=User.objects.all()
-	if request.method == 'POST':
-		form = RegisterForm(request.POST)
-		if form.is_valid():
-			form.save()
-			username = form.cleaned_data.get('username')
-			messages.success(request, f'Account has been created successfully!, User can now login')
-			return redirect('register')
-	else:
-		form = RegisterForm()
-	return render(request, 'users/home/register.html', {'form': form,'users':users})
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Account has been created successfully!, User can now Login')
+    else:
+        form=RegisterForm()
+        users = User.objects.filter(full_name__is_active=True)
+        count_users = users.count()
+        context={ 'form':form, 'users':users, 'count_users':count_users}
+    return render(request, 'users/home/register.html',context)
+
 
 def MemberAccountRegister(request):
     members=Members.objects.all()

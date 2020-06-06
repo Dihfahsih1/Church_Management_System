@@ -155,7 +155,7 @@ class User(AbstractBaseUser , PermissionsMixin):
     objects = UserManager()
     published = PublishedStatusManager()
     def __str__(self):
-        return str(self.full_name)
+        return str(self.Role)
 
 class Expenditures(Model):
     Date = models.DateField(null=True, blank=True)
@@ -264,13 +264,14 @@ class Members(models.Model):
 
     #if (self.Archived_Status == 'NOT-ARCHIVED'):
     def __str__(self):
-        #if self.is_active == True:
         return str(self.First_Name )+ ' ' + str(self.Second_Name)
+                
 
     #return full name    
     @property
     def full_name(self):
-        return str(self.First_Name) + ' ' + str(self.Second_Name)
+        return str(self.First_Name )+ ' ' + str(self.Second_Name)
+            
     def total_tithe(self):
         current_year = datetime.now().year
         results = Revenues.objects.filter(Member_Name__id=self.id,
