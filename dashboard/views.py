@@ -336,8 +336,11 @@ def members_archived(request):
 def archive_member(request, pk):
     if request.method == "GET":
         item = Members.objects.get(is_active=True, id=pk)
+        get_user = User.objects.get(full_name = item)
         item.is_active='False'
+        get_user.is_active ='False'
         item.save()
+        get_user.save()
         messages.success(request, f'Member has been Archived')
         return redirect('members-list')
 
@@ -345,8 +348,11 @@ def archive_member(request, pk):
 def unarchive_member(request, pk):
     if request.method == "GET":
         item = Members.objects.get(is_active=False, id=pk)
+        get_user = User.objects.get(full_name = item)
         item.is_active='True'
+        get_user.is_active ='True'
         item.save()
+        get_user.save()
         messages.success(request, f'Member has been Un-archived')
         return redirect('members-list')
 
