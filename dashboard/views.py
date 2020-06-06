@@ -2815,8 +2815,8 @@ def index(request):
 
         annual_float= CashFloat.objects.filter(Date__year=current_year)
         annual_cashfloat=annual_float.aggregate(totals=Sum('Amount'))
-        y=annual_cashfloat['totals']
-        if y is None:
+        total_annual_float=annual_cashfloat['totals']
+        if total_annual_float is None:
             total_annual_float=0
         annual_revenues = (revenues_in_a_year + annual_pledges_paid) - total_annual_float
         annual_net = annual_revenues-annual_expenditure  
