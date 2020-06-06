@@ -304,6 +304,7 @@ class ArchivedMembers(models.Model):
         return self.First_Name + ' ' + self.Second_Name
 
 class Visitors(models.Model):
+    Date = models.DateField(null=True, blank=True)
     Photo=models.ImageField(upload_to='avatars/', blank=False)
     First_Name=models.CharField(max_length=100, null=True)
     Second_Name=models.CharField(max_length=100, null=True)

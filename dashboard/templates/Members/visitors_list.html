@@ -31,7 +31,8 @@
                 <div class="separator"></div>
             </div>
             <p>{{ message }}</p>
-            <h1 style="text-align: center;">List Of Visitors</h1>
+            <h1 style="text-align: center;">List of Visitors</h1>
+            <div class="separator"></div>
               <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
 
@@ -55,7 +56,8 @@
                     <div class="x_content">                     
                          <table id="invoice-table" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                             <thead>
-                                <tr>          
+                                <tr> 
+                                    <td>Date</td>         
                                     <th>First Name</th>
                                     <th>Second Name</th>
                                     <th>Address</th>
@@ -66,7 +68,7 @@
                             </thead>
                             <tbody>
                                 {% for visitor in visiting %}
-                                <tr>
+                                <tr>      <td>{{ visitor.Date}}</td>
                                           <td>{{ visitor.First_Name}}</td>
                                           <td>{{ visitor.Second_Name}}</td>
                                           <td>{{ visitor.Address}}</td>

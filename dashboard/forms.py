@@ -147,7 +147,10 @@ class MembersForm(forms.ModelForm):
 class VisitorsForm(forms.ModelForm):
     class Meta:
         model=Visitors
-        fields = ('First_Name','Second_Name','Telephone','Address','Church')
+        fields = ('Date','First_Name','Second_Name','Telephone','Address','Church')
+        widgets = {
+            'Date': DatePickerInput(),
+          }   
 class PledgeItemsForm(forms.ModelForm):
     class Meta:
           model = PledgeItem
