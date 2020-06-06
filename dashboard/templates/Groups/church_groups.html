@@ -47,14 +47,15 @@
                         <ul class="nav nav-tabs bordered">
                             <li role="presentation">
                                 <button data-toggle="modal"
-                                 data-target="#able" style=" background-color: yellow; padding: 30px; margin-left:20px">God Is Able
+                                 data-target="#able" style=" border-radius: 7%; background-color: yellow; padding: 30px; margin-left:20px">God Is Able
                                     {% if request.user.full_name.Group == 'God is Able' %}
                                     <span class="glyphicon glyphicon-ok"></span>
                                     </li>{% endif %}
                                 </button>
                             </li>
                             <li role="presentation">
-                                <button class="btn btn-success" data-toggle="modal" data-target="#Issachar" style="padding: 30px; margin-left:20px">Issachar
+                                <button data-toggle="modal" data-target="#Issachar" style="background-color: green; padding: 30px;
+                                border-radius: 7%; margin-left:20px; color: white;">Issachar
                                     {% if request.user.full_name.Group == 'Issachar' %}
                                     <span class="glyphicon glyphicon-ok"></span>
                                     </li>{% endif %}
@@ -85,7 +86,7 @@
                                 </button>
                             </li>
                             <li role="presentation">
-                                <button  data-toggle="modal" data-target="#Victors" style=" color:white; background-color: purple; padding: 30px; margin-left:20px">Victors
+                                <button  data-toggle="modal" data-target="#Victors" style=" color:white; border-radius: 7%; background-color: purple; padding: 30px; margin-left:20px">Victors
                                 {% if request.user.full_name.Group == 'Victors' %}
                                 <span class="glyphicon glyphicon-ok"></span>
                                 </li>{% endif %}
