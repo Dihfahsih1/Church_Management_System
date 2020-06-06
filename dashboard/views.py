@@ -2874,11 +2874,16 @@ def total_expenses(request):
     total_expenses = Expenditures.objects.filter(Archived_Status='NOT-ARCHIVED')\
     .values('Date','Reason_filtering').annotate(Amount=Sum('Amount'))
     total = total_expenses.aggregate(totals=models.Sum("Amount"))
+    if total["totals"] == 'None':
+        return 0
     month=calendar.month_name[current_month]
 
     total_current_salaries = SalariesPaid.objects.filter(Date_of_paying_salary__year=current_year\
     ,Date_of_paying_salary__month=current_month).values('Name','Date_of_paying_salary').annotate(Salary_Amount=Sum("Salary_Amount"))
     totalSalaries = total_current_salaries.aggregate(totalsal=models.Sum("Salary_Amount"))
+    if totalSalaries['totalsal']=='None':
+        return 0
+       
     pledgecash = PledgesCashedOut.objects.filter(Date__month=current_month)\
     .values('Date','Item_That_Needs_Pledges').annotate(Amount_Cashed_Out=Sum('Amount_Cashed_Out'))
     cash = pledgecash.aggregate(totals=models.Sum("Amount_Cashed_Out"))
