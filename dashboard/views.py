@@ -2849,25 +2849,31 @@ def index(request):
         }
         return render(request,'index.html', context)
 
-#All monthly revenues
+#All monthly revenues not yet archived
 def total_revenues(request):
     current_month = datetime.now().month #Monthly
     current_year = datetime.now().year
     total_revenues = Revenues.objects.filter(Archived_Status='NOT-ARCHIVED')\
     .values('Date','Revenue_filter').annotate(Amount=Sum('Amount'))
-    total = total_revenues.aggregate(totals=models.Sum("Amount"))
-    
+    total = total_revenues.aggregate(total_amount=models.Sum("Amount"))
+    x=total['total_amount']
+    if x is None:
+        x=0
+
     total_current_pledges = Pledges.objects.filter(Archived_Status='NOT-ARCHIVED')\
     .values('Date','Reason__Item_That_Needs_Pledges').annotate(Amount_Paid=Sum('Amount_Paid'))
-    pledges = total_current_pledges.aggregate(totals=models.Sum("Amount_Paid"))
+    pledges = total_current_pledges.aggregate(total_paid=models.Sum("Amount_Paid"))
     month=calendar.month_name[current_month]
-
-    total_amount = total["totals"] + pledges['totals']
+    y=pledges['total_paid']
+    if y is None:
+        y=0
+    #total current month revenue not yet archived is equal to all revenues plus pledges paid
+    total_amount = x + y
     context={'total_revenues':total_revenues,'total_amount':total_amount,'month':month, \
     'total_current_pledges':total_current_pledges}
     return render(request, 'total_revenues.html', context)
 
-#All monthly expenditures
+#All monthly expenditures not archived
 def total_expenses(request):
     current_year = datetime.now().year
     current_month = datetime.now().month #Monthly
@@ -2877,25 +2883,25 @@ def total_expenses(request):
     y= total['totals']
     if y is None:
         y = 0
-
-
     month=calendar.month_name[current_month]
-
     total_current_salaries = SalariesPaid.objects.filter(Date_of_paying_salary__year=current_year\
     ,Date_of_paying_salary__month=current_month).values('Name','Date_of_paying_salary').annotate(Salary_Amount=Sum("Salary_Amount"))
     totalSalaries = total_current_salaries.aggregate(totalsal=models.Sum("Salary_Amount"))
     x=totalSalaries['totalsal']
     if x is None :
         x = 0
-
-       
+    #total current month expenses = all expenses plus salaries    
+    total_amount = y + x 
     pledgecash = PledgesCashedOut.objects.filter(Date__month=current_month)\
     .values('Date','Item_That_Needs_Pledges').annotate(Amount_Cashed_Out=Sum('Amount_Cashed_Out'))
-    cash = pledgecash.aggregate(totals=models.Sum("Amount_Cashed_Out"))
+    cash = pledgecash.aggregate(total=models.Sum("Amount_Cashed_Out"))
+    z=cash['total']
+    if z is None:
+        z=0
    
-    total_amount = y + x
-    context={'total_current_salaries':total_current_salaries,'total_expenses':total_expenses,'total_amount':total_amount, 
-    'pledgecash': pledgecash, 'month':month}
+     
+    context={'total_current_salaries':total_current_salaries,'total_expenses':total_expenses,
+    'total_amount':total_amount,'pledgecash': pledgecash, 'month':month}
     return render(request, 'total_expenses.html', context)
 
 #CASH FLOAT
