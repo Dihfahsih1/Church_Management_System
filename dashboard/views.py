@@ -2751,8 +2751,10 @@ def index(request):
         total_cash_out=0       
  
     #ANNUAL REVENUE
-    annual_revenue=Revenues.objects.filter(Date__year=current_year).aggregate(totals=models.Sum("Amount"))
+    annual_revenue=Revenues.objects.exclude(Revenue_filter='build').filter(Date__year=current_year).aggregate(totals=models.Sum("Amount"))
     revenues_in_a_year=int(annual_revenue["totals"])
+
+    #ANNUAL PLEDGES PAID
     annual_paid_pledges = PaidPledges.objects.filter(Date__year=current_year).aggregate(totals=models.Sum("Amount_Paid"))
     annual_pledges_paid=int(annual_paid_pledges["totals"])
 
@@ -2761,6 +2763,8 @@ def index(request):
     expenses_in_a_year=int(annual_expenses["totals"])
     A_salaries=SalariesPaid.objects.filter(Date_of_paying_salary__year=current_year).aggregate(totals=models.Sum("Salary_Amount"))
     Annualsalaries=int(A_salaries["totals"])
+
+    #annuall pledges cashed out
     pledgecash = PledgesCashedOut.objects.filter(Date__year=current_year).aggregate(totals=models.Sum("Amount_Cashed_Out"))
     Annualpledgecashed=int(pledgecash["totals"])
    
@@ -2793,9 +2797,9 @@ def index(request):
 
     #if there are moneys, calculate revenues, incomes and total expenditure.
     else:
-        annual_expenditure =   expenses_in_a_year + Annualpledgecashed + Annualsalaries 
-        total_monthly_incomes =  pledges + tithes + offerings + seeds + thanks + donations + building
-        total_monthly_expenditure =  allowances + expenses + general + petty+ salaries + total_cash_out
+        annual_expenditure =   expenses_in_a_year + Annualsalaries 
+        total_monthly_incomes =  tithes + offerings + seeds + thanks + donations 
+        total_monthly_expenditure =  allowances + expenses + general + petty + salaries 
         net_income = total_monthly_incomes - total_monthly_expenditure
         #calculating annual cashfloat given out
 
@@ -2818,7 +2822,7 @@ def index(request):
         total_annual_float=annual_cashfloat['totals']
         if total_annual_float is None:
             total_annual_float=0
-        annual_revenues = (revenues_in_a_year + annual_pledges_paid) - total_annual_float
+        annual_revenues = (revenues_in_a_year) - total_annual_float
         annual_net = annual_revenues-annual_expenditure  
         today = timezone.now()
         month = today.strftime('%B')
@@ -2867,7 +2871,7 @@ def total_revenues(request):
     if y is None:
         y=0
     #total current month revenue not yet archived is equal to all revenues plus pledges paid
-    total_amount = x + y
+    total_amount = x
     context={'total_revenues':total_revenues,'total_amount':total_amount,'month':month, \
     'total_current_pledges':total_current_pledges}
     return render(request, 'total_revenues.html', context)
