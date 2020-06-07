@@ -320,10 +320,10 @@
                     </p>
                 </div>
                 {% if user.is_authenticated %}
-                <button class="btn btn-danger"><a class="fa fa-share " href="{% url 'logout'%}"> </a><b>Logout</b></button>
+                 <a class="text btn btn-primary" href="{% url 'logout' %}"><span class="fa fa-sign-out">Log Out</span></a>
 
                 {% else %}
-                <button class="btn btn-success"><a class="fa fa-share " href="{% url 'login'%}"> </a><b>Login</b></button>
+                <a class="text btn btn-primary" href="{% url 'login' %}"><span class="fa fa-sign-in">Login</span></a>
                 {% endif %}
             </div>
         </footer>

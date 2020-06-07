@@ -171,13 +171,15 @@
                                         </thead>
                                         <tbody>
                                             {% for item in pledges %}
-                                            <tr>
+                                            {% if item.Amount_Pledged is not 0 %}
+                                            <tr>    
                                                   <td>{{ item.Reason}}</td>
                                                   <td>{{ item.Amount_Pledged |intcomma}}</td>
                                                   <td>{{ item.total_pledge_paid|intcomma}}</td>
                                                   <td>{{ item.Pledge_Balance|intcomma}}</td>
                                                   <td>{{ item.updatestatus}}</td>
                                             </tr>
+                                            {% endif %}
                                             {% endfor %}
                                             
                                         </tbody>
