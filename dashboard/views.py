@@ -2751,7 +2751,7 @@ def index(request):
         total_cash_out=0       
  
     #ANNUAL REVENUE
-    annual_revenue=Revenues.objects.exclude(Revenue_filter='build').filter(Date__year=current_year).aggregate(totals=models.Sum("Amount"))
+    annual_revenue=Revenues.objects.filter(Date__year=current_year).exclude(Revenue_filter='build').aggregate(totals=models.Sum("Amount"))
     revenues_in_a_year=int(annual_revenue["totals"])
 
     #ANNUAL PLEDGES PAID
@@ -2886,7 +2886,7 @@ def total_expenses(request):
     y= total['totals']
     if y is None:
         y = 0
-        
+
     month=calendar.month_name[current_month]
     total_current_salaries = SalariesPaid.objects.filter(Date_of_paying_salary__year=current_year\
     ,Date_of_paying_salary__month=current_month).values('Name','Date_of_paying_salary').annotate(Salary_Amount=Sum("Salary_Amount"))
