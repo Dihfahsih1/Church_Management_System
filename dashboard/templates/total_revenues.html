@@ -52,14 +52,7 @@
                                 <td>{{item.Amount|intcomma}}</td>
                                  </tr>
                                   {% endfor %}
-
-                                  {% for item in total_current_pledges%}
-                                <tr>
-                                <td>{{item.Date}}</td>
-                                <td>{{item.Reason__Item_That_Needs_Pledges}}</td>
-                                <td>{{item.Amount_Paid|intcomma}}</td>
-                                 </tr>
-                                  {% endfor %}
+                                
                                 <tr>
                                   <td colspan="2"><strong><b>Total Amount</b></strong></td>
                                   <td><b>{{total_amount|intcomma}}</b></td>

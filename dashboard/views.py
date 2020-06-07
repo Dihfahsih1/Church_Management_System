@@ -2856,7 +2856,7 @@ def index(request):
 def total_revenues(request):
     current_month = datetime.now().month #Monthly
     current_year = datetime.now().year
-    total_revenues = Revenues.objects.filter(Archived_Status='NOT-ARCHIVED')\
+    total_revenues = Revenues.objects.filter(Date__month=current_month, Archived_Status='NOT-ARCHIVED')\
     .values('Date','Revenue_filter').annotate(Amount=Sum('Amount'))
     total = total_revenues.aggregate(total_amount=models.Sum("Amount"))
     x=total['total_amount']
@@ -2886,6 +2886,7 @@ def total_expenses(request):
     y= total['totals']
     if y is None:
         y = 0
+        
     month=calendar.month_name[current_month]
     total_current_salaries = SalariesPaid.objects.filter(Date_of_paying_salary__year=current_year\
     ,Date_of_paying_salary__month=current_month).values('Name','Date_of_paying_salary').annotate(Salary_Amount=Sum("Salary_Amount"))
