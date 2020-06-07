@@ -2601,7 +2601,7 @@ def index(request):
         d_salaries = 0    
     
     #MONTHLY REVENUES
-    total_weekly_pledges = PaidPledges.objects.filter(Date__month=current_month,Date__year=current_year).aggregate(totals=models.Sum("Amount_Paid"))
+    total_weekly_pledges = Pledges.objects.filter(Date__month=current_month,Date__year=current_year).aggregate(totals=models.Sum("Amount_Paid"))
     if (total_weekly_pledges['totals'])!=None:
         int(total_weekly_pledges["totals"])
         d_pledges=total_weekly_pledges["totals"]
@@ -2662,7 +2662,7 @@ def index(request):
         salaries = 0
     
     #mothly pledges    
-    total_current_pledges = PaidPledges.objects.filter(Date__month=current_month,Date__year=current_year).aggregate(totals=models.Sum("Amount_Paid"))
+    total_current_pledges = Pledges.objects.filter(Date__month=current_month,Date__year=current_year).aggregate(totals=models.Sum("Amount_Paid"))
     if (total_current_pledges['totals'])!=None:
         int(total_current_pledges["totals"])
         pledges=total_current_pledges["totals"]
@@ -2752,7 +2752,7 @@ def index(request):
     revenues_in_a_year=int(annual_revenue["totals"])
 
     #ANNUAL PLEDGES PAID
-    annual_paid_pledges = PaidPledges.objects.filter(Date__year=current_year).aggregate(totals=models.Sum("Amount_Paid"))
+    annual_paid_pledges = Pledges.objects.filter(Date__year=current_year).aggregate(totals=models.Sum("Amount_Paid"))
     annual_pledges_paid=int(annual_paid_pledges["totals"])
 
     #ANNUAL EXPENDITURE

@@ -123,14 +123,6 @@ class UpdatePledgesForm(forms.ModelForm):
             'Amount_Paid': TextInput(attrs={'placeholder': 'Shs.'}),
         }  
 
-class PaidPledgesForm(forms.ModelForm):
-    class Meta:
-        model=PaidPledges
-        fields = ('Reason','Pledge_Id','Pledge_Made_By_Visitor','Pledge_Made_By','Amount_Paid','Date')
-        widgets = {
-            'Date': DatePickerInput(),
-        }              
-
 class MembersForm(forms.ModelForm):
     class Meta:
         model= Members

@@ -552,14 +552,6 @@ class Pledges(Model):
         else:
             return self.Status    
 
-
-class PaidPledges(Model):
-    Reason=models.ForeignKey(PledgeItem, on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
-    Pledge_Id=models.IntegerField(blank=True, null=True)
-    Pledge_Made_By_Visitor = models.ForeignKey(Visitors, on_delete=models.SET_NULL,null=True,  max_length=100, blank=False)
-    Pledge_Made_By = models.ForeignKey(Members, on_delete=models.SET_NULL,null=True,  max_length=100, blank=False)
-    Amount_Paid = models.IntegerField(blank=True, null=True)
-    Date = models.DateField(null=True, blank=True) 
          
 class Slider(models.Model):
     slider_image = models.ImageField(upload_to='sliders/', null=True, blank=False)
