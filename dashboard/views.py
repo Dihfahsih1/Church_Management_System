@@ -2875,8 +2875,9 @@ def total_expenses(request):
     current_year = datetime.now().year
     current_month = datetime.now().month #Monthly
     total_expenses = Expenditures.objects.filter(Archived_Status='NOT-ARCHIVED')\
-    .values('Date','Reason_filtering').annotate(Amount=Sum('Amount'))
+    .values('Date','Reason_filtering','Member_Name', 'Member_Name__First_Name','Member_Name__Second_Name','Payment_Made_To').annotate(Amount=Sum('Amount'))
     total = total_expenses.aggregate(totals=models.Sum("Amount"))
+    print(total_expenses)
     y= total['totals']
     if y is None:
         y = 0
