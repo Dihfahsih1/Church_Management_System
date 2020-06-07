@@ -30,8 +30,7 @@
                   {% endif %}
                   <div class="separator"></div>
                 </div>
-            <h1 style="text-align: center;">Fullfilling a pledge</h1>    
-            <div class="separator"></div>    
+              
           <div class="x_content">
             <div class="" data-example-id="togglable-tabs">
               <ul class="nav nav-tabs bordered">
@@ -52,13 +51,15 @@
                 <li role="presentation" class="active"><a href="{% url 'Enter_Pledges' %}"><i
                       class="fa fa-plus-square-o"></i> Paying Pledges</a>
                 </li>
-              </ul> <br/>
+              </ul> 
+              <h2 style="text-align: center;">Record the amount of the pledge paid</h2>
+              <div class="separator"></div>
               {% load crispy_forms_tags %}
 
             <form method="POST" enctype="multipart/form-data" action="" >
 
             {% csrf_token %}
-            <div class="row">
+            
               <style type="text/css">
                     #addstyle{
                     background-color: #C5C9B8;
@@ -74,23 +75,24 @@
                 </style>
                 <br>
                {% for pledge_id in retrieving_id %}
+              <h4>
+                <b>{% if pledge_id.Pledge_Made_By_Visitor %}{{pledge_id.Pledge_Made_By_Visitor}} {% else %}{{pledge_id.Pledge_Made_By}}{% endif%}
+              </b> fulfilling the pledge</h4>
+                <div class="col-lg-4">
               <div class="form-group" id="st">
                   <label> Pledge Id</label>
                   <input type="text" name="Pledge_Id" id="Pledge_Id" maxlength="100" class="textinput textInput form-control" value="{{pledge_id.id }}">
-              </div>
-                  <h4 style="text-align: center"><b>{{pledge_id.Pledge_Made_By_Visitor}}</b>  fullfilling the pledge</h4>
-              
+              </div>              
               {% endfor%}
               <div class="separator"></div>
-              <div class="col-md-3 form-group">
+              <div class="form-group">
                   {{ form.Date|as_crispy_field }}
               </div>
 
-              <div class="col-md-3" id="addstyle">
             	  <div class="form-group">
                     <label for="id_paid_amount"> Amount Being Paid</label>
                     <input type="number" value="{{items.Pledge_Balance}}" name="Amount_Paid" required id="id_paid_amount" class="textinput textInput form-control" min='1' max='{{items.Pledge_Balance}}'>
-                </div>
+                
                <button style = "float: right" type="submit" class="btn btn-primary" name="button">Submit</button>
             </div>
             <div class="row" id="name">

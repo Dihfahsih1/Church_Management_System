@@ -1445,8 +1445,9 @@ def cashing_out_items(request):
 def delete_pledge_item(request, pk):
     item= get_object_or_404(PledgeItem, id=pk)
     if request.method == "GET":
-        item.delete()
-        messages.success(request, "Pledge Item successfully deleted!")
+        item.Archived_Status = 'Archived'
+        item.save()
+        messages.success(request, "Pledge Item successfully Archived!")
         return redirect("list-of-pledge-items")      
 @login_required
 def pledge_view(request, pledge_pk):
@@ -1491,19 +1492,12 @@ def edit_pledges(request, pk):
 class pledgespdf(View):
     def get(self, request):
         current_month = datetime.now().month
-        ple = Pledges.objects.all().order_by('-Date')
+        ple = Pledges.objects.filter(Date__month=current_month,Archived_Status='NOT-ARCHIVED').order_by('-Date')
         today = datetime.now().now()
         month = today.strftime('%B')
-        totalexpense = 0
-        for instance in ple:
-            totalexpense += instance.Amount_Pledged
-        context = {
-
-            'month': month,
-            'today': today,
-            'ple': ple,
-            'request': request,
-            'totalexpense': totalexpense,
+        expense=ple.aggregate(y=models.Sum('Amount_Paid'))
+        totalexpense=expense['y']
+        context = {'month': month,'today': today,'ple': ple,'request': request,'totalexpense': totalexpense,
         }
         return Render.render('Pledges/pledgespdf.html', context)
 

@@ -78,10 +78,10 @@
             {% for ex in ple %}
                 <tr style="font-size:larger">
                     <td>{{ ex.Date}}</td>
-                    <td>{{ ex.Pledge_Made_By}}</td>
-                    <td>{{ ex.Reason}}</td>
+                    <td>{% if ex.Pledge_Made_By_Visitor %}{{ex.Pledge_Made_By_Visitor}} {% else %}{{ ex.Pledge_Made_By}}</td>
+                    {% endif %}<td>{{ ex.Reason}}</td>
                     <td>{{ ex.Amount_Pledged}}</td>
-                    <td>{{ ex.total_pledge_paid}}</td>
+                    <td>{{ ex.Amount_Paid}}</td>
                     <td>{{ ex.Pledge_Balance}}</td>
                 </tr>
             {% endfor %}

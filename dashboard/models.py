@@ -525,7 +525,9 @@ class Pledges(Model):
     def total_pledge_paid(self):
         results=Pledges.objects.filter(Pledge_Id=self.id).values('Amount_Paid').aggregate(totals=models.Sum("Amount_Paid"))
         if (results['totals']):
-                return results["totals"]
+            self.Amount_Paid=results["totals"]
+            self.save()
+            return self.Amount_Paid
         else:
             return 0
     @property 
