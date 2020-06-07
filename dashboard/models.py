@@ -500,12 +500,12 @@ class Pledges(Model):
     paid = 'PAID'
     partial = 'PARTIAL'
     unpaid = 'UNPAID'
-    is_church_member=models.CharField(max_length=100, choices=op, default='YES')
+    is_church_member=models.CharField(max_length=100, choices=op, default='YES', null=True, blank=True)
     state = ((paid, 'Paid'), (partial, 'Partial'), (unpaid, 'Unpaid'))
     Status=models.CharField(max_length=100, choices=state, null=True, blank=True)
     Date = models.DateField(null=True, blank=True)
-    Pledge_Made_By_Visitor = models.ForeignKey(Visitors, on_delete=models.SET_NULL,  max_length=100,null=True, blank=False)
-    Pledge_Made_By = models.ForeignKey(Members, on_delete=models.SET_NULL,  max_length=100,null=True, blank=False)
+    Pledge_Made_By_Visitor = models.ForeignKey(Visitors, on_delete=models.SET_NULL,  max_length=100,null=True, blank=True)
+    Pledge_Made_By = models.ForeignKey(Members, on_delete=models.SET_NULL,  max_length=100,null=True, blank=True)
     Reason = models.ForeignKey(PledgeItem, on_delete=models.SET_NULL,  max_length=100, blank=True, null=True)
     Amount_Pledged = models.IntegerField(default=0,blank=True, null=True)
     Amount_Paid = models.IntegerField(default=0,blank=True, null=True)

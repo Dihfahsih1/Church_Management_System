@@ -38,7 +38,7 @@
                 <div class="" data-example-id="togglable-tabs">
                     <ul class="nav nav-tabs bordered">
                       <td>
-                        {% if request.user.Role == 'Secretary' or .user.Role == 'Admin' or .user.Role == 'SuperAdmin' or .user.Role == 'Assistant_Admin' %}
+                        {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
                         <li role="presentation"><a href="{% url 'add-pledge-item' %}"><i
                               class="fa fa-plus-square-o"></i> Add Pledge Item</a>
                         </li>
@@ -82,7 +82,12 @@
                                 {% if item.Amount_Pledged != 0 %}
                                 <tr>
                                   <td>{{item.Date}}</td>
-                                  <td>{{ item.Pledge_Made_By}}</td>
+                                  <td>{% if item.Pledge_Made_By_Visitor %}
+                                    {{ item.Pledge_Made_By_Visitor}}
+                                    {% else %}
+                                    {{item.Pledge_Made_By}}
+                                    {% endif %}
+                                  </td>
                                   <td>{{ item.Pledge_Made_By.Group}}</td>
                                   <td>{{ item.Reason}}</td>
                                   <td>{{ item.Amount_Pledged}}</td>

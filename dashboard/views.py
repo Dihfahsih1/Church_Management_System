@@ -1465,6 +1465,7 @@ def paying_pledges(request, pk):
     items = get_object_or_404(Pledges, id=pk)
     if request.method == "POST":
         form = TestingForm(request.POST)
+        print(form.errors)
         if form.is_valid():
             form.save()
             return redirect('Pledgesreport')

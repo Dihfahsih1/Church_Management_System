@@ -78,7 +78,7 @@
                   <label> Pledge Id</label>
                   <input type="text" name="Pledge_Id" id="Pledge_Id" maxlength="100" class="textinput textInput form-control" value="{{pledge_id.id }}">
               </div>
-                  <h4 style="text-align: center"><b>{{pledge_id.Pledge_Made_By.Initials}} {{pledge_id.Pledge_Made_By}}</b>  Fullfilling {% if pledge_id.Pledge_Made_By.Gender == 'Female' %} Her Pledge {% else %} His Pledge {%endif%}</h4>
+                  <h4 style="text-align: center"><b>{{pledge_id.Pledge_Made_By_Visitor}}</b>  fullfilling the pledge</h4>
               
               {% endfor%}
               <div class="separator"></div>
@@ -96,6 +96,7 @@
             <div class="row" id="name">
               {{ form.Reason|as_crispy_field }}
               {{ form.Pledge_Made_By|as_crispy_field }}
+              {{ form.Pledge_Made_By_Visitor|as_crispy_field }}
             </div>
             </form>
           </div> 
