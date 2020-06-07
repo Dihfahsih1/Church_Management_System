@@ -25,9 +25,9 @@
                     |<a href="{% url 'Enter_Pledges' %}"> Pledges</a>
                     |<a href="{% url 'give-allowance' %}"> Allowances</a>
                     |<a href="{% url 'employee-list' %}"> Salaries</a>
-                    |<a href="{% url 'record-donations' %}"> Doantions</a>
-                    |<a href="{% url 'add-seeds' %}"> TGiving</a>
-                    |<a href="{% url 'record-thanks-giving' %}"> TGiving</a>
+                    |<a href="{% url 'record-donations' %}"> Other Sources</a>
+                    |<a href="{% url 'add-seeds' %}"> Seeds</a>
+                    |<a href="{% url 'record-thanks-giving' %}"> Thanks Giving</a>
                     |<a href="{% url 'members-register' %}"> Membership</a>
                     <div class="separator"></div>
                 </div>
@@ -41,14 +41,12 @@
 	                            class="fa fa-plus-square-o"></i> Record Building Collections</a>
 		                    </li>
                             <li role="presentation"><a href="{% url 'BuildingRenovationarchivessearch' %}"><i
-                              class="fa fa-plus-square-o"></i> Archived Building Collections</a>
+                              class="glyphicon glyphicon-king"></i> Archived Building Collections</a>
                            </li>
-                            <li role="presentation"><a href="{% url 'Enter_Pledges' %}"><i
-                                class="fa fa-plus-square-o"></i> Building Pledge</a>
-                            </li>
 		                </ul>
 		                <br/>
-                         <h2 style="text-align: center">Record Total Building Collections Collected in a Particular Service</h2>
+                         <h1 style="text-align: center">Record Total Building Collections Collected in a Particular Service</h1>
+                         <div class="separator"></div>
                       <p>{{ msg}}</p>
 						<div style="margin-left: 25%"class="col-lg-4 col-md-4 col-sm-4 justify-content-center">
 						{% load crispy_forms_tags %}
