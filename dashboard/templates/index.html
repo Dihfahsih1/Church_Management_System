@@ -79,7 +79,7 @@
             </div>
             <div class="row top_tiles">
                 <h2  style="margin-left: 5%;font-weight: bold; color:green">
-                    <a href="{% url 'total_revenues'  %}"><b>Total Monthly Revenue({{total_monthly_incomes|intcomma}})</b> </a> </h2>
+                    <a href="{% url 'total_revenues'  %}"><b> Month of {{month}} Total Revenue({{total_monthly_incomes|intcomma}})</b> </a> </h2>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <a href="{% url 'Tithesreport'  %}">
                     <div class="tile-stats">
@@ -131,7 +131,7 @@
             </div>
 
             <div class="row top_tiles">
-                <h2  style="margin-left: 5%; font-weight: bold; color: green"><a href="{% url 'total_expenses'  %}"><b>Total Monthly Expenditure ({{total_monthly_expenditure|intcomma}})</b></a></h2>
+                <h2  style="margin-left: 5%; font-weight: bold; color: green"><a href="{% url 'total_expenses'  %}"><b>Month of {{month}} Total Expenditure ({{total_monthly_expenditure|intcomma}})</b></a></h2>
                 
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <a href="{% url 'expenditurereport'  %}">
@@ -283,7 +283,7 @@
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <div class="tile-stats">
-                        <h4> Cash Out</h4>
+                        <h4>Pledge Item Cash Out</h4>
                         <p class="black" style="font-size: 14px"  ><b>Shs.{{ d_pledges|intcomma}}</b></p>
                     </div>
                 </div>
