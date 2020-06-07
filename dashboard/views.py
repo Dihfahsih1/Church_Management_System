@@ -1521,20 +1521,16 @@ class pledgesreceipt(View):
 @login_required
 def Pledgesreport(request):
     if request.method=='POST':
-        items = Pledges.objects.all()
-        for item in items:
-            item_id=item.id
-            results=Pledges.objects.filter(Pledge_Id=item_id).aggregate(totals=models.Sum("Amount_Paid"))
-            tots=results['totals'] or 0
-            if(tots>=item.Amount_Pledged):
-                item.Archived_Status = 'ARCHIVED'
-                item.save()   
-        messages.success(request, f'All Pledges Paid have been Archived')
-        return redirect('Pledgesreport')
+        items = Pledges.objects.filter(Status='PAID')
+        for i in items:
+            i.Archived_Status='ARCHIVED'
+            i.save()  
+            messages.success(request, f'All Pledges Paid have been Archived')
+            return redirect('Pledgesreport')
     today = datetime.now()
     years=today.year
     context={}
-    items = list(Pledges.objects.filter(Archived_Status="NOT-ARCHIVED").order_by('-id'))
+    items = list(Pledges.objects.filter(Archived_Status="NOT-ARCHIVED").order_by('-Date'))
     context['items']=items
     context['years']=years
     context['today']=today
