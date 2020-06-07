@@ -30,7 +30,7 @@
                   |<a href="{% url 'members-register' %}"> Membership</a>
                   <div class="separator"></div>
                 </div>
-                <h1 style="text-align: center">Record All Pledges Made in a Month</h1>
+                
                     <p>{{ message }}</p>
           <div class="x_content">
             <div class="" data-example-id="togglable-tabs">
@@ -50,22 +50,43 @@
                 <li role="presentation"><a href="{% url 'pledgesarchivessearch' %}"><i
                               class="fa fa-plus-square-o"></i> Pledges Archived</a>
                 </li>
-              </ul> <br/>
-				{% load crispy_forms_tags %}
-        <div  class="col-lg-6 col-offset-8 centered">
+              </ul>
+              <h2 style="text-align: center">Record a pledge made by a member</h2>
+              <div class="separator"></div>
+        {% load crispy_forms_tags %}
+        <div class="col-lg-4"></div>
+        <div  class="col-lg-4">
 				<form method="POST" enctype="multipart/form-data" >
 				{% csrf_token %}
-					    {{ form.Date|as_crispy_field }}
-					
-					    {{ form.Pledge_Made_By|as_crispy_field }}
-					
+              {{ form.Date|as_crispy_field }}
+                {{ form.is_church_member|as_crispy_field }}
+              <div id="member">
+                {{ form.Pledge_Made_By|as_crispy_field }}
+              </div>
+              <div id="visitor">
+                {{ form.Pledge_Made_By_Visitor|as_crispy_field }}
+              </div>
+              <script type="text/javascript">
+                $("#id_is_church_member").change(function () {
+                  if ($(this).val() === 'YES') {
+                    $('#visitor').hide();
+                    $('#member').show();
+                  }
+                  if ($(this).val() === 'NO') {
+                    $('#member').hide();
+                    $('#visitor').show();
+                  }
+
+                });
+                $("#id_is_church_member").trigger("change");
+              </script>
 					    {{ form.Reason|as_crispy_field }}
 					
 					    {{ form.Amount_Pledged|as_crispy_field }}
 				    <button type="submit" class="btn btn-primary" name="button">Submit</button>
 				</form>
       </div>
-      <p style="color:red; font-size: 150%"><b>NB: </b> Please Add Pledge Item on which members can pledge</p>
+      <!-- <p style="color:red; font-size: 150%"><b>NB: </b> Please Add Pledge Item on which members can pledge</p> -->
 			    </div>
 			   </div>
 			   </div>

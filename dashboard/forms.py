@@ -93,11 +93,12 @@ class SalariesPaidForm(forms.ModelForm):
 class PledgesForm(forms.ModelForm):
     class Meta:
         model=Pledges
-        fields = ('Archived_Status','Status','Amount_Paid','Balance','Date','Pledge_Made_By','Reason','Amount_Pledged')
+        fields = ('Pledge_Made_By_Visitor','is_church_member','Archived_Status','Status','Amount_Paid','Balance','Date','Pledge_Made_By','Reason','Amount_Pledged')
         widgets = {
             'Date': DatePickerInput(),
             'Pledge_Made_By': autocomplete.ModelSelect2(url='auto-complete', attrs={
-            'data-placeholder': 'Type here the name....', 'data-minimum-input-length': 1})
+            'data-placeholder': 'Type here Member name....', 'data-minimum-input-length': 3}),
+
         }
 
 class CashFloatForm(forms.ModelForm):
@@ -110,13 +111,13 @@ class CashFloatForm(forms.ModelForm):
 class TestingForm(forms.ModelForm):
     class Meta:
         model = Pledges
-        fields = ('Amount_Paid', 'Pledge_Id','Pledge_Made_By', 'Reason')
+        fields = ('Pledge_Made_By_Visitor','is_church_member','Amount_Paid', 'Pledge_Id','Pledge_Made_By', 'Reason')
 
 
 class UpdatePledgesForm(forms.ModelForm):
     class Meta:
         model=Pledges
-        fields = ('Date', 'Pledge_Made_By', 'Reason')
+        fields = ('Date','is_church_member', 'Pledge_Made_By_Visitor','Pledge_Made_By', 'Reason')
         widgets = {
 
             'Date': DatePickerInput(),
@@ -126,7 +127,7 @@ class UpdatePledgesForm(forms.ModelForm):
 class PaidPledgesForm(forms.ModelForm):
     class Meta:
         model=PaidPledges
-        fields = ('Reason','Pledge_Id','Pledge_Made_By','Amount_Paid','Date')
+        fields = ('Reason','Pledge_Id','Pledge_Made_By_Visitor','Pledge_Made_By','Amount_Paid','Date')
         widgets = {
             'Date': DatePickerInput(),
         }              
