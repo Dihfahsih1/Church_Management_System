@@ -63,7 +63,7 @@
             <div class="tab-content">
                  <div class="tab-pane fade in active" id="tab_invoice_list">
                     <div class="x_content">                     
-                         <table id="pledge-table" class=" table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="500px">
+                         <table id="pledge-table" class=" table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>Date</th> 
@@ -89,9 +89,9 @@
                                   <td>{{ item.total_pledge_paid}}</td>
                                   <td>{{ item.Pledge_Balance}}</td>
                                   <td>{{ item.updatestatus}}</td>
-                                  {% if request.user.Role == 'Secretary' or .user.Role == 'Admin' or .user.Role == 'SuperAdmin' or .user.Role == 'Assistant_Admin' %}
+                                  {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
                                   {% if item.total_pledge_paid >= item.Amount_Pledged  %}
-                                  <td><a href="{% url 'pledgesreceipt' item.id %}" ><button class="btn btn-warning"><span class="glyphicon glyphicon-print"></span></button></a>
+                                  <td><a href="{% url 'pledgesreceipt' item.id %}" ><button class="btn btn-info"><span class="glyphicon glyphicon-print"></span></button></a>
                                    <a href="{% url 'edit_pledges' item.id  %}" ><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button></a> 
                                   {% else %}
                                   <td>
@@ -113,7 +113,7 @@
                     </div>
                   </div>
                   <p><a href="{% url 'pledgespdf' %}" target="_new" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-print"> PRINT REPORT</span></a></p>
-                  {% if request.user.Role == 'Secretary' or .user.Role == 'Admin' or .user.Role == 'SuperAdmin' or .user.Role == 'Assistant_Admin' %}
+                  {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
                   <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
                   
                           
