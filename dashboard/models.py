@@ -514,7 +514,8 @@ class Pledges(Model):
     Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
 
     def __str__(self):
-        return self.Archived_Status
+        if self.Amount_Pledged is not 0:
+            return self.Archived_Status
 
     @property
     def Total_Amount_Pledged(self):
