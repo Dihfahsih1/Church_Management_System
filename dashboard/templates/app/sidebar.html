@@ -52,13 +52,13 @@
                     </ul>
                 </li>
                 {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
+                <li><a href="{% url 'record-building-collections'%}"><i class="fa fa-money"></i>Building Collections</a></li>
                 <li><a><i class="fa fa-calculator"></i> Record Revenues <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
     
                         <li><a href="{% url 'Enter_Tithes' %}">Tithes</a></li>
                         <li><a href="{% url 'add-seeds'%}">Seeds Offering</a></li>
                         <li><a href="{% url 'Enter_Offerings' %}">General Offerings</a></li>
-                        <li><a href="{% url 'record-building-collections'%}">Building Collections</a></li>
                         <li><a href="{% url 'record-thanks-giving'%}">Thanks Giving / Love Offering</a></li>
                         <li><a href="{% url 'record-donations'%}">Other Sources</a></li>
                         
