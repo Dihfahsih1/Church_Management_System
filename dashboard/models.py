@@ -533,7 +533,9 @@ class Pledges(Model):
     @property 
     def Pledge_Balance(self):
         results=self.Amount_Pledged - self.total_pledge_paid
-        return results
+        self.Balance=results
+        self.save()
+        return self.Balance
     @property
     def updatestatus(self):
         if (self.Pledge_Balance <= 0):

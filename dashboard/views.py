@@ -1492,12 +1492,15 @@ def edit_pledges(request, pk):
 class pledgespdf(View):
     def get(self, request):
         current_month = datetime.now().month
-        ple = Pledges.objects.filter(Date__month=current_month,Archived_Status='NOT-ARCHIVED').order_by('-Date')
+        ple = Pledges.objects.filter(Archived_Status='NOT-ARCHIVED').order_by('-Date')
         today = datetime.now().now()
         month = today.strftime('%B')
         expense=ple.aggregate(y=models.Sum('Amount_Paid'))
+        bal=ple.aggregate(x=models.Sum('Balance'))
         totalexpense=expense['y']
+        balance=bal['x']
         context = {'month': month,'today': today,'ple': ple,'request': request,'totalexpense': totalexpense,
+        'balance':balance
         }
         return Render.render('Pledges/pledgespdf.html', context)
 

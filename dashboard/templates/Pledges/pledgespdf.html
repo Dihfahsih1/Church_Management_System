@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+    {% load humanize %}
     <meta charset="utf-8">
     <title>Annual Pledges Report</title>
     <style type="text/css">
@@ -76,22 +77,24 @@
             </thead>
             <tbody>
             {% for ex in ple %}
-                <tr style="font-size:larger">
-                    <td>{{ ex.Date}}</td>
-                    <td>{% if ex.Pledge_Made_By_Visitor %}{{ex.Pledge_Made_By_Visitor}} {% else %}{{ ex.Pledge_Made_By}}</td>
-                    {% endif %}<td>{{ ex.Reason}}</td>
-                    <td>{{ ex.Amount_Pledged}}</td>
-                    <td>{{ ex.Amount_Paid}}</td>
-                    <td>{{ ex.Pledge_Balance}}</td>
-                </tr>
+               {% if ex.Amount_Pledged is not 0 %}
+                    <tr style="font-size:larger">
+                        <td>{{ ex.Date}}</td>
+                        <td>{% if ex.Pledge_Made_By_Visitor %}{{ex.Pledge_Made_By_Visitor}} {% else %}{{ ex.Pledge_Made_By}}</td>
+                        {% endif %}<td>{{ ex.Reason}}</td>
+                        <td>{{ ex.Amount_Pledged|intcomma}}</td>
+                        <td>{{ ex.Amount_Paid|intcomma}}</td>
+                        <td>{{ ex.Pledge_Balance|intcomma}}</td>
+                    </tr>
+                {% endif %}
             {% endfor %}
               <tr>
                   <td class="jumbotron"><h3>TOTAL</h3></td>
                   <td class="jumbotron"><h3>----------------------</h3></td>
                   <td class="jumbotron"><h3>----------------------</h3></td>
                   <td class="jumbotron"><h3>----------------------</h3></td>
-                  <td class="jumbotron"><h3>Shs. {{ totalexpense }}</h3></td>
-                  <td class="jumbotron"><h3>Shs. {{ all_pledges_total }}</h3></td>
+                  <td class="jumbotron"><h3>Shs. {{ totalexpense|intcomma }}</h3></td>
+                  <td class="jumbotron"><h3>Shs. {{ balance|intcomma }}</h3></td>
               </tr>
             </tbody>
         </table>
