@@ -2847,7 +2847,7 @@ def index(request):
         total_annual_float=annual_cashfloat['totals']
         if total_annual_float is None:
             total_annual_float=0
-        annual_revenues = (revenues_in_a_year) - total_annual_float
+        annual_revenues = (revenues_in_a_year)
         annual_net = annual_revenues-annual_expenditure  
         today = timezone.now()
         month = today.strftime('%B')
