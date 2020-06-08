@@ -721,7 +721,8 @@ def recording_tithes(request):
 def record_member_tithe(request, pk):
     if Revenues.objects.filter(Member_Name__id=pk).exists():
         get_member_name=get_object_or_404(Members, pk=pk)
-        get_latest_tithe = Revenues.objects.filter(Member_Name__id=pk, Revenue_filter='tithes').latest('Date')
+        current_year = datetime.now().year
+        get_latest_tithe = Revenues.objects.filter(Member_Name__id=pk, Date__year=current_year, Revenue_filter='tithes').latest('Date')
         if request.method=="POST":
             form=RevenuesForm(request.POST)
             messages.success(request, f'Member Tithe has been recorded')
@@ -730,7 +731,7 @@ def record_member_tithe(request, pk):
                 return redirect('Tithesreport')
         else:
             form=RevenuesForm(instance=get_latest_tithe)
-            today = datetime.now()
+            
             context={'form':form, 'get_member_name':get_member_name}
         return render(request, 'Tithes/record_member_tithe.html',context)
     else:
