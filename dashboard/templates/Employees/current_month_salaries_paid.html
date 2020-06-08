@@ -55,16 +55,16 @@
                     <div class="x_content">                     
                          <table id="invoice-table" class="sum_table table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                             <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Salary</th>
-                                    <th>Date</th>
-                                    <th>Month</th>
-                                    <th>Amount Paid</th>
-                                    <th>Total Paid <i class=" glyphicon glyphicon-arrow-right"></i> (<span style="font-weight: bolder; color:red" class="totalCol"></span>)</th>
-                                    <th>Remaining Balance</th>
-                                    <th>Action</th>
-                                </tr>
+                              <tr>
+                                <th>Name</th>
+                                <th>Salary</th>
+                                <th>Date</th>
+                                <th>Month</th>
+                                <th>Amount Paid</th>
+                                <th>Total Paid <i class=" glyphicon glyphicon-arrow-right"></i> (<span style="font-weight: bolder; color:red" class="totalCol"></span>)</th>
+                                <th>Remaining Balance</th>
+                                <th>Action</th>
+                              </tr>
                             </thead>
                             <tbody>
                                 {% for salary in salaries %}
@@ -77,28 +77,28 @@
                                      <td class="rowDataSd">{{ salary.total_salary_paid}}</td>
                                      <td>{{ salary.Balance}}</td>
                                      <td>
-                                       <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
-                                             <span class='glyphicon glyphicon-trash'> </span> Delete
-                                         </button>
+                                      <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
+                                            <span class='glyphicon glyphicon-trash'> </span> Delete
+                                      </button>
 
                                             <!-- Modal -->
-                                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                              <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                  <div class="modal-header">
-                                                    <h4 class="modal-title" id="myModalLabel">Delete Salary</h4>
-                                                  </div>
-                                                  <div class="modal-body">
-                                                      <h3>Are you sure you want to delete Salary?</h3>
-                                                  </div>
-                                                  <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                    <a href="{% url 'delete-salary-paid' salary.pk %}" class="btn btn-danger bt-sm" role="button">Confirm</a>
-                                                  </div>
-                                                </div>
-                                              </div>
+                                      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog" role="document">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h4 class="modal-title" id="myModalLabel">Delete Salary</h4>
                                             </div>
-                                     </td>
+                                            <div class="modal-body">
+                                                <h3>Are you sure you want to delete Salary?</h3>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                              <a href="{% url 'delete-salary-paid' salary.pk %}" class="btn btn-danger bt-sm" role="button">Confirm</a>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </td>
                                 </tr>
                                 {% endfor%} 
                             </tbody>
@@ -117,18 +117,22 @@
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
+
                       <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Employee Salaries report archiving</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
+
                       <div class="modal-body">
-                           <h4 class="text-danger"><b><u>Ensure You archive the Correct Month and Year(Church Cycle)</u></b></h4>
+                          <h4 class="text-danger">
+                            <b><u>Ensure You archive the Correct Month and Year(Church Cycle)</u></b>
+                          </h4>
                         <form class="x_content" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-row">
-                          <div class="col-lg-12" style="background-color: rgb(227, 237, 239">
+                          <div class="col-lg-12" style="background-color: rgb(227, 237, 239)">
                            <div class="col-lg-3">
                             <label >Year</label>
                             <input type="text" name="archived_year" value="{{years}}" width="1%">
@@ -136,11 +140,10 @@
                             <div class="col-lg-3">
                             <label>Month</label>
                             <select  name="archived_month" id="inlineFormCustomSelect">
-                                <option selected> Select Month</option>
-                                {% for report_month in months %}
-                                   <option class="btn-success" name="{{ report_month }}" value="{{ report_month }}">{{ report_month }}
-                                   </option>
-                                {% endfor %}
+                              <option selected> Select Month</option>
+                              {% for report_month in months %}
+                                <option class="btn-success" name="{{ report_month }}" value="{{ report_month }}">{{ report_month }}</option>
+                              {% endfor %}
                             </select>
                             </div><br><br><br>
                              <div class="col-lg-6">
@@ -149,10 +152,9 @@
                             </div>
                           </div>
                         </form>
-                          </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
+                      </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div> 
           </div>
         </div>       
