@@ -2714,43 +2714,43 @@ def index(request):
         Annualothers =0
 
     A_offering = Revenues.objects.filter(Revenue_filter='offering',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
-    Annualoffering=int(A_offering["totals"])
+    Annualoffering=(A_offering["totals"])
     if Annualoffering is None:
         Annualoffering =0
 
     A_tithes=Revenues.objects.filter(Revenue_filter='tithes',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
-    Annualtithes=int(A_tithes["totals"])
+    Annualtithes=(A_tithes["totals"])
     if Annualtithes is None:
         Annualtithes =0
 
     A_seeds = Revenues.objects.filter(Revenue_filter='seeds',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
-    Annualseeds=int(A_seeds["totals"])
+    Annualseeds=(A_seeds["totals"])
     if Annualseeds is None:
         Annualseeds =0
 
     A_build= Revenues.objects.filter(Revenue_filter='build',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
-    Annualbuilding=int(A_build["totals"])
+    Annualbuilding=(A_build["totals"])
     if Annualbuilding is None:
         Annualbuilding =0
      
     #expenses
     A_general=Expenditures.objects.filter(Reason_filtering='general',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
-    Annualgeneral=int(A_others["totals"])
+    Annualgeneral=(A_general["totals"])
     if Annualgeneral is None:
         Annualgeneral =0
 
     A_main=Expenditures.objects.filter(Reason_filtering='main',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
-    Annualmain=int(A_main["totals"])
+    Annualmain=(A_main["totals"])
     if Annualmain is None:
         Annualmain =0
 
     A_petty = Expenditures.objects.filter(Reason_filtering='petty',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
-    Annualpetty=int(A_petty["totals"])
+    Annualpetty=(A_petty["totals"])
     if Annualpetty is None:
         Annualpetty =0
 
     A_allowance=Expenditures.objects.filter(Reason_filtering='allowance',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
-    Annualallowances=int(A_allowance["totals"])
+    Annualallowances=(A_allowance["totals"])
     if Annualallowances is None:
         Annualallowances =0
 
@@ -2765,30 +2765,30 @@ def index(request):
  
     #ANNUAL REVENUE
     annual_revenue=Revenues.objects.filter(Date__year=current_year).exclude(Revenue_filter='build').aggregate(totals=models.Sum("Amount"))
-    revenues_in_a_year=int(annual_revenue["totals"])
+    revenues_in_a_year=(annual_revenue["totals"])
     if revenues_in_a_year is None:
         revenues_in_a_year =0
 
     #ANNUAL PLEDGES PAID
     annual_paid_pledges = Pledges.objects.filter(Date__year=current_year).aggregate(totals=models.Sum("Amount_Paid"))
-    annual_pledges_paid=int(annual_paid_pledges["totals"])
+    annual_pledges_paid=(annual_paid_pledges["totals"])
     if annual_pledges_paid is None:
         annual_pledges_paid =0
 
     #ANNUAL EXPENDITURE
     annual_expenses=Expenditures.objects.filter(Date__year=current_year).aggregate(totals=models.Sum("Amount"))
-    expenses_in_a_year=int(annual_expenses["totals"])
+    expenses_in_a_year=(annual_expenses["totals"])
     if expenses_in_a_year is None:
         expenses_in_a_year =0
 
     A_salaries=SalariesPaid.objects.filter(Date_of_paying_salary__year=current_year).aggregate(totals=models.Sum("Salary_Amount"))
-    Annualsalaries=int(A_salaries["totals"])
+    Annualsalaries=(A_salaries["totals"])
     if Annualsalaries is None:
         Annualsalaries =0
 
     #annuall pledges cashed out
     pledgecash = PledgesCashedOut.objects.filter(Date__year=current_year).aggregate(totals=models.Sum("Amount_Cashed_Out"))
-    Annualpledgecashed=int(pledgecash["totals"])
+    Annualpledgecashed=(pledgecash["totals"])
     if Annualpledgecashed is None:
         Annualpledgecashed =0
    
