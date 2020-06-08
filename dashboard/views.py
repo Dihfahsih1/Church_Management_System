@@ -1241,7 +1241,7 @@ class petty_expenditure_report_pdf(View):
             totalexpense += instance.Amount
         context ={'year':year,'month': month,'today':today,'expenses':expenses,'request': request,'totalexpense': totalexpense,
         }
-        return Render.render('Expenses/sundrypd.html',context)
+        return Render.render('Expenses/sundrypdf.html',context)
 
 
 #Allowances Module

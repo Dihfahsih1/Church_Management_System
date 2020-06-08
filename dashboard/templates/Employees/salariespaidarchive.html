@@ -7,33 +7,32 @@
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
-                <div class="x_title">
-                    <h1 style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b> EMPLOYEE MODULE</b></h1>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li>
-                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                </div>
-                 <div class="x_content quick-link">
-                    <span style="color:red"><b>Other Archived Reports:</b></span>
-                      <a href="{% url 'expensesarchivessearch'  %}"> Main Expenses</a></li>
-                      |<a href="{% url 'general-expensesarchives-search'  %}">General Expenses</a></li>
-                      |<a href="{% url 'tithesarchivessearch'  %}"> Tithes</a></li>
-                      |<a href="{% url 'offeringsarchivessearch'  %}"> Offerings</a></li>
-                      |<a href="{% url 'pledgesarchivessearch'  %}"> Pledges</a></li>
-                      |<a href="{% url 'sundryarchivessearch'  %}"> Petty Expenses</a></li>
-                      |<a href="{% url 'allowancearchivessearch'  %}"> Allowances</a></li>
-                      |<a href="{% url 'salariespaidarchivessearch'  %}"> Salaries</a></li>
-                      |<a href="{% url 'donationsarchivessearch'  %}"> Donations</a></li>
-                      |<a href="{% url 'thanksgivingarchivessearch'  %}"> Thanks Giving</a></li>
-                    <div class="separator"></div>
-                </div>
-                
+              <div class="x_title">
+                  <h1 style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b> EMPLOYEE MODULE</b></h1>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                      <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+              </div>
+                <div class="x_content quick-link">
+                  <span style="color:red"><b>Other Archived Reports:</b></span>
+                    <a href="{% url 'expensesarchivessearch'  %}"> Main Expenses</a></li>
+                    |<a href="{% url 'general-expensesarchives-search'  %}">General Expenses</a></li>
+                    |<a href="{% url 'tithesarchivessearch'  %}"> Tithes</a></li>
+                    |<a href="{% url 'offeringsarchivessearch'  %}"> Offerings</a></li>
+                    |<a href="{% url 'pledgesarchivessearch'  %}"> Pledges</a></li>
+                    |<a href="{% url 'sundryarchivessearch'  %}"> Petty Expenses</a></li>
+                    |<a href="{% url 'allowancearchivessearch'  %}"> Allowances</a></li>
+                    |<a href="{% url 'salariespaidarchivessearch'  %}"> Salaries</a></li>
+                    |<a href="{% url 'donationsarchivessearch'  %}"> Donations</a></li>
+                    |<a href="{% url 'thanksgivingarchivessearch'  %}"> Thanks Giving</a></li>
+                  <div class="separator"></div>
+              </div>
               <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
-                    <ul class="nav nav-tabs bordered">
+                  <ul class="nav nav-tabs bordered">
                     <li role="presentation"><a href="{% url 'employee-list' %}"><i
                                 class="fa fa-list-ol"></i> Employee List</a>
                     </li>
@@ -46,57 +45,56 @@
                     <li role="presentation"class="active"><a href="{% url 'salariespaidarchivessearch' %}"><i
                                 class="fa fa-plus-square-o"></i> Archived Salaries Paid Report</a>
                      </li>
-                    </ul>
-                    <h2 style="text-align: center;">Search for archived employee salaries</h2>
-                    <div class="separator"></div>
+                  </ul>
 
-                      <h4><i class='glyphicon glyphicon-arrow-down'></i>Please search for the Salaries archived by <b>Year</b> and <b>Month</b></h4><br>
+                  <h2 style="text-align: center;">Search for archived employee salaries</h2>
+                  <div class="separator"></div>
 
-                    <form class="x_content" method="POST" enctype="multipart/form-data">
-                      {% csrf_token %}
-                      <div class="form-row">
-                        <div class="col-lg-12 " style="background-color: rgb(227, 237, 239)">
-                          <div class="col-lg-2" style="margin-top: 8px">
-                          </div>
-                          <div class="col-lg-3" style="margin-top: 8px">
-                            <label>Year</label>
-                            <div class="form-group">
-                              <b><input class='form-control' type="number" placeholder="Enter Year, e.g. 2020" name="report_year" width="2%"
-                                  required="required" value="{{report_year}}"></b>
-                            </div>
-                          </div>
-                          <div class="col-lg-3" style="margin-top: 8px">
-                            <label>Month</label>
-                            <div class="form-group">
-                              <select class='form-control' name="report_month" value="" id="inlineFormCustomSelect" required="required"
-                                style="cursor: pointer">
-                                <option>{{report_month}}</option>
-                                <option class="btn-success" name="1" value="1">January</option>
-                                <option class="btn-success" name="2" value="2">February</option>
-                                <option class="btn-success" name="3" value="3">March</option>
-                                <option class="btn-success" name="4" value="4">April</option>
-                                <option class="btn-success" name="5" value="5">May</option>
-                                <option class="btn-success" name="6" value="6">June</option>
-                                <option class="btn-success" name="7" value="7">July</option>
-                                <option class="btn-success" name="8" value="8">August</option>
-                                <option class="btn-success" name="9" value="9">September</option>
-                                <option class="btn-success" name="10" value="10">October</option>
-                                <option class="btn-success" name="11" value="11">November</option>
-                                <option class="btn-success" name="12" value="12">December</option>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="col-lg-2">
-                            <br>
-                            <button class='form-control' type="submit" class="btn btn-info">Search &nbsp; <span
-                                class='glyphicon glyphicon-search'></span></button>
-                          </div>
-                          <div class="col-lg-2" style="margin-top: 8px">
+                  <h4><i class='glyphicon glyphicon-arrow-down'></i>Please search for the Salaries archived by <b>Year</b> and <b>Month</b></h4><br>
+                  <form class="x_content" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-row">
+                      <div class="col-lg-12 " style="background-color: rgb(227, 237, 239)">
+                        <div class="col-lg-2" style="margin-top: 8px">
+                        </div>
+                        <div class="col-lg-3" style="margin-top: 8px">
+                          <label>Year</label>
+                          <div class="form-group">
+                            <b><input class='form-control' type="number" placeholder="Enter Year, e.g. 2020" name="report_year" width="2%"
+                                required="required" value="{{report_year}}"></b>
                           </div>
                         </div>
+                        <div class="col-lg-3" style="margin-top: 8px">
+                          <label>Month</label>
+                          <div class="form-group">
+                            <select class='form-control' name="report_month" value="" id="inlineFormCustomSelect" required="required"
+                              style="cursor: pointer">
+                              <option>{{report_month}}</option>
+                              <option class="btn-success" name="1" value="1">January</option>
+                              <option class="btn-success" name="2" value="2">February</option>
+                              <option class="btn-success" name="3" value="3">March</option>
+                              <option class="btn-success" name="4" value="4">April</option>
+                              <option class="btn-success" name="5" value="5">May</option>
+                              <option class="btn-success" name="6" value="6">June</option>
+                              <option class="btn-success" name="7" value="7">July</option>
+                              <option class="btn-success" name="8" value="8">August</option>
+                              <option class="btn-success" name="9" value="9">September</option>
+                              <option class="btn-success" name="10" value="10">October</option>
+                              <option class="btn-success" name="11" value="11">November</option>
+                              <option class="btn-success" name="12" value="12">December</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-lg-2">
+                          <br>
+                          <button class='form-control' type="submit" class="btn btn-info">Search &nbsp; <span
+                              class='glyphicon glyphicon-search'></span></button>
+                        </div>
+                        <div class="col-lg-2" style="margin-top: 8px">
+                        </div>
                       </div>
-                    </form><br> <br>
-
+                    </div>
+                  </form><br> <br>
                 <div class="tab-content">
                  <div class="tab-pane fade in active" id="tab_invoice_list">
                     <div class="x_content">                     
@@ -106,20 +104,19 @@
                               <tr>
                                   <td>{{ archived.Name }}</td>
                                   <td>{{ archived.Salary_Amount }}</td>
-
                                   <td>{{ archived.Date_of_paying_salary }}</td>
                                   <td>{{ archived.Month_being_cleared}}</td>
                               </tr>
                           {% endfor %}
                           </tbody>
                            <td>Total</td><td><b style="color: red">Shs.{{total_amount}}</b></td>
-                                 {% if archived_reports %}
-                                     <h2 style="text-align: center">Monthly Archived Salaries Reports For the financial cycle of  <b>{{ report_month }} {{ report_year }}</b>  </h2>
-                           {% elif archived_reports == empty %}
-                                      <p style="color: red"><i class='glyphicon glyphicon-arrow-up'></i>You have not yet made any search!, please do so</p>
+                                  {% if archived_reports %}
+                                  <h2 style="text-align: center">Monthly Archived Salaries Reports For the financial cycle of  <b>{{ report_month }} {{ report_year }}</b>  </h2>
+                                  {% elif archived_reports == empty %}
+                                  <p style="color: red"><i class='glyphicon glyphicon-arrow-up'></i>You have not yet made any search!, please do so</p>
                                       
-                                       <h2 > No archived Data in the query you have made of the cycle {{ report_month }} {{ report_year }}</h2>
-                                      {% endif %}
+                                  <h2> No archived Data in the query you have made of the cycle {{ report_month }} {{ report_year }}</h2>
+                                   {% endif %}
                             <thead>
                               <tr>
                                   <th>Employee Name</th>
