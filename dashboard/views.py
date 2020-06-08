@@ -382,7 +382,7 @@ def edit_member(request, pk):
 
 #Member wall(list of member details)    
 def membership_wall(request):
-    all_members = Members.published.all()
+    all_members = Members.published.filter(is_active=True)
     paginator = Paginator(all_members, 9)  # 9 members on each page
     page = request.GET.get('page')
     try:
@@ -400,7 +400,7 @@ def membership_wall(request):
 #details of each member on the website
 def member_detail(request, pk):
     member = get_object_or_404(Members, pk=pk)
-    mem_details=Members.objects.all()
+    mem_details=Members.objects.filter(is_active=True)
     number_of_registered_members=mem_details.count()
     more_details = Members.published.order_by('-date')
     paginator = Paginator(mem_details, 7)  # 9 members on each page
