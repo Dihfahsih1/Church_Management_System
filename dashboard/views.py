@@ -2849,7 +2849,7 @@ def index(request):
 def total_revenues(request):
     current_month = datetime.now().month #Monthly
     current_year = datetime.now().year
-    total_revenues = Revenues.objects.filter(Date__month=current_month, Archived_Status='NOT-ARCHIVED')\
+    total_revenues = Revenues.objects.filter(Date__month=current_month, Archived_Status='NOT-ARCHIVED').exclude(Revenue_filter='build')\
     .values('Date','Revenue_filter').annotate(Amount=Sum('Amount'))
     total = total_revenues.aggregate(total_amount=models.Sum("Amount"))
     x=total['total_amount']
