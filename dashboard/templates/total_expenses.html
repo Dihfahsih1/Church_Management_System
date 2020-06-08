@@ -61,10 +61,12 @@
                         <td>{{item.Amount|intcomma}}</td>
                       </tr>
                         {% endfor %}
+
                         {% for item in total_current_salaries%}
                       <tr>
                         <td>{{item.Date_of_paying_salary}}</td>
                         <td>{{item.Name}}</td>
+                        <td>Salary</td>
                         <td>{{item.Salary_Amount|intcomma}}</td>
                       </tr>
                         {% endfor %}
