@@ -140,7 +140,8 @@ class UserManager(BaseUserManager):
         user_obj.is_staff = True
         user_obj.is_superuser = True
         user_obj.save(using=self._db)
-        return user_obj    
+        return user_obj
+
 class User(AbstractBaseUser , PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True, blank=True, null=True)
     username = models.CharField(max_length=30, unique=True)
@@ -158,6 +159,7 @@ class User(AbstractBaseUser , PermissionsMixin):
         return str(self.full_name)
     def get(self):
         name=Members.objects.get(is_active=False)
+
 class Expenditures(Model):
     Date = models.DateField(null=True, blank=True)
     Payment_Made_To = models.CharField(max_length=100,blank=True, null=True)
@@ -170,7 +172,6 @@ class Expenditures(Model):
     Notes=models.CharField(max_length=100, blank=True, null=True)
     Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
     Member_Name = models.ForeignKey('Members', on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
-    
     def __str__(self):
         return self.Reason_filtering
     
@@ -220,7 +221,6 @@ class Revenues(Model):
     Revenue_filter=models.CharField(max_length=100, blank=True, null=True)
     Other_Sources=models.CharField(max_length=100, blank=True, null=True)
     Other_Notes=models.CharField(max_length=10000, blank=True, null=True)
-
     def __str__(self):
         return str(self.Member_Name)
     class Meta:
@@ -262,13 +262,9 @@ class Members(models.Model):
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS,null=True,blank=True)
     objects = models.Manager()
     published = PublishedStatusManager()
-
-    #if (self.Archived_Status == 'NOT-ARCHIVED'):
     def __str__(self):
         return str(self.First_Name )+ ' ' + str(self.Second_Name)
-                
-
-    #return full name    
+                  
     @property
     def full_name(self):
         return str(self.First_Name )+ ' ' + str(self.Second_Name)
@@ -279,7 +275,8 @@ class Members(models.Model):
         if (results['totals']):
             return results["totals"]
         else:
-            return 0     
+            return 0    
+
 class Ministry(models.Model):
     name = models.CharField(max_length=100, unique=True)
     leader = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100)
@@ -290,6 +287,7 @@ class Ministry(models.Model):
     published = PublishedStatusManager()
     def __str__(self):
         return self.name
+
 class ArchivedMembers(models.Model):
     Initials=models.CharField(max_length=100, choices=ini,null=True, blank=True)
     First_Name=models.CharField(max_length=100,null=True)
@@ -350,7 +348,6 @@ class StaffDetails(models.Model):
                 return 0
             else:    
                 return bal['totals']
-
                 
     @property
     def Balance(self):
@@ -423,10 +420,9 @@ class SalariesPaid(models.Model):
                 current_month = datetime.now().month
                 current_year = datetime.now().year
                 bal = SalariesPaid.objects.filter(Salary_Id=s_id, Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
-                balance =a_amount - bal['totals']
+                balance = a_amount - bal['totals']
                 return balance
           
-
 class SalariesPaidReportArchive(models.Model):
     Salary_Id = models.CharField(max_length=200,null=True, blank=True)
     Name = models.CharField(max_length=200,null=True, blank=True)
@@ -468,7 +464,7 @@ class PledgeItem(Model):
             return 0 
     @property
     def Pledge_Amount_Remaining(self):
-        results=self.Amount_Needed-self.Total_Amount_Pledged
+        results = self.Amount_Needed - self.Total_Amount_Pledged
         return results
         
     #total money paid for a particular item
@@ -490,7 +486,6 @@ class PledgesCashedOut(Model):
     Item_Id = models.CharField(max_length=100, blank=True, null=True)
     Amount_Needed = models.IntegerField(blank=True, null=True)
     Amount_Cashed_Out = models.IntegerField(blank=True, null=True)
-
     def __str__(self):
         return self.Item_That_Needs_Pledges
 
@@ -513,7 +508,7 @@ class Pledges(Model):
     Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
 
     def __str__(self):
-        if self.Amount_Pledged is not 0:
+        if self.Amount_Pledged != 0:
             return self.Archived_Status
 
     @property
@@ -530,12 +525,14 @@ class Pledges(Model):
             return self.Amount_Paid
         else:
             return 0
+    
     @property 
     def Pledge_Balance(self):
         results=self.Amount_Pledged - self.total_pledge_paid
         self.Balance=results
         self.save()
         return self.Balance
+    
     @property
     def updatestatus(self):
         if (self.Pledge_Balance <= 0):
@@ -554,15 +551,13 @@ class Pledges(Model):
             return self.Status
 
         else:
-            return self.Status    
-
+            return self.Status 
          
 class Slider(models.Model):
     slider_image = models.ImageField(upload_to='sliders/', null=True, blank=False)
     image_title = models.CharField(max_length=100)
     modified = models.DateTimeField(verbose_name="Modified", auto_now=True)
     objects = models.Manager()
-
     class Meta:
         default_permissions = ('view', 'add', 'change', 'delete')
 
@@ -578,7 +573,6 @@ class About(models.Model):
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS, null=True, blank=False)
     objects = models.Manager()
     published = PublishedStatusManager()
-
     class Meta:
         default_permissions = ('view', 'add', 'change', 'delete')
         verbose_name = ("About")
@@ -588,19 +582,16 @@ class About(models.Model):
         return self.about
 
     def get_absolute_url(self):
-        return reverse('about_detail', args=[self.pk])        
-
+        return reverse('about_detail', args=[self.pk]) 
 
 #pages
 class PublishedHeaderPageManager(models.Manager):
     def get_queryset(self):
         return super(PublishedHeaderPageManager, self).get_queryset().filter(page_location='Header')
 
-
 class PublishedFooterPageManager(models.Manager):
     def get_queryset(self):
         return super(PublishedFooterPageManager, self).get_queryset().filter(page_location='Footer')
-
 
 class Page(models.Model):
     IS = (('Header', 'Header'),
@@ -618,6 +609,7 @@ class Page(models.Model):
 
     def __str__(self):
         return self.page_title
+
 #Gallery
 class Gallery(models.Model):
     gallery_title = models.CharField( max_length=100)
@@ -626,7 +618,6 @@ class Gallery(models.Model):
     date = models.DateField(auto_now_add=True)
     objects = models.Manager()
     published = PublishedStatusManager()
-
     class Meta:
         default_permissions = ('view', 'add', 'change', 'delete')
         verbose_name = ("Gallery")
@@ -660,7 +651,6 @@ class News(models.Model):
     author = models.CharField(max_length=1003, null=True, blank=True, default="Preacher")
     objects = models.Manager()
     published = PublishedStatusManager()
-
     class Meta:
         default_permissions = ('view', 'add', 'change', 'delete')
         verbose_name = ("News")
@@ -689,7 +679,6 @@ class Event(models.Model):
     End_Time = models.TimeField(blank=True, null=True)
     Program_Name = models.CharField(max_length=100, blank=True, null=True)
     Day = models.CharField(max_length=20, choices=Week_Days, blank=True, null=True)
-   
     objects = models.Manager()
     published = PublishedStatusManager()
 
@@ -757,8 +746,7 @@ class Church(models.Model):
     pinterest_url = models.URLField(max_length=130, blank=True, null=True)
     frontend_Logo = models.ImageField(upload_to='logo/', blank=False)
     backend_Logo = models.ImageField(upload_to='logo/', blank=False)
-    STATUS = (('Active', 'Active'),
-              ('Inactive', 'Inactive'))
+    STATUS = (('Active', 'Active'), ('Inactive', 'Inactive'))
     status = models.CharField(max_length=130, blank=True, null=True, default="Active", choices=STATUS)
     objects = models.Manager()
     published = PublishedChurchManager()
@@ -771,6 +759,7 @@ class Church(models.Model):
 
     def __str__(self):
         return self.church_name
+
 class Contact(models.Model):
     name=models.CharField(max_length=1000, blank=True, null=True)
     email = models.CharField(max_length=130, blank=True, null=True)
@@ -785,6 +774,5 @@ class CashFloat(models.Model):
     Date = models.DateField(null=True, blank=True)
     Amount = models.IntegerField(default=0)
     Notes = models.TextField(max_length=100000, blank=True, null=True)
-
     def __int__(self):
         return self.Amount

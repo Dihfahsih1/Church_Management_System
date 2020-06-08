@@ -93,6 +93,7 @@
 </style>
 </head>
 <div style="max-width: 1220px">
+{% autoescape on %}
 <body class="{% block body_class %}nav-md {% endblock body_class %}" >
 
 
@@ -284,6 +285,7 @@
 {% block js %}
 {% endblock js %}
 </div>
+{% endautoescape %}
 </body>
 </html>
 
