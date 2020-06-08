@@ -6,7 +6,7 @@
     	<div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Employee</small></h2>
+                        <h1 style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b> EMPLOYEE MODULE</b></h1>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -14,12 +14,21 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content quick-link">
-                        <span>Quick Link:</span>
-                        <a href="{% url 'members-register' %}">Register Member</a>
-                        | <a href="{% url 'members-list' %}">Members List</a>
-                        | <a href="{% url 'visitors-register' %}">Register Visitor</a>
-                        | <a href="{% url 'visitors-list' %}">Visitors List</a>
-                        <a href="{% url 'visitors-list' %}">Employee List</a>
+                        <span style="color:red"><b>Other Reports:</b></span>
+                        <a href="{% url  'expenditurereport' %}"> Main Expenses</a></li>
+                        |<a href="{% url 'general-expenses-report' %}"> General Expenses</a></li>
+                        |<a href="{% url 'Offeringsreport' %}"> Offerings</a></li>
+                        |<a href="{% url 'members-list' %}">Membership</a>
+                        |<a href="{% url 'Pledgesreport' %}"> Pledges</a></li>
+                        |<a href="{% url 'sundryreport' %}"> Petty Expenses</a></li>
+                        {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+                        |<a href="{% url 'allowancereport' %}"> Allowances</a></li>
+                        |<a href="{% url 'current-month-salaries' %}"> Salaries</a></li>
+                        |<a href="{% url 'Tithesreport' %}"> Tithes</a></li>
+                        |<a href="{% url 'donations-report' %}"> Doantions</a></li>
+                        |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a></li>
+                        {% endif %}
+                        <div class="separator"></div>
                     </div>
   	      <div class="x_content">
             <div class="" data-example-id="togglable-tabs">
@@ -38,6 +47,8 @@
                      </li>
                 </ul>
                 <br/>
+                <h2 style="text-align: center;">Paying Employee Salary </h2>
+                <div class="separator"></div>
             {% load crispy_forms_tags %}
 
 			<form method="POST" enctype="multipart/form-data" action="{% url 'paid-salary'%}" >
@@ -54,7 +65,7 @@
                                    class="textinput textInput form-control"
                                    {%if id.UCC_Bwaise_Member == 'Yes'%}value="{{ id.Church_Member_id }}" {%else%}value="{{ id.id }}" {%endif%}>
                         </div>
-                        <div class="col-lg-12">
+                        <div class="col-lg-8">
                         <label>Employee Name</label>
                         <input type="text" name="Name" id="Name" maxlength="100"
                                    class="textinput textInput form-control"
@@ -73,10 +84,10 @@
                               <label for="id_paid_amount"> Amount Paid</label>
                                <input type="number" value="{{form.instance.Balance}}" name="Salary_Amount" required id="id_paid_amount" class="textinput textInput form-control" min='1' max='{{form.instance.Balance}}'>
                         </div>
-
+                        <button type="submit" class="btn btn-primary" name="button">Submit</button>
 				   </div>
 			   </div>
-			    <button type="submit" class="btn btn-primary" name="button">Submit</button>
+			    
 			</form>
                 </div>
             </div>
