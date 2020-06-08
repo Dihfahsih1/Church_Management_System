@@ -275,8 +275,7 @@ class Members(models.Model):
             
     def total_tithe(self):
         current_year = datetime.now().year
-        results = Revenues.objects.filter(Member_Name__id=self.id,
-                                          Revenue_filter='tithes', Date__year=current_year).aggregate(totals=models.Sum("Amount"))
+        results = Revenues.objects.filter(Member_Name__id=self.id, Revenue_filter='tithes', Date__year=current_year).aggregate(totals=models.Sum("Amount"))
         if (results['totals']):
             return results["totals"]
         else:
@@ -285,7 +284,7 @@ class Ministry(models.Model):
     name = models.CharField(max_length=100, unique=True)
     leader = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100)
     details = models.TextField(max_length=10000000, null=True, blank=True)
-    photos = models.ImageField(upload_to='avatars/', blank=False) 
+    photos = models.ImageField(upload_to='avatars/', blank=True) 
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS,null=True,blank=True)
     objects = models.Manager()
     published = PublishedStatusManager()
@@ -305,7 +304,7 @@ class ArchivedMembers(models.Model):
 
 class Visitors(models.Model):
     Date = models.DateField(null=True, blank=True)
-    Photo=models.ImageField(upload_to='avatars/', blank=False)
+    Photo=models.ImageField(upload_to='avatars/', blank=True)
     First_Name=models.CharField(max_length=100, null=True)
     Second_Name=models.CharField(max_length=100, null=True)
     Address=models.CharField(max_length=100, null=True)
@@ -330,8 +329,8 @@ class StaffDetails(models.Model):
     Month_being_cleared = models.DateField(null=True, blank=True)
     Salary_Amount = models.IntegerField()
     Role = models.CharField(max_length=200, choices=rol, blank=True, null=True)
-    Date_of_employment=models.DateField(null=False, blank=False)
-    End_of_contract=models.DateField(null=False, blank=False)
+    Date_of_employment=models.DateField(null=True, blank=True)
+    End_of_contract=models.DateField(null=True, blank=True)
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS,null=True,blank=True)
     objects = models.Manager()
     published = PublishedStatusManager()
