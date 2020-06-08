@@ -30,15 +30,6 @@
                 </div>
 
                 <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-                    <a href="{% url 'cashfloat-list' %}">
-                    <div class="tile-stats">
-                        <h4> <b style="font-size: 17px">Total Annual Cash Float</b></h4>
-                        <div class="count red">{{total_annual_float|intcomma}}</div>
-                    </div>
-                    </a>
-                </div>
-
-                <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
                     <div class="tile-stats">
                         <h4> <b style="font-size: 17px">Total Annual Expenditure</b></h4>
                         <div class="count red">{{annual_expenditure|intcomma}}</div>
@@ -52,6 +43,15 @@
                     </div>
                 </div>
 
+                <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                    <a href="{% url 'cashfloat-list' %}">
+                    <div class="tile-stats">
+                        <h4> <b style="font-size: 17px">Total Annual Cash Float</b></h4>
+                        <div class="count red">{{total_annual_float|intcomma}}</div>
+                    </div>
+                    </a>
+                </div>
+
             </div>
             <!--Start of monthly summary tiles -->
             <div class="separator"></div>
@@ -59,7 +59,7 @@
                 <h1 style="margin-left:5%; color: brown"><b>Summary For the Month of {{ month }} {{ current_year }}</b></h1>
                     <!--Start of Annual summary tiles -->
                 <div class="row top_tiles">  
-                    <h2 class="blue" style="margin-left:5%;"><b>Cash Float Information </b></h2>
+                    <h2 class="blue" style="margin-left:5%;"><b> Cash Float Information</b>(7 days)</h2>
                     <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
                         <div class="tile-stats">
                             <h4><b style="font-size:15px">Cash Float Given</b></h4>
