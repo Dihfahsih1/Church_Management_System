@@ -6,21 +6,30 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2><i class="fa fa fa-calendar-check-o"></i><small> Manage Church Employee</small></h2>
+                        <h1 style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b> MEMBERSHIP MODULE</b></h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
                         </ul>
                         <div class="clearfix"></div>
                     </div>
-                   <div class="x_content quick-link">
-                        <span style="color: red">Quick Link:</span>
-                        <a href="{% url 'members-register' %}">Register Member</a>
-                        | <a href="{% url 'members-list' %}">Members List</a>
-                        | <a href="{% url 'visitors-register' %}">Register Visitor</a>
-                        | <a href="{% url 'visitors-list' %}">Visitors List</a>
+                <div class="x_content quick-link">
+                    <span style="color:red"><b>Other Reports:</b></span>
+                    <a href="{% url  'expenditurereport' %}"> Main Expenses</a></li>
+                    |<a href="{% url 'general-expenses-report' %}"> General Expenses</a></li>
+                    |<a href="{% url 'Offeringsreport' %}"> Offerings</a></li>
+                
+                    |<a href="{% url 'Pledgesreport' %}"> Pledges</a></li>
+                    |<a href="{% url 'sundryreport' %}"> Petty Expenses</a></li>
+                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+                    |<a href="{% url 'allowancereport' %}"> Allowances</a></li>
+                    |<a href="{% url 'current-month-salaries' %}"> Salaries</a></li>
+                    |<a href="{% url 'Tithesreport' %}"> Tithes</a></li>
+                    |<a href="{% url 'donations-report' %}"> Doantions</a></li>
+                    |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a></li>
+                    {% endif %}
                     <div class="separator"></div>
-                    </div>
+                </div>
                     
                     
           <div class="x_content">
@@ -37,6 +46,7 @@
                 </li>
                 </ul>
                 <br/>
+                
  <form method="post" action="{% url 'view-employee' form.instance.pk %}" class="js-student-view-form"
       enctype="multipart/form-data">
     {% csrf_token %}
@@ -47,6 +57,8 @@
         </button>
         {% for i in get_name %}
                     <h2 class="modal-title" style="text-align: center">Membership Details of {{ i.First_Name}} {{ i.Second_Name}}</h2>
+                    <h3 style="text-align: center;"><a href="{% url 'approve-member' i.id  %}" class="btn btn-success btn-sm "><span
+                            class="glyphicon glyphicon-ok"></span> Approve Request</a></h3>
         {% endfor %}
     </div>
 
