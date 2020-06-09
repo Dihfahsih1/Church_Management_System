@@ -263,12 +263,16 @@ class Members(models.Model):
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS,null=True,blank=True)
     objects = models.Manager()
     published = PublishedStatusManager()
+    Full_Named=models.CharField(max_length=100,null=True,blank=True)
     def __str__(self):
         return str(self.First_Name )+ ' ' + str(self.Second_Name)
                   
     @property
     def full_name(self):
-        return str(self.First_Name )+ ' ' + str(self.Second_Name)
+        save_this=str(self.First_Name )+ ' ' + str(self.Second_Name)
+        self.Full_Named=save_this
+        self.save()
+        return self.Full_Named
             
     def total_tithe(self):
         current_year = datetime.now().year

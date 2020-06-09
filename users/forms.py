@@ -1,7 +1,7 @@
 from django import forms
-from dashboard.models import User
+from dashboard.models import *
 from dashboard.views import *
-
+#Register System Users
 class RegisterForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
     password2 = forms.CharField(label='Password confirmation',
@@ -41,6 +41,20 @@ class RegisterForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['email'].queryset = Members.objects.none()
+        if 'full_name' in self.data:
+            try:
+                full_name_id = int(self.data.get('full_name'))
+                self.fields['email'].queryset = Members.objects.filter(id=full_name_id).order_by(
+                    'Email')
+            except (ValueError, TypeError):
+                pass
+
+        # elif self.instance.pk:
+        #     self.fields['section'].queryset = self.instance.classroom.section_set.order_by('section')
+
 class MembershipAccountForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
     password2 = forms.CharField(label='Password confirmation',
