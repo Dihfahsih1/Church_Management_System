@@ -83,20 +83,11 @@ def contact(request):
 
     return render(request, 'home/contacts.html')
 
-class OnlineRegistrationView(SuccessMessageMixin,CreateView):
-    model = Members
-    template_name = 'Members/online_registration.html'
-    success_message = " Your Membership has been Saved successfully"
-    fields = '__all__'
-         
-    def form_valid(self, form):
-        member = form.save(commit=False)
-        member.save()
-        return redirect('MemberAccountRegister')    
+ 
 
 
 
-    ###############Employee Module ###################
+    ############### Employee Module ###################
 @login_required
 def employee_register(request):
     if request.method=="POST":
@@ -299,7 +290,18 @@ def register_members(request):
         form=MembersForm()
         return render(request, 'Members/register_members.html',{'form':form})
 
-
+def Online_Registration(request):
+    if request.method=="POST":
+        form=MembersForm(request.POST, request.FILES,)
+        if form.is_valid():
+            member = form.save(commit=False)
+            member.save()
+            messages.success(request, f'Membership request has been submited, pending approval by the admin')
+            return redirect('membership_wall')
+    else:
+        form=MembersForm()
+        context={'form':form}
+    return render(request, 'Members/online_registration.html', context)    
 #visitors
 @login_required
 def register_visitors(request):

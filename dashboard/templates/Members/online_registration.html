@@ -39,7 +39,7 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group col-md-3 mb-0">
+                        <div class="form-group">
                             {{ form.Initials|as_crispy_field }}
                         </div>
                         <div class="form-group col-md-3 mb-0">
@@ -147,7 +147,7 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group col-md-3 mb-0">
+                        <div class="form-group col-md-3">
                             {{ form.Country|as_crispy_field }}
                         </div>
                         <div class="form-group col-md-3 mb-0">
@@ -165,7 +165,6 @@
                         <div class="form-group col-md-3 mb-0">
                             {{ form.Village|as_crispy_field }}
                         </div>
-
                     </div>
                      <hr>
 
@@ -217,16 +216,10 @@
                         <div class="form-group col-md-3 mb-0">
                             {{ form.More_Info|as_crispy_field }}
                         </div>
-                        
                     </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-12 mb-0">
-                            <br></br>
-                        </div>
-                    </div>
+                    <button type="submit" class="btn btn-primary" name="button">Submit</button>
                 </div>
-                <button type="submit" class="btn btn-primary" name="button">Submit</button>
+                
             </form>
         </div>
     </section>
