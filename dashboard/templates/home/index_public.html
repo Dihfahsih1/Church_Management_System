@@ -314,11 +314,11 @@
                 <h2 class="title"> <a class="link glbscl-link-btn hvr-bs" href="{% url 'membership_wall' %}">Church Members</a></h2>
             </div>            
             <div class="row justify-content-center" style="width:97.5%;margin-left:2px">
-                <div class="gallery-carousel owl-carousel">{% for member in members %} {% if forloop.counter <= 12 %}{% if member.Initials != 'Pr.'%} 
+                <div class="gallery-carousel owl-carousel">{% for member in members %} {% if forloop.counter <= 12 or member.full_name == "Desire Namuganyi" %}{% if member.Initials != 'Pr.'%} 
                     <a href="{% url 'member-detail' member.id %}">                
                         <div class="single-gallery">
                             {% if member.Photo %}
-                                <img src="{{ member.Photo.url }}" data-fancybox="images" style="border-radius: 40%; height: 185px" >
+                                <img src="{{ member.Photo.url }}" data-fancybox="images" style="border-radius: 40%; height: 220px" >
                             {% endif %} 
                             <span style="text-align: left;">
                                 <h2> {{member.Initials}} {{member.First_Name}} {{member.Second_Name}}</h2>
