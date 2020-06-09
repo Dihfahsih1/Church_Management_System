@@ -32,10 +32,6 @@
             |<a href="{% url 'Building-Renovation-report' %}"> Building</a>
           <div class="separator"></div>
         </div>
-        
-
-        <h1 class="head-title" style="text-align: center">Tithes Report as of {{today}}</h1>
-        <div class="separator"></div>
         <div class="x_content">
           <div class="" data-example-id="togglable-tabs">
            <ul class="nav nav-tabs bordered">
@@ -53,8 +49,8 @@
                 <li role="presentation"><a href="{% url 'Annual-Tithes' %}"><i class="fa fa-plus-square-o"></i> Annual Tithes</a>
                 </li> 
             </ul>
-          <br>
-           
+          <h2 class="head-title" style="text-align: center">Tithes report as of {{today}}</h2>
+          <div class="separator"></div>
             <h4 style="color: green; font-weight: 120%"><b>{{ message }}</b></h4>
             <div class="tab-content">
               <div class="tab-pane fade in active" id="tab_invoice_list">

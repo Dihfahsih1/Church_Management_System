@@ -9,7 +9,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h1><i class="fa fa fa-calendar-check-o"></i><b> TITHES MODULE</b></h1>
+                    <h1 style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b> TITHES MODULE</b></h1>
                     <ul class="nav navbar-right panel_toolbox">
                         <li>
                           <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -34,8 +34,7 @@
                   |<a href="{% url 'members-register' %}"> Membership</a>
                   <div class="separator"></div>
                 </div>
-                    <h3 style="text-align: center">{{years}} Annual Tithes Report of {% for name in members%} {{name.First_Name}} {{name.Second_Name}}{%endfor%} </h3>
-                     <p>{{ msg}}</p>
+                <p>{{ msg}}</p>
               <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
                     <ul class="nav nav-tabs bordered">
@@ -58,8 +57,9 @@
                          </li>
                     </ul>
                     <br/>
-
-
+                    <h3 style="text-align: center">{{years}} Annual Tithes Report of {% for name in members%} {{name.First_Name}}
+                      {{name.Second_Name}}{%endfor%} </h3>
+                      <div class="separator"></div>
             <div class="tab-content">
                  <div class="tab-pane fade in active" id="tab_invoice_list">
                     <div class="x_content">                     
