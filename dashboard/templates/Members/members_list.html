@@ -68,8 +68,7 @@
                             <thead>
                                 <tr>
                                     <th>Photo</th>
-                                    <th>First Name</th>
-                                    <th>Second Name</th>
+                                    <th>Name</th>
                                     <th>Telephone</th>
                                     <th>Actions</th>
                                 </tr>
@@ -81,8 +80,7 @@
                                         <img src="{{ member.Photo.url }}" width="150" height="100" />
                                         {% endif %}
                                      </td>
-                                     <td>{{ member.First_Name}}</td>
-                                     <td>{{ member.Second_Name}}</td>
+                                     <td>{{ member.full_name}}</td>
                                      <td>{{ member.Telephone}}</td>
                                       {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
                                      <td>
