@@ -57,11 +57,11 @@
         </button>
         {% for i in get_name %}
         <h2 class="modal-title" style="text-align: center">Membership Details of {{ i.First_Name}} {{ i.Second_Name}}</h2>
-        {% if i.is_active != 'False' and Archived_Status != 'NOT-ARCHIVED' %}
+        {% if i.is_active is not "False" and i.Archived_Status is not "NOT-ARCHIVED" %}
             <h3 style="text-align: center;"><a href="{% url 'approve-member' i.id  %}" class="btn btn-success btn-sm "><span
                     class="glyphicon glyphicon-ok"></span> Approve Request</a> | <a href="{% url 'reject-request' i.id %}" class="btn btn-danger btn-sm "><span class="fa fa-close"></span>
                         Reject Request</a></h3>
-        {% elif i.is_active == "False" and Archived_Status == "ARCHIVED" %}
+        {% elif i.is_active == "False" and i.Archived_Status == "ARCHIVED" %}
         <h3 style="text-align: center;"><a href="{% url 'un-archive-member' i.id  %}" class="btn btn-success btn-sm "><span
                     class="glyphicon glyphicon-ok"></span> Un-Archive Member</a></h3>
         {% else %}

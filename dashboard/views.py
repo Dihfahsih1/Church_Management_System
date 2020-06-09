@@ -359,13 +359,16 @@ def un_approved_members_list(request):
 @login_required
 def archive_member(request, pk):
     if request.method == "GET":
-        item = Members.objects.get(is_active=True, id=pk)
-        get_user = User.objects.get(full_name = item)
-        item.is_active='False'
-        item.Archived_Status='ARCHIVED'
-        get_user.is_active ='False'
-        item.save()
-        get_user.save()
+        item = Members.objects.get(id=pk)
+        try:
+            if User.objects.get(full_name = item):
+                get_user=User.objects.get(full_name = item)
+                get_user.is_active ='False'
+                get_user.save() 
+        except:
+            item.is_active='False'    
+            item.Archived_Status='ARCHIVED'
+            item.save()
         messages.success(request, f'Member has been Archived')
         return redirect('members-list')
 
