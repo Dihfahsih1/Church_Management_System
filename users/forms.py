@@ -53,6 +53,10 @@ class MembershipAccountForm(forms.ModelForm):
         labels = {
             'username': 'Username',
         }
+        # widgets = {
+        #     'full_name': autocomplete.ModelSelect2(url='auto-complete',
+        #     attrs={'data-placeholder': 'Type here the name....', 'data-minimum-input-length': 3})
+        # }
     def clean_password2(self):
         # Check that the two password entries match
         password1 = self.cleaned_data.get("password1")
