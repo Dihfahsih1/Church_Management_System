@@ -130,10 +130,13 @@ class MembersForm(forms.ModelForm):
             'Education_Level','Profession','Type_of_Work','Place_of_Work','Country','County','Parish','District','Sub_County',
             'Village','Date_Of_Salvation','Date_Of_Joining_UCC_Bwaise','Ministry_Involved_In','Name_Of_Next_Of_Kin',
             'Contact_Of_Next_Of_Kin','Residence_Of_Next_Of_Kin','Date_Of_Birth','is_active')
+        is_active = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple)
         widgets = {
             'Date_Of_Birth': DatePickerInput(),
             'Date_Of_Joining_UCC_Bwaise': DatePickerInput(),
-            'Date_Of_Salvation': DatePickerInput()
+            'Date_Of_Salvation': DatePickerInput(),
+            
+             
           } 
 
 class VisitorsForm(forms.ModelForm):

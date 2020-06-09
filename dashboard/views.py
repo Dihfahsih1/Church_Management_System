@@ -293,8 +293,8 @@ def register_members(request):
         form=MembersForm(request.POST, request.FILES,)
         if form.is_valid():
             form.save()
-            messages.success(request, f'Member has been added to system successfully')
-            return redirect('members-list')
+            messages.success(request, f'Member has been registered successfully')
+            return redirect('un-upproved-list')
     else:
         form=MembersForm()
         return render(request, 'Members/register_members.html',{'form':form})
