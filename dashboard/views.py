@@ -285,7 +285,7 @@ def register_members(request):
         if form.is_valid():
             form.save()
             messages.success(request, f'Member has been registered successfully')
-            return redirect('un-upproved-list')
+            return redirect('members-list')
     else:
         form=MembersForm()
         return render(request, 'Members/register_members.html',{'form':form})
@@ -414,7 +414,7 @@ def edit_member(request, pk):
 
 #Member wall(list of member details)    
 def membership_wall(request):
-    all_members = Members.published.filter(is_active=True)
+    all_members = Members.published.filter(is_active=True).order_by('-id')
     paginator = Paginator(all_members, 9)  
     page = request.GET.get('page')
     try:
@@ -529,7 +529,7 @@ def edit_building_collections(request, pk):
 # generate building report
 def Building_Renovation_report(request):
     if request.method=='POST':
-        items = Revenues.objects.all()
+        items = Revenues.objects.all().order_by('-id')
         for item in items:
             item.Archived_Status = 'ARCHIVED'
             item.save()
@@ -594,7 +594,7 @@ def edit_offerings(request, pk):
 @login_required
 def Offeringsreport (request):
     if request.method=='POST':
-        items = Revenues.objects.all()
+        items = Revenues.objects.all().order_by('-id')
         for item in items:
             item.Archived_Status = 'ARCHIVED'
             item.save()
@@ -678,7 +678,7 @@ def add_seeds(request):
 @login_required
 def Seedsreport (request):
     if request.method=='POST':
-        items = Revenues.objects.all()
+        items = Revenues.objects.all().order_by('-id')
         for item in items:
             item.Archived_Status = 'ARCHIVED'
             item.save()
@@ -780,7 +780,7 @@ def edit_tithes(request, pk):
 @login_required
 def Tithesreport (request):
     if request.method=='POST':
-        items = Revenues.objects.all()
+        items = Revenues.objects.all().order_by('-id')
         for item in items:
             item.Archived_Status = 'ARCHIVED'
             item.save()
@@ -880,16 +880,9 @@ class tithesarchivepdf(View):
         today = datetime.now()
         total = archived_tithes.aggregate(totals=models.Sum("Amount"))
         total_amount = total["totals"]
-        tithescontext = {
-            'report_month': report_month,
-            'report_year':report_year,
-            'today': today,
-            'total_amount': total_amount,
-            'request': request,
-            'archived_tithes': archived_tithes,
-        }
+        tithescontext = {'report_month': report_month,'report_year':report_year,'today': today,'total_amount': total_amount,
+            'request': request,'archived_tithes': archived_tithes,}
         return Render.render('Tithes/tithesarchivepdf.html', tithescontext)
-
 
 @login_required
 def member_annual_tithes(request, pk):
