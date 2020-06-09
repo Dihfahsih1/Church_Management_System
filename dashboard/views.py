@@ -341,7 +341,7 @@ def approve_member(request, pk):
         return redirect('un-approved-list')
 
 def un_approved_members_list(request):        
-    get_all_unapproved=Members.objects.filter(is_active=False)
+    get_all_unapproved=Members.objects.filter(is_active=False, Archived_Status='NOT-ARCHIVED')
     context={'get_all_unapproved':get_all_unapproved}
     return render(request,'Members/unapproved-members-list.html', context)
 #archiving member
@@ -351,6 +351,7 @@ def archive_member(request, pk):
         item = Members.objects.get(is_active=True, id=pk)
         get_user = User.objects.get(full_name = item)
         item.is_active='False'
+        item.Archived_Status='ARCHIVED'
         get_user.is_active ='False'
         item.save()
         get_user.save()
@@ -363,6 +364,7 @@ def unarchive_member(request, pk):
         item = Members.objects.get(is_active=False, id=pk)
         get_user = User.objects.get(full_name = item)
         item.is_active='True'
+        item.Archived_Status='NOT-ARCHIVED'
         get_user.is_active ='True'
         item.save()
         get_user.save()
