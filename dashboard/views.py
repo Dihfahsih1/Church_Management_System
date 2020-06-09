@@ -323,7 +323,6 @@ def members_list(request):
     context ={'membership': membership, 'day':day}
     return render(request, 'Members/members_list.html', context)
 
-
 @login_required
 def members_archived(request):
     membership = Members.objects.filter(is_active=False, Archived_Status='ARCHIVED').order_by('-id')

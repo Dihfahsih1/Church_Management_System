@@ -7,7 +7,7 @@
                     <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                 </div>
             </div>
-           {% load static %}
+           {% load static total_tags %}
             <div class="col-lg-7">
                 <ul class="nav navbar-nav navbar-left">
                     <li class="nav-item">
@@ -25,6 +25,9 @@
                         </a>
                     </li>
                 </ul>
+                {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
+                    <p style="font-size:30px;">Membership requests <a href="{% url 'un-approved-list' %}"><b style="color: red;">({% un_approved_members %})</b></a></p>
+                {% endif %}
             </div>
 
             <div class="col-lg-4">

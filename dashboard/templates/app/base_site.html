@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% load static  theme_tags %}
+    {% load static  theme_tags total_tags %}
     {% load bootstrap4 %} {# import bootstrap4/bootstrap3 #}
     {% bootstrap_javascript jquery='full' %} {# Embed Bootstrap JS+jQuery #}
     {{ form.media }} {# Adds date-picker required JS and CSS #}
@@ -93,7 +93,6 @@
 </style>
 </head>
 <div style="max-width: 1220px">
-{% autoescape on %}
 <body class="{% block body_class %}nav-md {% endblock body_class %}" >
 
 
@@ -110,6 +109,7 @@
 
             {% block top_navigation %}
                 <div class="top_nav">
+                    
                   {% include "app/top_navigation.html" %}
                 </div>
             {% endblock top_navigation %}
@@ -285,7 +285,6 @@
 {% block js %}
 {% endblock js %}
 </div>
-{% endautoescape %}
 </body>
 </html>
 
