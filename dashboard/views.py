@@ -332,6 +332,7 @@ def members_archived(request):
     return render(request, 'Members/members_archived.html',context) 
 
 #Approve member
+@login_required
 def approve_member(request, pk):
     if request.method == "GET":
         item = Members.objects.get(is_active=False, id=pk)
@@ -339,7 +340,15 @@ def approve_member(request, pk):
         item.save()
         messages.success(request, f'Member has been Approved')
         return redirect('un-approved-list')
-
+#Approve member
+@login_required
+def reject_request(request, pk):
+    if request.method == "GET":
+        item = Members.objects.get(is_active=False, id=pk)
+        item.delete()
+        messages.success(request, f'Membership Request has been Rejected')
+        return redirect('un-approved-list')
+@login_required        
 def un_approved_members_list(request):        
     get_all_unapproved=Members.objects.filter(is_active=False, Archived_Status='NOT-ARCHIVED')
     context={'get_all_unapproved':get_all_unapproved}

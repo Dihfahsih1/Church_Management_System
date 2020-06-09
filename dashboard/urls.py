@@ -237,7 +237,8 @@ url(r'^auto-complete/$', views.Autocomplete.as_view(), name='auto-complete'),
 url(r'^theme/$', views.ThemeListView.as_view(), name='theme_list'),
 url(r'^theme/activate/(?P<theme_pk>\d+)/$', views.theme_activate, name='theme_activate'),
 url(r'^tithes/annual/(?P<pk>\d+)/$', views.member_annual_tithes_pdf.as_view(), name='annual-tithes-pdf'),
-url(r'^Membership/Approval(?P<pk>\d+)/$', views.approve_member, name='approve-member'),
+url(r'^Membership/Approval/(?P<pk>\d+)/$', views.approve_member, name='approve-member'),
 url(r'^Un-Approved-Membership/$', views.un_approved_members_list, name='un-approved-list'),
+url(r'^Reject-Membership/(?P<pk>\d+)/$', views.reject_request, name='reject-request'),
 
 ]
