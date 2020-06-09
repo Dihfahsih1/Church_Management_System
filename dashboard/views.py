@@ -326,7 +326,7 @@ def members_list(request):
 
 @login_required
 def members_archived(request):
-    membership = Members.objects.filter(is_active=False).order_by('-id')
+    membership = Members.objects.filter(is_active=False, Archived_Status='ARCHIVED').order_by('-id')
     for i in membership:
         (i.Home_Cell)
     day=datetime.now()
@@ -374,15 +374,18 @@ def archive_member(request, pk):
 
 @login_required            
 def unarchive_member(request, pk):
-    if request.method == "GET":
-        item = Members.objects.get(is_active=False, id=pk)
-        get_user = User.objects.get(full_name = item)
-        item.is_active='True'
-        item.Archived_Status='NOT-ARCHIVED'
-        get_user.is_active ='True'
-        item.save()
-        get_user.save()
-        messages.success(request, f'Member has been Un-archived')
+   if request.method == "GET":
+        item = Members.objects.get(id=pk)
+        try:
+            if User.objects.get(full_name = item):
+                get_user=User.objects.get(full_name = item)
+                get_user.is_active ='True'
+                get_user.save() 
+        except:
+            item.is_active='True'    
+            item.Archived_Status='NOT-ARCHIVED'
+            item.save()
+        messages.success(request, f'Member has been un Archived successfully')
         return redirect('members-list')
 
 #Church Pastors

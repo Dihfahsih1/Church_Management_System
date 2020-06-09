@@ -62,9 +62,8 @@
                                     <th>Photo</th>
                                     <th>First Name</th>
                                     <th>Second Name</th>
-                                    <th>Residence</th>
                                     <th>Home Cell</th>
-                                    <th>Telephone</th>
+                                    <th>Group</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -77,19 +76,15 @@
                                      </td>
                                      <td>{{ member.First_Name}}</td>
                                      <td>{{ member.Second_Name}}</td>
-                                     <td>{{ member.Residence}}</td>
                                      <td>{{ member.Home_Cell}}</td>
-                                     <td>{{ member.Telephone}}</td>
+                                     <td>{{ member.Group}}</td>
                                     {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
                                     <td>
                                         <div class="mb-4">
                                             <a href="{% url 'edit-member' member.id  %}" class="btn btn-info btn-sm"><span
-                                                    class="glyphicon glyphicon-edit"></span></a>
+                                                    class="glyphicon glyphicon-edit"> Update</span></a>
                                             <a href="{% url 'view-member' member.id  %}" class="btn btn-success btn-sm"><span
-                                                    class="glyphicon glyphicon-eye-open"></span></a>
-                                            {%if request.user.Role == 'SuperAdmin'%}
-                                            <a href="{% url 'annual-tithes' member.pk %}" class="btn btn-primary btn-sm "><span
-                                                    class="glyphicon glyphicon-euro"></span>Tithes</a>{%endif%}
+                                                    class="glyphicon glyphicon-eye-open"> View</span></a>
                                             <a href="{% url 'un-archive-member' member.pk %}" class="btn btn-warning btn-sm "><span
                                                     class="glyphicon glyphicon-king"></span> Un-Archive</a>
                                             {% endif %}
