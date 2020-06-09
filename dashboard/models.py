@@ -147,7 +147,7 @@ class User(AbstractBaseUser , PermissionsMixin):
     username = models.CharField(max_length=30, unique=True)
     Role = models.CharField(max_length=250, choices=roles, blank=True, null=True)
     full_name =  models.ForeignKey('Members', on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
-    is_active = models.BooleanField(default=True)   # can login
+    is_active = models.BooleanField(default=True) 
     is_staff = models.BooleanField(default=False)  
     is_superuser = models.BooleanField(default=False)
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS,null=True,blank=True)
