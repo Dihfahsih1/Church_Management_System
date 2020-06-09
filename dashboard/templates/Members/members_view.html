@@ -46,30 +46,19 @@
                 </li>
                 </ul>
                 <br/>
-                
- <form method="post" action="{% url 'view-employee' form.instance.pk %}" class="js-student-view-form"
-      enctype="multipart/form-data">
-    {% csrf_token %}
-
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        {% for i in get_name %}
-        <h2 class="modal-title" style="text-align: center">Membership Details of {{ i.First_Name}} {{ i.Second_Name}}</h2>
-        {% if i.is_active is not "False" and i.Archived_Status is not "NOT-ARCHIVED" %}
-            <h3 style="text-align: center;"><a href="{% url 'approve-member' i.id  %}" class="btn btn-success btn-sm "><span
+        <h2 class="modal-title" style="text-align: center">Membership Details of {{ member}}</h2>
+        <!-- {% if member.is_active is "False" and member.Archived_Status is "NOT-ARCHIVED" %}
+            <h3 style="text-align: center;"><a href="{% url 'approve-member' member.id  %}" class="btn btn-success btn-sm "><span
                     class="glyphicon glyphicon-ok"></span> Approve Request</a> | <a href="{% url 'reject-request' i.id %}" class="btn btn-danger btn-sm "><span class="fa fa-close"></span>
                         Reject Request</a></h3>
-        {% elif i.is_active == "False" and i.Archived_Status == "ARCHIVED" %}
-        <h3 style="text-align: center;"><a href="{% url 'un-archive-member' i.id  %}" class="btn btn-success btn-sm "><span
+        {% elif member.is_active == "False" and member.Archived_Status == "ARCHIVED" %}
+        <h3 style="text-align: center;"><a href="{% url 'un-archive-member' member.id  %}" class="btn btn-success btn-sm "><span
                     class="glyphicon glyphicon-ok"></span> Un-Archive Member</a></h3>
         {% else %}
-        <h3 style="text-align: center;"><a href="{% url 'archive-member' i.id %}" class="btn btn-danger btn-sm "><span
+        <h3 style="text-align: center;"><a href="{% url 'archive-member' member.id %}" class="btn btn-warning btn-sm "><span
         class="fa fa-close"></span> Archive Member</a></h3>
-        {% endif %}
-                   
-        {% endfor %}
+        {% endif %} -->
     </div>
 
     <div class="modal-body">
@@ -243,6 +232,5 @@
                 </div>
             </div>
         </div>
-    </div>
-</form></div></div></div></div></div></div>
+    </div></div></div></div></div></div></div>
 {% endblock content %}

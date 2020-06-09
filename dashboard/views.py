@@ -460,8 +460,7 @@ def view_member(request, pk):
         context['form']=form
     else:
         form = MembersForm(instance=member)
-        get_name = Members.objects.filter(id=pk)
-        context['get_name']=get_name
+        context['member']=member
         context['form']=form
     return render(request,'Members/members_view.html',context)  
 #edit visitor    
