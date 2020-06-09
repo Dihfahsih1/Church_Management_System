@@ -331,6 +331,15 @@ def members_archived(request):
     context ={'membership': membership, 'day':day}
     return render(request, 'Members/members_archived.html',context) 
 
+#Approve member
+@login_required
+def approve_member(request, pk):
+    if request.method == "GET":
+        item = Members.objects.get(is_active=False, id=pk)
+        item.is_active='True'
+        item.save()
+        messages.success(request, f'Member has been Approved')
+        return redirect('members-list')
 #archiving member
 @login_required
 def archive_member(request, pk):
