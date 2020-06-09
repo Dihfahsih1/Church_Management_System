@@ -34,9 +34,6 @@
           {% endif %}
           <div class="separator"></div>
         </div>
-        
-        <h1 class="head-title" style="text-align: center">The Petty Cash Expenses Report as of {{today}}</h1>
-        <div class="separator"></div>
         <div class="x_content">
           <div class="" data-example-id="togglable-tabs">
             <ul class="nav nav-tabs bordered">
@@ -51,8 +48,8 @@
                 <li role="presentation"><a href="{% url 'sundryarchivessearch' %}"><i
                             class="glyphicon glyphicon-king"></i> Petty Expenses Archived</a></li>
             </ul>
-            <br/>
-            
+            <h2 class="head-title" style="text-align: center">The Petty Cash Expenses Report as of {{today}}</h2>
+            <div class="separator"></div>
             <h4 style="color: green; font-weight: 120%"><b>{{ message }}</b></h4>
             <div class="tab-content">
               <div class="tab-pane fade in active" id="tab_invoice_list">

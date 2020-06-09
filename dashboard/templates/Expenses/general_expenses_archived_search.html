@@ -35,8 +35,7 @@
             |<a href="{% url 'BuildingRenovationarchivessearch' %}"> Building</a>
             <div class="separator"></div>
         </div>
-        <h1 style="text-align: center;" class="head-title">Search for the archived general expenses</h1>
-        <div class="separator"></div>
+        
         <div class="x_content">
           <div class="" data-example-id="togglable-tabs">
               <ul class="nav nav-tabs bordered">
@@ -54,7 +53,9 @@
               <li role="presentation" class="active"><a href="{% url 'general-expensesarchives-search' %}"><i
                     class="glyphicon glyphicon-king"></i> General Expenses Archived</a></li>
               {% endif %}
-            </ul><br>
+            </ul>
+            <h2 style="text-align: center;" class="head-title">Search for the archived general expenses</h2>
+            <div class="separator"></div>
             <h4><i class='glyphicon glyphicon-arrow-down'></i>Please search for the archived General Expenses by <b>Year</b> and <b>Month</b></h4><br>
             <form class="x_content" method="POST" enctype="multipart/form-data">
               {% csrf_token %}

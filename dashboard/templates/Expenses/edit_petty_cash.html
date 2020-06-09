@@ -29,8 +29,7 @@
                     {% endif %}
                     <div class="separator"></div>
                 </div>
-                <h1 style="text-align: center" class="head-title">Edit Petty Cash Expense Made To {{item.Payment_Made_To}}</h1>
-                <div class="separator"></div>
+                
             <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
                     <ul class="nav nav-tabs bordered">
@@ -50,26 +49,20 @@
                                     class="fa fa-list-ol"></i> Editing Petty Cash</a>
                         </li>
                     </ul>
-                    <br/>
+                    <h2 style="text-align: center" class="head-title">Edit Petty Cash Expense Made To {{item.Payment_Made_To}}</h2>
+                    <div class="separator"></div>
 					<div class="col-lg-6 col-offset-8 centered">
-              
 					    <div class="col-md-10">
-               
 					      {% load crispy_forms_tags %}
-
-						      <form method="post" enctype="multipart/form-data">
-
+                            <form method="post" enctype="multipart/form-data">
 						      {% csrf_token %}
-
-						          {{ form.Date|as_crispy_field}}
+						        {{ form.Date|as_crispy_field}}
                                 {{ form.Payment_Made_To|as_crispy_field}}
                                 {{ form.Petty_Cash_Reason|as_crispy_field}}
                                 {{ form.Amount|as_crispy_field}}
                                 <input type="hidden" id="general" name="Reason_filtering" value="petty">
                                 <button type="submit" class="btn btn-primary" name="button">Submit</button>
-
-						      </form>
-					         
+                            </form>
 					    </div>
 					</div>
 				</div>
