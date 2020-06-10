@@ -10,7 +10,7 @@
 		  <div class="separator"></div>
         <div class="x_panel">
         	<div class="col-md-3 justify-content-center">
-			 <form method="POST">
+			 <form method="POST" id='myform'>
 				{% csrf_token %}
 					<fieldset class="form-group">
 						<legend class="border-bottom">Add New User to the System</legend>
@@ -71,5 +71,10 @@
 	  </div>  		
    </div>
 </div>
-
+<script>
+	function load_email() {
+		document.getElementById('myform').action = "/register/";
+		document.getElementById("myform").submit();
+	}
+</script>
 {% endblock %}

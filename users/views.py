@@ -81,9 +81,11 @@ def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request, f'Account has been created successfully!, User can now Login')
+            db = form.save(commit=False)
+            db.email = Members.objects.get(id__exact=form['full_name'].value()).Email
+            form = RegisterForm(instance=db)
+            content = {'form': form}
+            return render(request, 'users/home/register.html', content)
     else:
         form=RegisterForm()
         users = User.objects.filter(full_name__is_active=True)

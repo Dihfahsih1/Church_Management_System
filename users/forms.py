@@ -25,6 +25,9 @@ class RegisterForm(forms.ModelForm):
             'full_name': autocomplete.ModelSelect2(url='auto-complete',
             attrs={'data-placeholder': 'Type here the name....', 'data-minimum-input-length': 3})
         }
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['full_name'].widget.attrs['onchange'] = "load_email()"
 
     def clean_password2(self):
         # Check that the two password entries match
