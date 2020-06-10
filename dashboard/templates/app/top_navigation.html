@@ -26,7 +26,10 @@
                     </li>
                 </ul>
                 {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
-                    <p style="font-size:30px;">Membership requests <a href="{% url 'un-approved-list' %}"><b style="color: red;">({% un_approved_members %})</b></a></p>
+                    <p style="font-size:30px;">Membership requests <a href="{% url 'un-approved-list' %}">
+                        <span class="fa fa-bell"><b style="background-color: red;border-radius: 40%; ">
+                            <strong style="color:white;">{% un_approved_members %}</strong></b></span>
+                        </a></p>
                 {% endif %}
             </div>
 
