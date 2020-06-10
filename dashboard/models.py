@@ -241,7 +241,7 @@ class Members(models.Model):
     Home_Cell=models.CharField(max_length=100, choices=cell,null=True)
     Residence=models.CharField(max_length=100,null=True)
     Telephone=models.CharField(max_length=100,null=True)
-    Email=models.CharField(max_length=100,null=True, blank=True)
+    Email=models.EmailField()
     Photo=models.ImageField(upload_to='avatars/', blank=False)
     Gender=models.CharField(max_length=100, choices=sex, null=True, blank=True)
     Marital_Status=models.CharField(max_length=100, choices=status,null=True, blank=True)

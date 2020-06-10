@@ -298,10 +298,15 @@ def Online_Registration(request):
             member.save()
             messages.success(request, f'Membership request has been submited, pending approval by the admin')
             return redirect('membership_wall')
+        else:
+            form_errors=form.errors
+            context={'form':form,'form_errors':form_errors}
+            return render(request, 'Members/online_registration.html', context)   
     else:
         form=MembersForm()
         context={'form':form}
-    return render(request, 'Members/online_registration.html', context)    
+        return render(request, 'Members/online_registration.html', context)
+         
 #visitors
 @login_required
 def register_visitors(request):

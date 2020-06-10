@@ -28,19 +28,23 @@
                   accept-charset="utf-8"
                   novalidate>
                   {% csrf_token %}
-                <div class="form-row">
-                        <div class="form-group col-md-12 mb-0">
+                  {% for errors in form_errors %}
+                  {{errors}}
+                  {% endfor %}
 
-                            <p class="text-muted well well-sm no-shadow"
-                               style="margin-top: 10px;">
-                                <h3>Basic Information:</h3>
-                            </p>
-                        </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12 mb-0">
+                        <p class="text-muted well well-sm no-shadow"
+                            style="margin-top: 10px;">
+                            <h3>Basic Information:</h3>
+                        </p>
                     </div>
+                </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             {{ form.Initials|as_crispy_field }}
+                           
                         </div>
                         <div class="form-group col-md-3 mb-0">
                             {{ form.First_Name|as_crispy_field }}
@@ -217,6 +221,7 @@
                             {{ form.More_Info|as_crispy_field }}
                         </div>
                     </div>
+                
                     <button type="submit" class="btn btn-primary" name="button">Submit</button>
                 </div>
                 
