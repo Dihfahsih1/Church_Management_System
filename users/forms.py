@@ -9,7 +9,7 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['full_name','email','username','Role','Is_View_on_Web']
+        fields = ['full_name','username','Role','Is_View_on_Web']
         # 'roles'
         labels = {
             'full_name': 'Name',
@@ -25,10 +25,6 @@ class RegisterForm(forms.ModelForm):
             'full_name': autocomplete.ModelSelect2(url='auto-complete',
             attrs={'data-placeholder': 'Type here the name....', 'data-minimum-input-length': 3})
         }
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['full_name'].widget.attrs['onchange'] = "load_email()"
-
     def clean_password2(self):
         # Check that the two password entries match
         password1 = self.cleaned_data.get("password1")

@@ -25,7 +25,9 @@ class SalariesPaidAdmin(admin.ModelAdmin):
 class OfferingsReportArchiveAdmin(admin.ModelAdmin):
     list_display = ('total_offerings') 
 class ExpendituresAdmin(admin.ModelAdmin):
-    list_display = ('net_float')                
+    list_display = ('net_float') 
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('UserEmail')                    
 admin.site.register(StaffDetails)
 admin.site.register(Project)
 admin.site.register(CashFloat)

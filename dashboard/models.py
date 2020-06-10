@@ -157,7 +157,14 @@ class User(AbstractBaseUser , PermissionsMixin):
     published = PublishedStatusManager()
     def __str__(self):
         return str(self.full_name)
-
+    @property
+    def UserEmail(self):
+        get_member=Members.objects.filter(Full_Named=self.full_name)
+        for i in get_member:
+            if i.Email is not None:
+                self.email=i.Email
+                self.save()
+                return self.email
 class Expenditures(Model):
     Date = models.DateField(null=True, blank=True)
     Payment_Made_To = models.CharField(max_length=1000,blank=True, null=True)
