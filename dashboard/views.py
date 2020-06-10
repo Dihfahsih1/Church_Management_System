@@ -251,31 +251,20 @@ def salariespaidarchivessearch(request):
         total_amount = total["totals"]
 
         context = {'archived_reports': archived_reports,
-                   'months': months,
-                   'years': years,
-                   'archived_salaries':archived_salaries,
-                   'total_amount': total_amount,
-                   'today': today,
-                   'report_year': report_year,
-                   'report_month': report_month
-                   }
+                   'months': months,'years': years,'archived_salaries':archived_salaries,
+                   'total_amount': total_amount,'today': today,'report_year': report_year,
+                   'report_month': report_month}
         return render(request, "Employees/salariespaidarchive.html", context)
-
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
               'August', 'September','October',  'November', 'December']
     years = datetime.now().year
-
     archived_salaries=SalariesPaidReportArchive.objects.all()
-
-    context = {'months': months,
-               'years': years,
-               'archived_salaries': archived_salaries}
+    context = {'months': months,'years': years,'archived_salaries': archived_salaries}
     return render(request, "Employees/salariespaidarchive.html", context)    
 
      ####################################################
     #       REGISTERING CHURCH MEMBERS AND VISITORS      #
      ####################################################
-
 
     #members
 @login_required
@@ -306,7 +295,7 @@ def Online_Registration(request):
         form=MembersForm()
         context={'form':form}
         return render(request, 'Members/online_registration.html', context)
-         
+
 #visitors
 @login_required
 def register_visitors(request):
