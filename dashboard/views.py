@@ -413,6 +413,7 @@ def view_member(request, pk):
     else:
         form = MembersForm(instance=members)
     return save_news_form(request, form, 'Members/includes/partial_members_view.html') 
+
 #Member wall(list of member details)    
 def membership_wall(request):
     all_members = Members.published.filter(is_active=True).order_by('-id')
@@ -2121,21 +2122,7 @@ def news_detail(request, news_pk):
         news_list = paginator.page(paginator.num_pages)
     context={'news':news,'page':page, 'news_list': news_list, 'more_news': more_news}
     return render(request, 'news/news_detail.html', context)
-def ministry_detail(request, ministry_pk):
-    ministry = get_object_or_404(Ministry, pk=ministry_pk)
-    more_details = Ministry.published.all()
-    paginator = Paginator(more_details, 2)  # 6 members on each page
-    page = request.GET.get('page')
-    try:
-       min_list = paginator.page(page)
-    except PageNotAnInteger:
-            # If page is not an integer deliver the first page
-        min_list = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range deliver last page of results
-        min_list = paginator.page(paginator.num_pages)
-    context={'ministry':ministry,'page':page, 'min_list': min_list, 'paginator': paginator}
-    return render(request, 'Ministry/ministry_detail.html', context)
+
 
 def news_delete(request, news_pk):
     news = get_object_or_404(News, pk=news_pk)
@@ -2439,7 +2426,6 @@ class MinistryListView(ListView):
     template_name = 'Ministry/Ministry_list.html'
     context_object_name = 'ministry'
 
-
 def ministry_wall(request):
     ministry = Ministry.published.all()
     paginator = Paginator(ministry, 3)  # 6 members on each page
@@ -2502,8 +2488,21 @@ def ministry_view(request, ministry_pk):
     else:
         form = MinistryForm(instance=ministry)
     return redirect(request, form, 'Ministry/ministry_view.html')
-
-
+    
+#ministry details and paginated list of the others
+def ministry_detail(request, ministry_pk):
+    ministry = get_object_or_404(Ministry, pk=ministry_pk)
+    more_details = Ministry.published.all()
+    paginator = Paginator(more_details, 8)  # 8 ministries on each page
+    page = request.GET.get('page')
+    try:
+       min_list = paginator.page(page)
+    except PageNotAnInteger: # If page is not an integer deliver the first page
+        min_list = paginator.page(1)
+    except EmptyPage:# If page is out of range deliver last page of results
+        min_list = paginator.page(paginator.num_pages)
+    context={'ministry':ministry,'page':page, 'min_list': min_list, 'paginator': paginator}
+    return render(request, 'Ministry/ministry_detail.html', context)
 
 
 
