@@ -42,24 +42,34 @@
                         <div class="sidebar-widget">
                             <h2 class="sidebar-title">All Ministries</h2>
                             <ul class="widget-event">
-                                {% for i in more_details %}
+                                {% for item in min_list %}
                                     <li>
-                                       <a href="{% url 'ministry-detail' i.pk %}">
+                                       <a href="{% url 'ministry-detail' item.pk %}">
                                          <span class="img">
-                                             {% if i.photos %}
-                                                 <img src="{{ i.photos.url }}" alt="">
+                                             {% if item.photos %}
+                                                 <img src="{{ item.photos.url }}" alt="">
                                              {% endif %}
                                          </span>
                                           <span class="content">
-                                            <span class="title">{{ i.name }}</span>
+                                            <span class="title">{{ item.name }}</span>
                                          </span>
                                        </a>  
                                     </li>
                                 {% endfor %}
-
-                            </ul>
                             </ul>
                         </div>
+                        {% if min_list.has_other_pages %}
+                            <nav aria-label="Page navigation conatiner" style="text-align: center">
+                                <ul class="pagination justify-content-center">
+                                    {% if min_list.has_previous %}
+                                    <li><a href="?page={{ min_list.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+                                    {% endif %}
+                                    {% if min_list.has_next %}
+                                    <li><a href="?page={{ min_list.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                        {% endif %}
                     </div>
                 </div>
             </div>

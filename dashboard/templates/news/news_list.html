@@ -90,8 +90,10 @@
                                                     <button type="button" class="btn btn-warning btn-sm js-view-news" data-url="{% url 'news_view' news.pk %}">
                                                         <span class="glyphicon glyphicon-eye-open"></span> View
                                                     </button>
-                                                    <a href="{% url 'news_update' news.pk %}" class="btn btn-info btn-sm">
-                                                        <span class="fa fa-pencil-square-o"></span> Edit</a>
+
+                                                    <button type="button" class="btn btn-success btn-sm js-update-news" data-url="{% url 'news_update' news.pk %}">
+                                                        <span class="glyphicon glyphicon-eye-open"></span> Edit
+                                                    </button>
                                                     <button type="button" class="btn btn-danger btn-sm js-delete-news" data-url="{% url 'news_delete' news.pk %}">
                                                         <span class="glyphicon glyphicon-trash"></span> Delete
                                                     </button>

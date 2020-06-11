@@ -1,123 +1,32 @@
-{% extends "app/base_site.html" %}
 
-{% block title %} News {% endblock title %}
+<form method="post" action="{% url 'news_update' form.instance.pk %}" class="js-news-update-form"
+    enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h2 class="modal-title">Update Gospel News Information</h2>
+    </div>
 
-{% load static i18n %}
-
-{% block javascript %}
-    <script src="{% static 'schools/js/news.js' %}"></script>
-{% endblock %}
-
-{% block content %}
-    <div class="right_col" role="main">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                    <h1 style="text-align: center;"><i class="fa fa-bullhorn"></i><b> GOSPEL MODULE</b></h1>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                            </li>
-                        </ul>
-                        <div class="clearfix"></div>
-                        </div>
-                    
-                        <div class="x_content quick-link">
-                            <span style="color:red"><b>Other Reports:</b></span>
-                            <a href="{% url  'expenditurereport' %}"> Main Expenses</a></li>
-                            |<a href="{% url 'general-expenses-report' %}"> General Expenses</a></li>
-                            |<a href="{% url 'Offeringsreport' %}"> Offerings</a></li>
-                            |<a href="{% url 'members-list' %}">Membership</a>
-                            |<a href="{% url 'Pledgesreport' %}"> Pledges</a></li>
-                            |<a href="{% url 'sundryreport' %}"> Petty Expenses</a></li>
-                            {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
-                            |<a href="{% url 'allowancereport' %}"> Allowances</a></li>
-                            |<a href="{% url 'current-month-salaries' %}"> Salaries</a></li>
-                            |<a href="{% url 'Tithesreport' %}"> Tithes</a></li>
-                            |<a href="{% url 'donations-report' %}"> Doantions</a></li>
-                            |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a></li>
-                            {% endif %}
-                            <div class="separator"></div>
-                        </div>
-                        <h2 style="text-align: center;">Update Sermons Details</h2>
-                        <div class="separator"></div>
-                        <div class="x_content">
-                        <div class="" data-example-id="togglable-tabs">
-
-                            <ul class="nav nav-tabs bordered">
-                                <li role="presentation"><a href="{% url 'news_list' %}"><i
-                                        class="fa fa-list-ol"></i> Sermon List</a>
-                                </li>
-                                <li role="presentation"><a href="{% url 'news_create' %}"><i
-                                        class="fa fa-plus-square-o"></i> Create Sermon</a>
-                                </li>
-                                <li role="presentation" class="active"><a href="{% url 'news_update' news.pk %}"><i
-                                        class="fa fa-pencil-square-o"></i> Edit
-                                    Sermon</a>
-                                </li>
-
-                            </ul>
-                            <br>
-
-                            <div class="row">
-                                <div class="col-sm-offset-1 col-sm-8">
-
-                                    <div class="tab-content">
-                                        <div class="tab-pane fade in active" id="tab_news_list">
-                                            <div class="x_content">
-
-                                                <form class="form-horizontal form-label-left"
-                                                      role="form"
-                                                      action=""
-                                                      method="post"
-                                                      enctype="multipart/form-data"
-                                                      accept-charset="utf-8">{% csrf_token %}
-
-                                                    {% include 'home/form_template.html' %}
-
-
-                                                     <div class="form-row">
-                                                        <div class="form-group col-md-12 mb-0">
-                                                            <div class="row">
-                                                                <div class="col">
-                                                                    <hr>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <div class="col-sm-offset-4 col-sm-8">
-                                                            <a href="{% url 'news_list' %}"
-                                                               class="btn btn-outline-secondary"
-                                                               type="button">Cancel</a>
-                                                            <button type="submit" class="btn btn-success">Update
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-
-                                            </div>
-                                        </div>
-
-                                        <!-- THE MODAL WE WILL BE USING -->
-                                        <div class="modal fade" id="modal-news">
-                                            <div class="modal-dialog modal-lg">
-                                                <div class="modal-content">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
+    <div class="modal-body">
+        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="basic-tab">
+                    {% include 'home/form_template.html' %}
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <a href="{% url 'news_list' %}" class="btn btn-outline-secondary" type="button">Cancel</a>                              
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-{% endblock content %}
+    <button type="submit" class="btn btn-success">Update</button>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+</form>
 
 

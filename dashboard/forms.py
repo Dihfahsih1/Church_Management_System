@@ -186,7 +186,7 @@ class NewsForm(forms.ModelForm):
     def clean_audio_file(self):
         file = self.cleaned_data.get('audio_file',False)
         if file:
-            if file._size > 4*1024*1024:
+            if file.size > 4*1024*1024:
                 raise file.ValidationError("Audio file too large ( > 4mb )")
             if not file.content-type in ["audio/mpeg","audio/jpeg","audio/png","audio/jpg"]:
                 raise file.ValidationError("Content-Type is not mpeg")

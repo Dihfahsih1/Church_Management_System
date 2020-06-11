@@ -405,6 +405,14 @@ def edit_member(request, pk):
         context = {'form': form, 'item':item}
     return render(request, 'Members/edit_member_details.html', context)
 
+#view member    
+def view_member(request, pk):
+    members = get_object_or_404(Members, pk=pk)
+    if request.method == 'POST':
+        form = MembersForm(request.POST, instance=members)
+    else:
+        form = MembersForm(instance=members)
+    return save_news_form(request, form, 'Members/includes/partial_members_view.html') 
 #Member wall(list of member details)    
 def membership_wall(request):
     all_members = Members.published.filter(is_active=True).order_by('-id')
@@ -2063,18 +2071,6 @@ class NewsCreateView(CreateView):
         news.save()
         return redirect('news_list')
 
-class NewsUpdateView(UpdateView):
-    model = News
-    template_name = 'news/update_news.html'
-    pk_url_kwarg = 'news_pk'
-    fields = ('news_title', 'image', 'news', 'Is_View_on_Web')
-
-    def form_valid(self, form):
-        news = form.save(commit=False)
-        news.save()
-        return redirect('news_list')
-
-
 def save_news_form(request, form, template_name):
     data = dict()
     if request.method == 'POST':
@@ -2089,6 +2085,18 @@ def save_news_form(request, form, template_name):
     data['html_form'] = render_to_string(template_name, context, request=request)
     return JsonResponse(data)
 
+def NewsUpdate(request, news_pk):
+    news = get_object_or_404(News, pk=news_pk)
+    if request.method == 'POST':
+        form = NewsForm(request.POST, request.FILES, instance=news)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'The Sermon has been updated Successfully')
+            return redirect('news_list')
+
+    else:
+        form = NewsForm(instance=news)
+    return save_news_form(request, form, 'news/update_news.html')
 
 def news_view(request, news_pk):
     news = get_object_or_404(News, pk=news_pk)
@@ -2097,16 +2105,6 @@ def news_view(request, news_pk):
     else:
         form = NewsForm(instance=news)
     return save_news_form(request, form, 'news/includes/partial_news_view.html')
-#view member    
-def view_member(request, pk):
-    members = get_object_or_404(Members, pk=pk)
-    if request.method == 'POST':
-        form = MembersForm(request.POST, instance=members)
-    else:
-        form = MembersForm(instance=members)
-    return save_news_form(request, form, 'Members/includes/partial_members_view.html') 
-
-
 
 def news_detail(request, news_pk):
     news = get_object_or_404(News, pk=news_pk)
@@ -2123,6 +2121,21 @@ def news_detail(request, news_pk):
         news_list = paginator.page(paginator.num_pages)
     context={'news':news,'page':page, 'news_list': news_list, 'more_news': more_news}
     return render(request, 'news/news_detail.html', context)
+def ministry_detail(request, ministry_pk):
+    ministry = get_object_or_404(Ministry, pk=ministry_pk)
+    more_details = Ministry.published.all()
+    paginator = Paginator(more_details, 2)  # 6 members on each page
+    page = request.GET.get('page')
+    try:
+       min_list = paginator.page(page)
+    except PageNotAnInteger:
+            # If page is not an integer deliver the first page
+        min_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range deliver last page of results
+        min_list = paginator.page(paginator.num_pages)
+    context={'ministry':ministry,'page':page, 'min_list': min_list, 'paginator': paginator}
+    return render(request, 'Ministry/ministry_detail.html', context)
 
 def news_delete(request, news_pk):
     news = get_object_or_404(News, pk=news_pk)
@@ -2429,7 +2442,18 @@ class MinistryListView(ListView):
 
 def ministry_wall(request):
     ministry = Ministry.published.all()
-    return render(request, 'Ministry/ministry_wall.html', {'ministry': ministry})
+    paginator = Paginator(ministry, 3)  # 6 members on each page
+    page = request.GET.get('page')
+    try:
+       minisitries_list = paginator.page(page)
+    except PageNotAnInteger:
+            # If page is not an integer deliver the first page
+        minisitries_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range deliver last page of results
+        minisitries_list = paginator.page(paginator.num_pages)
+    context={'page':page, 'minisitries_list': minisitries_list}
+    return render(request, 'Ministry/ministry_wall.html', context)
 
 
 class MinistryCreateView(CreateView):
@@ -2480,14 +2504,7 @@ def ministry_view(request, ministry_pk):
     return redirect(request, form, 'Ministry/ministry_view.html')
 
 
-def ministry_detail(request, ministry_pk):
-    ministry = get_object_or_404(Ministry, pk=ministry_pk)
-    more_details = Ministry.published.order_by('-id')[:15]
-    context = {
-        'ministry': ministry,
-        'more_details': more_details
-    }
-    return render(request, 'Ministry/ministry_detail.html', context)
+
 
 
 
