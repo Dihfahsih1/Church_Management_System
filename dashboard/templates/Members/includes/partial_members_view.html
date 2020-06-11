@@ -1,0 +1,58 @@
+<form method="post" action="{% url 'view-member' form.instance.pk %}" class="js-members-view-form"
+    enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Member Information</h4>
+    </div>
+    <div class="modal-body">
+        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="basic-tab">
+                    <table id="tablePreview" class="table table-bordered table-striped">
+                        <tbody>
+                            <tr>
+                                <th>First Name</th>
+                                <td>{{ form.instance.First_Name }}</td>
+                                <th>Second Name</th>
+                                <td>{{ form.instance.Second_Name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Member Photo</th>
+                                <td><img src="{{ form.instance.Photo.url }}" alt="" width="30"
+                                        style="background: rgba(15,174,221,0.97); padding: 2px;" />
+                                </td>
+                                <th>Birth Date</th>
+                                <td>{{ form.instance.Date_Of_Birth }}</td>
+    
+                            </tr>
+                            <tr>
+                                <th>Gender</th>
+                                <td>{{ form.instance.Gender }}</td>
+                                <th>Home Cell</th>
+                                <td>{{ form.instance.Home_Cell }}</td>
+                            </tr>
+                            <tr>
+                                <th>Residence</th>
+                                <td>{{ form.instance.Residence }}</td>
+                                <th>Telephone</th>
+                                <td>{{ form.instance.Telephone }}</td>
+                            </tr>
+                            <tr>
+                                <th>Marriage Status</th>
+                                <td>{{ form.instance.Marital_Status }}</td>
+                                <th>Marriage Type</th>
+                                <td>{{ form.instance.Marriage_Kind }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+</form>

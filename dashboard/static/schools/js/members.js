@@ -1,7 +1,5 @@
 $(function () {
-
     /* Functions */
-
     var loadForm = function () {
         var btn = $(this);
         $.ajax({
@@ -9,15 +7,16 @@ $(function () {
             type: 'get',
             dataType: 'json',
             beforeSend: function () {
-                $("#modal-news").modal("show");
+                $("#modal-members").modal("show");
             },
             success: function (data) {
-                $("#modal-news .modal-content").html(data.html_form);
+                $("#modal-members .modal-content").html(data.html_form);
             }
         });
     };
-    $("#news-table").on("click", ".js-view-news", loadForm);
-    //    var saveForm = function () {
+    $("#members-table").on("click", ".js-view-members", loadForm);
+
+    // var saveForm = function () {
     //     var form = $(this);
     //     var formData = new FormData(form[0]);
     //     $.ajax({
@@ -32,33 +31,17 @@ $(function () {
     //         processData: false,
     //         success: function (data) {
     //             if (data.form_is_valid) {
-    //                 $("#news-table tbody").html(data.html_news_list);
-    //                 $("#modal-news").modal("hide");
+    //                 $("#invoice-table tbody").html(data.html_news_list);
+    //                 $("#modal-members").modal("hide");
     //             } else {
-    //                 $("#modal-news .modal-content").html(data.html_form);
+    //                 $("#modal-members .modal-content").html(data.html_form);
     //             }
     //         }
     //     });
     //     return false;
     // };
-
-
     /* Binding */
-
-    // Create news
-    // $(".js-create-news").click(loadForm);
-    // $("#modal-news").on("submit", ".js-news-create-form", saveForm);
-
-    // Update news
-    // $("#news-table").on("click", ".js-update-news", loadForm);
-    // $("#modal-news").on("submit", ".js-news-update-form", saveForm);
-    
-    // view news
-   
-    // $("#modal-news").on("submit", ".js-news-view-form", saveForm);
-
-    // Delete news
-    // $("#news-table").on("click", ".js-delete-news", loadForm);
-    // $("#modal-news").on("submit", ".js-news-delete-form", saveForm);
+    // view members
+    //$("#modal-members").on("submit", ".js-members-view-form", saveForm);
 
 });

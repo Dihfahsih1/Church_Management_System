@@ -444,18 +444,6 @@ def member_detail(request, pk):
     }
     return render(request, 'Members/member_details.html', context)
 
-#view member    
-def view_member(request, pk):
-    context={}
-    member = get_object_or_404(Members, id=pk)
-    if request.method == 'POST':
-        form = MembersForm(request.POST, instance=member)
-        context['form']=form
-    else:
-        form = MembersForm(instance=member)
-        context['member']=member
-        context['form']=form
-    return render(request,'Members/members_view.html',context)  
 #edit visitor    
 def edit_visitor(request, pk):
     item = get_object_or_404(Visitors, pk=pk)
@@ -2109,6 +2097,15 @@ def news_view(request, news_pk):
     else:
         form = NewsForm(instance=news)
     return save_news_form(request, form, 'news/includes/partial_news_view.html')
+#view member    
+def view_member(request, pk):
+    members = get_object_or_404(Members, pk=pk)
+    if request.method == 'POST':
+        form = MembersForm(request.POST, instance=members)
+    else:
+        form = MembersForm(instance=members)
+    return save_news_form(request, form, 'Members/includes/partial_members_view.html') 
+
 
 
 def news_detail(request, news_pk):
