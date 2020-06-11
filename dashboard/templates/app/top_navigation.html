@@ -7,6 +7,7 @@
                     <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                 </div>
             </div>
+            
            {% load static total_tags %}
             <div class="col-lg-7">
                 <ul class="nav navbar-nav navbar-left">
@@ -21,13 +22,13 @@
                                     <img width="15%" src="{% static 'media/uccb.jpg' %}">
                                 {% endif %}
                             </h3>
-
                         </a>
                     </li>
                 </ul>
+
                 {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
                     <p style="font-size:25px;">Membership requests <a href="{% url 'un-approved-list' %}">
-                        <span class="fa fa-bell"><b style="background-color: red;border-radius: 60%; margin-left: -22%;  ">
+                        <span class="fa fa-bell"><b style="background-color: red;border-radius: 55%; margin-left: -17%;">
                             <strong style="color:white;"></strong>{% un_approved_members %}</strong></b></span>
                         </a></p>
                 {% endif %}
@@ -45,7 +46,6 @@
                     <li class="nav-item">
                         <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                            aria-expanded="false">
-
                             <i><img src="{{ request.user.full_name.Photo.url }}" /><i> <b style="color: red; font-size: 120%">{{ request.user.username }}
                             <span class=" fa fa-angle-down"></span></b></i>
                         </a>
