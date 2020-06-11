@@ -2090,6 +2090,7 @@ def NewsUpdate(request, news_pk):
     news = get_object_or_404(News, pk=news_pk)
     if request.method == 'POST':
         form = NewsForm(request.POST, request.FILES, instance=news)
+        print(form)
         if form.is_valid():
             form.save()
             messages.success(request, f'The Sermon has been updated Successfully')
@@ -2488,7 +2489,7 @@ def ministry_view(request, ministry_pk):
     else:
         form = MinistryForm(instance=ministry)
     return redirect(request, form, 'Ministry/ministry_view.html')
-    
+
 #ministry details and paginated list of the others
 def ministry_detail(request, ministry_pk):
     ministry = get_object_or_404(Ministry, pk=ministry_pk)

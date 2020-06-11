@@ -183,23 +183,23 @@ class NewsForm(forms.ModelForm):
         model = News
         fields = ('news_title', 'image','audio_file', 'news', 'Is_View_on_Web')
             # Add some custom validation to our file field
-    def clean_audio_file(self):
-        file = self.cleaned_data.get('audio_file',False)
-        if file:
-            if file.size > 4*1024*1024:
-                raise file.ValidationError("Audio file too large ( > 4mb )")
-            if not file.content-type in ["audio/mpeg","audio/jpeg","audio/png","audio/jpg"]:
-                raise file.ValidationError("Content-Type is not mpeg")
-            if not os.path.splitext(file.name)[1] in [".mp3",".wav"]:
-                raise file.ValidationError("Doesn't have proper extension")
-             # Here we need to now to read the file and see if it's actually 
-             # a valid audio file. I don't know what the best library is to 
-             # to do this
-            if not fleep.get(file.content):
-                raise file.ValidationError("Not a valid audio file")
-            return file
-        else:
-            raise file.ValidationError("Couldn't read uploaded file")
+    # def clean_audio_file(self):
+    #     file = self.cleaned_data.get('audio_file',False)
+    #     if file:
+    #         if file.size > 4*1024*1024:
+    #             raise file.ValidationError("Audio file too large ( > 4mb )")
+    #         if not file.content-type in ["audio/mpeg","audio/jpeg","audio/png","audio/jpg"]:
+    #             raise file.ValidationError("Content-Type is not mpeg")
+    #         if not os.path.splitext(file.name)[1] in [".mp3",".wav"]:
+    #             raise file.ValidationError("Doesn't have proper extension")
+    #          # Here we need to now to read the file and see if it's actually 
+    #          # a valid audio file. I don't know what the best library is to 
+    #          # to do this
+    #         if not fleep.get(file.content):
+    #             raise file.ValidationError("Not a valid audio file")
+    #         return file
+    #     else:
+    #         raise file.ValidationError("Couldn't read uploaded file")
 
 class ProjectForm(forms.ModelForm):
     class Meta:
