@@ -642,10 +642,8 @@ class Image(models.Model):
     image_caption = models.TextField( max_length=100000)
     date = models.DateField(auto_now_add=True)
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS, null=True, blank=False)
-
     objects = models.Manager()
     published = PublishedStatusManager()
-
     class Meta:
         default_permissions = ('view', 'add', 'change', 'delete')
 
@@ -655,8 +653,9 @@ class Image(models.Model):
 class News(models.Model):
     news_title = models.CharField(max_length=100)
     date = models.DateField(auto_now_add=True)
-    image = models.ImageField(upload_to='images/', null=True, blank=False)
-    news = models.TextField()
+    image = models.ImageField(upload_to='images/', null=True, blank=True)
+    audio_file = models.FileField(upload_to='audios/', null=True, blank=True)
+    news = models.TextField(null=True, blank=True)
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS)
     author = models.CharField(max_length=1003, null=True, blank=True, default="Preacher")
     objects = models.Manager()

@@ -25,8 +25,9 @@
                                 {% if news.image %}
                                     <img src="{{ news.image.url }}" alt="">
                                 {% endif %}
+                            
                             </div>
-
+                            
                             <div class="content">
                                 <ul class="meta">
                                     <li class="info"><span class="icon"><i class="fa fa-user"></i></span>By
@@ -38,6 +39,11 @@
                                 </ul>
                                 <h2 class="title"><a href="{{ news.get_absolute_url }}">{{ news.news_title }}</a>
                                 </h2>
+                                {% if news.audio_file %}
+                                <audio controls preload="auto">
+                                    <source src=" {{news.audio_file.url}} " type="audio/mpeg">
+                                </audio>
+                                {% endif %}
                                 <div class="text">
                                     {{ news.news|truncatewords:40|linebreaks }}
                                 </div>
@@ -65,7 +71,10 @@
             {% endif %}
         </div>
     </section>
-
 {% endblock %}
+<script type="text/javascript">
+    var sounds = document.getElementById("sounds");
+    sounds.play();
+</script>
 
 </body>

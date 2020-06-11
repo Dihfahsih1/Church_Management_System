@@ -2068,7 +2068,7 @@ def news_wall(request):
 class NewsCreateView(CreateView):
     model = News
     template_name = 'news/news_create.html'
-    fields = ('news_title', 'image', 'news', 'author','Is_View_on_Web')
+    fields = ('news_title', 'image', 'audio_file','news', 'author','Is_View_on_Web')
 
     def form_valid(self, form):
         news = form.save(commit=False)
