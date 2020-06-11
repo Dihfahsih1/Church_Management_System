@@ -2127,8 +2127,6 @@ def news_detail(request, news_pk):
     context={'news':news,'page':page, 'news_list': news_list, 'more_news': more_news}
     return render(request, 'news/news_detail.html', context)
 
-
-
 def news_delete(request, news_pk):
     news = get_object_or_404(News, pk=news_pk)
     data = dict()
