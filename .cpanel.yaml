@@ -1,0 +1,4 @@
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/lionipkp/
+    - /bin/cp -R Church_Management_System $DEPLOYPATH
