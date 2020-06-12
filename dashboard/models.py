@@ -8,12 +8,14 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.forms.fields import DateField
 from django.contrib.admin.widgets import AdminDateWidget
 from django.contrib.auth.models import PermissionsMixin
+
 services = (
          ('Unspecified Service','Unspecified Service'),
         ('Home Cell Service','Home Cell Service'),('Youth Service','Youth Service'),('Wednesday Service','Wednesday Service'),
         ('Bible Study Service','Bible Study Service'),('Friday Overnight','Friday Overnight'),('Sunday First Service','Sunday First Service'),
         ('Sunday Second Service','Sunday Second Service'),('Sunday Third Service','Sunday Third Service'),
         )
+
 ministries=(
     ('Pastoral', 'Pastoral'),
     ('Discipleship', 'Discipleship'),
