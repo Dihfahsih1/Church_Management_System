@@ -6,8 +6,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['https://uccbwaise.lionnecars.com/']
 CORS_ORIGIN_ALLOW_ALL = True
 APPEND_SLASH=False
-INSTALLED_APPS = 
-    ['dashboard',
+INSTALLED_APPS = [
+    'dashboard',
     'dal',
     'dal_select2',
     'django.contrib.admin',
@@ -21,7 +21,8 @@ INSTALLED_APPS =
     'users.apps.UsersConfig',
     'bootstrap_datepicker_plus',
     'bootstrap4',
-    'widget_tweaks',]
+    'widget_tweaks',
+    ]
 AUTH_USER_MODEL = 'dashboard.User'
 MIDDLEWARE = [   
     'django.middleware.security.SecurityMiddleware',
