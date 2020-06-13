@@ -2329,25 +2329,17 @@ def event_delete(request, event_pk):
 
 # #######################################===>BEGINNING OF CHURCH MODULE<===##########################################
 
-class churchCreateView(CreateView):
-    model = Church
-    template_name = 'church/create_church.html'
-    fields = ('church_vision','church_mission','maps_embedded_link','church_name', 'church_code',
-              'address', 'phone', 'registration_date', 'email_address', 'Post_Office_Box',
-              'footer', 'enable_frontend', 'latitude', 'longitude', 'facebook_url','twitter_url', 
-              'linkedIn_url', 'google_plus_url', 'youtube_url', 'instagram_url', 'pinterest_url',
-              'status', 'frontend_Logo', 'backend_Logo')
-
-    def get_form(self):
-        form = super().get_form()
-        form.fields['registration_date'].widget = DatePickerInput()
-        return form
-
-    def form_valid(self, form):
-        church = form.save(commit=False)
-        church.save()
-        return redirect('church_list')
-
+def churchCreateView(request):
+    if request.method == "POST":
+        form = churchForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'The details have been Created')
+            return redirect('church_list')   
+    else:
+        form=churchForm()
+        context = {'form': form}
+        return render(request, 'church/create_church.html',context)
 
 class churchUpdateView(UpdateView):
     model = Church

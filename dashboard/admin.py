@@ -29,6 +29,7 @@ class ExpendituresAdmin(admin.ModelAdmin):
 class UserAdmin(admin.ModelAdmin):
     list_display = ('UserEmail')                    
 admin.site.register(StaffDetails)
+admin.site.register(Church)
 admin.site.register(Project)
 admin.site.register(CashFloat)
 admin.site.register(Revenues)

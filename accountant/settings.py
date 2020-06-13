@@ -3,7 +3,7 @@ import os
 from django.contrib.messages import constants as messages
 SECRET_KEY = 't0yt9x7-+k$ix)i3)@7e0z-88me5=4yn(5%^@-=)-vg@^&%9(c'
 DEBUG = True
-ALLOWED_HOSTS = ['https://uccbwaise.lionnecars.com/']
+ALLOWED_HOSTS = []
 CORS_ORIGIN_ALLOW_ALL = True
 APPEND_SLASH=False
 INSTALLED_APPS = [
