@@ -2398,7 +2398,7 @@ def church_delete(request, church_pk):
     data = dict()
     if request.method == 'POST':
         church.delete()
-        data['form_is_valid'] = True  # This is just to play along with the existing code
+        data['form_is_valid'] = True 
         churches = Church.objects.all()
         data['html_church_list'] = render_to_string('church/includes/partial_church_list.html', {
             'churches': churches
@@ -2426,10 +2426,8 @@ def ministry_wall(request):
     try:
        minisitries_list = paginator.page(page)
     except PageNotAnInteger:
-            # If page is not an integer deliver the first page
         minisitries_list = paginator.page(1)
     except EmptyPage:
-        # If page is out of range deliver last page of results
         minisitries_list = paginator.page(paginator.num_pages)
     context={'page':page, 'minisitries_list': minisitries_list}
     return render(request, 'Ministry/ministry_wall.html', context)
