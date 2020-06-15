@@ -2049,15 +2049,13 @@ class NewsListView(ListView):
 
 def news_wall(request):
     news = News.published.all()
-    paginator = Paginator(news, 3)  # 6 members on each page
+    paginator = Paginator(news, 3)
     page = request.GET.get('page')
     try:
        news_list = paginator.page(page)
     except PageNotAnInteger:
-            # If page is not an integer deliver the first page
         news_list = paginator.page(1)
     except EmptyPage:
-        # If page is out of range deliver last page of results
         news_list = paginator.page(paginator.num_pages)
     context={'page':page, 'news_list': news_list}
     return render(request, 'news/news_wall.html', context)
@@ -2111,7 +2109,7 @@ def news_view(request, news_pk):
 def news_detail(request, news_pk):
     news = get_object_or_404(News, pk=news_pk)
     more_news = News.published.order_by('-date')
-    paginator = Paginator(more_news, 10)  # 6 members on each page
+    paginator = Paginator(more_news, 10) 
     page = request.GET.get('page')
     try:
        news_list = paginator.page(page)
