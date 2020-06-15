@@ -2206,21 +2206,6 @@ def project_detail(request, project_pk):
     return render(request, 'Church-Projects/projects_detail.html', context)
 
 
-# def news_delete(request, news_pk):
-#     news = get_object_or_404(News, pk=news_pk)
-#     data = dict()
-#     if request.method == 'POST':
-#         news.delete()
-#         data['form_is_valid'] = True  # This is just to play along with the existing code
-#         news = News.objects.all()
-#         data['html_news_list'] = render_to_string('news/includes/partial_news_list.html', {
-#             'news': news})
-#     else:
-#         context = {'news': news}
-#         data['html_form'] = render_to_string('news/includes/partial_news_delete.html',
-#                                              context, request=request,)
-#     return JsonResponse(data)
-
 ####################========>BEGINNING OF EVENT MODULE<============#####################
 class EventListView(ListView):
     model = Event
