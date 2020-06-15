@@ -2116,10 +2116,8 @@ def news_detail(request, news_pk):
     try:
        news_list = paginator.page(page)
     except PageNotAnInteger:
-            # If page is not an integer deliver the first page
         news_list = paginator.page(1)
     except EmptyPage:
-        # If page is out of range deliver last page of results
         news_list = paginator.page(paginator.num_pages)
     context={'news':news,'page':page, 'news_list': news_list, 'more_news': more_news}
     return render(request, 'news/news_detail.html', context)
