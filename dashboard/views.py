@@ -2197,8 +2197,6 @@ def ProjectUpdate(request, project_pk):
         form = ProjectForm(instance=item)
     return render(request, 'Church-Projects/update_project.html', {'form': form})
 
-
-
 def project_detail(request, project_pk):
     project = get_object_or_404(Project, pk=project_pk)
     more_projects = Project.published.order_by('-start_date')[:15]
