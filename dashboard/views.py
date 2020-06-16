@@ -183,7 +183,6 @@ def current_month_salary_paid(request):
     if request.method=='POST':
         archived_year=request.POST['archived_year']
         archived_month = request.POST['archived_month']
-        #all the available expense in the expenses table
         current_month = datetime.now().month
         current_year = datetime.now().year
         today = timezone.now()
@@ -197,9 +196,7 @@ def current_month_salary_paid(request):
             amount=sal.Salary_Amount
             name=sal.Name
             mth=sal.Month_being_cleared
-            # the expense archive object
             sal_archiveobj=SalariesPaidReportArchive()
-            #attached values to expense_archiveobj
             sal_archiveobj.Date_of_paying_salary=date
             sal_archiveobj.Salary_Amount=amount
             sal_archiveobj.Salary_Id=salary_id
@@ -209,7 +206,7 @@ def current_month_salary_paid(request):
             sal_archiveobj.archivedmonth =archived_month
             sal_archiveobj.save()
 
-        #deleting all the expense from reports table
+        
         salaries.delete()
         message="The Monthly Salaries Paid Report has been Archived"
         context={'message':message, 'mth':mth}
@@ -235,7 +232,7 @@ def delete_salary_paid(request,pk):
         messages.success(request, "Salary Paid successfully deleted!")
         return redirect("current-month-salaries")
 
-#Search for the archived salaries reports
+
 @login_required
 def salariespaidarchivessearch(request):
     if request.method == 'POST':
@@ -309,7 +306,7 @@ def register_visitors(request):
         form=VisitorsForm()
         return render(request, 'Members/register_visitors.html',{'form':form})
 
-#list of church members
+
 @login_required
 def members_list(request):
     membership = Members.objects.filter(is_active=True).order_by('-id')
@@ -326,7 +323,6 @@ def members_archived(request):
     context ={'membership': membership, 'day':day}
     return render(request, 'Members/members_archived.html',context) 
 
-#Approve member
 @login_required
 def approve_member(request, pk):
     if request.method == "GET":
@@ -335,7 +331,7 @@ def approve_member(request, pk):
         item.save()
         messages.success(request, f'Member has been Approved')
         return redirect('un-approved-list')
-#Approve member
+
 @login_required
 def reject_request(request, pk):
     if request.method == "GET":
@@ -343,12 +339,13 @@ def reject_request(request, pk):
         item.delete()
         messages.success(request, f'Membership Request has been Rejected')
         return redirect('un-approved-list')
+
 @login_required        
 def un_approved_members_list(request):        
     get_all_unapproved=Members.objects.filter(is_active=False, Archived_Status='NOT-ARCHIVED')
     context={'get_all_unapproved':get_all_unapproved}
     return render(request,'Members/unapproved-members-list.html', context)
-#archiving member
+
 @login_required
 def archive_member(request, pk):
     if request.method == "GET":
@@ -381,17 +378,17 @@ def unarchive_member(request, pk):
         messages.success(request, f'Member has been un Archived successfully')
         return redirect('members-list')
 
-#Church Pastors
+
 def church_pastors(request):
     pastors = Members.published.all()
     return render(request, 'Members/pastoral_team.html', {'pastors': pastors})
 
-#Administrative Team
+
 def church_administration(request):
     staffs = User.published.filter(Q(Role='Assistant_Admin') | Q(Role='Admin') | Q(Role='SuperAdmin') | Q(Role='Secretary')| Q(Role='Youth Leader'))
     return render(request, 'Members/administration_team.html', {'staffs': staffs})  
 
-#edit member detail
+
 def edit_member(request, pk):
     item = get_object_or_404(Members, pk=pk)
     if request.method == "POST":
@@ -405,7 +402,7 @@ def edit_member(request, pk):
         context = {'form': form, 'item':item}
     return render(request, 'Members/edit_member_details.html', context)
 
-#view member    
+  
 def view_member(request, pk):
     members = get_object_or_404(Members, pk=pk)
     if request.method == 'POST':
@@ -414,7 +411,7 @@ def view_member(request, pk):
         form = MembersForm(instance=members)
     return save_news_form(request, form, 'Members/includes/partial_members_view.html') 
 
-#Member wall(list of member details)    
+  
 def membership_wall(request):
     all_members = Members.published.filter(is_active=True).order_by('-id')
     paginator = Paginator(all_members, 9)  
@@ -428,21 +425,19 @@ def membership_wall(request):
     context={'page':page, 'members_list': members_list}    
     return render(request, 'Members/members_wall.html', context)
 
-#details of each member on the website
+
 def member_detail(request, pk):
     member = get_object_or_404(Members, pk=pk)
     mem_details=Members.objects.filter(is_active=True)
     number_of_registered_members=mem_details.count()
     more_details = Members.published.order_by('-date')
-    paginator = Paginator(mem_details, 7)  # 9 members on each page
+    paginator = Paginator(mem_details, 7) 
     page = request.GET.get('page')
     try:
         members_list = paginator.page(page)
     except PageNotAnInteger:
-            # If page is not an integer deliver the first page
         members_list = paginator.page(1)
     except EmptyPage:
-        # If page is out of range deliver last page of results
         members_list = paginator.page(paginator.num_pages)
     context = {
          'page':page,
@@ -563,6 +558,7 @@ def Enter_Offerings(request):
     else:
         form=RevenuesForm()
         return render(request, 'Offerings/record_offerings.html',{'form':form})
+
 #edit offerings
 @login_required
 def edit_offerings(request, pk):
@@ -633,7 +629,8 @@ class offeringsarchivepdf(View):
             'total_amount': total_amount,
             'request': request,
             'archived_offerings': archived_offerings,}
-        return Render.render('Offerings/offeringsarchivepdf.html', offeringscontext)    
+        return Render.render('Offerings/offeringsarchivepdf.html', offeringscontext)  
+
 #offering
 class offeringspdf(View):
     def get(self, request):
@@ -665,6 +662,7 @@ def add_seeds(request):
         form=RevenuesForm()
         context={'form':form}
         return render(request, 'Seeds/add_seeds.html',context)  
+
 @login_required
 def Seedsreport (request):
     if request.method=='POST':
@@ -884,10 +882,10 @@ def member_annual_tithes(request, pk):
     tithescontext={'years':years,'tithes':tithes, 'members':members, 'total_amount':total_amount}
     return render(request, 'Tithes/member_annual_tithes.html', tithescontext) 
 
-
      ###################################################
     #               THANKS GIVING MODULE                #
      ###################################################
+
 @login_required
 def record_thanks_giving(request):
     if request.method=="POST":
@@ -901,6 +899,7 @@ def record_thanks_giving(request):
         month = today.strftime('%b')
         context={'form':form, 'month':month}
         return render(request, 'ThanksGiving/record_thanks_giving.html',context)
+
 @login_required
 def thanks_giving_report(request):
     if request.method=='POST':
@@ -1036,7 +1035,8 @@ def edit_general_expense(request, pk):
             return redirect('general-expenses-report')
     else:
         form = ExpendituresForm(instance=item)
-    return render(request, 'Expenses/edit_general_expense.html', {'form': form})        
+    return render(request, 'Expenses/edit_general_expense.html', {'form': form}) 
+
 @login_required
 def general_expenses_archives_search(request):
     today = datetime.now()
@@ -1255,7 +1255,6 @@ class petty_expenditure_report_pdf(View):
         }
         return Render.render('Expenses/sundrypdf.html',context)
 
-
 #Allowances Module
 @login_required
 def give_allowance(request):
@@ -1270,7 +1269,6 @@ def give_allowance(request):
         form = ExpendituresForm()
         context={'form': form, 'current_month': current_month}
         return render(request, 'Allowances/record_new_allowance.html',context)
-
 
 @login_required
 def edit_allowance(request, pk):
@@ -1375,6 +1373,7 @@ def Enter_Pledges(request):
     else:
         form=PledgesForm()
         return render(request, 'Pledges/enter_pledge.html',{'form':form})
+
 @login_required
 def add_Pledge_Items(request):
     if request.method=="POST":
@@ -1420,7 +1419,6 @@ def edit_pledge_item(request, pk):
         form = PledgeItemsForm(instance=item)
     return render(request, 'Pledges/edit_pledge_item.html', {'form': form}, {'messages': messages})
 
-#Expendituresing money on the pledged item
 @login_required
 def pledge_cash_out(request, pk):
     items = get_object_or_404(PledgeItem, id=pk)
@@ -1444,7 +1442,6 @@ def cashing_out_items(request):
         if form.is_valid():
             
             form.save() 
-            #PledgesCashedOut.objects.all().delete()
             messages.success(request, "Cash out was successful")
             return redirect('list-of-pledge-items')    
         else:
@@ -1460,7 +1457,8 @@ def delete_pledge_item(request, pk):
         item.Archived_Status = 'Archived'
         item.save()
         messages.success(request, "Pledge Item successfully Archived!")
-        return redirect("list-of-pledge-items")      
+        return redirect("list-of-pledge-items")  
+
 @login_required
 def pledge_view(request, pledge_pk):
     pledge = get_object_or_404(Pledges, pk=pledge_pk)
@@ -1471,7 +1469,6 @@ def pledge_view(request, pledge_pk):
     context = {'form': form}
     return render(request, 'Pledges/pledge_view.html', context)
 
-#function that invokes the template for inputing the date and pledge amount paid by the member
 @login_required
 def paying_pledges(request, pk):
     context={}
@@ -1674,7 +1671,7 @@ def slider_delete(request, slider_pk):
     data = dict()
     if request.method == 'POST':
         slider.delete()
-        data['form_is_valid'] = True  # This is just to play along with the existing code
+        data['form_is_valid'] = True 
         sliders = Slider.objects.all()
         data['html_slider_list'] = render_to_string('sliders/includes/partial_slider_list.html', {
             'sliders': sliders
@@ -1764,7 +1761,7 @@ def about_delete(request, about_pk):
     data = dict()
     if request.method == 'POST':
         about.delete()
-        data['form_is_valid'] = True  # This is just to play along with the existing code
+        data['form_is_valid'] = True  
         abouts = About.objects.all()
         data['html_about_list'] = render_to_string('abouts/includes/partial_about_list.html', {
             'abouts': abouts
@@ -1852,7 +1849,7 @@ def page_delete(request, page_pk):
     data = dict()
     if request.method == 'POST':
         page.delete()
-        data['form_is_valid'] = True  # This is just to play along with the existing code
+        data['form_is_valid'] = True 
         pages = Page.objects.all()
         data['html_page_list'] = render_to_string('pages/includes/partial_page_list.html', {
             'pages': pages
@@ -1876,15 +1873,13 @@ class GalleryListView(ListView):
 def gallery_wall(request):
     galleries = Gallery.published.all().order_by('-date')
     images = Image.objects.all()
-    paginator = Paginator(galleries, 3)  # 9 members on each page
+    paginator = Paginator(galleries, 3)
     page = request.GET.get('page')
     try:
         gallery_list = paginator.page(page)
     except PageNotAnInteger:
-            # If page is not an integer deliver the first page
         gallery_list = paginator.page(1)
     except EmptyPage:
-        # If page is out of range deliver last page of results
         gallery_list = paginator.page(paginator.num_pages)
     context = {
         'page':page,
@@ -1947,9 +1942,7 @@ def gallery_delete(request, gallery_pk):
         })
     else:
         context = {'gallery': gallery}
-        data['html_form'] = render_to_string('galleries/includes/partial_gallery_delete.html',
-                                             context,
-                                             request=request,
+        data['html_form'] = render_to_string('galleries/includes/partial_gallery_delete.html',context, request=request,
                                              )
     return JsonResponse(data)
 
@@ -2005,15 +1998,13 @@ def image_view(request, image_pk):
     image = get_object_or_404(Image, pk=image_pk)
     mem_details=Image.objects.all()
     more_details = Image.published.all()
-    paginator = Paginator(mem_details, 5)  # 9 members on each page
+    paginator = Paginator(mem_details, 5)
     page = request.GET.get('page')
     try:
         images_list = paginator.page(page)
     except PageNotAnInteger:
-            # If page is not an integer deliver the first page
         images_list = paginator.page(1)
     except EmptyPage:
-        # If page is out of range deliver last page of results
         images_list = paginator.page(paginator.num_pages)
     context = {
         'page':page,
