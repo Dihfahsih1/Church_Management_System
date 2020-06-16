@@ -89,7 +89,7 @@ class StaffDetailsForm(forms.ModelForm):
             'Date_of_employment': DatePickerInput(),
             'End_of_contract': DatePickerInput(),
         }
-        
+
 class SalariesPaidForm(forms.ModelForm):
     class Meta:
         model = SalariesPaid
@@ -216,7 +216,7 @@ class churchForm(forms.ModelForm):
                   'address', 'phone', 'registration_date', 'email_address', 'Post_Office_Box',
                   'footer', 'enable_frontend', 'latitude','longitude', 'facebook_url', 'twitter_url', 
                   'linkedIn_url', 'google_plus_url', 'youtube_url','instagram_url','pinterest_url', 
-                  'status', 'frontend_Logo', 'backend_Logo')
+                  'status', 'Church_Logo')
 
         widgets = {
             'church_name': TextInput(attrs={'placeholder': 'Church Name'}),

@@ -2319,7 +2319,7 @@ class churchUpdateView(UpdateView):
               'address', 'phone', 'registration_date', 'email_address', 'Post_Office_Box',
               'footer', 'enable_frontend', 'latitude', 'longitude', 'facebook_url','twitter_url', 
               'linkedIn_url', 'google_plus_url', 'youtube_url', 'instagram_url', 'pinterest_url',
-              'status', 'frontend_Logo', 'backend_Logo')
+              'status', 'Church_Logo',)
     def get_form(self):
         form = super().get_form()
         form.fields['registration_date'].widget = DatePickerInput()

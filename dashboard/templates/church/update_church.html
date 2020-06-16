@@ -15,18 +15,31 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2><i class="fa fa-home"></i><small> Manage Church</small></h2>
+                        <h1 style="text-align: center;"><i class="fa fa-home"></i><b> CHURCH MODULE</b></h1>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
                         </ul>
                         <div class="clearfix"></div>
                     </div>
-
                     <div class="x_content quick-link">
-                        <span>Quick Link:</span>
-                        <a href="#">General Setting</a>
-                        | <a href="#">Manage Church</a>
+                        <span style="color:red"><b>Other Archived Reports:</b></span>
+                        <a href="{% url  'expensesarchivessearch' %}"> Main Expenses</a>
+                        |<a href="{% url 'general-expensesarchives-search' %}"> General Expenses</a>
+                        |<a href="{% url 'offeringsarchivessearch' %}"> Offerings</a>
+                    
+                        |<a href="{% url 'pledgesarchivessearch' %}"> Pledges</a>
+                    
+                        |<a href="{% url 'sundryarchivessearch' %}"> Petty Expenses</a>
+                        {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
+                        |<a href="{% url 'allowancearchivessearch' %}"> Allowances</a>
+                        |<a href="{% url 'salariespaidarchivessearch' %}"> Salaries</a>
+                        |<a href="{% url 'tithesarchivessearch' %}"> Tithes</a>
+                        |<a href="{% url 'seeds-archives-search' %}"> Seeds</a>
+                        |<a href="{% url 'thanksgivingarchivessearch' %}"> ThanksGiving</a>
+                        {% endif %}
+                        |<a href="{% url 'BuildingRenovationarchivessearch' %}"> Building</a>
+                        <div class="separator"></div>
                     </div>
 
                     <div class="x_content">
@@ -44,7 +57,8 @@
                                 </li>
                             </ul>
                             <br/>
-
+                            <h2 style="text-align: center;">Update Church Details</h2>
+                            <div class="separator"></div>
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="tab_school_list">
                                     <div class="x_content">
