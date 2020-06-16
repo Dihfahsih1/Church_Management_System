@@ -89,6 +89,7 @@ class StaffDetailsForm(forms.ModelForm):
             'Date_of_employment': DatePickerInput(),
             'End_of_contract': DatePickerInput(),
         }
+        
 class SalariesPaidForm(forms.ModelForm):
     class Meta:
         model = SalariesPaid
