@@ -120,7 +120,7 @@ def employee_list(request):
 def edit_employee(request, pk):
     item = get_object_or_404(StaffDetails, pk=pk)
     if request.method == "POST":
-        form = StaffDetailsForm(request.POST, instance=item)
+        form = StaffDetailsForm(request.POST, request.FILES, instance=item)
         if form.is_valid():
             form.save()
             messages.success(request, f'Employee has been successfully edited')
@@ -132,7 +132,7 @@ def edit_employee(request, pk):
         get_name = StaffDetails.objects.filter(id=pk)
         form = StaffDetailsForm(instance=item)        
         context={'form':form, 'month':month, 'message':message, 'get_name':get_name}
-    return render(request, 'Employees/record_employee.html', context)
+    return render(request, 'Employees/edit_employee.html', context)
 @login_required
 def view_employee(request, pk):
     employees = get_object_or_404(StaffDetails, pk=pk)
@@ -141,7 +141,7 @@ def view_employee(request, pk):
     else:
         form = StaffDetailsForm(instance=employees)
     return save_news_form(request, form, 'Employees/includes/partial_employee_view.html')
-     
+
 @login_required
 def paying_employees(request, pk):
     items = get_object_or_404(StaffDetails, id=pk)
