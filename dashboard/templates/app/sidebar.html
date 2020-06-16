@@ -15,9 +15,9 @@
         }
     </style>
     <div>
-         <a href="{% url 'profile' %}"><img src="{{ request.user.full_name.Photo.url }}" width="200" height="130" class="center"  /></a>
+        <a href="{% url 'profile' %}"><img src="{{ request.user.full_name.Photo.url }}" width="200" height="130" class="center"  /></a>
         <h3 style="font-weight:bolder; color: white; text-align: center"> 
-            <img src="{% static 'img/onlineIcon.png' %}" alt="active"/ width="10px">
+            <img src="{% static 'img/onlineIcon.png' %}" alt="active" width="10px">
         {{user.full_name.Initials}} {{user.full_name}}</h3>
          {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
            <h5 style="font-weight:bold; color: white; text-align: center">UCC Bwaise {{user.Role}}</h5>
@@ -61,8 +61,6 @@
                         <li><a href="{% url 'Enter_Offerings' %}">General Offerings</a></li>
                         <li><a href="{% url 'record-thanks-giving'%}">Thanks Giving / Love Offering</a></li>
                         <li><a href="{% url 'record-donations'%}">Other Sources</a></li>
-                        
-                        
                     </ul>
                 </li>
                 <li><a><i class="fa fa-balance-scale"></i> Record Expenditures <span class="fa fa-chevron-down"></span></a>

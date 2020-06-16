@@ -135,19 +135,13 @@ def edit_employee(request, pk):
     return render(request, 'Employees/record_employee.html', context)
 @login_required
 def view_employee(request, pk):
-    context={}
-    employee = get_object_or_404(StaffDetails, id=pk)
+    employees = get_object_or_404(StaffDetails, pk=pk)
     if request.method == 'POST':
-        form = StaffDetailsForm(request.POST, request.FILES, instance=employee)
-        context['form']=form
-
+        form = StaffDetailsForm(request.POST, instance=employees)
     else:
-        form = StaffDetailsForm(request.POST, request.FILES, instance=employee)
-        get_name = StaffDetails.objects.filter(id=pk)
-        context['get_name']=get_name
-        context['form']=form
-        (form.instance.UCC_Bwaise_Member)
-    return render(request,'Employees/employee_view.html',context)
+        form = StaffDetailsForm(instance=employees)
+    return save_news_form(request, form, 'Employees/includes/partial_employee_view.html')
+     
 @login_required
 def paying_employees(request, pk):
     items = get_object_or_404(StaffDetails, id=pk)
