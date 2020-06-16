@@ -95,9 +95,11 @@
                                       {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
                                      <td>
                                         <a href="{% url 'edit-member' member.id  %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                                        
                                         <button type="button" class="btn btn-warning btn-sm js-view-members" data-url="{% url 'view-member' member.id %}">
                                             <span class="glyphicon glyphicon-eye-open"></span> View
                                         </button>
+
                                         <!-- <a href="{% url 'view-member' member.id  %}"class="btn btn-success btn-sm"><span class="glyphicon glyphicon-eye-open"></span></a> -->
                                         <a href="{% url 'record-member-tithe' member.id  %}" class="btn btn-warning btn-sm"><span
                                                 class="glyphicon glyphicon-euro"></span>Tithe</a>
