@@ -6,17 +6,17 @@
         <td>
             <button type="button"
                     class="btn btn-success btn-sm js-view-school"
-                    data-url="{% url 'church_view' church.pk %}">
+                    data-url="{% url 'church_view' church.id %}">
                 <span class="fa fa-eye"></span> View All Church Details
             </button>
             {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
             <div class="mb-4">
-                <a href="{% url 'church_update' church.pk %}" class="btn btn-info btn-sm">
+                <a href="{% url 'church_update' church.id %}" class="btn btn-info btn-sm">
                     <span class="fa fa-pencil-square-o"></span> Edit</a>
             </div>
             <button type="button"
                     class="btn btn-danger btn-sm js-delete-school"
-                    data-url="{% url 'church_delete' church.pk %}">
+                    data-url="{% url 'church_delete' church.id %}">
                 <span class="fa fa-trash"></span> Delete
             </button>
             {% endif %}

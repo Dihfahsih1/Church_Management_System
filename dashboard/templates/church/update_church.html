@@ -49,10 +49,14 @@
                                 <li role="presentation"><a href="{% url 'church_list' %}">
                                     <i class="fa fa-list-ol"></i> church List</a>
                                 </li>
-                                <li role="presentation"><a href="{% url 'church_create' %}">
-                                    <i class="fa fa-plus-square-o"></i> Add church</a>
+                                {% for church in churches %}
+                                {% if forloop.count == 0 %}
+                                <li role="presentation"><a href="{% url 'church_create' %}"><i class="fa fa-plus-square-o"></i> Add
+                                        church Details</a>
                                 </li>
-                                <li role="presentation" class="active"><a href="{% url 'church_update' church.pk %}">
+                                {% endif %}
+                                {% endfor %}
+                                <li role="presentation" class="active"><a href="#">
                                     <i class="fa fa-pencil-square-o"></i> Edit church</a>
                                 </li>
                             </ul>
@@ -64,19 +68,9 @@
                                     <div class="x_content">
 
                                         <form class="form-horizontal form-label-left"
-                                              role="form"
-                                              action=""
-                                              method="post"
-                                              enctype="multipart/form-data"
-                                              accept-charset="utf-8">{% csrf_token %}
-
-                                            <form class="form-horizontal form-label-left"
-                                                  role="form"
-                                                  action=""
-                                                  method="post"
-                                                  enctype="multipart/form-data"
-                                                  accept-charset="utf-8">{% csrf_token %}
-
+                                              role="form" action="" method="post" enctype="multipart/form-data"
+                                              accept-charset="utf-8">
+                                              {% csrf_token %}
                                                 <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
                                                     <strong>Basic Information:</strong>
                                                 </p>
@@ -90,6 +84,9 @@
                                                     </div>
                                                     <div class="form-group col-md-3 mb-0">
                                                         {{ form.address|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        {{ form.Church_Logo|as_crispy_field }}
                                                     </div>
 
                                                     <div class="form-group col-md-3 mb-0">
@@ -107,9 +104,7 @@
                                                     <div class="form-group col-md-3 mb-0">
                                                         {{ form.Post_Office_Box|as_crispy_field }}
                                                     </div>
-                                                    <div class="form-group col-md-3 mb-0">
-                                                        {{ form.footer|as_crispy_field }}
-                                                    </div>
+                                                    
                                                 </div>
                                                 <br/>
 
@@ -123,8 +118,10 @@
                                                     </div>
                                                 </div>
 
-
                                                 <div class="form-row">
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        {{ form.footer|as_crispy_field }}
+                                                    </div>
                                                     <div class="form-group col-md-3 mb-0">
                                                         {{ form.enable_frontend|as_crispy_field }}
                                                     </div>
@@ -134,17 +131,18 @@
                                                     <div class="form-group col-md-3 mb-0">
                                                         {{ form.longitude|as_crispy_field }}
                                                     </div>
-                                                     <div class="form-group col-md-3 mb-0">
+                                                    <div class="form-group col-md-3 mb-0">
                                                         {{ form.maps_embedded_link|as_crispy_field }}
                                                     </div>
                                                     <div class="form-group col-md-3 mb-0">
                                                         {{ form.church_mission|as_crispy_field }}
                                                     </div>
-                                                     <div class="form-group col-md-3 mb-0">
+                                                    <div class="form-group col-md-3 mb-0">
                                                         {{ form.church_vision|as_crispy_field }}
                                                     </div>
-
+                                                
                                                 </div>
+                                                
 
                                                 <div class="form-row">
                                                     <div class="form-group col-md-12 mb-0">
@@ -183,26 +181,6 @@
                                                         {{ form.pinterest_url|as_crispy_field }}
                                                     </div>
                                                 </div>
-
-                                                <div class="form-row">
-                                                    <div class="form-group col-md-12 mb-0">
-
-                                                        <p class="text-muted well well-sm no-shadow"
-                                                           style="margin-top: 10px;">
-                                                            <strong>Other Information:</strong>
-                                                        </p>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-row">
-                                                    <div class="form-group col-md-3 mb-0">
-                                                        {{ form.frontend_Logo|as_crispy_field }}
-                                                    </div>
-                                                    <div class="form-group col-md-3 mb-0">
-                                                        {{ form.backend_Logo|as_crispy_field }}
-                                                    </div>
-                                                </div>
-
                                                 <div class="form-row">
                                                     <div class="form-group col-md-12 mb-0">
                                                         <br></br>
@@ -226,8 +204,6 @@
                                                         <button type="submit" class="btn btn-primary">Update</button>
                                                     </div>
                                                 </div>
-                                            </form>
-
                                         </form>
                                     </div>
                                 </div>
@@ -247,7 +223,6 @@
             </div>
         </div>
 
-       
     </div>
 
 {% endblock content %}

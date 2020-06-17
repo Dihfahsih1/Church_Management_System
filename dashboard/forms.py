@@ -211,12 +211,12 @@ class EventForm(forms.ModelForm):
 class churchForm(forms.ModelForm):
     class Meta:
         model = Church
-
         fields = ('church_vision','church_mission','maps_embedded_link','church_name', 'church_code', 
-                  'address', 'phone', 'registration_date', 'email_address', 'Post_Office_Box',
+                  'address', 'phone','status', 'Church_Logo',
+                   'registration_date', 'email_address', 'Post_Office_Box',
                   'footer', 'enable_frontend', 'latitude','longitude', 'facebook_url', 'twitter_url', 
                   'linkedIn_url', 'google_plus_url', 'youtube_url','instagram_url','pinterest_url', 
-                  'status', 'Church_Logo')
+                  )
 
         widgets = {
             'church_name': TextInput(attrs={'placeholder': 'Church Name'}),
@@ -224,7 +224,6 @@ class churchForm(forms.ModelForm):
             'address': TextInput(attrs={'placeholder': 'Address'}),
             'phone': TextInput(attrs={'placeholder': 'Phone'}),
             'email_address': TextInput(attrs={'placeholder': 'Email'}),
-            'fax': TextInput(attrs={'placeholder': 'Fax'}),
             'footer': TextInput(attrs={'placeholder': 'Footer'}),
             'registration_date': DatePickerInput(),
 

@@ -213,7 +213,7 @@ url(r'^event/delete(?P<event_pk>\d+)/$', views.event_delete, name='event_delete'
 #church
 url(r'^administrator/church/index/$', views.churchListView.as_view(), name='church_list'),
 url(r'^administrator/church/add/$', views.churchCreateView, name='church_create'),
-url(r'^administrator/church/update/(?P<church_pk>\d+)/$', views.churchUpdateView.as_view(), name='church_update'),
+url(r'^administrator/church/update/(?P<church_pk>\d+)/$', views.churchUpdateView, name='church_update'),
 url(r'^administrator/church/(?P<church_pk>\d+)/view/$', views.church_view, name='church_view'),
 url(r'^administrator/church/(?P<church_pk>\d+)/delete/$', views.church_delete, name='church_delete'),
 

@@ -2296,24 +2296,18 @@ def churchCreateView(request):
         context = {'form': form}
         return render(request, 'church/create_church.html',context)
 
-class churchUpdateView(UpdateView):
-    model = Church
-    template_name = 'church/update_church.html'
-    pk_url_kwarg = 'church_pk'
-    fields = ('church_vision','church_mission','maps_embedded_link','church_name', 'church_code',
-              'address', 'phone', 'registration_date', 'email_address', 'Post_Office_Box',
-              'footer', 'enable_frontend', 'latitude', 'longitude', 'facebook_url','twitter_url', 
-              'linkedIn_url', 'google_plus_url', 'youtube_url', 'instagram_url', 'pinterest_url',
-              'status', 'Church_Logo',)
-    def get_form(self):
-        form = super().get_form()
-        form.fields['registration_date'].widget = DatePickerInput()
-        return form
-
-    def form_valid(self, form):
-        church = form.save(commit=False)
-        church.save()
-        return redirect('church_list')
+def churchUpdateView(request, church_pk):
+    item = get_object_or_404(Church, pk=church_pk)
+    if request.method == "POST":
+        form = churchForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'The Church Details have been updated')
+            return redirect('church_list')
+    else:
+        form = churchForm(instance=item)
+        print(form.errors)
+        return render(request, 'Church/update_church.html', {'form': form})
 
 
 class churchListView(ListView):
