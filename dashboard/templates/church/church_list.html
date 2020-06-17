@@ -55,7 +55,7 @@
                                 </li>
                                 {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
                                     {% for church in churches %}
-                                        {% if forloop.count == 0 %}
+                                        {% if church is None %}
                                         <li role="presentation"><a href="{% url 'church_create' %}"><i
                                                 class="fa fa-plus-square-o"></i> Add
                                             church Details</a>

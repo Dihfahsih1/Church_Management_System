@@ -2306,8 +2306,8 @@ def churchUpdateView(request, church_pk):
             return redirect('church_list')
     else:
         form = churchForm(instance=item)
-        print(form.errors)
-        return render(request, 'Church/update_church.html', {'form': form})
+        context={'form':form, 'item':item}
+        return render(request, 'Church/update_church.html', context)
 
 
 class churchListView(ListView):
