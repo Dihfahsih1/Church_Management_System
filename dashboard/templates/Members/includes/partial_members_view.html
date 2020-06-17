@@ -4,7 +4,12 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
-        <h2 style="text-align: center;" class="modal-title"> All Membership Information of {{ form.instance.Full_Named }}</h2>
+        <h2 style="text-align: center;" class="modal-title"> 
+            {% if form.instance.Full_Named is None %}
+            Request Membership Details of {{ form.instance.First_Name }} {{form.instance.Second_Name}}
+            {% else %}
+            All Membership Information of {{ form.instance.Full_Named }}
+            {% endif %} </h2>
     </div>
     <div class="modal-body">
         <div class="" role="tabpanel" data-example-id="togglable-tabs">
@@ -13,25 +18,24 @@
                     <table id="tablePreview" class="table table-bordered table-striped">
                         <tbody>
                             <tr>
+                                <th>Member Photo</th>
+                                <td><img src="{{ form.instance.Photo.url }}" alt="" width="200"
+                                        style="background: rgba(15,174,221,0.97); padding: 2px;" />
+                                </td>
+                            </tr>
+                            <tr>
                                 <th>First Name</th>
                                 <td>{{ form.instance.First_Name }}</td>
                                 <th>Second Name</th>
                                 <td>{{ form.instance.Second_Name }}</td>
                             </tr>
-                            <tr>
-                                <th>Member Photo</th>
-                                <td><img src="{{ form.instance.Photo.url }}" alt="" width="30"
-                                        style="background: rgba(15,174,221,0.97); padding: 2px;" />
-                                </td>
-                                <th>Birth Date</th>
-                                <td>{{ form.instance.Date_Of_Birth }}</td>
-    
-                            </tr>
+                           
                             <tr>
                                 <th>Gender</th>
                                 <td>{{ form.instance.Gender }}</td>
                                 <th>Home Cell</th>
                                 <td>{{ form.instance.Home_Cell }}</td>
+                                
                             </tr>
                             <tr>
                                 <th>Residence</th>
@@ -44,6 +48,12 @@
                                 <td>{{ form.instance.Marital_Status }}</td>
                                 <th>Marriage Type</th>
                                 <td>{{ form.instance.Marriage_Kind }}</td>
+                            </tr>
+                            <tr>
+                                <th>Birth Date</th>
+                                <td>{{ form.instance.Date_Of_Birth }}</td>
+                                <th>Date of Joining UCC </th>
+                                <td>{{ form.instance.Date_Of_Joining_UCC_Bwaise }}</td>
                             </tr>
                         </tbody>
                     </table>

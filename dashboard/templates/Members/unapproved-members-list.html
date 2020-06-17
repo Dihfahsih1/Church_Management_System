@@ -1,4 +1,8 @@
 {% extends "app/base_site.html" %}
+{% block javascript %}
+{% load static i18n %}
+<script src="{% static 'schools/js/members.js' %}"></script>
+{% endblock %}
 {% block content %}
 <div class="right_col" role="main">
     <div class="row">
@@ -54,10 +58,10 @@
                         <h1 style="text-align: center;">List of un approved membership requests</h1>
                         <div class="separator"></div>
                         <div class="tab-content">
-                            <div class="tab-pane fade in active" id="tab_invoice_list">
+                            <div class="tab-pane fade in active">
                                 <div class="x_content">
-                                    <table id="invoice-table"
-                                        class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
+                                    <table id="members-table"
+                                        class="table table-striped table-bordered" cellspacing="0"
                                         width="100%">
                                         <thead>
                                             <tr>
@@ -75,8 +79,9 @@
                                                 <td>{{ approve.Second_Name}}</td>
                                                 <td>
                                                     <div class="mb-4">
-                                                        <a href="{% url 'view-member' approve.id  %}" class="btn btn-info btn-sm"><span
-                                                                class="glyphicon glyphicon-eye-open"></span></a>
+                                                        <button type="button" class="btn btn-warning btn-sm js-view-members" data-url="{% url 'view-member' approve.id %}">
+                                                            <span class="glyphicon glyphicon-eye-open"></span> View Details
+                                                        </button>
                                                         <a href="{% url 'approve-member' approve.id  %}"
                                                             class="btn btn-success btn-sm "><span
                                                                 class="glyphicon glyphicon-ok"></span> Approve</a>
@@ -90,6 +95,13 @@
                                     </table>
                                 </div>
                             </div>
+                            <!-- THE MODAL WE WILL BE USING -->
+                            <div class="modal fade" id="modal-members">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -97,4 +109,23 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#members-table').DataTable({
+            dom: 'Bfrtip',
+            iDisplayLength: 15,
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5',
+                'print',
+                'pageLength'
+            ],
+            search: true,
+            responsive: true
+        });
+    });
+
+</script>
 {% endblock content %}

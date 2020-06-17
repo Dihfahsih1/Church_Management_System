@@ -313,7 +313,14 @@ def members_archived(request):
     day=datetime.now()
     context ={'membership': membership, 'day':day}
     return render(request, 'Members/members_archived.html',context) 
-
+# @login_required
+# def view_request_details(request,pk):
+#     members = get_object_or_404(Members, pk=pk)
+#     if request.method == 'POST':
+#         form = MembersForm(request.POST, instance=members)
+#     else:
+#         form = MembersForm(instance=members)
+#     return save_news_form(request, form, 'Members/includes/partial_members_view.html') 
 @login_required
 def approve_member(request, pk):
     if request.method == "GET":
