@@ -13,23 +13,18 @@
     </section>
     <section class="page-event-area">
         <div class="container">
+            <h3 style="text-align: center;">All UCC - Bwaise Registered Members</h3>
+            <hr />
+            <form action="{% url 'membership_wall' %}" method="GET" value="{{request.GET.q}}">
+                <input type="text" name="q" value="{{request.GET.q}}" placeholder="Search For Member" />
+                <input type="submit" class="btn btn-primary" name="submit" value="Search" />
+            </form>
+            {% if submitbutton == 'Search' and request.GET.q != '' %}
+            {% if results %}
+            <h3 style="text-align: center;">Results for <b>{{ request.GET.q }}</b></h3>
             <div class="row">
-                <h1>Search Page</h1>
-                
-                <br />
-                <form action="{% url 'membership_wall' %}" method="GET" value="{{request.GET.q}}">
-                    Search <input type="text" name="q" value="{{request.GET.q}}" placeholder="Search posts" />
-                    <input type="submit" name="submit" value="Search" />
-                </form>
-                
-                
-                {% if submitbutton == 'Search' and request.GET.q != '' %}
-                {% if results %}
-                <h1>Results for <b>{{ request.GET.q }}</b></h1>
-                <br /><br />
-                
                 {% for result in results %}
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                     <div class="single-event">
                         <div class="img" style="max-height: 170px">
                             {% if result.Photo %}
@@ -58,7 +53,6 @@
                             </div>
                         </a>
                     </div>
-                
                 </div>
                 
                 {% endfor %}
@@ -66,6 +60,8 @@
                 No search results for this query
                 {% endif %}
                 {% endif %}
+            </div>
+            <div class="row">
 
                 {% for member in members_list %}                
                     <div class="col-lg-4">
