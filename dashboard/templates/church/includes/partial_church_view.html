@@ -8,26 +8,11 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">All Church Information</h4>
+                <h1 style="text-align: center;">All Church Information</h1>
+                <div class="separator"></div>
             </div>
             <div class="modal-body">
-
                 <div class="" role="tabpanel" data-example-id="togglable-tabs">
-                    <ul id="myTab" class="nav nav-tabs bordered" role="tablist">
-                        <li class="active"><a href="#tab_content1" id="basic-tab" role="tab"
-                                              data-toggle="tab" aria-expanded="true">
-                            <i class="fa fa-info-circle">&nbsp;</i>Basic Information</a>
-                        </li>
-                        <li class=""><a href="#tab_content2" role="tab" id="settings-tab" data-toggle="tab"
-                                        aria-expanded="false">
-                            <i class="fa fa-gear">&nbsp;</i>Setting Information</a>
-                        </li>
-                        <li class=""><a href="#tab_content3" role="tab" id="social-tab" data-toggle="tab"
-                                        aria-expanded="false">
-                            <i class="fa fa-share">&nbsp;</i>Social Information</a>
-                        </li>
-
-                    </ul>
                     <div id="myTabContent" class="tab-content">
                         <div role="tabpanel" class="tab-pane fade active in" id="tab_content1"
                              aria-labelledby="basic-tab">
@@ -35,109 +20,49 @@
                             <table id="tablePreview" class="table table-bordered table-striped">
                                 <!--Table head-->
                                 <tbody>
-                                <tr>
-                                    <th>church Code</th>
-                                    <td>{{ form.instance.church_name }}</td>
-                                    <th>church Name</th>
-                                    <td>{{ form.instance.Church_Logo }}</td>
-                                </tr>
-                                <tr>
-                                    <th>church Code</th>
-                                    <td>{{ form.instance.church_vision }}</td>
-                                    <th>church Name</th>
-                                    <td>{{ form.instance.church_mission }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Address</th>
-                                    <td>{{ form.instance.address }}</td>
-                                    <th>Phone</th>
-                                    <td>{{ form.instance.phone }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Founding Date</th>
-                                    <td>{{ form.instance.registration_date }}</td>
-                                    <th>Email</th>
-                                    <td>{{ form.instance.email_address }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Latitude</th>
-                                    <td>{{ form.instance.address }}</td>
-                                    <th>Longitude</th>
-                                    <td>{{ form.instance.phone }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Fax</th>
-                                    <td>{{ form.instance.Post_Office_Box }}</td>
-                                    <th>Footer</th>
-                                    <td>{{ form.instance.footer }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Facebook Address</th>
-                                    <td>{{form.instance.facebook_url}}</td>
-                                    <th>Youtube Address</th>
-                                    <td>{{form.instance.youtube_url}}</td>
-
-                                </tr>
-                                
+                                    <tr>
+                                        <th style="font-size: x-large;">Church Logo</th>
+                                        <td>
+                                            {% if form.instance.Church_Logo %}
+                                            <img src="{{ form.instance.Church_Logo.url }}" width="150" />
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="font-size: x-large;">Church Name</th>
+                                        <td>{{ form.instance.church_name }}</td>
+                                        <th style="font-size: x-large;">Status</th>
+                                        <td>{{ form.instance.status }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="font-size: x-large;">Church Vision</th>
+                                        <td>{{ form.instance.church_vision }}</td>
+                                        <th style="font-size: x-large;">Church Mission</th>
+                                        <td>{{ form.instance.church_mission }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="font-size: x-large;">Founding Date</th>
+                                        <td>{{ form.instance.registration_date }}</td>
+                                        <th style="font-size: x-large;">Email Address</th>
+                                        <td>{{ form.instance.email_address }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="font-size: x-large;">P.O.BOX</th>
+                                        <td>{{ form.instance.Post_Office_Box }}</td>
+                                        <th style="font-size: x-large;">Physical Address</th>
+                                        <td>{{ form.instance.address }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="font-size: x-large;">Facebook Address</th>
+                                        <td><a href="{{form.instance.facebook_url}}"><b>Visit Facebook Page</b></a></td>
+                                        <th style="font-size: x-large;">Youtube Address</th>
+                                        <td><a href="{{form.instance.youtube_url}}"><b>Visit YouTube Channel</b></a> </td>
+                                    </tr>
                                 </tbody>
-                                <!--Table body-->
-                            </table>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="settings-tab">
-                            <p></p>
-                            <table id="tablePreview" class="table table-bordered table-striped">
-                                <!--Table head-->
-                                <tbody>
-                                <!--Table head-->
-                                <!--Table body-->
-                                <tr>
-                                    <th>Enable Frontend</th>
-                                    <td>{{ form.instance.enable_frontend }}</td>
-                                </tr>
-                                </tbody>
-                                <!--Table body-->
-                            </table>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="settings-tab">
-                            <p></p>
-                            <table id="tablePreview" class="table table-bordered table-striped">
-                                <!--Table head-->
-                                <thead>
-                                <tr>
-                                    <th>Facebook URL</th>
-                                    <td>{{ form.instance.facebook_url }}</td>
-                                    <th>Linkedin URL</th>
-                                    <td>{{ form.instance.linkedIn_url }}</td>
-                                </tr>
-                                </thead>
-                                <!--Table head-->
-                                <!--Table body-->
-                                <tbody>
-                                <tr>
-                                    <th>Twitter URL</th>
-                                    <td>{{ form.instance.twitter_url }}</td>
-                                    <th>Google Plus URL</th>
-                                    <td>{{ form.instance.google_plus_url }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Instagram URL</th>
-                                    <td>{{ form.instance.instagram_url }}</td>
-                                    <th>Pinterest URL</th>
-                                    <td>{{ form.instance.pinterest_url }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Youtube URL</th>
-                                    <td>{{ form.instance.youtube_url }}</td>
-                                    <th></th>
-                                    <td></td>
-                                </tr>
-                                </tbody>
-                                <!--Table body-->
                             </table>
                         </div>
                     </div>
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

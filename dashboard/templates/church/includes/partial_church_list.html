@@ -1,23 +1,13 @@
 {% for church in churches %}
     <tr>
-        <td>{{ church.id }}</td>
         <td>{{ church.church_name }}</td>
         <td>{{ church.address }}</td>
         <td>{{ church.phone }}</td>
-        <td>{{ church.email_address }}</td>
-        <td>
-            {% if church.frontend_Logo %}
-                <img src="{{ church.frontend_Logo.url }}"
-                     alt="" width="50"
-                     style="background: rgba(15,174,221,0.97); padding: 2px;"/><br/><br/>
-            {% endif %}
-        </td>
-        <td>{{ church.status }}</td>
         <td>
             <button type="button"
                     class="btn btn-success btn-sm js-view-school"
                     data-url="{% url 'church_view' church.pk %}">
-                <span class="fa fa-eye"></span> View
+                <span class="fa fa-eye"></span> View All Church Details
             </button>
             {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
             <div class="mb-4">
