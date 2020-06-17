@@ -14,9 +14,61 @@
     <section class="page-event-area">
         <div class="container">
             <div class="row">
+                <h1>Search Page</h1>
+                
+                <br />
+                <form action="{% url 'membership_wall' %}" method="GET" value="{{request.GET.q}}">
+                    Search <input type="text" name="q" value="{{request.GET.q}}" placeholder="Search posts" />
+                    <input type="submit" name="submit" value="Search" />
+                </form>
+                
+                
+                {% if submitbutton == 'Search' and request.GET.q != '' %}
+                {% if results %}
+                <h1>Results for <b>{{ request.GET.q }}</b></h1>
+                <br /><br />
+                
+                {% for result in results %}
+                <div class="col-lg-4">
+                    <div class="single-event">
+                        <div class="img" style="max-height: 170px">
+                            {% if result.Photo %}
+                            <img src="{{ result.Photo.url }}" data-fancybox="images" style="border-radius: 40%;">
+                            {% endif %}
+                        </div>
+                        <a href="{% url 'member-detail' result.id %}">
+                            <div class="content">
+                                <h2 class="head-title">{{result.Initials}} {{result.First_Name}} {{result.Second_Name}}
+                                </h2>
+                                <ul class="list">
+                                    <li class="info"><span class="icon"><i class="fa fa-group"></i></span>Group: {{result.Group}}
+                                    </li>
+                                    <li class="info"><span class="icon"><i class="fa fa-home"></i></span>Cell: {{ result.Home_Cell }}
+                
+                                    </li>
+                                    <li class="info"><span class="icon"><i class="fa fa-map-marker"></i></span>Residence:
+                                        {{ result.Residence }}
+                
+                                    </li>
+                                    <li class="info"><span class="icon"><i class="fa fa-map-marker"></i></span>Ministry:
+                                        {{ result.Ministry_Involved_In }}
+                
+                                    </li>
+                                </ul>
+                            </div>
+                        </a>
+                    </div>
+                
+                </div>
+                
+                {% endfor %}
+                {% else %}
+                No search results for this query
+                {% endif %}
+                {% endif %}
+
                 {% for member in members_list %}                
                     <div class="col-lg-4">
-                        
                         <div class="single-event">
                             <div class="img" style="max-height: 170px">
                                  {% if member.Photo %}

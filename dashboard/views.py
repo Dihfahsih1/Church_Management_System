@@ -411,6 +411,18 @@ def view_member(request, pk):
 
   
 def membership_wall(request):
+    if request.method == 'GET':
+        query= request.GET.get('q')
+
+        submitbutton= request.GET.get('submit')
+
+        if query is not None:
+            lookups= Q(First_Name__icontains=query) | Q(Second_Name__icontains=query)
+            results= Members.objects.filter(lookups, is_active=True).distinct()
+            content={'results': results,
+                     'submitbutton': submitbutton}
+            return render(request, 'Members/members_wall.html', content)
+    
     all_members = Members.published.filter(is_active=True).order_by('-id')
     paginator = Paginator(all_members, 9)  
     page = request.GET.get('page')
