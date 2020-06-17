@@ -38,6 +38,7 @@ def theme_activate(request, theme_pk):
     unset_theme.save()
     return redirect('theme_list')
 
+########========================>AUTOSUGGEST OF NAMES FROM DATABASES<=====================#######
 class Autocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = Members.objects.all()
@@ -45,6 +46,7 @@ class Autocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(Q(First_Name__istartswith=self.q) | Q(Second_Name__istartswith=self.q))
             return qs
 
+########========================>FETCH FROM THE DATABASE TO THE WEBSITE<=====================#######
 def web(request):
     news = News.published.all().order_by('-id')
     events = Event.published.all().order_by('-id')
@@ -83,11 +85,8 @@ def contact(request):
 
     return render(request, 'home/contacts.html')
 
- 
 
-
-
-    ############### Employee Module ###################
+###############==================>EMPLOYEE MODULE<================###################
 @login_required
 def employee_register(request):
     if request.method=="POST":
@@ -253,9 +252,7 @@ def salariespaidarchivessearch(request):
     context = {'months': months,'years': years,'archived_salaries': archived_salaries}
     return render(request, "Employees/salariespaidarchive.html", context)    
 
-     ####################################################
-    #       REGISTERING CHURCH MEMBERS AND VISITORS      #
-     ####################################################
+    ####################================>MEMBERSHIP MODULE<=================####################
 
     #members
 @login_required
@@ -475,10 +472,7 @@ def visitors_list(request):
 
 
 
-     ###################################################
-        #                 REVENUES                #
-     ###################################################
-#Building     
+     #############==============>BUILDING MODULE<============#############   
 @login_required
 def record_building_collections(request):
     if request.method=="POST":
@@ -540,7 +534,7 @@ def BuildingRenovationarchivessearch(request):
     context = {'years': years,}
     return render(request, "BuildingRenovation/buildingarchive.html", context)
 
-#Offerings module
+####################=================>GENERAL OFFERINGS MODULE<===================###################
 @login_required
 def Enter_Offerings(request):
     if request.method=="POST":
@@ -644,7 +638,7 @@ class offeringspdf(View):
         }
         return Render.render('Offerings/offeringspdf.html', context)
 
-#SEEDS OFFERING MODULE    
+##################=====================>SEEDS OFFERING MODULE<=========================#############################   
 @login_required
 def add_seeds(request):
     if request.method=="POST":
@@ -876,9 +870,7 @@ def member_annual_tithes(request, pk):
     tithescontext={'years':years,'tithes':tithes, 'members':members, 'total_amount':total_amount}
     return render(request, 'Tithes/member_annual_tithes.html', tithescontext) 
 
-     ###################################################
-    #               THANKS GIVING MODULE                #
-     ###################################################
+     #####################===============>THANKS GIVING MODULE<=================###########################
 
 @login_required
 def record_thanks_giving(request):
@@ -941,9 +933,7 @@ def thanksgivingarchivessearch(request):
     context = {'years': years}
     return render(request, "ThanksGiving/thanksgivingarchivessearch.html", context)
 
-     ###################################################
-    #      OTHER REVENUE SOURCES MODULE                #
-     ###################################################
+     ################<=================== OTHER REVENUE SOURCES MODULE==================>######################
 @login_required
 def record_donations(request):
     if request.method=="POST":
@@ -1005,9 +995,7 @@ def donationsarchivessearch(request):
     return render(request, "Donations/donationssarchive.html", context)
 
 
-     #############################################################
-    #    GENERAL, MAIN, PETTY EXPENSES MODULES [expenses module]  #
-     #############################################################
+####################<============== GENERAL, MAIN, PETTY EXPENSES MODULES [expenses module] ==========>############################
 @login_required
 def enter_general_expenses(request):
     if request.method=="POST":
@@ -1353,9 +1341,7 @@ class allowancereceipt(View):
         }
         return Render.render('Allowances/allowance_receipt.html', context) 
 
-###############################
-      # PLEDGES MODULE#
-###############################
+################################<==============PLEDGES MODULE==============>################################
 
 @login_required
 def Enter_Pledges(request):
@@ -1602,9 +1588,7 @@ def airtime_data_report(request):
     context={'get_airtime':get_airtime, 'total_amount':total_amount, 'today':today}
     return render(request,'Expenses/airtime_data_report.html', context)
 
-    #################################
-    #        SLIDER VIEW          
-    #################################
+    ##################################<==========SLIDER VIEW================>#################################
 
 class SliderListView(ListView):
     model = Slider
@@ -1678,7 +1662,7 @@ def slider_delete(request, slider_pk):
                                              )
     return JsonResponse(data)
 
-##################===>BEGINNING OF ABOUT MODULE<===#########################
+##################===>ABOUT MODULE<===#########################
 
 
 class AboutListView(ListView):
@@ -1769,7 +1753,7 @@ def about_delete(request, about_pk):
     return JsonResponse(data)
 
 
-#########################===>BEGINNING OF PAGE MODULE<===########################
+#########################===>PAGE MODULE<===########################
 
 
 class PageListView(ListView):
@@ -1856,7 +1840,7 @@ def page_delete(request, page_pk):
                                              )
     return JsonResponse(data)
 
-###################===>BEGINNING OF GALLERY MODULE<===#########################
+###################===>GALLERY MODULE<===#########################
 
 class GalleryListView(ListView):
     model = Gallery
@@ -1941,7 +1925,7 @@ def gallery_delete(request, gallery_pk):
     return JsonResponse(data)
 
 
-#####################===>BEGINNING OF IMAGE MODULE<===##########################
+#####################===>IMAGE MODULE<===##########################
 class ImageListView(ListView):
     model = Image
     template_name = 'images/image_list.html'
@@ -2026,7 +2010,7 @@ def image_delete(request, image_pk):
                                              )
     return JsonResponse(data)
 
-###################=============>BEGINNING OF NEWS MODULE<================########################
+###################=============>GOSPEL SERMONS MODULE<================########################
 class NewsListView(ListView):
     model = News
     template_name = 'news/news_list.html'
@@ -2121,7 +2105,7 @@ def news_delete(request, news_pk):
                                              context, request=request,)
     return JsonResponse(data)
 
-###################=============>BEGINNING OF CHURCH PROJECT MODULE<================########################
+###################=============>CHURCH PROJECT MODULE<================########################
 class ProjectsListView(ListView):
     model = Project
     template_name = 'Church-Projects/projects_list.html'
@@ -2185,7 +2169,7 @@ def project_detail(request, project_pk):
     return render(request, 'Church-Projects/projects_detail.html', context)
 
 
-####################========>BEGINNING OF EVENT MODULE<============#####################
+####################========>EVENT MODULE<============#####################
 class EventListView(ListView):
     model = Event
     template_name = 'events/event_list.html'
@@ -2291,7 +2275,7 @@ def event_delete(request, event_pk):
     return JsonResponse(data)
 
 
-# #######################################===>BEGINNING OF CHURCH MODULE<===##########################################
+# #######################################===>CHURCH MODULE<===##########################################
 
 def churchCreateView(request):
     if request.method == "POST":
@@ -2375,8 +2359,8 @@ def church_delete(request, church_pk):
                                              )
     return JsonResponse(data)
 
-# ###################################===>BEGINNING OF MINISTRIES MODULE<===###############################################
 
+###################===> MINISTRIES MODULE<===###################
 
 class MinistryListView(ListView):
     model = Ministry
@@ -2460,12 +2444,7 @@ def ministry_detail(request, ministry_pk):
     return render(request, 'Ministry/ministry_detail.html', context)
 
 
-
-
-
-########################################################################################################
-#                                       DASHBOARD                                                       #
-########################################################################################################
+########========================>DASHBOARD DATA CALCULATIONS<=====================#######
 @login_required
 def index(request):
 
@@ -2913,7 +2892,7 @@ def total_expenses(request):
     'total_amount':total_amount,'pledgecash': pledgecash, 'month':month}
     return render(request, 'total_expenses.html', context)
 
-#CASH FLOAT
+########========================>CASHFLOAT MODULE<=====================#######
 @login_required
 def record_cashfloat(request):
     one_week_ago = datetime.today() - timedelta(days=7) #Weekly

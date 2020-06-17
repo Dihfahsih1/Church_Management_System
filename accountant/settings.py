@@ -98,7 +98,7 @@ EMAIL_HOST_PASSWORD = 'dvvzfwgpnjyttqsj'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-BOOTSTRAP4 = {#simple comment
+BOOTSTRAP4 = {
     'include_jquery': True,
 }
 MESSAGE_TAGS = {
