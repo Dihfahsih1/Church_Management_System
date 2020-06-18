@@ -1,10 +1,11 @@
+
 {% extends 'home/base.html' %}
 
 {% load static contact_tags  %}
 {% block content %}
-<div class="container-fluid" style="margin-right: 5px;" >
 
- <!-- <div class="slider-area owl-carousel">
+<div class=" container justify-content-center" style="max-width: 1333px; background-color:ivory;">
+ <!--  <div class="slider-area owl-carousel">
     {% for slider in sliders %}
         <div class="single-slider" style="height: 400px;width:100%" >
             <div class="img">
@@ -17,7 +18,7 @@
     {% endfor %}
     </div> url({% static 'img/welcome.jpg'%}) -->
 
-    <div class="row">
+    <div class="row" >
       <div class="slider-area owl-carousel">
         <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
         style="height:430px;background-image: url({% static 'img/welcome.jpg' %})" >
@@ -34,7 +35,7 @@
             </div>
         </div>
 
-         <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
+        <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
          style="height:430px; background-image: url({% static 'img/w3.jpg'%});">
             <!-- Post Content -->
             <div class="container">
@@ -50,7 +51,7 @@
             </div>
         </div>
 
-         <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
+        <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
          style="background-image: url({% static 'img/w4.jpg'%});height:430px;">
             <!-- Post Content -->
             <div class="container">
@@ -215,7 +216,7 @@
                 Church Activities</a></h2>
             </div>
             <div class="container-fluid">
-                <div class="row" style="margin-left:2px">{% for event in events %}{% if forloop.counter <= 2 %}
+                <div class="row" style="margin-left:2px">{% for event in events %}{% if forloop.counter <= 3 %}
                     <div class="col-lg-4">
                         <a href="{% url 'event_detail' event.pk %}">
                             <div class="single-event" style="margin-left: -8%">
@@ -250,7 +251,8 @@
                         </a>
                     </div>{% endif %}{% endfor %}
             
-                    <div class="col-lg-4"><a href="#program">
+                    <!-- <div class="col-lg-4">
+                        <a href="#program">
                         <div class="single-event">
                             <div class="content">
                                 <h2 class="head-title"><u>Church Weekly Program</u>
@@ -259,8 +261,6 @@
                                     <li class="info"><b>Monday </b>
                                     <ul>   
                                     <li>Prayer Alter (9:00am - 4:00pm)</li>
-                                    <!-- <li>Ministers In Word (6:00pm - 8:00pm)</li> -->
-                                    <!--<li>Worship Team (5:00pm - 7:00pm)</li> -->
                                     <li>Youth Service (7:00pm - 9:30pm)</li>
                                     </ul>
                                     </li>
@@ -299,8 +299,8 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div> </a>
-                    </div>
+                        </div> 
+                    </a></div> -->
                 </div>
             </div>  
         </div> 
