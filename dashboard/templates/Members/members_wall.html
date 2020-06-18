@@ -12,16 +12,17 @@
         </div>
     </section>
     <section class="page-event-area">
+        <h3 style="text-align: center;">All UCC - Bwaise Registered Members</h3>
+        <hr />
         <div class="container">
-            <h3 style="text-align: center;">All UCC - Bwaise Registered Members</h3>
-            <hr />
             <form action="{% url 'membership_wall' %}" method="GET" value="{{request.GET.q}}">
                 <input type="text" name="q" value="{{request.GET.q}}" placeholder="Search For Member" />
                 <input type="submit" class="btn btn-primary" name="submit" value="Search" />
             </form>
             {% if submitbutton == 'Search' and request.GET.q != '' %}
             {% if results %}
-            <h3 style="text-align: center;">Results for <b>{{ request.GET.q }}</b></h3>
+            <!-- <h3 style="text-align: center;">Results for <b>{{ request.GET.q }}</b></h3> -->
+            <br>
             <div class="row">
                 {% for result in results %}
                 <div class="col-lg-6">
@@ -57,12 +58,12 @@
                 
                 {% endfor %}
                 {% else %}
-                No search results for this query
+                <h3>No Member Registered with the Name <b>{{ request.GET.q }}</b></h3>
+                <p>Please enter the correct spelling or Click <a href="{% url 'online_registration' %}" style="color: red;">Here</a>  to Request for membership</p>
                 {% endif %}
                 {% endif %}
-            </div>
+            </div><br>
             <div class="row">
-
                 {% for member in members_list %}                
                     <div class="col-lg-4">
                         <div class="single-event">
