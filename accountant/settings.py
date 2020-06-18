@@ -108,4 +108,4 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
-
+GOOGLE_RECAPTCHA_SECRET_KEY = '6Ld2KqYZAAAAAMpds7Y4Zw8K5L7JkcuiSopEEtBW'

@@ -16,14 +16,12 @@
             <h2 style="text-align:center;">The following are the Pastors at UCC-Bwaise</h2>
             <hr />
             <div class="row">
-
                  {% for pastor in pastors %} 
-                 {% if pastor.Ministry_Involved_In == "Pastoral"%}  
-                   
+                 {% if pastor.Ministry_Involved_In == "Pastoral"%}
                   
-                    <div class="col-lg-6 single-event"> 
+                    <div class="col-lg-12 single-event"> 
                         <div class="row">            
-                           <div class="col-lg-6 ">
+                           <div class="col-lg-4 ">
                                 <div class="img">
                                      {% if pastor.Photo %}
                                         <img src="{{ pastor.Photo.url }}" data-fancybox="images" style="border-radius: 40%;" >
@@ -48,7 +46,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-8">
                                 <div class="content">
                                       <p class="info"><b>{{ pastor.More_Info|linebreaks}}</b></p>
                                 </div>      

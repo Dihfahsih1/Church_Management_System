@@ -20,6 +20,8 @@ from django.contrib.auth import update_session_auth_hash
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 import calendar
 from dal import autocomplete
+import json
+import urllib
 
 # #######################################===>BEGINNING OF THEME MODULE<===############################################
 
@@ -271,6 +273,18 @@ def Online_Registration(request):
     if request.method=="POST":
         form=MembersForm(request.POST, request.FILES,)
         if form.is_valid():
+            ''' Begin reCAPTCHA validation '''
+            recaptcha_response = request.POST.get('g-recaptcha-response')
+            url = 'https://www.google.com/recaptcha/api/siteverify'
+            values = {
+                'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+                'response': recaptcha_response
+            }
+            data = urllib.parse.urlencode(values).encode()
+            req =  urllib.request.Request(url, data=data)
+            response = urllib.request.urlopen(req)
+            result = json.loads(response.read().decode())
+            ''' End reCAPTCHA validation '''
             member = form.save(commit=False)
             member.save()
             messages.success(request, f'Membership request has been submited, pending approval by the admin')
