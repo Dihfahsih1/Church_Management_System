@@ -17,6 +17,8 @@
     </section>
 
     <section class="page-event-details-area">
+        <h1 class="info-title" style="text-align: left;">{{ ministry.name }}</h1>
+        <hr />
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-12 col-sm-12 col-12">
@@ -27,12 +29,11 @@
                                      alt="">
                             {% endif %}
                         </div>
-                        <h2 class="title">{{ ministry.name }}</h2>
                         <ul class="event-meta">
                             <li class="info"><span class="icon"><i class="fa fa-user"></i> Leader:</span> {{ ministry.leader }}
                             </li>
                         </ul>
-                        <h2 class="info-title">Ministry Information :</h2>
+                        <h2>Ministry Information :</h2>
                         <div class="text">{{ministry.details|linebreaks}}</div>
                     </div>
                 </div>

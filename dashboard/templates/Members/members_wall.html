@@ -16,8 +16,10 @@
         <hr />
         <div class="container">
             <form action="{% url 'membership_wall' %}" method="GET" value="{{request.GET.q}}">
+                <div style="text-align: center;">
                 <input type="text" name="q" value="{{request.GET.q}}" placeholder="Search For Member" />
                 <input type="submit" class="btn btn-primary" name="submit" value="Search" />
+                </div>
             </form>
             {% if submitbutton == 'Search' and request.GET.q != '' %}
             {% if results %}
