@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'bootstrap_datepicker_plus',
     'bootstrap4',
     'widget_tweaks',
+    'social.apps.django_app.default',
     ]
 AUTH_USER_MODEL = 'dashboard.User'
 MIDDLEWARE = [   
@@ -33,7 +34,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend']
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend',
+                           'social.backends.facebook.FacebookOAuth2',
+                           'social.backends.google.GoogleOAuth2',
+                           'social.backends.twitter.TwitterOAuth',
+                           'django.contrib.auth.backends.ModelBackend',
+                        ]
 ROOT_URLCONF = 'accountant.urls'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = BASE_DIR
@@ -48,6 +54,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social.apps.django_app.context_processors.backends',
+                'social.apps.django_app.context_processors.login_redirect',
+
             ],
         },
     },
