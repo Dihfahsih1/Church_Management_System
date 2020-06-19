@@ -27,8 +27,8 @@
                     |<a href="{% url 'give-allowance' %}"> Allowances</a>
                     |<a href="{% url 'employee-list' %}"> Salaries</a>
                     |<a href="{% url 'record-donations' %}"> Doantions</a>
-                    |<a href="{% url 'add-seeds' %}"> TGiving</a>
-                    |<a href="{% url 'record-thanks-giving' %}"> TGiving</a>
+                    |<a href="{% url 'add-seeds' %}"> Seeds</a>
+                    |<a href="{% url 'record-thanks-giving' %}"> Thanks Giving</a>
                     |<a href="{% url 'members-register' %}"> Membership</a>
                     <div class="separator"></div>
                 </div>
@@ -42,12 +42,8 @@
 	                            class="fa fa-plus-square-o"></i> Give CashFloat</a>
 		                    </li>
 		                </ul>
-		                <br/>
-                         
-
                          {% if form %}
                          <h2 style="text-align: center">Give Out Cash Float</h2>
-                         <div class="separator"></div>
 						<div style="margin-left: 25%"class="col-lg-4 col-md-4 col-sm-4 justify-content-center">
 						{% load crispy_forms_tags %}
 							<form method="POST" enctype="multipart/form-data" >
