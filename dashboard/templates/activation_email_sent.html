@@ -8,7 +8,7 @@
             <h2 class="title">Online Registration</h2>
             <ul class="links">
                 <li><a href="{% url 'index_public' %}">Home</a></li>
-                <li><a href="javascript:void(0);">Registration Successful</a></li>
+                <li><a href="javascript:void(0);">Email Confirmation Pending</a></li>
             </ul>
         </div>
     </section>
@@ -20,9 +20,10 @@
             }
         </style>
         <div class="container">
-            <h1>Dear<b style="color: darkgreen;">{{member.Initials}} {{first_name}}</b>,</h1>
+            <h1>Dear <b style="color: darkgreen;">bstyle>{{member.Initials}} {{member}}</b>,</h1>
             <hr />
-           <h3 style="text-align: center;">Thank you for confirming your email address(<b style="color: darkgreen;">{{first_name.Email}}</b>), <br> Now Wait for Membership approval by the Church Admin.'</h3>
+            <h3 style="text-align: center;">'Please an email has been sent to <b style="color: darkgreen;">{{member.Email}}</b>
+                 <br>Sign into your email address to complete the registration</h3>
         </div>
     </section>
 

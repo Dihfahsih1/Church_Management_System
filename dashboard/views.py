@@ -306,23 +306,10 @@ def Online_Registration(request):
             email = EmailMessage(  
                 mail_subject, message, to=[to_email]  
             )  
-            email.send()  
-            return HttpResponse('Please an email has been sent to '+ member.Email + ' Sign into  your email address to complete the registration') 
-            # uid = member.id
-            # token = account_activation_token.make_token(member)
-            # current_site = get_current_site(request)
-            # mail_subject = 'Activate your account.'   
-            # message ={'member': member, 'domain': current_site.domain,'uid': uid,'token':token,  
-            # }
-            # print(message)
-            # to_email = form.cleaned_data.get('Email') 
-            # email = EmailMessage(mail_subject, to=[to_email])
-            # print(email)
-            # email.send()  
-            # return render(request,'acc_active_email.html',message)
-              
-            # messages.success(request, f'Membership request has been submited, pending approval by the admin')
-            # return redirect('membership_wall')
+            email.send()
+            context={'member':member}
+            return render(request, 'activation_email_sent.html', context) 
+
         else:
             form_errors=form.errors
             context={'form':form,'form_errors':form_errors}
@@ -339,8 +326,8 @@ def activate_email(request, uidb64, token):
         except(TypeError, ValueError, OverflowError, Members.DoesNotExist):  
             member = None  
         if member is not None and account_activation_token.check_token(member, token): 
-            member.is_active=True
-            member.save()
+            # member.is_active=True
+            # member.save()
             context={'first_name':member}
             return render(request, 'email_confirmed.html', context)  
         else:  
