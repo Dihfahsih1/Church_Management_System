@@ -308,7 +308,7 @@ def Online_Registration(request):
                 mail_subject, message, to=[to_email]  
             )  
             email.send()  
-            return HttpResponse('Please confirm your email address to complete the registration') 
+            return HttpResponse('Please an email has been sent to '+ member.Email + ' Sign into  your email address to complete the registration') 
             # uid = member.id
             # token = account_activation_token.make_token(member)
             # current_site = get_current_site(request)

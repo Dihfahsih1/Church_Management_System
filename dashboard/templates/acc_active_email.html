@@ -1,42 +1,8 @@
 
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    {% load crispy_forms_tags %}
-    {% load static  %}
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-</head>
-
-<body>
-
-    <!--fade up notification upon successful redirect-->
-
-    <div class="row">
-        {% if messages %}
-        <div class="alert alert-info" id="success-alert">
-            <button type="button" class="close" data-dismiss="alert">x</button>
-            <ul class="messages">
-                {% for message in messages %}
-                <h3 {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</h3>
-                {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
-
-        <div class="col-lg-4"></div>
-        <div class="alert alert-info">
         {% autoescape off %}
         Hi {{ member.First_Name }},
-        Please click on the link to confirm your registration,
+        Thanks for requesting for membership at UCC Bwaise,
+        Please use the following link to confirm that this is your active email address.
         http://{{ 127.0.0.1 }}{% url 'activate' uidb64=uid token=token %}
-        If you think, it's not you, then just ignore this email.
+        
         {% endautoescape %}
-        </div>
-    </div>
-    </div>
-</body>
-
-</html>
