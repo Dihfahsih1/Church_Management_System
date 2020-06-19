@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+    {% load humanize %}
     <meta charset="utf-8">
     <title>Tithes</title>
     <style type="text/css">
@@ -82,14 +83,14 @@
         <td>{{ ex.Date}}</td>
         <td>{{ ex.Member_Name}}</td>
         <td>{{ ex.Service }}</td>
-        <td>{{ ex.Amount }}</td>
+        <td>{{ ex.Amount|intcomma }}</td>
         </tr>
             {% endfor %}
               <tr>
                   <td class="jumbotron"><h3>TOTAL</h3></td>
                   <td class="jumbotron"><h3>----------------------</h3></td>
                   <td class="jumbotron"><h3>----------------------</h3></td>
-                  <td class="jumbotron"><h3>Shs. {{ total_amount }}</h3></td>
+                  <td class="jumbotron"><h3>Shs. {{ total_amount|intcomma }}</h3></td>
               </tr>
             </tbody>
         </table>

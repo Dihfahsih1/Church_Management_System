@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Offerings Collection</title>
 
-        {% load staticfiles %}
+        {% load staticfiles humanize %}
 
     <link type="text/css" rel="stylesheet" href="{% static '/css/bootstrap.css' %}"/>
     <link type="text/css" rel="stylesheet" href="{% static '/styles.css' %}"/>
@@ -66,9 +66,9 @@
             <strong style="font-size: large"><pre>Received From: </strong><u>{{ pledges.Pledge_Made_By.Initials}}{{ pledges.Pledge_Made_By}}</pre></u>
             <strong style="font-size: large"><pre>Church Group: </strong><u>{{ pledges.Pledge_Made_By.Group}}</pre></u>
             <strong style="font-size: large"><pre>Pledge Reason: </strong><u>{{ pledges.Reason}}</pre> </u>
-            <strong style="font-size: large"><pre>Amount Pledged: </strong><u> Shs.{{ pledges.Amount_Pledged}}</pre></u>
-            <strong style="font-size: large"><pre>Amount Paid: </strong><u>Shs.{{ pledges.total_pledge_paid}}</pre></u>
-            <strong style="font-size: large"><pre>Balance: </strong><u><i style="color:red">Shs.{{ pledges.Pledge_Balance}}</pre></i></u>
+            <strong style="font-size: large"><pre>Amount Pledged: </strong><u> Shs.{{ pledges.Amount_Pledged|intcomma}}</pre></u>
+            <strong style="font-size: large"><pre>Amount Paid: </strong><u>Shs.{{ pledges.total_pledge_paid|intcomma}}</pre></u>
+            <strong style="font-size: large"><pre>Balance: </strong><u><i style="color:red">Shs.{{ pledges.Pledge_Balance|intcomma}}</pre></i></u>
             <i><pre>Received with thanks by:<u></pre> </u></i>
 
         </div>
