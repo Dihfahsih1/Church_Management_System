@@ -167,6 +167,7 @@ class User(AbstractBaseUser , PermissionsMixin):
                 self.email=i.Email
                 self.save()
                 return self.email
+
 class Expenditures(Model):
     Date = models.DateField(null=True, blank=True)
     Payment_Made_To = models.CharField(max_length=1000,blank=True, null=True)

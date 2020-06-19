@@ -83,7 +83,6 @@ def edit_profile(request):
 def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
-        print(form.errors)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
