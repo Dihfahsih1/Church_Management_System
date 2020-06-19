@@ -1,0 +1,31 @@
+{% extends 'home/base.html' %}
+
+<body>
+    {% block content %}
+    {% load crispy_forms_tags %}
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">Online Registration</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href="javascript:void(0);">Registration Successful</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="page-contact-area" style="background-color:ivory;">
+        <style type="text/css">
+            .container {
+                font-size: 20px
+            }
+        </style>
+        <div class="container">
+            <h1 style="color: darkgreen;">Dear {{first_name}},</h1>
+            <hr />
+           <h3 style="text-align: center;">Thank you for confirming your email address(<b style="color: darkgreen;">{{first_name.Email}}</b>), <br> Now Wait for Membership approval by the Church Admin.'</h3>
+        </div>
+    </section>
+
+
+    {% endblock %}
+</body>

@@ -334,13 +334,15 @@ def Online_Registration(request):
 #activate your email address
 def activate_email(request, uidb64, token):  
         try:  
-            uid = force_text(urlsafe_base64_decode(uidb64))  
-            print(uid)
+            uid = force_text(urlsafe_base64_decode(uidb64)) 
             member = Members.objects.get(id=uid)  
         except(TypeError, ValueError, OverflowError, Members.DoesNotExist):  
             member = None  
         if member is not None and account_activation_token.check_token(member, token): 
-            return HttpResponse('Thank you for your email confirmation. Now you can login your account.')  
+            member.is_active=True
+            member.save()
+            context={'first_name':member}
+            return render(request, 'email_confirmed.html', context)  
         else:  
             return HttpResponse('Activation link is invalid!')
 
