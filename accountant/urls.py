@@ -28,7 +28,6 @@ urlpatterns = [
         name='password_reset_complete'),
     url(r'^password-reset-confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', auth_views.PasswordResetConfirmView.as_view(template_name='users/home/password_reset_confirm.html'),
         name='password_reset_confirm'),
-    url('', include('social.apps.django_app.urls', namespace='social')),    
     url(r'^administrator/user/update/(?P<user_pk>\d+)/$', user_views.user_update, name='user_update'),
     url(r'^Reseting-Password/(?P<user_pk>\d+)/password/reset/$', user_views.reset_user_password, name='reset_user_password'),
 ]

@@ -23,6 +23,14 @@ from dal import autocomplete
 import json
 import urllib
 
+from django.contrib.sites.shortcuts import get_current_site  
+from django.utils.encoding import force_bytes, force_text  
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode  
+from django.template.loader import render_to_string
+from .tokens import account_activation_token  
+from django.core.mail import EmailMessage
+import codecs
+
 # #######################################===>BEGINNING OF THEME MODULE<===############################################
 
 
@@ -284,11 +292,38 @@ def Online_Registration(request):
             req =  urllib.request.Request(url, data=data)
             response = urllib.request.urlopen(req)
             result = json.loads(response.read().decode())
-            ''' End reCAPTCHA validation '''
+            ''' email activation '''
             member = form.save(commit=False)
             member.save()
-            messages.success(request, f'Membership request has been submited, pending approval by the admin')
-            return redirect('membership_wall')
+            current_site = get_current_site(request)  
+            mail_subject = 'Activate your account.'  
+            message = render_to_string('acc_active_email.html', {  
+                'member': member,  
+                'domain': current_site.domain,  
+                'uid': urlsafe_base64_encode(force_bytes(member.pk)),  
+                'token': account_activation_token.make_token(member),  
+                }) 
+            to_email = form.cleaned_data.get('Email')  
+            email = EmailMessage(  
+                mail_subject, message, to=[to_email]  
+            )  
+            email.send()  
+            return HttpResponse('Please confirm your email address to complete the registration') 
+            # uid = member.id
+            # token = account_activation_token.make_token(member)
+            # current_site = get_current_site(request)
+            # mail_subject = 'Activate your account.'   
+            # message ={'member': member, 'domain': current_site.domain,'uid': uid,'token':token,  
+            # }
+            # print(message)
+            # to_email = form.cleaned_data.get('Email') 
+            # email = EmailMessage(mail_subject, to=[to_email])
+            # print(email)
+            # email.send()  
+            # return render(request,'acc_active_email.html',message)
+              
+            # messages.success(request, f'Membership request has been submited, pending approval by the admin')
+            # return redirect('membership_wall')
         else:
             form_errors=form.errors
             context={'form':form,'form_errors':form_errors}
@@ -297,6 +332,19 @@ def Online_Registration(request):
         form=MembersForm()
         context={'form':form}
         return render(request, 'Members/online_registration.html', context)
+#activate your email address
+def activate_email(request, uidb64, token):  
+        try:  
+            uid = force_text(urlsafe_base64_decode(uidb64))  
+            print(uid)
+            member = Members.objects.get(id=uid)  
+        except(TypeError, ValueError, OverflowError, Members.DoesNotExist):  
+            member = None  
+        if member is not None and account_activation_token.check_token(member, token): 
+            return HttpResponse('Thank you for your email confirmation. Now you can login your account.')  
+        else:  
+            return HttpResponse('Activation link is invalid!')
+
 
 #visitors
 @login_required

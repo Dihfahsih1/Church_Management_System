@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from django.urls import reverse
+from django.urls import reverse,path
 from . import views
 
 urlpatterns=[
@@ -240,5 +240,5 @@ url(r'^tithes/annual/(?P<pk>\d+)/$', views.member_annual_tithes_pdf.as_view(), n
 url(r'^Membership/Approval/(?P<pk>\d+)/$', views.approve_member, name='approve-member'),
 url(r'^Un-Approved-Membership/$', views.un_approved_members_list, name='un-approved-list'),
 url(r'^Reject-Membership/(?P<pk>\d+)/$', views.reject_request, name='reject-request'),
-
+path('activate/<str:uidb64>/<str:token>/',views.activate_email, name='activate'), 
 ]
