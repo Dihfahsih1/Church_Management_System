@@ -21,7 +21,7 @@
             <!--Start of Annual summary tiles -->
             <div class="row top_tiles">
                 <div class="separator"></div>
-                <h1 style="margin-left: 5%;color: red"><b>Annual Financial Summary of {{ current_year }}</b></h1>
+                <h1 style="text-align:center; color:red;"><b>Annual Financial Summary of {{ current_year }}</b></h1>
                 <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
                     <div class="tile-stats">
                         <h4><b style="font-size: 17px">Total Annual Revenue</b></h4>
@@ -56,10 +56,10 @@
             <!--Start of monthly summary tiles -->
             <div class="separator"></div>
             <div class="row ">
-                <h1 style="margin-left:5%; color: brown"><b>Summary For the Month of {{ month }} {{ current_year }}</b></h1>
+                <h1 style="text-align:center; color:red;"><b>Summary For the Month of {{ month }} {{ current_year }}</b></h1>
                     <!--Start of Annual summary tiles -->
                 <div class="row top_tiles">  
-                    <h2 class="blue" style="margin-left:5%;"><b> Cash Float Information</b>(7 days)</h2>
+                    <h3 class="blue" style="margin-left:5%;"><b> Cash Float Information</b>(7 days)</h3>
                     <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
                         <div class="tile-stats">
                             <h4><b style="font-size:15px">Cash Float Given</b></h4>
@@ -84,8 +84,8 @@
             </div>
 
             <div class="row top_tiles">
-                <h2  style="margin-left: 5%;font-weight: bold; color:green">
-                    <a href="{% url 'total_revenues'  %}"><b> Month of {{month}} Total Revenue({{total_monthly_incomes|intcomma}})</b> </a> </h2>
+                <h3 style="margin-left: 5%;font-weight: bold;">
+                    <a href="{% url 'total_revenues'  %}"><b class="blue" > Month of {{month}} Total Revenue({{total_monthly_incomes|intcomma}})</b> </a> </h3>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <a href="{% url 'Tithesreport'  %}">
                     <div class="tile-stats">
@@ -141,9 +141,10 @@
                 </div>
             </div>
 
+
             <div class="row top_tiles">
-                <h2  style="margin-left: 5%; font-weight: bold; color: green"><a href="{% url 'total_expenses'  %}">
-                <b>Month of {{month}} Total Expenditure ({{total_monthly_expenditure|intcomma}})</b></a></h2>
+                <h3 style="margin-left: 5%; font-weight: bold;"><a href="{% url 'total_expenses'  %}">
+                <b class="blue" >Month of {{month}} Total Expenditure ({{total_monthly_expenditure|intcomma}})</b></a></h3>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <a href="{% url 'expenditurereport'  %}">
                     <div class="tile-stats">
@@ -200,9 +201,9 @@
     <!--Start of weekly summary tiles -->
         
             <div class="separator"></div> 
-            <h1 style="margin-left: 5%;color: pink"><b>Weekly Summary of {{ month }} {{ current_year }}</b></h1>        
+            <h1 style="text-align:center; color:red;"><b>Weekly Summary of {{ month }} {{ current_year }}</b></h1>        
             <div class="row top_tiles">
-                <h2 style="margin-left: 5%;font-weight: bold; color:green"><b>Weekly Revenue Summary (7 Days)</b></h2>
+                <h3 class="blue" style="margin-left: 5%;font-weight: bold;"><b>Weekly Revenue Summary (7 Days)</b></h3>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                 
                     <div class="tile-stats">
@@ -253,7 +254,7 @@
                 </div>
             </div>        
             <div class="row top_tiles">
-                <h2 style="margin-left: 5%; font-weight: bold; color: green"><b>Weekly Expenditure Summary (7 Days)</b></h2>
+                <h3 class="blue" style="margin-left: 5%; font-weight: bold;"><b>Weekly Expenditure Summary (7 Days)</b></h3>
                 
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     
