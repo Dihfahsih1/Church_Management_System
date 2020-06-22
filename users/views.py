@@ -92,7 +92,7 @@ def register(request):
     else:
         form=RegisterForm()
         users = User.objects.filter(full_name__is_active=True)
-        count_users = userzzzs.count()
+        count_users = users.count()
         context={ 'form':form, 'users':users, 'count_users':count_users}
         return render(request, 'users/home/register.html',context)
 
