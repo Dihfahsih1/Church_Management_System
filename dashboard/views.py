@@ -332,8 +332,6 @@ def activate_email(request, uidb64, token):
             return render(request, 'email_confirmed.html', context)  
         else:  
             return HttpResponse('Activation link is invalid!')
-
-
 #visitors
 @login_required
 def register_visitors(request):
@@ -346,7 +344,6 @@ def register_visitors(request):
     else:
         form=VisitorsForm()
         return render(request, 'Members/register_visitors.html',{'form':form})
-
 
 @login_required
 def members_list(request):
@@ -435,7 +432,6 @@ def church_pastors(request):
 def church_administration(request):
     staffs = User.published.filter(Q(Role='Assistant_Admin') | Q(Role='Admin') | Q(Role='SuperAdmin') | Q(Role='Secretary')| Q(Role='Youth Leader'))
     return render(request, 'Members/administration_team.html', {'staffs': staffs})  
-
 
 def edit_member(request, pk):
     item = get_object_or_404(Members, pk=pk)
