@@ -57,6 +57,7 @@ url(r'^Home-Cells', views.home_cells, name='home-cells'),
 url(r'^Petty-Expenses-Report/pdf/', views.petty_expenditure_report_pdf.as_view(), name='pettypdf'),
 url(r'^Archived-Petty-Expenses/pdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.petty_expenses_archived_pdf.as_view(), name='archivedpettypdf'),
 
+url(r'^General-Expenses-Report/pdf/', views.general_expenditure_report_pdf.as_view(), name='generalpdf'),
 #REVENUE MODULE
 url(r'^Revenues/Offerings/Report', views.Offeringsreport, name='Offeringsreport'),
 url(r'^edit_offerings/(?P<pk>\d+)', views.edit_offerings ,name='edit-offerings'),

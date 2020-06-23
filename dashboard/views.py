@@ -44,7 +44,7 @@ def theme_activate(request, theme_pk):
     unset_theme.save()
     return redirect('theme_list')
 
-########========================>AUTOSUGGEST OF NAMES FROM DATABASES<=====================#######
+########========================>AUTOSUGGEST OF NAMES FROM DATABASES<==============================#######
 class Autocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = Members.objects.all()
@@ -52,7 +52,7 @@ class Autocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(Q(First_Name__istartswith=self.q) | Q(Second_Name__istartswith=self.q))
             return qs
 
-########========================>FETCH FROM THE DATABASE TO THE WEBSITE<=====================#######
+########========================>FETCH FROM THE DATABASE TO THE WEBSITE<==========================#######
 def web(request):
     news = News.published.all().order_by('-id')
     events = Event.published.all().order_by('-id')
@@ -92,7 +92,7 @@ def contact(request):
     return render(request, 'home/contacts.html')
 
 
-###############==================>EMPLOYEE MODULE<================###################
+###############=============================>EMPLOYEE MODULE<====================================###################
 @login_required
 def employee_register(request):
     if request.method=="POST":
@@ -223,6 +223,7 @@ def current_month_salary_paid(request):
         'years':years,
     }
     return render(request, 'Employees/current_month_salaries_paid.html',context)
+
 @login_required
 def delete_salary_paid(request,pk):
     salary= get_object_or_404(SalariesPaid, id=pk)
@@ -230,7 +231,6 @@ def delete_salary_paid(request,pk):
         salary.delete()
         messages.success(request, "Salary Paid successfully deleted!")
         return redirect("current-month-salaries")
-
 
 @login_required
 def salariespaidarchivessearch(request):
@@ -259,8 +259,6 @@ def salariespaidarchivessearch(request):
     return render(request, "Employees/salariespaidarchive.html", context)    
 
     ####################================>MEMBERSHIP MODULE<=================####################
-
-    #members
 @login_required
 def register_members(request):
     if request.method=="POST":
@@ -425,7 +423,6 @@ def church_pastors(request):
     pastors = Members.published.all()
     return render(request, 'Members/pastoral_team.html', {'pastors': pastors})
 
-
 def church_administration(request):
     staffs = User.published.filter(Q(Role='Assistant_Admin') | Q(Role='Admin') | Q(Role='SuperAdmin') | Q(Role='Secretary')| Q(Role='Youth Leader'))
     return render(request, 'Members/administration_team.html', {'staffs': staffs})  
@@ -477,7 +474,6 @@ def membership_wall(request):
         members_list = paginator.page(paginator.num_pages)
     context={'page':page, 'members_list': members_list}    
     return render(request, 'Members/members_wall.html', context)
-
 
 def member_detail(request, pk):
     member = get_object_or_404(Members, pk=pk)
@@ -532,9 +528,8 @@ def visitors_list(request):
     context ={'visiting': visiting}
     return render(request, 'Members/visitors_list.html', context)
 
-
-
-     #############==============>BUILDING MODULE<============#############   
+     #############==============>BUILDING MODULE<============#############  
+      
 @login_required
 def record_building_collections(request):
     if request.method=="POST":
@@ -1282,6 +1277,24 @@ class main_expenditure_report_pdf(View):
         context ={'year':year,'month': month,'today':today,'expenses':expenses,'request': request,'totalexpense': totalexpense,
         }
         return Render.render('Expenses/pdf_main_expenditure_report.html',context)
+
+class general_expenditure_report_pdf(View):
+    def get(self, request):
+        current_month = datetime.now().month
+        current_year = datetime.now().year
+        expenses = Expenditures.objects.filter(Archived_Status='NOT-ARCHIVED', Reason_filtering='general'\
+        ,Date__year=current_year)
+        today = datetime.now()
+        year=today.year
+        month = today.strftime('%B')
+        totalexpense = 0
+        for instance in expenses:
+            totalexpense += instance.Amount
+        context ={'year':year,'month': month,'today':today,'expenses':expenses,'request': request,'totalexpense': totalexpense,
+        }
+        return Render.render('Expenses/pdf_general_expenditure_report.html',context)
+
+
 
 class petty_expenditure_report_pdf(View):
     def get(self, request):
