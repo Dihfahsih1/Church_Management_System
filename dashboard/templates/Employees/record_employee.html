@@ -81,7 +81,21 @@
                         <div class="col-lg-12">
                             {{form.Role|as_crispy_field }}
                         </div>
-				   </div>
+                   </div>
+                    <div class="col-lg-4">
+                        <div class="col-lg-12" id="fai">
+                            {{form.Faith |as_crispy_field }}
+                        </div>
+                        <div class="col-lg-12">
+                            {{ form.Salary_Amount|as_crispy_field }}
+                        </div>
+                        <div class="col-lg-12">
+                            {{ form.Date_of_employment|as_crispy_field }}
+                        </div>
+                        <div class="col-lg-12">
+                            {{ form.End_of_contract|as_crispy_field }}
+                        </div>
+                    </div>
                     <div class="col-lg-4">
                         <div class="col-lg-12" id="edu">
                             {{form.Education_Level |as_crispy_field }}
@@ -97,20 +111,6 @@
                             {{form.Photo |as_crispy_field }}
                         </div>
                    </div>
-				   <div class="col-lg-4">
-                        <div class="col-lg-12" id="fai">
-                            {{form.Faith |as_crispy_field }}
-                        </div>
-                        <div class="col-lg-12">
-                            {{ form.Salary_Amount|as_crispy_field }}
-                        </div>
-						<div class="col-lg-12">
-						    {{ form.Date_of_employment|as_crispy_field }}
-						</div>
-						<div class="col-lg-12">
-						    {{ form.End_of_contract|as_crispy_field }}
-						</div>
-					</div>
 			   </div>
 			    <button type="submit" class="btn btn-primary" name="button">Submit</button>
 			</form>

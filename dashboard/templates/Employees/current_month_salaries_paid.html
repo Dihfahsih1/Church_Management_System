@@ -1,6 +1,7 @@
 
 {% extends "app/base_site.html" %}
 {% block content %}
+{% load humanize %}
 <head>
   <title>UCC Bwaise | Salaries Report as of {{day}}</title>
 </head>
@@ -57,11 +58,11 @@
                             <thead>
                               <tr>
                                 <th>Name</th>
-                                <th>Salary</th>
+                                <th>Contact Salary</th>
                                 <th>Date</th>
                                 <th>Month</th>
                                 <th>Amount Paid</th>
-                                <th>Total Paid <i class=" glyphicon glyphicon-arrow-right"></i> (<span style="font-weight: bolder; color:red" class="totalCol"></span>)</th>
+                                <!-- <th>Total Paid <i class=" glyphicon glyphicon-arrow-right"></i> (<span style="font-weight: bolder; color:red" class="totalCol"></span>)</th> -->
                                 <th>Remaining Balance</th>
                                 <th>Action</th>
                               </tr>
@@ -70,12 +71,11 @@
                                 {% for salary in salaries %}
                                 <tr class="totalColumn">
                                  <td>{{ salary.Name}}</td>
-                                     <td>{{ salary.basic_salary}}</td>
+                                     <td>{{ salary.basic_salary|intcomma}}</td>
                                      <td>{{ salary.Date_of_paying_salary}}</td>
-                                     <td>{{ salary.Month_being_cleared}}</td>
-                                     <td>{{ salary.Salary_Amount}}</td>
-                                     <td class="rowDataSd">{{ salary.total_salary_paid}}</td>
-                                     <td>{{ salary.Balance}}</td>
+                                     <td>{{ salary.Month_being_cleared|month}}</td>
+                                     <td>{{ salary.Salary_Amount|intcomma}}</td>
+                                     <td>{{ salary.Balance|intcomma}}</td>
                                      <td>
                                       <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
                                             <span class='glyphicon glyphicon-trash'> </span> Delete
@@ -103,9 +103,10 @@
                                 {% endfor%} 
                             </tbody>
                         </table>
-                          
                     </div>
                   </div>
+                  <p>Total Salary Paid for this month is: <i class=" glyphicon glyphicon-arrow-right"></i>
+                    (<span style="font-weight: bolder; color:red"> {{total_amount|intcomma}}</span>)</p>
                </div>
               {% if salaries %}
                 <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
