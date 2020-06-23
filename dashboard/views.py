@@ -240,12 +240,14 @@ def salariespaidarchivessearch(request):
         archived_reports = SalariesPaidReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
         months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
                   'August','September', 'October',  'November','December']
-        years = datetime.now().year
+        x= datetime.now()
+        years=x.year 
         archived_salaries = SalariesPaidReportArchive.objects.all()
         today = timezone.now()
         total = archived_reports.aggregate(totals=models.Sum("Salary_Amount"))
         total_amount = total["totals"]
-
+        mth=int(report_month)
+        report_month=calendar.month_name[mth]
         context = {'archived_reports': archived_reports,
                    'months': months,'years': years,'archived_salaries':archived_salaries,
                    'total_amount': total_amount,'today': today,'report_year': report_year,
