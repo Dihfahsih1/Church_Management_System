@@ -9,7 +9,7 @@
             </div>
             
            {% load static total_tags %}
-            <div class="col-lg-7">
+            <div class="col-lg-11">
                 <ul class="nav navbar-nav navbar-left">
                     <li class="nav-item">
                         <a href="{% url 'index' %}" class="border border-light grey-text">
@@ -17,36 +17,30 @@
                                 {% if custom_header %}
                                     <span class="name">{{ custom_header }}</span>
                                 {% else %}
-                                    <span class="name"> Web System</span>
-                                    <span class="regular">| United Christian Center - Bwaise</span>
+                                    <span class="regular"  style="color:white">UCC Bwaise Web System</span>
                                 {% endif %}
                             </h3>
                         </a>
                     </li>
                 </ul>
-
-                {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
-                    <p style="font-size:25px;">Membership requests <a href="{% url 'un-approved-list' %}">
-                        <span class="fa fa-bell"><b style="background-color: red;border-radius: 55%; margin-left: -17%;">
-                            <strong style="color:white;"></strong>{% un_approved_members %}</strong></b></span>
-                        </a></p>
-                {% endif %}
-            </div>
-
-            <div class="col-lg-4">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="nav-item">
-                        <a href="{% url 'index_public' %}"
-                           class="nav-link border border-light grey-text rounded waves-effect">
-                            <i class="fa fa-globe mr-3"></i> website
+                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
+                    <li style="font-size:25px;"><a href="{% url 'un-approved-list' %}">
+                            <span class="fa fa-bell"><b style="background-color: red;border-radius: 55%; margin-left: -17%;">
+                                    <strong style="color:white;">{% un_approved_members %}</strong></b></span>
                         </a>
                     </li>
-                    
+                    {% endif %}
                     <li class="nav-item">
-                        <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
-                           aria-expanded="false">
-                            <i><img src="{{ request.user.full_name.Photo.url }}" /><i> <b style="color: red; font-size: 120%">{{ request.user.username }}
-                            <span class=" fa fa-angle-down"></span></b></i>
+                        <a href="{% url 'index_public' %}" class="nav-link border border-light grey-text rounded waves-effect">
+                            <i class="fa fa-globe mr-3"></i><strong style="color:white;">website</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <i><img src="{{ request.user.full_name.Photo.url }}" /><i> <b
+                                        style="color:white; font-size: 120%">{{ request.user.username }}
+                                        <span class=" fa fa-angle-down"></span></b></i>
                         </a>
                         <ul class="dropdown-menu dropdown-usermenu pull-left">
                             <li><a href="{% url 'profile' %}"> Profile</a></li>
@@ -54,27 +48,29 @@
                             <li><a href="{% url 'logout'%}"><i class="fa fa-sign-out pull-left"></i>Log Out</a></li>
                         </ul>
                     </li>
+                  
                 </ul>
-              </div>
-         
+               
+            </div>
         </nav>
     </div>
-            {% if messages %}
-            <div class="col-lg-6" style="float: right">
-                <div class="alert alert-info" id="success-alert">
-                    <button type="button" class="close" data-dismiss="alert">x</button>
-                    {% if request.user.Role == 'Admin' or request.user.Role == 'Secretary' or request.user.Role == 'SuperAdmin' %}
-                     <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
-                         <span class="lead">Dear {{user.full_name.Initials}} {{user.full_name}}...</span>
-                     {% endif %}    
-                    <ul>
-                        {% for message in messages %}
-                        <h1 style="font-weight: bolder" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h1>
-                        {% endfor %}
-                    </ul>
-               </div>
-            </div>       
-           {% endif %} 
 </div>
+{% if messages %}
+<div class="col-lg-8" style="float: right">
+    <div class="alert alert-info" id="success-alert">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        {% if request.user.Role == 'Admin' or request.user.Role == 'Secretary' or request.user.Role == 'SuperAdmin' %}
+        <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+        <span class="lead">Dear {{user.full_name.Initials}} {{user.full_name}}...</span>
+        {% endif %}
+        <ul>
+            {% for message in messages %}
+            <h1 style="font-weight: bolder" {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}
+            </h1>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}
 {% else %}
 {% endif %}
