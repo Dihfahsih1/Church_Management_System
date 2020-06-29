@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'bootstrap_datepicker_plus',
     'bootstrap4',
     'widget_tweaks',
+    'live_support',
     ]
 AUTH_USER_MODEL = 'dashboard.User'
 MIDDLEWARE = [   

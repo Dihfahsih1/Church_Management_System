@@ -8,8 +8,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url
 
-urlpatterns = [ 
-    path('admin', admin.site.urls),
+urlpatterns = [
+    path('support/', include('live_support.urls')), 
+    path('admin/', admin.site.urls),
     path('', include('dashboard.urls')),
     re_path('^',include('django.contrib.auth.urls')),
     path('register/', user_views.register, name='register'),

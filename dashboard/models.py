@@ -117,7 +117,7 @@ class Theme(models.Model):
     class Meta:
         default_permissions = ('view', 'add', 'change', 'delete')
     def __str__(self):
-        return '%s' % self.colour
+        return self.colour + ' ' + self.name
 
 class PublishedStatusManager(models.Manager):
     def get_queryset(self):
