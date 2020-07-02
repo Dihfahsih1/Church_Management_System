@@ -22,8 +22,14 @@ INSTALLED_APPS = [
     'bootstrap_datepicker_plus',
     'bootstrap4',
     'widget_tweaks',
-    'live_support',
     ]
+    
+DEFAULT_FILE_STORAGE = "github_storages.backend.BackendStorages"
+GITHUB_HANDLE = "Dihfahsih1"
+ACCESS_TOKEN = "1632c4312d11b73e5f8ea76ab81d4e392c1b0ad4"
+GITHUB_REPO_NAME = "Pamoja-Website"
+MEDIA_BUCKET_NAME = "media"
+
 AUTH_USER_MODEL = 'dashboard.User'
 MIDDLEWARE = [   
     'django.middleware.security.SecurityMiddleware',

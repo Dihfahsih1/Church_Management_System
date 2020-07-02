@@ -232,8 +232,7 @@ class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
         fields = ('name', 'email', 'phone', 'subject','message','feedback')
-
-
+        #form for ministries 
 class MinistryForm(forms.ModelForm):
     class Meta:
         model = Ministry

@@ -223,7 +223,6 @@ def current_month_salary_paid(request):
         'years':years,
     }
     return render(request, 'Employees/current_month_salaries_paid.html',context)
-
 @login_required
 def delete_salary_paid(request,pk):
     salary= get_object_or_404(SalariesPaid, id=pk)
