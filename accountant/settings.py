@@ -24,11 +24,11 @@ INSTALLED_APPS = [
     'widget_tweaks',
     ]
     
-DEFAULT_FILE_STORAGE = "github_storages.backend.BackendStorages"
-GITHUB_HANDLE = "Dihfahsih1"
-ACCESS_TOKEN = "1632c4312d11b73e5f8ea76ab81d4e392c1b0ad4"
-GITHUB_REPO_NAME = "Pamoja-Website"
-MEDIA_BUCKET_NAME = "media"
+# DEFAULT_FILE_STORAGE = "github_storages.backend.BackendStorages"
+# GITHUB_HANDLE = "Pythonista1"
+# ACCESS_TOKEN = "f284bcf2c4651226f99da98e821abfb98a24a610"
+# GITHUB_REPO_NAME = "amazing"
+# MEDIA_BUCKET_NAME = "media"
 
 AUTH_USER_MODEL = 'dashboard.User'
 MIDDLEWARE = [   
