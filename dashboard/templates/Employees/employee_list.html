@@ -1,6 +1,7 @@
 
 {% extends "app/base_site.html" %}
 {% load static i18n %}
+{% load humanize %}
 {% block javascript %}
 <script src="{% static 'schools/js/employees.js' %}"></script>
 {% endblock %}
@@ -81,8 +82,8 @@
                                      {% endif %}
                                     </td>
                                      <td>{{ emp.Role}}</td>
-                                     <td>{{ emp.Salary_Amount}}</td>
-                                     <td>{{ emp.Balance}}</td>
+                                     <td>{{ emp.Salary_Amount|intcomma}}</td>
+                                     <td>{{ emp.Balance|intcomma}}</td>
                                      <td> {% if emp.total_salary_paid >= emp.Salary_Amount %}
                                         <b class="btn btn-btn btn-sm "><span class="glyphicon glyphicon-thumbs-up"></span> CURRENT MONTH PAID </b>
                                         {% elif emp.total_salary_paid > 0 and emp.total_salary_paid != emp.Salary_Amount %}
