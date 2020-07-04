@@ -273,8 +273,7 @@ class Members(models.Model):
     published = PublishedStatusManager()
     Full_Named=models.CharField(max_length=100,null=True,blank=True)
     def __str__(self):
-        return self.Full_Named
-        # return str(self.First_Name )+ ' ' + str(self.Second_Name)
+        return str(self.First_Name )+ ' ' + str(self.Second_Name)
                   
     @property
     def full_name(self):
