@@ -523,7 +523,7 @@ class Pledges(Model):
 
     def __str__(self):
         if self.Amount_Pledged != 0:
-            return self.Archived_Status
+            return self.Reason.Item_That_Needs_Pledges
 
     @property
     def Total_Amount_Pledged(self):
