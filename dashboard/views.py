@@ -175,54 +175,22 @@ def paid_salary(request):
 def current_month_salary_paid(request):
     current_month = datetime.now().month
     current_year = datetime.now().year
-    today = timezone.now()
-    mth = today.strftime('%B')
-    salaries = SalariesPaid.objects.filter(Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month)
-    context={'mth':mth, 'salaries':salaries}
+    salaries = SalariesPaid.objects.filter(Archived_Status='NOT-ARCHIVED', Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month)
     if request.method=='POST':
-        archived_year=request.POST['archived_year']
-        archived_month = request.POST['archived_month']
-        current_month = datetime.now().month
-        current_year = datetime.now().year
-        today = timezone.now()
-        day=datetime.now()
-        mth = today.strftime('%B')
-        salaries = SalariesPaid.objects.filter(Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month)
-        context={'day':day,'mth':mth, 'salaries':salaries}
-        for sal in salaries:
-            date=sal.Date_of_paying_salary
-            salary_id=sal.Salary_Id
-            amount=sal.Salary_Amount
-            name=sal.Name
-            mth=sal.Month_being_cleared
-            sal_archiveobj=SalariesPaidReportArchive()
-            sal_archiveobj.Date_of_paying_salary=date
-            sal_archiveobj.Salary_Amount=amount
-            sal_archiveobj.Salary_Id=salary_id
-            sal_archiveobj.Name=name
-            sal_archiveobj.Month_being_cleared=mth
-            sal_archiveobj.archivedyear= archived_year
-            sal_archiveobj.archivedmonth =archived_month
-            sal_archiveobj.save()
-
-        
-        salaries.delete()
-        message="The Monthly Salaries Paid Report has been Archived"
-        context={'message':message, 'mth':mth}
-        return render(request, 'Employees/current_month_salaries_paid.html', context)
-    months = ['January', 'February', 'March', 'April', 'May', 'June',
-              'July', 'August','September', 'October', 'November','December']
+        for item in salaries:
+            item.Archived_Status = 'ARCHIVED'
+            item.save()
+        messages.success(request, f'All Salaries Paid have been Archived')
+        return redirect('current-month-salaries')
     years = datetime.now().year
     today = timezone.now()
     day=datetime.now()
-    total = SalariesPaid.objects.filter(Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
+    total = salaries.aggregate(totals=models.Sum("Salary_Amount"))
     total_amount = total["totals"]
-    context = {
-         'day':day, 'mth':mth,'total_amount':total_amount, 'salaries': salaries, 'months':months,
-        'current_month':current_month,
-        'years':years,
+    context = {'day':day, 'total_amount':total_amount, 'salaries': salaries,'current_month':current_month,'years':years,
     }
     return render(request, 'Employees/current_month_salaries_paid.html',context)
+
 @login_required
 def delete_salary_paid(request,pk):
     salary= get_object_or_404(SalariesPaid, id=pk)
@@ -233,31 +201,22 @@ def delete_salary_paid(request,pk):
 
 @login_required
 def salariespaidarchivessearch(request):
+    today = datetime.now()
+    years=today.year
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
-        archived_reports = SalariesPaidReportArchive.objects.filter(archivedmonth=report_month, archivedyear=report_year)
-        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                  'August','September', 'October',  'November','December']
-        x= datetime.now()
-        years=x.year 
-        archived_salaries = SalariesPaidReportArchive.objects.all()
-        today = timezone.now()
+        archived_reports = SalariesPaid.objects.filter(Date_of_paying_salary__month=report_month, Date_of_paying_salary__year=report_year)
         total = archived_reports.aggregate(totals=models.Sum("Salary_Amount"))
         total_amount = total["totals"]
         mth=int(report_month)
         report_month=calendar.month_name[mth]
-        context = {'archived_reports': archived_reports,
-                   'months': months,'years': years,'archived_salaries':archived_salaries,
-                   'total_amount': total_amount,'today': today,'report_year': report_year,
-                   'report_month': report_month}
+        context = {'archived_reports': archived_reports,'years': years,'today': today,
+                  'report_year':report_year,'report_month': report_month, 'total_amount':total_amount,}
         return render(request, "Employees/salariespaidarchive.html", context)
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-              'August', 'September','October',  'November', 'December']
-    years = datetime.now().year
-    archived_salaries=SalariesPaidReportArchive.objects.all()
-    context = {'months': months,'years': years,'archived_salaries': archived_salaries}
-    return render(request, "Employees/salariespaidarchive.html", context)    
+    context = {'years': years}
+    return render(request, "Employees/salariespaidarchive.html", context)
+ 
 
     ####################================>MEMBERSHIP MODULE<=================####################
 @login_required

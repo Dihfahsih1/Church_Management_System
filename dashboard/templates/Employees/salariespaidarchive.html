@@ -1,5 +1,6 @@
 {% extends "app/base_site.html" %}
 {% block content %}
+{% load humanize %}
 <head>
   <title>UCC Bwaise | Archived Salaries Paid for the month of {{report_month}} {{ report_year }}</title>
 </head>
@@ -90,6 +91,7 @@
                           <button class='form-control' type="submit" class="btn btn-info">Search &nbsp; <span
                               class='glyphicon glyphicon-search'></span></button>
                         </div>
+                        
                         <div class="col-lg-2" style="margin-top: 8px">
                         </div>
                       </div>
@@ -103,15 +105,16 @@
                           {% for archived in archived_reports  %}
                               <tr>
                                   <td>{{ archived.Name }}</td>
-                                  <td>{{ archived.Salary_Amount }}</td>
+                                  <td>{{ archived.Salary_Amount|intcomma }}</td>
                                   <td>{{ archived.Date_of_paying_salary }}</td>
-                                  <td>{{ archived.Month_being_cleared}}</td>
                               </tr>
                           {% endfor %}
                           </tbody>
-                           <td>Total</td><td><b style="color: red">Shs.{{total_amount}}</b></td>
+                           <td><b>Total</b></td><td><b style="color: red">Shs.{{total_amount|intcomma}}</b></td>
                                   {% if archived_reports %}
-                                  <h2 style="text-align: center">Monthly Archived Salaries Reports For the financial cycle of  <b>{{ report_month }} {{ report_year }}</b>  </h2>
+                                  <div class="separator"></div>
+                                  <h2 style="text-align: center">Archived Salaries Paid of month of <b>{{ report_month }} {{ report_year }}</b>  </h2>
+                                  <div class="separator"></div>
                                   {% elif archived_reports == empty %}
                                   <p style="color: red"><i class='glyphicon glyphicon-arrow-up'></i>You have not yet made any search!, please do so</p>
                                       
@@ -122,7 +125,6 @@
                                   <th>Employee Name</th>
                                   <th>Salary Paid</th>
                                   <th>Date of Payment</th>
-                                  <th>Month Being Cleared</th>
                               </tr>
                             </thead>
                       </table>

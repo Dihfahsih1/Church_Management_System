@@ -375,6 +375,7 @@ class SalariesPaid(models.Model):
     Name = models.CharField(max_length=200,null=True, blank=True)
     Salary_Amount = models.IntegerField()
     Month_being_cleared = models.DateField(null=True, blank=True)
+    Archived_Status= models.CharField(max_length=1000, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
     Date_of_paying_salary = models.DateField(null=True, blank=True)
     @property
     def basic_salary(self):
