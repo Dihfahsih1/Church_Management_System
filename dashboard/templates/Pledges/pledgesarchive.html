@@ -1,5 +1,6 @@
 {% extends "app/base_site.html" %}
 {% block content %}
+{% load humanize %}
 <head>
   <title>UCC Bwaise | Archived Pledges for the month of {{report_month}} {{ report_year }}</title>
 </head>
@@ -123,9 +124,9 @@
                                   <td>{{ archived.Date }}</td>
                                   <td>{{ archived.Pledge_Made_By }}</td>
                                   <td>{{ archived.Reason}}</td>
-                                  <td>{{ archived.Amount_Pledged }}</td>
-                                  <td>{{ archived.total_pledge_paid}}</td>
-                                  <td>{{ archived.Pledge_Balance}}</td>
+                                  <td>{{ archived.Amount_Pledged|intcomma }}</td>
+                                  <td>{{ archived.total_pledge_paid|intcomma}}</td>
+                                  <td>{{ archived.Pledge_Balance|intcomma}}</td>
                                   <td>{{ archived.Status}}</td>
                               </tr>
                           {% endfor %}
