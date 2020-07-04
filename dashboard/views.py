@@ -2963,6 +2963,14 @@ def total_expenses(request):
     return render(request, 'total_expenses.html', context)
 
 ########========================>CASHFLOAT MODULE<=====================#######
+def week_of_month(date):
+    date= datetime.now()
+    month = date.month
+    week = 0
+    while date.month == month:
+        week += 1
+        date -= timedelta(days=7)
+    return week
 @login_required
 def record_cashfloat(request):
     one_week_ago = datetime.today() - timedelta(days=7) #Weekly
@@ -2979,8 +2987,9 @@ def record_cashfloat(request):
             return redirect('cashfloat-list')
     else:
         if get_data:
+            week=week_of_month(current_month)
             mesg="You have already given out the float"
-            context={'mesg':mesg, 'get_data':get_data,'month':month, 'current_year':current_year,'total_float':total_float}
+            context={'week':week,'mesg':mesg, 'get_data':get_data,'month':month, 'current_year':current_year,'total_float':total_float}
             return render(request, 'give_cash_float.html',context) 
         form=CashFloatForm()
         context={'form':form,}
