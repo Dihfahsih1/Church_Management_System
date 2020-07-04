@@ -436,17 +436,6 @@ class SalariesPaid(models.Model):
                 bal = SalariesPaid.objects.filter(Salary_Id=s_id, Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month).aggregate(totals=models.Sum("Salary_Amount"))
                 balance = a_amount - bal['totals']
                 return balance
-          
-class SalariesPaidReportArchive(models.Model):
-    Salary_Id = models.CharField(max_length=200,null=True, blank=True)
-    Name = models.CharField(max_length=200,null=True, blank=True)
-    Salary_Amount = models.IntegerField()
-    Month_being_cleared = models.DateField(null=True, blank=True)
-    Date_of_paying_salary = models.DateField(null=True, blank=True)
-    archivedmonth = models.CharField(max_length=100,null=True)
-    archivedyear = models.CharField(max_length=100,null=True)
-    def __str__(self):
-        return self.Name
 
 #PLEDGES MODEL
 class PledgeItem(Model):
