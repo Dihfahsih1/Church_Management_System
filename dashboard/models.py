@@ -245,7 +245,7 @@ class Members(models.Model):
     Residence=models.CharField(max_length=100,null=True)
     Telephone=models.CharField(max_length=100,null=True)
     Email=models.EmailField()
-    Photo=models.ImageField(upload_to='avatars/', blank=False)
+    Photo=models.ImageField(upload_to='avatars/', max_length=10000, blank=False)
     Gender=models.CharField(max_length=100, choices=sex, null=True, blank=True)
     Marital_Status=models.CharField(max_length=100, choices=status,null=True, blank=True)
     Marriage_Kind=models.CharField(max_length=100, choices=marriage,null=True, blank=True)
@@ -294,7 +294,7 @@ class Ministry(models.Model):
     name = models.CharField(max_length=100, unique=True)
     leader = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100)
     details = models.TextField(max_length=10000000, null=True, blank=True)
-    photos = models.ImageField(upload_to='avatars/', blank=True) 
+    photos = models.ImageField(upload_to='avatars/',max_length=10000, blank=True) 
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS,null=True,blank=True)
     objects = models.Manager()
     published = PublishedStatusManager()
@@ -309,13 +309,13 @@ class ArchivedMembers(models.Model):
     Residence=models.CharField(max_length=100,null=True)
     Telephone=models.CharField(max_length=100,null=True)
     Email=models.CharField(max_length=100,null=True, blank=True)
-    Photo=models.ImageField(upload_to='avatars/', blank=False)
+    Photo=models.ImageField(upload_to='avatars/', max_length=10000, blank=False)
     def __str__(self):
         return self.First_Name + ' ' + self.Second_Name
 
 class Visitors(models.Model):
     Date = models.DateField(null=True, blank=True)
-    Photo=models.ImageField(upload_to='avatars/', blank=True)
+    Photo=models.ImageField(upload_to='avatars/', max_length=10000, blank=True)
     First_Name=models.CharField(max_length=100, null=True)
     Second_Name=models.CharField(max_length=100, null=True)
     Address=models.CharField(max_length=100, null=True)
@@ -334,7 +334,7 @@ class StaffDetails(models.Model):
     Education_Level=models.CharField(max_length=100, choices=education,null=True, blank=True)
     Residence=models.CharField(max_length=100,null=True, blank=True)
     Telephone=models.CharField(max_length=100,null=True, blank=True)
-    Photo=models.ImageField(upload_to='avatars/', null=True, blank=True)
+    Photo=models.ImageField(upload_to='avatars/',max_length=10000, null=True, blank=True)
     Faith=models.CharField(max_length=100, choices=rel, null=True, blank=True)
     Date_of_paying_salary = models.DateField(null=True, blank=True)
     Month_being_cleared = models.DateField(null=True, blank=True)
@@ -557,7 +557,7 @@ class Pledges(Model):
             return self.Status 
          
 class Slider(models.Model):
-    slider_image = models.ImageField(upload_to='sliders/', null=True, blank=False)
+    slider_image = models.ImageField(upload_to='sliders/', max_length=10000,null=True, blank=False)
     image_title = models.CharField(max_length=100)
     modified = models.DateTimeField(verbose_name="Modified", auto_now=True)
     objects = models.Manager()
@@ -568,7 +568,7 @@ class Slider(models.Model):
         return self.image_title
 
 class About(models.Model):
-    about_image = models.ImageField(upload_to='about/', null=True, blank=False)
+    about_image = models.ImageField(upload_to='about/',max_length=10000, null=True, blank=False)
     about = models.TextField(max_length=50000 , null=True, blank=True)
     about_title = models.CharField(max_length=100, null=True, blank=True)
     vision_description = models.TextField(max_length=10000000, null=True, blank=True)
@@ -602,7 +602,7 @@ class Page(models.Model):
     page_location = models.CharField(max_length=100, default='Header', choices=IS)
     page_title = models.CharField( max_length=100)
     page_description = models.TextField(max_length=300)
-    page_image = models.ImageField(upload_to='images/', null=True, blank=False)
+    page_image = models.ImageField(upload_to='images/', max_length=10000,null=True, blank=False)
     objects = models.Manager()
     header = PublishedHeaderPageManager()
     footer = PublishedFooterPageManager()
@@ -631,7 +631,7 @@ class Gallery(models.Model):
 #Images
 class Image(models.Model):
     gallery_title = models.ForeignKey(Gallery, on_delete=models.CASCADE, blank=False, null=True)
-    gallery_image = models.ImageField( upload_to='images/', null=True, blank=False)
+    gallery_image = models.ImageField( upload_to='images/', max_length=10000,null=True, blank=False)
     image_caption = models.TextField( max_length=100000)
     date = models.DateField(auto_now_add=True)
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS, null=True, blank=False)
@@ -646,8 +646,8 @@ class Image(models.Model):
 class News(models.Model):
     news_title = models.CharField(max_length=100)
     date = models.DateField(auto_now_add=True)
-    image = models.ImageField(upload_to='images/', null=True, blank=True)
-    audio_file = models.FileField(upload_to='audios/', null=True, blank=True)
+    image = models.ImageField(upload_to='images/', max_length=10000, null=True, blank=True)
+    audio_file = models.FileField(upload_to='audios/',max_length=10000, null=True, blank=True)
     news = models.TextField(null=True, blank=True)
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS)
     author = models.CharField(max_length=1003, null=True, blank=True, default="Preacher")
@@ -674,7 +674,7 @@ class Event(models.Model):
     event_place = models.CharField(max_length=100,blank=True)
     from_date = models.DateField(null=True,blank=True)
     to_date = models.DateField(null=True,blank=True)
-    image = models.ImageField(upload_to='images/', null=True ,blank=True)
+    image = models.ImageField(upload_to='images/',max_length=10000, null=True ,blank=True)
     note = models.TextField(blank=True)
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS)
     Start_Time = models.TimeField(blank=True, null=True)
@@ -698,7 +698,7 @@ class Event(models.Model):
 class Project(models.Model):
     project_title = models.CharField(max_length=100)
     start_date = models.DateField(null=True, blank=True)
-    image = models.ImageField(upload_to='images/', null=True, blank=False)
+    image = models.ImageField(upload_to='images/',max_length=10000, null=True, blank=False)
     project_description = models.TextField()
     project_leader = models.ForeignKey('Members', on_delete=models.CASCADE,null=True, blank=True)
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS)
@@ -746,7 +746,7 @@ class Church(models.Model):
     youtube_url = models.URLField(max_length=130, blank=True, null=True)
     instagram_url = models.URLField(max_length=130, blank=True, null=True)
     pinterest_url = models.URLField(max_length=130, blank=True, null=True)
-    Church_Logo = models.ImageField(upload_to='logo/', blank=False)
+    Church_Logo = models.ImageField(upload_to='logo/',max_length=10000, blank=False)
     STATUS = (('Active', 'Active'), ('Inactive', 'Inactive'))
     status = models.CharField(max_length=130, blank=True, null=True, default="Active", choices=STATUS)
     objects = models.Manager()
