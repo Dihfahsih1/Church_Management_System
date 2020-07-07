@@ -140,74 +140,73 @@
 
                 </div>
             </div>
-        </div>
     </div>
    
-        <div class="header-bottom-area">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-1">
-                        <div class="logo">
-                            <a href="{% url 'index_public' %}">
-                                <img src="{% static 'img/uccb.jpg' %}"
-                                    alt=""/>
-                            </a>
+    <div class="header-bottom-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-1">
+                    <div class="logo">
+                        <a href="{% url 'index_public' %}">
+                            <img src="{% static 'img/uccb.jpg' %}"
+                                alt=""/>
+                        </a>
 
-                        </div>
                     </div>
-                    <div class="col-lg-11">
-                        <div class="menu">
-                            <nav id="mobile_menu_active">
-                                <ul id="menu" >
-                                    <li><a href="{% url 'index_public' %}">Home</a></li>
-                                    <li><a href="#">About Us <span class="icon fa fa-chevron-down"></span></a>
-                                        <ul class="drop">
-                                            <li><a href="{% url 'news_wall' %}">Sermons</a></li>
-                                            <li><a href="{% url 'abouts_vision' %}">Vision</a></li>
-                                            <li><a href="{% url 'abouts_mission' %}">Mission</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Staff <span class="icon fa fa-chevron-down"></span></a>
-                                        <ul class="drop">
-                                            <li><a href="{% url 'church_pastors' %}">Pastoral</a></li>
-                                            <li><a href="{% url 'church_administration' %}">Administrative</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Membership <span class="icon fa fa-chevron-down"></span></a>
-                                        <ul class="drop">
-                                            <li><a href="{% url 'membership_wall' %}">Members</a></li>
-                                            <li><a href="{% url 'online_registration' %}">Register</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="{% url 'ministry-wall' %}">Ministries</a></li>
-                                    <li><a href="{% url 'projects_wall' %}">Projects</a></li>
-                                    <li><a href="https://www.youtube.com/channel/UCFMCB_zTwBQNunbpjBsPcSw/videos" target="_blank">YouTube Channel</a></li>
-                                    <li><a href="{% url 'event_wall' %}">Events</a></li>
-                                    <li><a href="{% url 'gallery_wall' %}">Gallery</a></li>
-                                    <li><a href="{% url 'contact' %}">Contact Us</a></li>
-                                    {% if request.user.is_authenticated %}   
-                                    <li> <a class="text btn-sm btn-warning" href="{% url 'index' %}"> Church System</a></li>
-                                    {% endif %}
-                                </ul>
-                            </nav>
-                        </div>
+                </div>
+                <div class="col-lg-11">
+                    <div class="menu">
+                        <nav id="mobile_menu_active">
+                            <ul id="menu" >
+                                <li><a href="{% url 'index_public' %}">Home</a></li>
+                                <li><a href="#">About Us <span class="icon fa fa-chevron-down"></span></a>
+                                    <ul class="drop">
+                                        <li><a href="{% url 'news_wall' %}">Sermons</a></li>
+                                        <li><a href="{% url 'abouts_vision' %}">Vision</a></li>
+                                        <li><a href="{% url 'abouts_mission' %}">Mission</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Staff <span class="icon fa fa-chevron-down"></span></a>
+                                    <ul class="drop">
+                                        <li><a href="{% url 'church_pastors' %}">Pastoral</a></li>
+                                        <li><a href="{% url 'church_administration' %}">Administrative</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Membership <span class="icon fa fa-chevron-down"></span></a>
+                                    <ul class="drop">
+                                        <li><a href="{% url 'membership_wall' %}">Members</a></li>
+                                        <li><a href="{% url 'online_registration' %}">Register</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="{% url 'ministry-wall' %}">Ministries</a></li>
+                                <li><a href="{% url 'projects_wall' %}">Projects</a></li>
+                                <li><a href="https://www.youtube.com/channel/UCFMCB_zTwBQNunbpjBsPcSw/videos" target="_blank">YouTube Channel</a></li>
+                                <li><a href="{% url 'event_wall' %}">Events</a></li>
+                                <li><a href="{% url 'gallery_wall' %}">Gallery</a></li>
+                                <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                                {% if request.user.is_authenticated %}   
+                                <li> <a class="text btn-sm btn-warning" href="{% url 'index' %}"> Church System</a></li>
+                                {% endif %}
+                            </ul>
+                        </nav>
                     </div>
-                    <!--fade up notification upon successful redirect-->
-                {% if messages %}
-                <div class="col-lg-6" style="float: right">
-                    <div class="alert alert-info" id="success-alert">
-                        <button type="button" class="close" data-dismiss="alert">x</button>
-                        <ul>
-                            {% for message in messages %}
-                            <h1 style="font-weight: bolder" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h1>
-                            {% endfor %}
-                        </ul>
                 </div>
-                </div>       
-                {% endif %} 
-                </div>
+                <!--fade up notification upon successful redirect-->
+            {% if messages %}
+            <div class="col-lg-6" style="float: right">
+                <div class="alert alert-info" id="success-alert">
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                    <ul>
+                        {% for message in messages %}
+                        <h1 style="font-weight: bolder" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h1>
+                        {% endfor %}
+                    </ul>
+            </div>
+            </div>       
+            {% endif %} 
             </div>
         </div>
+    </div>
 </header>
 {% block content %}
 {% endblock content %}
