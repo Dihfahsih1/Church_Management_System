@@ -1489,10 +1489,12 @@ def paying_pledges(request, pk):
     context={}
     items = get_object_or_404(Pledges, id=pk)
     if request.method == "POST":
-        form = TestingForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('Pledgesreport')
+        amount_being_paid=int(request.POST.get('Amount_Paid'))
+        total_paid=items.Amount_Paid+amount_being_paid
+        print(total_paid)
+        get_pledge=Pledges.objects.filter(id=pk)
+        Pledges.objects.filter(id=pk).update(Amount_Paid=total_paid)
+        return redirect('Pledgesreport')
     else:
         form = UpdatePledgesForm(instance=items)
         retrieving_id=Pledges.objects.filter(id=pk)

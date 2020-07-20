@@ -10,7 +10,7 @@ class PledgeItemAdmin(admin.ModelAdmin):
     	'Amount_needed_after_cashout',
     	'Total_Item_Cashout')  
 class PledgesAdmin(admin.ModelAdmin):
-    list_display = ('total_pledge_paid','Pledge_Balance','updatestatus')
+    list_display = ('Pledge_Balance','updatestatus')
 
 admin.site.register(Theme)
 class ThemeAdmin(admin.ModelAdmin):

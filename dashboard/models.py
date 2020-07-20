@@ -474,6 +474,7 @@ class PledgeItem(Model):
     @property
     def Item_money_received(self):
         results=Pledges.objects.filter(Reason__Item_That_Needs_Pledges=self.Item_That_Needs_Pledges).aggregate(totals=models.Sum("Amount_Paid"))
+        print(results)
         if (results['totals']):
             return results["totals"]
         else:
@@ -511,27 +512,12 @@ class Pledges(Model):
     Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
 
     def __str__(self):
-        if self.Amount_Pledged != 0:
-            return self.Reason.Item_That_Needs_Pledges
-
-    @property
-    def Total_Amount_Pledged(self):
-        return self.Amount_Pledged
         
-    ##using decorators to archive the calculations
-    @property
-    def total_pledge_paid(self):
-        results=Pledges.objects.filter(Pledge_Id=self.id).values('Amount_Paid').aggregate(totals=models.Sum("Amount_Paid"))
-        if (results['totals']):
-            self.Amount_Paid=results["totals"]
-            self.save()
-            return self.Amount_Paid
-        else:
-            return 0
-    
+        return self.Archived_Status
+
     @property 
     def Pledge_Balance(self):
-        results=self.Amount_Pledged - self.total_pledge_paid
+        results=self.Amount_Pledged - self.Amount_Paid
         self.Balance=results
         self.save()
         return self.Balance
@@ -543,12 +529,12 @@ class Pledges(Model):
             self.save()
             return self.Status
 
-        elif (self.total_pledge_paid == 0):
+        elif (self.Amount_Paid == 0):
             self.Status = self.unpaid
             self.save()
             return self.Status
 
-        elif (self.total_pledge_paid < self.Amount_Pledged):
+        elif (self.Amount_Paid < self.Amount_Pledged):
             self.Status = self.partial
             self.save()
             return self.Status

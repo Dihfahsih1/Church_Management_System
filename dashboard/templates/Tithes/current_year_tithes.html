@@ -69,12 +69,12 @@
                           <tbody> 
                               {% for item in get_all_members%}
                              <tr>
-                              <td><a href="{% url 'annual-tithes' item.pk%}"> {{item.First_Name}} {{ item.Second_Name}}</a></td>
+                              <td><a href="{% url 'annual-tithes' item.pk %}"> {{item.First_Name}} {{ item.Second_Name}}</a></td>
                               <td>{{ item.total_tithe|intcomma}}</td>
 
                               <td>
                                 <div class="mb-4">
-                                  <a href="{% url 'annual-tithes-pdf' item.id %}" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-print">
+                                  <a href="{% url 'annual-tithes-pdf' item.id %}" class="btn btn-success btn-sm" target="_new"><span class="glyphicon glyphicon-print">
                                       Print Out</span></a>
                                 </div>
                               </td>
