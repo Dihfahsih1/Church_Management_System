@@ -512,6 +512,8 @@ class Pledges(Model):
     Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
 
     def __str__(self):
+        if not None:
+            return self.Pledge_Made_By or self.Pledge_Made_By_Visitor
         
         return self.Archived_Status
 
