@@ -120,9 +120,7 @@
                     <div class="hta-box">
                         <a href="https://api.whatsapp.com/send?phone=256751612792"><span class="icon"><i class="fa fa-whatsapp"></i></span>
                         <p class="text">Let's Whatsapp </p></a>
-                        
                     </div>
-
                 </div>
                  
                     {% if request.user.is_authenticated %}                    
@@ -135,10 +133,6 @@
                             <a class="text btn btn-primary" href="{% url 'logout' %}"><span class="fa fa-sign-out">Log Out</span></a>
                         </div>
                     {% else %}
-                        <!-- <div class="hta-box">
-                            <span class="icon"><i class="fa fa-group"></i></span>
-                            <p class="text">Membership : <a class="text btn btn-success" href="{% url 'online_registration' %}">Register</a></p>
-                        </div> -->
                         <div class="hta-box">                            
                             <a class="text btn btn-primary" href="{% url 'login' %}"><span class="fa fa-sign-out">Log In</span></a>
                         </div>
@@ -157,7 +151,6 @@
                             <img src="{% static 'img/uccb.jpg' %}"
                                 alt=""/>
                         </a>
-
                     </div>
                 </div>
                 <div class="col-lg-11">
