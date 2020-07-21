@@ -57,9 +57,9 @@
               <div class="separator"></div>
               {% load crispy_forms_tags %}
 
-            <form method="POST" enctype="multipart/form-data" action="" >
+            
 
-            {% csrf_token %}
+            
             
               <style type="text/css">
                     #addstyle{
@@ -80,29 +80,24 @@
                 <b>{% if pledge_id.Pledge_Made_By_Visitor %}{{pledge_id.Pledge_Made_By_Visitor}} {% else %}{{pledge_id.Pledge_Made_By}}{% endif%}
               </b> fulfilling the pledge</h4>
               <p> Has a balance of: shs.{{items.Pledge_Balance|intcomma}}</p>
-              <div class="col-lg-4">
-              <div class="form-group" id="st">
-                  <label> Pledge Id</label>
-                  <input type="text" name="Pledge_Id" id="Pledge_Id" maxlength="100" class="textinput textInput form-control" value="{{pledge_id.id }}">
-              </div>              
+              <div class="col-lg-4">             
               {% endfor%}
               <div class="separator"></div>
-              <div class="form-group">
-                  {{ form.Date|as_crispy_field }}
-              </div>
+              <form method="POST" enctype="multipart/form-data" action="">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="id_paid_amount"> Date</label>
+                  <input type="date" value="" name="Date" required class="textinput textInput form-control">
+                </div>
 
-              <div class="form-group">
-                  <label for="id_paid_amount"> Amount Being Paid</label>
-                  <input type="number" value="" name="Amount_Paid" required id="id_paid_amount" 
-                  class="textinput textInput form-control" min='1' max='{{items.Pledge_Balance}}'>
-              
-              <button style = "float: right" type="submit" class="btn btn-primary" name="button">Submit</button>
-          </div>
+                <div class="form-group">
+                    <label for="id_paid_amount"> Amount Being Paid</label>
+                    <input type="number" value="" name="Amount_Paid" required id="id_paid_amount" 
+                    class="textinput textInput form-control" min='1' max='{{items.Pledge_Balance}}'>
+                 <button style = "float: right" type="submit" class="btn btn-primary" name="button">Submit</button>
+                </div>
             </form>
           </div> 
-          <script type="text/javascript">
-                              $("#st").hide();
-                              $("#name").hide();</script>
         </div>
         </div>
     </div>

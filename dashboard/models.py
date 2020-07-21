@@ -508,12 +508,15 @@ class Pledges(Model):
     Amount_Pledged = models.IntegerField(default=0,blank=True, null=True)
     Amount_Paid = models.IntegerField(default=0,blank=True, null=True)
     Balance = models.IntegerField(blank=True, null=True)
-    Pledge_Id = models.CharField(max_length=100,blank=True, null=True)
     Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
-
+    #create this per transaction made or recorded
+    DateOfPayment = models.DateField(null=True, blank=True)
+    NameOfPledgee = models.CharField(max_length=100,blank=True, null=True)
+    AmountBeingPaid = models.IntegerField(default=0,blank=True, null=True)
+    PledgeItem = models.CharField(max_length=100,blank=True, null=True)
     def __str__(self):
-        if not None:
-            return self.Pledge_Made_By or self.Pledge_Made_By_Visitor
+        if self.Pledge_Made_By:
+            return self.Archived_Status
         
         return self.Archived_Status
 

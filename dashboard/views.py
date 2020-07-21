@@ -1489,7 +1489,11 @@ def paying_pledges(request, pk):
     context={}
     items = get_object_or_404(Pledges, id=pk)
     if request.method == "POST":
+        item = items.Reason
+        name=items.Pledge_Made_By or items.Pledge_Made_By_Visitor
         amount_being_paid=int(request.POST.get('Amount_Paid'))
+        date_of_pay=request.POST.get('Date')
+        Pledges.objects.create(DateOfPayment=date_of_pay, AmountBeingPaid=amount_being_paid, NameOfPledgee=name, PledgeItem=item)
         total_paid=items.Amount_Paid+amount_being_paid
         get_pledge=Pledges.objects.filter(id=pk)
         Pledges.objects.filter(id=pk).update(Amount_Paid=total_paid)
