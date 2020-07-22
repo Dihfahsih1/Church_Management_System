@@ -147,15 +147,16 @@
                 <div class="gallery-carousel owl-carousel">    
                     {% for image in images %} 
                     <a href="{% url 'image_view' image.pk %}">
-                    <div class="single-gallery" style="height: 210px;">
-                        
+                    <div class="single-gallery" >
+                       
                             {% if image.gallery_image %}
-                                <img src="{{ image.gallery_image.url }}" data-fancybox="images" alt="">
+                                <img src="{{ image.gallery_image.url }}" data-fancybox="images" alt="" style="height: 210px;">
                             {% endif %} 
-                            <span class="content">
-                                <p class="head-title" style="font-size:20px">{{ image.image_caption|truncatewords:5 }}</p>
-                            </span>
+                            
                     </div> 
+                    <span class="content">
+                        <p style="font-size:20px">{{ image.image_caption|truncatewords:3 }}</p>
+                    </span>
                     </a>
                     {% endfor %}
                 </div> 
