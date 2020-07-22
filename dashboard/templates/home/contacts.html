@@ -62,42 +62,36 @@
                     <div class="contact-form-area">
                         <h2 class="contact-page-title">Contact Us</h2>
 
-                        <form action=""
-                              method="POST"
-                              id="contact_us"
-                              name="contact_us">
+                        <form action="" method="POST" id="contact_us" name="contact_us">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="contact-input-box">
-                                        <input type="text" name="name" id="name" required="required"
-                                               placeholder="Name *">
+                                        <input type="text" name="name" id="name" required placeholder="Name *">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="contact-input-box">
-                                        <input type="email" name="email" id="email" required="required"
-                                               placeholder="Email *">
+                                        <input type="email" name="email" id="email" required placeholder="Email *">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="contact-input-box">
-                                        <input type="text" name="phone" id="phone" placeholder="Phone">
+                                        <input type="text" name="phone" id="phone" placeholder="Phone" required>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="contact-input-box">
-                                        <input type="text" name="subject" id="subject" placeholder="Subject">
+                                        <input type="text" name="subject" id="subject" placeholder="Subject" required>
                                     </div>
                                 </div>
 
                                 <div class="col-12">
                                     <div class="contact-input-box">
-                                    <textarea name="message" id="message" required="required"
-                                              placeholder="Message *"></textarea>
+                                    <textarea name="message" id="message" required placeholder="Message *"></textarea>
                                     </div>
                                 </div>
 
