@@ -139,25 +139,23 @@
     <div class="row" style="margin-right: 1px;">
         <div class="col-lg-12" style="background-color: #f3f0f0">
             <div class="section-title text-center">
-                    <h2 class="title"><a class="link glbscl-link-btn hvr-bs" href="{% url 'gallery_wall' %}">
-
-                    Church  Highlights </a></h2>
+                <h2 class="head-title" style="text-align: center;"> <a class="link glbscl-link-btn hvr-bs"
+                        href="{% url 'news_wall' %}">Church Highlights</a></h2>
             </div>
             <div class="row justify-content-center"style="width:97.5%; margin-left:2px">
                 <div class="gallery-carousel owl-carousel">    
                     {% for image in images %} 
-                    <a href="{% url 'image_view' image.pk %}">
-                    <div class="single-gallery" >
-                       
-                            {% if image.gallery_image %}
-                                <img src="{{ image.gallery_image.url }}" data-fancybox="images" alt="" style="height: 210px;">
-                            {% endif %} 
-                            
-                    </div> 
-                    <span class="content">
-                        <p style="font-size:20px">{{ image.image_caption|truncatewords:3 }}</p>
-                    </span>
-                    </a>
+                        <a href="{% url 'image_view' image.pk %}">
+                            <div class="single-gallery" >
+                                    {% if image.gallery_image %}
+                                        <img src="{{ image.gallery_image.url }}" data-fancybox="images" alt="" style="height: 210px;">
+                                    {% endif %} 
+                                    
+                                <span class="content">
+                                    <p style="font-size:20px">{{ image.image_caption|truncatewords:3 }}</p>
+                                </span>
+                            </div> 
+                        </a>
                     {% endfor %}
                 </div> 
             </div>
@@ -169,7 +167,7 @@
     <div class="row" style="margin-right: 1px;">
         <div class="col-lg-12" style="background-color: #f3f0f0" >
             <div class="section-title text-center">
-                <h2 class="head-title"> <a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}"> Latest Gospel Sermons</a></h2>
+                <h2 class="head-title" style="text-align: center;"> <a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}"> Latest Gospel Sermons</a></h2>
             </div>
             <div class="container-fluid">
                 {% for news in news %} {% if forloop.counter <= 3 %}
@@ -342,87 +340,83 @@
             </div>
             <div class="col-lg-12">
                 <div class="row">
-                <div class="col-lg-5 testimonial-area" style="margin-right: 12px">
-                    <div class="col-lg-12" style="height: 250px">
-                        <div class="testimonial-carousel owl-carousel">
-                            {% for data in feeback %}
-                            {% if forloop.counter <= 5 %}
-                            <div class="single-testimonial">
-                                <div class="content"  style="height: 250px">
-                                    <h2 class="name">{{data.name}}</h2>
-                                    <p> {{data.feedback}}</p>
-                                </div>
-                            </div>
-                            {% endif %}
-                            {% endfor %}
+                    <div class="col-lg-5 testimonial-area">
+                        <div class="col-lg-12" style="height: 250px">
+                            <div class="testimonial-carousel owl-carousel">
+                                {% for data in feeback %}
+                                    {% if forloop.counter <= 5 %}
+                                    <div class="single-testimonial">
+                                        <div class="content"  style="height: 250px">
+                                            <h2 class="name">{{data.name}}</h2>
+                                            <p> {{data.feedback}}</p>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
 
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="contact-form-area">
-                        <h1 class="head-title">We would like to hear from You</h1>
-                        <form action="{% url 'contact' %}"
-                              method="POST"
-                              id="contact_us"
-                              name="contact_us">
-                            {% csrf_token %}
-                            <div class="row">
-                                {% if request.user.is_authenticated %}
-                                  <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="contact-input-box" id="usename">
-                                        <input type="text" name="name" value="{{ request.user.full_name }}" readonly="true">
+                    <div class="col-lg-6">
+                        <div class="contact-form-area">
+                            <h1 class="head-title">We would like to hear from You</h1>
+                            <form action="{% url 'contact' %}" method="POST" id="contact_us" name="contact_us">
+                                {% csrf_token %}
+                                <div class="row">
+                                    {% if request.user.is_authenticated %}
+                                    <div class="col-lg-12">
+                                        <div class="contact-input-box" id="usename">
+                                            <input type="text" name="name" value="{{ request.user.full_name }}" readonly="true">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="contact-input-box">
-                                        <textarea style = 'text-align: left;'name="feedback" id="message" required="required"
-                                              placeholder="Feed Back">
-                                        </textarea>
+                                    <div class="col-lg-12">
+                                        <div class="contact-input-box">
+                                            <textarea style = 'text-align: left;'name="feedback" id="message" required placeholder="Feed Back">
+                                            </textarea>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-12" style="margin-top: -7%">
-                                    <div class="contact-input-box text-right">
-                                        <input class="glbscl-link-btn hvr-bs" type="submit" name="submit" id="submit"
-                                               value="Submit">
+                                    <div class="col-lg-12">
+                                        <div class="contact-input-box text-right">
+                                            <input class="glbscl-link-btn hvr-bs" type="submit" name="submit" id="submit"
+                                                value="Submit">
+                                        </div>
                                     </div>
-                                </div>
-                                {% else %}
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="contact-input-box">
-                                        <input type="text" name="name" id="name" 
-                                               placeholder="Name" required="required">
+                                    {% else %}
+                                    <div class="col-lg-12">
+                                        <div class="contact-input-box">
+                                            <input type="text" name="name" id="name" 
+                                                placeholder="Name" required="required">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="contact-input-box">
-                                        <input type="email" name="email" id="email" 
-                                               placeholder="Email" required="required">
+                                    <div class="col-lg-12">
+                                        <div class="contact-input-box">
+                                            <input type="email" name="email" id="email" 
+                                                placeholder="Email" required="required">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="contact-input-box">
-                                        <input type="text" name="phone" id="phone" placeholder="Phone" required="required">
+                                    <div class="col-lg-12">
+                                        <div class="contact-input-box">
+                                            <input type="text" name="phone" id="phone" placeholder="Phone" required="required">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <div class="contact-input-box">
-                                        <textarea name="feedback" id="message" required="required"
-                                              placeholder="Feed Back *">
-                                        </textarea>
+                                    <div class="col-lg-12 ">
+                                        <div class="contact-input-box">
+                                            <textarea name="feedback" id="message" required="required"
+                                                placeholder="Feed Back *">
+                                            </textarea>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="contact-input-box text-right">
-                                        <input class="glbscl-link-btn hvr-bs" type="submit" name="submit" id="submit"
-                                               value="Submit">
+                                    <div class="col-lg-12">
+                                        <div class="contact-input-box text-right">
+                                            <input class="glbscl-link-btn hvr-bs" type="submit" name="submit" id="submit"
+                                                value="Submit">
+                                        </div>
                                     </div>
+                                    {% endif %}
                                 </div>
-                                {% endif %}
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>
