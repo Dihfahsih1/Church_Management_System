@@ -92,7 +92,7 @@ def contact(request):
             phone_number = form.cleaned_data.get('phone')
             email = EmailMessage( to=[emailing_to],
                 subject='Email from: ' + client_name + ' telephone: '+ phone_number + ' Email Title: ' +mail_subject, body=message,
-                from_email=[received_from ], reply_to=[received_from]
+                from_email=received_from, reply_to=[received_from]
             )   
             email.send()
             messages.success(request, f'Thanks for contacting us, we shall reply you via your email.')
