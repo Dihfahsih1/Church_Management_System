@@ -90,10 +90,9 @@ def contact(request):
             message =  form.cleaned_data.get('message')  
             received_from = form.cleaned_data.get('email')
             phone_number = form.cleaned_data.get('phone')
-            email = EmailMessage( to=[emailing_to],
-                subject='Email from: ' + client_name + ' telephone: '+ phone_number + ' Email Title: ' +mail_subject, body=message,
-                from_email=received_from, reply_to=[received_from]
-            )   
+            email = EmailMessage(to=[emailing_to],
+                subject='Email from: ' + client_name + ' telephone: ' + phone_number + ' Email Title: ' +mail_subject, body=message,
+                from_email=received_from, reply_to=[received_from])   
             email.send()
             messages.success(request, f'Thanks for contacting us, we shall reply you via your email.')
             return redirect('index_public')
