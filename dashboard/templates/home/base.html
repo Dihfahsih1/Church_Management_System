@@ -211,114 +211,107 @@
 {% endblock content %}
 {% include "home/scripts.html" %}
 <!-- footer content -->`
-<div class="row" style="margin-right: 1px;">
-    <div class="col-lg-12" style="background-color: #f3f0f0">
-        <footer class="container-fluid">
-            <div class="footer-top-area" id="program">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-7">
-                            <div class="footer-widget">
-                                <h2 class="fw-title" style="text-align: center"><span> UCC Bwaise Weekly Services</span></h2>
-                                <p class="text">
-                                    <style type="text/css">
-                                        b {
-                                            font: 500px;
-                                        }
-                                    </style>
-                                <div class="row" style="margin-left: 5px">
-                                    <div class="col-lg-6" style=" color: white; ">
-                                        <b><u>Monday</u></b><br>
-                                        Prayer Alter (10:00am - 4:00pm)<br>
-                                        Ministers (6:00am - 8:00pm)<br>
-                                        Youth Service (7:00pm - 9:30pm)<br>
-                                        <b><u>Tuesday</u></b><br>
-                                        Home Cells (5:00pm - 8:00pm)<br>
-                                        <b><u>Wednesday</u></b><br>
-                                        Revival Service (5:00pm - 8:00pm)<br>
+<div class="row" style="background-color: #f3f0f0;">
+    <div class=" container-fluid footer-top-area" id="program">
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="footer-widget">
+                    <h2 class="fw-title" style="text-align: center"><span> UCC Bwaise Weekly Services</span></h2>
+                    <p class="text">
+                        <style type="text/css">
+                            b {
+                                font: 500px;
+                            }
+                        </style>
+                    <div class="row" style="margin-left: 5px">
+                        <div class="col-lg-6" style=" color: white; ">
+                            <b><u>Monday</u></b><br>
+                            Prayer Alter (10:00am - 4:00pm)<br>
+                            Ministers (6:00am - 8:00pm)<br>
+                            Youth Service (7:00pm - 9:30pm)<br>
+                            <b><u>Tuesday</u></b><br>
+                            Home Cells (5:00pm - 8:00pm)<br>
+                            <b><u>Wednesday</u></b><br>
+                            Revival Service (5:00pm - 8:00pm)<br>
 
-                                        <b><u>Thursday</u></b><br>
-                                        Counselling (10:00pam - 5:00pm)<br>
-                                    </div>
-                                    <div class="col-lg-6" style=" color: white;">
-                                        <b><u>Friday</u></b><br>
-                                        Bible Study (5:00pm - 7:00pm)<br>
-                                        Night Prayer (7:00pm - 11:00pm)<br>
-                                        <b><u>Saturday</u></b><br>
-                                        Choir Practices<br>
-                                        <b><u>Sunday</b></u><br>
-                                        First Service (6:30am - 9:00am)</br>
-                                        Second Service (9:00am - 11:00am)</br>
-                                        Third Service (11:00am - 2:30pm)</br>
-                                        Youths Practices (5:30pm - 7:30pm)</br>
-                                    </div>
-                                </div>
-                                </p>
-                            </div>
+                            <b><u>Thursday</u></b><br>
+                            Counselling (10:00pam - 5:00pm)<br>
                         </div>
-                        <div class="col-lg-2">
-                            <div class="footer-widget">
-                                <h2 class="fw-title"><span>Quick Link:</span></h2>
-                                <ul class="links">
-                                    <li><a href="{% url 'news_wall' %}">Sermons</a></li>
-                                    <li><a href="{% url 'ministry-wall' %}">Ministries</a></li>
-                                    <li><a href="{% url 'event_wall' %}">Events</a></li>
-                                    <li><a href="{% url 'gallery_wall' %}">Gallery</a></li>
-                                    <li><a href="{% url 'membership_wall' %}">Members</a></li>
-                                </ul>
-                            </div>
+                        <div class="col-lg-6" style=" color: white;">
+                            <b><u>Friday</u></b><br>
+                            Bible Study (5:00pm - 7:00pm)<br>
+                            Night Prayer (7:00pm - 11:00pm)<br>
+                            <b><u>Saturday</u></b><br>
+                            Choir Practices<br>
+                            <b><u>Sunday</b></u><br>
+                            First Service (6:30am - 9:00am)</br>
+                            Second Service (9:00am - 11:00am)</br>
+                            Third Service (11:00am - 2:30pm)</br>
+                            Youths Practices (5:30pm - 7:30pm)</br>
                         </div>
-
-                        <div class="col-lg-3">
-                            <div class="footer-widget">
-                                <h2 class="fw-title">Get in Touch</h2>
-                                <ul class="address">
-                                    <li><span class="icon"><i class="fa fa-phone"></i></span>
-                                        {% phone_number %}
-
-                                    </li>
-                                    <li><span class="icon"><i class="fa fa-envelope"></i></span>
-                                        {% email_address %}
-                                    </li>
-                                    <li><span class="icon"><i class="fa fa-map-marker"></i></span>
-                                        {% church_address %}
-                                    </li>
-                                    <li> <span class="icon"><i class="fa fa-pencil"> P.O.Box</i></span>
-                                        {%Post_Office_Box %}
-                                    </li>
-                                </ul><br>
-                                <ul class="social">
-                                    <li><a href="{% facebook %}" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="{% youtube%}" target="_blank"><i class="fa fa-youtube"></i></a>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
-
                     </div>
-                </div>
-            </div>
-            <div class="footer-bottom-area">
-                <div class="container text-center">
-
-                    <p class="copyright">
-                        {% church_footer %} 1997
-                        <script>new Date().getFullYear() > 2010 && document.write(" - " + new Date().getFullYear());</script> |
-                        Website Developed by<a href="https://mugoyadihfahsih.000webhostapp.com" target="_blank"> <b
-                                style="font-size: 90%; color: yellow"> Mugoya Dihfahsih</b></a>
-
                     </p>
                 </div>
-                {% if user.is_authenticated %}
-                 <a class="text btn btn-primary" href="{% url 'logout' %}"><span class="fa fa-sign-out">Log Out</span></a>
-
-                {% else %}
-                <a class="text btn btn-primary" href="{% url 'login' %}"><span class="fa fa-sign-in">Login</span></a>
-                {% endif %}
             </div>
-        </footer>
+            <div class="col-lg-2">
+                <div class="footer-widget">
+                    <h2 class="fw-title"><span>Quick Link:</span></h2>
+                    <ul class="links">
+                        <li><a href="{% url 'news_wall' %}">Sermons</a></li>
+                        <li><a href="{% url 'ministry-wall' %}">Ministries</a></li>
+                        <li><a href="{% url 'event_wall' %}">Events</a></li>
+                        <li><a href="{% url 'gallery_wall' %}">Gallery</a></li>
+                        <li><a href="{% url 'membership_wall' %}">Members</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="footer-widget">
+                    <h2 class="fw-title">Get in Touch</h2>
+                    <ul class="address">
+                        <li><span class="icon"><i class="fa fa-phone"></i></span>
+                            {% phone_number %}
+
+                        </li>
+                        <li><span class="icon"><i class="fa fa-envelope"></i></span>
+                            {% email_address %}
+                        </li>
+                        <li><span class="icon"><i class="fa fa-map-marker"></i></span>
+                            {% church_address %}
+                        </li>
+                        <li> <span class="icon"><i class="fa fa-pencil"> P.O.Box</i></span>
+                            {%Post_Office_Box %}
+                        </li>
+                    </ul><br>
+                    <ul class="social">
+                        <li><a href="{% facebook %}" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="{% youtube%}" target="_blank"><i class="fa fa-youtube"></i></a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+        </div>
     </div>
+    <div class=" container-fluid footer-bottom-area">
+        <p class="copyright">
+            {% church_footer %} 1997
+            <script>new Date().getFullYear() > 2010 && document.write(" - " + new Date().getFullYear());</script> |
+            Website Developed by<a href="https://mugoyadihfahsih.000webhostapp.com" target="_blank"> <b
+                    style="font-size: 90%; color: yellow"> Mugoya Dihfahsih</b></a>
+
+        </p>
+        
+        {% if user.is_authenticated %}
+            <a class="text btn btn-primary" href="{% url 'logout' %}"><span class="fa fa-sign-out">Log Out</span></a>
+
+        {% else %}
+        <a class="text btn btn-primary" href="{% url 'login' %}"><span class="fa fa-sign-in">Login</span></a>
+        {% endif %}
+    </div>
+    
 </div>
 <!-- Scripts -->
 <script src="{% static 'vendors/jquery-ui/jquery-ui.js' %}"></script>

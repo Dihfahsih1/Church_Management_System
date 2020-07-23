@@ -35,7 +35,7 @@
                     {% endif %}
                     <li class="nav-item">
                         <a href="{% url 'index_public' %}" class="nav-link border border-light grey-text rounded waves-effect">
-                            <i class="fa fa-globe mr-3"></i><strong style="color:white;">website</strong>
+                            <i class="fa fa-globe mr-3"></i> <strong style="color:white;"> Website</strong>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -44,10 +44,10 @@
                                         style="color:white; font-size: 120%">{{ request.user.username }}
                                         <span class=" fa fa-angle-down"></span></b></i>
                         </a>
-                        <ul class="dropdown-menu dropdown-usermenu pull-left">
-                            <li><a href="{% url 'profile' %}"> Profile</a></li>
-                            <li><a href="{% url 'changing-password' %}"> Change Password</a></li>
-                            <li><a href="{% url 'logout'%}"><i class="fa fa-sign-out pull-left"></i>Log Out</a></li>
+                        <ul class="dropdown-menu dropdown-usermenu pull-left" style="background-color: crimson;">
+                            <li><a href="{% url 'profile' %}"> <i class="fa fa-user mr-3"></i> Profile</a></li>
+                            <li><a href="{% url 'changing-password' %}"><i class="fa fa-edit mr-3"></i> Change Password</a></li>
+                            <li><a href="{% url 'logout'%}"><i class="fa fa-sign-out"></i>Log Out</a></li>
                         </ul>
                     </li>
                   
