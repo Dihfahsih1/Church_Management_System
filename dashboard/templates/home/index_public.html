@@ -170,7 +170,7 @@
                 {% for news in news %} {% if forloop.counter <= 3 %}
                     <a href="{% url 'news_detail' news.pk %}">
                         <div class="col-lg-4" style="margin-left: -1%;">
-                        <div class="single-news">
+                        <div class="single-news" style="height: 380px">
                             <div class="img" style="height: 180px">
                                 {% if news.image %}
                                     <img src="{{ news.image.url }}"

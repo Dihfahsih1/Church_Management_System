@@ -2068,8 +2068,8 @@ class NewsListView(ListView):
     context_object_name = 'news'
 
 def news_wall(request):
-    news = News.published.all()
-    paginator = Paginator(news, 3)
+    news = News.published.all().order_by('-date')
+    paginator = Paginator(news, 6)
     page = request.GET.get('page')
     try:
        news_list = paginator.page(page)
@@ -2414,7 +2414,7 @@ class MinistryListView(ListView):
 
 def ministry_wall(request):
     ministry = Ministry.published.all()
-    paginator = Paginator(ministry, 3)  # 6 members on each page
+    paginator = Paginator(ministry, 6)  # 6 members on each page
     page = request.GET.get('page')
     try:
        minisitries_list = paginator.page(page)

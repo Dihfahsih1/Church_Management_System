@@ -20,7 +20,7 @@
 
                 {% for news in news_list %}
                     <div class="col-lg-4 col-md-6 col-sm-8 col-12">
-                        <div class="single-news">
+                        <div class="single-news" style="height: 556px;">
                             <div class="img">
                                 {% if news.image %}
                                     <img src="{{ news.image.url }}" alt="">
@@ -45,7 +45,7 @@
                                 </audio>
                                 {% endif %}
                                 <div class="text">
-                                    {{ news.news|truncatewords:40|linebreaks }}
+                                    {{ news.news|truncatewords:20|linebreaks }}
                                 </div>
                                 <div class="more text-right">
                                     <a class="link glbscl-link-btn hvr-bs"
