@@ -61,14 +61,14 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="section-title text-center">
-                <h1 class="title"><span style="font-size:4vw">{% church_name %} </span></h1><br>
+                <h1 class="title"><span style="font-size:125%">{% church_name %} </span></h1><br>
                 <a href="{% url 'abouts_vision' %}">
-                    <h3 class="head-title" style="font-size:4vw"><span class="inner"> VISION: </span>{% church_vision %}</h3>
+                    <h2 class="head-title"style="font-size:4vw; text-align:center">{% church_vision %}</h2>
                 </a>
-                <br>
+                <!-- <br><br>
                 <a href="{% url 'abouts_mission' %}">
-                    <h4 class="head-title" style="font-size:4vw"><span class="inner"> MISSION: </span>{% church_mission %}</h4><br><span style="font-size:3vw; padding-top:50%">( lwaki oli mulamu? )</span>
-                </a>
+                    <h2 class="head-title"style="font-size:4vw"><span class="inner"> MISSION: </span>{% church_mission %}</h2><br><span style="font-size:3vw; padding-top:50%">( lwaki oli mulamu? )</span>
+                </a> -->
             </div>
         </div>
     </div>
@@ -109,9 +109,7 @@
     <!-------------------------------------------Church Highlights Section--------------------------------------------->
     <div class="row">
         <div class="col-lg-12" style="background-color: #f3f0f0">
-            <h2 class="head-title" style="text-align: center;"> <a class="link glbscl-link-btn hvr-bs"
-                    href="{% url 'news_wall' %}">Church Highlights</a></h2><br><br>
-
+            <h2 class="title" style="text-align: center;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">Church Highlights</a></h2> <br>
             <div class="col-lg-7">
                 <div class="row justify-content-center">
                     <div class="gallery-carousel owl-carousel">    
@@ -146,8 +144,8 @@
     <!---------------------------------------GOSPEL SERMONS-------------------------------------->
     <div class="row">
         <div class="col-lg-12" style="background-color: #f3f0f0" >
-            <h2 class="head-title" style="text-align: center;"> <a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}"> Latest Gospel Sermons</a></h2>
-            <br><br>
+            <h2 class="title" style="text-align: center;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">
+                        Latest Gospel Sermons</a></h2> <br>
             <div class="container-fluid">
                 {% for news in news %} {% if forloop.counter <= 3 %}
                     <a href="{% url 'news_detail' news.pk %}">
@@ -187,7 +185,7 @@
     <div class="row">
         <div class="col-lg-12" style="background-color: #f3f0f0">
             <h2 class="title" style="text-align: center;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'event_wall' %}">
-                Church Activities</a></h2>
+                Church Activities</a></h2><br>
             <div class="container-fluid">
                 <div class="row" style="margin-left:2px">{% for event in events %}{% if forloop.counter <= 3 %}
                     <div class="col-lg-4">
@@ -203,18 +201,18 @@
                                     <h2 class="title">{{ event.event_title }}
                                     </h2>
                                     <ul class="list">
-                                        <li class="info"><span class="icon"><i
+                                        <li class="info"><span class="icon"><i style="color:black"
                                                 class="fa fa-user"></i></span>Leader: {{ event.event_for }}
                                         </li>
-                                        <li class="info"><span class="icon"><i
+                                        <li class="info"><span class="icon"><i style="color:black"
                                                 class="fa fa-calendar"></i></span> Start Date: {{ event.from_date }}
                                             
                                         </li>
-                                        <li class="info"><span class="icon"><i
+                                        <li class="info"><span class="icon" ><i style="color:black"
                                                 class="fa fa-calendar"></i></span>End Date:{{ event.to_date }}
                                             
                                         </li>
-                                        <li class="info"><span class="icon"><i
+                                        <li class="info"><span class="icon"><i style="color:black"
                                                 class="fa fa-map-marker"></i></span>{{ event.event_place }}
                                         </li>
                                     </ul>
@@ -232,7 +230,7 @@
 <!------------------------------------------------ Church Members ----------------------------------------------->
     <div class="row">
         <div class="col-lg-12" style="background-color: #f3f0f0">
-            <h2 class="title" style="text-align: center;"> <a class="link glbscl-link-btn hvr-bs" href="{% url 'membership_wall' %}">Church Members</a></h2>
+            <h2 class="title" style="text-align: center;"> <a class="link glbscl-link-btn hvr-bs" href="{% url 'membership_wall' %}">Church Members</a></h2><br>
                       
             <div class="row justify-content-center" style="width:97.5%;margin-left:2px">
                 <div class="gallery-carousel owl-carousel">{% for member in members %} {% if forloop.counter <= 20 or member.full_name == "Desire Namuganyi" %}{% if member.Initials != 'Pr.'%} 
@@ -256,7 +254,7 @@
     <div class="row"> 
         <div class="col-lg-12" style="background-color: #f3f0f0; border: solid green 3px;">
         <div class="col-lg-9">
-         <h2 class="title" style="text-align: center;"> <a class="link glbscl-link-btn hvr-bs" href="#">We would like to hear from You</a></h2>
+         <h2 class="title" style="text-align: center;"> <a class="link glbscl-link-btn hvr-bs">We would like to hear from You</a></h2>
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-lg-6 testimonial-area">
@@ -302,25 +300,22 @@
                                     {% else %}
                                     <div class="col-lg-12">
                                         <div class="contact-input-box">
-                                            <input type="text" name="name" id="name" 
-                                                placeholder="Name" required="required">
+                                            <input type="text" name="name" id="name"  placeholder="Name" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="contact-input-box">
-                                            <input type="email" name="email" id="email" 
-                                                placeholder="Email" required="required">
+                                            <input type="email" name="email" id="email"  placeholder="Email" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="contact-input-box">
-                                            <input type="text" name="phone" id="phone" placeholder="Phone" required="required">
+                                            <input type="text" name="phone" id="phone" placeholder="Phone" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 ">
                                         <div class="contact-input-box">
-                                            <textarea name="feedback" id="message" required="required"
-                                                placeholder="Feed Back *">
+                                            <textarea name="feedback" id="message" required placeholder="Feed Back *">
                                             </textarea>
                                         </div>
                                     </div>
