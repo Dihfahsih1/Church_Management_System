@@ -5,19 +5,6 @@
 {% block content %}
 
 <div class=" container justify-content-center" style="max-width: 1333px; background-color:ivory;">
- <!--  <div class="slider-area owl-carousel">
-    {% for slider in sliders %}
-        <div class="single-slider" style="height: 400px;width:100%" >
-            <div class="img">
-                {% if slider.slider_image %}
-                    <img src="{{ slider.slider_image.url }}" alt="">
-                {% endif %}
-            </div>
-            
-        </div>
-    {% endfor %}
-    </div> url({% static 'img/welcome.jpg'%}) -->
-
     <div class="row" >
       <div class="slider-area owl-carousel">
         <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
@@ -66,22 +53,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Single Hero Slide 
-        <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
-        style="background-image: url({% static 'img/welcome.jpg'%});height:430px;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="hero-slides-content">
-                            <h2 data-animation="fadeInUp" data-delay="100ms">Who Are You</h2>
-                            <h3 data-animation="fadeInUp" data-delay="120ms" style="color:white;">I am saved by God’s grace, raised up with Christ and seated with Him in heavenly places (Ephesians 2:5-6; Colossians 2:12).</h3>              
-                            <a href="#" class="btn crose-btn" data-animation="fadeInUp" data-delay="500ms">find out More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>-->
       </div>
     </div>
 
@@ -163,7 +134,7 @@
 
             <div class="col-lg-5" style="border: 2px red solid"> 
                 <h2 class=" head-title" style="text-align: center;">Lwaki Oli Mulamu annual conference</h2><br>
-                <p style="font-size: 100%   ;">Lwaki Oli Mulamu annual conference, Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference
+                <p style="font-size: 125%  ;">Lwaki Oli Mulamu annual conference, Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference
                     Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference 
                     Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference
                 </p>
@@ -184,8 +155,7 @@
                         <div class="single-news" style="height: 380px">
                             <div class="img" style="height: 180px">
                                 {% if news.image %}
-                                    <img src="{{ news.image.url }}"
-                                        alt="">
+                                    <img src="{{ news.image.url }}" alt="">
                                 {% endif %}
                             </div>
 
@@ -199,10 +169,8 @@
                                         {{ news.date }}
                                     </li>
                                 </ul>
-
                                 <h2 class="title">{{ news.news_title }}</h2>
-
-                                <p class="text">
+                                <p style="font-size: 125%;">
                                 {{ news.news|truncatewords:20|linebreaks }}
                                 </p>
 
