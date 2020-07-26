@@ -81,7 +81,7 @@
                 {% for about in abouts %}
                 {% if about.id == 3 %}
                 <span class="info" >
-                    <p style="font-size:20px">{{ about.about|truncatewords:100 }}</p>
+                    <p style="font-size:20px">{{ about.about|truncatewords:90 }}</p>
                     <a href="{% url 'about_detail' about.pk %}"><b>... More</b></a>
                 </span>
                 {% endif %}
@@ -330,8 +330,6 @@
                             </form>
                         </div>
                     </div>
-                    
-                
             </div>
         </div>    
         </div>
