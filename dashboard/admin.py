@@ -22,8 +22,6 @@ class MembersAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'total_tithe')
 class SalariesPaidAdmin(admin.ModelAdmin):
     list_display = ('total_salary_paid','Balance') 
-class OfferingsReportArchiveAdmin(admin.ModelAdmin):
-    list_display = ('total_offerings') 
 class ExpendituresAdmin(admin.ModelAdmin):
     list_display = ('net_float') 
 class UserAdmin(admin.ModelAdmin):
