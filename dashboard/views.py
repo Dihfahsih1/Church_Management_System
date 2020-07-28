@@ -575,7 +575,6 @@ def Enter_Offerings(request):
         form=RevenuesForm()
         return render(request, 'Offerings/record_offerings.html',{'form':form})
 
-#edit offerings
 @login_required
 def edit_offerings(request, pk):
     if request.user.Role == 'SuperAdmin' or 'Secretary ' or 'Admin' or 'Assistant_Admin':
