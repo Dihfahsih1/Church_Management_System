@@ -3,7 +3,7 @@
 
 {% load static contact_tags  %}
 {% block content %}
-<div class="container-fluid" style="background-color: white; border: tomato 2px solid">
+<div class="container-fluid" style="background-color: white;">
 <div class=" container justify-content-center" style="max-width: 1333px;">
     <div class="row" >
       <div class="slider-area owl-carousel">
@@ -11,7 +11,7 @@
         style="height:430px;background-image: url({% static 'img/welcome.jpg' %})" >
             <div class="container">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-lg-12">
                         <div class="hero-slides-content">
                             <h3 data-animation="fadeInUp" data-delay="100ms"  style="color:white;">YOU ARE WELCOME TO</h3>
                             <h2 data-animation="fadeInUp" data-delay="200ms" style="color:white;">UNITED CHRISTIAN CENTER Bwaise</h2>
@@ -27,7 +27,7 @@
             <!-- Post Content -->
             <div class="container">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-lg-12">
                         <div class="hero-slides-content">
                             <h3 data-animation="fadeInUp" data-delay="100ms" style="color:white;">Church Mission</h3>
                             <h2  data-animation="fadeInUp" data-delay="130ms" style = "color:white">Why Are You Alive</h2>
@@ -43,7 +43,7 @@
             <!-- Post Content -->
             <div class="container">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-lg-12">
                         <div class="hero-slides-content">
                             <h3 data-animation="fadeInUp" data-delay="100ms" style="color:white;"> Church Vision</h3>
                             <h2 data-animation="fadeInUp" data-delay="110ms" style="color:white;"> Discovering and Doing God's will(1 John 2:15-17)</h2>
@@ -105,9 +105,8 @@
     <!-------------------------------------------Church Highlights Section--------------------------------------------->
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="title" style="text-align: center;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">Church Highlights</a></h2> <br>
+            <h2 class="title" style="text-align: center;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'event_wall' %}">Church Highlights</a></h2> <br>
             <div class="col-lg-7">
-                <div class="container">
                     <div class="gallery-carousel owl-carousel">    
                         {% for image in images %} 
                             <a href="{% url 'image_view' image.pk %}">
@@ -116,19 +115,17 @@
                                         {% if image.gallery_image %}
                                             <img src="{{ image.gallery_image.url }}" data-fancybox="images" style="border-radius: 5%; height: 200px" >
                                         {% endif %} 
-                                        
                                     <span class="content">
-                                        <p style="font-size:18px">{{ image.image_caption|truncatewords:3 }}</p>
+                                        <p style="font-size:18px">{{ image.image_caption|truncatewords:2 }}</p>
                                     </span>
                                 </div> 
                             </a>
                         {% endfor %}
                     </div> 
-                </div>
             </div>
 
-            <div class="col-lg-5" style="border: 2px red solid"> 
-                <h2 class=" head-title" style="text-align: center;">Lwaki Oli Mulamu annual conference</h2><br>
+            <div class="col-lg-5" style=""> 
+                <h2 class="title" style="text-align: center;">Lwaki Oli Mulamu annual conference</h2>
                 <p style="font-size: 125%  ;">Lwaki Oli Mulamu annual conference, Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference
                     Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference 
                     Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference
@@ -248,9 +245,10 @@
             </div>
         </div>    
     </div>
+    <hr />
     <!-----------------------------------------Church Feedback------------------------------------------------->
     <div class="row"> 
-        <div class="col-lg-12" style=" border: solid green 3px;">
+        <div class="col-lg-12">
         <div class="col-lg-9">
          <h2 class="title" style="text-align: center;"> <a class="link glbscl-link-btn hvr-bs">We would like to hear from You</a></h2>
             <div class="col-lg-12">
@@ -260,10 +258,10 @@
                             <div class="testimonial-carousel owl-carousel">
                                 {% for data in feeback %}
                                     {% if forloop.counter <= 15 %}
-                                    <div class="single-testimonial">
+                                    <div class="single-testimonial" style="border: 2px solid">
                                         <div class="content"  style="height: 250px">
                                             <h2 class="name">{{data.name}}</h2>
-                                            <p style="font-size: 1.5vw;"> {{data.feedback}}</p>
+                                            <p style="font-size: 20px;"> {{data.feedback|truncatewords:20}}</p>
                                         </div>
                                     </div>
                                     {% endif %}
@@ -331,7 +329,7 @@
             </div>
         </div>    
         </div>
-        <div class="col-lg-3" style="background-color: hotpink;">
+        <div class="col-lg-3">
             <h2 class="head-title" style="text-align:center">Social Media Feeds</h2>
             <br>
         
