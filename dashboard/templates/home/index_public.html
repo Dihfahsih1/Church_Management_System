@@ -3,8 +3,8 @@
 
 {% load static contact_tags  %}
 {% block content %}
-
-<div class=" container justify-content-center" style="max-width: 1333px; background-color:ivory;">
+<div class="container-fluid" style="background-color: white; border: tomato 2px solid">
+<div class=" container justify-content-center" style="max-width: 1333px;">
     <div class="row" >
       <div class="slider-area owl-carousel">
         <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
@@ -63,12 +63,8 @@
             <div class="section-title text-center">
                 <h1 class="title"><span style="font-size:125%">{% church_name %} </span></h1><br>
                 <a href="{% url 'abouts_vision' %}">
-                    <h2 class="head-title"style="font-size:4vw; text-align:center">{% church_vision %}</h2>
+                    <h2 style="font-size:4vw; text-align:center">{% church_vision %}</h2>
                 </a>
-                <!-- <br><br>
-                <a href="{% url 'abouts_mission' %}">
-                    <h2 class="head-title"style="font-size:4vw"><span class="inner"> MISSION: </span>{% church_mission %}</h2><br><span style="font-size:3vw; padding-top:50%">( lwaki oli mulamu? )</span>
-                </a> -->
             </div>
         </div>
     </div>
@@ -108,20 +104,21 @@
 
     <!-------------------------------------------Church Highlights Section--------------------------------------------->
     <div class="row">
-        <div class="col-lg-12" style="background-color: #f3f0f0">
+        <div class="col-lg-12">
             <h2 class="title" style="text-align: center;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">Church Highlights</a></h2> <br>
             <div class="col-lg-7">
-                <div class="row justify-content-center">
+                <div class="container">
                     <div class="gallery-carousel owl-carousel">    
                         {% for image in images %} 
                             <a href="{% url 'image_view' image.pk %}">
                                 <div class="single-gallery" >
+                                    
                                         {% if image.gallery_image %}
-                                            <img src="{{ image.gallery_image.url }}" data-fancybox="images" alt="" style="height: 110px;">
+                                            <img src="{{ image.gallery_image.url }}" data-fancybox="images" style="border-radius: 5%; height: 200px" >
                                         {% endif %} 
                                         
                                     <span class="content">
-                                        <p style="font-size:20px">{{ image.image_caption|truncatewords:3 }}</p>
+                                        <p style="font-size:18px">{{ image.image_caption|truncatewords:3 }}</p>
                                     </span>
                                 </div> 
                             </a>
@@ -134,7 +131,8 @@
                 <h2 class=" head-title" style="text-align: center;">Lwaki Oli Mulamu annual conference</h2><br>
                 <p style="font-size: 125%  ;">Lwaki Oli Mulamu annual conference, Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference
                     Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference 
-                    Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference
+                    Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference
+                    Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conferenceLwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference
                 </p>
             </div>
         </div>
@@ -143,7 +141,7 @@
 
     <!---------------------------------------GOSPEL SERMONS-------------------------------------->
     <div class="row">
-        <div class="col-lg-12" style="background-color: #f3f0f0" >
+        <div class="col-lg-12" style="" >
             <h2 class="title" style="text-align: center;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">
                         Latest Gospel Sermons</a></h2> <br>
             <div class="container-fluid">
@@ -183,7 +181,7 @@
 
     <!---------------------------------------- Church Activities ------------------------------------------>       
     <div class="row">
-        <div class="col-lg-12" style="background-color: #f3f0f0">
+        <div class="col-lg-12" style="">
             <h2 class="title" style="text-align: center;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'event_wall' %}">
                 Church Activities</a></h2><br>
             <div class="container-fluid">
@@ -229,7 +227,7 @@
 
 <!------------------------------------------------ Church Members ----------------------------------------------->
     <div class="row">
-        <div class="col-lg-12" style="background-color: #f3f0f0">
+        <div class="col-lg-12" style="">
             <h2 class="title" style="text-align: center;"> <a class="link glbscl-link-btn hvr-bs" href="{% url 'membership_wall' %}">Church Members</a></h2><br>
                       
             <div class="row justify-content-center" style="width:97.5%;margin-left:2px">
@@ -252,7 +250,7 @@
     </div>
     <!-----------------------------------------Church Feedback------------------------------------------------->
     <div class="row"> 
-        <div class="col-lg-12" style="background-color: #f3f0f0; border: solid green 3px;">
+        <div class="col-lg-12" style=" border: solid green 3px;">
         <div class="col-lg-9">
          <h2 class="title" style="text-align: center;"> <a class="link glbscl-link-btn hvr-bs">We would like to hear from You</a></h2>
             <div class="col-lg-12">
@@ -349,6 +347,7 @@
         </div>
     </div>
     <!------------------------------------------------Website Footer----------------------------------------------->
+</div>
 </div>
 {% endblock %}
 <script type="text/javascript"> 

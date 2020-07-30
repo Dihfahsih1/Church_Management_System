@@ -184,7 +184,7 @@
                                 <li><a href="{% url 'gallery_wall' %}">Gallery</a></li>
                                 <li><a href="{% url 'contact' %}">Contact Us</a></li>
                                 {% if request.user.is_authenticated %}   
-                                <li> <a class="text btn-sm btn-warning" href="{% url 'index' %}"> Church System</a></li>
+                                <li> <a class="text btn-sm btn-warning" href="{% url 'index' %}" target="_new"> Church System</a></li>
                                 {% endif %}
                             </ul>
                         </nav>

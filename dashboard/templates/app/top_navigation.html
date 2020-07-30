@@ -27,8 +27,8 @@
             <div class="col-lg-6"> 
                 <ul class="nav navbar-nav">
                     {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
-                    <li style="font-size:25px;"><a href="{% url 'un-approved-list' %}">
-                            <span class="fa fa-bell"><b style="background-color: red;border-radius: 55%; margin-left: -17%;">
+                    <li style="font-size:25px;"><a href="{% url 'un-approved-list' %}" target="_new">
+                            <span class="fa fa-bell"><b style="background-color: red;border-radius: 55%; margin-left: -17%;" >
                                     <strong style="color:white;">{% un_approved_members %}</strong></b></span>
                         </a>
                     </li>
