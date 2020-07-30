@@ -591,7 +591,6 @@ def edit_offerings(request, pk):
     else:
         return HttpResponse('You are forbidden from accessing this functionality')    
 
-# generating offerings report
 @login_required
 def Offeringsreport (request):
     if request.method=='POST':

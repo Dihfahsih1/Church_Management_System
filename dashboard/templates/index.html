@@ -451,7 +451,7 @@
                         type: 'column'
                     },
                     title: {
-                        text: 'Our sources of Money'
+                        text: 'Sources of Church Money'
                     },
                     xAxis: {
                         type: 'category'
@@ -531,12 +531,6 @@
                     title: {
                         text: 'Things we spend on'
                     },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
-                    },
-                    subtitle: {
-                        text: 'expenditure'
-                    },
                     plotOptions: {
                         pie: {
                             allowPointSelect: true,
@@ -551,13 +545,13 @@
                         enabled: false
                     },
                     series: [{
-                        name: 'Data',
+                        name: 'Total',
                         data: [
-                            ['General', {{general}}],
-                            ['Main', {{expenses}}],
-                            ['Petty', {{petty}}],
-                            ['Allowances', {{allowances}}],
-                            ['Salaries', {{salaries}}],
+                            ['General Expenses', {{general}}],
+                            ['Main Expenses', {{expenses}}],
+                            ['Petty Expenses', {{petty}}],
+                            ['Allowances Expenses', {{allowances}}],
+                            ['Salaries Expenses', {{salaries}}],
                         ]
                     }]
                 });
@@ -618,7 +612,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel tile fixed_height_320">
                             <div class="x_title">
-                                <h2 class="head-title">Revenue</h2>
+                                <h2 class="head-title">Month of {{month}} Revenues</h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                                 </ul>
@@ -636,7 +630,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2 class="head-title">Expenditures</h2>
+                                <h2 class="head-title">Month of {{month}} Expenditures</h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                                 </ul>
