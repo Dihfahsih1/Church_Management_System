@@ -88,12 +88,15 @@
           
            {% if items%}
           {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
-          <p style="color:red; font-size: 150%"><b>NB:</b> Please archive this report <b>ONLY</b> at the end of every month</p>
-          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">ARCHIVE</span></button>
-         {% endif %}
-        {% endif %}
-        <a href="/General-Expenses-Report/pdf/" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"> PRINT REPORT</span></a>
-            <!-- Button trigger modal -->
+         <p>
+          <a href="/General-Expenses-Report/pdf/" target="_new" class="btn btn-info bt-sm" role="button"><span
+              class="glyphicon glyphicon-print"> PRINT REPORT</span></a>
+          <i style="color:red; font-size: 150%"><b>NB:</b> Please archive this report <b>ONLY</b> at the end of every month</i>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">ARCHIVE</span></button>
+            {% endif %}
+            {% endif %}
+            
+          </p>  <!-- Button trigger modal -->
           <!-- Modal -->
           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
