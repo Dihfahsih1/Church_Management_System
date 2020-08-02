@@ -2828,10 +2828,11 @@ def index(request):
         total_monthly_incomes =  tithes + offerings + seeds + thanks + donations 
         total_monthly_expenditure =  allowances + expenses + general + petty + salaries 
         net_income = total_monthly_incomes - total_monthly_expenditure
+        #calculating annual cashfloat given out
 
         #Weekly cash float given out.
         one_week_ago = datetime.today() - timedelta(days=7) 
-        cash_float = CashFloat.objects.filter(Date__gte=one_week_ago, Date__year=current_year)
+        cash_float= CashFloat.objects.filter(Date__gte=one_week_ago, Date__year=current_year)
         if cash_float:
             for i in cash_float:
                 if (one_week_ago): 
@@ -2934,7 +2935,7 @@ def total_expenses(request):
     'total_amount':total_amount,'pledgecash': pledgecash, 'month':month}
     return render(request, 'total_expenses.html', context)
 
-########=================>CASHFLOAT MODULE<=================#######
+########========================>CASHFLOAT MODULE<=====================#######
 def week_of_month(date):
     date= datetime.now()
     month = date.month
@@ -2943,7 +2944,6 @@ def week_of_month(date):
         week += 1
         date -= timedelta(days=7)
     return week
-
 @login_required
 def record_cashfloat(request):
     one_week_ago = datetime.today() - timedelta(days=7) #Weekly
@@ -2958,7 +2958,7 @@ def record_cashfloat(request):
         if form.is_valid():
             form.save()
             return redirect('cashfloat-list')
-    else:
+    else:    
         if get_data:
             week=week_of_month(current_month)
             mesg="You have already given out the float"
@@ -3007,7 +3007,7 @@ def church_groups(request):
     }
     return render(request, 'Groups/church_groups.html', context)
 
-######################<=======HOME CELLS========>######################
+######################<=======HOME CELLS==========>######################
 def home_cells(request):
     Church = Members.objects.filter(is_active=True, Home_Cell="Church Zone")
     Kabira=Members.objects.filter(is_active=True, Home_Cell="Kabira Zone")
