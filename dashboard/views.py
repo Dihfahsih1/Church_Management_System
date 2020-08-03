@@ -747,7 +747,7 @@ def recording_tithes(request):
         context={'form':form}
         return render(request, 'Tithes/record_tithes.html',context)
 
-#record member tithes after name search        
+       
 def record_member_tithe(request, pk):
     if Revenues.objects.filter(Member_Name__id=pk).exists():
         get_member_name=get_object_or_404(Members, pk=pk)
