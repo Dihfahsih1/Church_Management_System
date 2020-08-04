@@ -1105,7 +1105,6 @@ def enter_petty_expenses(request):
         context={'form': form, 'current_month': current_month}
         return render(request, 'Expenses/record_petty_expenses.html', context )
 
-
 @login_required
 def enter_main_expenses(request):
     if request.method=="POST":
@@ -1328,9 +1327,9 @@ def allowancereport(request):
 
 class allowancespdf(View):
     def get(self, request):
-        current_month = datetime.now().month
-        current_year = datetime.now.year
-        allowances = Expenditures.objects.filter( Archived_Status='NOT-ARCHIVED',Date__month=current_month,Date__year=current_year).order_by('-Date')
+        current_month = datetime.today().month
+        current_year = datetime.today().year
+        allowances = Expenditures.objects.filter(Archived_Status='NOT-ARCHIVED',Date__month=current_month,Date__year=current_year).order_by('-Date')
         today = datetime.now()
         year=today.year
         month = today.strftime('%b')
