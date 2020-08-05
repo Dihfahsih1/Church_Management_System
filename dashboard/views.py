@@ -645,7 +645,6 @@ class offeringsarchivepdf(View):
             'archived_offerings': archived_offerings,}
         return Render.render('Offerings/offeringsarchivepdf.html', offeringscontext)  
 
-#offering
 class offeringspdf(View):
     def get(self, request):
         current_month = datetime.now().month
@@ -746,7 +745,6 @@ def recording_tithes(request):
         today = datetime.now()
         context={'form':form}
         return render(request, 'Tithes/record_tithes.html',context)
-
        
 def record_member_tithe(request, pk):
     if Revenues.objects.filter(Member_Name__id=pk).exists():
@@ -896,7 +894,7 @@ def member_annual_tithes(request, pk):
     tithescontext={'years':years,'tithes':tithes, 'members':members, 'total_amount':total_amount}
     return render(request, 'Tithes/member_annual_tithes.html', tithescontext) 
 
-     #####################===============>THANKS GIVING MODULE<=================###########################
+#####################===============>THANKS GIVING MODULE<=================###########################
 
 @login_required
 def record_thanks_giving(request):
@@ -959,7 +957,7 @@ def thanksgivingarchivessearch(request):
     context = {'years': years}
     return render(request, "ThanksGiving/thanksgivingarchivessearch.html", context)
 
-     ################<=================== OTHER REVENUE SOURCES MODULE==================>######################
+################<=================== OTHER REVENUE SOURCES MODULE==================>######################
 @login_required
 def record_donations(request):
     if request.method=="POST":
@@ -1262,8 +1260,6 @@ class general_expenditure_report_pdf(View):
         }
         return Render.render('Expenses/pdf_general_expenditure_report.html',context)
 
-
-
 class petty_expenditure_report_pdf(View):
     def get(self, request):
         current_month = datetime.now().month
@@ -1280,7 +1276,7 @@ class petty_expenditure_report_pdf(View):
         }
         return Render.render('Expenses/sundrypdf.html',context)
 
-#Allowances Module
+
 @login_required
 def give_allowance(request):
     month = datetime.now().month
