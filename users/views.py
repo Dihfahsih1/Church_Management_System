@@ -88,7 +88,7 @@ def register(request):
         users = User.objects.filter(full_name__is_active=True)
         count_users = users.count()
         context={ 'form':form, 'users':users, 'count_users':count_users}
-        return render(request, 'users/home/register.html',context)
+        return render(request, 'users/home/register.html', context)
 
 
 def MemberAccountRegister(request):
@@ -103,6 +103,7 @@ def MemberAccountRegister(request):
     else:
         form = MembershipAccountForm()
         return render(request, 'users/home/membershipaccount.html', {'form': form,'members':members})
+
 @login_required
 def delete_user(request,pk):
     user= get_object_or_404(User, id=pk)
@@ -112,6 +113,7 @@ def delete_user(request,pk):
         return redirect("register")
     context= {'user': user}
     return render(request, 'users/home/delete_user.html', context)
+    
 @login_required
 def user_update(request, user_pk):
     user = get_object_or_404(User, pk=user_pk)
