@@ -14,15 +14,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
 from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
 
+
 class UserPasswordChangeView(LoginRequiredMixin, View):
     form_class = PasswordChangeForm
     template_name = 'users/home/change_password.html'
-
     def get(self, request):
         return render(request, self.template_name, {
             'form': self.form_class(request.user)
         })
-
     def post(self, request):
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
@@ -33,10 +32,8 @@ class UserPasswordChangeView(LoginRequiredMixin, View):
 
 def reset_user_password(request, user_pk):
     user = get_object_or_404(User, pk=user_pk)
-
     if not request.user.is_authenticated:
         return HttpResponseForbidden()
-
     password = password_generator()
     user.set_password(password)
     user.save()
@@ -56,18 +53,16 @@ def view_profile(request):
     context['tithes']=tithes
     context['member_id']=member_id
     return render(request, 'users/home/profile.html',context)
+
 @login_required
 def edit_profile(request):
     get_member = Members.objects.get(id=request.user.full_name.id)
     if request.method == 'POST':
-
         form = MembersForm(request.POST or None, request.FILES or None, instance=get_member)
-
         if form.is_valid():
             form.save()
             messages.success(request, f'Profile updated successfully.')
             return redirect('profile')
-
         else:
             form = MembersForm(instance=get_member)
             args = {'form': form}
@@ -77,8 +72,6 @@ def edit_profile(request):
         form = MembersForm(instance=get_member)
         args = {'form': form}
         return render(request, 'users/home/update_profile.html', args) 
-
-
 
 @login_required
 def register(request):
