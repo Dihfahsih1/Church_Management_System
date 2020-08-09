@@ -10,7 +10,6 @@ class RegisterForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['full_name','username','Role','Is_View_on_Web']
-        # 'roles'
         labels = {
             'full_name': 'Name',
             'email': 'Email',
@@ -26,7 +25,6 @@ class RegisterForm(forms.ModelForm):
             attrs={'data-placeholder': 'Type here the name....', 'data-minimum-input-length': 3})
         }
     def clean_password2(self):
-        # Check that the two password entries match
         password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
         if password1 and password2 and password1 != password2:
@@ -34,7 +32,6 @@ class RegisterForm(forms.ModelForm):
         return password2
 
     def save(self, commit=True):
-        # Save the provided password in hashed format
         user = super(RegisterForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
         if commit:
@@ -48,13 +45,11 @@ class MembershipAccountForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['full_name','username','Is_View_on_Web']
-        # 'roles'
         labels = {
             'username': 'Username',
         }
         
     def clean_password2(self):
-        # Check that the two password entries match
         password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
         if password1 and password2 and password1 != password2:
@@ -62,7 +57,6 @@ class MembershipAccountForm(forms.ModelForm):
         return password2
 
     def save(self, commit=True):
-        # Save the provided password in hashed format
         user = super(MembershipAccountForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
         if commit:
@@ -75,21 +69,5 @@ class EditUserForm(forms.ModelForm):
         fields =['full_name','email','username','Role']
 
    
-'''class UserEmailForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ('email',)
 
-    def clean_email(self):
-        email = self.cleaned_data["email"]
-        if not email:
-            return email
-        try:
-            user = User.objects.get(email=email)
-            if user.email == self.instance.email:
-                return email
-        except User.DoesNotExist:
-            return email
-
-        raise ValidationError(_("This email is already used."))'''
 
