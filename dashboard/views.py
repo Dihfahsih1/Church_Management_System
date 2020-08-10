@@ -778,6 +778,7 @@ def edit_tithes(request, pk):
 
 @login_required
 def Tithesreport (request):
+    context={}
     if request.method=='POST':
         items = Revenues.objects.all().order_by('-id')
         for item in items:
@@ -785,10 +786,8 @@ def Tithesreport (request):
             item.save()
         messages.success(request, f'Tithes Report has been Archived')
         return redirect('Tithesreport')
-    today = datetime.now()
-    month = today.month
+    month = datetime.now().month
     years=today.year
-    context={}
     items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED",Revenue_filter='tithes', Date__year=years).order_by('-Date')
     context['items']=items
     context['years']=years
@@ -801,8 +800,6 @@ def Annual_Tithes(request):
     current_year = datetime.now().year
     get_all_members=Members.objects.filter(is_active=True)
     results = Revenues.objects.filter(Revenue_filter='tithes', Date__year=current_year).aggregate(totals=models.Sum("Amount"))
-    
-    print(results)
     if (results['totals']):
         all_tithes = results["totals"]
     else:
@@ -2100,7 +2097,6 @@ def NewsUpdate(request, news_pk):
     news = get_object_or_404(News, pk=news_pk)
     if request.method == 'POST':
         form = NewsForm(request.POST, request.FILES, instance=news)
-        print(form)
         if form.is_valid():
             form.save()
             messages.success(request, f'The Sermon has been updated Successfully')
