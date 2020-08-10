@@ -718,8 +718,7 @@ def edit_seed(request, pk):
             form.save()
             return redirect('Seeds-report')
     else:
-        today = timezone.now()
-        month = today.strftime('%B')
+        month = timezone.now().strftime('%B')
         form = RevenuesForm(instance=item)        
         context={'form':form, 'month':month}
     return render(request, 'Seeds/edit_seeds.html', context)
