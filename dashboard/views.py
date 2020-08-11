@@ -94,7 +94,7 @@ def contact(request):
                 subject='Email from: ' + client_name + ' telephone: ' + phone_number + ' Email Title: ' +mail_subject, body=message,
                 from_email=received_from, reply_to=[received_from])   
             email.send()
-            messages.success(request, f'Thanks for contacting us, we shall reply you via your email.')
+            messages.success(request, f'Thanks for contacting UCC Bwaise, we shall reply you via your email address.')
             return redirect('index_public')
     else:
         form=ContactForm()
