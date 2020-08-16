@@ -216,7 +216,7 @@
             margin: 10,
             responsiveClass: true,
             navigation: true,
-            navText: ["<i class='fas fa-arrow-left'></i>", "<i class='fas fa-arrow-right'></i>"],
+            navText: ["<i class='fa fa-arrow-left'></i>", "<i class='fa fa-arrow-right'></i>"],
             nav: true,
             items: 4,
             smartSpeed: 2000,
