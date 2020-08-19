@@ -187,7 +187,7 @@ url(r'^gallery/update/(?P<gallery_pk>\d+)/$', views.GalleryUpdateView.as_view(),
 url(r'^gallery/delete/(?P<gallery_pk>\d+)/$', views.gallery_delete, name='gallery_delete'),
 
 #Images
-url(r'^gallery/image/index/$', views.ImageListView.as_view(), name='image_list'),
+url(r'^gallery/image/index/', views.ImageListView.as_view(), name='image_list'),
 url(r'^gallery/image/create/$', views.ImageCreateView.as_view(), name='image_create'),
 url(r'^gallery/image/update/(?P<image_pk>\d+)/$', views.ImageUpdateView.as_view(), name='image_update'),
 url(r'^gallery/image/view/(?P<image_pk>\d+)/$', views.image_view, name='image_view'),
