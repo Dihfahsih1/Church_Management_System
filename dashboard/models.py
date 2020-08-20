@@ -302,18 +302,6 @@ class Ministry(models.Model):
     def __str__(self):
         return self.name
 
-class ArchivedMembers(models.Model):
-    Initials=models.CharField(max_length=100, choices=ini,null=True, blank=True)
-    First_Name=models.CharField(max_length=100,null=True)
-    Second_Name=models.CharField(max_length=100,null=True)
-    Home_Cell=models.CharField(max_length=100, choices=cell,null=True)
-    Residence=models.CharField(max_length=100,null=True)
-    Telephone=models.CharField(max_length=100,null=True)
-    Email=models.CharField(max_length=100,null=True, blank=True)
-    Photo=models.ImageField(upload_to='avatars/', max_length=10000, blank=False)
-    def __str__(self):
-        return self.First_Name + ' ' + self.Second_Name
-
 class Visitors(models.Model):
     Date = models.DateField(null=True, blank=True)
     Photo=models.ImageField(upload_to='avatars/', max_length=10000, blank=True)
