@@ -289,7 +289,8 @@ class Members(models.Model):
             return results["totals"]
         else:
             return 0    
-
+    class Meta:
+        ordering = ['First_Name']
 class Ministry(models.Model):
     name = models.CharField(max_length=100, unique=True)
     leader = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100)
@@ -616,6 +617,7 @@ class Gallery(models.Model):
         default_permissions = ('view', 'add', 'change', 'delete')
         verbose_name = ("Gallery")
         verbose_name_plural = ("Galleries")
+        ordering = ['-id']
 
     def __str__(self):
         return self.gallery_title        
