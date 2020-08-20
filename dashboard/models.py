@@ -630,6 +630,7 @@ class Image(models.Model):
     published = PublishedStatusManager()
     class Meta:
         default_permissions = ('view', 'add', 'change', 'delete')
+        ordering = ['-gallery_image']
 
     def __str__(self):
         return self.image_caption
