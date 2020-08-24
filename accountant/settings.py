@@ -89,11 +89,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-STATIC_ROOT = ''
-STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
+
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'login'
 LOGIN_URL = 'login'
@@ -119,3 +115,9 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 GOOGLE_RECAPTCHA_SECRET_KEY = '6Ld2KqYZAAAAAMpds7Y4Zw8K5L7JkcuiSopEEtBW'
+
+STATIC_ROOT = ''
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
