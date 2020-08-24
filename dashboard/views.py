@@ -787,11 +787,11 @@ def Tithesreport (request):
         messages.success(request, f'Tithes Report has been Archived')
         return redirect('Tithesreport')
     month = datetime.now().month
-    years=today.year
+    years=datetime.now().year
     items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED",Revenue_filter='tithes', Date__year=years).order_by('-Date')
     context['items']=items
     context['years']=years
-    context['today']=today
+    context['today']=datetime.now()
     return render(request, 'Tithes/tithesindex.html', context)    
 
 
