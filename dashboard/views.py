@@ -849,12 +849,7 @@ class tithespdf(View):
         month=today.strftime('%B')
         total = tithes.aggregate(totals=models.Sum("Amount"))
         total_amount = total["totals"]
-        context = {
-           'year' : year,
-            'today': today,
-            'month': month,
-            'total_amount': total_amount,
-            'request': request,
+        context = {'year' : year, 'today': today, 'month': month, 'total_amount': total_amount, 'request': request,
             'tithes': tithes,}
         return Render.render('Tithes/tithespdf.html', context)
 
@@ -862,11 +857,7 @@ class tithesreceipt(View):
     def get(self, request, pk):
         tithes= get_object_or_404(Revenues,pk=pk)
         today = timezone.now()
-        context = {
-            'today': today,
-            'tithes': tithes,
-            'request': request,
-        }
+        context = {'today': today,'tithes': tithes, 'request': request,}
         return Render.render('Tithes/tithesreceipt.html', context)
 
 class tithesarchivepdf(View):
