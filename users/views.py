@@ -14,7 +14,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
 from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
 
-
 class UserPasswordChangeView(LoginRequiredMixin, View):
     form_class = PasswordChangeForm
     template_name = 'users/home/change_password.html'
