@@ -1395,6 +1395,7 @@ def add_Pledge_Items(request):
         items = PledgeItem.objects.filter(Date__year=current_year, Archived_Status='NOT-ARCHIVED')
         context={'form':form, 'items':items, 'current_year':current_year}
         return render(request, 'Pledges/add_Pledge_Item.html',context)
+
 @login_required
 def list_of_pledge_items(request):
     if request.method=='POST':
@@ -1439,7 +1440,6 @@ def pledge_cash_out(request, pk):
         context={'form':form, 'cashout': cashout}
         return render(request, 'Pledges/pledge_cash_out.html', context)
 
-
 @login_required
 def cashing_out_items(request):
     if request.method == "POST":
@@ -1454,7 +1454,6 @@ def cashing_out_items(request):
             form = PledgesCashedOutForm()
             context={'form':form}
             return render(request, 'Pledges/pledge_cash_out.html', context)
-
 
 @login_required
 def delete_pledge_item(request, pk):
@@ -1576,11 +1575,7 @@ class pledgesarchivepdf(View):
         today = datetime.now()
         total = archived_pledges.aggregate(totals=models.Sum("Amount_Paid"))
         total_amount = total["totals"]
-        pledgescontext = {
-            'today': today,
-            'total_amount': total_amount,
-            'request': request,
-            'archived_pledges': archived_pledges,
+        pledgescontext = {'today': today,'total_amount': total_amount,'request': request, 'archived_pledges': archived_pledges,
         }
         return Render.render('Pledges/pledgesarchivepdf.html', pledgescontext)
 
@@ -1588,10 +1583,7 @@ class pledge_debt_invoice(View):
     def get(self, request, pk):
         debt = Pledges.objects.get(Q(Status='UNPAID') | Q(Status='PARTIAL'), id=pk)
         today = datetime.now()
-        debtcontext = {
-            'today': today,
-            'debt': debt,
-            'request': request,
+        debtcontext = { 'today': today, 'debt': debt, 'request': request,
         }
         return Render.render('Pledges/pledge_debt_invoice.html', debtcontext) 
 
