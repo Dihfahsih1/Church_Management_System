@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'bootstrap_datepicker_plus',
     'bootstrap4',
     'widget_tweaks',
+    'background_task'
     ]
     
 # DEFAULT_FILE_STORAGE = "github_storages.backend.BackendStorages"

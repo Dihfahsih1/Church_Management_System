@@ -28,7 +28,15 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .tokens import account_activation_token  
 from django.core.mail import EmailMessage
-
+# import schedule
+# import time
+# def celery_example():
+#     print('It worked')
+# schedule.every(1000).seconds.do(celery_example)
+# while 1:
+#     schedule.run_pending()
+#     time.sleep(1)    
+    
 # #######################################===>BEGINNING OF THEME MODULE<===############################################
 class ThemeListView(ListView):
     model = Theme

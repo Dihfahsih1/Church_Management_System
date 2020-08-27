@@ -4,7 +4,6 @@ from . import views
 
 urlpatterns=[
 ######################============>CHURCH SYSTEM URLS<=========#####################
-
 #ENTER DATA INTO THE DATABASE URLS
 url(r'^Expenses/Main-Expenses', views.enter_main_expenses, name='enter_expenditure'),
 url(r'^Expenses/Petty-Expenses/', views.enter_petty_expenses, name='enter_sundryexpense'),
