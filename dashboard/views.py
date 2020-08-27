@@ -28,7 +28,15 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .tokens import account_activation_token  
 from django.core.mail import EmailMessage
-# import schedule
+from background_task import background
+
+@background(schedule=10)
+def notify_user():
+    # lookup user by id and send them a message
+    user = Church.objects.get('email_address')
+    user.email_user('Here is a notification', 'You have been notified')
+    print(user)
+notify_user=notify_user.now
 # import time
 # def celery_example():
 #     print('It worked')
