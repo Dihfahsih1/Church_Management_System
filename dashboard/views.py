@@ -126,6 +126,7 @@ def employee_list(request):
     mth = today.strftime('%B')
     context ={'mth':mth,'employees': employees}
     return render(request, 'Employees/employee_list.html', context)
+
 @login_required
 def edit_employee(request, pk):
     item = get_object_or_404(StaffDetails, pk=pk)
@@ -143,6 +144,7 @@ def edit_employee(request, pk):
         form = StaffDetailsForm(instance=item)        
         context={'form':form, 'month':month, 'message':message, 'get_name':get_name}
     return render(request, 'Employees/edit_employee.html', context)
+
 @login_required
 def view_employee(request, pk):
     employees = get_object_or_404(StaffDetails, pk=pk)
@@ -162,6 +164,7 @@ def paying_employees(request, pk):
         retrieve_employee_id = StaffDetails.objects.filter(id=pk)
         context = {'form': form, 'retrieve_employee_id': retrieve_employee_id}
         return render(request, 'Employees/pay_employee.html', context)
+        
 @login_required
 def paid_salary(request):
     if request.method == "POST":
