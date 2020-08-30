@@ -67,17 +67,8 @@ def web(request):
     abouts = About.objects.all()
     feeback= Contact.objects.all().order_by('-id')
     pages = Page.objects.all().order_by('-id')
-    context = {
-        'pages' : pages,
-        'feeback':feeback,
-        'images':images,
-        'events': events,
-        'news': news,
-        'abouts': abouts,
-        'sliders' :sliders,
-        'members': members,
-        'employees': employees,
-        'ministry':ministry,
+    context = {'pages' : pages,'feeback':feeback,'images':images,'events': events,'news': news,
+        'abouts': abouts,'sliders' :sliders,'members': members, 'employees': employees,'ministry':ministry,
     }
     return render(request, 'home/index_public.html', context)
 
@@ -85,7 +76,7 @@ def contact(request):
     if request.method=="POST":
         form=ContactForm(request.POST, request.FILES,)
         if form.is_valid():
-            #form.save()
+            #form.save() if so needed but for now there's no need for that
             church_email = Church.objects.get(id=1)
             emailing_to=church_email.email_address
             client_name= form.cleaned_data.get('name')
