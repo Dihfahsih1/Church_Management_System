@@ -1,1 +1,1 @@
-def testing_function(request):
+from django.test import TestCase

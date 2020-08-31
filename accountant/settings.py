@@ -22,7 +22,7 @@ INSTALLED_APPS = [
     'bootstrap_datepicker_plus',
     'bootstrap4',
     'widget_tweaks',
-    'background_task'
+    'background_task',
     ]
     
 # DEFAULT_FILE_STORAGE = "github_storages.backend.BackendStorages"
@@ -31,6 +31,12 @@ INSTALLED_APPS = [
 # GITHUB_REPO_NAME = "amazing"
 # MEDIA_BUCKET_NAME = "media"
 
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+X_FRAME_OPTIONS = 'DENY'
 AUTH_USER_MODEL = 'dashboard.User'
 MIDDLEWARE = [   
     'django.middleware.security.SecurityMiddleware',

@@ -29,7 +29,8 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token  
 from django.core.mail import EmailMessage
 from background_task import background
-
+def my_scheduled_job():
+    print('worked')
 
     
 # #######################################===>BEGINNING OF THEME MODULE<===############################################
@@ -164,7 +165,7 @@ def paying_employees(request, pk):
         retrieve_employee_id = StaffDetails.objects.filter(id=pk)
         context = {'form': form, 'retrieve_employee_id': retrieve_employee_id}
         return render(request, 'Employees/pay_employee.html', context)
-        
+
 @login_required
 def paid_salary(request):
     if request.method == "POST":
