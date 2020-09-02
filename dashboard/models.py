@@ -759,3 +759,9 @@ class CashFloat(models.Model):
     Notes = models.TextField(max_length=100000, blank=True, null=True)
     def __int__(self):
         return self.Amount
+
+#for testing purposes
+
+class Testing(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    slug = models.SlugField(unique=True)
