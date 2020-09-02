@@ -124,14 +124,16 @@
                     </div> 
             </div>
 
-            <div class="col-lg-5" style=""> 
-                <!-- <h2 class="title" style="text-align: center;"><a href="{% url 'news_wall' %}">Latest Gospel Sermons</a></h2> <br> -->
+            <div class="col-lg-5"> 
+                {% comment %}
+                <h2 class="title" style="text-align: center;"><a href="{% url 'news_wall' %}">Latest Gospel Sermons</a></h2> <br>
+                {% endcomment %}
                 <div class="container-fluid">
                     {% for news in news %} {% if forloop.counter <= 1 %}
                     <a href="{% url 'news_detail' news.pk %}">
                         <div class="col-lg-12" style="margin-left: -1%;">
-                            <div class="single-news" style="height: 280px">
-                                <div class="img" style="height: 180px">
+                            <div class="single-news" style="height: 320px">
+                                <div class="img" style="height: 120px">
                                     {% if news.image %}
                                     <img src="{{ news.image.url }}" alt="">
                                     {% endif %}
@@ -149,7 +151,7 @@
                                     </ul>
                                     <h2 class="title">{{ news.news_title }}</h2>
                                     <p style="font-size: 125%;">
-                                        {{ news.news|truncatewords:20|linebreaks }}
+                                        {{ news.news|linebreaksbr|truncatewords:20}}
                                     </p>
         
                                 </div>
