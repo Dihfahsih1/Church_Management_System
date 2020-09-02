@@ -2293,16 +2293,13 @@ def event_delete(request, event_pk):
                                              request=request,
                                              )
     return JsonResponse(data)
-
-
-# #######################################===>CHURCH MODULE<===##########################################
-
+# #######################################===>CHURCH MODULE<===######################################
 def churchCreateView(request):
     if request.method == "POST":
         form = churchForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            messages.success(request, f'The details have been Created')
+            messages.success(request, f'The Church details have been Created')
             return redirect('church_list')   
     else:
         form=churchForm()
