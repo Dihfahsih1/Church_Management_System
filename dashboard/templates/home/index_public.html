@@ -77,7 +77,7 @@
                 {% for about in abouts %}
                 {% if about.id == 3 %}
                 <span class="info" >
-                    <p style="font-size:20px">{{ about.about|truncatewords:90 }}</p>
+                    <p style="font-size:18px">{{ about.about|linebreaksbr|truncatewords:45 }}</p>
                     <a href="{% url 'about_detail' about.pk %}"><b>... More</b></a>
                 </span>
                 {% endif %}
@@ -125,56 +125,46 @@
             </div>
 
             <div class="col-lg-5" style=""> 
-                <h2 class="title" style="text-align: center;">Lwaki Oli Mulamu annual conference</h2>
-                <p style="font-size: 125%  ;">Lwaki Oli Mulamu annual conference, Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference
-                    Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference 
-                    Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference
-                    Lwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conferenceLwaki Oli Mulamu annual conference Lwaki Oli Mulamu annual conference
-                </p>
+                <!-- <h2 class="title" style="text-align: center;"><a href="{% url 'news_wall' %}">Latest Gospel Sermons</a></h2> <br> -->
+                <div class="container-fluid">
+                    {% for news in news %} {% if forloop.counter <= 1 %}
+                    <a href="{% url 'news_detail' news.pk %}">
+                        <div class="col-lg-12" style="margin-left: -1%;">
+                            <div class="single-news" style="height: 280px">
+                                <div class="img" style="height: 180px">
+                                    {% if news.image %}
+                                    <img src="{{ news.image.url }}" alt="">
+                                    {% endif %}
+                                </div>
+        
+                                <div class="content">
+                                    <ul class="meta">
+                                        <li class="info"><span class="icon"><i class="fa fa-user"></i></span>By :
+                                            {{ news.author.full_name.Initials }} {{ news.author.full_name }} - {{ news.author}}
+                                        </li>
+        
+                                        <li class="info"><span class="icon"><i class="far fa-calendar-alt"></i></span>
+                                            {{ news.date }}
+                                        </li>
+                                    </ul>
+                                    <h2 class="title">{{ news.news_title }}</h2>
+                                    <p style="font-size: 125%;">
+                                        {{ news.news|truncatewords:20|linebreaks }}
+                                    </p>
+        
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    {% endif %}{% endfor %}
+                </div>
             </div>
         </div>
     </div>
     <hr />
 
     <!---------------------------------------GOSPEL SERMONS-------------------------------------->
-    <div class="row">
-        <div class="col-lg-12" style="" >
-            <h2 class="title" style="text-align: center;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">
-                        Latest Gospel Sermons</a></h2> <br>
-            <div class="container-fluid">
-                {% for news in news %} {% if forloop.counter <= 3 %}
-                    <a href="{% url 'news_detail' news.pk %}">
-                        <div class="col-lg-4" style="margin-left: -1%;">
-                        <div class="single-news" style="height: 380px">
-                            <div class="img" style="height: 180px">
-                                {% if news.image %}
-                                    <img src="{{ news.image.url }}" alt="">
-                                {% endif %}
-                            </div>
 
-                            <div class="content">
-                                <ul class="meta">
-                                    <li class="info"><span class="icon"><i class="fa fa-user"></i></span>By :
-                                    {{ news.author.full_name.Initials }} {{ news.author.full_name }} - {{ news.author}}
-                                    </li>
-
-                                    <li class="info"><span class="icon"><i class="far fa-calendar-alt"></i></span>
-                                        {{ news.date }}
-                                    </li>
-                                </ul>
-                                <h2 class="title">{{ news.news_title }}</h2>
-                                <p style="font-size: 125%;">
-                                {{ news.news|truncatewords:20|linebreaks }}
-                                </p>
-
-                            </div>
-                        </div>
-                    </div></a>
-                {% endif %}{% endfor %}
-            </div>
-        </div>    
-    </div>  
-    <hr/>
 
     <!---------------------------------------- Church Activities ------------------------------------------>       
     <div class="row">
