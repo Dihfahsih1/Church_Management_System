@@ -74,7 +74,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'uccbwaise',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
@@ -84,7 +84,7 @@ if os.environ.get('GITHUB_WORKFLOW'):
            'ENGINE': 'django.db.backends.postgresql',
            'NAME': 'github_actions',
            'USER': 'postgres',
-           'PASSWORD': 'postgres',
+           'PASSWORD': 'uccbwaise',
            'HOST': '127.0.0.1',
            'PORT': '5432',
         }
