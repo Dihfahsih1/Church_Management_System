@@ -46,6 +46,8 @@
                         |<a href="{% url 'BuildingRenovationarchivessearch' %}"> Building</a>
                         <div class="separator"></div>
                     </div>
+                    <h2 style="text-align: center;">All Church Details</h2>
+                    <div class="separator"></div>
                     <div class="x_content">
                         <div class="" data-example-id="togglable-tabs">
 
@@ -53,16 +55,15 @@
                                 <li role="presentation" class="active"><a href="{% url 'church_list' %}"><i
                                         class="fa fa-list-ol"></i> church Details</a>
                                 </li>
+                                {% comment %}
                                 {% if request.user.Role == 'SuperAdmin'  %}
                                 
                                         <li role="presentation"><a href="{% url 'church_create' %}"><i
                                                 class="fa fa-plus-square-o"></i> Add church Details</a>
                                         </li>
                                 {% endif %}
+                                {% endcomment %}
                             </ul>
-
-                            <h2 style="text-align: center;">All Church Details</h2>
-                            <div class="separator"></div>
 
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="tab_school_list">
