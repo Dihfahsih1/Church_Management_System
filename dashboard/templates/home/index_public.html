@@ -4,214 +4,210 @@
 {% load static contact_tags  %}
 {% block content %}
 <div class="container-fluid" style="background-color: white;">
-<div class=" container justify-content-center" style="max-width: 1333px;">
-    <div class="row" >
-      <div class="slider-area owl-carousel">
-        <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
-        style="height:430px;background-image: url({% static 'img/welcome.jpg' %})" >
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="hero-slides-content">
-                            <h3 data-animation="fadeInUp" data-delay="100ms"  style="color:white;">YOU ARE WELCOME TO</h3>
-                            <h2 data-animation="fadeInUp" data-delay="200ms" style="color:white;">UNITED CHRISTIAN CENTER Bwaise</h2>
-                            <h3 data-animation="fadeInUp" data-delay="300ms" style="color:white;">Where we discover and do the will of God in our lives</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
-         style="height:430px; background-image: url({% static 'img/w3.jpg'%});">
-            <!-- Post Content -->
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="hero-slides-content">
-                            <h3 data-animation="fadeInUp" data-delay="100ms" style="color:white;">Church Mission</h3>
-                            <h2  data-animation="fadeInUp" data-delay="130ms" style = "color:white">Why Are You Alive</h2>
-                            <a href="{% url 'abouts_mission' %}" class="btn crose-btn" data-animation="fadeInUp" data-delay="700ms">find out More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
-         style="background-image: url({% static 'img/w4.jpg'%});height:430px;">
-            <!-- Post Content -->
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="hero-slides-content">
-                            <h3 data-animation="fadeInUp" data-delay="100ms" style="color:white;"> Church Vision</h3>
-                            <h2 data-animation="fadeInUp" data-delay="110ms" style="color:white;"> Discovering and Doing God's will(1 John 2:15-17)</h2>
-                            <a href="{% url 'abouts_vision' %}" class="btn crose-btn" data-animation="fadeInUp" data-delay="500ms">find out More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-      </div>
-    </div>
-
-<!------------------------------------------- About Church Section -------------------------------------------------->
- {% comment %} 
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="section-title text-center">
-                <h1 class="title"><span style="font-size:20px">{% church_name %} </span></h1><br>
-                <a href="{% url 'abouts_vision' %}">
-                    <h2 style="font-size:18px; text-align:center">{% church_vision %}</h2>
-                </a>
-            </div>
-        </div>
-    </div>
-{% endcomment %}
-<br>
-<!-------------------------------------------About Church with sliding Images---------------------------------------------->
-    <div class="row" style="margin-top:-1%">
-        <div class="col-lg-12">
-            <div class="col-lg-6 ">
-                {% for about in abouts %}
-                {% if about.id == 3 %}
-                <span class="info" >
-                    <p style="font-size:18px">{{ about.about|linebreaksbr|truncatewords:80 }}</p>
-                    <a href="{% url 'about_detail' about.pk %}"><b>... More</b></a>
-                </span>
-                {% endif %}
-                {% endfor %}
-            </div>
-
-            <div class="col-lg-6 text-center">
-                <section class="slider-area owl-carousel ">
-                    {% for slider in sliders %}
-                        <div class="single-slider">
-                            <div class="img">
-                                {% if slider.slider_image %}
-                                    <img src="{{ slider.slider_image.url }}" alt="">
-                                {% endif %}
-                            </div>
-                            <h2 class="title animated"> {{slider.image_title}} </h2>
-                        </div>
-                    {% endfor %}
-                </section>
-            </div>
-        </div>
-    </div>
-  <br>
-    <!-------------------------------------------Church Highlights Section--------------------------------------------->
-    <div class="row">
-        <div class="col-lg-12">
-            <h2 class="title" style="text-align: left;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">Food To Your Soul</a></h2> <br>
-            <div class="col-lg-7">
-                    <div class="gallery-carousel owl-carousel">    
-                        {% for news in news %}
-                            <a href="{% url 'news_detail' news.pk %}">
-                                <div class="single-gallery" >
-                                    
-                                    {% if news.image %}
-                                    <img src="{{ news.image.url }}" alt="">
-                                    {% endif %}
-                                    <div class="content">
-                                        <ul class="meta">
-                                            <li class="info"><span class="icon"><i class="far fa-calendar-alt"></i></span>
-                                                {{ news.date }}
-                                            </li>
-                                        </ul>
-                                        <b>{{ news.news_title }}</b>
-                                    
-                                    </div>
-                                </div> 
-                            </a>
-                        {% endfor %}
-                    </div> 
-            </div>
-
-            <div class="col-lg-5"> 
-                <b style="font-size:19px; text-align: right;"><a href="{% url 'news_wall' %}">Latest Gospel Teaching</a></b> <br>
-                
-                <div class="container-fluid">
-                    <a href="{% url 'news_detail' gospel.pk %}">
-                        <div class="col-lg-12" style="margin-left: -1%;">
-                            <div class="single-news" style="height: 250px">
-                                <div class="img" style="height: 100px">
-                                    {% if gospel.image %}
-                                    <img src="{{ gospel.image.url }}" alt="imagegrouped">
-                                    {% endif %}
-                                </div>
-                                <div class="content">
-                                    <ul class="meta">
-                                        <li class="info"><span class="icon"><i class="fa fa-user"></i></span>By :
-                                            {{ gospel.author.full_name.Initials }} {{ gospel.author.full_name }} - {{ news.author}}
-                                        </li>
-        
-                                        <li class="info"><span class="icon"><i class="far fa-calendar-alt"></i></span>
-                                            {{ gospel.date }}
-                                        </li>
-                                    </ul>
-                                    <h2 class="title">{{ gospel.news_title }}</h2>
-                                    <p style="font-size: 18px">
-                                        {{ gospel.news|linebreaksbr|truncatewords:10}}
-                                    </p>
-        
+    <div class="container-fluid justify-content-center" style="border:solid 2px red">
+        <div class="row" >
+            <div class="slider-area owl-carousel">
+                <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
+                style="height:430px;background-image: url({% static 'img/welcome.jpg' %})" >
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="hero-slides-content">
+                                    <h3 data-animation="fadeInUp" data-delay="100ms"  style="color:white;">YOU ARE WELCOME TO</h3>
+                                    <h2 data-animation="fadeInUp" data-delay="200ms" style="color:white;">UNITED CHRISTIAN CENTER Bwaise</h2>
+                                    <h3 data-animation="fadeInUp" data-delay="300ms" style="color:white;">Where we discover and do the will of God in our lives</h3>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
+                style="height:430px; background-image: url({% static 'img/w3.jpg'%});">
+                    <!-- Post Content -->
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="hero-slides-content">
+                                    <h3 data-animation="fadeInUp" data-delay="100ms" style="color:white;">Church Mission</h3>
+                                    <h2  data-animation="fadeInUp" data-delay="130ms" style = "color:white">Why Are You Alive</h2>
+                                    <a href="{% url 'abouts_mission' %}" class="btn crose-btn" data-animation="fadeInUp" data-delay="700ms">find out More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
+                style="background-image: url({% static 'img/w4.jpg'%});height:430px;">
+                    <!-- Post Content -->
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="hero-slides-content">
+                                    <h3 data-animation="fadeInUp" data-delay="100ms" style="color:white;"> Church Vision</h3>
+                                    <h2 data-animation="fadeInUp" data-delay="110ms" style="color:white;"> Discovering and Doing God's will(1 John 2:15-17)</h2>
+                                    <a href="{% url 'abouts_vision' %}" class="btn crose-btn" data-animation="fadeInUp" data-delay="500ms">find out More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!------------------------------------------- About Church Section -------------------------------------------------->
+    {% comment %} 
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title text-center">
+                    <h1 class="title"><span style="font-size:20px">{% church_name %} </span></h1><br>
+                    <a href="{% url 'abouts_vision' %}">
+                        <h2 style="font-size:18px; text-align:center">{% church_vision %}</h2>
                     </a>
                 </div>
             </div>
         </div>
-    </div>
-    
+    {% endcomment %}
+    <br>
+    <!-------------------------------------------About Church with sliding Images---------------------------------------------->
+        <div class="row" style="margin-top:-1%">
+            <div class="col-lg-12">
+                <div class="col-lg-6 ">
+                    {% for about in abouts %}
+                    {% if about.id == 3 %}
+                    <span class="info" >
+                        <p style="font-size:18px">{{ about.about|linebreaksbr|truncatewords:80 }}</p>
+                        <a href="{% url 'about_detail' about.pk %}"><b>... More</b></a>
+                    </span>
+                    {% endif %}
+                    {% endfor %}
+                </div>
 
-    <!---------------------------------------GOSPEL SERMONS-------------------------------------->
-
-
-    <!---------------------------------------- Church Activities ------------------------------------------>       
-    <div class="row" style="margin-top:-3%">
-        <div class="col-lg-12" style="">
-            <h2 class="title" style="text-align: center;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'event_wall' %}">
-                Church Activities</a></h2><br>
-            <div class="container-fluid">
-                <div class="row" style="margin-left:2px">{% for event in events %}{% if forloop.counter <= 3 %}
-                    <div class="col-lg-4">
-                        <a href="{% url 'event_detail' event.pk %}">
-                            <div class="single-event" style="margin-left: -8%">
+                <div class="col-lg-6 text-center">
+                    <section class="slider-area owl-carousel ">
+                        {% for slider in sliders %}
+                            <div class="single-slider">
                                 <div class="img">
-                                    {% if event.image %}
-                                        <img src="{{ event.image.url }}"
-                                            alt="">
+                                    {% if slider.slider_image %}
+                                        <img src="{{ slider.slider_image.url }}" alt="">
                                     {% endif %}
                                 </div>
-                                <div class="content">
-                                    <h2 class="title">{{ event.event_title }}
-                                    </h2>
-                                    <ul class="list">
-                                        <li class="info"><span class="icon"><i style="color:black"
-                                                class="fa fa-user"></i></span>Leader: {{ event.event_for }}
-                                        </li>
-                                        <li class="info"><span class="icon"><i style="color:black"
-                                                class="fa fa-calendar"></i></span> Start Date: {{ event.from_date }}
-                                            
-                                        </li>
-                                        <li class="info"><span class="icon" ><i style="color:black"
-                                                class="fa fa-calendar"></i></span>End Date:{{ event.to_date }}
-                                            
-                                        </li>
-                                        <li class="info"><span class="icon"><i style="color:black"
-                                                class="fa fa-map-marker"></i></span>{{ event.event_place }}
-                                        </li>
-                                    </ul>
-                                    
+                                <h2 class="title animated"> {{slider.image_title}} </h2>
+                            </div>
+                        {% endfor %}
+                    </section>
+                </div>
+            </div>
+        </div>
+    <br>
+        <!-------------------------------------------Church Highlights Section--------------------------------------------->
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="title" style="text-align: left;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">Food To Your Soul</a></h2> <br>
+                <div class="col-lg-7">
+                        <div class="gallery-carousel owl-carousel">    
+                            {% for news in news %}
+                                <a href="{% url 'news_detail' news.pk %}">
+                                    <div class="single-gallery" >
+                                        
+                                        {% if news.image %}
+                                        <img src="{{ news.image.url }}" alt="">
+                                        {% endif %}
+                                        <div class="content">
+                                            <ul class="meta">
+                                                <li class="info"><span class="icon"><i class="far fa-calendar-alt"></i></span>
+                                                    {{ news.date }}
+                                                </li>
+                                            </ul>
+                                            <b>{{ news.news_title }}</b>
+                                        
+                                        </div>
+                                    </div> 
+                                </a>
+                            {% endfor %}
+                        </div> 
+                </div>
+
+                <div class="col-lg-5"> 
+                    <b style="font-size:19px; text-align: right;"><a href="{% url 'news_wall' %}">Latest Gospel Teaching</a></b> <br>
+                    
+                    <div class="container-fluid">
+                        <a href="{% url 'news_detail' gospel.pk %}">
+                            <div class="col-lg-12">
+                                <div class="single-news" style="height: 250px">
+                                    <div class="img" style="height: 100px">
+                                        {% if gospel.image %}
+                                        <img src="{{ gospel.image.url }}" alt="imagegrouped">
+                                        {% endif %}
+                                    </div>
+                                    <div class="content">
+                                        <ul class="meta">
+                                            <li class="info"><span class="icon"><i class="fa fa-user"></i></span>By :
+                                                {{ gospel.author.full_name.Initials }} {{ gospel.author.full_name }} - {{ news.author}}
+                                            </li>
+            
+                                            <li class="info"><span class="icon"><i class="far fa-calendar-alt"></i></span>
+                                                {{ gospel.date }}
+                                            </li>
+                                        </ul>
+                                        <h2 class="title">{{ gospel.news_title }}</h2>
+                                        <p style="font-size: 18px">
+                                            {{ gospel.news|linebreaksbr|truncatewords:10}}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </a>
-                    </div>{% endif %}{% endfor %}
+                    </div>
                 </div>
-            </div>  
-        </div> 
+            </div>
+        </div>
+
+        <!---------------------------------------- Church Activities ------------------------------------------>       
+        <div class="row" style="margin-top:-3%">
+            <div class="col-lg-12">
+                <h2 class="title" style="text-align: center;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'event_wall' %}">
+                    Church Activities</a></h2><br>
+                <div class="container-fluid">
+                    <div class="row" style="margin-left:2px">{% for event in events %}{% if forloop.counter <= 3 %}
+                        <div class="col-lg-4">
+                            <a href="{% url 'event_detail' event.pk %}">
+                                <div class="single-event" style="margin-left: -8%">
+                                    <div class="img">
+                                        {% if event.image %}
+                                            <img src="{{ event.image.url }}"
+                                                alt="">
+                                        {% endif %}
+                                    </div>
+                                    <div class="content">
+                                        <h2 class="title">{{ event.event_title }}
+                                        </h2>
+                                        <ul class="list">
+                                            <li class="info"><span class="icon"><i style="color:black"
+                                                    class="fa fa-user"></i></span>Leader: {{ event.event_for }}
+                                            </li>
+                                            <li class="info"><span class="icon"><i style="color:black"
+                                                    class="fa fa-calendar"></i></span> Start Date: {{ event.from_date }}
+                                                
+                                            </li>
+                                            <li class="info"><span class="icon" ><i style="color:black"
+                                                    class="fa fa-calendar"></i></span>End Date:{{ event.to_date }}
+                                                
+                                            </li>
+                                            <li class="info"><span class="icon"><i style="color:black"
+                                                    class="fa fa-map-marker"></i></span>{{ event.event_place }}
+                                            </li>
+                                        </ul>
+                                        
+                                    </div>
+                                </div>
+                            </a>
+                        </div>{% endif %}{% endfor %}
+                    </div>
+                </div>  
+            </div> 
     </div>
 
 

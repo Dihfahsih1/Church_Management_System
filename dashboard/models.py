@@ -624,7 +624,7 @@ class Image(models.Model):
 
     def __str__(self):
         return self.image_caption
-#News
+#News   
 class News(models.Model):
     news_title = models.CharField(max_length=100)
     date = models.DateField(auto_now_add=True)
