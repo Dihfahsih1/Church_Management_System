@@ -57,7 +57,7 @@
     </div>
 
 <!------------------------------------------- About Church Section -------------------------------------------------->
-    <hr />
+ {% comment %} 
     <div class="row">
         <div class="col-lg-12">
             <div class="section-title text-center">
@@ -68,16 +68,16 @@
             </div>
         </div>
     </div>
-<hr />
-
+{% endcomment %}
+<br>
 <!-------------------------------------------About Church with sliding Images---------------------------------------------->
-    <div class="row">
+    <div class="row" style="margin-top:-1%">
         <div class="col-lg-12">
             <div class="col-lg-6 ">
                 {% for about in abouts %}
                 {% if about.id == 3 %}
                 <span class="info" >
-                    <p style="font-size:18px">{{ about.about|linebreaksbr|truncatewords:45 }}</p>
+                    <p style="font-size:18px">{{ about.about|linebreaksbr|truncatewords:80 }}</p>
                     <a href="{% url 'about_detail' about.pk %}"><b>... More</b></a>
                 </span>
                 {% endif %}
@@ -100,24 +100,29 @@
             </div>
         </div>
     </div>
-    <hr />
-
+  <br>
     <!-------------------------------------------Church Highlights Section--------------------------------------------->
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="title" style="text-align: center;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'event_wall' %}">Church Highlights</a></h2> <br>
+            <h2 class="title" style="text-align: left;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">Food To Your Soul</a></h2> <br>
             <div class="col-lg-7">
                     <div class="gallery-carousel owl-carousel">    
-                        {% for image in images %} 
-                            <a href="{% url 'image_view' image.pk %}">
+                        {% for news in news %}
+                            <a href="{% url 'news_detail' news.pk %}">
                                 <div class="single-gallery" >
                                     
-                                        {% if image.gallery_image %}
-                                            <img src="{{ image.gallery_image.url }}" data-fancybox="images" style="border-radius: 5%; height: 200px" >
-                                        {% endif %} 
-                                    <span class="content">
-                                        <p style="font-size:18px">{{ image.image_caption|truncatewords:2 }}</p>
-                                    </span>
+                                    {% if news.image %}
+                                    <img src="{{ news.image.url }}" alt="">
+                                    {% endif %}
+                                    <div class="content">
+                                        <ul class="meta">
+                                            <li class="info"><span class="icon"><i class="far fa-calendar-alt"></i></span>
+                                                {{ news.date }}
+                                            </li>
+                                        </ul>
+                                        <b>{{ news.news_title }}</b>
+                                    
+                                    </div>
                                 </div> 
                             </a>
                         {% endfor %}
@@ -125,51 +130,47 @@
             </div>
 
             <div class="col-lg-5"> 
-                {% comment %}
-                <h2 class="title" style="text-align: center;"><a href="{% url 'news_wall' %}">Latest Gospel Sermons</a></h2> <br>
-                {% endcomment %}
+                <b style="font-size:19px; text-align: right;"><a href="{% url 'news_wall' %}">Latest Gospel Teaching</a></b> <br>
+                
                 <div class="container-fluid">
-                    {% for news in news %} {% if forloop.counter <= 1 %}
-                    <a href="{% url 'news_detail' news.pk %}">
+                    <a href="{% url 'news_detail' gospel.pk %}">
                         <div class="col-lg-12" style="margin-left: -1%;">
-                            <div class="single-news" style="height: 320px">
-                                <div class="img" style="height: 120px">
-                                    {% if news.image %}
-                                    <img src="{{ news.image.url }}" alt="">
+                            <div class="single-news" style="height: 250px">
+                                <div class="img" style="height: 100px">
+                                    {% if gospel.image %}
+                                    <img src="{{ gospel.image.url }}" alt="imagegrouped">
                                     {% endif %}
                                 </div>
-        
                                 <div class="content">
                                     <ul class="meta">
                                         <li class="info"><span class="icon"><i class="fa fa-user"></i></span>By :
-                                            {{ news.author.full_name.Initials }} {{ news.author.full_name }} - {{ news.author}}
+                                            {{ gospel.author.full_name.Initials }} {{ gospel.author.full_name }} - {{ news.author}}
                                         </li>
         
                                         <li class="info"><span class="icon"><i class="far fa-calendar-alt"></i></span>
-                                            {{ news.date }}
+                                            {{ gospel.date }}
                                         </li>
                                     </ul>
-                                    <h2 class="title">{{ news.news_title }}</h2>
+                                    <h2 class="title">{{ gospel.news_title }}</h2>
                                     <p style="font-size: 18px">
-                                        {{ news.news|linebreaksbr|truncatewords:20}}
+                                        {{ gospel.news|linebreaksbr|truncatewords:10}}
                                     </p>
         
                                 </div>
                             </div>
                         </div>
                     </a>
-                    {% endif %}{% endfor %}
                 </div>
             </div>
         </div>
     </div>
-    <hr />
+    
 
     <!---------------------------------------GOSPEL SERMONS-------------------------------------->
 
 
     <!---------------------------------------- Church Activities ------------------------------------------>       
-    <div class="row">
+    <div class="row" style="margin-top:-3%">
         <div class="col-lg-12" style="">
             <h2 class="title" style="text-align: center;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'event_wall' %}">
                 Church Activities</a></h2><br>
@@ -212,11 +213,11 @@
             </div>  
         </div> 
     </div>
-<hr/>
+
 
 <!------------------------------------------------ Church Members ----------------------------------------------->
-    <div class="row">
-        <div class="col-lg-12" style="">
+    <div class="row" style="margin-top:-1%">
+        <div class="col-lg-12" >
             <h2 class="title" style="text-align: center;"> <a class="link glbscl-link-btn hvr-bs" href="{% url 'membership_wall' %}">Church Members</a></h2><br>
                       
             <div class="row justify-content-center" style="width:97.5%;margin-left:2px">
@@ -237,9 +238,8 @@
             </div>
         </div>    
     </div>
-    <hr />
     <!-----------------------------------------Church Feedback------------------------------------------------->
-    <div class="row"> 
+    <div class="row"style="margin-top:-3%"> 
         <div class="col-lg-12">
         <div class="col-lg-9">
          <h2 class="title" style="text-align: center;"> <a class="link glbscl-link-btn hvr-bs">We would like to hear from You</a></h2>

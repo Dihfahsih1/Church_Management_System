@@ -66,9 +66,10 @@ def web(request):
     employees = StaffDetails.published.all()
     sliders = Slider.objects.all().order_by('-id')
     abouts = About.objects.all()
+    gospel = News.published.latest('date')
     feeback= Contact.objects.all().order_by('-id')
     pages = Page.objects.all().order_by('-id')
-    context = {'pages' : pages,'feeback':feeback,'images':images,'events': events,'news': news,
+    context = {'gospel':gospel,'pages' : pages,'feeback':feeback,'images':images,'events': events,'news': news,
         'abouts': abouts,'sliders' :sliders,'members': members, 'employees': employees,'ministry':ministry,
     }
     return render(request, 'home/index_public.html', context)
