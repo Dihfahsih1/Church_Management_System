@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import *
-header = 'Welcome to UCC Bwaise Admin Portal'
+admin.site.site_header = 'Welcome to UCC Bwaise Admin Portal'
 class PledgeItemAdmin(admin.ModelAdmin):
     list_display = (
     	'Total_Amount_Pledged',
