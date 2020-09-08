@@ -94,7 +94,6 @@ def contact(request):
     else:
         form=ContactForm()
         return render(request, 'home/contacts.html',{'form':form})
-
     return render(request, 'home/contacts.html')
 
 
@@ -179,7 +178,7 @@ def paid_salary(request):
             context = {'form': form}
             return render(request, 'Employees/pay_employee.html', context)
 
- #archive salaries report 
+#archive salaries report 
 @login_required          
 def current_month_salary_paid(request):
     current_month = datetime.now().month
@@ -227,7 +226,7 @@ def salariespaidarchivessearch(request):
     return render(request, "Employees/salariespaidarchive.html", context)
  
 
-    ####################================>MEMBERSHIP MODULE<=================####################
+####################================>MEMBERSHIP MODULE<=================####################
 @login_required
 def register_members(request):
     if request.method=="POST":
@@ -283,19 +282,19 @@ def Online_Registration(request):
         context={'form':form}
         return render(request, 'Members/online_registration.html', context)
 #activate your email address
-def activate_email(request, uidb64, token):  
-        try:  
-            uid = force_text(urlsafe_base64_decode(uidb64)) 
-            member = Members.objects.get(id=uid)  
-        except(TypeError, ValueError, OverflowError, Members.DoesNotExist):  
-            member = None  
-        if member is not None and account_activation_token.check_token(member, token): 
-            # member.is_active=True
-            # member.save()
-            context={'first_name':member}
-            return render(request, 'email_confirmed.html', context)  
-        else:  
-            return HttpResponse('Activation link is invalid!')
+def activate_email(request, uidb64, token):
+    try:  
+        uid = force_text(urlsafe_base64_decode(uidb64)) 
+        member = Members.objects.get(id=uid)  
+    except(TypeError, ValueError, OverflowError, Members.DoesNotExist):  
+        member = None  
+    if member is not None and account_activation_token.check_token(member, token): 
+        # member.is_active=True
+        # member.save()
+        context={'first_name':member}
+        return render(request, 'email_confirmed.html', context)  
+    else:  
+        return HttpResponse('Activation link is invalid!')
 #visitors
 @login_required
 def register_visitors(request):
