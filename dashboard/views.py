@@ -78,7 +78,6 @@ def contact(request):
     if request.method=="POST":
         form=ContactForm(request.POST, request.FILES,)
         if form.is_valid():
-            #form.save() if so needed but for now there's no need for that
             church_email = Church.objects.get(id=1)
             emailing_to=church_email.email_address
             client_name= form.cleaned_data.get('name')
