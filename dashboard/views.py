@@ -385,8 +385,6 @@ def unarchive_member(request, pk):
             item.save()
         messages.success(request, f'Member has been un Archived successfully')
         return redirect('members-list')
-
-
 def church_pastors(request):
     pastors = Members.published.all()
     return render(request, 'Members/pastoral_team.html', {'pastors': pastors})
