@@ -4,7 +4,9 @@ import fleep
 from django import forms
 from .models import *
 from django.forms import Textarea, TextInput, ChoiceField
-from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput, MonthPickerInput  
+from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput, MonthPickerInput 
+from functools import partial
+ 
 
 # class FormWithCaptcha(forms.Form):
 #     captcha = ReCaptchaField()
@@ -232,7 +234,11 @@ class MinistryForm(forms.ModelForm):
     class Meta:
         model = Ministry
         fields = ('name', 'leader', 'photos', 'details','Is_View_on_Web')
-class AnnualConferenceFormm(forms.ModelForm):
-    class meta:
+class AnnualConferenceForm(forms.ModelForm):
+    class Meta:
         model = AnnualConference
         fields = ('start_date', 'end_date', 'estimated_budget', 'conference_theme','conference_report')
+        widgets={
+        'start_date':DatePickerInput(),
+        'end_date' :DatePickerInput()
+        }

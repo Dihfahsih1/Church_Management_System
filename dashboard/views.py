@@ -2999,11 +2999,15 @@ def home_cells(request):
 #########Conference Module ############
 def record_annual_conference(request):
     if request.method=="POST":
-        form=AnnualConferenceFormm(request.POST)
+        form=AnnualConferenceForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, f'Conference details have been recorded')
-            return redirect('get_absolut_url')
+            return redirect('list_of_conferences')
     else:
-        form=AnnualConferenceFormm()
-        return render(request, 'Offerings/record_offerings.html',{'form':form})
+        form=AnnualConferenceForm()
+        return render(request, 'conference/record_conference.html',{'form':form})
+def list_of_conferences(request):
+    details = AnnualConference.objects.all()
+    context={'details':details}
+    return render(request,'conference/list.html', context)
