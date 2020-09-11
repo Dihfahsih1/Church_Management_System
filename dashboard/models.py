@@ -765,3 +765,12 @@ class CashFloat(models.Model):
 class Testing(models.Model):
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(unique=True)
+
+class AnnualConference(models.Model):
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+    estemated_budget = models.IntegerField(default=0,blank=True, null=True)
+    conference_theme = models.CharField(max_length=500, blank=True, null=True)
+    conference_report = models.TextField(max_length=100000, blank=True, null=True)
+    def __int__(self):
+        return self.conference_theme
