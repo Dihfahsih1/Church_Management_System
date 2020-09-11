@@ -241,4 +241,7 @@ url(r'^Membership/Approval/(?P<pk>\d+)/$', views.approve_member, name='approve-m
 url(r'^Un-Approved-Membership/$', views.un_approved_members_list, name='un-approved-list'),
 url(r'^Reject-Membership/(?P<pk>\d+)/$', views.reject_request, name='reject-request'),
 path('activate/<str:uidb64>/<str:token>/',views.activate_email, name='activate'), 
+
+#Conference
+path('Record-Conference', views.record_annual_conference, name='record_annual_conference')
 ]

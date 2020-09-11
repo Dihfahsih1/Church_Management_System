@@ -2995,3 +2995,15 @@ def home_cells(request):
         'Katooke': Katooke
     }
     return render(request, 'Groups/home_cells.html', context)
+
+#########Conference Module ############
+def record_annual_conference(request):
+    if request.method=="POST":
+        form=AnnualConferenceFormm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Conference details have been recorded')
+            return redirect('get_absolut_url')
+    else:
+        form=AnnualConferenceFormm()
+        return render(request, 'Offerings/record_offerings.html',{'form':form})

@@ -232,3 +232,7 @@ class MinistryForm(forms.ModelForm):
     class Meta:
         model = Ministry
         fields = ('name', 'leader', 'photos', 'details','Is_View_on_Web')
+class AnnualConferenceFormm(forms.ModelForm):
+    class meta:
+        model = AnnualConference
+        fields = ('start_date', 'end_date', 'estimated_budget', 'conference_theme','conference_report')

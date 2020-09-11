@@ -774,3 +774,4 @@ class AnnualConference(models.Model):
     conference_report = models.TextField(max_length=100000, blank=True, null=True)
     def __int__(self):
         return self.conference_theme
+
