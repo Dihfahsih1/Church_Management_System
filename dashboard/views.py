@@ -2997,6 +2997,7 @@ def home_cells(request):
     return render(request, 'Groups/home_cells.html', context)
 
 #########Conference Module ############
+@login_required
 def record_annual_conference(request):
     if request.method=="POST":
         form=AnnualConferenceForm(request.POST)
@@ -3007,6 +3008,7 @@ def record_annual_conference(request):
     else:
         form=AnnualConferenceForm()
         return render(request, 'conference/record_conference.html',{'form':form})
+@login_required
 def list_of_conferences(request):
     details = AnnualConference.objects.all()
     context={'details':details}
