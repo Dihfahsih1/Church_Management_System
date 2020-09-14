@@ -3013,3 +3013,15 @@ def list_of_conferences(request):
     details = AnnualConference.objects.all()
     context={'details':details}
     return render(request,'conference/list.html', context)
+
+def record_new_convert(request):
+    if request.method=="POST":
+        form=NewConvertForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Convert details have been recorded')
+            return redirect('record_new_convert')
+    else:
+        form=NewConvertForm()
+        return render(request, 'NewConverts/record_new_convert.html',{'form':form})
+    

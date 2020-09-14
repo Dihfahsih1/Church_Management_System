@@ -242,3 +242,10 @@ class AnnualConferenceForm(forms.ModelForm):
         'start_date':DatePickerInput(),
         'end_date' :DatePickerInput()
         }
+class NewConvertForm(forms.ModelForm):
+    class Meta:
+        model = NewConvert
+        fields = ('is_church_member', 'born_again_before', 'First_Name', 'Second_Name', 'Telephone', 'Date_Of_Salvation', 'member_name')
+        widgets={
+            'Date_Of_Salvation':DatePickerInput(),
+        }

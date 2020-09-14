@@ -244,5 +244,8 @@ path('activate/<str:uidb64>/<str:token>/',views.activate_email, name='activate')
 
 #Conference
 path('Record-Conference', views.record_annual_conference, name='record_annual_conference'),
-path('list-of-conferences', views.list_of_conferences, name='list_of_conferences')
+path('list-of-conferences', views.list_of_conferences, name='list_of_conferences'),
+
+#New Converts
+path('New-Converts', views.record_new_convert, name='record_new_convert')
 ]
