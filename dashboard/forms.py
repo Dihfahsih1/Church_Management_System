@@ -248,4 +248,6 @@ class NewConvertForm(forms.ModelForm):
         fields = ('is_church_member', 'born_again_before', 'First_Name', 'Second_Name', 'Telephone', 'Date_Of_Salvation', 'member_name')
         widgets={
             'Date_Of_Salvation':DatePickerInput(),
+            'member_name': autocomplete.ModelSelect2(url='auto-complete',
+            attrs={'data-placeholder': 'Type here the name....', 'data-minimum-input-length': 3})
         }
