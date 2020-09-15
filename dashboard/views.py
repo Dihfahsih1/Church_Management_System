@@ -3013,7 +3013,7 @@ def list_of_conferences(request):
     details = AnnualConference.objects.all()
     context={'details':details}
     return render(request,'conference/list.html', context)
-
+######### New Converts Module ############
 def record_new_convert(request):
     if request.method=="POST":
         form=NewConvertForm(request.POST)
@@ -3024,7 +3024,21 @@ def record_new_convert(request):
     else:
         form=NewConvertForm()
         return render(request, 'NewConverts/record_new_convert.html',{'form':form})
+
 def new_converts_list(request):
     qs=NewConvert.objects.all()
     context = {'qs':qs}
-    return render(request, 'NewConverts/new_converts_list.html', context)   
+    return render(request, 'NewConverts/new_converts_list.html', context)
+
+def edit_new_convert(request, pk):
+    qs=NewConvert.objects.get(id=pk)
+    if request.method == "POST":
+        form = NewConvertForm(request.POST, instance=qs)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'The New Convert Details Have Been Updated')
+            return redirect('new_converts_list')
+    else:
+        form = NewConvertForm(instance=qs)
+    context = {'form':form}
+    return render(request, 'NewConverts/edit_new_convert.html', context) 

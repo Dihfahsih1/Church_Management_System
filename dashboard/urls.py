@@ -248,5 +248,6 @@ path('list-of-conferences', views.list_of_conferences, name='list_of_conferences
 
 #New Converts
 path('New-Converts', views.record_new_convert, name='record_new_convert'),
-path('List-New-Converts', views.new_converts_list, name='new_converts_list')
+path('List-New-Converts', views.new_converts_list, name='new_converts_list'),
+path('<int:pk>/', views.edit_new_convert, name='edit_new_convert')
 ]
