@@ -50,10 +50,12 @@
                                                 <td>{{ item.Date_Of_Salvation}}</td>
                                                 {% if item.member_name %}
                                                 <td>{{ item.member_name}}</td>
+                                                <td> {{ item.member_name.Telephone}} </td>
                                                 {% else %}
                                                 <td>{{ item.First_Name}} {{ item.Second_Name}}</td>
-                                                {% endif %}
                                                 <td>{{ item.Telephone}}</td>
+                                                {% endif %}
+                                                
                                                 <td>
                                                     {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
                                                         <div class="mb-4">
