@@ -1,0 +1,83 @@
+{% extends "app/base_site.html" %}
+{% block content  %}
+{% load humanize %}
+
+<head>
+    <title>UCC Bwaise | Converts</title>
+</head>
+<div class="right_col" role="main">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h1 style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b>NEW CONVERTS
+                            MODULE</b></h1>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="" data-example-id="togglable-tabs">
+                        <ul class="nav nav-tabs bordered">
+                            <li role="presentation" class="active"><a href="#">
+                                <i class="fa fa-list-ol"></i> List of Converts</a>
+                            </li>
+                            <li role="presentation"><a href="{% url 'record_new_convert' %}">
+                                <i class="fa fa-plus-square-o"></i>Add New Convert</a>
+                            </li>
+                        </ul>
+                        <h2 style="text-align: center">All Converts in </h2>
+                        <div class="separator"></div>
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="tab_invoice_list">
+                                <div class="x_content">
+                                    <table id="invoice-table"
+                                        class=" sum_table table table-striped table-bordered dt-responsive"
+                                        cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <td>Date</td>
+                                                <td>Name</td>
+                                                <td>Contact</td>
+                                                <td>Action</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in qs %}
+                                            <tr>
+                                                <td>{{ item.Date_Of_Salvation}}</td>
+                                                {% if item.member_name %}
+                                                <td>{{ item.member_name}}</td>
+                                                {% else %}
+                                                <td>{{ item.First_Name}} {{ item.Second_Name}}</td>
+                                                {% endif %}
+                                                <td>{{ item.Telephone}}</td>
+                                                <td>
+                                                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+                                                        <div class="mb-4">
+                                                            <a href ="#" class="btn btn-info btn-sm">
+                                                                <span class="glyphicon glyphicon-edit"> Edit</span>
+                                                            </a>
+                                                            <a href="#" class="btn btn-success btn-sm">
+                                                                <span class="glyphicon glyphicon-eye-open"> View</span>
+                                                            </a>
+                                                        </div>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

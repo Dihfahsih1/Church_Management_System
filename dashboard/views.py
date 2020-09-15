@@ -3024,4 +3024,7 @@ def record_new_convert(request):
     else:
         form=NewConvertForm()
         return render(request, 'NewConverts/record_new_convert.html',{'form':form})
-    
+def new_converts_list(request):
+    qs=NewConvert.objects.all()
+    context = {'qs':qs}
+    return render(request, 'NewConverts/new_converts_list.html', context)   
