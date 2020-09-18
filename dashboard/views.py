@@ -70,8 +70,7 @@ def web(request):
     feeback= Contact.objects.all().order_by('-id')
     pages = Page.objects.all().order_by('-id')
     context = {'gospel':gospel,'pages' : pages,'feeback':feeback,'images':images,'events': events,'news': news,
-        'abouts': abouts,'sliders' :sliders,'members': members, 'employees': employees,'ministry':ministry,
-    }
+        'abouts': abouts,'sliders' :sliders,'members': members, 'employees': employees,'ministry':ministry,}
     return render(request, 'home/index_public.html', context)
 
 def contact(request):
@@ -226,7 +225,7 @@ def salariespaidarchivessearch(request):
     return render(request, "Employees/salariespaidarchive.html", context)
  
 
-####################================>MEMBERSHIP MODULE<=================####################
+#############=======>MEMBERSHIP MODULE<=======#############
 @login_required
 def register_members(request):
     if request.method=="POST":
@@ -239,6 +238,7 @@ def register_members(request):
         form=MembersForm()
         return render(request, 'Members/register_members.html',{'form':form})
 
+#online membership registration view
 def Online_Registration(request):
     if request.method=="POST":
         form=MembersForm(request.POST, request.FILES,)
@@ -281,6 +281,7 @@ def Online_Registration(request):
         form=MembersForm()
         context={'form':form}
         return render(request, 'Members/online_registration.html', context)
+
 #activate your email address
 def activate_email(request, uidb64, token):
     try:  
@@ -295,7 +296,8 @@ def activate_email(request, uidb64, token):
         return render(request, 'email_confirmed.html', context)  
     else:  
         return HttpResponse('Activation link is invalid!')
-#visitors
+
+#register church visitors
 @login_required
 def register_visitors(request):
     if request.method=="POST":
@@ -331,6 +333,8 @@ def members_archived(request):
 #     else:
 #         form = MembersForm(instance=members)
 #     return save_news_form(request, form, 'Members/includes/partial_members_view.html') 
+
+#approve membership request sent from the website
 @login_required
 def approve_member(request, pk):
     if request.method == "GET":
@@ -340,6 +344,7 @@ def approve_member(request, pk):
         messages.success(request, f'Member has been Approved')
         return redirect('un-approved-list')
 
+#reject membership request sent from the website
 @login_required
 def reject_request(request, pk):
     if request.method == "GET":
@@ -347,13 +352,14 @@ def reject_request(request, pk):
         item.delete()
         messages.success(request, f'Membership Request has been Rejected')
         return redirect('un-approved-list')
-
+#list of the un-approved members.
 @login_required        
 def un_approved_members_list(request):        
     get_all_unapproved=Members.objects.filter(is_active=False, Archived_Status='NOT-ARCHIVED')
     context={'get_all_unapproved':get_all_unapproved}
     return render(request,'Members/unapproved-members-list.html', context)
 
+#archiving church members
 @login_required
 def archive_member(request, pk):
     if request.method == "GET":
@@ -370,6 +376,7 @@ def archive_member(request, pk):
         messages.success(request, f'Member has been Archived')
         return redirect('members-list')
 
+#unarchiving members
 @login_required            
 def unarchive_member(request, pk):
    if request.method == "GET":
@@ -385,6 +392,8 @@ def unarchive_member(request, pk):
             item.save()
         messages.success(request, f'Member has been un Archived successfully')
         return redirect('members-list')
+
+#list of pastors
 def church_pastors(request):
     pastors = Members.published.all()
     return render(request, 'Members/pastoral_team.html', {'pastors': pastors})
@@ -393,6 +402,7 @@ def church_administration(request):
     staffs = User.published.filter(Q(Role='Assistant_Admin') | Q(Role='Admin') | Q(Role='SuperAdmin') | Q(Role='Secretary')| Q(Role='Youth Leader'))
     return render(request, 'Members/administration_team.html', {'staffs': staffs})  
 
+#edit member
 def edit_member(request, pk):
     item = get_object_or_404(Members, pk=pk)
     if request.method == "POST":
@@ -406,7 +416,7 @@ def edit_member(request, pk):
         context = {'form': form, 'item':item}
     return render(request, 'Members/edit_member_details.html', context)
 
-  
+#view details of a church member 
 def view_member(request, pk):
     members = get_object_or_404(Members, pk=pk)
     if request.method == 'POST':
@@ -415,7 +425,7 @@ def view_member(request, pk):
         form = MembersForm(instance=members)
     return save_news_form(request, form, 'Members/includes/partial_members_view.html') 
 
-  
+#view all church members registered  
 def membership_wall(request):
     if request.method == 'GET':
         query= request.GET.get('q')
