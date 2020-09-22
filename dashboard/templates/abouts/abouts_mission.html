@@ -3,22 +3,23 @@
 <body>
 
 {% block content %}
-    <section class="page-breadcumb-area">
-        <div class="container text-center">
-            <ul class="menu">
-                <li><a href="#">Core Values</a></li>
-                <li><a href="#" class="active" >Mission</a></li>
-                <li><a href="#">Vision</a></li>
+<div class="container-fluid" style="background-color: white;">
+    <div class="menu">
+        <nav id="mobile_menu_active">
+            <ul id="menu" style="text-align: left;">
+                <li><a style="color: black;" href="#">Core Values</a></li>
+                <li><a class="text btn-sm btn-warning" href="{% url 'abouts_mission' %}">Mission</a></li>
+                <li><a style="color: black;" href="{% url 'abouts_vision' %}">Vision</a></li>
             </ul>
-        </div>
-    </section>
-
+        </nav>
+    </div>
+</div>
     <section class="page-event-area" style="margin-top: -3%">
         
         <div class="container">
             <div class="row justify-content-center">
 
-                <p class="title" style="text-align: center; font-size: 45px;">{% church_mission %}</p>
+                <p class="title" style="text-align: center; font-size: 45px;">Church Mission: {% church_mission %}</p>
                 {% for about in abouts %}
                     <div>
                         <div class="col-lg-12 single-event">

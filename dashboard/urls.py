@@ -93,7 +93,6 @@ url(r'^Reports/Thanks-giving/List', views.thanks_giving_report,name='thanks-givi
 
 url(r'^Reports/Other-Sources/List', views.donations_report, name='donations-report'),
 url(r'^Revenue/Other-Sources/Edit/(?P<pk>\d+)', views.edit_donation,name='edit-donation'),
-
 url(r'^pledgespdf/', views.pledgespdf.as_view() ,name='pledgespdf'),
 
 
@@ -116,7 +115,6 @@ url(r'^Employee/View/(?P<pk>\d+)', views.view_employee ,name='view-employee'),
 url(r'^Member/View/(?P<pk>\d+)', views.view_member ,name='view-member'),
 url(r'^Pledges-Item/Delete/(?P<pk>\d+)', views.delete_pledge_item ,name='delete-pledge-item'),
 url(r'^Pledges-Item/Edit/(?P<pk>\d+)', views.edit_pledge_item ,name='edit-pledge-item'),
-
 url(r'^Pledgesreport/', views.Pledgesreport, name='Pledgesreport'),
 url(r'^Building-Renovations-Report/', views.Building_Renovation_report, name='Building-Renovation-report'),
 
@@ -130,17 +128,12 @@ url(r'^paying_pledges/(?P<pk>\d+)', views.paying_pledges, name='paying_pledges')
 url(r'^Pledges/Cash-Out/(?P<pk>\d+)', views.pledge_cash_out, name='pledge-cash-out'),
 url(r'^Pledges/view/(?P<pledge_pk>\d+)/$', views.pledge_view, name='pledge_view'),
 
-
 #Employees
-
 url(r'^Employees/List/', views.employee_list, name='employee-list'),
 url(r'^Employees/Pay/(?P<pk>\d+)', views.paying_employees, name='pay-employee'),
 url(r'^Employees/Salary/Paid/', views.paid_salary, name='paid-salary'),
 url(r'^Employees/Salary/Paid-List/', views.current_month_salary_paid, name='current-month-salaries'),
 url(r'^Petty-Expenses/Airtime/', views.airtime_data_report, name='airtime-data-report'),
-
-
-
 url(r'^Employee/Salary/Delete/(?P<pk>\d+)', views.delete_salary_paid,name='delete-salary-paid'),
 
 ########################=======>WEBSITE URLS<=======#################################
@@ -225,7 +218,7 @@ url(r'^Ministry/update/(?P<ministry_pk>\d+)/$', views.MinistryUpdateView.as_view
 url(r'^Ministry/view/(?P<ministry_pk>\d+)/$', views.ministry_view, name='ministry-view'),
 url(r'^Ministry/ministry-detail/(?P<ministry_pk>\d+)/$', views.ministry_detail, name='ministry-detail'),
 
-    #Projects
+#Projects
 url(r'^Projects/index/$', views.ProjectsListView.as_view(), name='projects_list'), 
 url(r'^Projects/$', views.projects_wall, name='projects_wall'),
 url(r'^Projects/add/$', views.ProjectsCreateView, name='projects_create'),

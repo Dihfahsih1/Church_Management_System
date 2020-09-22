@@ -156,13 +156,7 @@
                         <nav id="mobile_menu_active">
                             <ul id="menu">
                                 <li><a href="{% url 'index_public' %}">Home</a></li>
-                                <li><a href="#">About Us</a>
-                                    <!-- <ul class="drop">
-                                        <li><a href="{% url 'news_wall' %}">Sermons</a></li>
-                                        <li><a href="{% url 'abouts_vision' %}">Vision</a></li>
-                                        <li><a href="{% url 'abouts_mission' %}">Mission</a></li>
-                                    </ul> -->
-                                </li>
+                                <li><a href="{% url 'abouts_vision' %}">About Us</a></li>
                                 <li><a href="#">Staff <span class="icon fa fa-chevron-down"></span></a>
                                     <ul class="drop">
                                         <li><a href="{% url 'church_pastors' %}">Pastoral</a></li>
@@ -182,7 +176,7 @@
                                 <li><a href="{% url 'gallery_wall' %}">Gallery</a></li>
                                 <li><a href="{% url 'contact' %}">Contact Us</a></li>
                                 {% if request.user.is_authenticated %}   
-                                <li> <a class="text btn-sm btn-warning" href="{% url 'index' %}" target="_new"> Church System</a></li>
+                                <li> <a href="{% url 'index' %}" target="_new"> Church System</a></li>
                                 {% endif %}
                             </ul>
                         </nav>
@@ -317,6 +311,19 @@
     </div>
     
 </div>
+
+<style>
+    .active {
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        height: auto;
+        background:#f3e4e4;
+    }
+
+    .wrapper {
+        max-width: 100% !important;
+        margin: 0px;
+    }
+</style>
 <!-- Scripts -->
 <script src="{% static 'vendors/jquery-ui/jquery-ui.js' %}"></script>
 <script src="{% static 'js/owl.carousel.min.js' %}"></script>
