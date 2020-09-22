@@ -397,6 +397,7 @@ def church_pastors(request):
     pastors = Members.published.all()
     return render(request, 'Members/pastoral_team.html', {'pastors': pastors})
 
+#list of church admins
 def church_administration(request):
     staffs = User.published.filter(Q(Role='Assistant_Admin') | Q(Role='Admin') | Q(Role='SuperAdmin') | Q(Role='Secretary')| Q(Role='Youth Leader'))
     return render(request, 'Members/administration_team.html', {'staffs': staffs})  
@@ -428,9 +429,7 @@ def view_member(request, pk):
 def membership_wall(request):
     if request.method == 'GET':
         query= request.GET.get('q')
-
         submitbutton= request.GET.get('submit')
-
         if query is not None:
             lookups= Q(First_Name__icontains=query) | Q(Second_Name__icontains=query)
             results= Members.objects.filter(lookups, is_active=True).distinct()
@@ -449,7 +448,7 @@ def membership_wall(request):
         members_list = paginator.page(paginator.num_pages)
     context={'page':page, 'members_list': members_list}    
     return render(request, 'Members/members_wall.html', context)
-
+#view member details
 def member_detail(request, pk):
     member = get_object_or_404(Members, pk=pk)
     mem_details=Members.objects.filter(is_active=True)
@@ -503,8 +502,9 @@ def visitors_list(request):
     context ={'visiting': visiting}
     return render(request, 'Members/visitors_list.html', context)
 
-     #############==============>BUILDING MODULE<============#############  
-      
+#############==============>BUILDING MODULE<============#############  
+
+#record building money.     
 @login_required
 def record_building_collections(request):
     if request.method=="POST":
@@ -531,7 +531,7 @@ def edit_building_collections(request, pk):
         form = RevenuesForm(instance=item)
     return render(request, 'BuildingRenovation/edit_building_collections.html', {'form': form})
 
-# generate building report
+#generate building report
 def Building_Renovation_report(request):
     if request.method=='POST':
         items = Revenues.objects.all().order_by('-id')
@@ -567,6 +567,7 @@ def BuildingRenovationarchivessearch(request):
     return render(request, "BuildingRenovation/buildingarchive.html", context)
 
 ####################=================>GENERAL OFFERINGS MODULE<===================###################
+#record offerings
 @login_required
 def Enter_Offerings(request):
     if request.method=="POST":
@@ -579,6 +580,7 @@ def Enter_Offerings(request):
         form=RevenuesForm()
         return render(request, 'Offerings/record_offerings.html',{'form':form})
 
+#update offerings info
 @login_required
 def edit_offerings(request, pk):
     if request.user.Role == 'SuperAdmin' or 'Secretary ' or 'Admin' or 'Assistant_Admin':
@@ -595,6 +597,7 @@ def edit_offerings(request, pk):
     else:
         return HttpResponse('You are forbidden from accessing this functionality')    
 
+#monthly offerings report
 @login_required
 def Offeringsreport (request):
     if request.method=='POST':
@@ -649,6 +652,7 @@ class offeringsarchivepdf(View):
             'archived_offerings': archived_offerings,}
         return Render.render('Offerings/offeringsarchivepdf.html', offeringscontext)  
 
+#offerings report pdf
 class offeringspdf(View):
     def get(self, request):
         current_month = datetime.now().month
@@ -668,6 +672,8 @@ class offeringspdf(View):
         return Render.render('Offerings/offeringspdf.html', context)
 
 ##################=====================>SEEDS OFFERING MODULE<=========================#############################   
+
+#record seeds brought in.
 @login_required
 def add_seeds(request):
     if request.method=="POST":
