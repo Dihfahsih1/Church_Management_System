@@ -829,6 +829,7 @@ class member_annual_tithes_pdf(View):
         context = {'year' : year,'month' : month, 'today': today,'total_amount': total_amount,'request': request,'tithes': tithes,'get_member_name':get_member_name}
         return Render.render('Tithes/memeber_annual_tithes_pdf.html', context)
 
+#retrieve archived tithes after search
 @login_required
 def tithesarchivessearch(request):
     today = datetime.now()
@@ -850,6 +851,7 @@ def tithesarchivessearch(request):
     context = {'years': years}
     return render(request, "Tithes/tithesarchive.html", context)
 
+#create a tithe report pdf
 class tithespdf(View):
     def get(self, request):
         today = datetime.now()
@@ -863,6 +865,7 @@ class tithespdf(View):
             'tithes': tithes,}
         return Render.render('Tithes/tithespdf.html', context)
 
+#genererate a tithe receipt.
 class tithesreceipt(View):
     def get(self, request, pk):
         tithes= get_object_or_404(Revenues,pk=pk)
@@ -870,6 +873,7 @@ class tithesreceipt(View):
         context = {'today': today,'tithes': tithes, 'request': request,}
         return Render.render('Tithes/tithesreceipt.html', context)
 
+#generate a tithe archived pdf
 class tithesarchivepdf(View):
     def get(self, request, report_month, report_year):        
         month=strptime(report_month, '%B').tm_mon
@@ -881,6 +885,7 @@ class tithesarchivepdf(View):
             'request': request,'archived_tithes': archived_tithes,}
         return Render.render('Tithes/tithesarchivepdf.html', tithescontext)
 
+#aggregated annual member tithes
 @login_required
 def member_annual_tithes(request, pk):
     years = timezone.now().year
@@ -893,6 +898,7 @@ def member_annual_tithes(request, pk):
 
 #####################===============>THANKS GIVING MODULE<=================###########################
 
+#enter thanks giving
 @login_required
 def record_thanks_giving(request):
     if request.method=="POST":
@@ -907,6 +913,7 @@ def record_thanks_giving(request):
         context={'form':form, 'month':month}
         return render(request, 'ThanksGiving/record_thanks_giving.html',context)
 
+#generate thanks giving report
 @login_required
 def thanks_giving_report(request):
     if request.method=='POST':
