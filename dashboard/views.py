@@ -1722,6 +1722,10 @@ def core_values(request):
     values = About.published.all()
     return render(request, 'abouts/core_values.html', {'values': values})
 
+def church_details(request):
+    details = About.published.all()
+    return render(request, 'abouts/church_details.html', {'details': details})
+
 class AboutCreateView(CreateView):
     model = About
     template_name = 'abouts/about_create.html'

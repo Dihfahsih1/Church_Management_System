@@ -146,6 +146,7 @@ url(r'^Member/Details/(?P<pk>\d+)', views.member_detail, name='member-detail'),
 url(r'^Church/Vision', views.abouts_vision, name='abouts_vision'),
 url(r'^Church-Mission', views.abouts_mission, name='abouts_mission'),
 url(r'^core-values', views.core_values, name='core_values'),
+url(r'^church-details', views.church_details, name='church_details'),
 url(r'^Pastoral-Team', views.church_pastors, name='church_pastors'),
 url(r'^Administrative-Team', views.church_administration, name='church_administration'),
 

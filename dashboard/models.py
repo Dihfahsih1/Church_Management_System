@@ -548,10 +548,11 @@ class Slider(models.Model):
         return self.image_title
 
 class About(models.Model):
-    about_image = models.ImageField(upload_to='about/',max_length=10000, null=True, blank=False)
+    about_image = models.ImageField(upload_to='about/',max_length=10000, null=True, blank=True)
     about = models.TextField(max_length=50000 , null=True, blank=True)
     about_title = models.CharField(max_length=100, null=True, blank=True)
     core_values = models.TextField(max_length=10000000, null=True, blank=True)
+    church_details = models.TextField(max_length=10000000, null=True, blank=True)
     vision_description = models.TextField(max_length=10000000, null=True, blank=True)
     mission_description = models.TextField(max_length=100000000, null=True, blank=True)
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS, null=True, blank=False)
