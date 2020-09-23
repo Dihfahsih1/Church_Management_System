@@ -162,7 +162,7 @@ class PledgeItemsForm(forms.ModelForm):
 class AboutForm(forms.ModelForm):
     class Meta:
         model = About
-        fields = ('about_title','about', 'about_image','vision_description','mission_description','Is_View_on_Web')
+        fields = ('about_title','about', 'about_image','core_values','vision_description','mission_description','Is_View_on_Web')
 
 class PageForm(forms.ModelForm):
     class Meta:

@@ -5,38 +5,33 @@
 {% block content %}
 <div class="container-fluid" style="background-color: white;">
     <div class="menu">
-        <nav id="mobile_menu_active">
-            <ul id="menu" style="text-align: left;">
-                <li><a style="color: black;" href="#">Core Values</a></li>
-                <li><a class="text btn-sm btn-warning" href="{% url 'abouts_mission' %}">Mission</a></li>
-                <li><a style="color: black;" href="{% url 'abouts_vision' %}">Vision</a></li>
-            </ul>
-        </nav>
+        <ul id="menu" style="text-align: left;">
+            <li><a class="text btn-sm btn-warning" href="{% url 'abouts_mission' %}">Mission</a></li>
+            <li><a style="color: black;" href="{% url 'abouts_vision' %}">Vision</a></li>
+            <li><a style="color: black;" href="{% url 'core_values' %}">Core Values</a></li>
+            
+        </ul>
     </div>
 </div>
-    <section class="page-event-area" style="margin-top: -3%">
-        
+    <section class="page-event-area" style="margin-top: -8%">
+        <p class="title" style="text-align: center; font-size: 20px;">Church Mission: {% church_mission %}</p>
+        <hr />
         <div class="container">
             <div class="row justify-content-center">
 
-                <p class="title" style="text-align: center; font-size: 45px;">Church Mission: {% church_mission %}</p>
                 {% for about in abouts %}
+                {% if about.mission_description is not None %}
                     <div>
-                        <div class="col-lg-12 single-event">
-                            {% comment %}
-                                <div class="img col-lg-4">
-                                    {% if about.about_image %}
-                                        <img src="{{ about.about_image.url }}" alt="">
-                                    {% endif %}
-                                </div>
-                            {% endcomment %}
+                        <div class="col-lg-12">
 
                             <div class="content" >
-                                <p class="info text" style="font-size: 18px;">{{ about.mission_description|linebreaksbr }}</p>
+                                <p class="info text" style="font-size: 18px;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+                         'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">{{ about.mission_description|linebreaksbr }}</p>
                                    
                             </div>
                         </div>
                     </div>
+                {% endif %}
                 {% endfor %}
             </div>
         </div>

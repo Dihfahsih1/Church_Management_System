@@ -1,29 +1,33 @@
 {% extends 'home/base.html' %}
 {% load static contact_tags %}
+
 <body>
 
-{% block content %}
+    {% block content %}
     <div class="container-fluid" style="background-color: white;">
         <div class="menu">
             <ul id="menu" style="text-align: left;">
-                <li><a style="color: black;" href="{% url 'abouts_mission' %}">Mission</a></li>
-                <li><a href="#" class="text btn-sm btn-warning">Vision</a></li>
-                <li><a style="color: black;" href="{% url 'core_values' %}">Core Values</a></li>
+                <li><a style="color: black;"  href="{% url 'abouts_mission' %}">Mission</a></li>
+                <li><a style="color: black;" href="{% url 'abouts_vision' %}">Vision</a></li>
+                <li><a class="text btn-sm btn-warning" href="#">Core Values</a></li>
+                
             </ul>
         </div>
     </div>
-
     <section class="page-event-area" style="margin-top: -8%">
-        <p class="title" style="text-align: center; font-size: 20px;">Church Vision: {% church_vision %}</p>
-        <hr />
+<p class="title" style="text-align: center; font-size: 25px;">Church Core Values</p>
+<hr />
         <div class="container">
             <div class="row justify-content-center">
-               {% for about in abouts %}
-                {% if about.vision_description is not empty %}
+                {% for value in values %}
+                {% if value.core_values is not None %}
                     <div class="col-lg-12">
+
                         <div class="content">
                             <p class="info text" style="font-size: 18px;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-                         'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">{{ about.vision_description|linebreaksbr }}</p>
+                         'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">{{ value.core_values|linebreaksbr }}
+                            </p>
+
                         </div>
                     </div>
                 {% endif %}
@@ -32,6 +36,6 @@
         </div>
     </section>
 
-{% endblock %}
+    {% endblock %}
 
 </body>

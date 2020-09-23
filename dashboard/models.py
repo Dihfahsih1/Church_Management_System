@@ -551,6 +551,7 @@ class About(models.Model):
     about_image = models.ImageField(upload_to='about/',max_length=10000, null=True, blank=False)
     about = models.TextField(max_length=50000 , null=True, blank=True)
     about_title = models.CharField(max_length=100, null=True, blank=True)
+    core_values = models.TextField(max_length=10000000, null=True, blank=True)
     vision_description = models.TextField(max_length=10000000, null=True, blank=True)
     mission_description = models.TextField(max_length=100000000, null=True, blank=True)
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS, null=True, blank=False)
@@ -562,7 +563,7 @@ class About(models.Model):
         verbose_name_plural = ("About")
 
     def __str__(self):
-        return self.about
+        return self.vision_description or self.mission_description or self.core_values
 
     def get_absolute_url(self):
         return reverse('about_detail', args=[self.pk]) 

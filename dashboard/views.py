@@ -1717,6 +1717,11 @@ def abouts_vision(request):
 def abouts_mission(request):
     abouts = About.published.all()
     return render(request, 'abouts/abouts_mission.html', {'abouts': abouts})
+
+def core_values(request):
+    values = About.published.all()
+    return render(request, 'abouts/core_values.html', {'values': values})
+
 class AboutCreateView(CreateView):
     model = About
     template_name = 'abouts/about_create.html'
