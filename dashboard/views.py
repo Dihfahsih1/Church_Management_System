@@ -816,7 +816,8 @@ def Annual_Tithes(request):
         all_tithes = 0  
     context={'all_tithes': all_tithes,'get_all_members':get_all_members, 'current_year':current_year}
     return render(request, "Tithes/current_year_tithes.html", context)
-
+    
+#generate individual annual tithe report
 class member_annual_tithes_pdf(View):
     def get(self, request, pk):
         today = datetime.now()
@@ -896,7 +897,7 @@ def member_annual_tithes(request, pk):
     tithescontext={'years':years,'tithes':tithes, 'members':members, 'total_amount':total_amount}
     return render(request, 'Tithes/member_annual_tithes.html', tithescontext) 
 
-#####################===============>THANKS GIVING MODULE<=================###########################
+#####===>THANKS GIVING MODULE<===#####
 
 #enter thanks giving
 @login_required
@@ -961,7 +962,7 @@ def thanksgivingarchivessearch(request):
     context = {'years': years}
     return render(request, "ThanksGiving/thanksgivingarchivessearch.html", context)
 
-################<=================== OTHER REVENUE SOURCES MODULE==================>######################
+####<=== OTHER REVENUE SOURCES MODULE===>####
 @login_required
 def record_donations(request):
     if request.method=="POST":
@@ -1022,8 +1023,7 @@ def donationsarchivessearch(request):
     context = {'years': years}
     return render(request, "Donations/donationssarchive.html", context)
 
-
-####################<============== GENERAL, MAIN, PETTY EXPENSES MODULES [expenses module] ==========>############################
+####<== GENERAL, MAIN, PETTY EXPENSES MODULES [expenses module] ==>###
 @login_required
 def enter_general_expenses(request):
     if request.method=="POST":
@@ -1073,7 +1073,6 @@ class general_expenses_archived_pdf(View):
         context = {'report_month': report_month,'report_year':report_year,'today': today,
         'total_amount': total_amount,'request': request,'archived': archived,}
         return Render.render('Expenses/generel_expenses_archived_pdf.html', context)
-
 
 @login_required
 def general_expenses_report (request):
@@ -1279,7 +1278,6 @@ class petty_expenditure_report_pdf(View):
         context ={'year':year,'month': month,'today':today,'expenses':expenses,'request': request,'totalexpense': totalexpense,
         }
         return Render.render('Expenses/sundrypdf.html',context)
-
 
 @login_required
 def give_allowance(request):
@@ -1584,7 +1582,6 @@ def pledgesarchivessearch(request):
     context = {'years': years}
     return render(request, "Pledges/pledgesarchive.html", context)   
 
-
 class pledgesarchivepdf(View):
     def get(self, request, report_month, report_year):
         month=strptime(report_month, '%B').tm_mon
@@ -1615,8 +1612,7 @@ class pledge_made_invoice(View):
             'request': request,
         }
         return Render.render('Pledges/pledges_made_invoice.html', debtcontext) 
-
-               
+              
 #airtime report
 @login_required
 def airtime_data_report(request):
@@ -1645,7 +1641,6 @@ class SliderCreateView(CreateView):
         slider.save()
         return redirect('slider_list')
 
-
 class SliderUpdateView(UpdateView):
     model = Slider
     template_name = 'sliders/update_slider.html'
@@ -1656,7 +1651,6 @@ class SliderUpdateView(UpdateView):
         slider = form.save(commit=False)
         slider.save()
         return redirect('slider_list')
-
 
 def save_slider_form(request, form, template_name):
     data = dict()
@@ -1674,7 +1668,6 @@ def save_slider_form(request, form, template_name):
     data['html_form'] = render_to_string(template_name, context, request=request)
     return JsonResponse(data)
 
-
 def slider_view(request, slider_pk):
     slider = get_object_or_404(Slider, pk=slider_pk)
     if request.method == 'POST':
@@ -1682,7 +1675,6 @@ def slider_view(request, slider_pk):
     else:
         form = SliderForm(instance=slider)
     return save_slider_form(request, form, 'sliders/includes/partial_slider_view.html')
-
 
 def slider_delete(request, slider_pk):
     slider = get_object_or_404(Slider, pk=slider_pk)
