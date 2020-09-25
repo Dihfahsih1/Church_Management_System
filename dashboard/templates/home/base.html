@@ -157,18 +157,21 @@
                             <ul id="menu">
                                 <li><a href="{% url 'index_public' %}">Home</a></li>
                                 <li><a href="{% url 'church_details' %}">About Us</a></li>
+
                                 <li><a href="#">Staff <span class="icon fa fa-chevron-down"></span></a>
                                     <ul class="drop">
                                         <li><a href="{% url 'church_pastors' %}">Pastoral</a></li>
                                         <li><a href="{% url 'church_administration' %}">Administrative</a></li>
                                     </ul>
                                 </li>
+
                                 <li><a href="#">Membership <span class="icon fa fa-chevron-down"></span></a>
                                     <ul class="drop">
                                         <li><a href="{% url 'membership_wall' %}">Members</a></li>
                                         <li><a href="{% url 'online_registration' %}">Register</a></li>
                                     </ul>
                                 </li>
+
                                 <li><a href="{% url 'ministry-wall' %}">Ministries</a></li>
                                 <li><a href="{% url 'projects_wall' %}">Projects</a></li>
                                 <li><a href="https://www.youtube.com/channel/UCFMCB_zTwBQNunbpjBsPcSw/videos" target="_blank">YouTube Channel</a></li>
@@ -176,7 +179,7 @@
                                 <li><a href="{% url 'gallery_wall' %}">Gallery</a></li>
                                 <li><a href="{% url 'contact' %}">Contact Us</a></li>
                                 {% if request.user.is_authenticated %}   
-                                <li> <a href="{% url 'index' %}" target="_new"> Church System</a></li>
+                                    <li> <a href="{% url 'index' %}" target="_new"> Church System</a></li>
                                 {% endif %}
                             </ul>
                         </nav>

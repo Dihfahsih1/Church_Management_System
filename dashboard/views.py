@@ -1703,8 +1703,6 @@ def slider_delete(request, slider_pk):
     return JsonResponse(data)
 
 ##################===>ABOUT MODULE<===#########################
-
-
 class AboutListView(ListView):
     model = About
     template_name = 'abouts/about_list.html'
@@ -1735,7 +1733,6 @@ class AboutCreateView(CreateView):
         about = form.save(commit=False)
         about.save()
         return redirect('about_list')
-
 
 class AboutUpdateView(UpdateView):
     model = About
