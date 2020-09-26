@@ -817,6 +817,7 @@ def Annual_Tithes(request):
     context={'all_tithes': all_tithes,'get_all_members':get_all_members, 'current_year':current_year}
     return render(request, "Tithes/current_year_tithes.html", context)
     
+    
 #generate individual annual tithe report
 class member_annual_tithes_pdf(View):
     def get(self, request, pk):
