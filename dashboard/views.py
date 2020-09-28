@@ -3034,6 +3034,20 @@ def list_of_conferences(request):
     details = AnnualConference.objects.all()
     context={'details':details}
     return render(request,'conference/list.html', context)
+
+def edit_conference_details(request, pk):
+    qs=AnnualConference.objects.get(id=pk)
+    if request.method == "POST":
+        form = AnnualConferenceForm(request.POST, instance=qs)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'The New conference Details Have Been Updated')
+            return redirect('list_of_conferences')
+    else:
+        form = AnnualConferenceForm(instance=qs)
+    context = {'form':form}
+    return render(request, 'conference/edit_conference.html', context) 
+
 ######### New Converts Module ############
 def record_new_convert(request):
     if request.method=="POST":
