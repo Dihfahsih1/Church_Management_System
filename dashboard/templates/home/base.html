@@ -83,7 +83,6 @@
         <script src="{% static 'js/front/jquery-ui.js' %}"></script>
         <script src="{% static 'js/jquery.validate.js' %}"></script>
         {% endblock stylesheets %}
-
       
               <style>
               .carousel-inner img {
@@ -124,7 +123,7 @@
                     {% if request.user.is_authenticated %}                    
                         <div class="hta-box">
                             <img src="{% static 'img/onlineIcon.png' %}"
-                                 alt="active"/ width="10px">
+                                 alt="active" width="10px">
                             <span style="font-weight:100%; color: white"> 
                              
                             {{request.user.full_name.Initials}} {{request.user.full_name}}</i></span>
