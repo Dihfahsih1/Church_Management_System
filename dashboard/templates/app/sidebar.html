@@ -37,15 +37,20 @@
                 
                 <li><a href="{% url 'theme_list' %}"><i class="fa fa-cubes"></i> System Themes</a></li>
                 {% endif %}
+
                 <div class="separator"></div>
-                <h3 style="font-weight:bolder; color: white; text-align: center">Financial Functions <i class="glyphicon glyphicon-arrow-down"></i></h3>
+                    <h3 style="font-weight:bolder; color: white; text-align: center">Financial Functions <i class="glyphicon glyphicon-arrow-down"></i></h3>
                 <div class="separator"></div>
+
                 <li><a href="{% url 'church_list' %}"><i class="fa fa fa-institution"></i> Manage Church Details</a></li>
                 <li><a href="{% url 'record_annual_conference' %}"><i class="fa fa-book"></i> Annual Conference</a></li>
+                
                 {% if user.Role == 'Admin' or user.Role == 'SuperAdmin' %}
-                <li><a href="{% url 'record-cashfloat' %}"><i class="fa fa-phone"></i> Cash Float</a></li>
+                    <li><a href="{% url 'record-cashfloat' %}"><i class="fa fa-phone"></i> Cash Float</a></li>
                 {% endif %}
+
                 <li><a href="{% url 'record-building-collections'%}"><i class="fa fa-money"></i>Building Collections</a></li>
+                
                 <li><a href="#"><i class="fa fa-group"></i> Membership <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
@@ -58,6 +63,7 @@
                         <li><a href="{% url 'members-list'%}"> Church Members</a></li>
                     </ul>
                 </li>
+
                 {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
                 <li><a><i class="fa fa-calculator"></i> Record Revenues <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -68,6 +74,7 @@
                         <li><a href="{% url 'record-donations'%}">Other Sources</a></li>
                     </ul>
                 </li>
+
                 <li><a><i class="fa fa-balance-scale"></i> Record Expenditures <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{% url 'enter-general-expenses'  %}">General  Expenditure</a>
@@ -83,6 +90,7 @@
                     </ul>
                 </li>
                 {% endif %}
+
                 <li><a><i class="fa fa-dollar"></i> Pledges Module <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
@@ -97,21 +105,21 @@
 
                 <li><a><i class="fa fa-database"></i> Monthly Reports <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li><a href="{% url 'expenditurereport'  %}">Main Expenses Reports</a></li>
-                        <li><a href="{% url 'general-expenses-report' %}">General Expenses Reports</a></li>
-                        <li><a href="{% url 'Offeringsreport'  %}">Offerings Reports</a></li>
-                        <li><a href="{% url 'sundryreport'  %}"> Petty Expenses Reports</a></li>
-                       {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
-                        <li><a href="{% url 'Tithesreport'  %}"> Tithe Reports</a></li>
-                        <li><a href="{% url 'allowancereport'  %}"> Allowances Reports</a></li>
-                        <li><a href="{% url 'current-month-salaries'  %}">Salaries Report</a></li>
-                        <li><a href="{% url 'Seeds-report'  %}"> Seeds Offering Report</a></li>
-                        <li><a href="{% url 'thanks-giving-report'  %}">Thanks Giving Report</a></li>
+                            <li><a href="{% url 'expenditurereport'  %}">Main Expenses Reports</a></li>
+                            <li><a href="{% url 'general-expenses-report' %}">General Expenses Reports</a></li>
+                            <li><a href="{% url 'Offeringsreport'  %}">Offerings Reports</a></li>
+                            <li><a href="{% url 'sundryreport'  %}"> Petty Expenses Reports</a></li>
+                        {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
+                            <li><a href="{% url 'Tithesreport'  %}"> Tithe Reports</a></li>
+                            <li><a href="{% url 'allowancereport'  %}"> Allowances Reports</a></li>
+                            <li><a href="{% url 'current-month-salaries'  %}">Salaries Report</a></li>
+                            <li><a href="{% url 'Seeds-report'  %}"> Seeds Offering Report</a></li>
+                            <li><a href="{% url 'thanks-giving-report'  %}">Thanks Giving Report</a></li>
                         {% endif %}
                         <li><a href="{% url 'donations-report'  %}">Other Sources Report</a></li>
-                        
                     </ul>
                 </li>
+
                 <li><a><i class="fa fa-archive"></i> Archived Reports <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{% url 'expensesarchivessearch' %}"> Main Expenses Archived</a></li>
