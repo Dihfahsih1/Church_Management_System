@@ -24,9 +24,11 @@
                             <li role="presentation" class="active"><a href="#">
                                 <i class="fa fa-list-ol"></i> List of Converts</a>
                             </li>
+                            {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
                             <li role="presentation"><a href="{% url 'record_new_convert' %}">
                                 <i class="fa fa-plus-square-o"></i>Add New Convert</a>
                             </li>
+                            {% endif %}
                         </ul>
                         <h2 style="text-align: center">All Converts in {% now "F" %} </h2>
                         <div class="separator"></div>
