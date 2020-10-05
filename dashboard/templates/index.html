@@ -1,7 +1,6 @@
 {% extends "app/base_site.html" %}
 
-{% load static i18n %}
-
+{% load static i18n humanize %}
 {% block title %} Home {% endblock title %}
 
 {% block stylesheets %}
@@ -11,644 +10,647 @@
 
     <link href="/static/vendors/fullcalendar/dist/fullcalendar.print.css" rel="stylesheet" media="print">
 {% endblock stylesheets %}
-{% block content %}
-{% load humanize %}
-{% if request.user.is_authenticated %}
-    <div class="right_col" role="main"> 
-        <!-- top tiles -->
-        {% if user.Role == 'Admin' or user.Role == 'Assistant_Admin' or user.Role == 'SuperAdmin'%}
-        <div class="row ">
-            <!--Start of Annual summary tiles -->
-            <div class="row top_tiles">
-                <div class="separator"></div>
-                <h2 style="text-align:center; color:red;"><b>Annual Financial Summary of {{ current_year }}</b></h2>
-                <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-                    <div class="tile-stats">
-                        <h4><b style="font-size: 17px">Total Annual Revenue</b></h4>
-                        <div class="count red">{{annual_revenues|intcomma}}</div>
-                    </div>
-                </div>
 
-                <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-                    <div class="tile-stats">
-                        <h4> <b style="font-size: 17px">Total Annual Expenditure</b></h4>
-                        <div class="count red">{{annual_expenditure|intcomma}}</div>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-                    <div class="tile-stats">
-                        <h4> <b style="font-size: 17px">Annual Net Income</b></h4>
-                        <div class="count red">{{annual_net|intcomma}}</div>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-                    <a href="{% url 'cashfloat-list' %}">
-                    <div class="tile-stats">
-                        <h4> <b style="font-size: 17px">Total Annual Cash Float</b></h4>
-                        <div class="count red">{{total_annual_float|intcomma}}</div>
-                    </div>
-                    </a>
-                </div>
-
-            </div>
-            <!--Start of monthly summary tiles -->
-            <div class="separator"></div>
-            <div class="row ">
-                <h2 style="text-align:center; color:red;"><b>Summary For the Month of {{ month }} {{ current_year }}</b></h2>
-                    <!--Start of Annual summary tiles -->
-                <div class="row top_tiles">  
-                    <h3 class="blue" style="margin-left:5%;"><b> Cash Float Information</b>(7 days)</h3>
-                    <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
-                        <div class="tile-stats">
-                            <h4><b style="font-size:15px">Cash Float Given</b></h4>
-                            <div class="count blue">{{get_cash_float|intcomma}}</div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
-                        <div class="tile-stats">
-                            <h4> <b style="font-size:15px">Net Cash Float</b></h4>
-                            <div class="count blue">{{net_float|intcomma}}</div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-4 col-xs-4 tile_stats_count">
-                        <div class="tile-stats">
-                            <h4> <b style="font-size: 15px;text-align: center;">Next Week Float</b></h4><br>
-                        <b style="font-size: 26px; color: blue"> New Amount + {{net_float|intcomma}}</b>
-                        </div>
-                    </div>
-                </div>    
-            </div>
-
-            <div class="row top_tiles">
-                <h3 style="margin-left: 5%;font-weight: bold;">
-                    <a href="{% url 'total_revenues'  %}"><b class="blue" > Month of {{month}} Total Revenue({{total_monthly_incomes|intcomma}})</b> </a> </h3>
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <a href="{% url 'Tithesreport'  %}">
-                    <div class="tile-stats">
-                        <h4 style="text-align: center;"> Tithes</h4>
-                        <p class="green" style="font-size: 19px" ><b>Shs.{{ tithes|intcomma }}</b></p>
-                    </div>
-                    </a>
-                </div>
-
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <a href="{% url 'Offeringsreport'  %}">
-                    <div class="tile-stats">
-                        <h4 style="text-align: center;"> Offerings</h4>
-                        <p class="green" style="font-size: 19px" ><b>Shs.{{ offerings|intcomma }}</b></p>
-                    </div>
-                </a>
-                </div>
-
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <a href="{% url 'Seeds-report' %}">
-                        <div class="tile-stats">
-                            <h4 style="text-align: center;"> Seeds</h4>
-                            <p class="green" style="font-size: 19px"  ><b>Shs.{{ seeds|intcomma }}</b></p>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
-                    <a href="{% url 'thanks-giving-report'  %}">
-                    <div class="tile-stats">
-                        <h4 style="text-align: center;"> Thanks Giving</h4>
-                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ thanks|intcomma }}</b></p>
-                    </div>
-                    </a>
-                </div>
-
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <a href="{% url 'donations-report'  %}">
-                    <div class="tile-stats">
-                        <h4 style="text-align: center;"> Other Sources</h4>
-                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ donations|intcomma }}</b></p>
-                    </div>
-                </a>
-                </div>
-
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <a href="{% url 'total_revenues'  %}">
-                    <div class="tile-stats">
-                        <h4 style="text-align: center;"> Building</h4>
-                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ d_building|intcomma }}</b></p>
-                    </div>
-                </a>
-                </div>
-            </div>
-
-
-            <div class="row top_tiles">
-                <h3 style="margin-left: 5%; font-weight: bold;"><a href="{% url 'total_expenses'  %}">
-                <b class="blue" >Month of {{month}} Total Expenditure ({{total_monthly_expenditure|intcomma}})</b></a></h3>
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <a href="{% url 'expenditurereport'  %}">
-                    <div class="tile-stats">
-                        <h4 style="text-align: center;"> Main Expenditure</h4>
-                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ expenses|intcomma }}</b></p>
-                    </div>
-                </a>
-                </div>
-
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <a href="{% url 'general-expenses-report'  %}">
-                    <div class="tile-stats">
-                        <h4 style="text-align: center;"> General Expenses</h4>
-                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ general|intcomma }}</b></p>
-                    </div>
-                    </a>
-                </div>
-
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <a href="{% url 'sundryreport'  %}">
-                    <div class="tile-stats">
-                        <h4 style="text-align: center;"> Petty Expenses</h4>
-                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ petty|intcomma }}</b></p>
-                    </div>
-                   </a>
-                </div>
-
-                <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
-                    <a href="{% url 'allowancereport'  %}">
-                    <div class="tile-stats">
-                        <h4 style="text-align: center;"> Allowances</h4>
-                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ allowances|intcomma }}</b></p>
-                    </div>
-                    </a>
-                </div>
-
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <a href="{% url 'current-month-salaries' %}">
-                    <div class="tile-stats">
-                        <h4 style="text-align: center;"> Salaries</h4>
-                        <p class="green" style="font-size: 19px" ><b>Shs.{{ salaries|intcomma}}</b></p>
-                    </div>
-                   </a>
-                </div> 
-
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <div class="tile-stats">
-                        <h4 style="text-align: center;"> Cash Out</h4>
-                        <p class="green" style="font-size: 14px"  ><b>Shs.{{ total_cash_out|intcomma}}</b></p>
-                    </div>
-                </div>
-            </div>         
-
-    <!--Start of weekly summary tiles -->
-        
-            <div class="separator"></div> 
-            <h2 style="text-align:center; color:red;"><b>Weekly Summary of {{ month }} {{ current_year }}</b></h2>        
-            <div class="row top_tiles">
-                <h3 class="blue" style="margin-left: 5%;font-weight: bold;"><b>Weekly Revenue Summary (7 Days)</b></h3>
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                
-                    <div class="tile-stats">
-                        <h4 style="text-align: center;"> Tithes</h4>
-                        <p class="black" style="font-size: 19px" ><b>Shs.{{ d_tithes|intcomma }}</b></p>
-                    </div>
-                
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                
-                    <div class="tile-stats">
-                        <h4 style="text-align: center;"> Offerings</h4>
-                        <p class="black" style="font-size: 19px" ><b>Shs.{{ d_offerings|intcomma }}</b></p>
-                    </div>
-            
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                
-                    <div class="tile-stats">
-                        <h4 style="text-align: center;"> Seeds</h4>
-                        <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_seeds|intcomma }}</b></p>
-                    </div>
-            
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
-                    
-                    <div class="tile-stats">
-                        <h4 style="text-align: center;"> Thanks Giving</h4>
-                        <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_thanks|intcomma }}</b></p>
-                    </div>
-            
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                
-                    <div class="tile-stats">
-                        <h4 style="text-align: center;"> Other Sources</h4>
-                        <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_donations|intcomma }}</b></p>
-                    </div>
-            
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                
-                    <div class="tile-stats">
-                        <h4 style="text-align: center;"> Building</h4>
-                        <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_building|intcomma }}</b></p>
-                    </div>
-            
-                </div>
-            </div>        
-            <div class="row top_tiles">
-                <h3 class="blue" style="margin-left: 5%; font-weight: bold;"><b>Weekly Expenditure Summary (7 Days)</b></h3>
-                
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    
-                    <div class="tile-stats">
-                        <h4 style="text-align: center;"> Main Expenditure</h4>
-                        <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_expenses|intcomma }}</b></p>
-                    </div>
-            
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    
-                    <div class="tile-stats">
-                        <h4 style="text-align: center;"> General Expenses</h4>
-                        <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_general|intcomma }}</b></p>
-                    </div>
-                
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    
-                    <div class="tile-stats">
-                        <h4 style="text-align: center;"> Petty Expenses</h4>
-                        <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_petty|intcomma }}</b></p>
-                    </div>
-                
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
-                    
-                    <div class="tile-stats">
-                        <h4 style="text-align: center;"> Allowances</h4>
-                        <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_allowances|intcomma }}</b></p>
-                    </div>
-            
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    
-                    <div class="tile-stats">
-                        <h4 style="text-align: center;"> Salaries</h4>
-                        <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_salaries|intcomma}}</b></p>
-                    </div>
-                
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <div class="tile-stats">
-                        <h4 style="text-align: center;">Pledge Item Cash Out</h4>
-                        <p class="black" style="font-size: 14px"  ><b>Shs.{{ d_pledges|intcomma}}</b></p>
-                    </div>
-                </div>
-            </div>    
-        </div>
-        {%endif%}
-        {% if user.Role == 'Secretary' or user.Role == None %}
-        <ul class="nav nav-tabs bordered">
-            <li role="presentation"><a href="{% url 'profile' %}"><i class="fa fa-eye"></i> View Profile</a>
-            </li>
-            <li role="presentation"><a href="{% url 'edit-profile' %}"><i class="fa fa-pencil-square-o"></i> Update Profile</a>
-            </li>
-        </ul>
-        {%endif%}
-        {% if user.Role == 'Secretary'  %}
-                <div class="row ">
+    {% block content %}
+    <div class="container-fluid">
+        {% if request.user.is_authenticated %}
+            <div class="right_col" role="main"> 
+                    <!-- top tiles -->
+                    {% if user.Role == 'Admin' or user.Role == 'Assistant_Admin' or user.Role == 'SuperAdmin'%}
+                    <div class="row ">
                         <!--Start of Annual summary tiles -->
-                    <div class="row top_tiles">
-                        <h2 class="red" style="margin-left: 5%;"><b>Cash Float Information for <i><u>{{ month }}</u></i></b></h2>
+                        <div class="row top_tiles">
+                            <div class="separator"></div>
+                            <h2 style="text-align:center; color:red;"><b>Annual Financial Summary of {{ current_year }}</b></h2>
+                            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                                <div class="tile-stats">
+                                    <h4><b style="font-size: 17px">Total Annual Revenue</b></h4>
+                                    <div class="count red">{{annual_revenues|intcomma}}</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                                <div class="tile-stats">
+                                    <h4> <b style="font-size: 17px">Total Annual Expenditure</b></h4>
+                                    <div class="count red">{{annual_expenditure|intcomma}}</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                                <div class="tile-stats">
+                                    <h4> <b style="font-size: 17px">Annual Net Income</b></h4>
+                                    <div class="count red">{{annual_net|intcomma}}</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                                <a href="{% url 'cashfloat-list' %}">
+                                <div class="tile-stats">
+                                    <h4> <b style="font-size: 17px">Total Annual Cash Float</b></h4>
+                                    <div class="count red">{{total_annual_float|intcomma}}</div>
+                                </div>
+                                </a>
+                            </div>
+
+                        </div>
+                        <!--Start of monthly summary tiles -->
                         <div class="separator"></div>
+                        <div class="row ">
+                            <h2 style="text-align:center; color:red;"><b>Summary For the Month of {{ month }} {{ current_year }}</b></h2>
+                                <!--Start of Annual summary tiles -->
+                            <div class="row top_tiles">  
+                                <h3 class="blue" style="margin-left:5%;"><b> Cash Float Information</b>(7 days)</h3>
+                                <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+                                    <div class="tile-stats">
+                                        <h4><b style="font-size:15px">Cash Float Given</b></h4>
+                                        <div class="count blue">{{get_cash_float|intcomma}}</div>
+                                    </div>
+                                </div>
 
-                        <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
-                            <div class="tile-stats">
-                                <h2 style="text-align: center;">Cash Float For This Week</h2>
-                                <div class="count red">{{get_cash_float|intcomma}}</div>
+                                <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+                                    <div class="tile-stats">
+                                        <h4> <b style="font-size:15px">Net Cash Float</b></h4>
+                                        <div class="count blue">{{net_float|intcomma}}</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-4 col-xs-4 tile_stats_count">
+                                    <div class="tile-stats">
+                                        <h4> <b style="font-size: 15px;text-align: center;">Next Week Float</b></h4><br>
+                                    <b style="font-size: 26px; color: blue"> New Amount + {{net_float|intcomma}}</b>
+                                    </div>
+                                </div>
+                            </div>    
+                        </div>
+
+                        <div class="row top_tiles">
+                            <h3 style="margin-left: 5%;font-weight: bold;">
+                                <a href="{% url 'total_revenues'  %}"><b class="blue" > Month of {{month}} Total Revenue({{total_monthly_incomes|intcomma}})</b> </a> </h3>
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <a href="{% url 'Tithesreport'  %}">
+                                <div class="tile-stats">
+                                    <h4 style="text-align: center;"> Tithes</h4>
+                                    <p class="green" style="font-size: 19px" ><b>Shs.{{ tithes|intcomma }}</b></p>
+                                </div>
+                                </a>
+                            </div>
+
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <a href="{% url 'Offeringsreport'  %}">
+                                <div class="tile-stats">
+                                    <h4 style="text-align: center;"> Offerings</h4>
+                                    <p class="green" style="font-size: 19px" ><b>Shs.{{ offerings|intcomma }}</b></p>
+                                </div>
+                            </a>
+                            </div>
+
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <a href="{% url 'Seeds-report' %}">
+                                    <div class="tile-stats">
+                                        <h4 style="text-align: center;"> Seeds</h4>
+                                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ seeds|intcomma }}</b></p>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                                <a href="{% url 'thanks-giving-report'  %}">
+                                <div class="tile-stats">
+                                    <h4 style="text-align: center;"> Thanks Giving</h4>
+                                    <p class="green" style="font-size: 19px"  ><b>Shs.{{ thanks|intcomma }}</b></p>
+                                </div>
+                                </a>
+                            </div>
+
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <a href="{% url 'donations-report'  %}">
+                                <div class="tile-stats">
+                                    <h4 style="text-align: center;"> Other Sources</h4>
+                                    <p class="green" style="font-size: 19px"  ><b>Shs.{{ donations|intcomma }}</b></p>
+                                </div>
+                            </a>
+                            </div>
+
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <a href="{% url 'total_revenues'  %}">
+                                <div class="tile-stats">
+                                    <h4 style="text-align: center;"> Building</h4>
+                                    <p class="green" style="font-size: 19px"  ><b>Shs.{{ d_building|intcomma }}</b></p>
+                                </div>
+                            </a>
                             </div>
                         </div>
 
-                        <a href="{% url 'total_expenses'  %}"><div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
-                            <div class="tile-stats">
-                                <h2 style="text-align: center;"> Total Expenditure</h2>
-                                <div class="count red">{{total_monthly_expenditure|intcomma}}</div>
+
+                        <div class="row top_tiles">
+                            <h3 style="margin-left: 5%; font-weight: bold;"><a href="{% url 'total_expenses'  %}">
+                            <b class="blue" >Month of {{month}} Total Expenditure ({{total_monthly_expenditure|intcomma}})</b></a></h3>
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <a href="{% url 'expenditurereport'  %}">
+                                <div class="tile-stats">
+                                    <h4 style="text-align: center;"> Main Expenditure</h4>
+                                    <p class="green" style="font-size: 19px"  ><b>Shs.{{ expenses|intcomma }}</b></p>
+                                </div>
+                            </a>
                             </div>
-                        </div>
-                        </a>
-                    <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
-                            <div class="tile-stats" id='update'>
-                                <h2 style="text-align: center;">Net Cash Float</h2>
-                                <div class="count red">{{net_float|intcomma}}</div>
+
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <a href="{% url 'general-expenses-report'  %}">
+                                <div class="tile-stats">
+                                    <h4 style="text-align: center;"> General Expenses</h4>
+                                    <p class="green" style="font-size: 19px"  ><b>Shs.{{ general|intcomma }}</b></p>
+                                </div>
+                                </a>
                             </div>
-                        </div>
-                    </div>    
-                </div>
-        {%endif%}
-        
-        <!-- /top tiles -->
-        <script>
-            document.getElementById('update')
-                .addEventListener('click', function () {
-                    toastr.info('Button Clicked');
 
-                })
-        </script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                Highcharts.chart('contain', {
-                    chart: {
-                        type: 'column'
-                    },
-                    title: {
-                        text:'UCC Bwaise month of {{month}} Expenditure'
-                    },
-                    xAxis: {
-                        categories: [
-                        '<strong style="color: red; font-weight:bolder">Gen Expenses</strong>', 
-                        '<strong style="color: red; font-weight:bolder">Main Expenses</strong>',
-                        '<strong style="color: red; font-weight:bolder">Petty Expenses</strong>',
-                        '<strong style="color: red; font-weight:bolder">Allowances</strong>',
-                        '<strong style="color: red; font-weight:bolder">Salaries</strong>'
-                        ]
-                    },
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <a href="{% url 'sundryreport'  %}">
+                                <div class="tile-stats">
+                                    <h4 style="text-align: center;"> Petty Expenses</h4>
+                                    <p class="green" style="font-size: 19px"  ><b>Shs.{{ petty|intcomma }}</b></p>
+                                </div>
+                            </a>
+                            </div>
 
-                    yAxis: {
-                        title: {
-                            text: ' Money Spent'
-                        }
-                    },
-                    tooltip: {
-                        pointFormat: '<span style="color:{series.color}">Shs.</span><b>{point.y}</b>',
-                        shared: true
-                    },
-                    series: [ {
-                            name:'Bar Chart showing Expenses made in {{month}}',
-                            data: [{{general}},{{expenses}},{{petty}},{{allowances}},{{salaries}}
-                            ]
-                        }
-                        ,
+                            <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                                <a href="{% url 'allowancereport'  %}">
+                                <div class="tile-stats">
+                                    <h4 style="text-align: center;"> Allowances</h4>
+                                    <p class="green" style="font-size: 19px"  ><b>Shs.{{ allowances|intcomma }}</b></p>
+                                </div>
+                                </a>
+                            </div>
 
-                    ],
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <a href="{% url 'current-month-salaries' %}">
+                                <div class="tile-stats">
+                                    <h4 style="text-align: center;"> Salaries</h4>
+                                    <p class="green" style="font-size: 19px" ><b>Shs.{{ salaries|intcomma}}</b></p>
+                                </div>
+                            </a>
+                            </div> 
 
-                    credits: {
-                        enabled: false
-                    }});});
-        </script>
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <div class="tile-stats">
+                                    <h4 style="text-align: center;"> Cash Out</h4>
+                                    <p class="green" style="font-size: 14px"  ><b>Shs.{{ total_cash_out|intcomma}}</b></p>
+                                </div>
+                            </div>
+                        </div>         
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                Highcharts.chart('container', {
-                    chart: {
-                        type: 'column'
-                    },
-                    title: {
-                        text:'UCC Bwaise month of {{month}} Accountability'
-                    },
-                    xAxis: {
-                        categories: [
-                        '<strong>Offerings</strong>', 
-                        '<strong>Tithes</strong>',
-                        '<strong>Seeds</strong>', 
-                        '<strong>Other Sources</strong>',
-                        '<strong>Thanks Giving</strong>',
-                        '<strong>Building Collections</strong>',
-                        '<strong style="color: red; font-weight:bolder">Gen Expenses</strong>', 
-                        '<strong style="color: red; font-weight:bolder">Main Expenses</strong>',
-                        '<strong style="color: red; font-weight:bolder">Petty Expenses</strong>',
-                        '<strong style="color: red; font-weight:bolder">Allowances</strong>',
-                        '<strong style="color: red; font-weight:bolder">Salaries</strong>'
-                        ]
-                    },
-
-                    yAxis: {
-                        title: {
-                            text: 'Church Balance Sheet'
-                        }
-                    },
-                    tooltip: {
-                        pointFormat: '<span style="color:{series.color}">Shs.</span><b>{point.y}</b>',
-                        shared: true
-                    },
-                    series: [ {
-                            name:'REVENUES AND EXPENSES',
-                            data: [{{offerings}},{{tithes}},{{seeds}},{{donations}},{{thanks}},{{building}},
-                            {{general}},{{expenses}},{{petty}},{{allowances}},{{salaries}}
-                            ]
-                        }
-                        ,
-
-                    ],
-
-                    credits: {
-                        enabled: false
-                    }
-                })
-                ;
-            });
-
-            document.addEventListener('DOMContentLoaded', function () {
-                var myChart = Highcharts.chart('messages', {
-                    chart: {
-                        type: 'column'
-                    },
-                    title: {
-                        text: 'Sources of Church Money'
-                    },
-                    xAxis: {
-                        type: 'category'
-                    },
-                    yAxis: {
-                        title: {
-                            text: 'Level of Revenue'
-                        }
-                    },
-                    legend: {
-                        enabled: false
-                    },
-                    plotOptions: {
-                        series: {
-                            borderWidth: 0,
-                            dataLabels: {
-                                enabled: true,
-                                format: 'Shs.{point.y:.1f}'
-                            }
-                        }
-                    },
-                    tooltip: {
-                        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.1f} / {{total_monthly_incomes}}</b><br/>'
-                    },
-                    series: [{
-                        name: 'Revenue',
-                        colorByPoint: true,
-                        data: [{
-                            name: 'Offerings',
-                            y: {{offerings}},
-                            drilldown: null
-                        }, 
-                        {
-                            name: 'Tithes',
-                            y: {{tithes}},
-                            drilldown: null
-                        }, 
-                        {
-                            name: 'Thanks Giving',
-                            y: {{thanks}},
-                            drilldown: null
-                        },
-
-                        {
-                            name: 'Building Collections',
-                            y: {{building}},
-                            drilldown: null
-                        },
-                        {
-                            name: 'Seeds',
-                            y:{{seeds}},
-                            drilldown: null
-                        },
-                        {
-                            name: 'Other Sources',
-                            y: {{donations}},
-                            drilldown: null
-                        }]
-                    }],
-                    credits: {
-                        enabled: false
-                    }
-                });
-            });
-
-
-            document.addEventListener('DOMContentLoaded', function () {
-                var myChart = Highcharts.chart('users', {
-                    chart: {
-                        type: 'pie',
-                        options3d: {
-                            enabled: true,
-                            alpha: 45
-                        }
-                    },
-                    title: {
-                        text: 'Things we spend on'
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            innerSize: 100,
-                            depth: 30,
-                            dataLabels: {
-                                format: '<b>{point.name}</b>'
-                            }
-                        }
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    series: [{
-                        name: 'Total',
-                        data: [
-                            ['General Expenses', {{general}}],
-                            ['Main Expenses', {{expenses}}],
-                            ['Petty Expenses', {{petty}}],
-                            ['Allowances Expenses', {{allowances}}],
-                            ['Salaries Expenses', {{salaries}}],
-                        ]
-                    }]
-                });
-            });
-
-        </script>
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel tile overflow_hidden">
-                    <div class="x_panel">
-                        <div class="x_title">
-                            <h3 class="head-title">Church Monthly Financial Statistics as of {{day}}</h3>
-                            <ul class="nav navbar-right panel_toolbox">
-                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="x_content">
-                            <div id="container" style=" width: 99%; vertical-align: top; height:250px;"></div>
-                        </div>
+                <!--Start of weekly summary tiles -->
+                    
+                        <div class="separator"></div> 
+                        <h2 style="text-align:center; color:red;"><b>Weekly Summary of {{ month }} {{ current_year }}</b></h2>        
+                        <div class="row top_tiles">
+                            <h3 class="blue" style="margin-left: 5%;font-weight: bold;"><b>Weekly Revenue Summary (7 Days)</b></h3>
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                            
+                                <div class="tile-stats">
+                                    <h4 style="text-align: center;"> Tithes</h4>
+                                    <p class="black" style="font-size: 19px" ><b>Shs.{{ d_tithes|intcomma }}</b></p>
+                                </div>
+                            
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                            
+                                <div class="tile-stats">
+                                    <h4 style="text-align: center;"> Offerings</h4>
+                                    <p class="black" style="font-size: 19px" ><b>Shs.{{ d_offerings|intcomma }}</b></p>
+                                </div>
+                        
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                            
+                                <div class="tile-stats">
+                                    <h4 style="text-align: center;"> Seeds</h4>
+                                    <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_seeds|intcomma }}</b></p>
+                                </div>
+                        
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                                
+                                <div class="tile-stats">
+                                    <h4 style="text-align: center;"> Thanks Giving</h4>
+                                    <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_thanks|intcomma }}</b></p>
+                                </div>
+                        
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                            
+                                <div class="tile-stats">
+                                    <h4 style="text-align: center;"> Other Sources</h4>
+                                    <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_donations|intcomma }}</b></p>
+                                </div>
+                        
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                            
+                                <div class="tile-stats">
+                                    <h4 style="text-align: center;"> Building</h4>
+                                    <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_building|intcomma }}</b></p>
+                                </div>
+                        
+                            </div>
+                        </div>        
+                        <div class="row top_tiles">
+                            <h3 class="blue" style="margin-left: 5%; font-weight: bold;"><b>Weekly Expenditure Summary (7 Days)</b></h3>
+                            
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                
+                                <div class="tile-stats">
+                                    <h4 style="text-align: center;"> Main Expenditure</h4>
+                                    <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_expenses|intcomma }}</b></p>
+                                </div>
+                        
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                
+                                <div class="tile-stats">
+                                    <h4 style="text-align: center;"> General Expenses</h4>
+                                    <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_general|intcomma }}</b></p>
+                                </div>
+                            
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                
+                                <div class="tile-stats">
+                                    <h4 style="text-align: center;"> Petty Expenses</h4>
+                                    <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_petty|intcomma }}</b></p>
+                                </div>
+                            
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                                
+                                <div class="tile-stats">
+                                    <h4 style="text-align: center;"> Allowances</h4>
+                                    <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_allowances|intcomma }}</b></p>
+                                </div>
+                        
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                
+                                <div class="tile-stats">
+                                    <h4 style="text-align: center;"> Salaries</h4>
+                                    <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_salaries|intcomma}}</b></p>
+                                </div>
+                            
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <div class="tile-stats">
+                                    <h4 style="text-align: center;">Pledge Item Cash Out</h4>
+                                    <p class="black" style="font-size: 14px"  ><b>Shs.{{ d_pledges|intcomma}}</b></p>
+                                </div>
+                            </div>
+                        </div>    
                     </div>
+                    {%endif%}
+                    {% if user.Role == 'Secretary' or user.Role == None %}
+                    <ul class="nav nav-tabs bordered">
+                        <li role="presentation"><a href="{% url 'profile' %}"><i class="fa fa-eye"></i> View Profile</a>
+                        </li>
+                        <li role="presentation"><a href="{% url 'edit-profile' %}"><i class="fa fa-pencil-square-o"></i> Update Profile</a>
+                        </li>
+                    </ul>
+                    {%endif%}
+                    {% if user.Role == 'Secretary'  %}
+                            <div class="row ">
+                                    <!--Start of Annual summary tiles -->
+                                <div class="row top_tiles">
+                                    <h2 class="red" style="margin-left: 5%;"><b>Cash Float Information for <i><u>{{ month }}</u></i></b></h2>
+                                    <div class="separator"></div>
 
-                </div>
-            </div> 
-        </div>
-        <div class="row">
-            <div class="col-md-8 col-sm-8 col-xs-12">
+                                    <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+                                        <div class="tile-stats">
+                                            <h2 style="text-align: center;">Cash Float For This Week</h2>
+                                            <div class="count red">{{get_cash_float|intcomma}}</div>
+                                        </div>
+                                    </div>
 
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="">
-                        <div class="clearfix"></div>
+                                    <a href="{% url 'total_expenses'  %}"><div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+                                        <div class="tile-stats">
+                                            <h2 style="text-align: center;"> Total Expenditure</h2>
+                                            <div class="count red">{{total_monthly_expenditure|intcomma}}</div>
+                                        </div>
+                                    </div>
+                                    </a>
+                                <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+                                        <div class="tile-stats" id='update'>
+                                            <h2 style="text-align: center;">Net Cash Float</h2>
+                                            <div class="count red">{{net_float|intcomma}}</div>
+                                        </div>
+                                    </div>
+                                </div>    
+                            </div>
+                    {%endif%}
+                    
+                    <!-- /top tiles -->
+                    <script>
+                        document.getElementById('update')
+                            .addEventListener('click', function () {
+                                toastr.info('Button Clicked');
 
-                        <div class="row">
-                            <div class="col-md-12">
+                            })
+                    </script>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            Highcharts.chart('contain', {
+                                chart: {
+                                    type: 'column'
+                                },
+                                title: {
+                                    text:'UCC Bwaise month of {{month}} Expenditure'
+                                },
+                                xAxis: {
+                                    categories: [
+                                    '<strong style="color: red; font-weight:bolder">Gen Expenses</strong>', 
+                                    '<strong style="color: red; font-weight:bolder">Main Expenses</strong>',
+                                    '<strong style="color: red; font-weight:bolder">Petty Expenses</strong>',
+                                    '<strong style="color: red; font-weight:bolder">Allowances</strong>',
+                                    '<strong style="color: red; font-weight:bolder">Salaries</strong>'
+                                    ]
+                                },
+
+                                yAxis: {
+                                    title: {
+                                        text: ' Money Spent'
+                                    }
+                                },
+                                tooltip: {
+                                    pointFormat: '<span style="color:{series.color}">Shs.</span><b>{point.y}</b>',
+                                    shared: true
+                                },
+                                series: [ {
+                                        name:'Bar Chart showing Expenses made in {{month}}',
+                                        data: [{{general}},{{expenses}},{{petty}},{{allowances}},{{salaries}}
+                                        ]
+                                    }
+                                    ,
+
+                                ],
+
+                                credits: {
+                                    enabled: false
+                                }});});
+                    </script>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            Highcharts.chart('container', {
+                                chart: {
+                                    type: 'column'
+                                },
+                                title: {
+                                    text:'UCC Bwaise month of {{month}} Accountability'
+                                },
+                                xAxis: {
+                                    categories: [
+                                    '<strong>Offerings</strong>', 
+                                    '<strong>Tithes</strong>',
+                                    '<strong>Seeds</strong>', 
+                                    '<strong>Other Sources</strong>',
+                                    '<strong>Thanks Giving</strong>',
+                                    '<strong>Building Collections</strong>',
+                                    '<strong style="color: red; font-weight:bolder">Gen Expenses</strong>', 
+                                    '<strong style="color: red; font-weight:bolder">Main Expenses</strong>',
+                                    '<strong style="color: red; font-weight:bolder">Petty Expenses</strong>',
+                                    '<strong style="color: red; font-weight:bolder">Allowances</strong>',
+                                    '<strong style="color: red; font-weight:bolder">Salaries</strong>'
+                                    ]
+                                },
+
+                                yAxis: {
+                                    title: {
+                                        text: 'Church Balance Sheet'
+                                    }
+                                },
+                                tooltip: {
+                                    pointFormat: '<span style="color:{series.color}">Shs.</span><b>{point.y}</b>',
+                                    shared: true
+                                },
+                                series: [ {
+                                        name:'REVENUES AND EXPENSES',
+                                        data: [{{offerings}},{{tithes}},{{seeds}},{{donations}},{{thanks}},{{building}},
+                                        {{general}},{{expenses}},{{petty}},{{allowances}},{{salaries}}
+                                        ]
+                                    }
+                                    ,
+
+                                ],
+
+                                credits: {
+                                    enabled: false
+                                }
+                            })
+                            ;
+                        });
+
+                        document.addEventListener('DOMContentLoaded', function () {
+                            var myChart = Highcharts.chart('messages', {
+                                chart: {
+                                    type: 'column'
+                                },
+                                title: {
+                                    text: 'Sources of Church Money'
+                                },
+                                xAxis: {
+                                    type: 'category'
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: 'Level of Revenue'
+                                    }
+                                },
+                                legend: {
+                                    enabled: false
+                                },
+                                plotOptions: {
+                                    series: {
+                                        borderWidth: 0,
+                                        dataLabels: {
+                                            enabled: true,
+                                            format: 'Shs.{point.y:.1f}'
+                                        }
+                                    }
+                                },
+                                tooltip: {
+                                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.1f} / {{total_monthly_incomes}}</b><br/>'
+                                },
+                                series: [{
+                                    name: 'Revenue',
+                                    colorByPoint: true,
+                                    data: [{
+                                        name: 'Offerings',
+                                        y: {{offerings}},
+                                        drilldown: null
+                                    }, 
+                                    {
+                                        name: 'Tithes',
+                                        y: {{tithes}},
+                                        drilldown: null
+                                    }, 
+                                    {
+                                        name: 'Thanks Giving',
+                                        y: {{thanks}},
+                                        drilldown: null
+                                    },
+
+                                    {
+                                        name: 'Building Collections',
+                                        y: {{building}},
+                                        drilldown: null
+                                    },
+                                    {
+                                        name: 'Seeds',
+                                        y:{{seeds}},
+                                        drilldown: null
+                                    },
+                                    {
+                                        name: 'Other Sources',
+                                        y: {{donations}},
+                                        drilldown: null
+                                    }]
+                                }],
+                                credits: {
+                                    enabled: false
+                                }
+                            });
+                        });
+
+
+                        document.addEventListener('DOMContentLoaded', function () {
+                            var myChart = Highcharts.chart('users', {
+                                chart: {
+                                    type: 'pie',
+                                    options3d: {
+                                        enabled: true,
+                                        alpha: 45
+                                    }
+                                },
+                                title: {
+                                    text: 'Things we spend on'
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        allowPointSelect: true,
+                                        innerSize: 100,
+                                        depth: 30,
+                                        dataLabels: {
+                                            format: '<b>{point.name}</b>'
+                                        }
+                                    }
+                                },
+                                credits: {
+                                    enabled: false
+                                },
+                                series: [{
+                                    name: 'Total',
+                                    data: [
+                                        ['General Expenses', {{general}}],
+                                        ['Main Expenses', {{expenses}}],
+                                        ['Petty Expenses', {{petty}}],
+                                        ['Allowances Expenses', {{allowances}}],
+                                        ['Salaries Expenses', {{salaries}}],
+                                    ]
+                                }]
+                            });
+                        });
+
+                    </script>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel tile overflow_hidden">
                                 <div class="x_panel">
                                     <div class="x_title">
-                                        <h3 class="head-title">Calendar </h3>
+                                        <h3 class="head-title">Church Monthly Financial Statistics as of {{day}}</h3>
                                         <ul class="nav navbar-right panel_toolbox">
-                                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                            </li>
+                                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                                         </ul>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="x_content">
-                                        <div id='calendar'></div>
+                                        <div id="container" style=" width: 99%; vertical-align: top; height:250px;"></div>
                                     </div>
                                 </div>
+
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="">
+                                    <div class="clearfix"></div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="x_panel">
+                                                <div class="x_title">
+                                                    <h3 class="head-title">Calendar </h3>
+                                                    <ul class="nav navbar-right panel_toolbox">
+                                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <div class="x_content">
+                                                    <div id='calendar'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="x_panel tile fixed_height_320">
+                                        <div class="x_title">
+                                            <h3 class="head-title">Month of {{month}} Revenues</h3>
+                                            <ul class="nav navbar-right panel_toolbox">
+                                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                                            </ul>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+                                            <div id="messages" style=" width: 99%; vertical-align: top;height: 260px;"></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="x_panel">
+                                        <div class="x_title">
+                                            <h3 class="head-title">Month of {{month}} Expenses</h3>
+                                            <ul class="nav navbar-right panel_toolbox">
+                                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                                            </ul>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+                                            <div id="users" style=" width: 100%; vertical-align: top; height:260px; "></div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 
-                </div>
-
             </div>
-
-            <div class="col-md-4 col-sm-4 col-xs-12">
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="x_panel tile fixed_height_320">
-                            <div class="x_title">
-                                <h3 class="head-title">Month of {{month}} Revenues</h3>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                                </ul>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content">
-                                <div id="messages" style=" width: 99%; vertical-align: top;height: 260px;"></div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="x_panel">
-                            <div class="x_title">
-                                <h3 class="head-title">Month of {{month}} Expenses</h3>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                                </ul>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content">
-                                <div id="users" style=" width: 100%; vertical-align: top; height:260px; "></div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+        {% endif %}
     </div>
+    {% endblock content %}
 
-{% endif %}
-{% endblock content %}
 {% block javascripts %}
     {{ block.super }}
     <!-- FullCalendar -->
