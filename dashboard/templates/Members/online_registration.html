@@ -1,23 +1,15 @@
 {% extends 'home/base.html' %}
-<body>
+
 {% block content %}
 {% load crispy_forms_tags %}
 <section class="page-breadcumb-area bg-with-black">
     <div class="container text-center">
-        <h2 class="title">Online Registration</h2>
-        <ul class="links">
-            <li><a href="{% url 'index_public' %}">Home</a></li>
-            <li><a href="javascript:void(0);">Online Admission</a></li>
-        </ul>
+        <h2 class="title">Online Membership Registration</h2>
+        
     </div>
 </section>
 
 <section class="page-contact-area" style="background-color:ivory;">
-    <style type="text/css">
-        .container{
-            font-size: 16px
-        }
-    </style>
     <div class="container">
         <form class="form-horizontal form-label-left"
                 id="admissionForm" action="" method="POST" enctype="multipart/form-data" 
@@ -236,4 +228,3 @@
     $("#id_Profession").trigger("change");
 </script>
 {% endblock %}
-</body>

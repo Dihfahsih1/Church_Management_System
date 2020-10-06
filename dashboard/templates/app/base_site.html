@@ -99,7 +99,7 @@
 {% block body %}
 
     <div class="fakeLoader"></div>
-    <div class="container body" >
+    <div class="container body">
         <div class="main_container">
             {% block sidebar %}
                 <div class="col-md-3 left_col {% block sidebar_class %} {% endblock sidebar_class %}">
@@ -121,12 +121,13 @@
             {% endblock content %}
 
             {% block footer %}
-                <footer>
-                     {% include "app/footer.html" %}
-                </footer>  
+                
             {% endblock footer %}
 
         </div>
+        <footer>
+            {% include "app/footer.html" %}
+        </footer>
     </div>
 
     {% block javascripts %}

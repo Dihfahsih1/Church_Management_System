@@ -242,7 +242,7 @@ def Online_Registration(request):
     if request.method=="POST":
         form=MembersForm(request.POST, request.FILES,)
         if form.is_valid():
-            ''' Begin reCAPTCHA validation '''
+           # Begin reCAPTCHA validation '''
             recaptcha_response = request.POST.get('g-recaptcha-response')
             url = 'https://www.google.com/recaptcha/api/siteverify'
             values = {
@@ -253,7 +253,7 @@ def Online_Registration(request):
             req =  urllib.request.Request(url, data=data)
             response = urllib.request.urlopen(req)
             result = json.loads(response.read().decode())
-            ''' email activation '''
+            # email activation '''
             member = form.save(commit=False)
             member.save()
             current_site = get_current_site(request)  
