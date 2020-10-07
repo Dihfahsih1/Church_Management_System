@@ -2812,7 +2812,8 @@ def index(request):
     else:
         annual_expenditure =   expenses_in_a_year + Annualsalaries 
         total_monthly_incomes =  tithes + offerings + seeds + thanks + donations 
-        total_monthly_expenditure =  allowances + expenses + general + petty + salaries 
+        total_monthly_expenditure =  allowances + expenses + general + petty + salaries
+        total_weekly_expenditure =d_allowances  + d_general + d_expenses  
         net_income = total_monthly_incomes - total_monthly_expenditure
         #calculating annual cashfloat given out
 
@@ -2823,7 +2824,7 @@ def index(request):
             for i in cash_float:
                 if (one_week_ago): 
                     get_cash_float= i.Amount
-                    net_float = int(get_cash_float) - total_monthly_expenditure
+                    net_float = int(get_cash_float) - total_weekly_expenditure
                     new_float = net_float + get_cash_float
         else:
             get_cash_float = 0
@@ -2853,7 +2854,7 @@ def index(request):
         'annual_revenues':annual_revenues, 'annual_expenditure':annual_expenditure,'annual_net':annual_net,
         'total_current_building':total_current_building, 'd_building': d_building,"building":building,
         'd_donations':d_donations,'d_tithes':d_tithes,'d_offerings':d_offerings,
-        'd_seeds':d_seeds,'d_thanks':d_thanks,'d_pledges':d_pledges,'day':day,
+        'd_seeds':d_seeds,'d_thanks':d_thanks,'d_pledges':d_pledges,'day':day, 'total_weekly_expenditure':total_weekly_expenditure,
 
         'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,
         'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_cash_out':total_cash_out,
