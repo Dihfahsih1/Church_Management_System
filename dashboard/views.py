@@ -2813,9 +2813,9 @@ def index(request):
         annual_expenditure =   expenses_in_a_year + Annualsalaries 
         total_monthly_incomes =  tithes + offerings + seeds + thanks + donations 
         total_monthly_expenditure =  allowances + expenses + general + petty + salaries
-        total_weekly_expenditure =d_allowances  + d_general + d_expenses  
+        total_weekly_expenditure =d_allowances  + d_general + d_expenses + d_petty 
         net_income = total_monthly_incomes - total_monthly_expenditure
-        #calculating annual cashfloat given out
+        
 
         #Weekly cash float given out.
         one_week_ago = datetime.today() - timedelta(days=7) 

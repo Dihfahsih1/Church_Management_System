@@ -2,6 +2,7 @@
 import os
 from django.contrib.messages import constants as messages
 import environ
+os.environ.setdefault('FORKED_BY_MULTIPROCESSING', '1')
 
 env = environ.Env()
 # reading .env file

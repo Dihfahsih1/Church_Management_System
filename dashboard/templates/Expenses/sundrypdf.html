@@ -3,7 +3,7 @@
 <head>
     {% load humanize %}
     <meta charset="utf-8">
-    <title>Sundry Expenditure Report</title>
+    <title>Petty Expenditure Report</title>
     <style type="text/css">
         @page {
             size: A4;
@@ -62,7 +62,7 @@
                uccbwaise1@gmail.com<br>
          </div>
         <div class="list-group">
-            <h2 style="align-content:center"> Small Expenditure Report for the month of {{ month }} {{ year }}</h2>
+            <h2 style="align-content:center"> Petty Expenditure Report for the month of {{ month }} {{ year }}</h2>
         </div>
 
         <table class="table" border="2">
@@ -85,8 +85,8 @@
             {% endfor %}
               <tr>
                   <td class="jumbotron"><h3>TOTAL</h3></td>
-                  <td class="jumbotron"><h3>----------------------</h3></td>
-                  <td class="jumbotron"><h3>----------------------</h3></td>
+                  <td class="jumbotron"><h3>_______________________</h3></td>
+                  <td class="jumbotron"><h3>_______________________</h3></td>
                   <td class="jumbotron"><h3>Shs. {{ totalexpense|intcomma }}</h3></td>
               </tr>
             </tbody>
