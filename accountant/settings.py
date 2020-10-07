@@ -1,7 +1,14 @@
 
 import os
 from django.contrib.messages import constants as messages
-SECRET_KEY = 't0yt9x7-+k$ix)i3)@7e0z-88me5=4yn(5%^@-=)-vg@^&%9(c'
+import environ
+
+env = environ.Env()
+# reading .env file
+environ.Env.read_env()
+
+SECRET_KEY = env("SECRET_KEY")
+
 DEBUG = True
 ALLOWED_HOSTS = []
 CORS_ORIGIN_ALLOW_ALL = True
@@ -71,22 +78,22 @@ TEMPLATES = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'uccbwaise',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'NAME': env("DB_NAME"),
+        'USER': env("DB_USER"),
+        'PASSWORD': env("DB_PASSWORD"),
+        'HOST': env("DB_HOST"),
+        'PORT': env("DB_PORT"),
     }
 }
 if os.environ.get('GITHUB_WORKFLOW'):
     DATABASES = {
         'default': {
            'ENGINE': 'django.db.backends.postgresql',
-           'NAME': 'github_actions',
-           'USER': 'postgres',
-           'PASSWORD': 'uccbwaise',
-           'HOST': '127.0.0.1',
-           'PORT': '5432',
+           'NAME': env("DB_GIT"),
+           'USER': env("DB_USER"),
+           'PASSWORD': env("DB_PASSWORD"),
+           'HOST': env("DB_HOST"),
+           'PORT': env("DB_PORT"),
         }
     }
 AUTH_PASSWORD_VALIDATORS = [
@@ -117,8 +124,8 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'uccbwaise1@gmail.com'
-EMAIL_HOST_PASSWORD = 'dvvzfwgpnjyttqsj'
+EMAIL_HOST_USER = env('MAIL_HOST')
+EMAIL_HOST_PASSWORD = env('MAIL_PASSWORD')
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
@@ -133,13 +140,10 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
-GOOGLE_RECAPTCHA_SECRET_KEY = '6Ld2KqYZAAAAAMpds7Y4Zw8K5L7JkcuiSopEEtBW'
+GOOGLE_RECAPTCHA_SECRET_KEY = env('CAPTURE')
 
 STATIC_ROOT = ''
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
-
-STRIPE_PUBLIC_KEY = 'pk_test_51HZW4ZInAdW6tdX85GaX2QsH8sPjhOBiyaoRWcOkCGUe7QFPhtkR4tTP6JrEw3Q3Ab3dqfkzTxa61GCo6bw6X7yJ00LrTCIzVn'
-STRIPE_SECRET_KEY = 'sk_test_51HZW4ZInAdW6tdX88Vy8DNu6V8MqrPdoYcIqiwXZFaY0ZLYZTmXGpsWTCmRkCrEbSHAzrudJRd0KVnUUkTNVAGLY00mq9zvT2Z'
