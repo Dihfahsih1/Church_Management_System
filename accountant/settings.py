@@ -31,9 +31,9 @@ INSTALLED_APPS = [
     'background_task',
     'django_crontab',
     ]
-
+#cron jobs scheduled
 CRONJOBS = [
-    ('*/1 * * * *','dashboard.cron.my_cron_job')
+    ('* * * * *','dashboard.cron.my_cron_job')
 ]    
     
 # DEFAULT_FILE_STORAGE=env("FILE_STORAGE")
