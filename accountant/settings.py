@@ -2,14 +2,12 @@
 import os
 from django.contrib.messages import constants as messages
 import environ
-os.environ.setdefault('FORKED_BY_MULTIPROCESSING', '1')
 
 env = environ.Env()
 # reading .env file
 environ.Env.read_env()
 
 SECRET_KEY = env("KEY")
-
 DEBUG = True
 ALLOWED_HOSTS = []
 CORS_ORIGIN_ALLOW_ALL = True
@@ -31,13 +29,18 @@ INSTALLED_APPS = [
     'bootstrap4',
     'widget_tweaks',
     'background_task',
+    'django_crontab',
     ]
+
+CRONJOBS = [
+    ('*/1 * * * *','dashboard.cron.my_cron_job')
+]    
     
-# DEFAULT_FILE_STORAGE =  env("FILE_STORAGE")
-# GITHUB_HANDLE =  env("HANDLE")
-# ACCESS_TOKEN =  env("TOKEN")
-# GITHUB_REPO_NAME =  env("REPO")
-# MEDIA_BUCKET_NAME =  env("BUCKET_NAME")
+# DEFAULT_FILE_STORAGE=env("FILE_STORAGE")
+# GITHUB_HANDLE=env("HANDLE")
+# ACCESS_TOKEN=env("TOKEN")
+# GITHUB_REPO_NAME=env("REPO")
+# MEDIA_BUCKET_NAME=env("BUCKET_NAME")
 
 # SECURE_BROWSER_XSS_FILTER = True
 # SECURE_CONTENT_TYPE_NOSNIFF = True
