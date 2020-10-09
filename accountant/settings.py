@@ -29,12 +29,9 @@ INSTALLED_APPS = [
     'bootstrap4',
     'widget_tweaks',
     'background_task',
-    'django_crontab',
+    'celery',
     ]
-#cron jobs scheduled
-CRONJOBS = [
-    ('* * * * *','dashboard.cron.my_cron_job')
-]    
+ 
     
 # DEFAULT_FILE_STORAGE=env("FILE_STORAGE")
 # GITHUB_HANDLE=env("HANDLE")
