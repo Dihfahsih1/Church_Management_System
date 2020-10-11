@@ -326,7 +326,7 @@ class StaffDetails(models.Model):
     Photo=models.ImageField(upload_to='avatars/',max_length=10000, null=True, blank=True)
     Faith=models.CharField(max_length=100, choices=rel, null=True, blank=True)
     Date_of_paying_salary = models.DateField(null=True, blank=True)
-    Month_being_cleared = models.DateField(null=True, blank=True)
+    Month_being_cleared = models.CharField(max_length=200,null=True, blank=True)
     Salary_Amount = models.IntegerField()
     Role = models.CharField(max_length=200, choices=rol, blank=True, null=True)
     Date_of_employment=models.DateField(null=True, blank=True)
@@ -363,7 +363,7 @@ class SalariesPaid(models.Model):
     Salary_Id = models.CharField(max_length=200,null=True, blank=True)
     Name = models.CharField(max_length=200,null=True, blank=True)
     Salary_Amount = models.IntegerField()
-    Month_being_cleared = models.DateField(null=True, blank=True)
+    Month_being_cleared = models.CharField(max_length=200,null=True, blank=True)
     Archived_Status= models.CharField(max_length=1000, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
     Date_of_paying_salary = models.DateField(null=True, blank=True)
     @property
