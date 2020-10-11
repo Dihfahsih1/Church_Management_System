@@ -1,6 +1,8 @@
 from django import template
 from django.db.models.query import QuerySet
 from django.core.exceptions import ObjectDoesNotExist
+from datetime import datetime
+import calendar
 
 from calendar import month_name, day_name
 import re
@@ -12,13 +14,16 @@ register = template.Library()
 
 
 @register.filter
-def readable_month(month):
+def readable_month(month, Month_being_cleared):
     try:
-        return month_name[month]
+        return month_name[month, Month_being_cleared]
     except (TypeError, IndexError):
         return None
 
-
+@register.filter
+def stringed_month(Month_being_cleared):
+    month_number = int(Month_being_cleared)
+    return calendar.month_name[month_number]
 @register.filter
 def urlencodename(string):
     return string.replace('-', '_').replace(' ', '+')

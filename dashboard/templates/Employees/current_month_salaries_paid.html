@@ -1,6 +1,7 @@
 {% extends "app/base_site.html" %}
 {% block content %}
 {% load humanize %}
+{% load danceschool_tags %}
 
 <head>
   <title>UCC Bwaise | Salaries Report as of {{day}}</title>
@@ -72,7 +73,7 @@
                         <td>{{ salary.Name}}</td>
                         <td>{{ salary.basic_salary|intcomma}}</td>
                         <td>{{ salary.Date_of_paying_salary}}</td>
-                        <td>{{ salary.Month_being_cleared|date:"M"}}</td>
+                        <td>{{ salary.Month_being_cleared|stringed_month}}</td>
                         <td>{{ salary.Salary_Amount|intcomma}}</td>
                         <td>{{ salary.Balance|intcomma}}</td>
                         <td>
