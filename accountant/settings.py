@@ -28,7 +28,6 @@ INSTALLED_APPS = [
     'bootstrap_datepicker_plus',
     'bootstrap4',
     'widget_tweaks',
-    'background_task',
     'celery',
     ]
  

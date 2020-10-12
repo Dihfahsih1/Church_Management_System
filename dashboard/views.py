@@ -27,11 +27,8 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode  
 from .tokens import account_activation_token  
 from django.core.mail import EmailMessage
-from background_task import background
-def my_scheduled_job():
-    print('worked')
 
-    
+
 # #######################################===>BEGINNING OF THEME MODULE<===############################################
 class ThemeListView(ListView):
     model = Theme
@@ -57,19 +54,23 @@ class Autocomplete(autocomplete.Select2QuerySetView):
 
 ########========================>FETCH FROM THE DATABASE TO THE WEBSITE<==========================#######
 def web(request):
-    news = News.published.all().order_by('-id')
-    events = Event.published.all().order_by('-id')
-    images = Image.published.all().order_by('-id')
-    members = Members.published.filter(is_active=True).order_by('-id')
-    ministry = Ministry.published.all().order_by('-id')
-    employees = StaffDetails.published.all()
-    sliders = Slider.objects.all().order_by('-id')
-    abouts = About.objects.all()
-    gospel = News.published.latest('date')
-    feeback= Contact.objects.all().order_by('-id')
-    pages = Page.objects.all().order_by('-id')
-    context = {'gospel':gospel,'pages' : pages,'feeback':feeback,'images':images,'events': events,'news': news,
+    try:
+        news = News.published.all().order_by('-id')
+        events = Event.published.all().order_by('-id')
+        images = Image.published.all().order_by('-id')
+        members = Members.published.filter(is_active=True).order_by('-id')
+        ministry = Ministry.published.all().order_by('-id')
+        employees = StaffDetails.published.all()
+        sliders = Slider.objects.all().order_by('-id')
+        abouts = About.objects.all()
+        gospel = News.published.latest('date')
+        feeback= Contact.objects.all().order_by('-id')
+        pages = Page.objects.all().order_by('-id')
+        context = {'gospel':gospel,'pages' : pages,'feeback':feeback,'images':images,'events': events,'news': news,
         'abouts': abouts,'sliders' :sliders,'members': members, 'employees': employees,'ministry':ministry,}
+    except:
+        context = {}
+    
     return render(request, 'home/index_public.html', context)
 
 def contact(request):

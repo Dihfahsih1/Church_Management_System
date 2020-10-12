@@ -195,7 +195,6 @@ url(r'^announcement/news/update/(?P<news_pk>\d+)/$', views.NewsUpdate, name='new
 url(r'^announcement/news/view/(?P<news_pk>\d+)/$', views.news_view, name='news_view'),
 url(r'^announcement/news/news-detail/(?P<news_pk>\d+)/$', views.news_detail, name='news_detail'),
 url(r'^announcement/news/delete/(?P<news_pk>\d+)/$', views.news_delete, name='news_delete'),
-
 #events
 url(r'^event/index/$', views.EventListView.as_view(), name='event_list'),
 url(r'^event/$', views.event_wall, name='event_wall'),

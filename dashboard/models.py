@@ -110,9 +110,9 @@ THEMES = (
 
 
 class Theme(models.Model):
-    name = models.CharField(max_length=40, blank=True, null=True)
+    name = models.CharField(max_length=40, blank=True, null=True, default='slate-gray')
     colour = models.CharField(max_length=40)
-    is_active = models.CharField(max_length=10, default='No', choices=OPTIONS)
+    is_active = models.CharField(max_length=10, default='Yes', choices=OPTIONS)
     objects = models.Manager()
     class Meta:
         default_permissions = ('view', 'add', 'change', 'delete')
