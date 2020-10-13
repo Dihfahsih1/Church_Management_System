@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'widget_tweaks',
     'celery',
+    'django_crontab',
     ]
  
     
@@ -55,7 +56,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
+CRONJOBS = [('*/1 * * * *', 'dashboard.cron.my_cron_job')]
 AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend']
 ROOT_URLCONF = 'accountant.urls'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
