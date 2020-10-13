@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
-                style="height:430px; background-image: url('{% sliding_image2 %}');">
+                style="height:430px; background-image: url('{% sliding_image3 %}');">
                     <!-- Post Content -->
                     <div class="container">
                         <div class="row">
@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
-                style="background-image: url('{% sliding_image3 %}');height:430px;">
+                style="background-image: url('{% sliding_image2 %}');height:430px;">
                     <!-- Post Content -->
                     <div class="container">
                         <div class="row">
@@ -74,31 +74,14 @@
 <!--About Church with sliding Images-->
         <div class="row" style="margin-top:-1%">
             <div class="col-lg-12">
-                <div class="col-lg-6 ">
-                    {% for about in abouts %}
+                {% for about in abouts %}
                     {% if about.id == 3 %}
-                    <span class="info" >
-                        <p style="font-size:18px">{{ about.about|linebreaksbr|truncatewords:80 }}</p>
-                        <a href="{% url 'about_detail' about.pk %}"><b>... More</b></a>
-                    </span>
+                        <span class="info" >
+                            <p style="font-size:18px">{{ about.about|linebreaksbr|truncatewords:80 }}</p>
+                            <a href="{% url 'about_detail' about.pk %}"><b>... More</b></a>
+                        </span>
                     {% endif %}
-                    {% endfor %}
-                </div>
-
-                <div class="col-lg-6 text-center">
-                    <section class="slider-area owl-carousel">
-                        {% for slider in sliders %}
-                            <div class="single-slider">
-                                <div class="img">
-                                    {% if slider.slider_image %}
-                                        <img src="{{ slider.slider_image.url }}" alt="">
-                                    {% endif %}
-                                </div>
-                                <h2 class="title animated">{{slider.image_title}}</h2>
-                            </div>
-                        {% endfor %}
-                    </section>
-                </div>
+                {% endfor %}
             </div>
         </div>
     <br>
