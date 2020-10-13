@@ -1,284 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    {% load static  theme_tags total_tags %}
-    {% load bootstrap4 %} {# import bootstrap4/bootstrap3 #}
-    {% bootstrap_javascript jquery='full' %} {# Embed Bootstrap JS+jQuery #}
-    {{ form.media }} {# Adds date-picker required JS and CSS #}
+    <head>
+        {% load static  theme_tags total_tags %}
+        {% load bootstrap4 %} {# import bootstrap4/bootstrap3 #}
+        {% bootstrap_javascript jquery='full' %} {# Embed Bootstrap JS+jQuery #}
+        {{ form.media }} {# Adds date-picker required JS and CSS #}
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block head %}
-        {% block meta %}
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            <link rel="shortcut icon"/>
-            <meta charset="utf-8">
-            <meta charset="ISO-8859-15">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-        {% endblock meta %}
-        {% block stylesheets %}
-            <!-- Bootstrap -->
-            <link href="{% static 'vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
-            <!-- Datable -->
-            <link href="{% static 'datatables/css/dataTables.bootstrap.min.css' %}" rel="stylesheet">
-            <!-- Font Awesome -->
-            <link href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
-            <!-- NProgress -->
-            <link href="{% static 'vendors/nprogress/nprogress.css' %}" rel="stylesheet">
-            <!-- bootstrap-daterangepicker -->
-            <link href="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.css' %}" rel="stylesheet">
-            <!-- iCheck -->
-            <link href="{% static 'vendors/iCheck/skins/flat/green.css' %}" rel="stylesheet">
-            <!-- bootstrap-progressbar -->
-            <link href="{% static 'vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet">
-            <!-- JQVMap -->
-            <link href="{% static 'vendors/jqvmap/dist/jqvmap.min.css' %}" rel="stylesheet"/>
-            <!--Class Routine -->
-            <link href="{% static 'schools/css/routine.css' %}" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block head %}
+            {% block meta %}
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+                <link rel="shortcut icon"/>
+                <meta charset="utf-8">
+                <meta charset="ISO-8859-15">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+            {% endblock meta %}
+            {% block stylesheets %}
+                <!-- Bootstrap -->
+                <link href="{% static 'vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+                <!-- Datable -->
+                <link href="{% static 'datatables/css/dataTables.bootstrap.min.css' %}" rel="stylesheet">
+                <!-- Font Awesome -->
+                <link href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+                <!-- NProgress -->
+                <link href="{% static 'vendors/nprogress/nprogress.css' %}" rel="stylesheet">
+                <!-- bootstrap-daterangepicker -->
+                <link href="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.css' %}" rel="stylesheet">
+                <!-- iCheck -->
+                <link href="{% static 'vendors/iCheck/skins/flat/green.css' %}" rel="stylesheet">
+                <!-- bootstrap-progressbar -->
+                <link href="{% static 'vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet">
+                <!-- JQVMap -->
+                <link href="{% static 'vendors/jqvmap/dist/jqvmap.min.css' %}" rel="stylesheet"/>
+                <!--Class Routine -->
+                <link href="{% static 'schools/css/routine.css' %}" rel="stylesheet">
 
-            {# <link href="{% static 'schools/css/tables.css' %}" rel="stylesheet"> #}
-            <!--Toastr -->
-            <link href="{% static 'css/toastr.min.css' %}" rel="stylesheet">
-        {% endblock stylesheets %}
-        <!-- Custom Theme Style -->
-        <link href="{% static 'build/css/custom.css' %}" rel="stylesheet">
-     
-     <!--LOAD THEMES--> 
-        {% active_theme as active_flag %}
-        {% if active_flag == "black" %}
-        <link href="{% static 'css/theme/black.css' %}" rel="stylesheet">
-        {% elif active_flag == "slate-gray" %}
-        <link href="{% static 'css/theme/slate-gray.css' %}" rel="stylesheet">
-        {% elif active_flag == "jazzberry-jam" %}
-        <link href="{% static 'css/theme/jazzberry-jam.css' %}" rel="stylesheet">
-        {% elif active_flag == "dark-orange" %}
-        <link href="{% static 'css/theme/dark-orange.css' %}" rel="stylesheet">
-        {% elif active_flag == "deep-pink" %}
-        <link href="{% static 'css/theme/deep-pink.css' %}" rel="stylesheet">
-        {% elif active_flag == "dodger-blue" %}
-        <link href="{% static 'css/theme/dodger-blue.css' %}" rel="stylesheet">
+                {# <link href="{% static 'schools/css/tables.css' %}" rel="stylesheet"> #}
+                <!--Toastr -->
+                <link href="{% static 'css/toastr.min.css' %}" rel="stylesheet">
+            {% endblock stylesheets %}
+            <!-- Custom Theme Style -->
+            <link href="{% static 'build/css/custom.css' %}" rel="stylesheet">
         
-        {% elif active_flag == "light-sea-green" %}
-        <link href="{% static 'css/theme/light-sea-green.css' %}" rel="stylesheet">
-        {% elif active_flag == "maroon" %}
-        <link href="{% static 'css/theme/maroon.css' %}" rel="stylesheet">
-        {% elif active_flag == "medium-purple" %}
-        <link href="{% static 'css/theme/medium-purple.css' %}" rel="stylesheet">
-        {% elif active_flag == "navy-blue" %}
-        <link href="{% static 'css/theme/navy-blue.css' %}" rel="stylesheet">
-        {% elif active_flag == "radical-red" %}
-        <link href="{% static 'css/theme/radical-red.css' %}" rel="stylesheet">
-        {% elif active_flag == "rebecca-purple" %}
-        <link href="{% static 'css/theme/rebecca-purple.css' %}" rel="stylesheet">
-        {% elif active_flag == "red" %}
-        <link href="{% static 'css/theme/red.css' %}" rel="stylesheet">
-        
-        {% elif active_flag == "trinidad" %}
-        <link href="{% static 'css/theme/trinidad.css' %}" rel="stylesheet">
-        {% elif active_flag == "umber" %}
-        <link href="{% static 'css/theme/umber.css' %}" rel="stylesheet">
-        {% elif active_flag == "lime-green" %}
-        <link href="{% static 'css/theme/lime-green.css' %}" rel="stylesheet">
-        {% else %}
-        <link href="{% static 'css/theme/slate-gray.css' %}" rel="stylesheet">
-        {% endif %}
-{% endblock head %}
-<style>
-    .modal-header {
-        background-color: #73879C;
-        color: #FFF;
-        font-size: 24px;
-        font-weight: 300
-    }
-</style>
-</head>
-<div style="max-width: 1220px">
-<body class="{% block body_class %}nav-md {% endblock body_class %}" >
+        <!--LOAD THEMES--> 
+            {% active_theme as active_flag %}
+            {% if active_flag == "black" %}
+            <link href="{% static 'css/theme/black.css' %}" rel="stylesheet">
+            {% elif active_flag == "slate-gray" %}
+            <link href="{% static 'css/theme/slate-gray.css' %}" rel="stylesheet">
+            {% elif active_flag == "jazzberry-jam" %}
+            <link href="{% static 'css/theme/jazzberry-jam.css' %}" rel="stylesheet">
+            {% elif active_flag == "dark-orange" %}
+            <link href="{% static 'css/theme/dark-orange.css' %}" rel="stylesheet">
+            {% elif active_flag == "deep-pink" %}
+            <link href="{% static 'css/theme/deep-pink.css' %}" rel="stylesheet">
+            {% elif active_flag == "dodger-blue" %}
+            <link href="{% static 'css/theme/dodger-blue.css' %}" rel="stylesheet">
+            
+            {% elif active_flag == "light-sea-green" %}
+            <link href="{% static 'css/theme/light-sea-green.css' %}" rel="stylesheet">
+            {% elif active_flag == "maroon" %}
+            <link href="{% static 'css/theme/maroon.css' %}" rel="stylesheet">
+            {% elif active_flag == "medium-purple" %}
+            <link href="{% static 'css/theme/medium-purple.css' %}" rel="stylesheet">
+            {% elif active_flag == "navy-blue" %}
+            <link href="{% static 'css/theme/navy-blue.css' %}" rel="stylesheet">
+            {% elif active_flag == "radical-red" %}
+            <link href="{% static 'css/theme/radical-red.css' %}" rel="stylesheet">
+            {% elif active_flag == "rebecca-purple" %}
+            <link href="{% static 'css/theme/rebecca-purple.css' %}" rel="stylesheet">
+            {% elif active_flag == "red" %}
+            <link href="{% static 'css/theme/red.css' %}" rel="stylesheet">
+            
+            {% elif active_flag == "trinidad" %}
+            <link href="{% static 'css/theme/trinidad.css' %}" rel="stylesheet">
+            {% elif active_flag == "umber" %}
+            <link href="{% static 'css/theme/umber.css' %}" rel="stylesheet">
+            {% elif active_flag == "lime-green" %}
+            <link href="{% static 'css/theme/lime-green.css' %}" rel="stylesheet">
+            {% else %}
+            <link href="{% static 'css/theme/slate-gray.css' %}" rel="stylesheet">
+            {% endif %}
+        {% endblock head %}
 
+        <style>
+            .modal-header {
+                background-color: #73879C;
+                color: #FFF;
+                font-size: 24px;
+                font-weight: 300
+            }
+            div.disabled {
+            overflow-x: hidden; //horizontal
+            overflow-y: scroll; //vertical
+            }
+            
+        </style>
+    </head>
+    
+    <body class="{% block body_class %}nav-md {% endblock body_class %}" >
+    <div style="max-width: 1220px">
+    {% block body %}
 
-{% block body %}
+        <div class="fakeLoader"></div>
+        <div class="container body">
+            <div class="main_container">
+                {% block sidebar %}
+                    <div class="col-md-3 left_col {% block sidebar_class %} {% endblock sidebar_class %}">
+                        {% include "app/sidebar.html" %}
+                    </div>
+                {% endblock sidebar %}
 
-    <div class="fakeLoader"></div>
-    <div class="container body">
-        <div class="main_container">
-            {% block sidebar %}
-                <div class="col-md-3 left_col {% block sidebar_class %} {% endblock sidebar_class %}">
-                    {% include "app/sidebar.html" %}
-                </div>
-            {% endblock sidebar %}
+                {% block top_navigation %}
+                    <div class="top_nav">
+                        
+                    {% include "app/top_navigation.html" %}
+                    </div>
+                {% endblock top_navigation %}
 
-            {% block top_navigation %}
-                <div class="top_nav">
+                {% block content %}
+                    <h3 style="color: red">
+                    {{ message }}
+                    </h3>
+                {% endblock content %}
+
+                {% block footer %}
                     
-                  {% include "app/top_navigation.html" %}
-                </div>
-            {% endblock top_navigation %}
+                {% endblock footer %}
 
-            {% block content %}
-                <h3 style="color: red">
-                  {{ message }}
-                </h3>
-            {% endblock content %}
-
-            {% block footer %}
-                
-            {% endblock footer %}
-
+            </div>
+            <footer>
+                {% include "app/footer.html" %}
+            </footer>
         </div>
-        <footer>
-            {% include "app/footer.html" %}
-        </footer>
+        {% include 'js/all_js.js'%}
+    {% endblock body %}
     </div>
-    {% block javascripts %}
-        <!-- jQuery -->
-        <script src="{% static 'vendors/jquery/dist/jquery.min.js' %}"></script>
+    </body>
+        {% block preloader %}
+    {% endblock %}
 
-        <!-- Bootstrap -->
-        <script src="{% static 'vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-        <!-- FastClick -->
-        <script src="{% static 'vendors/fastclick/lib/fastclick.js' %}"></script>
-        <!-- NProgress -->
-        <script src="{% static 'vendors/nprogress/nprogress.js' %}"></script>
-        <!-- bootstrap-progressbar -->
-        <script src="{% static 'vendors/bootstrap-progressbar/bootstrap-progressbar.min.js' %}"></script>
-        <!-- iCheck -->
-        <script src="{% static 'vendors/iCheck/icheck.min.js' %}"></script>
-        <!-- bootstrap-daterangepicker -->
-        <script src="{% static 'vendors/moment/min/moment.min.js' %}"></script>
-        <script src="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
-        <!-- bootstrap-wysiwyg -->
-        <script src="{% static 'vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js' %}"></script>
-        <script src="{% static 'vendors/jquery.hotkeys/jquery.hotkeys.js' %}"></script>
-        <script src="{% static 'vendors/google-code-prettify/src/prettify.js' %}"></script>
-        <!-- jQuery Tags Input -->
-        <script src="{% static 'vendors/jquery.tagsinput/src/jquery.tagsinput.js' %}"></script>
-        <!-- Switchery -->
-        <script src="{% static 'vendors/switchery/dist/switchery.min.js' %}"></script>
-        <!-- Parsley -->
-        <script src="{% static 'vendors/parsleyjs/dist/parsley.min.js' %}"></script>
-        <!-- Autosize -->
-        <script src="{% static 'vendors/autosize/dist/autosize.min.js' %}"></script>
-        <!-- jQuery autocomplete -->
-        <script src="{% static 'vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js' %}"></script>
-        <!-- starrr -->
-        <script src="{% static 'vendors/Highcharts/code/highcharts.src.js' %}"></script>
-        <script src="{% static 'vendors/Highcharts/code/highcharts-3d.js' %}"></script>
-        <script src="{% static 'vendors/Highcharts/code/modules/exporting.js' %}"></script>
+    {% block extra_script %}
+    {% endblock extra_script %}
 
-    {{ block.super }}
-    <!-- Datatables -->
-    <script src="{% static 'vendors/datatables.net/js/jquery.dataTables.min.js' %}"></script>
-    <script src="{% static 'vendors/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
-    <script src="{% static 'vendors/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
-    <script src="{% static 'vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js' %}"></script>
-    <script src="{% static 'vendors/datatables.net-buttons/js/buttons.flash.min.js' %}"></script>
-    <script src="{% static 'vendors/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
-    <script src="{% static 'vendors/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
-    <script src="{% static 'vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js' %}"></script>
-    <script src="{% static 'vendors/datatables.net-keytable/js/dataTables.keyTable.min.js' %}"></script>
-    <script src="{% static 'vendors/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
-    <script src="{% static 'vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js' %}"></script>
-    <script src="{% static 'vendors/datatables.net-scroller/js/dataTables.scroller.min.js' %}"></script>
+    {% block javascript %}
+    {% endblock %}
 
-   <!--Select2-->
-    <script src="{% static 'vendors/select2/dist/js/select2.js' %}"></script>
-    <script src="{% static 'vendors/select2/dist/js/select2.full.js' %} "></script>
-    <script src="{% static 'vendors/jszip/dist/jszip.min.js' %}"></script>
-    <script src="{% static 'vendors/pdfmake/build/pdfmake.min.js' %}"></script>
-    <script src="{% static 'vendors/pdfmake/build/vfs_fonts.js' %}"></script>
-    <!-- DateJS -->
-    <script src="{% static 'vendors/DateJS/build/date.js' %}"></script>
-    <!-- JQVMap -->
+    {% block extra_js %}
+    {% endblock extra_js %}
 
-<!-- Custom Theme Scripts -->
-    <script src="{% static 'build/js/custom.min.js' %}"></script>
-    {% endblock javascripts %}
-    <script type="text/javascript">$(document).ready(function () 
-      {
-        $('#invoice-table').DataTable(
-        {
-          dom: 'Bfrtip',
-          iDisplayLength: 15,
-            buttons: [
-                    'copyHtml5',
-                    'excelHtml5',
-                    'csvHtml5',
-                    'pdfHtml5',
-                    'print',
-                    'pageLength',
-                    
-                    ],
-          search: true,
-          responsive: true
-          }
-          );
-        }
-        );
-    </script>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
-    <script>
-        $(document).ready(function () {
-            $('.datepicker').datepicker();
-        });
-    </script>
+    {% block extra_css %}
+    {% endblock extra_css %}
 
 
-<!--script for performing totals on the tables -->
-<script type="text/javascript">
-  var total = 0;
-    $('.sum_table tr td.rowDataSd').each(function() {
-        total += parseInt($(this).text());
-    });
-    $('.sum_table span.totalCol').text("Total Amount: " + total);</script>
-
-
-
-<script>
- $("#success-alert").delay(6000).fadeOut('slow');
-</script>
-
-<script>
-    $.fakeLoader();
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-</script>
-
-<script>
-    $(document).ready(function () {
-        $(".dropdown-btn").click(function (e) {
-            e.preventDefault();
-            $('.dropdown').toggle();
-        });
-    });
-</script>
-<script type="text/javascript">
-    $('#myTable').DataTable( {
-    responsive: true
-    } );
-</script>
-
-
-{% endblock body %}
-{% block preloader %}
-{% endblock %}
-
-{% block extra_script %}
-{% endblock extra_script %}
-
-{% block javascript %}
-{% endblock %}
-
-{% block extra_js %}
-{% endblock extra_js %}
-
-{% block extra_css %}
-{% endblock extra_css %}
-
-
-{% block js %}
-{% endblock js %}
-</div>
-</body>
+    {% block js %}
+    {% endblock js %}
 </html>
 

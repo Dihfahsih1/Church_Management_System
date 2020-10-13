@@ -154,31 +154,31 @@
                     <div class="menu">
                         <nav id="mobile_menu_active">
                             <ul id="menu">
-                                <li><a href="{% url 'index_public' %}">Home</a></li>
-                                <li><a href="{% url 'church_details' %}" {% if request.get_full_path == '/church-details' or request.get_full_path == '/Church-Mission' or request.get_full_path == '/Church/Vision' or request.get_full_path == '/core-values'  %} class="active"{% endif %}>About Us</a></li>
+                                <li><a href="{% url 'index_public' %}">HOME</a></li>
+                                <li><a href="{% url 'church_details' %}" {% if request.get_full_path == '/church-details' or request.get_full_path == '/Church-Mission' or request.get_full_path == '/Church/Vision' or request.get_full_path == '/core-values'  %} class="active"{% endif %}>ABOUT</a></li>
 
-                                <li><a href="#" {% if request.get_full_path == '/Pastoral-Team' or request.get_full_path == '/Administrative-Team' %} class="active"{% endif %}>Staff <span class="icon fa fa-chevron-down"></span></a>
+                                <li><a href="#" {% if request.get_full_path == '/Pastoral-Team' or request.get_full_path == '/Administrative-Team' %} class="active"{% endif %}>STAFF <span class="icon fa fa-chevron-down"></span></a>
                                     <ul class="drop">
                                         <li><a {% if request.get_full_path == '/Pastoral-Team' %} class="active"{% endif %} href="{% url 'church_pastors' %}">Pastoral</a></li>
                                         <li><a {% if request.get_full_path == '/Administrative-Team' %} class="active"{% endif %}href="{% url 'church_administration' %}">Administrative</a></li>
                                     </ul>
                                 </li>
 
-                                <li><a href="#" {% if request.get_full_path == '/Church/Members' or request.get_full_path == '/membership-online/' %} class="active"{% endif %}>Membership <span class="icon fa fa-chevron-down"></span></a>
+                                <li><a href="#" {% if request.get_full_path == '/Church/Members' or request.get_full_path == '/membership-online/' %} class="active"{% endif %}>MEMBERSHIP <span class="icon fa fa-chevron-down"></span></a>
                                     <ul class="drop">
                                         <li><a {% if request.get_full_path == '/Church/Members' %} class="active"{% endif %} href="{% url 'membership_wall' %}">Members</a></li>
                                         <li><a {% if request.get_full_path == '/membership-online/'  %} class="active"{% endif %} href="{% url 'online_registration' %}">Register</a></li>
                                     </ul>
                                 </li>
 
-                                <li><a {% if request.get_full_path == '/Ministry/'  %} class="active"{% endif %} href="{% url 'ministry-wall' %}">Ministries</a></li>
-                                <li><a {% if request.get_full_path == '/Projects/'  %} class="active"{% endif %} href="{% url 'projects_wall' %}">Projects</a></li>
-                                <li><a href="https://www.youtube.com/channel/UCFMCB_zTwBQNunbpjBsPcSw/videos" target="_blank">YouTube Channel</a></li>
-                                <li><a {% if request.get_full_path == '/event/'  %} class="active"{% endif %} href="{% url 'event_wall' %}">Events</a></li>
-                                <li><a {% if request.get_full_path == '/galleries/'  %} class="active"{% endif %}href="{% url 'gallery_wall' %}">Gallery</a></li>
-                                <li><a {% if request.get_full_path == '/feedback'  %} class="active"{% endif %} href="{% url 'contact' %}">Contact Us</a></li>
+                                <li><a {% if request.get_full_path == '/Ministry/'  %} class="active"{% endif %} href="{% url 'ministry-wall' %}">MINISTRIES</a></li>
+                                <li><a {% if request.get_full_path == '/Projects/'  %} class="active"{% endif %} href="{% url 'projects_wall' %}">PROJECTS</a></li>
+                                <li><a href="https://www.youtube.com/channel/UCFMCB_zTwBQNunbpjBsPcSw/videos" target="_blank">YOUTUBE</a></li>
+                                <li><a {% if request.get_full_path == '/event/'  %} class="active"{% endif %} href="{% url 'event_wall' %}">EVENTS</a></li>
+                                <li><a {% if request.get_full_path == '/galleries/'  %} class="active"{% endif %}href="{% url 'gallery_wall' %}">GALLERY</a></li>
+                                <li><a {% if request.get_full_path == '/feedback'  %} class="active"{% endif %} href="{% url 'contact' %}">CONTACT US</a></li>
                                 {% if request.user.is_authenticated %}   
-                                    <li> <a href="{% url 'index' %}" target="_new"> Church System</a></li>
+                                    <li> <a href="{% url 'index' %}" target="_new"> SYSTEM</a></li>
                                 {% endif %}
                             </ul>
                         </nav>
