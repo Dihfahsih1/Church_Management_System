@@ -59,8 +59,8 @@
                             <div class="row " style="margin-left:1%;">
                                 <h2 style="text-align:center; color:red;"><b>Summary For the Month of {{ month }} {{ current_year }}</b></h2>
                                     <!--Start of Annual summary tiles -->
-                                <div class="row top_tiles">  
-                                    <h3 class="blue"><b> Cash Float Information</b>(7 days)</h3>
+                                <div class="row top_tiles" style="margin-left:1%;">  
+                                    <h3 class="blue" style="margin-left: 5%; font-weight: bold;"><b> Cash Float Information</b>(7 days)</h3>
                                     <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
                                         <div class="tile-stats">
                                             <h4><b style="font-size:15px">Cash Float Given</b></h4>
@@ -85,7 +85,7 @@
                             </div>
 
                             <div class="row top_tiles" style="margin-left: 1%; ">
-                                <h3 style="font-weight: bold;">
+                                <h3 style="margin-left: 5%; font-weight: bold;">
                                     <a href="{% url 'total_revenues'  %}"><b class="blue" > Month of {{month}} Total Revenue({{total_monthly_incomes|intcomma}})</b> </a> </h3>
                                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                                     <a href="{% url 'Tithesreport'  %}">
