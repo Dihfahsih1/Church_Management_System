@@ -1,17 +1,27 @@
 
 {% extends 'home/base.html' %}
 
-{% load static contact_tags  %}
+{% load static contact_tags slider_tags %}
 {% block content %}
 
 <div class="container-fluid" style="background-color: white;">
-<div>
+<!--Use the Banner instead of the slider-->
+{% comment %}
+    <div class="row">
+        {% for about in abouts %}
+            {% if about.banner %}
+                    <img src="{{ about.banner.url }}">
+                {% endif %}
+        {% endfor %}
+    </div>
+{% endcomment %}
+
 <!--Top Slider -->
     <div class="container-fluid justify-content-center">
         <div class="row">
             <div class="slider-area owl-carousel">
                 <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
-                style="height:430px;background-image: url({% static 'img/welcome.jpg' %})" >
+                style="height:430px;background-image: url('{% sliding_image1 %}')" >
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-12">
@@ -26,7 +36,7 @@
                 </div>
 
                 <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
-                style="height:430px; background-image: url({% static 'img/w3.jpg'%});">
+                style="height:430px; background-image: url('{% sliding_image2 %}');">
                     <!-- Post Content -->
                     <div class="container">
                         <div class="row">
@@ -42,7 +52,7 @@
                 </div>
 
                 <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
-                style="background-image: url({% static 'img/w4.jpg'%});height:430px;">
+                style="background-image: url('{% sliding_image3 %}');height:430px;">
                     <!-- Post Content -->
                     <div class="container">
                         <div class="row">
@@ -59,20 +69,6 @@
             </div>
         </div>
     </div>
-
-<!---About Church Section -->
-    {% comment %} 
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title text-center">
-                    <h1 class="title"><span style="font-size:20px">{% church_name %} </span></h1><br>
-                    <a href="{% url 'abouts_vision' %}">
-                        <h2 style="font-size:18px; text-align:center">{% church_vision %}</h2>
-                    </a>
-                </div>
-            </div>
-        </div>
-    {% endcomment %}
     <br>
 
 <!--About Church with sliding Images-->
