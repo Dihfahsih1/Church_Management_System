@@ -28,6 +28,21 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from .tokens import account_activation_token  
 from django.core.mail import EmailMessage
 
+from django_cron import CronJobBase, Schedule
+
+class archiving_data(CronJobBase):
+    date= datetime.now()
+    month = date.month
+    year = date.year
+    RUN_EVERY_MONTH=calendar._monthlen(year, month)
+    schedule = Schedule(run_every_mins=2)
+    code = 'dashboard.my_cron_job'    # a unique code
+    def do(self):
+        items = Revenues.objects.all()
+        for item in items:
+            item.Archived_Status = 'ARCHIVED'
+            item.save()
+
 
 # #######################################===>BEGINNING OF THEME MODULE<===############################################
 class ThemeListView(ListView):

@@ -2,7 +2,8 @@
 import os
 from django.contrib.messages import constants as messages
 import environ
-
+import calendar
+from datetime import datetime
 env = environ.Env()
 # reading .env file
 environ.Env.read_env()
@@ -30,6 +31,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'celery',
     'django_crontab',
+    'django_cron',
     ]
  
     
@@ -55,6 +57,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+CRON_CLASSES = [
+    "dashboard.views.archiving_data",
+]
+
 
 CRONJOBS = [('*/10000 * * * *', 'dashboard.cron.my_cron_job')]
 AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend']
