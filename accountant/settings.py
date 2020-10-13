@@ -56,7 +56,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CRONJOBS = [('*/1 * * * *', 'dashboard.cron.my_cron_job')]
+CRONJOBS = [('*/10000 * * * *', 'dashboard.cron.my_cron_job')]
 AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend']
 ROOT_URLCONF = 'accountant.urls'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
