@@ -1721,7 +1721,7 @@ def church_details(request):
 class AboutCreateView(CreateView):
     model = About
     template_name = 'abouts/about_create.html'
-    fields = ('about_title','about', 'about_image','vision_description','mission_description','Is_View_on_Web')
+    fields = ('banner','about_title','about', 'about_image','vision_description','mission_description','Is_View_on_Web')
 
     def form_valid(self, form):
         about = form.save(commit=False)
@@ -1732,7 +1732,7 @@ class AboutUpdateView(UpdateView):
     model = About
     template_name = 'abouts/update_about.html'
     pk_url_kwarg = 'about_pk'
-    fields = ('about', 'about_image','vision_description','mission_description','Is_View_on_Web')
+    fields = ('banner','about', 'about_image','vision_description','mission_description','Is_View_on_Web')
 
     def form_valid(self, form):
         about = form.save(commit=False)
@@ -1760,7 +1760,7 @@ def save_about_form(request, form, template_name):
 def about_view(request, about_pk):
     about = get_object_or_404(About, pk=about_pk)
     if request.method == 'POST':
-        form = AboutForm(request.POST, instance=about)
+        form = AboutForm(request.POST, request.FILES, instance=about)
     else:
         form = AboutForm(instance=about)
     return save_about_form(request, form, 'abouts/includes/partial_about_view.html')

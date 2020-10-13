@@ -549,6 +549,7 @@ class Slider(models.Model):
 
 class About(models.Model):
     about_image = models.ImageField(upload_to='about/',max_length=10000, null=True, blank=True)
+    banner = models.ImageField(upload_to='about/',max_length=10000, null=True, blank=True)
     about = models.TextField(max_length=50000 , null=True, blank=True)
     about_title = models.CharField(max_length=100, null=True, blank=True)
     core_values = models.TextField(max_length=10000000, null=True, blank=True)
