@@ -29,9 +29,6 @@ INSTALLED_APPS = [
     'bootstrap_datepicker_plus',
     'bootstrap4',
     'widget_tweaks',
-    'celery',
-    'django_crontab',
-    'django_cron',
     ]
  
     
@@ -57,12 +54,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-CRON_CLASSES = [
-    "dashboard.views.archiving_data",
-]
-
-
-CRONJOBS = [('*/10000 * * * *', 'dashboard.cron.my_cron_job')]
 AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend']
 ROOT_URLCONF = 'accountant.urls'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -155,8 +146,3 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
-# Celery settings
-broker_url = 'redis://guest:guest@localhost//'
-accept_content = ['json']
-task_serializer = 'json'
-result_serializer = 'json'
