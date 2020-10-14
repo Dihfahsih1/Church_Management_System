@@ -154,3 +154,9 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
+
+# Celery settings
+broker_url = 'redis://guest:guest@localhost//'
+accept_content = ['json']
+task_serializer = 'json'
+result_serializer = 'json'
