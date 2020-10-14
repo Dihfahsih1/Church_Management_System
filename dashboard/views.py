@@ -28,24 +28,23 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from .tokens import account_activation_token  
 from django.core.mail import EmailMessage
 
-from django_cron import CronJobBase, Schedule
 
-class archiving_data(CronJobBase):
-    schedule = Schedule(run_at_times=['12:00'])
-    code = 'dashboard.my_cron_job'    # a unique code
-    def do(self):
-        date= datetime.now()
-        month = date.month
-        year = date.year
-        da= date.day
-        print(da)
-        RUN_EVERY_MONTH=calendar._monthlen(year, month)
-        print(RUN_EVERY_MONTH)
-        if da == RUN_EVERY_MONTH:
-            items = Revenues.objects.all()
-            for item in items:
-                item.Archived_Status = 'NOT-ARCHIVED'
-                item.save()
+# class archiving_data(CronJobBase):
+#     schedule = Schedule(run_at_times=['12:00'])
+#     code = 'dashboard.my_cron_job'    # a unique code
+#     def do(self):
+#         date= datetime.now()
+#         month = date.month
+#         year = date.year
+#         da= date.day
+#         print(da)
+#         RUN_EVERY_MONTH=calendar._monthlen(year, month)
+#         print(RUN_EVERY_MONTH)
+#         if da == RUN_EVERY_MONTH:
+#             items = Revenues.objects.all()
+#             for item in items:
+#                 item.Archived_Status = 'NOT-ARCHIVED'
+#                 item.save()
 
 
 # #######################################===>BEGINNING OF THEME MODULE<===############################################

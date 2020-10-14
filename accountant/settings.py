@@ -31,7 +31,6 @@ INSTALLED_APPS = [
     'widget_tweaks',
     ]
  
-    
 # DEFAULT_FILE_STORAGE=env("FILE_STORAGE")
 # GITHUB_HANDLE=env("HANDLE")
 # ACCESS_TOKEN=env("TOKEN")
