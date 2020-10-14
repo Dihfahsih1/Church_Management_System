@@ -31,17 +31,21 @@ from django.core.mail import EmailMessage
 from django_cron import CronJobBase, Schedule
 
 class archiving_data(CronJobBase):
-    date= datetime.now()
-    month = date.month
-    year = date.year
-    RUN_EVERY_MONTH=calendar._monthlen(year, month)
-    schedule = Schedule(run_every_mins=2)
+    schedule = Schedule(run_at_times=['12:00'])
     code = 'dashboard.my_cron_job'    # a unique code
     def do(self):
-        items = Revenues.objects.all()
-        for item in items:
-            item.Archived_Status = 'ARCHIVED'
-            item.save()
+        date= datetime.now()
+        month = date.month
+        year = date.year
+        da= date.day
+        print(da)
+        RUN_EVERY_MONTH=calendar._monthlen(year, month)
+        print(RUN_EVERY_MONTH)
+        if da == RUN_EVERY_MONTH:
+            items = Revenues.objects.all()
+            for item in items:
+                item.Archived_Status = 'NOT-ARCHIVED'
+                item.save()
 
 
 # #######################################===>BEGINNING OF THEME MODULE<===############################################
@@ -69,7 +73,15 @@ class Autocomplete(autocomplete.Select2QuerySetView):
 
 ########========================>FETCH FROM THE DATABASE TO THE WEBSITE<==========================#######
 def web(request):
+    date= datetime.now()
+    month = date.month
+    year = date.year
+    da= date.day
+    print(da)
+    RUN_EVERY_MONTH=calendar._monthlen(year, month)
+    print(RUN_EVERY_MONTH)
     try:
+
         news = News.published.all().order_by('-id')
         events = Event.published.all().order_by('-id')
         images = Image.published.all().order_by('-id')
