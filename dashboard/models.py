@@ -108,7 +108,12 @@ THEMES = (
     ("navy-blue", "Navy Blue"),
     ("red", "Red"))
 
-
+class Role(models.Model):
+    name = models.CharField(max_length=100, default='Roles', null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    def __str__(self):
+        return self.name
+    
 class Theme(models.Model):
     name = models.CharField(max_length=40, blank=True, null=True, default='slate-gray')
     colour = models.CharField(max_length=40)
