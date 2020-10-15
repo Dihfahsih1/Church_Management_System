@@ -80,7 +80,6 @@ def web(request):
     RUN_EVERY_MONTH=calendar._monthlen(year, month)
     print(RUN_EVERY_MONTH)
     try:
-
         news = News.published.all().order_by('-id')
         events = Event.published.all().order_by('-id')
         images = Image.published.all().order_by('-id')
@@ -96,7 +95,6 @@ def web(request):
         'abouts': abouts,'sliders' :sliders,'members': members, 'employees': employees,'ministry':ministry,}
     except:
         context = {}
-    
     return render(request, 'home/index_public.html', context)
 
 def contact(request):
@@ -164,7 +162,7 @@ def edit_employee(request, pk):
     else:
         today = timezone.now()
         month = today.strftime('%B')
-        message="Edit Employee Details"
+        message="Edited Employee Details"
         get_name = StaffDetails.objects.filter(id=pk)
         form = StaffDetailsForm(instance=item)        
         context={'form':form, 'month':month, 'message':message, 'get_name':get_name}
