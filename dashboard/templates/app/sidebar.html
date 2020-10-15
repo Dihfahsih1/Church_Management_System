@@ -65,7 +65,7 @@
                 </li>
 
                 {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
-                <li><a><i class="fa fa-calculator"></i> Record Revenues <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-calculator"></i> Revenue Module <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{% url 'Enter_Tithes' %}">Tithes</a></li>
                         <li><a href="{% url 'add-seeds'%}">Seeds Offering</a></li>
@@ -75,7 +75,7 @@
                     </ul>
                 </li>
 
-                <li><a><i class="fa fa-balance-scale"></i> Record Expenditures <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-balance-scale"></i> Expenditure Module <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{% url 'enter-general-expenses'  %}">General  Expenditure</a>
                         </li>
