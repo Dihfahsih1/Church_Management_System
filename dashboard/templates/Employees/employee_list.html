@@ -2,9 +2,6 @@
 {% extends "app/base_site.html" %}
 {% load static i18n %}
 {% load humanize %}
-{% block javascript %}
-<script src="{% static 'schools/js/employees.js' %}"></script>
-{% endblock %}
 {% block content %}
 <head>
   <title>UCC Bwaise | Employee List as of  {{mth}} {{year}}</title>
@@ -161,6 +158,25 @@
       responsive: true
     });
   });
+
+  $(function () {
+    var loadForm = function () {
+        var btn = $(this);
+        $.ajax({
+            url: btn.attr("data-url"),
+            type: 'get',
+            dataType: 'json',
+            beforeSend: function () {
+                $("#modal-employees").modal("show");
+            },
+            success: function (data) {
+                $("#modal-employees .modal-content").html(data.html_form);
+            }
+        });
+    };
+    $("#employees-table").on("click", ".js-view-employees", loadForm);
+}
+);
 
 </script>
  
