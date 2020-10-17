@@ -3,19 +3,10 @@
 <body>
 
 {% block content %}
-    <section class="page-breadcumb-area bg-with-black">
-        <div class="container text-center">
-            <h2 class="title">Ministries / Departments</h2>
-            <ul class="links">
-                <li><a href="{% url 'index_public' %}">Home</a></li>
-                <li><a href='javascript:void(0);'>Ministry</a></li>
-            </ul>
-        </div>
-    </section>
+ <h1 style="text-align:center" class="title">All Ministries at UCC Bwaise</h1>
+   <hr>
     
     <section class="page-event-area">
-        <h3 style="text-align: center;">All Ministries in UCC Bwaise</h3>
-        <hr />
         <div class="container">
             <div class="row justify-content-center">
                 {% for i in minisitries_list %}

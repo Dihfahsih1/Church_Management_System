@@ -2,19 +2,11 @@
 <body>
 
 {% block content %}
-    <section class="page-breadcumb-area bg-with-black">
-        <div class="container text-center">
-            <h2 class="title">UCC Bwaise Staff</h2>
-            <ul class="links">
-                <li><a href="{% url 'index_public' %}">Home</a></li>
-                <li><a href='javascript:void(0);'>Pastoral Team</a></li>
-            </ul>
-        </div>
-    </section>
+<h1 style="text-align:center" class="title">UCC Bwaise Pastoral Team</h1>
+   <hr>
+    <section class="page-event-area" style="margin-top:-5%">
     <section class="page-event-area" style="background-color:ivory;">
         <div class="container">
-            <h2 style="text-align:center;">The following are the Pastors at UCC-Bwaise</h2>
-            <hr />
             <div class="row">
                  {% for pastor in pastors %} 
                  {% if pastor.Ministry_Involved_In == "Pastoral"%}
