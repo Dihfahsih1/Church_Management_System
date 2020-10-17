@@ -76,9 +76,7 @@ def web(request):
     month = date.month
     year = date.year
     da= date.day
-    print(da)
     RUN_EVERY_MONTH=calendar._monthlen(year, month)
-    print(RUN_EVERY_MONTH)
     try:
         news = News.published.all().order_by('-id')
         events = Event.published.all().order_by('-id')
