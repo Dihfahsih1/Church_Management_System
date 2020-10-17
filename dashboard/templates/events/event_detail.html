@@ -1,11 +1,10 @@
 {% extends 'home/base.html' %}
 
-
 <body>
 
 {% block content %}
 
-  <h1>Event Details</h1><hr>
+  <h1 style="text-align: center">Event Details</h1><hr>
 
     <section class="page-event-details-area">
         <div class="container">
@@ -21,7 +20,6 @@
                         <h2 class="title">{{ event.event_title }}</h2>
                         <p>Event Date: {{ event.from_date }} </p><br><hr>
                       
-                        <h2 class="info-title">Event Details</h2>
                         <div class="text">{{event.note|linebreaksbr}}</div>
                     </div>
                 </div>
