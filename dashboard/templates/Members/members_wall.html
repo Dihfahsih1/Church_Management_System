@@ -2,18 +2,9 @@
 <body>
 
 {% block content %}
-    <section class="page-breadcumb-area bg-with-black">
-        <div class="container text-center">
-            <h2 class="title">UCC Bwaise Members</h2>
-            <ul class="links">
-                <li><a href="{% url 'index_public' %}">Home</a></li>
-                <li><a href='javascript:void(0);'>Members</a></li>
-            </ul>
-        </div>
-    </section>
-    <section class="page-event-area">
-        <h3 style="text-align: center;">All UCC - Bwaise Registered Members</h3>
-        <hr />
+   <h1 style="text-align:center" class="title">UCC Bwaise Registered Members</h1>
+   <hr>
+    <section class="page-event-area" style="margin-top:-5%">
         <div class="container">
             <form action="{% url 'membership_wall' %}" method="GET" value="{{request.GET.q}}">
                 <div style="text-align: center;">
