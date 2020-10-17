@@ -5,16 +5,7 @@
 
 {% block content %}
 
-    <section class="page-breadcumb-area bg-with-black">
-        <div class="container text-center">
-            <h2 class="title">Event Detail</h2>
-            <ul class="links">
-                <li><a href="{% url 'index_public' %}">Home</a></li>
-                <li><a href="{% url 'event_wall' %}">Events</a></li>
-                <li><a href="javascript:void(0);">Event Detail</a></li>
-            </ul>
-        </div>
-    </section>
+  <h1>Event Details</h1><hr>
 
     <section class="page-event-details-area">
         <div class="container">
@@ -28,23 +19,10 @@
                             {% endif %}
                         </div>
                         <h2 class="title">{{ event.event_title }}</h2>
-                        <ul class="event-meta">
-                            <li class="info"><span class="icon"><i class="fa fa-user"></i></span> {{ event.event_for }}
-                                (Event for)
-                            </li>
-                            <li class="info"><span class="icon"><i
-                                    class="fa fa-calendar"></i></span> {{ event.from_date }}
-                                (Start Date)
-                            </li>
-                            <li class="info"><span class="icon"><i
-                                    class="far fa-calendar-alt"></i></span> {{ event.to_date }}
-                                (End Date)
-                            </li>
-                            <li class="info"><span class="icon"><i class="fas fa-map-marker"></i></span> {{event.event_place}}
-                            </li>
-                        </ul>
-                        <h2 class="info-title">Event Information :</h2>
-                        <div class="text">{{event.note|linebreaks}}</div>
+                        <p>Event Date: {{ event.from_date }} </p><br><hr>
+                      
+                        <h2 class="info-title">Event Details</h2>
+                        <div class="text">{{event.note|linebreaksbr}}</div>
                     </div>
                 </div>
 
