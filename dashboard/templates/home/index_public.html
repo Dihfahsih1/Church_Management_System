@@ -151,7 +151,8 @@
         <div class="row" style="margin-top:-3%">
             <div class="col-lg-12">
                 <h2 class="title" style="text-align: center;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'event_wall' %}">
-                    Church Activities</a></h2><br>
+                    Church Activities</a>
+                </h2><br>
                 <div class="container-fluid">
                     <div class="row" style="margin-left:2px">{% for event in events %}{% if forloop.counter <= 3 %}
                         <div class="col-lg-4">
@@ -182,7 +183,6 @@
                                                     class="fa fa-map-marker"></i></span>{{ event.event_place }}
                                             </li>
                                         </ul>
-                                        
                                     </div>
                                 </div>
                             </a>
@@ -190,7 +190,7 @@
                     </div>
                 </div>  
             </div> 
-    </div>
+        </div>
 
 
 <!-- Church Members -->
@@ -220,85 +220,85 @@
 <!--Church Feedback-->
     <div class="row"style="margin-top:-3%"> 
         <div class="col-lg-12">
-        <div class="col-lg-9">
-         <h2 class="title" style="text-align: center;"> <a class="link glbscl-link-btn hvr-bs">We would like to hear from You</a></h2>
-            <div class="col-lg-12">
-                <div class="row">
-                    <div class="col-lg-6 testimonial-area">
-                        <div class="col-lg-12" style="height: 250px">
-                            <div class="testimonial-carousel owl-carousel">
-                                {% for data in feeback %}
-                                    {% if forloop.counter <= 15 %}
-                                    <div class="single-testimonial" style="border: 2px solid">
-                                        <div class="content"  style="height: 250px">
-                                            <h2 class="name">{{data.name}}</h2>
-                                            <p style="font-size: 20px;"> {{data.feedback|truncatewords:20}}</p>
+            <div class="col-lg-9">
+            <h2 class="title" style="text-align: center;"> <a class="link glbscl-link-btn hvr-bs">We would like to hear from You</a></h2>
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-6 testimonial-area">
+                            <div class="col-lg-12" style="height: 250px">
+                                <div class="testimonial-carousel owl-carousel">
+                                    {% for data in feeback %}
+                                        {% if forloop.counter <= 15 %}
+                                        <div class="single-testimonial" style="border: 2px solid">
+                                            <div class="content"  style="height: 250px">
+                                                <h2 class="name">{{data.name}}</h2>
+                                                <p style="font-size: 20px;"> {{data.feedback|truncatewords:20}}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    {% endif %}
-                                {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
 
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="contact-form-area"><br><br><br>
-                            <form action="{% url 'contact' %}" method="POST" id="contact_us" name="contact_us">
-                                {% csrf_token %}
-                                <div class="row">
-                                    {% if request.user.is_authenticated %}
-                                    <div class="col-lg-12">
-                                        <div class="contact-input-box" id="usename">
-                                            <input type="text" name="name" value="{{ request.user.full_name }}" readonly="true">
+                        <div class="col-lg-6">
+                            <div class="contact-form-area"><br><br><br>
+                                <form action="{% url 'contact' %}" method="POST" id="contact_us" name="contact_us">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        {% if request.user.is_authenticated %}
+                                        <div class="col-lg-12">
+                                            <div class="contact-input-box" id="usename">
+                                                <input type="text" name="name" value="{{ request.user.full_name }}" readonly="true">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="contact-input-box">
-                                            <textarea style = 'text-align: left;'name="feedback" id="message" required placeholder="Feed Back">
-                                            </textarea>
+                                        <div class="col-lg-12">
+                                            <div class="contact-input-box">
+                                                <textarea style = 'text-align: left;'name="feedback" id="message" required placeholder="Feed Back">
+                                                </textarea>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="contact-input-box text-right">
-                                            <input class="glbscl-link-btn hvr-bs" type="submit" name="submit" id="submit"
-                                                value="Submit">
+                                        <div class="col-lg-12">
+                                            <div class="contact-input-box text-right">
+                                                <input class="glbscl-link-btn hvr-bs" type="submit" name="submit" id="submit"
+                                                    value="Submit">
+                                            </div>
                                         </div>
-                                    </div>
-                                    {% else %}
-                                    <div class="col-lg-12">
-                                        <div class="contact-input-box">
-                                            <input type="text" name="name" id="name"  placeholder="Name" required>
+                                        {% else %}
+                                        <div class="col-lg-12">
+                                            <div class="contact-input-box">
+                                                <input type="text" name="name" id="name"  placeholder="Name" required>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="contact-input-box">
-                                            <input type="email" name="email" id="email"  placeholder="Email" required>
+                                        <div class="col-lg-12">
+                                            <div class="contact-input-box">
+                                                <input type="email" name="email" id="email"  placeholder="Email" required>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="contact-input-box">
-                                            <input type="text" name="phone" id="phone" placeholder="Phone" required>
+                                        <div class="col-lg-12">
+                                            <div class="contact-input-box">
+                                                <input type="text" name="phone" id="phone" placeholder="Phone" required>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-12 ">
-                                        <div class="contact-input-box">
-                                            <textarea name="feedback" id="message" required placeholder="Feed Back *">
-                                            </textarea>
+                                        <div class="col-lg-12 ">
+                                            <div class="contact-input-box">
+                                                <textarea name="feedback" id="message" required placeholder="Feed Back *">
+                                                </textarea>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="contact-input-box text-right">
-                                            <input class="glbscl-link-btn hvr-bs" type="submit" name="submit" id="submit"
-                                                value="Submit">
+                                        <div class="col-lg-12">
+                                            <div class="contact-input-box text-right">
+                                                <input class="glbscl-link-btn hvr-bs" type="submit" name="submit" id="submit"
+                                                    value="Submit">
+                                            </div>
                                         </div>
+                                        {% endif %}
                                     </div>
-                                    {% endif %}
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-            </div>
-        </div>    
+                </div>
+            </div>    
         </div>
         <div class="col-lg-3">
             <h2 class="head-title" style="text-align:center">Social Media Feeds</h2>
