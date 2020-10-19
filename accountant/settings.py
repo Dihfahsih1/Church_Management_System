@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 # SESSION_COOKIE_SECURE = True
 # CSRF_COOKIE_SECURE = True
 # X_FRAME_OPTIONS = 'DENY'
+
 AUTH_USER_MODEL = 'dashboard.User'
 MIDDLEWARE = [   
     'django.middleware.security.SecurityMiddleware',
