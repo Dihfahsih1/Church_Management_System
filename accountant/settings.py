@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     'bootstrap_datepicker_plus',
     'bootstrap4',
     'widget_tweaks',
+    'celery',
+    'django_celery_beat'
     ]
  
 # DEFAULT_FILE_STORAGE=env("FILE_STORAGE")
@@ -138,10 +140,4 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 GOOGLE_RECAPTCHA_SECRET_KEY = env('CAPTURE')
-
-STATIC_ROOT = ''
-STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
