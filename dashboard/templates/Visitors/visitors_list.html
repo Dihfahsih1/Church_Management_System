@@ -39,8 +39,6 @@
                         <li role="presentation" class="active"><a href="{% url 'visitors-list' %}"><i
                                 class="fa fa-list-ol"></i> Visitors List</a>
                         </li>
-                        <li role="presentation"><a href="{% url 'members-list' %}"><i class="fa fa-list-ol"></i> Church Members</a>
-                        </li>
                         {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
 
                         <li role="presentation"><a href="{% url 'visitors-register' %}"><i

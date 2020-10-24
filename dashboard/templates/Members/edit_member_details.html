@@ -44,6 +44,11 @@
                             <li role="presentation"><a href="{% url 'members-register' %}"><i
                                         class="fa fa-plus-square-o"></i> Add Member</a>
                             </li>
+                            <li role="presentation"><a href="{% url 'members-archived' %}"><i
+                                class="fa fa-list-ol"></i> Archived Members</a>
+                            </li>
+                            <li role="presentation"><a href="{% url 'un-approved-list'%}"> <i class="fa fa-list-ol"></i>Unapproved</a></li>
+                    
                             {% endif %}
                         </ul>
                         <br />

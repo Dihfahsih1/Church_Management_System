@@ -39,20 +39,17 @@
                 <div class="x_content">
                     <div class="" data-example-id="togglable-tabs">
                         <ul class="nav nav-tabs bordered">
-                            <li role="presentation"><a href="{% url 'visitors-list' %}"><i
-                                        class="fa fa-list-ol"></i> Visitors List</a>
-                            </li>
                             <li role="presentation"><a href="{% url 'members-list' %}"><i class="fa fa-list-ol"></i>
                                     Church Members</a>
                             </li>
                             {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
 
-                            <li role="presentation"><a href="{% url 'visitors-register' %}"><i
-                                        class="fa fa-plus-square-o"></i> Add Visitor</a>
-                            </li>
+                                <li role="presentation"><a href="{% url 'members-archived' %}"><i
+                                    class="fa fa-list-ol"></i> Archived Members</a>
+                                </li>
 
-                            <li role="presentation" class="active"><a href="{% url 'un-approved-list' %}"><i class="fa fa-users"></i> Membership Approval</a>
-                            </li>
+                                <li role="presentation" class="active"><a href="{% url 'un-approved-list' %}"><i class="fa fa-users"></i> Membership Approval</a>
+                                </li>
                             {% endif %}
                         </ul>
                         <h1 style="text-align: center;">List of un approved membership requests</h1>
