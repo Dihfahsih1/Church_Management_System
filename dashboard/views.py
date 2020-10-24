@@ -494,7 +494,7 @@ def register_visitors(request):
             return redirect('visitors-list')
     else:
         form=VisitorsForm()
-        return render(request, 'Members/register_visitors.html',{'form':form})
+        return render(request, 'Visitors/register_visitors.html',{'form':form})
 
 #edit visitor    
 def edit_visitor(request, pk):
