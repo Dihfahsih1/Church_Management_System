@@ -319,18 +319,6 @@ def activate_email(request, uidb64, token):
     else:  
         return HttpResponse('Activation link is invalid!')
 
-#register church visitors
-@login_required
-def register_visitors(request):
-    if request.method=="POST":
-        form=VisitorsForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, f'The visitor has been recorded')
-            return redirect('visitors-list')
-    else:
-        form=VisitorsForm()
-        return render(request, 'Members/register_visitors.html',{'form':form})
 
 @login_required
 def members_list(request):
@@ -494,6 +482,20 @@ def member_detail(request, pk):
     }
     return render(request, 'Members/member_details.html', context)
 
+
+###### <====VISITORS MODULE====> #####
+@login_required
+def register_visitors(request):
+    if request.method=="POST":
+        form=VisitorsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'The visitor has been recorded')
+            return redirect('visitors-list')
+    else:
+        form=VisitorsForm()
+        return render(request, 'Members/register_visitors.html',{'form':form})
+
 #edit visitor    
 def edit_visitor(request, pk):
     item = get_object_or_404(Visitors, pk=pk)
@@ -505,7 +507,7 @@ def edit_visitor(request, pk):
             return redirect('visitors-list')
     else:
         form = VisitorsForm(instance=item)
-    return render(request, 'Members/register_visitors.html', {'form': form})
+    return render(request, 'Visitors/register_visitors.html', {'form': form})
 
 #delete visitors    
 def delete_visitor(request, pk):
@@ -516,7 +518,7 @@ def delete_visitor(request, pk):
         return redirect("visitors-list")
 
     context= {'visiting': visiting}
-    return render(request, 'Members/visitors_delete.html', context)
+    return render(request, 'Visitors/visitors_delete.html', context)
 
 #list of church visitors
 @login_required
@@ -524,7 +526,7 @@ def visitors_list(request):
     visiting = Visitors.objects.all()
     context ={'visiting': visiting}
 
-    return render(request, 'Members/visitors_list.html', context)
+    return render(request, 'Visitors/visitors_list.html', context)
 
 #############==============>BUILDING MODULE<============#############  
 

@@ -51,6 +51,14 @@
 
                 <li><a href="{% url 'Building-Renovation-report'%}"><i class="fa fa-money"></i>Building Collections</a></li>
                 
+                <li><a href="#"><i class="fa fa-group"></i> Visitors <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
+                        <li><a href="{% url 'visitors-register'%}"> Register Visitor</a></li>
+                        {% endif %}
+                        <li><a href="{% url 'visitors-list'%}"> List of visitors</a></li>
+                    </ul>
+                </li>
                 <li><a href="#"><i class="fa fa-group"></i> Membership <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
