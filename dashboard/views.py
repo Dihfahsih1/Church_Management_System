@@ -510,20 +510,20 @@ def edit_visitor(request, pk):
 #delete visitors    
 def delete_visitor(request, pk):
     visiting= get_object_or_404(Visitors, id=pk)
-    if request.method == "GET":
+    if request.method == "POST":
         visiting.delete()
         messages.success(request, f'Visitor has been deleted')
         return redirect("visitors-list")
 
     context= {'visiting': visiting}
-    return render(request, 'Members/visitor_delete.html', context)
+    return render(request, 'Members/visitors_delete.html', context)
 
 #list of church visitors
 @login_required
 def visitors_list(request):
     visiting = Visitors.objects.all()
     context ={'visiting': visiting}
-    
+
     return render(request, 'Members/visitors_list.html', context)
 
 #############==============>BUILDING MODULE<============#############  
