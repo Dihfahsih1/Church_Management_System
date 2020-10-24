@@ -30,7 +30,6 @@ INSTALLED_APPS = [
     'bootstrap4',
     'widget_tweaks',
     'celery',
-    'django_celery_beat'
     ]
  
 # DEFAULT_FILE_STORAGE=env("FILE_STORAGE")

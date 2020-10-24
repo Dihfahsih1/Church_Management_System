@@ -78,8 +78,12 @@
                                      <div class="mb-4">
                                         <a href="{% url 'edit-visitor' visitor.id  %}"class="btn btn-info btn-sm"><span class="fa fa-pencil-square-o"></span> Edit</a>
                                      
-                                        <a href="{% url 'delete-visitor' visitor.id  %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"></span> Delete</a>
-                                     </div> 
+                                        <!-- <a href="{% url 'delete-visitor' visitor.id  %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"></span> Delete</a> -->
+                                     
+                                    
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-trash">Delete</span></button>
+
+                                    </div> 
                                      {% endif %}  
                                      </td> 
                                 </tr>
@@ -87,6 +91,36 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Manage church visitor</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <h4 class="text-danger"><b>Confirmation</b></h4>
+                              <form class="x_content" method="POST" enctype="multipart/form-data" action="">
+                              {% csrf_token %}
+                              <div class="form-row">
+                                <div class="col-lg-12" style="background-color: rgb(227, 237, 239)">
+                                 <h3>Are you sure you want to delete {{ visiting }}<b>?</b></h3>
+                                  <br>
+                                  <div class="col-lg-6">
+                                    <button type="submit" class="btn btn-info">YES <span class='glyphicon glyphicon-send'></span></button>
+                                  </div>
+                                </div>
+                              </div>
+                              </form>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" data-dismiss="modal">NO</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                   </div>
                  </div>
                 </div>
