@@ -523,6 +523,7 @@ def delete_visitor(request, pk):
 def visitors_list(request):
     visiting = Visitors.objects.all()
     context ={'visiting': visiting}
+    
     return render(request, 'Members/visitors_list.html', context)
 
 #############==============>BUILDING MODULE<============#############  
