@@ -59,15 +59,13 @@
                         <li><a href="{% url 'visitors-list'%}"> List of visitors</a></li>
                     </ul>
                 </li>
-                <li><a href="#"><i class="fa fa-group"></i> Membership <span class="fa fa-chevron-down"></span></a>
+                <li><a href="#"><i class="fa fa-group"></i> Members <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
                         <li><a href="{% url 'members-register'%}">Register Members</a></li>
                         <li><a href="{% url 'members-archived'%}"> Archived Members</a></li>
                         <li><a href="{% url 'un-approved-list'%}"> Un approved Members</a></li>
-                        <li><a href="{% url 'visitors-register'%}"> Register Visitor</a></li>
                         {% endif %}
-                        <li><a href="{% url 'visitors-list'%}"> List of visitors</a></li>
                         <li><a href="{% url 'members-list'%}"> Church Members</a></li>
                     </ul>
                 </li>
