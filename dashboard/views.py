@@ -1436,7 +1436,7 @@ def add_Pledge_Items(request):
         current_year=datetime.now().year
         items = PledgeItem.objects.filter(Date__year=current_year, Archived_Status='NOT-ARCHIVED')
         context={'form':form, 'items':items, 'current_year':current_year}
-        return render(request, 'Pledges/add_Pledge_Item.html',context)
+        return render(request, 'Pledges/add_pledge_item.html',context)
 
 @login_required
 def list_of_pledge_items(request):
