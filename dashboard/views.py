@@ -1500,12 +1500,13 @@ def cashing_out_items(request):
 @login_required
 def delete_pledge_item(request, pk):
     item= get_object_or_404(PledgeItem, id=pk)
-    if request.method == "GET":
+    if request.method == "POST":
         item.Archived_Status = 'Archived'
         item.save()
         messages.success(request, "Pledge Item successfully Archived!")
-        return redirect("list-of-pledge-items")  
-
+        return redirect("list-of-pledge-items")
+    context = {'item':item}      
+    return render(request, 'Pledges/delete_pledge_item.html', context)
 @login_required
 def pledge_view(request, pledge_pk):
     pledge = get_object_or_404(Pledges, pk=pledge_pk)
