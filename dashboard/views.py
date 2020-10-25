@@ -1507,6 +1507,7 @@ def delete_pledge_item(request, pk):
         return redirect("list-of-pledge-items")
     context = {'item':item}      
     return render(request, 'Pledges/delete_pledge_item.html', context)
+    
 @login_required
 def pledge_view(request, pledge_pk):
     pledge = get_object_or_404(Pledges, pk=pledge_pk)
