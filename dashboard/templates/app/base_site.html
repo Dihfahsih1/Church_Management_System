@@ -202,6 +202,7 @@
     <script type="text/javascript">
         $(document).ready(function () 
         {
+            $(".datetimeinput").datepicker({changeYear: true,changeMonth: true, dateFormat: 'yy-mm-dd'});
             $('#invoice-table').DataTable(
             {
             dom: 'Bfrtip',
