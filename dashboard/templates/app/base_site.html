@@ -42,6 +42,11 @@
             {% endblock stylesheets %}
             <!-- Custom Theme Style -->
             <link href="{% static 'build/css/custom.css' %}" rel="stylesheet">
+
+            <!-- New CSS Resources -->
+            <link href="{% static 'js/myjs/jquery-ui-1.12.1/jquery-ui.min.css' %}" rel="stylesheet">
+            <link href="{% static 'js/myjs/jquery-ui-1.12.1/jquery-ui.structure.min.css' %}" rel="stylesheet">
+            <link href="{% static 'js/myjs/jquery-ui-1.12.1/jquery-ui.theme.min.css' %}" rel="stylesheet">
         
         <!--LOAD THEMES--> 
             {% active_theme as active_flag %}
@@ -139,39 +144,39 @@
                     
     </body>
             
-            <script src="{% static 'vendors/jquery/dist/jquery.min.js' %}"></script>
+        <script src="{% static 'vendors/jquery/dist/jquery.min.js' %}"></script>
 
-            <!-- Bootstrap -->
-            <script src="{% static 'vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-            <!-- FastClick -->
-            <script src="{% static 'vendors/fastclick/lib/fastclick.js' %}"></script>
-            <!-- NProgress -->
-            <script src="{% static 'vendors/nprogress/nprogress.js' %}"></script>
-            <!-- bootstrap-progressbar -->
-            <script src="{% static 'vendors/bootstrap-progressbar/bootstrap-progressbar.min.js' %}"></script>
-            <!-- iCheck -->
-            <script src="{% static 'vendors/iCheck/icheck.min.js' %}"></script>
-            <!-- bootstrap-daterangepicker -->
-            <script src="{% static 'vendors/moment/min/moment.min.js' %}"></script>
-            <script src="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
-            <!-- bootstrap-wysiwyg -->
-            <script src="{% static 'vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js' %}"></script>
-            <script src="{% static 'vendors/jquery.hotkeys/jquery.hotkeys.js' %}"></script>
-            <script src="{% static 'vendors/google-code-prettify/src/prettify.js' %}"></script>
-            <!-- jQuery Tags Input -->
-            <script src="{% static 'vendors/jquery.tagsinput/src/jquery.tagsinput.js' %}"></script>
-            <!-- Switchery -->
-            <script src="{% static 'vendors/switchery/dist/switchery.min.js' %}"></script>
-            <!-- Parsley -->
-            <script src="{% static 'vendors/parsleyjs/dist/parsley.min.js' %}"></script>
-            <!-- Autosize -->
-            <script src="{% static 'vendors/autosize/dist/autosize.min.js' %}"></script>
-            <!-- jQuery autocomplete -->
-            <script src="{% static 'vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js' %}"></script>
-            <!-- starrr -->
-            <script src="{% static 'vendors/Highcharts/code/highcharts.src.js' %}"></script>
-            <script src="{% static 'vendors/Highcharts/code/highcharts-3d.js' %}"></script>
-            <script src="{% static 'vendors/Highcharts/code/modules/exporting.js' %}"></script>
+        <!-- Bootstrap -->
+        <script src="{% static 'vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+        <!-- FastClick -->
+        <script src="{% static 'vendors/fastclick/lib/fastclick.js' %}"></script>
+        <!-- NProgress -->
+        <script src="{% static 'vendors/nprogress/nprogress.js' %}"></script>
+        <!-- bootstrap-progressbar -->
+        <script src="{% static 'vendors/bootstrap-progressbar/bootstrap-progressbar.min.js' %}"></script>
+        <!-- iCheck -->
+        <script src="{% static 'vendors/iCheck/icheck.min.js' %}"></script>
+        <!-- bootstrap-daterangepicker -->
+        <script src="{% static 'vendors/moment/min/moment.min.js' %}"></script>
+        <script src="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
+        <!-- bootstrap-wysiwyg -->
+        <script src="{% static 'vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js' %}"></script>
+        <script src="{% static 'vendors/jquery.hotkeys/jquery.hotkeys.js' %}"></script>
+        <script src="{% static 'vendors/google-code-prettify/src/prettify.js' %}"></script>
+        <!-- jQuery Tags Input -->
+        <script src="{% static 'vendors/jquery.tagsinput/src/jquery.tagsinput.js' %}"></script>
+        <!-- Switchery -->
+        <script src="{% static 'vendors/switchery/dist/switchery.min.js' %}"></script>
+        <!-- Parsley -->
+        <script src="{% static 'vendors/parsleyjs/dist/parsley.min.js' %}"></script>
+        <!-- Autosize -->
+        <script src="{% static 'vendors/autosize/dist/autosize.min.js' %}"></script>
+        <!-- jQuery autocomplete -->
+        <script src="{% static 'vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js' %}"></script>
+        <!-- starrr -->
+        <script src="{% static 'vendors/Highcharts/code/highcharts.src.js' %}"></script>
+        <script src="{% static 'vendors/Highcharts/code/highcharts-3d.js' %}"></script>
+        <script src="{% static 'vendors/Highcharts/code/modules/exporting.js' %}"></script>
         <!-- Datatables -->
         <script src="{% static 'vendors/datatables.net/js/jquery.dataTables.min.js' %}"></script>
         <script src="{% static 'vendors/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
@@ -198,6 +203,14 @@
 
     <!-- Custom Theme Scripts -->
         <script src="{% static 'build/js/custom.min.js' %}"></script>
+
+
+        <!-- New js resources -->
+        <script src="{% static 'js/myjs/jquery-3.5.1.min.js' %}"></script>
+        <script src="{% static 'js/myjs/jquery-ui-1.12.1/jquery-ui.js' %}"></script>
+        <script src="{% static 'js/myjs/bootstrap.bundle.min.js'%}"></script>
+        <script src="{% static 'js/myjs/pager/paging.js' %}"></script>
+        <script src="{% static 'js/myjs/myjs.js' %}"></script>
 
     <script type="text/javascript">
         $(document).ready(function () 
