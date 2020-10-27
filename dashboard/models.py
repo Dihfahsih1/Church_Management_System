@@ -232,6 +232,7 @@ class Revenues(Model):
     General_Offering_Amount = models.IntegerField(default=0, blank=True, null=True)
     Tithe_Amount = models.IntegerField(default=0, blank=True, null=True)
     Seed_Amount = models.IntegerField(default=0, blank=True, null=True)
+    Electricity_Amount = models.IntegerField(default=0, blank=True, null=True)
     Member_Name = models.ForeignKey('Members', on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
     Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
     Revenue_filter=models.CharField(max_length=100, blank=True, null=True)
