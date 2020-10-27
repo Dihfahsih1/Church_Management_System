@@ -68,6 +68,7 @@
                     </thead>
                     <tbody>
                       {% for item in items %}
+                      {% if item.Member_Name is not None %}
                         <tr class="totalColumn">
                           <td>{{ item.Date}}</td>
                           <td>{{ item.Member_Name}}</td>
@@ -81,6 +82,7 @@
                           </div>
                           </td>
                         </tr>
+                        {% endif %}
                       {% endfor %}
                     </tbody>
                   </table>

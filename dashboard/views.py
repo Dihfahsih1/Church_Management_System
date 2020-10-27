@@ -699,7 +699,7 @@ class offeringspdf(View):
 
 ##################=====================>SEEDS OFFERING MODULE<=========================#############################   
 
-#record seeds brought in.
+#this function is not being used.
 @login_required
 def add_seeds(request):
     if request.method=="POST":
@@ -710,7 +710,7 @@ def add_seeds(request):
     else:
         form=RevenuesForm()
         context={'form':form}
-        return render(request, 'Seeds/add_seeds.html',context)  
+    return render(request, 'Seeds/add_seeds.html',context)  
 
 @login_required
 def Seedsreport (request):
@@ -724,7 +724,7 @@ def Seedsreport (request):
     today = datetime.now()
     years=today.year
     context={}
-    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED",Revenue_filter='seeds')
+    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED")
     context['items']=items
     context['years']=years
     context['today']=today
@@ -748,6 +748,7 @@ def seedsarchivessearch(request):
 
 def edit_seed(request, pk):
     item = get_object_or_404(Revenues, pk=pk)
+    print(item)
     if request.method == "POST":
         form = RevenuesForm(request.POST, instance=item)
         if form.is_valid():
@@ -778,7 +779,7 @@ def recording_tithes(request):
     else:
         form=RevenuesForm()
         context={'form':form}
-    return render(request, 'Tithes/record_tithes.html',context)
+    return render(request, 'Tithes/record_total_tithes.html',context)
        
 def record_member_support(request, pk):
     get_member_name=get_object_or_404(Members, pk=pk)
@@ -800,9 +801,8 @@ def edit_tithes(request, pk):
         if form.is_valid():
             form.save()
             return redirect('Tithesreport')
-    else:
-        form = RevenuesForm(instance=item)       
-        context={'form':form, 'item':item}
+    form = RevenuesForm(instance=item)    
+    context={'form':form, 'item':item}
     return render(request, 'Tithes/edit_tithes.html', context)
 
 @login_required
@@ -919,7 +919,7 @@ def member_annual_tithes(request, pk):
 
 #####===>THANKS GIVING MODULE<===#####
 
-#enter thanks giving
+#This function is not being used for now
 @login_required
 def record_thanks_giving(request):
     if request.method=="POST":
