@@ -70,7 +70,7 @@
                <div class="tab-content">
                  <div class="tab-pane fade in active">
                     <div class="x_content">
-                         <table id="invoice-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                         <table id="members-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>Photo</th>
@@ -98,7 +98,7 @@
 
                                         <!-- <a href="{% url 'view-member' member.id  %}"class="btn btn-success btn-sm"><span class="glyphicon glyphicon-eye-open"></span></a> -->
                                         <a href="{% url 'record-member-tithe' member.id  %}" class="btn btn-warning btn-sm"><span
-                                                class="glyphicon glyphicon-euro"></span>Tithe</a>
+                                                class="glyphicon glyphicon-euro"></span></a>
                                         {%if request.user.Role == 'SuperAdmin'%}
                                           <a href="{% url 'archive-member' member.pk %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-king"></span> Archive</a>
                                           {%endif%}

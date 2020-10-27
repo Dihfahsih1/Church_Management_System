@@ -42,7 +42,6 @@ class UserEmailForm(forms.ModelForm):
         return "This email is already used."
 
 class ExpendituresForm(forms.ModelForm):
-    Date = forms.DateTimeField(required=False)
     class Meta:
         model=Expenditures
         fields=('Notes','Member_Name','Other_Expenditure','Reason_filtering','Archived_Status','Date',
@@ -50,17 +49,17 @@ class ExpendituresForm(forms.ModelForm):
         widgets = {
             'Other_Expenditure': TextInput(attrs={'placeholder': 'any other expense'}),
             'Amount': TextInput(attrs={'placeholder': 'Shs.'}),
-
+            'Date': DatePickerInput(),
             'Member_Name': autocomplete.ModelSelect2(url='auto-complete',
             attrs={'data-placeholder': 'Type here the name....', 'data-minimum-input-length': 3})
         }                 
 class RevenuesForm(forms.ModelForm):
-    Date = forms.DateTimeField(required=False)
     class Meta:
         model=Revenues
         fields=('General_Offering_Amount','Tithe_Amount','Seed_Amount','Electricity_Amount','Other_Notes','Other_Sources','Revenue_filter','Archived_Status','Date','Member_Name'
         ,'Service','Amount')
         widgets = {
+            'Date': DatePickerInput(),
             'Other_Sources': TextInput(attrs={'placeholder': 'e.g lwaki olimulamu missions'}),
             'Other_Notes': TextInput(attrs={'placeholder': 'Something like title'}),
             'Member_Name' : autocomplete.ModelSelect2(url='auto-complete',
