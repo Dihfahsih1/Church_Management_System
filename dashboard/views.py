@@ -795,13 +795,14 @@ def record_member_support(request, pk):
     return render(request, 'Tithes/record_member_support.html',context)
 
 def edit_tithes(request, pk):
-    item = get_object_or_404(Revenues, pk=pk)
+    item = Revenues.objects.get(id=pk)
+    form = RevenuesForm(instance=item)
     if request.method == "POST":
         form = RevenuesForm(request.POST, instance=item)
         if form.is_valid():
             form.save()
             return redirect('Tithesreport')
-    form = RevenuesForm(instance=item)    
+    
     context={'form':form, 'item':item}
     return render(request, 'Tithes/edit_tithes.html', context)
 
