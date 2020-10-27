@@ -50,14 +50,13 @@
                               class="fa fa-plus-square-o"></i> Annual Tithes</a>
                          </li>
                         </ul>
-                        <h2 class="head-title" style="text-align: center">Record a tithe made by a member</h2>
+                        <h2 class="head-title" style="text-align: center">Record Total Tithes Made</h2>
                         <div class="separator"></div>
                         <div style="margin-left: 25%"class="col-lg-4 col-md-4 col-sm-4 justify-content-center">
                         {% load crispy_forms_tags %}
                             <form method="POST" enctype="multipart/form-data" >
                                 {% csrf_token %}
                                 {{ form.Date|as_crispy_field}}
-                                {{ form.Member_Name|as_crispy_field}}
                                 {{ form.Service|as_crispy_field}}
                                 {{ form.Amount|as_crispy_field}}
                                 <input type="hidden" id="tithes" name="Revenue_filter" value="tithes">

@@ -773,13 +773,12 @@ def recording_tithes(request):
         form=RevenuesForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, f'Member Tithe has been recorded')
+            messages.success(request, f'Total Tithes have been recorded')
             return redirect('Tithesreport')
     else:
         form=RevenuesForm()
-        today = datetime.now()
         context={'form':form}
-        return render(request, 'Tithes/record_tithes.html',context)
+    return render(request, 'Tithes/record_tithes.html',context)
        
 def record_member_tithe(request, pk):
     get_member_name=get_object_or_404(Members, pk=pk)
