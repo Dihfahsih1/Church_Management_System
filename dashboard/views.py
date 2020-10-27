@@ -784,12 +784,10 @@ def recording_tithes(request):
 def record_member_tithe(request, pk):
     get_member_name=get_object_or_404(Members, pk=pk)
     if request.method=="POST":
-        name = request.POST.get('Date')
         form=RevenuesForm(request.POST)
-        print(name)
         if form.is_valid():
             form.save()
-            messages.success(request, f'Member Tithe has been recorded')
+            messages.success(request, f'The transaction has been recorded')
             return redirect('Tithesreport')
     else:
         form=MembersForm(instance=get_member_name)
@@ -881,9 +879,9 @@ class tithespdf(View):
         today = datetime.now()
         mth=today.month
         year=today.year
-        tithes = Revenues.objects.filter(Revenue_filter='tithes',Date__month=mth, Date__year=year).order_by('-Date')
+        tithes = Revenues.objects.filter(Date__month=mth, Date__year=year).order_by('-Date')
         month=today.strftime('%B')
-        total = tithes.aggregate(totals=models.Sum("Amount"))
+        total = tithes.aggregate(totals=models.Sum("Tithe_Amount"))
         total_amount = total["totals"]
         context = {'year' : year, 'today': today, 'month': month, 'total_amount': total_amount, 'request': request,
             'tithes': tithes,}
