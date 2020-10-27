@@ -58,7 +58,7 @@ class RevenuesForm(forms.ModelForm):
     Date = forms.DateTimeField(required=False)
     class Meta:
         model=Revenues
-        fields=('Other_Notes','Other_Sources','Revenue_filter','Archived_Status','Date','Member_Name'
+        fields=('General_Offering_Amount','Tithe_Amount','Seed_Amount','Other_Notes','Other_Sources','Revenue_filter','Archived_Status','Date','Member_Name'
         ,'Service','Amount')
         widgets = {
             'Other_Sources': TextInput(attrs={'placeholder': 'e.g lwaki olimulamu missions'}),

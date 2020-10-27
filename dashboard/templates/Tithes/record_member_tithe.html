@@ -68,6 +68,9 @@
                                 </script>
                                 {{ form.Service|as_crispy_field}}
                                 {{ form.Amount|as_crispy_field}}
+                                {{ form.General_Offering_Amount|as_crispy_field}}
+                                {{ form.Tithe_Amount|as_crispy_field}}
+                                {{ form.Seed_Amount|as_crispy_field}}
                                 <input type="hidden" id="tithes" name="Revenue_filter" value="tithes">
                                 <button type="submit" class="btn btn-primary" name="button">Submit</button>
                             </form>

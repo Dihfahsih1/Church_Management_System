@@ -58,7 +58,7 @@ main=(
         ('Help','Help'),('Drinks','Drinks'),('Savings','Savings'),
         ('Evangelism','Evangelism')
     )
-general = (('Generator Mechanic','Generator Mechanic'),('Instruments','Servicing Music Instruments'),('Condolences','Condolences'),
+general = (('Tithe of Tithes','Tithe of Tithes'),('Generator Mechanic','Generator Mechanic'),('Instruments','Servicing Music Instruments'),('Condolences','Condolences'),
         ('Stationery','Stationery'),('Repair','Any Other Repair'),('Purchase','Purchase'),
         ('Renovations','Renovations')
         )
@@ -228,7 +228,10 @@ class Expenditures(Model):
 class Revenues(Model):
     Date = models.DateField(null=True, blank=True)
     Service=models.CharField(max_length=100, choices=services, null=True, blank=True)
-    Amount = models.IntegerField(default=0)
+    Amount = models.IntegerField(default=0, blank=True, null=True)
+    General_Offering_Amount = models.IntegerField(default=0, blank=True, null=True)
+    Tithe_Amount = models.IntegerField(default=0, blank=True, null=True)
+    Seed_Amount = models.IntegerField(default=0, blank=True, null=True)
     Member_Name = models.ForeignKey('Members', on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
     Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
     Revenue_filter=models.CharField(max_length=100, blank=True, null=True)
