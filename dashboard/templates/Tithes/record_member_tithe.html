@@ -51,20 +51,20 @@
                         <div class="separator"></div>
                             <div class="row">
                                 {% load crispy_forms_tags %}
-                                <form method="POST" enctype="multipart/form-data">
+                                <form method="POST" action="" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     <div style="" class="col-lg-4 col-md-4 col-sm-4 justify-content-center">
                                         <div id="div_id_Date" class="col-lg-9 form-group">
                                             <label for ='id_Date'>Date</label>
                                             <div class="">
-                                                <input type="date" class="numberinput form-control" value="" >
+                                                <input type="date" id="id_Date" name="Date" class="numberinput form-control">
                                             </div>
                                         </div>
                                         
                                         <div id="div_id_Member_Name" class="form-group">
                                             <label for ='id_Member_Name'>Member Name</label>
                                             <div class="">
-                                                <input type="text"class="numberinput form-control" value="{{get_member_name}}" readonly=True>
+                                                <input type="text" name="Member_Name" class="numberinput form-control" value="{{get_member_name}}" readonly=True>
                                             </div>
                                         </div>
                                         <input type="hidden" name="Member_Id" value="{{get_member_name.id}}">

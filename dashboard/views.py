@@ -782,18 +782,18 @@ def recording_tithes(request):
         return render(request, 'Tithes/record_tithes.html',context)
        
 def record_member_tithe(request, pk):
-    today = datetime.now()
-    date = today.date()
     get_member_name=get_object_or_404(Members, pk=pk)
     if request.method=="POST":
-        form=RevenuesForm(request.POST, instance=get_member_name)
-        messages.success(request, f'Member Tithe has been recorded')
+        name = request.POST.get('Date')
+        form=RevenuesForm(request.POST)
+        print(name)
         if form.is_valid():
             form.save()
+            messages.success(request, f'Member Tithe has been recorded')
             return redirect('Tithesreport')
     else:
         form=MembersForm(instance=get_member_name)
-        context={'form':form, 'get_member_name':get_member_name, 'date':date}
+        context={'form':form, 'get_member_name':get_member_name}
     return render(request, 'Tithes/record_member_tithe.html',context)
 
 def edit_tithes(request, pk):
@@ -820,7 +820,7 @@ def Tithesreport (request):
         return redirect('Tithesreport')
     month = datetime.now().month
     years=datetime.now().year
-    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED",Revenue_filter='tithes', Date__year=years).order_by('-Date')
+    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=years).order_by('-Date')
     context['items']=items
     context['years']=years
     context['today']=datetime.now()
