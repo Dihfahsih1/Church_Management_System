@@ -77,13 +77,14 @@
             </thead>
             <tbody>
             {% for ex in tithes %}
-                <tr style="font-size:large">
-
-        <td>{{ ex.Date}}</td>
-        <td>{{ ex.Member_Name}}</td>
-        <td>{{ ex.Service }}</td>
-        <td>{{ ex.Tithe_Amount|intcomma }}</td>
-        </tr>
+            {% if ex.Member_Name is not None %}
+            <tr style="font-size:large">
+                <td>{{ ex.Date}}</td>
+                <td>{{ ex.Member_Name}}</td>
+                <td>{{ ex.Service }}</td>
+                <td>{{ ex.Tithe_Amount|intcomma }}</td>
+            </tr>
+            {% endif %}
             {% endfor %}
               <tr>
                   <td class="jumbotron"><h3>TOTAL</h3></td>

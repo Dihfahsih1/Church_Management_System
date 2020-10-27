@@ -819,6 +819,7 @@ def Tithesreport (request):
     month = datetime.now().month
     years=datetime.now().year
     items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=years).order_by('-Date')
+
     context['items']=items
     context['years']=years
     context['today']=datetime.now()
@@ -829,7 +830,7 @@ def Tithesreport (request):
 def Annual_Tithes(request):
     current_year = datetime.now().year
     get_all_members=Members.objects.filter(is_active=True)
-    results = Revenues.objects.filter(Revenue_filter='tithes', Date__year=current_year).aggregate(totals=models.Sum("Amount"))
+    results = Revenues.objects.filter(Date__year=current_year).aggregate(totals=models.Sum("Tithe_Amount"))
     if (results['totals']):
         all_tithes = results["totals"]
     else:
@@ -844,9 +845,9 @@ class member_annual_tithes_pdf(View):
         today = datetime.now()
         year=today.year
         get_member_name = get_object_or_404(Members, pk=pk)
-        tithes = Revenues.objects.filter(Member_Name__id = pk, Revenue_filter='tithes', Date__year=year).order_by('-Date')
+        tithes = Revenues.objects.filter(Member_Id = pk, Date__year=year).order_by('-Date')
         month=today.strftime('%B')
-        total = tithes.aggregate(totals=models.Sum("Amount"))
+        total = tithes.aggregate(totals=models.Sum("Tithe_Amount"))
         total_amount = total["totals"]
         context = {'year' : year,'month' : month, 'today': today,'total_amount': total_amount,'request': request,'tithes': tithes,'get_member_name':get_member_name}
         return Render.render('Tithes/memeber_annual_tithes_pdf.html', context)
@@ -899,9 +900,9 @@ class tithesreceipt(View):
 class tithesarchivepdf(View):
     def get(self, request, report_month, report_year):        
         month=strptime(report_month, '%B').tm_mon
-        archived_tithes = Revenues.objects.filter(Archived_Status='ARCHIVED',Revenue_filter='tithes',Date__month=month, Date__year=report_year)
+        archived_tithes = Revenues.objects.filter(Archived_Status='ARCHIVED',Date__month=month, Date__year=report_year)
         today = datetime.now()
-        total = archived_tithes.aggregate(totals=models.Sum("Amount"))
+        total = archived_tithes.aggregate(totals=models.Sum("Tithe_Amount"))
         total_amount = total["totals"]
         tithescontext = {'report_month': report_month,'report_year':report_year,'today': today,'total_amount': total_amount,
             'request': request,'archived_tithes': archived_tithes,}
@@ -911,8 +912,8 @@ class tithesarchivepdf(View):
 @login_required
 def member_annual_tithes(request, pk):
     years = timezone.now().year
-    tithes=Revenues.objects.filter(Member_Name_id=pk, Date__year=years,Revenue_filter='tithes').order_by('-pk')
-    total = tithes.aggregate(totals=models.Sum("Amount"))
+    tithes=Revenues.objects.filter(Member_Name_id=pk, Date__year=years).order_by('-pk')
+    total = tithes.aggregate(totals=models.Sum("Tithe_Amount"))
     total_amount = total["totals"]
     members=Members.objects.filter(id=pk)
     tithescontext={'years':years,'tithes':tithes, 'members':members, 'total_amount':total_amount}
