@@ -49,31 +49,72 @@
                         <h2 class="head-title" style="text-align: center">Record a tithe made by <span
                                 style="color:red"><b>{{get_member_name}}</b></span></h2>
                         <div class="separator"></div>
-                        <div style="margin-left: 25%" class="col-lg-4 col-md-4 col-sm-4 justify-content-center">
-                            {% load crispy_forms_tags %}
-                            <form method="POST" enctype="multipart/form-data">
-                                {% csrf_token %}
-                                {{ form.Date|as_crispy_field}}
-                                <div id="div_id_Member_Name" class="form-group">
-                                    <label for ='id_Member_Name'>Member Name</label>
-                                    <div class="">
-                                        <input type="text"class="numberinput form-control" value="{{get_member_name}}" readonly=True>
+                            <div class="row">
+                                {% load crispy_forms_tags %}
+                                <form method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div style="" class="col-lg-4 col-md-4 col-sm-4 justify-content-center">
+                                        <div id="div_id_Date" class="col-lg-9 form-group">
+                                            <label for ='id_Date'>Date</label>
+                                            <div class="">
+                                                <input type="date" class="numberinput form-control" value="" >
+                                            </div>
+                                        </div>
+                                        
+                                        <div id="div_id_Member_Name" class="form-group">
+                                            <label for ='id_Member_Name'>Member Name</label>
+                                            <div class="">
+                                                <input type="text"class="numberinput form-control" value="{{get_member_name}}" readonly=True>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="Member_Id" value="{{get_member_name.id}}">
+
+                                        <div id="div_id_Service" class="form-group">
+                                            <label for="id_Service" class="">Service</label>
+                                            <div class="">
+                                                <select name="Service" class="select form-control" id="id_Service">
+                                                    <option value="" selected>---------</option>
+                                                    <option value="Unspecified Service">Unspecified Service</option>
+                                                    <option value="Home Cell Service">Home Cell Service</option>
+                                                    <option value="Youth Service">Youth Service</option>
+                                                    <option value="Wednesday Service">Wednesday Service</option>
+                                                    <option value="Bible Study Service">Bible Study Service</option>
+                                                    <option value="Friday Overnight">Friday Overnight</option>
+                                                    <option value="Sunday First Service">Sunday First Service</option>
+                                                    <option value="Sunday Second Service">Sunday Second Service</option>
+                                                    <option value="Sunday Third Service">Sunday Third Service</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div id='hid'>
-                                {{ form.Member_Name|as_crispy_field}}
-                                </div>
-                                <script type="text/javascript">
-                                    $('#hid').hide();
-                                </script>
-                                {{ form.Service|as_crispy_field}}
-                                {{ form.Amount|as_crispy_field}}
-                                {{ form.General_Offering_Amount|as_crispy_field}}
-                                {{ form.Tithe_Amount|as_crispy_field}}
-                                {{ form.Seed_Amount|as_crispy_field}}
-                                <input type="hidden" id="tithes" name="Revenue_filter" value="tithes">
-                                <button type="submit" class="btn btn-primary" name="button">Submit</button>
-                            </form>
+
+                                    <div style="" class="col-lg-4 col-md-4 col-sm-4 justify-content-center"> 
+                                        <div id="div_id_General_Offering_Amount" class="form-group">
+                                            <label for="id_General_Offering_Amount" class="">General Offering Amount</label>
+                                            <div class="">
+                                                <input type="number" name="General_Offering_Amount" value="0" class="numberinput form-control" id="id_General_Offering_Amount">
+                                            </div>
+                                        </div>
+
+                                        <div id="div_id_Seed_Amount" class="form-group">
+                                            <label for="id_Seed_Amount" class="">Seed Amount</label>
+                                            <div class="">
+                                                <input type="number" name="Seed_Amount" value="" class="numberinput form-control" id="id_Seed_Amount">
+                                            </div>
+                                        </div>
+
+                                        <div id="div_id_Tithe_Amount" class="form-group">
+                                            <label for="id_Tithe_Amount" class="">Tithe Amount</label>
+                                            <div class="">
+                                                <input type="number" name="Tithe_Amount" value="" class="numberinput form-control" id="id_Tithe_Amount">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <input type="hidden" id="tithes" name="Revenue_filter" value="tithes">
+                                    <button type="submit" class="btn btn-primary" name="button">Submit</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

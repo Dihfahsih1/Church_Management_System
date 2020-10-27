@@ -782,23 +782,19 @@ def recording_tithes(request):
         return render(request, 'Tithes/record_tithes.html',context)
        
 def record_member_tithe(request, pk):
-    if Revenues.objects.filter(Member_Name__id=pk).exists():
-        get_member_name=get_object_or_404(Members, pk=pk)
-        current_year = datetime.now().year
-        get_latest_tithe = Revenues.objects.filter(Member_Name__id=pk, Date__year=current_year, Revenue_filter='tithes').latest('Date')
-        if request.method=="POST":
-            form=RevenuesForm(request.POST)
-            messages.success(request, f'Member Tithe has been recorded')
-            if form.is_valid():
-                form.save()
-                return redirect('Tithesreport')
-        else:
-            form=RevenuesForm(instance=get_latest_tithe)
-            
-            context={'form':form, 'get_member_name':get_member_name}
-        return render(request, 'Tithes/record_member_tithe.html',context)
+    today = datetime.now()
+    date = today.date()
+    get_member_name=get_object_or_404(Members, pk=pk)
+    if request.method=="POST":
+        form=RevenuesForm(request.POST, instance=get_member_name)
+        messages.success(request, f'Member Tithe has been recorded')
+        if form.is_valid():
+            form.save()
+            return redirect('Tithesreport')
     else:
-        return redirect('Enter_Tithes')
+        form=MembersForm(instance=get_member_name)
+        context={'form':form, 'get_member_name':get_member_name, 'date':date}
+    return render(request, 'Tithes/record_member_tithe.html',context)
 
 def edit_tithes(request, pk):
     item = get_object_or_404(Revenues, pk=pk)

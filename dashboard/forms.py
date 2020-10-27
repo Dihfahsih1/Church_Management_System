@@ -56,7 +56,7 @@ class ExpendituresForm(forms.ModelForm):
 class RevenuesForm(forms.ModelForm):
     class Meta:
         model=Revenues
-        fields=('General_Offering_Amount','Tithe_Amount','Seed_Amount','Electricity_Amount','Other_Notes','Other_Sources','Revenue_filter','Archived_Status','Date','Member_Name'
+        fields=('Member_Id','General_Offering_Amount','Tithe_Amount','Seed_Amount','Electricity_Amount','Other_Notes','Other_Sources','Revenue_filter','Archived_Status','Date','Member_Name'
         ,'Service','Amount')
         widgets = {
             'Date': DatePickerInput(),
