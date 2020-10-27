@@ -780,7 +780,7 @@ def recording_tithes(request):
         context={'form':form}
     return render(request, 'Tithes/record_tithes.html',context)
        
-def record_member_tithe(request, pk):
+def record_member_support(request, pk):
     get_member_name=get_object_or_404(Members, pk=pk)
     if request.method=="POST":
         form=RevenuesForm(request.POST)
@@ -791,7 +791,7 @@ def record_member_tithe(request, pk):
     else:
         form=MembersForm(instance=get_member_name)
         context={'form':form, 'get_member_name':get_member_name}
-    return render(request, 'Tithes/record_member_tithe.html',context)
+    return render(request, 'Tithes/record_member_support.html',context)
 
 def edit_tithes(request, pk):
     item = get_object_or_404(Revenues, pk=pk)

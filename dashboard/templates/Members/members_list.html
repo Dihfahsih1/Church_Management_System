@@ -97,8 +97,8 @@
                                         </button>
 
                                         <!-- <a href="{% url 'view-member' member.id  %}"class="btn btn-success btn-sm"><span class="glyphicon glyphicon-eye-open"></span></a> -->
-                                        <a href="{% url 'record-member-tithe' member.id  %}" class="btn btn-warning btn-sm"><span
-                                                class="glyphicon glyphicon-euro"></span></a>
+                                        <a href="{% url 'record-member-support' member.id  %}" class="btn btn-success"><span
+                                                class="fa fa-money"></span></a>
                                         {%if request.user.Role == 'SuperAdmin'%}
                                           <a href="{% url 'archive-member' member.pk %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-king"></span> Archive</a>
                                           {%endif%}
