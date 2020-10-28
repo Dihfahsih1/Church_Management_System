@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tithe Collection</title>
+    <title>Ucc Bwaise</title>
 
         {% load static %}
         {% load humanize %}
@@ -62,20 +62,35 @@
          
        
         <div class='details'>
-            <h1 style="text-align:center"><u> T<b style="color:red; font-size: 20px">i</b>THE RECE<b style="color:red; font-size: 20px">i</b>PT</u></h1>
-            <hr class="hrItem">
-            <strong style="font-size: large;"><pre>Date:</strong><u>{{ support.Date }}</pre></u>
-            <strong style="font-size: large"><pre>Received From:</strong><u><b style="color:red; font-size: 20px">  {{ support.Member_Name}}</b></pre></u>
-            <strong style="font-size: large"><pre>Service:</strong><u>{{ support.Service}}</pre></u>
-           <strong style="font-size: large"><pre>Tithe:</strong><u> Shs.{{ support.Tithe_Amount|intcomma}}</pre></u>
-           <strong style="font-size: large"><pre>General Offering:</strong><u> Shs.{{ support.General_Offering_Amount|intcomma}}</pre></u>
-           <strong style="font-size: large"><pre>Love Offering:</strong><u> Shs.{{ support.Love_Offering_Amount|intcomma}}</pre></u>
-           <strong style="font-size: large"><pre>Thanks Giving:</strong><u> Shs.{{ support.Thanks_Giving_Amount|intcomma}}</pre></u>
-           <strong style="font-size: large"><pre>Building:</strong><u> Shs.{{ support.Building_Amount|intcomma}}</pre></u>
-           <strong style="font-size: large"><pre>Evanglism:</strong><u> Shs.{{ support.Envag_Or_Missions_Amount|intcomma}}</pre></u>
-           <strong style="font-size: large"><pre>Water or Electricity Bills:</strong><u> Shs.{{ support.Bills_Amount|intcomma}}</pre></u>
+            
+                <h1 style="text-align:center"><u> T<b style="color:red; font-size: 20px">i</b>THE RECE<b style="color:red; font-size: 20px">i</b>PT</u></h1>
+                <hr class="hrItem">
+                <strong style="font-size: large;"><pre>Date:</strong><u>{{ support.Date }}</pre></u>
+                <strong style="font-size: large"><pre>Received From:</strong><u><b style="color:red; font-size: 20px">  {{ support.Member_Name}}</b></pre></u>
+                <strong style="font-size: large"><pre>Service:</strong><u>{{ support.Service}}</pre></u>
+                {% if  support.Tithe_Amount != 0 %}
+                    <strong style="font-size: large"><pre>Tithe:</strong><u> Shs.{{ support.Tithe_Amount|intcomma}}</pre></u>
+                {% endif %}
+                {% if  support.General_Offering_Amount != 0 %}
+                <strong style="font-size: large"><pre>General Offering:</strong><u> Shs.{{ support.General_Offering_Amount|intcomma}}</pre></u>
+                {% endif %}
+                {% if  support.Love_Offering_Amount != 0 %}
+                <strong style="font-size: large"><pre>Love Offering:</strong><u> Shs.{{ support.Love_Offering_Amount|intcomma}}</pre></u>
+                {% endif %}
+                {% if  support.Thanks_Giving_Amount != 0 %}
+                <strong style="font-size: large"><pre>Thanks Giving:</strong><u> Shs.{{ support.Thanks_Giving_Amount|intcomma}}</pre></u>
+                {% endif %}
+                {% if  support.Building_Amount != 0 %}
+                <strong style="font-size: large"><pre>Building:</strong><u> Shs.{{ support.Building_Amount|intcomma}}</pre></u>
+                {% endif %}
+                {% if  support.Envag_Or_Missions_Amount != 0 %}
+                <strong style="font-size: large"><pre>Evanglism:</strong><u> Shs.{{ support.Envag_Or_Missions_Amount|intcomma}}</pre></u>
+                {% endif %}
+                {% if  support.Bills_Amount != 0 %}
+                <strong style="font-size: large"><pre>Water or Electricity Bills:</strong><u> Shs.{{ support.Bills_Amount|intcomma}}</pre></u>
+                {% endif %}
             <i><pre>Received with thanks by:<u>                          </pre> </u></i>
-
+            
         </div>
     </div><br><br>
       <hr class="hrItem">
