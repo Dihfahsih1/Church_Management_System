@@ -43,6 +43,7 @@
                 <div class="separator"></div>
 
                 <li><a href="{% url 'church_list' %}"><i class="fa fa fa-institution"></i> Manage Church Details</a></li>
+                
                 <li><a href="{% url 'list_of_conferences' %}"><i class="fa fa-book"></i> Annual Conference</a></li>
                 
                 {% if user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Secretary' %}
