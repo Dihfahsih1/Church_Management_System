@@ -38,7 +38,7 @@
                             <li role="presentation"><a href="{% url 'Tithesreport' %}"><i class="fa fa-list-ol"></i>
                                     List of Tithes</a>
                             </li>
-                            <li role="presentation" class="active"><a href="{% url 'Enter_Tithes' %}"><i
+                            <li role="presentation"><a href="{% url 'Enter_Tithes' %}"><i
                                         class="fa fa-plus-square-o"></i> Record Total Tithes</a>
                             </li>
                             <li role="presentation"><a href="{% url 'tithesarchivessearch'  %}"><i
@@ -47,6 +47,9 @@
                             <li role="presentation"><a href="{% url 'Annual-Tithes' %}"><i
                                         class="fa fa-plus-square-o"></i> Annual Tithes</a>
                             </li>
+                            <li role="presentation" class="active"><a href="#"><i
+                                class="fa fa-money"></i> Ministry Support</a>
+                    </li>
                         </ul>
                         <h2 class="head-title" style="text-align: center">Ministry Support made by <span
                                 style="color:red"><b>{{get_member_name}}</b></span></h2>
@@ -94,7 +97,14 @@
                                         <div id="div_id_General_Offering_Amount" class="form-group">
                                             <label for="id_General_Offering_Amount" class="">General Offering Amount</label>
                                             <div class="">
-                                                <input type="number" name="General_Offering_Amount" value="0" class="numberinput form-control" id="id_General_Offering_Amount">
+                                                <input type="number" name="General_Offering_Amount" value="" class="numberinput form-control" id="id_General_Offering_Amount">
+                                            </div>
+                                        </div>
+
+                                        <div id="div_id_Love_Offering_Amount" class="form-group">
+                                            <label for="id_Love_Offering_Amount" class="">Love Offering Amount</label>
+                                            <div class="">
+                                                <input type="number" name="Love_Offering_Amount" value="" class="numberinput form-control" id="id_Love_Offering_Amount">
                                             </div>
                                         </div>
 
@@ -113,8 +123,33 @@
                                         </div>
                                     </div>
 
-                                    <input type="hidden" id="tithes" name="Revenue_filter" value="tithes">
-                                    <button type="submit" class="btn btn-primary" name="button">Submit</button>
+                                    <div style="" class="col-lg-4 col-md-4 col-sm-4 justify-content-center"> 
+                                        <div id="div_id_Building_Amount" class="form-group">
+                                            <label for="id_Building_Amount" class="">Building Amount</label>
+                                            <div class="">
+                                                <input type="number" name="Building_Amount" value="" class="numberinput form-control" id="id_Building_Amount">
+                                            </div>
+                                        </div>
+
+                                        <div id="div_id_Thanks_Giving_Amount" class="form-group">
+                                            <label for="id_Thanks_Giving_Amount" class="">Thanks Giving Amount</label>
+                                            <div class="">
+                                                <input type="number" name="Thanks_Giving_Amount" value="" class="numberinput form-control" id="id_Thanks_Giving_Amount">
+                                            </div>
+                                        </div>
+
+                                        <div id="div_id_Bills_Amount" class="form-group">
+                                            <label for="id_Bills_Amount" class="">Bills Amount</label>
+                                            <div class="">
+                                                <input type="number" name="Bills_Amount" value="" class="numberinput form-control" id="id_Bills_Amount">
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary" name="button">Submit</button>
+                                    </div>
+
+                                    <!-- <input type="hidden" id="tithes" name="Revenue_filter" value="tithes"> -->
+                                    
                                 </form>
                             </div>
                         </div>
