@@ -39,12 +39,14 @@
                             <li role="presentation" class="active"><a href="#"><i class="fa fa-money"></i> Edit Ministry Support</a>
                              </li>
                         </ul>
-                        <h2 class="head-title" style="text-align: center">Edit Support made by <b>{{ item }}</b> </h2>
+                        <h2 class="head-title" style="text-align: center">Edit Support made by {{ item }} </h2>
                         <div class="separator"></div>
                         <div style="margin-left: 25%" class="col-lg-4 col-md-4 col-sm-4 justify-content-center">
                         {% load crispy_forms_tags %}
                             <form method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
+                                <div id='hid'>{{ form.Member_Name|as_crispy_field}}</div>
+                                <script>$('#hid').hide();</script>
                                 {{ form.Date|as_crispy_field}}
                                 {{ form.Envag_Or_Missions_Amount|as_crispy_field}}
                                 {{ form.Tithe_Amount|as_crispy_field}}
@@ -53,6 +55,7 @@
                                 {{ form.Love_Offering_Amount|as_crispy_field}}
                                 {{ form.Thanks_Giving_Amount|as_crispy_field}}
                                 {{ form.General_Offering_Amount|as_crispy_field}}
+                                
                             <button type="submit" class="btn btn-primary" name="button">Submit</button>
                             </form>
                         </div>
