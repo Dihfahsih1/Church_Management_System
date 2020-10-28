@@ -774,12 +774,33 @@ def record_member_support(request, pk):
         form=RevenuesForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, f'The transaction has been recorded')
-            return redirect('Tithesreport')
+            messages.success(request, f'The Support has been recorded')
+            return redirect('members-list')
     else:
         form=MembersForm(instance=get_member_name)
         context={'form':form, 'get_member_name':get_member_name}
     return render(request, 'Ministry-Support/record_member_support.html',context)
+
+@login_required
+def Supportreport (request):
+    context={}
+    if request.method=='POST':
+        items = Revenues.objects.all().order_by('-id')
+        for item in items:
+            item.Archived_Status = 'ARCHIVED'
+            item.save()
+        messages.success(request, f'Support Report has been Archived')
+        return redirect('Supportreport')
+    month = datetime.now().month
+    years=datetime.now().year
+    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=years).order_by('-Date')
+
+    context['items']=items
+    context['years']=years
+    context['today']=datetime.now()
+    return render(request, 'Ministry-Support/Supportindex.html', context)    
+
+
 
 ##############################<===========TITHES MODULE===========>################################# 
 @login_required

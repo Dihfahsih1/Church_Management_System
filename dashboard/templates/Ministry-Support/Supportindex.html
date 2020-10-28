@@ -1,0 +1,135 @@
+
+
+{% extends "app/base_site.html" %}
+{% block content %}
+<head>
+  <title>UCC Bwaise | Support Report as of {{today}}</title>
+</head>
+<div class="right_col" role="main">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h1 class="head-title" style="text-align: center;"><b><i class="fa fa fa-calendar-check-o"></i> MINISTRY SUPPORT MODULE</b></h1>
+          <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content quick-link">
+            <span style="color:red"><b>Other Reports:</b></span>
+            <a href="{% url  'expenditurereport' %}"> Main Expenses</a>
+            |<a href="{% url 'general-expenses-report' %}"> General Expenses</a>
+            |<a href="{% url 'Offeringsreport' %}"> Offerings</a>
+            |<a href="{% url 'Tithesreport' %}"> Tithes</a>
+            |<a href="{% url 'Pledgesreport' %}"> Pledges</a>
+            |<a href="{% url 'sundryreport' %}"> Petty Expenses</a>
+            |<a href="{% url 'allowancereport' %}"> Allowances</a>
+            |<a href="{% url 'current-month-salaries' %}"> Salaries</a>
+            |<a href="{% url 'donations-report' %}"> Doantions</a>
+            |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a>
+            |<a href="{% url 'Building-Renovation-report' %}"> Building</a>
+          <div class="separator"></div>
+        </div>
+        <div class="x_content">
+          <div class="" data-example-id="togglable-tabs">
+           <ul class="nav nav-tabs bordered">
+                <li role="presentation"><a href="{% url 'members-list' %}"><i class="glyphicon glyphicon-user"></i> List of Members</a></li>
+
+                <li role="presentation" class="active"><a href="#"><i class="fa fa-list-ol"></i> Support Report</a></li>
+            </ul>
+          <h2 class="head-title" style="text-align: center">Support report as of {{today}}</h2>
+          <div class="separator"></div>
+            <h4 style="color: green; font-weight: 120%"><b>{{ message }}</b></h4>
+            <div class="tab-content">
+              <div class="tab-pane fade in active" id="tab_invoice_list">
+                <div class="x_content">                     
+                  <table id="invoice-table" class=" sum_table table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    <thead>
+                      <tr>
+                        <td>Date</td>
+                        <td>Member</td>
+                        <td>Tithe</td>
+                        <td>G offering</td>
+                        <td>L Offering</td>
+                        <td>Bills</td>
+                        <td>ThanksGiving</td>
+                        <td>Building</td>
+                        <td>Evang</td>
+                        <td>Action</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for item in items %}
+                        {% if item.Member_Name is not None %}
+                          <tr>
+                            <td>{{ item.Date}}</td>
+                            <td>{{ item.Member_Name}}</td>
+                            <td>{{ item.Tithe_Amount }}</td>
+                            <td>{{ item.General_Offering_Amount}}</td>
+                            <td>{{ item.Love_Offering_Amount}}</td>
+                            <td>{{ item.Bills_Amount}}</td>
+                            <td>{{ item.Thanks_Giving_Amount}}</td>
+                            <td>{{ item.Building_Amount }}</td>
+                            <td>{{ item.General_Offering_Amount}}</td>
+                            <td>
+                              <div class="mb-4">
+                                    <a href="#"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"> </span></a>
+                                    <a href="#"class="btn btn-success btn-sm" target="_blank"><span class="glyphicon glyphicon-print"></span></a>
+                              </div>
+                            </td>
+                          </tr>
+                        {% endif %}
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% if items %}
+          <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
+
+          <a href="#" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"> PRINT REPORT</span></a>
+
+          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">ARCHIVE</span></button>
+          {% endif %}
+          
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Tithes report archiving</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <h4 class="text-danger"><b>Confirmation</b></h4>
+                  <form class="x_content" method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="form-row">
+                    <div class="col-lg-12" style="background-color: rgb(227, 237, 239">
+                     <h3>Are You Sure You Want To ARCHIVE this report<b>?</b></h3>
+                      <br>
+                      <div class="col-lg-6">
+                        <button type="submit" class="btn btn-info">YES <span class='glyphicon glyphicon-send'></span></button>
+                      </div>
+                    </div>
+                  </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">NO</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
+{% endblock content %}

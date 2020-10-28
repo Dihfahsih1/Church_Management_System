@@ -13,7 +13,6 @@ url(r'^Record-Offerings/', views.Enter_Offerings, name='Enter_Offerings'),
 url(r'^RECORD-CASHFLOAT/', views.record_cashfloat, name='record-cashfloat'),
 url(r'^Revenue/Seeds/Add/', views.add_seeds, name='add-seeds'),
 url(r'^Revenues/Tithes/Add', views.recording_tithes, name='Enter_Tithes'),
-url(r'^Revenues/Member-Support/(?P<pk>\d+)', views.record_member_support, name='record-member-support'),
 url(r'^Enter_Pledges/', views.Enter_Pledges, name='Enter_Pledges'),
 url(r'^Revenue/Thanks-giving/Add', views.record_thanks_giving,name='record-thanks-giving'),
 url(r'^Revenue/Other-Sources/Add', views.record_donations, name='record-donations'),
@@ -243,5 +242,10 @@ path('<int:pk>/', views.edit_conference_details, name='edit_conference_details')
 #New Converts
 path('New-Converts', views.record_new_convert, name='record_new_convert'),
 path('List-New-Converts', views.new_converts_list, name='new_converts_list'),
-path('<int:pk>/', views.edit_new_convert, name='edit_new_convert')
+path('<int:pk>/', views.edit_new_convert, name='edit_new_convert'),
+
+# SUPPORT MODULE
+url(r'^Ministry-Support/', views.Supportreport, name='Supportreport'),
+url(r'^Revenues/Member-Support/(?P<pk>\d+)', views.record_member_support, name='record-member-support'),
+
 ]
