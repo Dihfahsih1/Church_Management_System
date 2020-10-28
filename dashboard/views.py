@@ -799,7 +799,7 @@ def Supportreport (request):
     context['years']=years
     context['today']=datetime.now()
     return render(request, 'Ministry-Support/Supportindex.html', context)
-        
+
 def edit_support(request, pk):
     item = Revenues.objects.get(id=pk)
     form = RevenuesForm(instance=item)
@@ -812,6 +812,12 @@ def edit_support(request, pk):
     context={'form':form, 'item':item}
     return render(request, 'Ministry-Support/edit_support.html', context)
 
+class supportreceipt(View):
+    def get(self, request, pk):
+        support= get_object_or_404(Revenues,pk=pk)
+        today = timezone.now()
+        context = {'today': today,'support': support, 'request': request,}
+        return Render.render('Ministry-Support/supportreceipt.html', context)
 
 ##############################<===========TITHES MODULE===========>################################# 
 @login_required
