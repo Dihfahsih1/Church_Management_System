@@ -238,6 +238,7 @@ class Revenues(Model):
     Thanks_Giving_Amount = models.IntegerField(default=0, blank=True, null=True)
     Bills_Amount = models.IntegerField(default=0, blank=True, null=True)
     General_Offering_Amount = models.IntegerField(default=0, blank=True, null=True)
+    Envag_Or_Missions_Amount = models.IntegerField(default=0, blank=True, null=True)
     Tithe_Amount = models.IntegerField(default=0, blank=True, null=True)
     Seed_Amount = models.IntegerField(default=0, blank=True, null=True)
     Amount = models.IntegerField(default=0, blank=True, null=True)

@@ -767,6 +767,20 @@ class seed_offering_receipt(View):
         context = { 'today': today,'seeds': seeds,'request': request,}
         return Render.render('Seeds/seed_offerings_receipt.html', context)
 
+##############################<===========MINISTRY SUPPORT MODULE===========>################################# 
+def record_member_support(request, pk):
+    get_member_name=get_object_or_404(Members, pk=pk)
+    if request.method=="POST":
+        form=RevenuesForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'The transaction has been recorded')
+            return redirect('Tithesreport')
+    else:
+        form=MembersForm(instance=get_member_name)
+        context={'form':form, 'get_member_name':get_member_name}
+    return render(request, 'Ministry-Support/record_member_support.html',context)
+
 ##############################<===========TITHES MODULE===========>################################# 
 @login_required
 def recording_tithes(request):
@@ -781,18 +795,6 @@ def recording_tithes(request):
         context={'form':form}
     return render(request, 'Tithes/record_total_tithes.html',context)
        
-def record_member_support(request, pk):
-    get_member_name=get_object_or_404(Members, pk=pk)
-    if request.method=="POST":
-        form=RevenuesForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, f'The transaction has been recorded')
-            return redirect('Tithesreport')
-    else:
-        form=MembersForm(instance=get_member_name)
-        context={'form':form, 'get_member_name':get_member_name}
-    return render(request, 'Tithes/record_member_support.html',context)
 
 def edit_tithes(request, pk):
     item = Revenues.objects.get(id=pk)

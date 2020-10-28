@@ -5,7 +5,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h1 class="head-title" style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i> <b>TITHES MODULE</b></h1>
+                    <h1 class="head-title" style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i> <b>MINISTRY SUPPORT MODULE</b></h1>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -36,20 +36,11 @@
                             <li role="presentation"><a href="{% url 'members-list' %}"><i class="glyphicon glyphicon-user"></i> List of Members</a>
                             </li>
                             <li role="presentation"><a href="{% url 'Tithesreport' %}"><i class="fa fa-list-ol"></i>
-                                    List of Tithes</a>
-                            </li>
-                            <li role="presentation"><a href="{% url 'Enter_Tithes' %}"><i
-                                        class="fa fa-plus-square-o"></i> Record Total Tithes</a>
-                            </li>
-                            <li role="presentation"><a href="{% url 'tithesarchivessearch'  %}"><i
-                                        class="fa fa-plus-square-o"></i> Tithes Archived</a>
-                            </li>
-                            <li role="presentation"><a href="{% url 'Annual-Tithes' %}"><i
-                                        class="fa fa-plus-square-o"></i> Annual Tithes</a>
+                                    Support Report</a>
                             </li>
                             <li role="presentation" class="active"><a href="#"><i
                                 class="fa fa-money"></i> Ministry Support</a>
-                    </li>
+                             </li>
                         </ul>
                         <h2 class="head-title" style="text-align: center">Ministry Support made by <span
                                 style="color:red"><b>{{get_member_name}}</b></span></h2>
@@ -91,13 +82,19 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div style="" class="col-lg-4 col-md-4 col-sm-4 justify-content-center"> 
                                         <div id="div_id_General_Offering_Amount" class="form-group">
                                             <label for="id_General_Offering_Amount" class="">General Offering Amount</label>
                                             <div class="">
                                                 <input type="number" name="General_Offering_Amount" value="" class="numberinput form-control" id="id_General_Offering_Amount">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div style="" class="col-lg-4 col-md-4 col-sm-4 justify-content-center"> 
+                                        <div id="div_id_Envag_Or_Missions_Amount" class="form-group">
+                                            <label for="id_GEnvag_Or_Missions_Amount class="">Envag Or Missions Amount</label>
+                                            <div class="">
+                                                <input type="number" name="Envag_Or_Missions_Amount" value="" class="numberinput form-control" id="id_Envag_Or_Missions_Amount">
                                             </div>
                                         </div>
 
