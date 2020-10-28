@@ -247,5 +247,5 @@ path('<int:pk>/', views.edit_new_convert, name='edit_new_convert'),
 # SUPPORT MODULE
 url(r'^Ministry-Support/', views.Supportreport, name='Supportreport'),
 url(r'^Revenues/Member-Support/(?P<pk>\d+)', views.record_member_support, name='record-member-support'),
-
+path('Support-Edit/<str:pk>/', views.edit_support, name='edit-support'),
 ]

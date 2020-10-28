@@ -798,8 +798,19 @@ def Supportreport (request):
     context['items']=items
     context['years']=years
     context['today']=datetime.now()
-    return render(request, 'Ministry-Support/Supportindex.html', context)    
-
+    return render(request, 'Ministry-Support/Supportindex.html', context)
+        
+def edit_support(request, pk):
+    item = Revenues.objects.get(id=pk)
+    form = RevenuesForm(instance=item)
+    if request.method == "POST":
+        form = RevenuesForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Support Details have been updated')
+            return redirect('Supportreport')
+    context={'form':form, 'item':item}
+    return render(request, 'Ministry-Support/edit_support.html', context)
 
 
 ##############################<===========TITHES MODULE===========>################################# 
