@@ -41,7 +41,7 @@
                             class="fa fa-list-ol"></i> List of Tithes</a>
                 </li>
                 <li role="presentation"><a href="{% url 'Enter_Tithes' %}"><i
-                      class="fa fa-plus-square-o"></i> Record Tithes</a>
+                      class="fa fa-plus-square-o"></i> Record Total Tithes</a>
                 </li>
                 <li role="presentation"><a href="{% url 'tithesarchivessearch'  %}"><i
                       class="glyphicon glyphicon-king"></i> Tithes Archived</a>
@@ -68,20 +68,20 @@
                     </thead>
                     <tbody>
                       {% for item in items %}
-                      {% if item.Member_Name is not None %}
-                        <tr class="totalColumn">
-                          <td>{{ item.Date}}</td>
-                          <td>{{ item.Member_Name}}</td>
-                          <td>{{ item.Service}}</td>
-                          <td class="rowDataSd">{{ item.Tithe_Amount }}</td>
-                          <td>{{ item.Archived_Status}}</td>
-                          <td>
-                          <div class="mb-4">
-                                <a href="{% url 'edit-tithes' item.pk %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"> Edit</span></a>
-                                <a href="{% url 'tithesreceipt' item.pk %}"class="btn btn-success btn-sm" target="_new"><span class="glyphicon glyphicon-print"> Receipt</span></a>
-                          </div>
-                          </td>
-                        </tr>
+                        {% if item.Member_Name is not None %}
+                          <tr class="totalColumn">
+                            <td>{{ item.Date}}</td>
+                            <td>{{ item.Member_Name}}</td>
+                            <td>{{ item.Service}}</td>
+                            <td class="rowDataSd">{{ item.Tithe_Amount }}</td>
+                            <td>{{ item.Archived_Status}}</td>
+                            <td>
+                              <div class="mb-4">
+                                    <a href="{% url 'edit-tithes' item.pk %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"> Edit</span></a>
+                                    <a href="{% url 'tithesreceipt' item.pk %}"class="btn btn-success btn-sm" target="_blank"><span class="glyphicon glyphicon-print"> Receipt</span></a>
+                              </div>
+                            </td>
+                          </tr>
                         {% endif %}
                       {% endfor %}
                     </tbody>
