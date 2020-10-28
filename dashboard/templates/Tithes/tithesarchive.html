@@ -119,13 +119,15 @@
                     </thead>
                     <tbody>
                       {% for item in archived_reports %}
-                        <tr>
-                          <td>{{ item.Date}}</td>
-                          <td>{{ item.Member_Name}}</td>
-                          <td>{{ item.Service}}</td>
-                          <td>{{ item.Tithe_Amount|intcomma}}</td>
-                          <td>{{ item.Archived_Status}}</td>
-                        </tr>
+                        {% if item.Member_Name is not None %}
+                          <tr>
+                            <td>{{ item.Date}}</td>
+                            <td>{{ item.Member_Name}}</td>
+                            <td>{{ item.Service}}</td>
+                            <td>{{ item.Tithe_Amount|intcomma}}</td>
+                            <td>{{ item.Archived_Status}}</td>
+                          </tr>
+                          {% endif %}
                       {% endfor %}
                     </tbody>
                   </table>

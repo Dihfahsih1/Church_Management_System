@@ -35,6 +35,8 @@
                   <div class="separator"></div>
                 </div>
                 <p>{{ msg}}</p>
+                <h3 style="text-align: center">{{years}} Annual Tithes Report of {% for name in members%} {{name.First_Name}}
+                  {{name.Second_Name}}{%endfor%} </h3>
               <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
                     <ul class="nav nav-tabs bordered">
@@ -44,7 +46,7 @@
                                     class="fa fa-list-ol"></i> Tithes Report</a>
                         </li>
                         <li role="presentation"><a href="{% url 'Enter_Tithes' %}"><i
-                              class="fa fa-plus-square-o"></i> Record Tithes</a>
+                              class="fa fa-plus-square-o"></i> Record Total Tithes</a>
                          </li>
                          <li role="presentation"class="active"><a href="#"><i
                               class="fa fa-plus-square-o"></i> Individual Tithes</a>
@@ -57,8 +59,7 @@
                          </li>
                     </ul>
                     <br/>
-                    <h3 style="text-align: center">{{years}} Annual Tithes Report of {% for name in members%} {{name.First_Name}}
-                      {{name.Second_Name}}{%endfor%} </h3>
+                    
                       <div class="separator"></div>
             <div class="tab-content">
                  <div class="tab-pane fade in active" id="tab_invoice_list">
@@ -78,7 +79,7 @@
                              <tr>
                               <td>{{ item.Date}}</td>
                               <td>{{ item.Service}}</td>
-                              <td >{{item.Amount|intcomma}}</td>
+                              <td >{{item.Tithe_Amount|intcomma}}</td>
                               <td>{{item.Archived_Status}}</td>
                               
                              </tr> 

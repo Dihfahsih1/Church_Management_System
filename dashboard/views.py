@@ -861,7 +861,7 @@ def tithesarchivessearch(request):
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
         archived_reports = Revenues.objects.filter(Archived_Status='ARCHIVED', Date__month=report_month, Date__year=report_year)
-        results =archived_reports.aggregate(totals=models.Sum('Amount'))
+        results =archived_reports.aggregate(totals=models.Sum('Tithe_Amount'))
         if results['totals']:
             total_tithes = results['totals']
         else:
@@ -912,7 +912,7 @@ class tithesarchivepdf(View):
 @login_required
 def member_annual_tithes(request, pk):
     years = timezone.now().year
-    tithes=Revenues.objects.filter(Member_Name_id=pk, Date__year=years).order_by('-pk')
+    tithes=Revenues.objects.filter(Member_Id=pk, Date__year=years).order_by('-pk')
     total = tithes.aggregate(totals=models.Sum("Tithe_Amount"))
     total_amount = total["totals"]
     members=Members.objects.filter(id=pk)

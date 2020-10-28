@@ -83,13 +83,14 @@
             </thead>
             <tbody>
             {% for tithes in archived_tithes  %}
+              {% if tithes.Member_Name is not None %}
                 <tr style="font-size:large">
                     <td>{{ tithes.Date }}</td>
                     <td>{{ tithes.Member_Name }}</td>
                     <td>{{ tithes.Service }}</td>
-                    <td>{{ tithes.Amount |intcomma }}</td>
-
+                    <td>{{ tithes.Tithe_Amount |intcomma }}</td>
                 </tr>
+                {% endif %}
             {% endfor %}
             <tr><td><b>Total Amount:</b> </td> <td>______________  </td><td>______________  </td><td><b>Shs.{{ total_amount|intcomma}}</b></td></tr>
             </tbody>
