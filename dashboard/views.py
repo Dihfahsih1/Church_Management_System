@@ -2523,7 +2523,7 @@ def index(request):
         total_weekly_offerings = 0
         d_offerings = 0
 
-    total_weekly_tithes = Revenues.objects.filter(Revenue_filter='tithes',Date__gte=one_week_ago,Archived_Status='NOT-ARCHIVED').aggregate(totals=models.Sum("Amount"))
+    total_weekly_tithes = Revenues.objects.filter(Date__gte=one_week_ago,Archived_Status='NOT-ARCHIVED').aggregate(totals=models.Sum("Tithe_Amount"))
     if (total_weekly_tithes['totals'])!=None:
         int(total_weekly_tithes["totals"])
         d_tithes=total_weekly_tithes["totals"]
@@ -2642,7 +2642,7 @@ def index(request):
         offerings = 0
 
 #TITHES
-    total_current_tithes = Revenues.objects.filter(Revenue_filter='tithes',Archived_Status='NOT-ARCHIVED',Date__month=current_month,Date__year=current_year).aggregate(totals=models.Sum("Amount"))
+    total_current_tithes = Revenues.objects.filter(Archived_Status='NOT-ARCHIVED',Date__month=current_month,Date__year=current_year).aggregate(totals=models.Sum("Tithe_Amount"))
     if (total_current_tithes['totals'])!=None:
         int(total_current_tithes["totals"])
         tithes=total_current_tithes["totals"]
@@ -2730,7 +2730,7 @@ def index(request):
     if Annualoffering is None:
         Annualoffering =0
 
-    A_tithes=Revenues.objects.filter(Revenue_filter='tithes',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
+    A_tithes=Revenues.objects.filter(Date__year=current_year).aggregate(totals=models.Sum("Tithe_Amount"))
     Annualtithes=(A_tithes["totals"])
     if Annualtithes is None:
         Annualtithes =0
