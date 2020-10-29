@@ -2539,33 +2539,12 @@ def ministry_detail(request, ministry_pk):
 ########========================>DASHBOARD DATA CALCULATIONS<=====================#######
 @login_required
 def index(request):
-
     current_year = datetime.now().year #Annual
     current_month = datetime.now().month #Monthly
 
+   #WEEKLY REVENUES
     one_week_ago = datetime.today() - timedelta(days=7) #Weekly
     day = datetime.now().today #Today
-
-    #current month tithes
-    total_current_month_tithes = Revenues.objects.filter(Revenue_filter='tithes',Date__month=current_month).aggregate(total_tithes=Sum('Amount'))
-    total_tithes=total_current_month_tithes['total_tithes']
-    if total_tithes == None:
-        total_tithes=0
-
-    #current month offerings
-    total_current_month_offerings= Revenues.objects.filter(Revenue_filter='offering',Date__month=current_month).aggregate(total_offerings=Sum('Amount'))
-    total_offerings=total_current_month_offerings['total_offerings']
-    if total_offerings == None:
-        total_offerings=0
-    
-    #current month other_sources of revenue
-    total_current_month_other_sources= Revenues.objects.filter(Revenue_filter='others',Date__month=current_month).aggregate(total_others=Sum('Amount'))
-    total_others=total_current_month_other_sources['total_others']
-    if total_others == None:
-        total_others=0
-    current_month_total_revenues = total_tithes + total_offerings + total_others
-
-   #WEEKLY REVENUES
     total_weekly_donations = Revenues.objects.filter(Revenue_filter='others',Date__gte=one_week_ago,Archived_Status='NOT-ARCHIVED').aggregate(totals=models.Sum("Amount"))
     if (total_weekly_donations['totals'])!=None:
         int(total_weekly_donations["totals"])
@@ -2922,6 +2901,36 @@ def index(request):
         today = timezone.now()
         month = today.strftime('%B')
         mth=calendar.month_name[current_month]
+
+
+
+
+
+
+        #current month tithes
+        total_current_month_tithes = Revenues.objects.filter(Revenue_filter='tithes',Date__month=current_month).aggregate(total_tithes=Sum('Amount'))
+        total_tithes=total_current_month_tithes['total_tithes']
+        if total_tithes == None:
+            total_tithes=0
+
+        #current month offerings
+        total_current_month_offerings= Revenues.objects.filter(Revenue_filter='offering',Date__month=current_month).aggregate(total_offerings=Sum('Amount'))
+        total_offerings=total_current_month_offerings['total_offerings']
+        if total_offerings == None:
+            total_offerings=0
+        
+        #current month other_sources of revenue
+        total_current_month_other_sources= Revenues.objects.filter(Revenue_filter='others',Date__month=current_month).aggregate(total_others=Sum('Amount'))
+        total_others=total_current_month_other_sources['total_others']
+        if total_others == None:
+            total_others=0
+
+        current_month_cashfloat= CashFloat.objects.filter(Date__month=current_month, Date__year=current_year).aggregate(total_cashfloat=Sum('Amount'))
+        total_cashfloat=current_month_cashfloat['total_cashfloat']
+        if total_cashfloat == None:
+            total_cashfloat=0
+        current_month_total_revenues = total_tithes + total_offerings + total_others
+
 
         context={
         'Annualthanks':Annualthanks, 'Annualothers':Annualothers, 'Annualoffering':Annualoffering,
