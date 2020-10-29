@@ -31,22 +31,9 @@ from django.core.mail import EmailMessage
 current_year = datetime.now().year #Annual
 current_month = datetime.now().month #Monthly
 
-# class archiving_data(CronJobBase):
-#     schedule = Schedule(run_at_times=['12:00'])
-#     code = 'dashboard.my_cron_job'    # a unique code
-#     def do(self):
-#         date= datetime.now()
-#         month = date.month
-#         year = date.year
-#         da= date.day
-#         print(da)
-#         RUN_EVERY_MONTH=calendar._monthlen(year, month)
-#         print(RUN_EVERY_MONTH)
-#         if da == RUN_EVERY_MONTH:
-#             items = Revenues.objects.all()
-#             for item in items:
-#                 item.Archived_Status = 'NOT-ARCHIVED'
-#                 item.save()
+one_week_ago = datetime.today() - timedelta(days=7) #Weekly
+day = datetime.now().today #Today
+
 
 
 # #######################################===>BEGINNING OF THEME MODULE<===############################################
@@ -2539,8 +2526,8 @@ def ministry_detail(request, ministry_pk):
 
 
 ########========================>DASHBOARD DATA CALCULATIONS<=====================#######
-
-  #current month tithes
+#CURRENT MONTH REVENUES
+#current month tithes
 def total_current_month_tithes():
     tithes = Revenues.objects.filter(Revenue_filter='tithes',Date__month=current_month).aggregate(total_tithes=Sum('Amount'))
     total_tithes=tithes['total_tithes']
@@ -2567,6 +2554,35 @@ def total_current_month_other_sources():
         return total_others
     return total_others
 
+#CURRENT WEEK REVENUES
+#current week tithes
+def total_current_week_tithes():
+    tithes = Revenues.objects.filter(Date__gte=one_week_ago).aggregate(total_tithes=Sum('Tithe_Amount'))
+    total_tithes=tithes['total_tithes']
+    if total_tithes == None:
+        total_tithes=0  
+        return total_tithes
+    return total_tithes
+
+#current week offerings
+def total_current_week_offerings():
+    offerings = Revenues.objects.filter(Date__gte=one_week_ago).aggregate(total_offerings=Sum('General_Offering_Amount'))
+    total_offerings=offerings['total_offerings']
+    if total_offerings == None:
+        total_offerings=0  
+        return total_offerings
+    return total_offerings
+
+#current week seeds
+def total_current_week_seeds():
+    seeds = Revenues.objects.filter(Date__gte=one_week_ago).aggregate(total_others=Sum('Seed_Amount'))
+    total_seeds=seeds['total_seeds']
+    if total_seeds == None:
+        total_seeds=0  
+        return total_seeds
+    return total_seeds
+
+
 
 
 #Current Month Cashfloat
@@ -2586,12 +2602,10 @@ def total_current_month_revenue():
     cashfloat = current_month_cashfloat()
     current_month_total_revenues = (total_tithes + total_offerings + total_others) - cashfloat
     return current_month_total_revenues
-    
+
 @login_required
 def index(request):
    #WEEKLY REVENUES
-    one_week_ago = datetime.today() - timedelta(days=7) #Weekly
-    day = datetime.now().today #Today
     total_weekly_donations = Revenues.objects.filter(Revenue_filter='others',Date__gte=one_week_ago,Archived_Status='NOT-ARCHIVED').aggregate(totals=models.Sum("Amount"))
     if (total_weekly_donations['totals'])!=None:
         int(total_weekly_donations["totals"])

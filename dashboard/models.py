@@ -227,7 +227,6 @@ class Expenditures(Model):
 class Revenues(Model):
     Date = models.DateField(null=True, blank=True)
     Service=models.CharField(max_length=100, choices=services, null=True, blank=True)
-    
     Member_Id= models.CharField(max_length=100, blank=True, null=True)
     Member_Name = models.CharField(max_length=100, blank=True, null=True)
     Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
