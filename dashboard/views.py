@@ -2939,7 +2939,7 @@ def index(request):
         
         'current_month_total_revenues':current_month_total_revenues,'total_tithes':total_tithes,'total_offerings':total_offerings,
         'total_others':total_others,
-        
+
         'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,
         'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_cash_out':total_cash_out,
         'total_general_expenses':total_general_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,
@@ -3037,8 +3037,16 @@ def record_cashfloat(request):
             return render(request, 'give_cash_float.html',context) 
         form=CashFloatForm()
         context={'form':form,}
-        return render(request, 'give_cash_float.html',context)    
-        
+        return render(request, 'give_cash_float.html',context) 
+
+def cashfloat_topup(request,pk):
+    if request.method=="POST":
+        form=CashFloatForm(request.POST)
+    if form.is_valid():
+        form.save()
+        return redirect('cashfloat-list')
+    return render(request, 'topup_cash_float.html',context) 
+
 #list of all cash float given out
 def cashfloat_lst(request):
     x = datetime.now() - timedelta(days=7)

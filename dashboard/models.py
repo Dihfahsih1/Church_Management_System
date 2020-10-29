@@ -772,6 +772,7 @@ class Contact(models.Model):
 class CashFloat(models.Model):
     Date = models.DateField(null=True, blank=True)
     Amount = models.IntegerField(default=0)
+    TopUpAmount = models.IntegerField(default=0, blank=True, null=True)
     Notes = models.TextField(max_length=100000, blank=True, null=True)
     def __int__(self):
         return self.Amount
