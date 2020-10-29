@@ -86,60 +86,33 @@
 
                             <div class="row top_tiles" style="margin-left: 1%; ">
                                 <h3 style="margin-left: 5%; font-weight: bold;">
-                                    <a href="{% url 'total_revenues'  %}"><b class="blue" > Month of {{month}} Total Revenue({{total_monthly_incomes|intcomma}})</b> </a> </h3>
-                                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                    <a href="{% url 'total_revenues'  %}"><b class="blue" > Month of {{month}} Total Revenue({{current_month_total_revenues|intcomma}})</b> </a> </h3>
+                                <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
                                     <a href="{% url 'Tithesreport'  %}">
                                     <div class="tile-stats">
-                                        <h4 style="text-align: center;"> Tithes</h4>
-                                        <p class="green" style="font-size: 19px" ><b>Shs.{{ tithes|intcomma }}</b></p>
+                                        <h4 style="text-align: center;"> Total Tithes</h4>
+                                        <p class="green" style="font-size: 19px" ><b>Shs.{{ total_tithes|intcomma }}</b></p>
                                     </div>
                                     </a>
                                 </div>
 
-                                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
                                     <a href="{% url 'Offeringsreport'  %}">
                                     <div class="tile-stats">
-                                        <h4 style="text-align: center;"> Offerings</h4>
-                                        <p class="green" style="font-size: 19px" ><b>Shs.{{ offerings|intcomma }}</b></p>
+                                        <h4 style="text-align: center;"> Total Offerings</h4>
+                                        <p class="green" style="font-size: 19px" ><b>Shs.{{ total_offerings|intcomma }}</b></p>
                                     </div>
                                 </a>
                                 </div>
 
-                                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
                                     <a href="{% url 'Seeds-report' %}">
                                         <div class="tile-stats">
-                                            <h4 style="text-align: center;"> Seeds</h4>
-                                            <p class="green" style="font-size: 19px"  ><b>Shs.{{ seeds|intcomma }}</b></p>
+                                            <h4 style="text-align: center;"> Other Sources</h4>
+                                            <p class="green" style="font-size: 19px"  ><b>Shs.{{ total_others|intcomma }}</b></p>
                                         </div>
                                     </a>
-                                </div>
-
-                                <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
-                                    <a href="{% url 'thanks-giving-report'  %}">
-                                    <div class="tile-stats">
-                                        <h4 style="text-align: center;"> Thanks Giving</h4>
-                                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ thanks|intcomma }}</b></p>
-                                    </div>
-                                    </a>
-                                </div>
-
-                                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                                    <a href="{% url 'donations-report'  %}">
-                                    <div class="tile-stats">
-                                        <h4 style="text-align: center;"> Other Sources</h4>
-                                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ donations|intcomma }}</b></p>
-                                    </div>
-                                </a>
-                                </div>
-
-                                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                                    <a href="{% url 'total_revenues'  %}">
-                                    <div class="tile-stats">
-                                        <h4 style="text-align: center;"> Building</h4>
-                                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ d_building|intcomma }}</b></p>
-                                    </div>
-                                </a>
-                                </div>
+                                </div>                          
                             </div>
 
 

@@ -2936,7 +2936,10 @@ def index(request):
         'total_current_building':total_current_building, 'd_building': d_building,"building":building,
         'd_donations':d_donations,'d_tithes':d_tithes,'d_offerings':d_offerings,
         'd_seeds':d_seeds,'d_thanks':d_thanks,'d_pledges':d_pledges,'day':day, 'total_weekly_expenditure':total_weekly_expenditure,
-
+        
+        'current_month_total_revenues':current_month_total_revenues,'total_tithes':total_tithes,'total_offerings':total_offerings,
+        'total_others':total_others,
+        
         'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,
         'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_cash_out':total_cash_out,
         'total_general_expenses':total_general_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,
