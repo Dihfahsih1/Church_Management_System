@@ -28,6 +28,8 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from .tokens import account_activation_token  
 from django.core.mail import EmailMessage
 
+current_year = datetime.now().year #Annual
+current_month = datetime.now().month #Monthly
 
 # class archiving_data(CronJobBase):
 #     schedule = Schedule(run_at_times=['12:00'])
@@ -2537,11 +2539,56 @@ def ministry_detail(request, ministry_pk):
 
 
 ########========================>DASHBOARD DATA CALCULATIONS<=====================#######
+
+  #current month tithes
+def total_current_month_tithes():
+    tithes = Revenues.objects.filter(Revenue_filter='tithes',Date__month=current_month).aggregate(total_tithes=Sum('Amount'))
+    total_tithes=tithes['total_tithes']
+    if total_tithes == None:
+        total_tithes=0  
+        return total_tithes
+    return total_tithes
+
+#current month offerings
+def total_current_month_offerings():
+    offerings = Revenues.objects.filter(Revenue_filter='offering',Date__month=current_month).aggregate(total_offerings=Sum('Amount'))
+    total_offerings=offerings['total_offerings']
+    if total_offerings == None:
+        total_offerings=0  
+        return total_offerings
+    return total_offerings
+
+#current month other_sources of revenue
+def total_current_month_other_sources():
+    others = Revenues.objects.filter(Revenue_filter='others',Date__month=current_month).aggregate(total_others=Sum('Amount'))
+    total_others=others['total_others']
+    if total_others == None:
+        total_others=0  
+        return total_others
+    return total_others
+
+
+
+#Current Month Cashfloat
+def current_month_cashfloat():
+    cashfloat = CashFloat.objects.filter(Date__month=current_month, Date__year=current_year).aggregate(total_cashfloat=Sum('Amount'))
+    total_cashfloat=cashfloat['total_cashfloat']
+    if total_cashfloat == None:
+        total_cashfloat=0  
+        return total_cashfloat
+    return total_cashfloat
+
+#total current month revenues
+def total_current_month_revenue():
+    total_tithes = total_current_month_tithes()
+    total_offerings = total_current_month_offerings()
+    total_others = total_current_month_other_sources()
+    cashfloat = current_month_cashfloat()
+    current_month_total_revenues = (total_tithes + total_offerings + total_others) - cashfloat
+    return current_month_total_revenues
+    
 @login_required
 def index(request):
-    current_year = datetime.now().year #Annual
-    current_month = datetime.now().month #Monthly
-
    #WEEKLY REVENUES
     one_week_ago = datetime.today() - timedelta(days=7) #Weekly
     day = datetime.now().today #Today
@@ -2902,34 +2949,11 @@ def index(request):
         month = today.strftime('%B')
         mth=calendar.month_name[current_month]
 
-
-
-
-
-
-        #current month tithes
-        total_current_month_tithes = Revenues.objects.filter(Revenue_filter='tithes',Date__month=current_month).aggregate(total_tithes=Sum('Amount'))
-        total_tithes=total_current_month_tithes['total_tithes']
-        if total_tithes == None:
-            total_tithes=0
-
-        #current month offerings
-        total_current_month_offerings= Revenues.objects.filter(Revenue_filter='offering',Date__month=current_month).aggregate(total_offerings=Sum('Amount'))
-        total_offerings=total_current_month_offerings['total_offerings']
-        if total_offerings == None:
-            total_offerings=0
-        
-        #current month other_sources of revenue
-        total_current_month_other_sources= Revenues.objects.filter(Revenue_filter='others',Date__month=current_month).aggregate(total_others=Sum('Amount'))
-        total_others=total_current_month_other_sources['total_others']
-        if total_others == None:
-            total_others=0
-
-        current_month_cashfloat= CashFloat.objects.filter(Date__month=current_month, Date__year=current_year).aggregate(total_cashfloat=Sum('Amount'))
-        total_cashfloat=current_month_cashfloat['total_cashfloat']
-        if total_cashfloat == None:
-            total_cashfloat=0
-        current_month_total_revenues = total_tithes + total_offerings + total_others
+        #calling other functions
+        total_tithes = total_current_month_tithes()
+        total_offerings = total_current_month_offerings()
+        total_others = total_current_month_other_sources()
+        current_month_total_revenues = total_current_month_revenue()
 
 
         context={
@@ -2947,7 +2971,7 @@ def index(request):
         'd_seeds':d_seeds,'d_thanks':d_thanks,'d_pledges':d_pledges,'day':day, 'total_weekly_expenditure':total_weekly_expenditure,
         
         'current_month_total_revenues':current_month_total_revenues,'total_tithes':total_tithes,'total_offerings':total_offerings,
-        'total_others':total_others,
+        'total_others':total_others,'current_month_cashfloat':current_month_cashfloat,
 
         'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,
         'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_cash_out':total_cash_out,
