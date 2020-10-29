@@ -2546,6 +2546,25 @@ def index(request):
     one_week_ago = datetime.today() - timedelta(days=7) #Weekly
     day = datetime.now().today #Today
 
+    #current month tithes
+    total_current_month_tithes = Revenues.objects.filter(Revenue_filter='tithes',Date__month=current_month).aggregate(total_tithes=Sum('Amount'))
+    total_tithes=total_current_month_tithes['total_tithes']
+    if total_tithes == None:
+        total_tithes=0
+
+    #current month offerings
+    total_current_month_offerings= Revenues.objects.filter(Revenue_filter='offering',Date__month=current_month).aggregate(total_offerings=Sum('Amount'))
+    total_offerings=total_current_month_offerings['total_offerings']
+    if total_offerings == None:
+        total_offerings=0
+    
+    #current month other_sources of revenue
+    total_current_month_other_sources= Revenues.objects.filter(Revenue_filter='others',Date__month=current_month).aggregate(total_others=Sum('Amount'))
+    total_others=total_current_month_other_sources['total_others']
+    if total_others == None:
+        total_others=0
+    current_month_total_revenues = total_tithes + total_offerings + total_others
+
    #WEEKLY REVENUES
     total_weekly_donations = Revenues.objects.filter(Revenue_filter='others',Date__gte=one_week_ago,Archived_Status='NOT-ARCHIVED').aggregate(totals=models.Sum("Amount"))
     if (total_weekly_donations['totals'])!=None:
@@ -2648,7 +2667,6 @@ def index(request):
         total_weekly_salaries = 0
         d_salaries = 0    
     
-    #MONTHLY REVENUES
     total_weekly_pledges = Pledges.objects.filter(Date__month=current_month,Date__year=current_year).aggregate(totals=models.Sum("Amount_Paid"))
     if (total_weekly_pledges['totals'])!=None:
         int(total_weekly_pledges["totals"])
