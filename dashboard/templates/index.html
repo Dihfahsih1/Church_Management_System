@@ -179,31 +179,31 @@
                             <h2 style="text-align:center; color:red;"><b>Weekly Summary of {{ month }} {{ current_year }}</b></h2>        
                             
                                 <h3 class="blue" style="margin-left: 5%;font-weight: bold;"><b>Weekly Revenue Summary (7 Days)</b></h3>
-                                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
                                 
                                     <div class="tile-stats">
-                                        <h4 style="text-align: center;"> Tithes</h4>
-                                        <p class="black" style="font-size: 19px" ><b>Shs.{{ d_tithes|intcomma }}</b></p>
+                                        <h4 style="text-align: center;">Total Tithes</h4>
+                                        <p class="black" style="font-size: 19px" ><b>Shs.{{ total_week_tithes|intcomma }}</b></p>
                                     </div>
                                 
                                 </div>
-                                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
                                 
                                     <div class="tile-stats">
-                                        <h4 style="text-align: center;"> Offerings</h4>
-                                        <p class="black" style="font-size: 19px" ><b>Shs.{{ d_offerings|intcomma }}</b></p>
+                                        <h4 style="text-align: center;"> Total G Offerings</h4>
+                                        <p class="black" style="font-size: 19px" ><b>Shs.{{ total_week_offerings|intcomma }}</b></p>
                                     </div>
                             
                                 </div>
-                                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
                                 
                                     <div class="tile-stats">
                                         <h4 style="text-align: center;"> Seeds</h4>
-                                        <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_seeds|intcomma }}</b></p>
+                                        <p class="black" style="font-size: 19px"  ><b>Shs.{{ total_week_seeds|intcomma }}</b></p>
                                     </div>
                             
                                 </div>
-                                <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                                <!-- <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
                                     
                                     <div class="tile-stats">
                                         <h4 style="text-align: center;"> Thanks Giving</h4>
@@ -226,7 +226,7 @@
                                         <p class="black" style="font-size: 19px"  ><b>Shs.{{ d_building|intcomma }}</b></p>
                                     </div>
                             
-                                </div>
+                                </div> -->
                             </div>        
                             <div class="row top_tiles" style="margin-left: 1%; ">
                                 <h3 class="blue" style="margin-left: 5%; font-weight: bold;"><b>Weekly Expenditure Summary (7 Days)</b></h3>

@@ -28,11 +28,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from .tokens import account_activation_token  
 from django.core.mail import EmailMessage
 
-current_year = datetime.now().year #Annual
-current_month = datetime.now().month #Monthly
 
-one_week_ago = datetime.today() - timedelta(days=7) #Weekly
-day = datetime.now().today #Today
 
 
 
@@ -2526,6 +2522,59 @@ def ministry_detail(request, ministry_pk):
 
 
 ########========================>DASHBOARD DATA CALCULATIONS<=====================#######
+current_year = datetime.now().year #Annual
+current_month = datetime.now().month #Monthly
+
+one_week_ago = datetime.today() - timedelta(days=7) #Weekly
+day = datetime.now().today #Today
+#CURRENT WEEK REVENUES
+
+#current week tithes
+def total_current_week_tithes():
+    tithes = Revenues.objects.filter(Date__gte=one_week_ago).aggregate(total_tithes=Sum('Tithe_Amount'))
+    total_tithes=tithes['total_tithes']
+    if total_tithes == None:
+        total_tithes=0  
+        return total_tithes
+    return total_tithes
+
+#current week offerings
+def total_current_week_offerings():
+    offerings = Revenues.objects.filter(Date__gte=one_week_ago).aggregate(total_offerings=Sum('General_Offering_Amount'))
+    total_offerings=offerings['total_offerings']
+    if total_offerings == None:
+        total_offerings=0  
+        return total_offerings
+    return total_offerings
+
+#current week seeds
+def total_current_week_seeds():
+    seeds = Revenues.objects.filter(Date__gte=one_week_ago).aggregate(total_seeds=Sum('Seed_Amount'))
+    total_seeds=seeds['total_seeds']
+    if total_seeds == None:
+        total_seeds=0  
+        return total_seeds
+    return total_seeds
+
+#Current Week Cashfloat
+def current_week_cashfloat():
+    cashfloat = CashFloat.objects.filter(Date__gte=one_week_ago, Date__year=current_year).aggregate(total_cashfloat=Sum('Amount'))
+    total_cashfloat=cashfloat['total_cashfloat']
+    if total_cashfloat == None:
+        total_cashfloat=0  
+        return total_cashfloat
+    return total_cashfloat
+
+#total current month revenues
+def total_current_week_revenue():
+    total_tithes = total_current_week_tithes()
+    total_offerings = total_current_week_offerings()
+    total_others = total_current_week_other_sources()
+    cashfloat = current_week_cashfloat()
+    current_week_total_revenues = (total_tithes + total_offerings + total_others) - cashfloat
+    return current_week_total_revenues
+
+
 #CURRENT MONTH REVENUES
 #current month tithes
 def total_current_month_tithes():
@@ -2554,37 +2603,6 @@ def total_current_month_other_sources():
         return total_others
     return total_others
 
-#CURRENT WEEK REVENUES
-#current week tithes
-def total_current_week_tithes():
-    tithes = Revenues.objects.filter(Date__gte=one_week_ago).aggregate(total_tithes=Sum('Tithe_Amount'))
-    total_tithes=tithes['total_tithes']
-    if total_tithes == None:
-        total_tithes=0  
-        return total_tithes
-    return total_tithes
-
-#current week offerings
-def total_current_week_offerings():
-    offerings = Revenues.objects.filter(Date__gte=one_week_ago).aggregate(total_offerings=Sum('General_Offering_Amount'))
-    total_offerings=offerings['total_offerings']
-    if total_offerings == None:
-        total_offerings=0  
-        return total_offerings
-    return total_offerings
-
-#current week seeds
-def total_current_week_seeds():
-    seeds = Revenues.objects.filter(Date__gte=one_week_ago).aggregate(total_others=Sum('Seed_Amount'))
-    total_seeds=seeds['total_seeds']
-    if total_seeds == None:
-        total_seeds=0  
-        return total_seeds
-    return total_seeds
-
-
-
-
 #Current Month Cashfloat
 def current_month_cashfloat():
     cashfloat = CashFloat.objects.filter(Date__month=current_month, Date__year=current_year).aggregate(total_cashfloat=Sum('Amount'))
@@ -2605,6 +2623,11 @@ def total_current_month_revenue():
 
 @login_required
 def index(request):
+    current_year = datetime.now().year #Annual
+    current_month = datetime.now().month #Monthly
+
+    one_week_ago = datetime.today() - timedelta(days=7) #Weekly
+    day = datetime.now().today #Today
    #WEEKLY REVENUES
     total_weekly_donations = Revenues.objects.filter(Revenue_filter='others',Date__gte=one_week_ago,Archived_Status='NOT-ARCHIVED').aggregate(totals=models.Sum("Amount"))
     if (total_weekly_donations['totals'])!=None:
@@ -2963,11 +2986,19 @@ def index(request):
         month = today.strftime('%B')
         mth=calendar.month_name[current_month]
 
-        #calling other functions
+        #calling other functions for the current month
         total_tithes = total_current_month_tithes()
         total_offerings = total_current_month_offerings()
         total_others = total_current_month_other_sources()
         current_month_total_revenues = total_current_month_revenue()
+        current_mth_cashfloat=current_month_cashfloat()
+
+        #calling other functions for the current week
+        total_week_tithes = total_current_month_tithes()
+        total_week_offerings = total_current_month_offerings()
+        total_week_seeds= total_current_week_seeds()
+        current_week_total_revenues = total_current_month_revenue()
+        current_week__cashfloat=current_week_cashfloat()
 
 
         context={
@@ -2985,7 +3016,10 @@ def index(request):
         'd_seeds':d_seeds,'d_thanks':d_thanks,'d_pledges':d_pledges,'day':day, 'total_weekly_expenditure':total_weekly_expenditure,
         
         'current_month_total_revenues':current_month_total_revenues,'total_tithes':total_tithes,'total_offerings':total_offerings,
-        'total_others':total_others,'current_month_cashfloat':current_month_cashfloat,
+        'total_others':total_others,'current_mth_cashfloat':current_mth_cashfloat,
+        
+        'current_week_total_revenues':current_week_total_revenues,'total_week_tithes':total_week_tithes,
+        'total_week_offerings':total_week_offerings,'total_week_seeds':total_week_seeds,'current_week__cashfloat':current_week__cashfloat,
 
         'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,
         'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_cash_out':total_cash_out,
