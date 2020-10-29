@@ -3051,6 +3051,7 @@ def cashfloat_topup(request,pk):
             instance = form.save(commit=False)
             instance.Amount = new_amount
             instance.save()
+            messages.success(request, f'Cashfloat has been topped up with shs. ' + get_topup)
             return redirect('cashfloat-list')
     context={'form':form}
     return render(request, 'topup_cash_float.html',context) 

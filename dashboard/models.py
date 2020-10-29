@@ -774,6 +774,7 @@ class CashFloat(models.Model):
     Amount = models.IntegerField(default=0)
     TopUpAmount = models.IntegerField(default=0, blank=True, null=True)
     Notes = models.TextField(max_length=100000, blank=True, null=True)
+    last_updated = models.DateTimeField(auto_now_add=False, auto_now=True)
     def __int__(self):
         return self.Amount
 
