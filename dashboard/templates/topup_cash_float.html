@@ -51,7 +51,8 @@
 						{% load crispy_forms_tags %}
 							<form method="POST" enctype="multipart/form-data" >
 								{% csrf_token %}
-								{{ form.Date|as_crispy_field}}
+                                {{ form.Date|as_crispy_field}}
+                                <div id='hid'>{{ form.Amount|as_crispy_field}}</div>
 								{{ form.TopUpAmount|as_crispy_field}}
 								{{ form.Notes|as_crispy_field}}
 							<button type="submit" class="btn btn-primary" name="button">Submit</button>

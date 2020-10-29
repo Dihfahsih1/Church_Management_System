@@ -3040,11 +3040,19 @@ def record_cashfloat(request):
         return render(request, 'give_cash_float.html',context) 
 
 def cashfloat_topup(request,pk):
+    get_cashfloat = CashFloat.objects.get(id=pk)
+    form=CashFloatForm(instance=get_cashfloat)
     if request.method=="POST":
-        form=CashFloatForm(request.POST)
-    if form.is_valid():
-        form.save()
-        return redirect('cashfloat-list')
+        get_amount = request.POST.get('Amount')
+        get_topup = request.POST.get('TopUpAmount')
+        new_amount = int(get_amount) + int(get_topup)
+        form=CashFloatForm(request.POST,instance=get_cashfloat)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.Amount = new_amount
+            instance.save()
+            return redirect('cashfloat-list')
+    context={'form':form}
     return render(request, 'topup_cash_float.html',context) 
 
 #list of all cash float given out

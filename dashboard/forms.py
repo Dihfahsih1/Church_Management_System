@@ -111,7 +111,6 @@ class CashFloatForm(forms.ModelForm):
         widgets = {
             'Date': DatePickerInput(),
         } 
-        
 class UpdatePledgesForm(forms.ModelForm):
     class Meta:
         model=Pledges
