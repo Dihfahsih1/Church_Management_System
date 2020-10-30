@@ -820,7 +820,7 @@ class CashFloat(models.Model):
         total_offerings = total_current_week_offerings()
         total_seeds = total_current_week_seeds()
         cashfloat = current_week_cashfloat()
-        current_week_total_revenues = (total_tithes + total_offerings + total_seeds)-current_week_cashfloat
+        current_week_total_revenues = (total_tithes + total_offerings + total_seeds)-current_week_cashfloat - self.TopUpAmount
         return current_week_total_revenues
 
 #for testing purposes

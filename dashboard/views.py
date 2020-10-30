@@ -3108,10 +3108,13 @@ def record_cashfloat(request):
     if request.method=="POST":
         form=CashFloatForm(request.POST)
         if form.is_valid():
+            #call save to implement a function (total_current_week_revenues) in the model(CashFloat)
             get_amount = request.POST.get('Amount')
             new_revenue = CashFloat()
             new_revenue.total_current_week_revenues
             new_revenue.save()
+
+            #save the form submitted
             form.save()
             return redirect('cashfloat-list')
     else:    
@@ -3133,6 +3136,7 @@ def cashfloat_topup(request,pk):
         new_amount = int(get_amount) + int(get_topup)
         form=CashFloatForm(request.POST,instance=get_cashfloat)
         if form.is_valid():
+            #update the original cashfloat with the new amount after a topup
             instance = form.save(commit=False)
             instance.Amount = new_amount
             instance.save()
