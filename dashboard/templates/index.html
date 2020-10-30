@@ -18,7 +18,7 @@
                         {% if user.Role == 'Admin' or user.Role == 'Assistant_Admin' or user.Role == 'SuperAdmin'%}
                         <div class="row ">
                             <!--Start of Annual summary tiles -->
-                            <div class="row top_tiles">
+                            <!-- <div class="row top_tiles">
                                 <div class="separator"></div>
                                 <h2 style="text-align:center; color:red;"><b>Annual Financial Summary of {{ current_year }}</b></h2>
                                 <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
@@ -43,8 +43,7 @@
                                     </div>
                                     </a>
                                 </div>
-
-                            </div>
+                            </div> -->
                             <!--Start of monthly summary tiles -->
                             <div class="separator"></div>
                             <div class="row " style="margin-left:1%;">
@@ -61,7 +60,7 @@
 
                                     <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
                                         <div class="tile-stats">
-                                            <h4> <b style="font-size:15px">Week Expenditure</b></h4>
+                                            <h4> <b style="font-size:15px">Total Week Expenditure</b></h4>
                                             <div class="count blue">{{total_weekly_expenditure|intcomma}}</div>
                                         </div>
                                     </div>
