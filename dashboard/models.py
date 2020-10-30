@@ -837,6 +837,7 @@ class AnnualConference(models.Model):
     conference_report = models.TextField(max_length=100000, blank=True, null=True)
     def __str__(self):
         return self.conference_theme
+        
 class NewConvert(models.Model):
     is_church_member = models.CharField(max_length=100, choices=OPTIONS, default="No", blank=True, null=True)
     born_again_before = models.CharField(max_length=100, choices=OPTIONS, default="No", blank=True, null=True)
