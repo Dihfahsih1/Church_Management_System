@@ -2565,7 +2565,7 @@ def current_week_cashfloat():
         return total_cashfloat
     return total_cashfloat
 
-#total current month revenues
+#total current week revenues
 def total_current_week_revenue():
     total_tithes = total_current_week_tithes()
     total_offerings = total_current_week_offerings()
@@ -2620,7 +2620,14 @@ def total_current_month_revenue():
     cashfloat = current_month_cashfloat()
     current_month_total_revenues = (total_tithes + total_offerings + total_seeds) - cashfloat
     return current_month_total_revenues
-
+def week_of_month(date):
+    date= datetime.now()
+    month = date.month
+    week = 0
+    while date.month == month:
+        week += 1
+        date -= timedelta(days=7)
+    return week
 @login_required
 def index(request):
     current_year = datetime.now().year #Annual
@@ -2999,9 +3006,10 @@ def index(request):
         total_week_seeds= total_current_week_seeds()
         current_week_total_revenues = total_current_week_revenue()
         current_week__cashfloat=current_week_cashfloat()
+        week=week_of_month(current_month)
 
 
-        context={
+        context={'week':week,
         'Annualthanks':Annualthanks, 'Annualothers':Annualothers, 'Annualoffering':Annualoffering,
         'Annualtithes':Annualtithes,'Annualseeds':Annualseeds,'Annualbuilding':Annualbuilding,
         'Annualgeneral':Annualgeneral,'Annualmain':Annualmain,'Annualpetty':Annualpetty,
@@ -3088,14 +3096,6 @@ def total_expenses(request):
     return render(request, 'total_expenses.html', context)
 
 ########========================>CASHFLOAT MODULE<=====================#######
-def week_of_month(date):
-    date= datetime.now()
-    month = date.month
-    week = 0
-    while date.month == month:
-        week += 1
-        date -= timedelta(days=7)
-    return week
 @login_required
 def record_cashfloat(request):
     one_week_ago = datetime.today() - timedelta(days=7) #Weekly
