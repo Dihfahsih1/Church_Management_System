@@ -1,5 +1,5 @@
 from django.utils.timezone import now
-from datetime import datetime
+from datetime import datetime, timedelta  
 from django.db import models
 from django.urls import reverse
 from django.db.models import Model
@@ -776,6 +776,52 @@ class CashFloat(models.Model):
     last_updated = models.DateTimeField(auto_now_add=False, auto_now=True)
     def __int__(self):
         return self.Amount
+    
+        #current week tithes
+    one_week_ago = datetime.today() - timedelta(days=7) #Weekly
+    def total_current_week_tithes():
+        tithes = Revenues.objects.filter(Date__gte=one_week_ago).aggregate(total_tithes=Sum('Tithe_Amount'))
+        total_tithes=tithes['total_tithes']
+        if total_tithes == None:
+            total_tithes=0  
+            return total_tithes
+        return total_tithes
+
+    #current week offerings
+    def total_current_week_offerings():
+        offerings = Revenues.objects.filter(Date__gte=one_week_ago).aggregate(total_offerings=Sum('General_Offering_Amount'))
+        total_offerings=offerings['total_offerings']
+        if total_offerings == None:
+            total_offerings=0  
+            return total_offerings
+        return total_offerings
+
+    #current week seeds
+    def total_current_week_seeds():
+        seeds = Revenues.objects.filter(Date__gte=one_week_ago).aggregate(total_seeds=Sum('Seed_Amount'))
+        total_seeds=seeds['total_seeds']
+        if total_seeds == None:
+            total_seeds=0  
+            return total_seeds
+        return total_seeds
+
+    #Current Week Cashfloat
+    def current_week_cashfloat():
+        cashfloat = CashFloat.objects.filter(Date__gte=one_week_ago, Date__year=current_year).aggregate(total_cashfloat=Sum('Amount'))
+        total_cashfloat=cashfloat['total_cashfloat']
+        if total_cashfloat == None:
+            total_cashfloat=0  
+            return total_cashfloat
+        return total_cashfloat
+
+    #total current month revenues
+    def total_current_week_revenues(self):
+        total_tithes = total_current_week_tithes()
+        total_offerings = total_current_week_offerings()
+        total_seeds = total_current_week_seeds()
+        cashfloat = current_week_cashfloat()
+        current_week_total_revenues = (total_tithes + total_offerings + total_seeds)-current_week_cashfloat
+        return current_week_total_revenues
 
 #for testing purposes
 

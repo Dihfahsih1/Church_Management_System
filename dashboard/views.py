@@ -2569,16 +2569,16 @@ def current_week_cashfloat():
 def total_current_week_revenue():
     total_tithes = total_current_week_tithes()
     total_offerings = total_current_week_offerings()
-    total_others = total_current_week_other_sources()
+    total_seeds = total_current_week_seeds()
     cashfloat = current_week_cashfloat()
-    current_week_total_revenues = (total_tithes + total_offerings + total_others) - cashfloat
+    current_week_total_revenues = (total_tithes + total_offerings + total_seeds)
     return current_week_total_revenues
 
 
 #CURRENT MONTH REVENUES
 #current month tithes
 def total_current_month_tithes():
-    tithes = Revenues.objects.filter(Revenue_filter='tithes',Date__month=current_month).aggregate(total_tithes=Sum('Amount'))
+    tithes = Revenues.objects.filter(Date__month=current_month).aggregate(total_tithes=Sum('Tithe_Amount'))
     total_tithes=tithes['total_tithes']
     if total_tithes == None:
         total_tithes=0  
@@ -2587,7 +2587,7 @@ def total_current_month_tithes():
 
 #current month offerings
 def total_current_month_offerings():
-    offerings = Revenues.objects.filter(Revenue_filter='offering',Date__month=current_month).aggregate(total_offerings=Sum('Amount'))
+    offerings = Revenues.objects.filter(Date__month=current_month).aggregate(total_offerings=Sum('General_Offering_Amount'))
     total_offerings=offerings['total_offerings']
     if total_offerings == None:
         total_offerings=0  
@@ -2595,13 +2595,13 @@ def total_current_month_offerings():
     return total_offerings
 
 #current month other_sources of revenue
-def total_current_month_other_sources():
-    others = Revenues.objects.filter(Revenue_filter='others',Date__month=current_month).aggregate(total_others=Sum('Amount'))
-    total_others=others['total_others']
-    if total_others == None:
-        total_others=0  
-        return total_others
-    return total_others
+def total_current_month_seeds():
+    seeds = Revenues.objects.filter(Date__month=current_month).aggregate(total_oseeds=Sum('Seed_Amount'))
+    total_oseeds=seeds['total_oseeds']
+    if total_oseeds == None:
+        total_oseeds=0  
+        return total_oseeds
+    return total_oseeds
 
 #Current Month Cashfloat
 def current_month_cashfloat():
@@ -2616,9 +2616,9 @@ def current_month_cashfloat():
 def total_current_month_revenue():
     total_tithes = total_current_month_tithes()
     total_offerings = total_current_month_offerings()
-    total_others = total_current_month_other_sources()
+    total_seeds = total_current_month_seeds()
     cashfloat = current_month_cashfloat()
-    current_month_total_revenues = (total_tithes + total_offerings + total_others) - cashfloat
+    current_month_total_revenues = (total_tithes + total_offerings + total_seeds) - cashfloat
     return current_month_total_revenues
 
 @login_required
@@ -2989,15 +2989,15 @@ def index(request):
         #calling other functions for the current month
         total_tithes = total_current_month_tithes()
         total_offerings = total_current_month_offerings()
-        total_others = total_current_month_other_sources()
+        total_seeds = total_current_month_seeds()
         current_month_total_revenues = total_current_month_revenue()
         current_mth_cashfloat=current_month_cashfloat()
 
         #calling other functions for the current week
-        total_week_tithes = total_current_month_tithes()
-        total_week_offerings = total_current_month_offerings()
+        total_week_tithes = total_current_week_tithes()
+        total_week_offerings = total_current_week_offerings()
         total_week_seeds= total_current_week_seeds()
-        current_week_total_revenues = total_current_month_revenue()
+        current_week_total_revenues = total_current_week_revenue()
         current_week__cashfloat=current_week_cashfloat()
 
 
@@ -3016,7 +3016,7 @@ def index(request):
         'd_seeds':d_seeds,'d_thanks':d_thanks,'d_pledges':d_pledges,'day':day, 'total_weekly_expenditure':total_weekly_expenditure,
         
         'current_month_total_revenues':current_month_total_revenues,'total_tithes':total_tithes,'total_offerings':total_offerings,
-        'total_others':total_others,'current_mth_cashfloat':current_mth_cashfloat,
+        'total_seeds':total_seeds,'current_mth_cashfloat':current_mth_cashfloat,
         
         'current_week_total_revenues':current_week_total_revenues,'total_week_tithes':total_week_tithes,
         'total_week_offerings':total_week_offerings,'total_week_seeds':total_week_seeds,'current_week__cashfloat':current_week__cashfloat,
@@ -3108,6 +3108,10 @@ def record_cashfloat(request):
     if request.method=="POST":
         form=CashFloatForm(request.POST)
         if form.is_valid():
+            get_amount = request.POST.get('Amount')
+            new_revenue = CashFloat()
+            new_revenue.total_current_week_revenues
+            new_revenue.save()
             form.save()
             return redirect('cashfloat-list')
     else:    
