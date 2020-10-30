@@ -10,8 +10,6 @@
 
     <link href="/static/vendors/fullcalendar/dist/fullcalendar.print.css" rel="stylesheet" media="print">
 {% endblock stylesheets %}
-
-   
     <div class="container-fluid" style="overflow-x:hidden">
         {% block content %}
             {% if request.user.is_authenticated %}
@@ -34,13 +32,6 @@
                                     <div class="tile-stats">
                                         <h4> <b style="font-size: 17px">Total Annual Expenditure</b></h4>
                                         <div class="count red">{{annual_expenditure|intcomma}}</div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-                                    <div class="tile-stats">
-                                        <h4> <b style="font-size: 17px">Annual Net Income</b></h4>
-                                        <div class="count red">{{annual_net|intcomma}}</div>
                                     </div>
                                 </div>
 
