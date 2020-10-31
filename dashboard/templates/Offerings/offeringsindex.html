@@ -66,11 +66,12 @@
                       </tr>
                     </thead>
                     <tbody>
+
                       {% for item in items %}
                         <tr class="totalColumn">
                           <td>{{ item.Date}}</td>
                           <td>{{ item.Service}}</td>
-                          <td class="rowDataSd">{{ item.Amount}}</td>
+                          <td class="rowDataSd">{{ item.General_Offering_Amount}}</td>
                           <td>{{ item.Archived_Status}}</td>
                           <td>
                               {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}

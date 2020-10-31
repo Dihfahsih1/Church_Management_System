@@ -621,7 +621,7 @@ def Offeringsreport (request):
     today = datetime.now()
     years=today.year
     context={}
-    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED",Revenue_filter='offering')
+    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED")
     context['items']=items
     context['years']=years
     context['today']=today
@@ -635,7 +635,7 @@ def offeringsarchivessearch(request):
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
-        archived_reports = Revenues.objects.filter(Archived_Status='ARCHIVED',Revenue_filter='offering', Date__month=report_month, Date__year=report_year)
+        archived_reports = Revenues.objects.filter(Archived_Status='ARCHIVED', Date__month=report_month, Date__year=report_year)
         mth=int(report_month)
         report_month=calendar.month_name[mth]
         context = {'archived_reports': archived_reports,'years': years,'today': today,
@@ -648,10 +648,10 @@ def offeringsarchivessearch(request):
 class offeringsarchivepdf(View):
     def get(self, request, report_year, report_month):
         month=strptime(report_month, '%B').tm_mon
-        archived_offerings = Revenues.objects.filter(Date__month=month, Date__year=report_year, Archived_Status='ARCHIVED',Revenue_filter='offering').order_by('-Date')
+        archived_offerings = Revenues.objects.filter(Date__month=month, Date__year=report_year, Archived_Status='ARCHIVED').order_by('-Date')
         today = datetime.now()
         month=today.strftime('%B')
-        total = archived_offerings.aggregate(totals=models.Sum("Amount"))
+        total = archived_offerings.aggregate(totals=models.Sum("General_Offering_Amount"))
         total_amount = total["totals"]
         offeringscontext = {
             'report_year':report_year,
@@ -667,12 +667,12 @@ class offeringsarchivepdf(View):
 class offeringspdf(View):
     def get(self, request):
         current_month = datetime.now().month
-        offerings = Revenues.objects.filter(Archived_Status='NOT-ARCHIVED',Revenue_filter='offering').order_by('-Date')
+        offerings = Revenues.objects.filter(Archived_Status='NOT-ARCHIVED').order_by('-Date')
         today = datetime.now()
         month = today.strftime('%B')
         totalexpense = 0
         for instance in offerings:
-            totalexpense += instance.Amount
+            totalexpense += instance.General_Offering_Amount
         context = {
             'month': month,
             'today': today,
