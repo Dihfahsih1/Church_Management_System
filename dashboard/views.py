@@ -722,7 +722,7 @@ def seedsarchivessearch(request):
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
-        archived_reports = Revenues.objects.filter(Archived_Status='ARCHIVED',Revenue_filter='seeds', Date__month=report_month, Date__year=report_year)
+        archived_reports = Revenues.objects.filter(Archived_Status='ARCHIVED', Date__month=report_month, Date__year=report_year)
         mth=int(report_month)
         report_month=calendar.month_name[mth]
         context = {'archived_reports': archived_reports,'years': years,'today': today,
