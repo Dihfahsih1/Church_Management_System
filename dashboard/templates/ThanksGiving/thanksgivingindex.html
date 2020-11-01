@@ -66,20 +66,22 @@
                       </tr>
                     </thead>
                     <tbody>
-                      {% for item in items%}
-                        <tr class="totalColumn">
-                          <td>{{ item.Date}}</td>
-                          <td>{{ item.Member_Name}}</td>
-                          <td>{{ item.Service}}</td>
-                          <td class="rowDataSd">{{ item.Amount}}</td>
-                          <td>{{ item.Archived_Status}}</td>
-                          <td>
-                          <div class="mb-4">
-                                <a href="{% url 'edit-thanks-giving' item.pk %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"> Edit</span></a>
-                                <a href="#"class="btn btn-success btn-sm"><span class="glyphicon glyphicon-print"> Receipt</span></a>
-                          </div>
-                          </td>
-                        </tr>
+                      {% for item in items %}
+                        {% if item.Thanks_Giving_Amount != 0 %}
+                            <tr class="totalColumn">
+                              <td>{{ item.Date}}</td>
+                              <td>{{ item.Member_Name}}</td>
+                              <td>{{ item.Service}}</td>
+                              <td class="rowDataSd">{{ item.Thanks_Giving_Amount}}</td>
+                              <td>{{ item.Archived_Status}}</td>
+                              <td>
+                                <div class="mb-4">
+                                      <a href="{% url 'edit-thanks-giving' item.pk %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"> Edit</span></a>
+                                      <a href="#"class="btn btn-success btn-sm"><span class="glyphicon glyphicon-print"> Receipt</span></a>
+                                </div>
+                              </td>
+                            </tr>
+                          {% endif %}
                       {% endfor %}
                     </tbody>
                   </table>

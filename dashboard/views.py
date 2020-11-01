@@ -972,9 +972,10 @@ def thanks_giving_report(request):
         messages.success(request, f'Thanks Giving Report has been Archived')
         return redirect('thanks-giving-report')
     today = datetime.now()
+    month = today.month
     years=today.year
     context={}
-    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED",Revenue_filter='thanks')
+    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=years)
     context['items']=items
     context['years']=years
     context['today']=today
