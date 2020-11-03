@@ -320,14 +320,6 @@ def members_archived(request):
     day=datetime.now()
     context ={'membership': membership, 'day':day}
     return render(request, 'Members/members_archived.html',context) 
-# @login_required
-# def view_request_details(request,pk):
-#     members = get_object_or_404(Members, pk=pk)
-#     if request.method == 'POST':
-#         form = MembersForm(request.POST, instance=members)
-#     else:
-#         form = MembersForm(instance=members)
-#     return save_news_form(request, form, 'Members/includes/partial_members_view.html') 
 
 #approve membership request sent from the website
 @login_required
@@ -347,6 +339,7 @@ def reject_request(request, pk):
         item.delete()
         messages.success(request, f'Membership Request has been Rejected')
         return redirect('un-approved-list')
+
 #list of the un-approved members.
 @login_required        
 def un_approved_members_list(request):        
@@ -444,6 +437,7 @@ def membership_wall(request):
         members_list = paginator.page(paginator.num_pages)
     context={'page':page, 'members_list': members_list}    
     return render(request, 'Members/members_wall.html', context)
+
 #view member details
 def member_detail(request, pk):
     member = get_object_or_404(Members, pk=pk)
@@ -466,7 +460,6 @@ def member_detail(request, pk):
         'number_of_registered_members':number_of_registered_members
     }
     return render(request, 'Members/member_details.html', context)
-
 
 ###### <====VISITORS MODULE====> #####
 @login_required
