@@ -45,8 +45,7 @@
                         {% load crispy_forms_tags %}
                             <form method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
-                                <div id='hid'>{{ form.Member_Name|as_crispy_field}}</div>
-                                
+                                <div id='hid'>{{ form.Member_Name|as_crispy_field}}</div> 
                                 {{ form.Date|as_crispy_field}}
                                 {{ form.Envag_Or_Missions_Amount|as_crispy_field}}
                                 {{ form.Tithe_Amount|as_crispy_field}}
@@ -55,7 +54,6 @@
                                 {{ form.Love_Offering_Amount|as_crispy_field}}
                                 {{ form.Thanks_Giving_Amount|as_crispy_field}}
                                 {{ form.General_Offering_Amount|as_crispy_field}}
-                                
                             <button type="submit" class="btn btn-primary" name="button">Submit</button>
                             </form>
                         </div>
