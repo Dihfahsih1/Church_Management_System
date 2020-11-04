@@ -2091,7 +2091,7 @@ def image_delete(request, image_pk):
                                              )
     return JsonResponse(data)
 
-###################=============>GOSPEL SERMONS MODULE<================########################
+#####==>GOSPEL SERMONS MODULE<==#####
 class NewsListView(ListView):
     model = News
     template_name = 'news/news_list.html'
