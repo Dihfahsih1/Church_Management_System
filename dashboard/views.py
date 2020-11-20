@@ -3107,7 +3107,6 @@ def record_cashfloat(request):
             new_revenue = CashFloat()
             new_revenue.total_current_week_revenues
             new_revenue.save()
-
             #save the form submitted
             form.save()
             return redirect('cashfloat-list')
