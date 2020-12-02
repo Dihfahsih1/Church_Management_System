@@ -8,6 +8,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.forms.fields import DateField
 from django.contrib.admin.widgets import AdminDateWidget
 from django.contrib.auth.models import PermissionsMixin
+from ckeditor_uploader.fields import RichTextUploadingField
 
 services = (('Sunday First Service','Sunday First Service'),('Sunday Second Service','Sunday Second Service'),('Sunday Third Service','Sunday Third Service'), 
          ('All Sunday Services','All Sunday Services'),('Unspecified Service','Unspecified Service'),
@@ -645,7 +646,7 @@ class News(models.Model):
     date = models.DateField(auto_now_add=True)
     image = models.ImageField(upload_to='images/', max_length=10000, null=True, blank=True)
     audio_file = models.FileField(upload_to='audios/',max_length=10000, null=True, blank=True)
-    news = models.TextField(null=True, blank=True)
+    news = models.RichTextUploadingField(null=True, blank=True)
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS)
     author = models.CharField(max_length=1003, null=True, blank=True, default="Preacher")
     objects = models.Manager()
