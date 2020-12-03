@@ -31,7 +31,6 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'celery',
     'ckeditor',
-    'mptt',
     ]
  
 
