@@ -8,9 +8,6 @@ from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput, MonthPic
 from functools import partial
  
 
-# class FormWithCaptcha(forms.Form):
-#     captcha = ReCaptchaField()
-
 class SliderForm(forms.ModelForm):
     class Meta:
         model = Slider
