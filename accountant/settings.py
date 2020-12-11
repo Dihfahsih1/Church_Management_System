@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'widget_tweaks',
     'celery',
-    'ckeditor',
+    #'ckeditor',
     ]
  
 
