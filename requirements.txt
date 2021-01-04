@@ -16,7 +16,7 @@ click-didyoumean==0.0.3
 click-repl==0.1.6
 colorama==0.4.3
 command-not-found==0.3
-cryptography==2.8
+cryptography==3.2
 cssselect==1.1.0
 cupshelpers==1.0
 dbus-python==1.2.16
