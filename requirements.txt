@@ -50,7 +50,7 @@ fleep==1.0.1
 future==0.18.2
 heroku==0.1.4
 html5lib==1.0.1
-httplib2==0.14.0
+httplib2==0.18.0
 idna==2.8
 isort==5.6.3
 keyring==18.0.1
