@@ -8,6 +8,7 @@ env = environ.Env()
 # reading .env file
 environ.Env.read_env()
 
+
 SECRET_KEY = env("KEY")
 DEBUG = True
 ALLOWED_HOSTS = []
@@ -129,6 +130,7 @@ EMAIL_HOST_USER = env('MAIL_HOST')
 EMAIL_HOST_PASSWORD = env('MAIL_PASSWORD')
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 BOOTSTRAP4 = {
