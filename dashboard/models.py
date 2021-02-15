@@ -9,6 +9,7 @@ from django.forms.fields import DateField
 from django.contrib.admin.widgets import AdminDateWidget
 from django.contrib.auth.models import PermissionsMixin
 #from ckeditor_uploader.fields import RichTextUploadingField
+from django_ckeditor_5.fields import CKEditor5Field
 
 services = (('Sunday First Service','Sunday First Service'),('Sunday Second Service','Sunday Second Service'),('Sunday Third Service','Sunday Third Service'), 
          ('All Sunday Services','All Sunday Services'),('Unspecified Service','Unspecified Service'),
@@ -697,7 +698,7 @@ class Project(models.Model):
     project_title = models.CharField(max_length=100)
     start_date = models.DateField(null=True, blank=True)
     image = models.ImageField(upload_to='images/',max_length=10000, null=True, blank=False)
-    project_description = models.TextField()
+    project_description = CKEditor5Field()
     project_leader = models.ForeignKey('Members', on_delete=models.CASCADE,null=True, blank=True)
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS)
     objects = models.Manager()

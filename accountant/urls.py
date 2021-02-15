@@ -11,6 +11,7 @@ from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("ckeditor5/", include('django_ckeditor_5.urls')),
     path('', include('dashboard.urls')),
     re_path('^',include('django.contrib.auth.urls')),
     path('register/', user_views.register, name='register'),
