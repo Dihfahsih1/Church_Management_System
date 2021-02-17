@@ -6,6 +6,7 @@ from .models import *
 from django.forms import Textarea, TextInput, ChoiceField
 from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput, MonthPickerInput 
 from functools import partial
+from captcha.fields import CaptchaField
  
 
 class SliderForm(forms.ModelForm):
@@ -126,6 +127,7 @@ class MembersForm(forms.ModelForm):
             'Education_Level','Profession','Type_of_Work','Place_of_Work','Country','County','Parish','District',
             'Sub_County', 'Village','Date_Of_Salvation','Date_Of_Joining_UCC_Bwaise','Ministry_Involved_In',
             'Name_Of_Next_Of_Kin','Contact_Of_Next_Of_Kin','Residence_Of_Next_Of_Kin','Date_Of_Birth','is_active')
+        captcha = CaptchaField()
         is_active = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple)
         widgets = {
             'Date_Of_Birth': DatePickerInput(),

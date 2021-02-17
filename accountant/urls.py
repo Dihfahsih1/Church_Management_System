@@ -10,6 +10,9 @@ from django.conf.urls import url
 
 
 urlpatterns = [
+    
+    path('captcha/', include('captcha.urls')),
+    
     path('admin/', admin.site.urls),
     path("ckeditor5/", include('django_ckeditor_5.urls')),
     path('', include('dashboard.urls')),

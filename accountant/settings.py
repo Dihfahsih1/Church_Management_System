@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'celery',
     'django_ckeditor_5',
+    'captcha',
     ]
  
 
@@ -143,7 +144,6 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
-GOOGLE_RECAPTCHA_SECRET_KEY = env('CAPTURE')
 
 STATIC_ROOT = ''
 STATIC_URL = '/static/'
