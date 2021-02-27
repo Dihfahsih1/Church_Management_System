@@ -2307,7 +2307,6 @@ footer {
     opacity: 1;
 }
 
-.gallery-carousel .owl-nav {}
 
 .gallery-carousel .owl-nav>div {
     color: #ffffff;
@@ -2318,13 +2317,6 @@ footer {
     transform: translateY(-50%);
 }
 
-.gallery-carousel .owl-nav .owl-prev {
-    left: 34px;
-}
-
-.gallery-carousel .owl-nav .owl-next {
-    right: 34px;
-}
 
 /*----------------------------------------*/
 /*  12. Contact
@@ -2382,15 +2374,9 @@ footer {
     width: 100%;
 }
 
-.contact-input-box input[type="text"] {}
-
-.contact-input-box input[type="email"] {}
-
 .contact-input-box textarea {
     height: 178px;
 }
-
-.contact-input-box input[type="submit"] {}
 
 .single-contact-info {
     background: #f6f5f5 none repeat scroll 0 0;
@@ -2431,8 +2417,6 @@ footer {
 .login-area::before {
     opacity: 0.8;
 }
-
-.login-area-all-box {}
 
 .login-box-col {
     margin: 0 0 30px;
