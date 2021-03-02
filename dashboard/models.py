@@ -1,15 +1,17 @@
+
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.utils.timezone import now
 from datetime import datetime, timedelta  
 from django.db import models
 from django.urls import reverse
 from django.db.models import Model
 from django.db.models import Sum
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager,User
 from django.forms.fields import DateField
 from django.contrib.admin.widgets import AdminDateWidget
 from django.contrib.auth.models import PermissionsMixin
 #from ckeditor_uploader.fields import RichTextUploadingField
 from django_ckeditor_5.fields import CKEditor5Field
+
 
 services = (('Sunday First Service','Sunday First Service'),('Sunday Second Service','Sunday Second Service'),('Sunday Third Service','Sunday Third Service'), 
          ('All Sunday Services','All Sunday Services'),('Unspecified Service','Unspecified Service'),
@@ -151,6 +153,7 @@ class UserManager(BaseUserManager):
         return user_obj
 
 class User(AbstractBaseUser , PermissionsMixin):
+    #name = models.CharField(max_length=255,blank=True, null=True)
     email = models.EmailField(max_length=255,blank=True, null=True)
     username = models.CharField(max_length=30, unique=True)
     Role = models.CharField(max_length=250, choices=roles, blank=True, null=True)
@@ -164,7 +167,7 @@ class User(AbstractBaseUser , PermissionsMixin):
     objects = UserManager()
     published = PublishedStatusManager()
     def __str__(self):
-        return str(self.full_name)
+        return str(self.username)
     @property
     def UserEmail(self):
         get_member=Members.objects.filter(Full_Named=self.full_name)

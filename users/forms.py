@@ -44,9 +44,9 @@ class MembershipAccountForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['full_name','username','Is_View_on_Web']
+        fields = ['username']
         labels = {
-            'username': 'Username',
+            'username': 'Your Username',
         }
         
     def clean_password2(self):

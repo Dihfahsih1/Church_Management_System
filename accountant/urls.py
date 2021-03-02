@@ -19,6 +19,7 @@ urlpatterns = [
     re_path('^',include('django.contrib.auth.urls')),
     path('register/', user_views.register, name='register'),
     path('MemberAccountRegister/', user_views.MemberAccountRegister, name='MemberAccountRegister'),
+    url(r'^member-profile/', user_views.member_profile, name='member_profile'),
     #path('ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^profile/', user_views.view_profile, name='profile'),
     url(r'^update/profile/', user_views.edit_profile, name='edit-profile'),

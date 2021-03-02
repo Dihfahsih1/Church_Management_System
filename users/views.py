@@ -95,13 +95,17 @@ def MemberAccountRegister(request):
     if request.method == 'POST':
         form = MembershipAccountForm(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
+            user = form.save()
+            login(request, user)
+            member = Members.objects.create(username=user.username, created_by=user)
             messages.success(request, f'Account has been created successfully!, You can now login')
-            return redirect('login')
+            return redirect('member_profile')
     else:
         form = MembershipAccountForm()
-        return render(request, 'users/home/membershipaccount.html', {'form': form,'members':members})
+    return render(request, 'users/home/membershipaccount.html', {'form': form,'members':members})
+def member_profile(request):
+    context={}
+    return render(request,'home/profile.html',context)
 
 @login_required
 def delete_user(request,pk):
@@ -114,7 +118,7 @@ def delete_user(request,pk):
     return render(request, 'users/home/delete_user.html', context)
     
 @login_required
-def user_update(request, user_pk):
+def user_updated(request, user_pk):
     user = get_object_or_404(User, pk=user_pk)
     if request.method == "POST":
         form = RegisterForm(request.POST, request.FILES, instance=user)
@@ -129,3 +133,21 @@ def user_update(request, user_pk):
         form = RegisterForm(instance=user)
         args = {'form': form,}
         return render(request, 'users/home/user_update.html', args)
+
+
+@login_required
+def user_update(request, user_pk):
+    user = get_object_or_404(Members, created_by=user_pk)
+    if request.method == "POST":
+        form = MembersForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form = form.save()
+            return redirect('index_public')
+        else:
+            form = MembersForm(instance=user)
+            args = {'form': form,}
+            return render(request, 'Members/online_registration.html', args)
+    else:
+        form = MembersForm(instance=user)
+        args = {'form': form,}
+        return render(request, 'Members/online_registration.html', args)

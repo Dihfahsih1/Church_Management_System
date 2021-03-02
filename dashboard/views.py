@@ -1,3 +1,4 @@
+
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.dateformat import DateFormat
@@ -27,19 +28,9 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode  
 from .tokens import account_activation_token  
 from django.core.mail import EmailMessage
-from django.contrib.auth.forms import UserCreationForm
 
-def membership_account(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save
-            login(request, user)
-            member = Members.objects.create(username=user.username, created_by=user)
-            return redirect('index_public')
-    else:
-        form = UserCreationForm()
-    return(request,'Members/become_member.html', {'form':form})
+
+
     
 
 
