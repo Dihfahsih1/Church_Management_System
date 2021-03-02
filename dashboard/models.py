@@ -4,7 +4,7 @@ from django.db import models
 from django.urls import reverse
 from django.db.models import Model
 from django.db.models import Sum
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager,User
 from django.forms.fields import DateField
 from django.contrib.admin.widgets import AdminDateWidget
 from django.contrib.auth.models import PermissionsMixin
@@ -287,6 +287,8 @@ class Members(models.Model):
     objects = models.Manager()
     published = PublishedStatusManager()
     Full_Named=models.CharField(max_length=100,null=True,blank=True)
+    username=models.CharField(max_length=100,null=True,blank=True)
+    created_by = models.OneToOneField(User,related_name='member', null=True,blank=True,on_delete=models.CASCADE)
     def __str__(self):
         return str(self.First_Name )+ ' ' + str(self.Second_Name)
                   

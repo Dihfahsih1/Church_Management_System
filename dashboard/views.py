@@ -16,7 +16,7 @@ from time import strptime
 from .render import Render
 from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
-from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import update_session_auth_hash, login
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 import calendar
 from dal import autocomplete
@@ -27,6 +27,22 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode  
 from .tokens import account_activation_token  
 from django.core.mail import EmailMessage
+from django.contrib.auth.forms import UserCreationForm
+
+def membership_account(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save
+            login(request, user)
+            member = Members.objects.create(username=user.username, created_by=user)
+            return redirect('index_public')
+    else:
+        form = UserCreationForm()
+    return(request,'Members/become_member.html', {'form':form})
+    
+
+
 
 
 

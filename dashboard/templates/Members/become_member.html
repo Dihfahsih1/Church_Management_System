@@ -1,0 +1,20 @@
+{% extends 'home/base.html' %}
+
+{% block title %} Become Member | {% endlblock%}
+
+{% block content %}
+    <h1>Become Member</h1>
+    <form method="post" action="."></form>
+    {% csrf_token %}
+
+    {{ form.as_p}}
+
+    <div class="field">
+        <div class="control">
+            <button class="btn btn-primary"> Sign up
+
+            </button>
+
+        </div>
+    </div>
+{% endblock %}
