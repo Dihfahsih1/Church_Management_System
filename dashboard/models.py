@@ -153,7 +153,8 @@ class UserManager(BaseUserManager):
         return user_obj
 
 class User(AbstractBaseUser , PermissionsMixin):
-    #name = models.CharField(max_length=255,blank=True, null=True)
+    fname = models.CharField(max_length=255,blank=True, null=True)
+    lname = models.CharField(max_length=255,blank=True, null=True)
     email = models.EmailField(max_length=255,blank=True, null=True)
     username = models.CharField(max_length=30, unique=True)
     Role = models.CharField(max_length=250, choices=roles, blank=True, null=True)

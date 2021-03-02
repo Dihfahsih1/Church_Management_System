@@ -11,6 +11,7 @@
 
 <section class="page-contact-area" style="background-color:ivory;">
     <div class="container">
+        <h3 style="color: red;">Hello {{request.user.fname }} {{request.user.lname }} please fill in the form below with all the required details.</h3>
         <form class="form-horizontal form-label-left"
                 id="admissionForm" action="" method="POST" enctype="multipart/form-data" 
                 accept-charset="utf-8" novalidate>
@@ -28,6 +29,7 @@
             </div>
 
             <div class="form-row">
+                
                 <div class="form-group">
                     {{ form.Initials|as_crispy_field }}
                 </div>

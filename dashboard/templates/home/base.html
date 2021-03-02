@@ -178,8 +178,12 @@
                                 <li><a {% if request.get_full_path == '/event/'  %} class="active"{% endif %} href="{% url 'event_wall' %}">EVENTS</a></li>
                                 <li><a {% if request.get_full_path == '/galleries/'  %} class="active"{% endif %}href="{% url 'gallery_wall' %}">GALLERY</a></li>
                                 <li><a {% if request.get_full_path == '/feedback'  %} class="active"{% endif %} href="{% url 'contact' %}">CONTACT US</a></li>
-                                {% if request.user.is_authenticated %}   
+                                {% if request.user.is_authenticated %}
+                                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
                                     <li> <a href="{% url 'index' %}" target="_new"> SYSTEM</a></li>
+                                    {% else %}  
+                                        <li> <a href="{% url 'member_profile' %}" > Profile</a></li>
+                                    {% endif %}
                                 {% endif %}
                             </ul>
                         </nav>

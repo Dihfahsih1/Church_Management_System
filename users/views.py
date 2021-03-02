@@ -97,14 +97,15 @@ def MemberAccountRegister(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            member = Members.objects.create(username=user.username, created_by=user)
+            member = Members.objects.create(username=user.username, created_by=user,First_Name=user.fname, Second_Name=user.lname)
             messages.success(request, f'Account has been created successfully!, You can now login')
             return redirect('member_profile')
     else:
         form = MembershipAccountForm()
     return render(request, 'users/home/membershipaccount.html', {'form': form,'members':members})
 def member_profile(request):
-    context={}
+    current_user = request.user.username
+    context={'current_user':current_user}
     return render(request,'home/profile.html',context)
 
 @login_required
@@ -142,7 +143,7 @@ def user_update(request, user_pk):
         form = MembersForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form = form.save()
-            return redirect('index_public')
+            return redirect('member_profile')
         else:
             form = MembersForm(instance=user)
             args = {'form': form,}

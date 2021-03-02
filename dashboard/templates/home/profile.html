@@ -9,7 +9,12 @@
 
             <div class="row">
                 <div class="col-lg-6 jumbotron">
-                  <a href="{% url 'user_update' request.user.id %}">Complete Your Membership</a>
+                   <p>
+                       {{current_user }}
+                   </p>
+                </div>
+                <div class="col-lg-6 jumbotron">
+                  <a href="{% url 'user_update' request.user.id %}">Update Your Details</a>
                 </div>
                 
             </div>
