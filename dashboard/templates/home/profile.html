@@ -8,16 +8,52 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-lg-6 jumbotron">
-                   <p>
-                       {{current_user }}
-                   </p>
+                <div class="col-lg-12">
+                    <div class="col-lg-6">
+                        <div class="single-event">
+                            <div class="content">
+                                <ul class="list">
+                                    <li class="info"><b>First Name :</b> {{member.First_Name}}</li>
+                                    <li class="info"><b>Last Name: </b>{{member.Second_Name}}</li>
+                                    <li class="info"><b>Group: </b>{{member.Group}}</li>
+                                    <li class="info"><b>Home Cell:</b> {{member.Home_Cell}}</li>
+                                    <li class="info"><b>Residence:</b>  {{member.Residence}}</li>
+                                    <li class="info"><b>Telephone:</b>  {{member.Telephone}}</li>
+                                    <li class="info"><b>Email:</b>  {{member.Email}}</li>
+                                    <li class="info"><b>Gender: </b> {{member.Gender}}</li>
+                                    <li class="info"><b>Marital Status:</b>  {{member.Marital_Status}}</li>
+                                    <li class="info"><b>Type of Marriage: </b> {{member.Marriage_Kind}}</li>
+                                    <li class="info"><b>Education Level: </b> {{member.Education_Level}}</li>
+                                    <li class="info"><b>Type Of Work: </b> {{member.Type_of_Work}}</li>
+                                </ul>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="col-lg-6">
+                    <div class="single-event">
+                        <div class="content">
+                            <ul class="list">
+                                <li class="info"><b>Country:</b>  {{member.Country}}</li>
+                                <li class="info"><b>County: </b> {{member.County}}</li>
+                                <li class="info"><b>Parish: </b> {{member.Parish}}</li>
+                                <li class="info"><b>District:</b>  {{member.District}}</li>
+                                <li class="info"><b>Sub County:</b> {{member.Sub_County}}</li>
+                                <li class="info"><b>Village: </b> {{member.Village}}</li>
+                                <li class="info"><b>Salvation Date: </b> {{member.Date_Of_Salvation}}</li>
+                                <li class="info"><b>Joining UCC Bwaise: </b>{{member.Date_Of_Joining_UCC_Bwaise}}</li>
+                                <li class="info"><b>Birth Date: </b> {{member.Date_Of_Birth}}</li>
+                                <li class="info"><b>Next of Kin:</b>  {{member.Name_Of_Next_Of_Kin}}</li>
+                                <li class="info"><b>Ministry:</b>  {{member.Ministry_Involved_In}}</li>
+                                <li class="info"><b>Profession:</b> {{member.Profession}}</li>
+                            </ul>
+                        </div>
+                    </div> 
+                    </div>
                 </div>
-                <div class="col-lg-6 jumbotron">
-                  <a href="{% url 'user_update' request.user.id %}">Update Your Details</a>
-                </div>
-                
             </div>
+            <div class="row">
+                <button class="btn btn-primary"><a href="{% url 'user_update' request.user.id %}">Update Your Details</a></button>
+              </div>
         </div>
     </section>
 
