@@ -152,8 +152,9 @@ def user_update(request, user_pk):
         else:
             form = MembersForm(instance=user)
             args = {'form': form,}
-            return render(request, 'Members/online_registration.html', args)
+            return render(request, 'Members/update_member_profile.html', args)
     else:
         form = MembersForm(instance=user)
         args = {'form': form,}
-        return render(request, 'Members/online_registration.html', args)
+        return render(request, 'Members/update_member_profile.html', args)
+    
