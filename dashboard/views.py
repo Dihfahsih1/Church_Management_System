@@ -78,6 +78,7 @@ def web(request):
         employees = StaffDetails.published.all()
         sliders = Slider.objects.all().order_by('-id')
         abouts = About.objects.all()
+        
         gospel = News.published.latest('date')
         feeback= Contact.objects.all().order_by('-id')
         pages = Page.objects.all().order_by('-id')

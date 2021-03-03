@@ -105,8 +105,12 @@ def MemberAccountRegister(request):
     return render(request, 'users/home/membershipaccount.html', {'form': form,'members':members})
 def member_profile(request):
     current_user = request.user.username
-    member = Members.objects.get(created_by=request.user)
-    context={'member':member, 'current_user':current_user}
+    try:
+        member = Members.objects.get(created_by=request.user)
+        context={'member':member, 'current_user':current_user}
+    except:
+        member = Members.objects.get(Full_Named=request.user.full_name)
+        context={'member':member, 'current_user':current_user}
     return render(request,'home/profile.html',context)
 
 @login_required
