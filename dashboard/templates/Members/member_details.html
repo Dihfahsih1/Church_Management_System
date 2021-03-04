@@ -66,12 +66,15 @@
                                     {% endcomment%}
                                    </div>
                                 </div>
-                                
-                                 {% if user.id == member.created_by.id %}  
-                                  <button class="more text-right"><a class="link glbscl-link-btn hvr-bs" href="{% url 'user_update' request.user.id %}">Update Your Details</a></button>
-                                  {% elif request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
-                                   <button class="more text-right"><a class="link glbscl-link-btn hvr-bs" href="{% url 'edit-member' member.id %}">Update {{member.full_name}} Details</a></button>
-                                {% endif %}    
+                                {% if user.is_authenticated %}
+                                    {% if user.id == member.created_by.id %}  
+                                        <button class="more text-right"><a class="link glbscl-link-btn hvr-bs" href="{% url 'user_update' request.user.id %}">Update Your Details</a></button>
+
+                                    {% elif request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
+                                    
+                                        <button class="more text-right"><a class="link glbscl-link-btn hvr-bs" href="{% url 'edit-member' member.id %}">Update {{member.full_name}} Details</a></button>
+                                    {% endif %}
+                                {% endif %} 
                                 
                             </div>
 
