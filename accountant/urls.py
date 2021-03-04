@@ -23,8 +23,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('dashboard.urls')),
     re_path('^',include('django.contrib.auth.urls')),
+    
+    #create an account for user from the dashboard
     path('account-register/', user_views.register, name='register'),
+    
+    #user creating an account from the website form
     path('register/', user_views.MemberAccountRegister, name='MemberAccountRegister'),
+    
     path('ckeditor/', include('ckeditor_uploader.urls')),
     
     url(r'^tracking/', include('tracking.urls')),

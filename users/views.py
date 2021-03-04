@@ -75,6 +75,7 @@ def edit_profile(request):
         args = {'form': form}
         return render(request, 'users/home/update_profile.html', args) 
 
+#create an account for user from the dashboard
 @login_required
 def register(request):
     if request.method == 'POST':

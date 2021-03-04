@@ -195,7 +195,7 @@
                                     </ul>
                                 </li>
 
-                                <li><a href="#" {% if request.get_full_path == '/Church/Members' or request.get_full_path == '/register/' %} class="active"{% endif %}>MEMBERSHIP <span class="icon fa fa-chevron-down"></span></a>
+                                <li><a href="{% url 'membership_wall' %}" {% if request.get_full_path == '/Church/Members' or request.get_full_path == '/register/' %} class="active"{% endif %}>MEMBERSHIP <span class="icon fa fa-chevron-down"></span></a>
                                     <ul class="drop">
                                         <li><a {% if request.get_full_path == '/Church/Members' %} class="active"{% endif %} href="{% url 'membership_wall' %}">Members</a></li>
                                         {% if not request.user.is_authenticated %}
