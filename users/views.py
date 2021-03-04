@@ -132,24 +132,21 @@ def member_profile(request):
         context={'members':members_created_by_a_user, 'member':member, 'current_user':current_user}
     return render(request,'home/profile.html',context)
 
-@login_required
 def delete_user(request,pk):
     user= get_object_or_404(User, id=pk)
-    if request.method == "GET":
-        user.delete()
-        messages.success(request, "The User successfully deleted!")
-        return redirect("register")
-    context= {'user': user}
-    return render(request, 'users/home/delete_user.html', context)
+    user.delete()
+    messages.success(request, "The User successfully deleted!")
+    return redirect("register")
     
     
 @login_required
-def user_updated(request, user_pk):
+def update_system_user(request, user_pk):
     user = get_object_or_404(User, pk=user_pk)
     if request.method == "POST":
         form = RegisterForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form = form.save()
+            messages.success(request, "The User info successfully updated!")
             return redirect('register')
         else:
             form = RegisterForm(instance=user)
@@ -162,7 +159,7 @@ def user_updated(request, user_pk):
 
 
 @login_required
-def user_update(request, user_pk):
+def church_user_account(request, user_pk):
     user = get_object_or_404(Members, created_by=user_pk)
     if request.method == "POST":
         form = MembersForm(request.POST, request.FILES, instance=user)

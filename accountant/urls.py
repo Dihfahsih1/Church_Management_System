@@ -13,43 +13,46 @@ from dashboard.sitemaps import GospelSitemap
 sitemaps = { 'posts': GospelSitemap}
 
 urlpatterns = [
-    #captcha url
-    path('captcha/', include('captcha.urls')),
-     
-    url(r'^logout/', user_views.logout_request, name='logout'),
-    #Sitemap url
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
-    
+    path('captcha/', include('captcha.urls')),#captcha url
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),#Sitemap url
     path('admin/', admin.site.urls),
     path('', include('dashboard.urls')),
     re_path('^',include('django.contrib.auth.urls')),
-    
-    #create an account for user from the dashboard
-    path('account-register/', user_views.register, name='register'),
-    
-    #user creating an account from the website form
-    path('register/', user_views.MemberAccountRegister, name='MemberAccountRegister'),
-    
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    
     url(r'^tracking/', include('tracking.urls')),
-    url(r'^profile/', user_views.view_profile, name='profile'),
-    url(r'^member-profile/', user_views.member_profile, name='member_profile'),
     
+    ################# CHURCH WEBSITE USER PROFILE ####################
+    path('register/', user_views.MemberAccountRegister, name='MemberAccountRegister'),
+    url(r'^member-profile/', user_views.member_profile, name='member_profile'),
+    url(r'^church_user_account/(?P<user_pk>\d+)/$', user_views.church_user_account, name='user_update'),
+    
+    ###################SYSTEM USER PROFILE############################
+    path('account-register/', user_views.register, name='register'),
     url(r'^update/profile/', user_views.edit_profile, name='edit-profile'),
-    url(r'^System-Users/delete/(?P<pk>\d+)', user_views.delete_user, name='delete-user'),
+    url(r'^updating-user/(?P<user_pk>\d+)/$', user_views.update_system_user, name='update_system_user'),
+    url(r'^delete-user/(?P<pk>\d+)', user_views.delete_user, name='delete-user'),
+    url(r'^profile/', user_views.view_profile, name='profile'),
+    
+    ###################PASSWORD RESETING AND CHANGE ####################
     url(r'^password/change/', user_views.UserPasswordChangeView.as_view(), name='changing-password'),
+    
     path('Login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     # path('Logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+    
+    url(r'^logout/', user_views.logout_request, name='logout'),
+    
     url(r'^Password-Reset/', auth_views.PasswordResetView.as_view(template_name='users/home/password_reset.html'),
         name='password_reset'),
+    
     url(r'^Done/Password-Reset', auth_views.PasswordResetDoneView.as_view(template_name='users/home/password_reset_done.html'),
         name='password_reset_done'),
+    
     url(r'^Complete/Password-Reset', auth_views.PasswordResetCompleteView.as_view(template_name='users/home/password_reset_complete.html'),
         name='password_reset_complete'),
+    
     url(r'^password-reset-confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', auth_views.PasswordResetConfirmView.as_view(template_name='users/home/password_reset_confirm.html'),
         name='password_reset_confirm'),
-    url(r'^update-profile/(?P<user_pk>\d+)/$', user_views.user_update, name='user_update'),
+    
     url(r'^Reseting-Password/(?P<user_pk>\d+)/password/reset/$', user_views.reset_user_password, name='reset_user_password'),
 ]
 

@@ -54,7 +54,7 @@
                           <td>{{ user.Role}}</td>
                           <td>{{ user.UserEmail}}</td>
                           <td><a href="{% url 'delete-user' user.pk %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-trash"></span></a>
-                          	<a href="{% url 'user_update' user.pk %}"class="btn btn-success btn-sm "><span class="glyphicon glyphicon-edit"></span></a></td>
+                          	<a href="{% url 'update_system_user' user.pk %}"class="btn btn-success btn-sm "><span class="glyphicon glyphicon-edit"></span></a></td>
 						   	
 						</tr>
 						{% endfor %}
