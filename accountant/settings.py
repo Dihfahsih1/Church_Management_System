@@ -11,7 +11,7 @@ environ.Env.read_env()
 
 SECRET_KEY = env("KEY")
 DEBUG = True
-ALLOWED_HOSTS = ['uccbwaise.org', 'www.uccbwaise.org']
+ALLOWED_HOSTS = []
 CORS_ORIGIN_ALLOW_ALL = True
 APPEND_SLASH=True
 SITE_ID = 1
@@ -104,24 +104,13 @@ TEMPLATES = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME':'uccbwais_church',
-        'USER': 'uccbwais_admin',
-        'PASSWORD':'uccbwaise2021',
-        'HOST': 'localhost',
+        'NAME':'postgres',
+        'USER': 'postgres',
+        'PASSWORD':'uccbwaise',
+        'HOST': '127.0.0.1',
         'PORT':'5432',
     }
 }
-# if os.environ.get('GITHUB_WORKFLOW'):
-#     DATABASES = {
-#         'default': {
-#           'ENGINE': 'django.db.backends.postgresql',
-#           'NAME': env("DB_GIT"),
-#           'USER': env("DB_USER"),
-#           'PASSWORD': env("DB_PASSWORD"),
-#           'HOST': env("DB_HOST"),
-#           'PORT': env("DB_PORT"),
-#         }
-#     }
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -169,15 +158,12 @@ MESSAGE_TAGS = {
 }
 
 
+STATIC_ROOT = ''
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-STATICFILES_DIRS = [ BASE_DIR+"/assets", ]
-STATIC_ROOT = '/home/uccbwais/public_html/static'
-MEDIA_ROOT = '/home/uccbwais/public_html/media'
-
-
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
+
 
  #...
 SITE_ID = 1
