@@ -45,7 +45,7 @@
                                 </audio>
                                 {% endif %}
                                 <div class="text">
-                                    {{ news.news|truncatewords:20|linebreaks }}
+                                    {{ news.news|truncatewords:20|safe }}
                                 </div>
                                 <div class="more text-right">
                                     <a class="link glbscl-link-btn hvr-bs"

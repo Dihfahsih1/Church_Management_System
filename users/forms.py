@@ -39,15 +39,16 @@ class RegisterForm(forms.ModelForm):
         return user
 class MembershipAccountForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
-    password2 = forms.CharField(label='Password confirmation',
-                                widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password'}))
+    password2 = forms.CharField(label='Repeat Password',
+                                widget=forms.PasswordInput(attrs={'placeholder': 'Password Confirmation'}))
 
     class Meta:
         model = User
-        fields = ['fname', 'lname','username']
+        fields = ['fname', 'lname','email','username']
         labels = {
             'fname':'First Name',
             'lname':'Second Name',
+            'email': 'Email',
             'username': 'Username',
         }
         

@@ -12,7 +12,10 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
+from django.contrib.auth import login, logout
+from django.core.mail import send_mail, BadHeaderError
 from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import user_passes_test
 
 class UserPasswordChangeView(LoginRequiredMixin, View):
     form_class = PasswordChangeForm
@@ -90,6 +93,7 @@ def register(request):
         return render(request, 'users/home/register.html', context)
 
 
+@user_passes_test(lambda u: u.is_anonymous)
 def MemberAccountRegister(request):
     members=Members.objects.all()
     if request.method == 'POST':
@@ -97,20 +101,34 @@ def MemberAccountRegister(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            member = Members.objects.create(username=user.username, created_by=user,First_Name=user.fname, Second_Name=user.lname)
-            messages.success(request, f'Account has been created successfully!, You can now login')
+            member = Members.objects.create(username=user.username, created_by=user,First_Name=user.fname, Second_Name=user.lname, Email=user.email)
+            messages.success(request, f'Account has been created successfully!, Please Complete the registration')
+            current_site = get_current_site(request)  
+            mail_subject = user.fname + " " + user.lname + ' Created Account'  
+            mail_message ="This account needs approval from the Admin"  
+            to_email = 'dihfahsihm@gmail.com' 
+            from_email = user.email
+            
+            if mail_subject and mail_message and from_email:
+                try:
+                    send_mail(mail_subject, mail_message, from_email, [to_email])
+                except BadHeaderError:
+                    return HttpResponse('Make sure you enter correct info.')
             return redirect('member_profile')
     else:
         form = MembershipAccountForm()
     return render(request, 'users/home/membershipaccount.html', {'form': form,'members':members})
+    
+@login_required    
 def member_profile(request):
     current_user = request.user.username
+    members_created_by_a_user = Members.objects.filter(username=request.user)
     try:
         member = Members.objects.get(created_by=request.user)
-        context={'member':member, 'current_user':current_user}
+        context={'members':members_created_by_a_user,'member':member, 'current_user':current_user}
     except:
         member = Members.objects.get(Full_Named=request.user.full_name)
-        context={'member':member, 'current_user':current_user}
+        context={'members':members_created_by_a_user, 'member':member, 'current_user':current_user}
     return render(request,'home/profile.html',context)
 
 @login_required
@@ -122,6 +140,7 @@ def delete_user(request,pk):
         return redirect("register")
     context= {'user': user}
     return render(request, 'users/home/delete_user.html', context)
+    
     
 @login_required
 def user_updated(request, user_pk):
@@ -148,6 +167,7 @@ def user_update(request, user_pk):
         form = MembersForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form = form.save()
+            messages.success(request, "Your details were updated!")
             return redirect('member_profile')
         else:
             form = MembersForm(instance=user)
@@ -157,4 +177,8 @@ def user_update(request, user_pk):
         form = MembersForm(instance=user)
         args = {'form': form,}
         return render(request, 'Members/update_member_profile.html', args)
-    
+        
+def logout_request(request):
+    logout(request)
+    messages.info(request, "Logged out successfully!")
+    return redirect("index_public")

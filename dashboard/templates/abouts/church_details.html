@@ -1,19 +1,40 @@
 {% extends 'home/base.html' %}
 {% load static contact_tags %}
 
-<body>
-
-    {% block content %}
-    <div class="container-fluid" style="background-color: white;">
-        <div class="menu">
-            <ul id="menu" style="text-align: left;">
-                <li><a class="text btn-sm btn-warning" href="#">About</a></li>
-                <li><a style="color: black;" href="{% url 'abouts_mission' %}">Mission</a></li>
-                <li><a style="color: black;" href="{% url 'abouts_vision' %}">Vision</a></li>
-                <li><a  style="color: black;" href="{% url 'core_values' %}">Core Values</a></li>
-
-            </ul>
-        </div>
+{% block content %}
+    <style>
+        .topnav {
+          overflow: hidden;
+          background-color: #333;
+        }
+        
+        .topnav a {
+          float: center;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 5px 6px;
+          text-decoration: none;
+          font-size: 17px;
+        }
+        
+        .topnav a:hover {
+          background-color: #ddd;
+          color: black;
+        }
+        
+        .topnav a.active {
+          background-color: #4CAF50;
+          color: white;
+        }
+    </style>
+    <div class="topnav">
+        <a class="active"  href="{% url 'church_details' %}">About</a>
+        <a  href="{% url 'abouts_mission' %}">Mission </a>
+        <a href="{% url 'abouts_vision' %}">Vision</a>
+        <a href="{% url 'core_values' %}">Cole Values </a>
+        <a href="{% url 'cells' %}">Home Cells </a>
+        <a href="{% url 'groups' %}">Church Groups</a>
+        
     </div>
     <section class="page-event-area" style="margin-top: -8%">
         <p class="title" style="text-align: center; font-size: 25px;">About UCC Bwaise</p>
@@ -36,7 +57,4 @@
             </div>
         </div>
     </section>
-
-    {% endblock %}
-
-</body>
+{% endblock %}

@@ -1,4 +1,3 @@
-
 from dal import autocomplete
 import os
 import fleep
@@ -6,8 +5,12 @@ from django import forms
 from .models import *
 from django.forms import Textarea, TextInput, ChoiceField
 from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput, MonthPickerInput 
-from functools import partial
 from captcha.fields import CaptchaField
+
+
+    
+
+from functools import partial
  
 
 class SliderForm(forms.ModelForm):
@@ -121,6 +124,7 @@ class UpdatePledgesForm(forms.ModelForm):
         }  
 
 class MembersForm(forms.ModelForm):
+    #captcha = CaptchaField()
     class Meta:
         model= Members
         fields = ('More_Info','Is_View_on_Web','Email','Group','Initials','First_Name','Second_Name','Telephone',
@@ -128,7 +132,6 @@ class MembersForm(forms.ModelForm):
             'Education_Level','Profession','Type_of_Work','Place_of_Work','Country','County','Parish','District',
             'Sub_County', 'Village','Date_Of_Salvation','Date_Of_Joining_UCC_Bwaise','Ministry_Involved_In',
             'Name_Of_Next_Of_Kin','Contact_Of_Next_Of_Kin','Residence_Of_Next_Of_Kin','Date_Of_Birth','is_active')
-        captcha = CaptchaField()
         is_active = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple)
         widgets = {
             'Date_Of_Birth': DatePickerInput(),
@@ -222,6 +225,7 @@ class churchForm(forms.ModelForm):
 
         }
 class ContactForm(forms.ModelForm):
+    captcha = CaptchaField()
     class Meta:
         model = Contact
         fields = ('name', 'email', 'phone', 'subject','message','feedback')

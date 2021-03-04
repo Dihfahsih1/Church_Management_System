@@ -11,7 +11,17 @@
 
 <section class="page-contact-area" style="background-color:ivory;">
     <div class="container">
-        <h3 style="color: red;">Hello <b style="color:black">{{request.user.fname }} {{request.user.lname }}</b>, please fill in the form below with all the required details.</h3>
+            <div class="topnav">
+                <a  href="{% url 'member_profile' %}">Profile</a>
+                
+                <a class="active" href="{% url 'user_update' request.user.id %}">Update Your Profile</a>
+               
+                <a href="{% url 'online_registration' %}">Add another Member</a>
+                
+                <a href="{% url 'logout' %}">Logout </a>
+                
+            </div>
+        <h3 style="color: red;">Hello <b style="color:black">{{request.user.fname }} {{request.user.lname }}</b>, Update your profile with new information.</h3>
         <form class="form-horizontal form-label-left"
                 id="admissionForm" action="" method="POST" enctype="multipart/form-data" 
                 accept-charset="utf-8" novalidate>
@@ -204,7 +214,7 @@
                 </div>
             </div>
                 <button type="submit" class="btn btn-primary" name="button">Submit</button>
-        </div>
+         </div>
         </form>
     </div>
 </section>
@@ -218,7 +228,7 @@
             $('#Marriage_Kind').hide();
         }
     });
-    $("#status").show();
+    $("#status").hide();
     $("#id_Marital_Status").trigger("change");
     $("#id_Profession").change(function () {
         if ($(this).val() === "Employed") {

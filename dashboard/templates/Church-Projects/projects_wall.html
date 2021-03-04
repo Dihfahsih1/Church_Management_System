@@ -31,7 +31,7 @@
                             <h2 class="title"><a href="{{ details.get_absolute_url }}">{{ details.project_title }}</a>
                             </h2>
                             <div class="text">
-                                {{ details.project_description|truncatewords:40|linebreaks }}
+                                {{ details.project_description | safe |truncatewords:40}}
                             </div>
                             <div class="more text-right">
                                 <a class="link glbscl-link-btn hvr-bs" href="{% url 'project_detail' details.pk %}">Read

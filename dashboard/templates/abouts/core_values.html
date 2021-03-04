@@ -1,25 +1,46 @@
 {% extends 'home/base.html' %}
 {% load static contact_tags %}
+{% block content %}
+<style>
+    .topnav {
+  overflow: hidden;
+  background-color: #333;
+}
 
-<body>
+.topnav a {
+  float: center;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 5px 6px;
+  text-decoration: none;
+  font-size: 17px;
+}
 
-    {% block content %}
-    <div class="container-fluid" style="background-color: white;">
-        <div class="menu">
-            <ul id="menu" style="text-align: left;">
-                <li><a style="color: black;" href="{% url 'church_details' %}">About</a></li>
-                <li><a style="color: black;"  href="{% url 'abouts_mission' %}">Mission</a></li>
-                <li><a style="color: black;" href="{% url 'abouts_vision' %}">Vision</a></li>
-                <li><a class="text btn-sm btn-warning" href="#">Core Values</a></li>
-                <li><a style="color: black;" href="{% url 'home-cells' %}">Home Cells</a></li>
-                
-            </ul>
-        </div>
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+    
+    <div class="topnav">
+        <a href="{% url 'church_details' %}">About</a>
+        <a  href="{% url 'abouts_mission' %}">Mission </a>
+        <a href="{% url 'abouts_vision' %}">Vision</a>
+        <a class="active" href="{% url 'core_values' %}">Cole Values </a>
+        <a href="{% url 'cells' %}">Home Cells </a>
+        <a href="{% url 'groups' %}">Church Groups</a>
+        
     </div>
+    
     <section class="page-event-area" style="margin-top: -8%">
-<p class="title" style="text-align: center; font-size: 25px;">Church Core Values</p>
-<hr />
-        <div class="container">
+        <p class="title" style="text-align: center; font-size: 25px;">Church Core Values</p>
+        <hr />
+                <div class="container">
             <div class="row justify-content-center">
                 {% for value in values %}
                 {% if value.core_values is not None %}
@@ -38,6 +59,4 @@
         </div>
     </section>
 
-    {% endblock %}
-
-</body>
+{% endblock %}

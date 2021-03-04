@@ -2,7 +2,6 @@
 {% load static  %}
 
 <body>
-
 {% block content %}
 
     <section class="page-breadcumb-area bg-with-black">
@@ -42,7 +41,7 @@
                             <source src=" {{news.audio_file.url}} " type="audio/mpeg">
                         </audio>
                         {% endif %}
-                        <p class="text" >{{ news.news|linebreaks }}</p>
+                        <p class="text" >{{ news.news|safe }}</p>
 
                         <!-- <div class="share-news">
                             <h4 class="name">Share :</h4>
@@ -72,7 +71,7 @@
                                             <span class="content">
                                              <span class="meta">
                                                  <span class="info"><span class="icon"><i
-                                                         class="fa fa-user"></i></span> By / {{ news.author }}</span>
+                                                         class="fa fa-user"></i></span> By  {{ news.author }}</span>
                                                  <span class="info"><span class="icon"><i
                                                          class="fa fa-calendar"></i></span> {{ news.date }}</span>
                                              </span>

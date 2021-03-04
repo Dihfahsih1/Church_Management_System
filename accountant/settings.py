@@ -11,11 +11,13 @@ environ.Env.read_env()
 
 SECRET_KEY = env("KEY")
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['uccbwaise.org', 'www.uccbwaise.org']
 CORS_ORIGIN_ALLOW_ALL = True
-APPEND_SLASH=False
+APPEND_SLASH=True
+SITE_ID = 1
 INSTALLED_APPS = [
     'dashboard',
+    'tracking',
     'dal',
     'dal_select2',
     'django.contrib.admin',
@@ -25,32 +27,53 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
     'crispy_forms',
     'users.apps.UsersConfig',
     'bootstrap_datepicker_plus',
     'bootstrap4',
     'widget_tweaks',
     'celery',
-    'django_ckeditor_5',
+    'github_storages',
     'captcha',
+    'ckeditor',
+    'ckeditor_uploader',
+    'django_social_share',
+    
     ]
- 
+#captcha properties
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+TEXT_ADDITIONAL_TAGS = ('iframe',)
+TEXT_ADDITIONAL_ATTRIBUTES = ('scrolling', 'allowfullscreen', 'frameborder', 'src', 'height', 'width')
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge'
+#CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.word_challenge'
+CAPTCHA_BACKGROUND_COLOR ='blue'
+CAPTCHA_FOREGROUND_COLOR = "white"
+CAPTCHA_LETTER_ROTATION = (-38, 38)
+CAPTCHA_NOISE_FUNCTIONS = None
+#CAPTCHA_IMAGE_SIZE = '30'
 
-# DEFAULT_FILE_STORAGE=env("FILE_STORAGE")
-# GITHUB_HANDLE=env("HANDLE")
-# ACCESS_TOKEN=env("TOKEN")
-# GITHUB_REPO_NAME=env("REPO")
-# MEDIA_BUCKET_NAME=env("BUCKET_NAME")
+# DEFAULT_FILE_STORAGE='github_storages.backend.BackendStorages'
+# GITHUB_HANDLE='Pythonista1'
+# ACCESS_TOKEN='f284bcf2c4651226f99da98e821abfb98a24a610'
+# GITHUB_REPO_NAME='amazing'
+# MEDIA_BUCKET_NAME='media'
 
-# SECURE_BROWSER_XSS_FILTER = True
-# SECURE_CONTENT_TYPE_NOSNIFF = True
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
-# X_FRAME_OPTIONS = 'DENY'
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+#SESSION_EXPIRE_AT_BROWSER_CLOSE = True     # opional, as this will log you out when browser is closed
+SESSION_COOKIE_AGE = 6000                   # 0r 10 * 60, same thing
+#SESSION_SAVE_EVERY_REQUEST = True   
 
 AUTH_USER_MODEL = 'dashboard.User'
-MIDDLEWARE = [   
+
+MIDDLEWARE = [ 
+    'tracking.middleware.VisitorTrackingMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -81,24 +104,24 @@ TEMPLATES = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env("DB_NAME"),
-        'USER': env("DB_USER"),
-        'PASSWORD': env("DB_PASSWORD"),
-        'HOST': env("DB_HOST"),
-        'PORT': env("DB_PORT"),
+        'NAME':'uccbwais_church',
+        'USER': 'uccbwais_admin',
+        'PASSWORD':'uccbwaise2021',
+        'HOST': 'localhost',
+        'PORT':'5432',
     }
 }
-if os.environ.get('GITHUB_WORKFLOW'):
-    DATABASES = {
-        'default': {
-           'ENGINE': 'django.db.backends.postgresql',
-           'NAME': env("DB_GIT"),
-           'USER': env("DB_USER"),
-           'PASSWORD': env("DB_PASSWORD"),
-           'HOST': env("DB_HOST"),
-           'PORT': env("DB_PORT"),
-        }
-    }
+# if os.environ.get('GITHUB_WORKFLOW'):
+#     DATABASES = {
+#         'default': {
+#           'ENGINE': 'django.db.backends.postgresql',
+#           'NAME': env("DB_GIT"),
+#           'USER': env("DB_USER"),
+#           'PASSWORD': env("DB_PASSWORD"),
+#           'HOST': env("DB_HOST"),
+#           'PORT': env("DB_PORT"),
+#         }
+#     }
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -114,13 +137,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Kampala'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-LOGIN_REDIRECT_URL = 'index_public'
-LOGOUT_REDIRECT_URL = 'login'
+LOGIN_REDIRECT_URL = 'member_profile'
+LOGOUT_REDIRECT_URL = 'index_public'
 LOGIN_URL = 'login'
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
@@ -145,107 +168,49 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
-STATIC_ROOT = ''
-STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATICFILES_DIRS = [ BASE_DIR+"/assets", ]
+STATIC_ROOT = '/home/uccbwais/public_html/static'
+MEDIA_ROOT = '/home/uccbwais/public_html/media'
+
+
+
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
  #...
 SITE_ID = 1
+
+
 
 ####################################
     ##  CKEDITOR CONFIGURATION ##
 ####################################
 
 
-customColorPalette = [
-        {
-            'color': 'hsl(4, 90%, 58%)',
-            'label': 'Red'
-        },
-        {
-            'color': 'hsl(340, 82%, 52%)',
-            'label': 'Pink'
-        },
-        {
-            'color': 'hsl(291, 64%, 42%)',
-            'label': 'Purple'
-        },
-        {
-            'color': 'hsl(262, 52%, 47%)',
-            'label': 'Deep Purple'
-        },
-        {
-            'color': 'hsl(231, 48%, 48%)',
-            'label': 'Indigo'
-        },
-        {
-            'color': 'hsl(207, 90%, 54%)',
-            'label': 'Blue'
-        },
-    ]
 
-#CKEDITOR_5_CUSTOM_CSS = 'path_to.css' optional
-CKEDITOR_5_CONFIGS = {
+CKEDITOR_CONFIGS = {
     'default': {
-        'toolbar': ['heading', '|', 'bold', 'italic', 'link',
-                    'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', ],
-
+        'toolbar': None,
     },
-    'extends': {
-        'blockToolbar': [
-            'paragraph', 'heading1', 'heading2', 'heading3',
-            '|',
-            'bulletedList', 'numberedList',
-            '|',
-            'blockQuote', 'imageUpload'
-        ],
-        'toolbar': ['heading', '|', 'outdent', 'indent', '|', 'bold', 'italic', 'link', 'underline', 'strikethrough',
-        'code','subscript', 'superscript', 'highlight', '|',
-                    'bulletedList', 'numberedList', 'todoList', '|',  'blockQuote', 'imageUpload', '|',
-                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'mediaEmbed', 'removeFormat',
-                    'insertTable',],
-        'image': {
-            'toolbar': ['imageTextAlternative', 'imageTitle', '|', 'imageStyle:alignLeft', 'imageStyle:full',
-                        'imageStyle:alignRight', 'imageStyle:alignCenter', 'imageStyle:side',  '|'],
-            'styles': [
-                'full',
-                'side',
-                'alignLeft',
-                'alignRight',
-                'alignCenter',
-            ]
-
-        },
-        'table': {
-            'contentToolbar': [ 'tableColumn', 'tableRow', 'mergeTableCells',
-            'tableProperties', 'tableCellProperties' ],
-            'tableProperties': {
-                'borderColors': customColorPalette,
-                'backgroundColors': customColorPalette
-            },
-            'tableCellProperties': {
-                'borderColors': customColorPalette,
-                'backgroundColors': customColorPalette
-            }
-        },
-        'heading' : {
-            'options': [
-                { 'model': 'paragraph', 'title': 'Paragraph', 'class': 'ck-heading_paragraph' },
-                { 'model': 'heading1', 'view': 'h1', 'title': 'Heading 1', 'class': 'ck-heading_heading1' },
-                { 'model': 'heading2', 'view': 'h2', 'title': 'Heading 2', 'class': 'ck-heading_heading2' },
-                { 'model': 'heading3', 'view': 'h3', 'title': 'Heading 3', 'class': 'ck-heading_heading3' }
-            ]
-        }
-    }
 }
+
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+CKEDITOR_IMAGE_BACKEND = "pillow"
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 ###################################
 
+#TRACKING WEBSITE VISITORS
+TRACK_AJAX_REQUESTS = True
+TRACK_ANONYMOUS_USERS =True
+TRACK_SUPERUSERS = False
+TRACK_PAGEVIEWS =True
+TRACK_IGNORE_STATUS_CODES = [400, 404, 403, 405, 410, 500]
+TRACK_REFERER = True
+TRACK_QUERY_STRING = True
 

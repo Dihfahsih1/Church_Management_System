@@ -1,17 +1,15 @@
-
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.utils.timezone import now
 from datetime import datetime, timedelta  
 from django.db import models
 from django.urls import reverse
 from django.db.models import Model
 from django.db.models import Sum
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.forms.fields import DateField
 from django.contrib.admin.widgets import AdminDateWidget
 from django.contrib.auth.models import PermissionsMixin
-#from ckeditor_uploader.fields import RichTextUploadingField
-from django_ckeditor_5.fields import CKEditor5Field
-
+from ckeditor_uploader.fields import RichTextUploadingField
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 services = (('Sunday First Service','Sunday First Service'),('Sunday Second Service','Sunday Second Service'),('Sunday Third Service','Sunday Third Service'), 
          ('All Sunday Services','All Sunday Services'),('Unspecified Service','Unspecified Service'),
@@ -74,7 +72,8 @@ education=(('Masters','Master'),('Degree','Degree'),('Diploma','Diploma'),('Cert
 employment=(('Employed','Employed'),('Unemployed','Unemployed'))
 cell=(
     ('Church Zone','Church Zone'),('Kabira Zone','Kabira Zone'),('Kafunda Zone','Kafunda Zone'),('Lugoba Zone','Lugoba Zone') ,('Katooke Zone','Katooke Zone'),
-    ('Kazo Zone','Kazo Zone'),('Gombolola Zone','Gombolola Zone'),('Kawaala Zone','Kawaala Zone'),('Bombo Rd Zone','Bombo Rd Zone')
+    ('Kazo Zone','Kazo Zone'),('Gombolola Zone','Gombolola Zone'),('Kawaala Zone','Kawaala Zone'),('Bombo Rd Zone','Bombo Rd Zone'),
+    ('Kampala Metropolitan','Kampala Metropolitan')
     )
 grouping=(
     ('God is Able','God is Able'),('Winners','Winners'),('Overcomers','Overcomers'),('Biyinzika','Biyinzika') ,
@@ -113,7 +112,7 @@ THEMES = (
 
 class UserRole(models.Model):
     name = models.CharField(max_length=100, default='Roles', null=True, blank=True)
-    description = models.TextField(null=True, blank=True)
+    description = RichTextUploadingField(null=True, blank=True)
     def __str__(self):
         return self.name
     
@@ -153,11 +152,11 @@ class UserManager(BaseUserManager):
         return user_obj
 
 class User(AbstractBaseUser , PermissionsMixin):
-    fname = models.CharField(max_length=255,blank=True, null=True)
+    fname = models.CharField(max_length=260,blank=True, null=True)
     lname = models.CharField(max_length=255,blank=True, null=True)
     email = models.EmailField(max_length=255,blank=True, null=True)
     username = models.CharField(max_length=30, unique=True)
-    Role = models.CharField(max_length=250, choices=roles, blank=True, null=True)
+    Role = models.CharField(max_length=200, choices=roles, blank=True, null=True)
     full_name =  models.ForeignKey('Members', on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
     is_active = models.BooleanField(default=True) 
     is_staff = models.BooleanField(default=False)  
@@ -254,10 +253,10 @@ class Revenues(Model):
         ordering = ['-Date']    
         
 class Members(models.Model):
-    Archived_Status= models.CharField(max_length=1000, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
+    Archived_Status= models.CharField(max_length=111, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
     date = models.DateTimeField(auto_now=True)
     Group = models.CharField(max_length=100, choices=grouping, null=True, blank=True, default="God Is Able")
-    Initials=models.CharField(max_length=100, choices=ini,null=True, blank=True)
+    Initials=models.CharField(max_length=10, choices=ini,null=True, blank=True)
     First_Name=models.CharField(max_length=100,null=True, blank=True)
     Second_Name=models.CharField(max_length=100,null=True, blank=True)
     Home_Cell=models.CharField(max_length=100, choices=cell,null=True)
@@ -291,7 +290,7 @@ class Members(models.Model):
     objects = models.Manager()
     published = PublishedStatusManager()
     Full_Named=models.CharField(max_length=100,null=True,blank=True)
-    username=models.CharField(max_length=100,null=True,blank=True)
+    username=models.CharField(max_length=1000,null=True,blank=True)
     created_by = models.OneToOneField(User,related_name='member', null=True,blank=True,on_delete=models.CASCADE)
     def __str__(self):
         return str(self.First_Name )+ ' ' + str(self.Second_Name)
@@ -311,11 +310,11 @@ class Members(models.Model):
         else:
             return 0    
     class Meta:
-        ordering = ['First_Name']
+        ordering = ['First_Name'] 
 class Ministry(models.Model):
     name = models.CharField(max_length=100, unique=True)
     leader = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100)
-    details = models.TextField(max_length=10000000, null=True, blank=True)
+    details = RichTextUploadingField(max_length=10000000, null=True, blank=True)
     photos = models.ImageField(upload_to='avatars/',max_length=10000, blank=True) 
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS,null=True,blank=True)
     objects = models.Manager()
@@ -570,12 +569,12 @@ class Slider(models.Model):
 class About(models.Model):
     about_image = models.ImageField(upload_to='about/',max_length=10000, null=True, blank=True)
     banner = models.ImageField(upload_to='about/',max_length=10000, null=True, blank=True)
-    about = models.TextField(max_length=50000 , null=True, blank=True)
+    about = RichTextUploadingField(max_length=50000 , null=True, blank=True)
     about_title = models.CharField(max_length=100, null=True, blank=True)
-    core_values = models.TextField(max_length=10000000, null=True, blank=True)
-    church_details = models.TextField(max_length=10000000, null=True, blank=True)
-    vision_description = models.TextField(max_length=10000000, null=True, blank=True)
-    mission_description = models.TextField(max_length=100000000, null=True, blank=True)
+    core_values = RichTextUploadingField(max_length=10000000, null=True, blank=True)
+    church_details = RichTextUploadingField(max_length=10000000, null=True, blank=True)
+    vision_description = RichTextUploadingField(max_length=10000000, null=True, blank=True)
+    mission_description = RichTextUploadingField(max_length=100000000, null=True, blank=True)
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS, null=True, blank=False)
     objects = models.Manager()
     published = PublishedStatusManager()
@@ -604,7 +603,7 @@ class Page(models.Model):
           ('Footer', 'Footer'))
     page_location = models.CharField(max_length=100, default='Header', choices=IS)
     page_title = models.CharField( max_length=100)
-    page_description = models.TextField(max_length=300)
+    page_description = RichTextUploadingField(max_length=300)
     page_image = models.ImageField(upload_to='images/', max_length=10000,null=True, blank=False)
     objects = models.Manager()
     header = PublishedHeaderPageManager()
@@ -619,7 +618,7 @@ class Page(models.Model):
 #Gallery
 class Gallery(models.Model):
     gallery_title = models.CharField( max_length=100)
-    note = models.TextField( max_length=300)
+    note = RichTextUploadingField()
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS)
     date = models.DateField(auto_now_add=True)
     objects = models.Manager()
@@ -636,7 +635,7 @@ class Gallery(models.Model):
 class Image(models.Model):
     gallery_title = models.ForeignKey(Gallery, on_delete=models.CASCADE, blank=False, null=True)
     gallery_image = models.ImageField( upload_to='images/', max_length=10000,null=True, blank=False)
-    image_caption = models.TextField( max_length=100000)
+    image_caption = RichTextUploadingField( max_length=100000)
     date = models.DateField(auto_now_add=True)
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS, null=True, blank=False)
     objects = models.Manager()
@@ -653,7 +652,7 @@ class News(models.Model):
     date = models.DateField(auto_now_add=True)
     image = models.ImageField(upload_to='images/', max_length=10000, null=True, blank=True)
     audio_file = models.FileField(upload_to='audios/',max_length=10000, null=True, blank=True)
-    news = models.TextField(null=True, blank=True)
+    news = RichTextUploadingField()
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS)
     author = models.CharField(max_length=1003, null=True, blank=True, default="Preacher")
     objects = models.Manager()
@@ -680,7 +679,7 @@ class Event(models.Model):
     from_date = models.DateField(null=True,blank=True)
     to_date = models.DateField(null=True,blank=True)
     image = models.ImageField(upload_to='images/',max_length=10000, null=True ,blank=True)
-    note = models.TextField(blank=True)
+    note = RichTextUploadingField(blank=True)
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS)
     Start_Time = models.TimeField(blank=True, null=True)
     End_Time = models.TimeField(blank=True, null=True)
@@ -704,7 +703,7 @@ class Project(models.Model):
     project_title = models.CharField(max_length=100)
     start_date = models.DateField(null=True, blank=True)
     image = models.ImageField(upload_to='images/',max_length=10000, null=True, blank=False)
-    project_description = CKEditor5Field()
+    project_description = RichTextUploadingField()
     project_leader = models.ForeignKey('Members', on_delete=models.CASCADE,null=True, blank=True)
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS)
     objects = models.Manager()
@@ -730,8 +729,8 @@ class EnableFrontendManager(models.Manager):
         return super(EnableFrontendManager, self).get_queryset().filter(enable_frontend='Yes')
 
 class Church(models.Model):
-    church_vision = models.CharField(max_length=1000, default="vision")
-    church_mission = models.CharField(max_length=1000, default='mission')
+    church_vision = RichTextUploadingField(default="vision")
+    church_mission = RichTextUploadingField(max_length=1000, default='mission')
     maps_embedded_link=models.CharField(max_length=1000, blank=True, null=True)
     church_code = models.CharField(max_length=130, blank=True, null=True)
     church_name = models.CharField(max_length=130)
@@ -771,8 +770,8 @@ class Contact(models.Model):
     email = models.CharField(max_length=130, blank=True, null=True)
     phone = models.CharField(max_length=130, blank=True, null=True)
     subject = models.CharField(max_length=130, blank=True, null=True)
-    message = models.TextField(max_length=130, blank=True, null=True)
-    feedback = models.TextField(max_length=100000, blank=True, null=True)
+    message = RichTextUploadingField(blank=True, null=True)
+    feedback = RichTextUploadingField(max_length=100000, blank=True, null=True)
     def __str__(self):
         return self.name
 
@@ -780,7 +779,7 @@ class CashFloat(models.Model):
     Date = models.DateField(null=True, blank=True)
     Amount = models.IntegerField(default=0)
     TopUpAmount = models.IntegerField(default=0, blank=True, null=True)
-    Notes = models.TextField(max_length=100000, blank=True, null=True)
+    Notes = RichTextUploadingField(max_length=100000, blank=True, null=True)
     last_updated = models.DateTimeField(auto_now_add=False, auto_now=True)
     def __int__(self):
         return self.Amount
@@ -842,7 +841,7 @@ class AnnualConference(models.Model):
     end_date = models.DateField(null=True, blank=True)
     estimated_budget = models.IntegerField(default=0,blank=True, null=True)
     conference_theme = models.CharField(max_length=500, blank=True, null=True)
-    conference_report = models.TextField(max_length=100000, blank=True, null=True)
+    conference_report = RichTextUploadingField(max_length=100000, blank=True, null=True)
     def __str__(self):
         return self.conference_theme
         
@@ -856,4 +855,22 @@ class NewConvert(models.Model):
     member_name = models.ForeignKey(Members, on_delete=models.CASCADE,null=True, blank=True)
     def __str__(self):
         return self.member_name or self.First_Name + ' ' + self.Second_Name
+def current_year():
+    return datetime.now().year
+
+
+def max_value_current_year(value):
+    return MaxValueValidator(current_year())(value)
+    
+class ThemeOfTheYear(models.Model):
+    scripture = models.CharField(max_length=2000, blank=True, null=True)
+    title = models.CharField(max_length=2000, blank=True, null=True)
+    details = RichTextUploadingField()
+    theme_image = models.ImageField(upload_to='themes/',max_length=10000, blank=False)
+    is_active = models.BooleanField(default=True)
+    theme_year = models.PositiveIntegerField(
+        default=current_year(), validators=[MinValueValidator(1984), max_value_current_year])
+    
+    def __str__(self):
+        return self.title
 

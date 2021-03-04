@@ -1,6 +1,5 @@
 {% extends 'home/base.html' %}
 {% load static contact_tags %}
-<body>
 
 {% block content %}
  <h1 style="text-align:center" class="title">Contact us at UCC Bwaise</h1>
@@ -87,8 +86,11 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12">
+                                <div class="col-4">
                                     <div class="contact-input-box text-right">
+                                        <h3>Type the text below</h3>
+                                        
+                                        {{ form.captcha }}
                                         <input class="glbscl-link-btn hvr-bs" type="submit" name="submit" id="submit"
                                                value="Submit">
                                     </div>
@@ -177,5 +179,4 @@
 
 {% endblock %}
 
-</body>
 

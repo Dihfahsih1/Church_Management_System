@@ -20,10 +20,11 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-12 col-md-12 col-xs-12">
                                         <div class="single-event">
                                             <div class="content">
                                                 <ul class="list">
+                                                    <h3>Membership Number:{{member.id}} </h3>
                                                     <li class="info"><b>First Name :</b> {{member.First_Name}}</li>
                                                     <li class="info"><b>Last Name: </b>{{member.Second_Name}}</li>
                                                     <li class="info"><b>Group: </b>{{member.Group}}</li>
@@ -32,14 +33,15 @@
                                                     <li class="info"><b>Telephone:</b>  {{member.Telephone}}</li>
                                                     <li class="info"><b>Email:</b>  {{member.Email}}</li>
                                                     <li class="info"><b>Gender: </b> {{member.Gender}}</li>
-                                                    <li class="info"><b>Marital Status:</b>  {{member.Marital_Status}}</li>
-                                                    <li class="info"><b>Type of Marriage: </b> {{member.Marriage_Kind}}</li>
-                                                    <li class="info"><b>Education Level: </b> {{member.Education_Level}}</li>
-                                                    <li class="info"><b>Type Of Work: </b> {{member.Type_of_Work}}</li>
+                                                    <!--<li class="info"><b>Marital Status:</b>  {{member.Marital_Status}}</li>-->
+                                                    <!--<li class="info"><b>Type of Marriage: </b> {{member.Marriage_Kind}}</li>-->
+                                                    <!--<li class="info"><b>Education Level: </b> {{member.Education_Level}}</li>-->
+                                                    <!--<li class="info"><b>Type Of Work: </b> {{member.Type_of_Work}}</li>-->
                                                 </ul>
                                             </div>
                                         </div>  
                                     </div>
+                                    {% comment %}
                                     <div class="col-lg-6">
                                         <div class="single-event">
                                             <div class="content">
@@ -61,7 +63,7 @@
                                         </div> 
                                         
                                     </div>
-                                
+                                    {% endcomment%}
                                    </div>
                                 </div>
                                 
@@ -69,7 +71,7 @@
                                   <button class="more text-right"><a class="link glbscl-link-btn hvr-bs" href="{% url 'user_update' request.user.id %}">Update Your Details</a></button>
                                   {% elif request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
                                    <button class="more text-right"><a class="link glbscl-link-btn hvr-bs" href="{% url 'edit-member' member.id %}">Update {{member.full_name}} Details</a></button>
-                                {% endif %}   
+                                {% endif %}    
                                 
                             </div>
 

@@ -140,7 +140,7 @@ url(r'^Employee/Salary/Delete/(?P<pk>\d+)', views.delete_salary_paid,name='delet
 url(r'^$', views.web, name='index_public'),
 url(r'^feedback', views.contact, name='contact'),
 url(r'^System', views.index, name='index'),
-url(r'^membership-online/$', views.Online_Registration, name='online_registration'),
+url(r'^online-register/$', views.Online_Registration, name='online_registration'),
 url(r'^Church/Members', views.membership_wall, name='membership_wall'),
 url(r'^Member/Details/(?P<pk>\d+)', views.member_detail, name='member-detail'),
 url(r'^Church/Vision', views.abouts_vision, name='abouts_vision'),
@@ -188,13 +188,13 @@ url(r'^gallery/image/view/(?P<image_pk>\d+)/$', views.image_view, name='image_vi
 url(r'^gallery/image/delete/(?P<image_pk>\d+)/$', views.image_delete, name='image_delete'),
 
 #News
-url(r'^announcement/news/index/$', views.NewsListView.as_view(), name='news_list'),
-url(r'^announcement/news/$', views.news_wall, name='news_wall'),
-url(r'^announcement/news/add/$', views.NewsCreateView.as_view(), name='news_create'),
-url(r'^announcement/news/update/(?P<news_pk>\d+)/$', views.NewsUpdate, name='news_update'),
-url(r'^announcement/news/view/(?P<news_pk>\d+)/$', views.news_view, name='news_view'),
-url(r'^announcement/news/news-detail/(?P<news_pk>\d+)/$', views.news_detail, name='news_detail'),
-url(r'^announcement/news/delete/(?P<news_pk>\d+)/$', views.news_delete, name='news_delete'),
+url(r'^Articles/index/$', views.NewsListView.as_view(), name='news_list'),
+url(r'^Articles/$', views.news_wall, name='news_wall'),
+url(r'^Articles/add/$', views.NewsCreateView.as_view(), name='news_create'),
+url(r'^Articles/update/(?P<news_pk>\d+)/$', views.NewsUpdate, name='news_update'),
+url(r'^Articles/view/(?P<news_pk>\d+)/$', views.news_view, name='news_view'),
+url(r'^Articles/artcle-detail/(?P<news_pk>\d+)/$', views.news_detail, name='news_detail'),
+url(r'^Articles/delete/(?P<news_pk>\d+)/$', views.news_delete, name='news_delete'),
 #events
 url(r'^event/index/$', views.EventListView.as_view(), name='event_list'),
 url(r'^event/$', views.event_wall, name='event_wall'),
@@ -250,5 +250,8 @@ url(r'^Ministry-Support/', views.Supportreport, name='Supportreport'),
 url(r'^Revenues/Member-Support/(?P<pk>\d+)', views.record_member_support, name='record-member-support'),
 path('Support-Edit/<str:pk>/', views.edit_support, name='edit-support'),
 url(r'^Support-receipt/(?P<pk>\d+)', views.supportreceipt.as_view() ,name='supportreceipt'),
+
+path('cells', views.cells, name='cells'),
+path('groups', views.groups, name='groups'),
 
 ]

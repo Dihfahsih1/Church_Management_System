@@ -1,9 +1,10 @@
 {% extends 'home/base.html' %}
-<body>
+
 
 {% block content %}
    <h1 style="text-align:center" class="title">Create Personal Account</h1>
    <hr>
+   <p>Please if you created already an account and you forgot your password, just<a href="{% url 'login' %}}">RESET YOUR PASSWORD</a></p>
 	{% load crispy_forms_tags %}
 	    <div class="container">
 	    	
@@ -25,5 +26,4 @@
 				</div>
 		   </div>
 	    </div>
-	</body>
 {% endblock %}

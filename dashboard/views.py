@@ -1,4 +1,3 @@
-
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.dateformat import DateFormat
@@ -27,11 +26,9 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text  
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode  
 from .tokens import account_activation_token  
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage,send_mail, BadHeaderError
+from django.views.decorators.clickjacking import xframe_options_exempt
 
-
-
-    
 
 
 
@@ -67,9 +64,12 @@ def web(request):
     date= datetime.now()
     month = date.month
     year = date.year
-    da= date.day
-    RUN_EVERY_MONTH=calendar._monthlen(year, month)
+    # da= date.day
+    # RUN_EVERY_MONTH=calendar._monthlen(year, month)
+    form=ContactForm()
+    context = {form:'form'}
     try:
+        theme = ThemeOfTheYear.objects.get(is_active=True)
         news = News.published.all().order_by('-id')
         events = Event.published.all().order_by('-id')
         images = Image.published.all().order_by('-id')
@@ -78,20 +78,24 @@ def web(request):
         employees = StaffDetails.published.all()
         sliders = Slider.objects.all().order_by('-id')
         abouts = About.objects.all()
-        
         gospel = News.published.latest('date')
         feeback= Contact.objects.all().order_by('-id')
         pages = Page.objects.all().order_by('-id')
-        context = {'gospel':gospel,'pages' : pages,'feeback':feeback,'images':images,'events': events,'news': news,
-        'abouts': abouts,'sliders' :sliders,'members': members, 'employees': employees,'ministry':ministry,}
+        form=ContactForm()
+        context = {'gospel':gospel,'pages' : pages,'feeback':feeback,'images':images,'events': events,'news': news,'theme':theme,
+        'abouts': abouts,'sliders' :sliders,'members': members, 'employees': employees,'ministry':ministry,form:'form'}
     except:
-        context = {}
+        form=ContactForm()
+        context = {form:'form'}
+    
     return render(request, 'home/index_public.html', context)
 
 def contact(request):
     if request.method=="POST":
         form=ContactForm(request.POST, request.FILES,)
         if form.is_valid():
+            human = True
+            #form.save()
             church_email = Church.objects.get(id=1)
             emailing_to=church_email.email_address
             client_name= form.cleaned_data.get('name')
@@ -254,39 +258,52 @@ def register_members(request):
         return render(request, 'Members/register_members.html',{'form':form})
 
 #online membership registration view
+
 def Online_Registration(request):
     if request.method=="POST":
         form=MembersForm(request.POST, request.FILES,)
         if form.is_valid():
-           # Begin reCAPTCHA validation '''
             human = True
             # email activation '''
             member = form.save(commit=False)
+            member.username = request.user
             member.save()
-            current_site = get_current_site(request)  
-            mail_subject = 'Activate your account.'  
-            message = render_to_string('acc_active_email.html', {  
-                'member': member,  
-                'domain': current_site.domain,  
-                'uid': urlsafe_base64_encode(force_bytes(member.pk)),  
-                'token': account_activation_token.make_token(member),  
-                }) 
-            to_email = form.cleaned_data.get('Email')  
-            email = EmailMessage(  
-                mail_subject, message, to=[to_email]  
-            )  
-            email.send()
-            context={'member':member}
-            return render(request, 'activation_email_sent.html', context) 
+            current_user = request.user.email
+            mail_subject = member.First_Name + " " + member.Second_Name + ' Member Creation'  
+            mail_message ="This membership needs approval from the Admin"  
+            to_email = 'dihfahsihm@gmail.com' 
+            from_email = current_user
+            if mail_subject and mail_message and from_email:
+                try:
+                    send_mail(mail_subject, mail_message, from_email, [to_email])
+                    messages.success(request, "A member has been created by you, the admin will review your submission!")
+                    return redirect('member_profile')
+                except BadHeaderError:
+                    return HttpResponse('Make sure you enter correct info.')
+            # current_site = get_current_site(request)  
+            # mail_subject = 'Activate your account.'  
+            # message = render_to_string('acc_active_email.html', {  
+            #     'member': member,  
+            #     'domain': current_site.domain,  
+            #     'uid': urlsafe_base64_encode(force_bytes(member.pk)),  
+            #     'token': account_activation_token.make_token(member),  
+            #     }) 
+            # to_email = form.cleaned_data.get('Email')  
+            # email = EmailMessage(  
+            #     mail_subject, message, to=[to_email]  
+            # )  
+            # email.send()
+            #context={'member':member}
+            #return render(request, 'activation_email_sent.html', context) 
 
         else:
             form_errors=form.errors
             context={'form':form,'form_errors':form_errors}
-            return render(request, 'Members/online_registration.html', context)   
+            return render(request, 'Members/register_another_member.html', context)   
     else:
         form=MembersForm()
         context={'form':form}
-        return render(request, 'Members/online_registration.html', context)
+        return render(request, 'Members/register_another_member.html', context)
 
 #activate your email address
 def activate_email(request, uidb64, token):
@@ -3159,6 +3176,7 @@ def edit_cash_float(request, pk):
         return render(request, 'edit_cash_float.html', {'form': form})
 
 ######################<=======CHURCH GROUPS==========>#######################
+@xframe_options_exempt
 def church_groups(request):
     able_group=Members.objects.filter(is_active=True, Group="God is Able")
     winners_group=Members.objects.filter(is_active=True, Group="Winners")
@@ -3177,6 +3195,7 @@ def church_groups(request):
     return render(request, 'Groups/church_groups.html', context)
 
 ######################<=======HOME CELLS==========>######################
+@xframe_options_exempt
 def home_cells(request):
     Church = Members.objects.filter(is_active=True, Home_Cell="Church Zone")
     Kabira=Members.objects.filter(is_active=True, Home_Cell="Kabira Zone")
@@ -3187,6 +3206,7 @@ def home_cells(request):
     Kawaala=Members.objects.filter(is_active=True, Home_Cell="Kawaala Zone")
     Katooke = Members.objects.filter(is_active=True, Home_Cell="Katooke Zone")
     Bombo = Members.objects.filter(is_active=True, Home_Cell="Bombo Rd Zone")
+    Metropolitan = Members.objects.filter(is_active=True, Home_Cell="Kampala Metropolitan")
     context={
         'Church': Church,
         'Kafunda':Kafunda,
@@ -3196,7 +3216,8 @@ def home_cells(request):
         'Gombolola':Gombolola,
         'Kawaala':Kawaala,
         'Bombo': Bombo,
-        'Katooke': Katooke
+        'Katooke': Katooke,
+        'Metropolitan': Metropolitan
     }
     return render(request, 'Groups/home_cells.html', context)
 
@@ -3260,3 +3281,9 @@ def edit_new_convert(request, pk):
         form = NewConvertForm(instance=qs)
     context = {'form':form}
     return render(request, 'NewConverts/edit_new_convert.html', context) 
+    
+def cells(request):
+    return render(request, 'Groups/cells.html')
+    
+def groups(request):
+    return render(request, 'Groups/groups.html')

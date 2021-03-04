@@ -2339,24 +2339,6 @@ footer {
     opacity: 1;
 }
 
-.gallery-carousel .owl-nav {}
-
-.gallery-carousel .owl-nav>div {
-    color: #ffffff;
-    font-size: 22px;
-    position: absolute;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
-}
-
-.gallery-carousel .owl-nav .owl-prev {
-    left: 34px;
-}
-
-.gallery-carousel .owl-nav .owl-next {
-    right: 34px;
-}
 
 /*----------------------------------------*/
 /*  12. Contact

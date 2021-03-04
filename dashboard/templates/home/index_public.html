@@ -17,8 +17,7 @@
 {% endcomment %}
 
 <!--Top Slider -->
-    <div class="container-fluid justify-content-center">
-        <div class="row">
+    <div class="row">
             <div class="slider-area owl-carousel">
                 <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
                 style="height:430px;background-image: url('{% sliding_image1 %}')" >
@@ -68,7 +67,6 @@
                 </div>
             </div>
         </div>
-    </div>
     <br>
 
 <!--About Church with sliding Images-->
@@ -77,7 +75,7 @@
                 {% for about in abouts %}
                     {% if about.id == 3 %}
                         <span class="info" >
-                            <p style="font-size:18px">{{ about.about|linebreaksbr|truncatewords:50 }}
+                            <p style="font-size:18px">{{ about.about|safe |truncatewords:50 }}
                             <a href="{% url 'church_details'%}"><b>... Read More about UCC Bwaise</b></a></p>
                         </span>
                     {% endif %}
@@ -89,12 +87,12 @@
 <!--Church Highlights Section-->
         <div class="row">
             <div class="col-lg-12">
-                <h2 class="title" style="text-align: left;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">Gospel Teachings</a></h2> <br>
-                <div class="col-lg-7">
-                    <div class="gallery-carousel owl-carousel">    
+                <!--<h2 class="title" style="text-align: left;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">Gospel Teachings</a></h2> <br>-->
+                <div class="col-lg-8">
+                    <div class="gallery-carousel owl-carousel" style="background:white">    
                         {% for news in news %}
                             <a href="{% url 'news_detail' news.pk %}">
-                                <div class="single-gallery">
+                                <div class="single-gallery" style="background:white; height:250px">
                                     {% if news.image %}
                                     <img src="{{ news.image.url }}" alt="">
                                     {% endif %}
@@ -104,7 +102,7 @@
                                                 {{ news.date }}
                                             </li>
                                         </ul>
-                                        {{ news.news_title|truncatewords:5 }}
+                                        <h4 class="title" style="text-align:center">{{ news.news_title |safe |truncatewords:6 }}</h4>
                                     </div>
                                 </div> 
                             </a>
@@ -112,42 +110,37 @@
                     </div> 
                 </div>
 
-                <div class="col-lg-5"> 
-                    <b style="font-size:19px; text-align: right;"><a href="{% url 'news_wall' %}">Latest Gospel Teaching</a></b> <br>
-                    
-                    <div class="container-fluid">
+                <div class="col-lg-4"> 
+                    <!--<b style="font-size:19px; text-align: right;"><a href="{% url 'news_wall' %}">Latest Gospel Teaching</a></b> <br>-->
                         <a href="{% url 'news_detail' gospel.pk %}">
-                            <div class="col-lg-12">
-                                <div class="single-news" style="height: 250px">
-                                    <div class="img" style="height: 100px">
-                                        {% if gospel.image %}
-                                        <img src="{{ gospel.image.url }}" alt="imagegrouped">
-                                        {% endif %}
-                                    </div>
-                                    <div class="content">
-                                        <ul class="meta">
-                                            <li class="info"><span class="icon"><i class="fa fa-user"></i></span>By :
-                                                {{ gospel.author.full_name.Initials }} {{ gospel.author.full_name }} - {{ news.author}}
-                                            </li>
-            
-                                            <li class="info"><span class="icon"><i class="far fa-calendar-alt"></i></span>
-                                                {{ gospel.date }}
-                                            </li>
-                                        </ul>
-                                        <h2 class="title">{{ gospel.news_title }}</h2>
-                                        <p style="font-size: 18px">
-                                            {{ gospel.news|linebreaksbr|truncatewords:10}}
-                                        </p>
-                                    </div>
+                            <div class="single-news" style="height: 270px">
+                                <div class="img" style="height: 100px">
+                                    {% if gospel.image %}
+                                    <img src="{{ gospel.image.url }}" alt="imagegrouped">
+                                    {% endif %}
+                                </div>
+                                <div class="content">
+                                    <ul class="meta">
+                                        <li class="info"><span class="icon"><i class="fa fa-user"></i></span>By :
+                                            {{ gospel.author.full_name.Initials }} {{ gospel.author.full_name }} - {{ news.author}}
+                                        </li>
+        
+                                        <li class="info"><span class="icon"><i class="far fa-calendar-alt"></i></span>
+                                            {{ gospel.date }}
+                                        </li>
+                                    </ul>
+                                    <h2 class="title">{{ gospel.news_title }}</h2>
+                                    <p style="font-size: 18px">
+                                        {{ gospel.news|safe |truncatewords:10}}
+                                    </p>
                                 </div>
                             </div>
                         </a>
-                    </div>
                 </div>
             </div>
         </div>
 
-<!--Church Activities -->       
+{% comment %}
         <div class="row" style="margin-top:-3%">
             <div class="col-lg-12">
                 <h2 class="title" style="text-align: center;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'event_wall' %}">
@@ -167,7 +160,7 @@
                                     <div class="content">
                                         <h2 class="title">{{ event.event_title }}
                                         </h2>
-                                        <!-- <ul class="list">
+                                         <ul class="list">
                                             <li class="info"><span class="icon"><i style="color:black"
                                                     class="fa fa-user"></i></span>Leader: {{ event.event_for }}
                                             </li>
@@ -192,132 +185,128 @@
             </div> 
         </div>
 
-
+{% endcomment %}
 <!-- Church Members -->
-    <div class="row" style="margin-top:-1%">
-        <div class="col-lg-12" >
-            <h2 class="title" style="text-align: center;"> <a class="link glbscl-link-btn hvr-bs" href="{% url 'membership_wall' %}">Church Members</a></h2><br>
-                      
-            <div class="row justify-content-center" style="width:97.5%;margin-left:2px">
-                <div class="gallery-carousel owl-carousel">{% for member in members %} {% if forloop.counter <= 20 or member.full_name == "Desire Namuganyi" %}{% if member.Initials != 'Pr.'%} 
-                    <a href="{% url 'member-detail' member.id %}">                
-                        <div class="single-gallery">
-                            {% if member.Photo %}
-                                <img src="{{ member.Photo.url }}" data-fancybox="images" style="border-radius: 40%; height: 220px" >
-                            {% endif %} 
-                            <span style="text-align: left;">
-                                <h2> {{member.Initials}} {{member.First_Name}} {{member.Second_Name}}</h2>
-                                <div class="text">Group: {{member.Group}}</div>
-                                <div class="text">Home Cell: {{member.Home_Cell}}</div>
-                            </span>
-                        </div> 
-                    </a>{% endif %}{% endif %}{% endfor %}
-                </div>
+    <div class="row">
+ 
+        <!--<div class="row justify-content-center" style="width:97.5%;margin-left:2px">-->
+            <div class="gallery-carousel owl-carousel" style="background:white">{% for member in members %} {% if forloop.counter <= 20 or member.full_name == "Desire Namuganyi" or member.full_name == "Dihfahsih Mugoya"  %}{% if member.Initials != 'Pr.'%} {% if member.Photo %}
+                <a href="{% url 'member-detail' member.id %}">                
+                    <div class="single-gallery" style="background:white">
+                        
+                            <img src="{{ member.Photo.url }}" data-fancybox="images" style="border-radius: 40%; height: 220px" >
+                        
+                        <span style="text-align: left;">
+                            <h2> {{member.Initials}} {{member.First_Name}} {{member.Second_Name}}(NO. {{member.id}} )</h2>
+                            <div class="text">Group: {{member.Group}}</div>
+                            <div class="text">Home Cell: {{member.Home_Cell}}</div>
+                        </span>
+                    </div> 
+                </a> {% endif %}  {% endif %}{% endif %}{% endfor %}
             </div>
-        </div>    
+        <!--</div>--> 
     </div>
 
 <!--Church Feedback-->
-    <div class="row"style="margin-top:-3%"> 
-        <div class="col-lg-12">
-            <div class="col-lg-9">
-            <h2 class="title" style="text-align: center;"> <a class="link glbscl-link-btn hvr-bs">We would like to hear from You</a></h2>
-                <div class="col-lg-12">
-                    <div class="row">
-                        <div class="col-lg-6 testimonial-area">
-                            <div class="col-lg-12" style="height: 250px">
-                                <div class="testimonial-carousel owl-carousel">
-                                    {% for data in feeback %}
-                                        {% if forloop.counter <= 15 %}
-                                        <div class="single-testimonial" style="border: 2px solid">
-                                            <div class="content"  style="height: 250px">
-                                                <h2 class="name">{{data.name}}</h2>
-                                                <p style="font-size: 20px;"> {{data.feedback|truncatewords:20}}</p>
-                                            </div>
-                                        </div>
-                                        {% endif %}
-                                    {% endfor %}
+<div class="row" style="">
+    <div class="col-lg-12 col-md-12 co-sm-12">
+            <div class="col-lg-6 col-md-6 co-sm-6 testimonial-area">
+                <div class="testimonial-carousel owl-carousel">
+                    {% for data in feeback %}
+                        {% if forloop.counter <= 15 %}
+                        <div class="single-testimonial" style="border: 2px solid">
+                            <div class="content"  style="height: 250px">
+                                <h2 class="name">{{data.name}}</h2>
+                                <p style="font-size: 20px;"> {{data.feedback|truncatewords:20}}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
 
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 co-sm-6" >
+                <h2><u>Theme of 2021 is {{theme.title }}</u></h2>
+                  {% if theme.theme_image %}
+                        <img src="{{ theme.theme_image.url }}" width="500" height="500">
+                    {% endif %}
+                <p><a href="#">Read More</a></p>    
+                
+                {% comment %}
+                <div class="contact-form-area"><br><br><br>
+                    <form action="{% url 'contact' %}" method="POST" id="contact_us" name="contact_us">
+                        {% csrf_token %}
+                        <div class="row">
+                            {% if request.user.is_authenticated %}
+                            <div class="col-lg-12 col-md-12 co-sm-12">
+                                <div class="contact-input-box" id="usename">
+                                    <input type="text" name="name" value="{{ request.user.full_name }}" readonly="true">
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="contact-form-area"><br><br><br>
-                                <form action="{% url 'contact' %}" method="POST" id="contact_us" name="contact_us">
-                                    {% csrf_token %}
-                                    <div class="row">
-                                        {% if request.user.is_authenticated %}
-                                        <div class="col-lg-12">
-                                            <div class="contact-input-box" id="usename">
-                                                <input type="text" name="name" value="{{ request.user.full_name }}" readonly="true">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="contact-input-box">
-                                                <textarea style = 'text-align: left;'name="feedback" id="message" required placeholder="Feed Back">
-                                                </textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="contact-input-box text-right">
-                                                <input class="glbscl-link-btn hvr-bs" type="submit" name="submit" id="submit"
-                                                    value="Submit">
-                                            </div>
-                                        </div>
-                                        {% else %}
-                                        <div class="col-lg-12">
-                                            <div class="contact-input-box">
-                                                <input type="text" name="name" id="name"  placeholder="Name" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="contact-input-box">
-                                                <input type="email" name="email" id="email"  placeholder="Email" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="contact-input-box">
-                                                <input type="text" name="phone" id="phone" placeholder="Phone" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12 ">
-                                            <div class="contact-input-box">
-                                                <textarea name="feedback" id="message" required placeholder="Feed Back *">
-                                                </textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="contact-input-box text-right">
-                                                <input class="glbscl-link-btn hvr-bs" type="submit" name="submit" id="submit"
-                                                    value="Submit">
-                                            </div>
-                                        </div>
-                                        {% endif %}
-                                    </div>
-                                </form>
+                            <div class="col-lg-12 col-md-12 co-sm-12">
+                                <div class="contact-input-box">
+                                    <textarea style = 'text-align: left;'name="feedback" id="message" required placeholder="Feed Back">
+                                    </textarea>
+                                </div>
                             </div>
+                            <div class="col-lg-12 col-md-12 co-sm-12">
+                                <div class="contact-input-box text-right">
+                                    {{ form.captcha }}
+                                    <input class="glbscl-link-btn hvr-bs" type="submit" name="submit" id="submit"
+                                        value="Submit">
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="col-lg-12 col-md-12 co-sm-12">
+                                <div class="contact-input-box">
+                                    <input type="text" name="name" id="name"  placeholder="Name" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 co-sm-12">
+                                <div class="contact-input-box">
+                                    <input type="email" name="email" id="email"  placeholder="Email" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 co-sm-12">
+                                <div class="contact-input-box">
+                                    <input type="text" name="phone" id="phone" placeholder="Phone" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 co-sm-12">
+                                <div class="contact-input-box">
+                                    <textarea name="feedback" id="message" required placeholder="Feed Back *">
+                                    </textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 co-sm-12">
+                                <div class="contact-input-box text-right">
+                                    {{ form.captcha }}
+                                    <input class="glbscl-link-btn hvr-bs" type="submit" name="submit" id="submit"
+                                        value="Submit">
+                                </div>
+                            </div>
+                            {% endif %}
                         </div>
+                    </form>
                 </div>
-            </div>    
-        </div>
-        <div class="col-lg-3">
-            <h2 class="head-title" style="text-align:center">Social Media Feeds</h2>
-            <br>
-        
-            <div class="fb-page" data-href="https://www.facebook.com/uccbwaise1/" data-tabs="timeline" data-height="167"
-                data-small-header="true" data-hide-cover="true" data-show-facepile="false">
-                <span cite="https://www.facebook.com/uccbwaise1/" class="fb-xfbml-parse-ignore"><a
-                        href="https://www.facebook.com/uccbwaise1/">UCC Bwaise on Facebook</a></span>
-            </div><br><br>
-            <hr>
-            <a class="twitter-timeline" data-height="167" href="https://twitter.com/1Difas?ref_src=twsrc%5Etfw">Tweets by UCC Bwaise
-                </a>
-            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-        </div>
+                {% endcomment %}
+            </div>
+        </div>    
     </div>
-    <!--Website Footer-->
-</div>
-</div>
+    <!--<div class="col-lg-3">-->
+    <!--    <h2 class="head-title" style="text-align:center">Social Media Feeds</h2>-->
+    <!--    <br>-->
+    
+    <!--    <div class="fb-page" data-href="https://www.facebook.com/uccbwaise1/" data-tabs="timeline" data-height="167"-->
+    <!--        data-small-header="true" data-hide-cover="true" data-show-facepile="false">-->
+    <!--        <span cite="https://www.facebook.com/uccbwaise1/" class="fb-xfbml-parse-ignore"><a-->
+    <!--                href="https://www.facebook.com/uccbwaise1/">UCC Bwaise on Facebook</a></span>-->
+    <!--    </div><br><br>-->
+    <!--    <hr>-->
+    <!--    <a class="twitter-timeline" data-height="167" href="https://twitter.com/1Difas?ref_src=twsrc%5Etfw">Tweets by UCC Bwaise-->
+    <!--        </a>-->
+    <!--    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>-->
+    <!--</div>-->
 {% endblock %}
 <script type="text/javascript"> 
     document.getElementById('username').readOnly = true;
