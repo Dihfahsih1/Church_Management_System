@@ -18,8 +18,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('dashboard.urls')),
     re_path('^',include('django.contrib.auth.urls')),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
-    url(r'^tracking/', include('tracking.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),#richtexteditor
+    url(r'^tracking/', include('tracking.urls')),#site tracking url
     
     ################# CHURCH WEBSITE USER PROFILE ####################
     path('register/', user_views.MemberAccountRegister, name='MemberAccountRegister'),
@@ -33,7 +33,7 @@ urlpatterns = [
     url(r'^delete-user/(?P<pk>\d+)', user_views.delete_user, name='delete-user'),
     url(r'^profile/', user_views.view_profile, name='profile'),
     
-    ###################PASSWORD RESETING AND CHANGE ####################
+    ###################PASSWORD RESETING AND CHANGE ###################
     url(r'^password/change/', user_views.UserPasswordChangeView.as_view(), name='changing-password'),
     
     path('Login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
