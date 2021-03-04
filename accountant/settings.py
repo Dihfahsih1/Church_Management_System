@@ -54,18 +54,6 @@ CAPTCHA_LETTER_ROTATION = (-38, 38)
 CAPTCHA_NOISE_FUNCTIONS = None
 #CAPTCHA_IMAGE_SIZE = '30'
 
-# DEFAULT_FILE_STORAGE='github_storages.backend.BackendStorages'
-# GITHUB_HANDLE='Pythonista1'
-# ACCESS_TOKEN='f284bcf2c4651226f99da98e821abfb98a24a610'
-# GITHUB_REPO_NAME='amazing'
-# MEDIA_BUCKET_NAME='media'
-
-SECURE_BROWSER_XSS_FILTER = True
-SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-
 #SESSION_EXPIRE_AT_BROWSER_CLOSE = True     # opional, as this will log you out when browser is closed
 SESSION_COOKIE_AGE = 6000                   # 0r 10 * 60, same thing
 #SESSION_SAVE_EVERY_REQUEST = True   
@@ -200,3 +188,12 @@ TRACK_IGNORE_STATUS_CODES = [400, 404, 403, 405, 410, 500]
 TRACK_REFERER = True
 TRACK_QUERY_STRING = True
 
+CORS_REPLACE_HTTPS_REFERER      = False
+HOST_SCHEME                     = "http://"
+SECURE_PROXY_SSL_HEADER         = None
+SECURE_SSL_REDIRECT             = False
+SESSION_COOKIE_SECURE           = False
+CSRF_COOKIE_SECURE              = False
+SECURE_HSTS_SECONDS             = None
+SECURE_HSTS_INCLUDE_SUBDOMAINS  = False
+SECURE_FRAME_DENY               = False

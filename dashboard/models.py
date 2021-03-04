@@ -863,7 +863,7 @@ def max_value_current_year(value):
     return MaxValueValidator(current_year())(value)
     
 class ThemeOfTheYear(models.Model):
-    scripture = models.CharField(max_length=2000, blank=True, null=True)
+    scripture = models.CharField(max_length=3000, blank=True, null=True)
     title = models.CharField(max_length=2000, blank=True, null=True)
     details = RichTextUploadingField()
     theme_image = models.ImageField(upload_to='themes/',max_length=10000, blank=False)
