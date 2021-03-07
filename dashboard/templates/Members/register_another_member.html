@@ -94,13 +94,24 @@
                 <div class="form-group col-md-3 mb-0" id="Marriage_Kind">
                     {{ form.Marriage_Kind|as_crispy_field }}
                 </div>
+                <div class="form-group col-md-3 mb-0" id="spouse">
+                    {{ form.Spouse|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0" id="spouse">
+                    {{ form.Children|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0" id="spouse">
+                    {{ form.children_field_count|as_crispy_field }}
+                </div>
                 <script type="text/javascript">
                         $("#id_Marital_Status").change(function () {
                     if ($(this).val() === "Married") {
                         $('#Marriage_Kind').hide();
+                        $('#spouse').hide();
 
                     } else {
                         $('#Marriage_Kind').hide();
+                        $('#spouse').hide();
                     }
                     });
                     $("#id_Marital_Status").trigger("change");
@@ -219,19 +230,38 @@
         </form>
     </div>
 </section>
-
+<script>
+    let form_count = Number($("[name=children_field_count]").val());
+    // get extra form count so we know what index to use for the next item.
+    
+    $("#add-another").click(function() {
+        form_count ++;
+    
+        let element = $('<input type="text"/>');
+        element.attr('name', 'extra_field_' + form_count);
+        $("#forms").append(element);
+        // build element and append it to our forms container
+    
+        $("[name=children_field_count]").val(form_count);
+        // increment form count so our view knows to populate 
+        // that many fields for validation
+    })
+</script>
 <script type="text/javascript">
     $("#id_Marital_Status").change(function () {
         if ($(this).val() === "Married") {
             $('#Marriage_Kind').show();
+            $('#spouse').show();
         
         } else {
             $('#Marriage_Kind').hide();
+            $('#spouse').hide();
         }
     });
-    
-    $("#status").hide();
     $("#id_Marital_Status").trigger("change");
+
+    $("#status").hide();
+
     $("#id_Profession").change(function () {
         if ($(this).val() === "Employed") {
             $('#work').show();

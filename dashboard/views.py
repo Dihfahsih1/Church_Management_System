@@ -261,7 +261,7 @@ def register_members(request):
 
 def Online_Registration(request):
     if request.method=="POST":
-        form=MembersForm(request.POST, request.FILES,)
+        form=MembersForm(request.POST, request.FILES,extra=request.POST.get('children_field_count'))
         if form.is_valid():
             human = True
             # email activation '''

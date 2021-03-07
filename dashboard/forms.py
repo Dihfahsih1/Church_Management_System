@@ -131,13 +131,29 @@ class MembersForm(forms.ModelForm):
             'Residence','Gender', 'Home_Cell','Photo','Marital_Status','Marriage_Kind',
             'Education_Level','Profession','Type_of_Work','Place_of_Work','Country','County','Parish','District',
             'Sub_County', 'Village','Date_Of_Salvation','Date_Of_Joining_UCC_Bwaise','Ministry_Involved_In', 'Spouse',
-            'Name_Of_Next_Of_Kin','Contact_Of_Next_Of_Kin','Residence_Of_Next_Of_Kin','Date_Of_Birth','is_active')
+            'Name_Of_Next_Of_Kin','Contact_Of_Next_Of_Kin','Residence_Of_Next_Of_Kin','Date_Of_Birth','is_active','children_field_count')
         is_active = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple)
         widgets = {
             'Date_Of_Birth': DatePickerInput(),
             'Date_Of_Joining_UCC_Bwaise': DatePickerInput(),
             'Date_Of_Salvation': DatePickerInput(),             
           } 
+        labels = {
+            'Spouse': 'Your Marriage Partner'
+        }
+ 
+    children_field_count = forms.CharField(widget=forms.HiddenInput())
+
+    def __init__(self, *args, **kwargs):
+        extra_fields = kwargs.pop('extra', 0)
+
+        super(MembersForm, self).__init__(*args, **kwargs)
+        self.fields['children_field_count'].initial = extra_fields
+
+        for index in range(int(extra_fields)):
+            # generate extra fields in the number specified via extra_fields
+            self.fields['extra_field_{index}'.format(index=index)] = \
+                forms.CharField()
 
 
 class VisitorsForm(forms.ModelForm):
