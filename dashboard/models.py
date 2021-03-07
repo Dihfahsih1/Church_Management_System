@@ -293,8 +293,7 @@ class Members(models.Model):
     Full_Named=models.CharField(max_length=100,null=True,blank=True)
     username=models.CharField(max_length=1000,null=True,blank=True)
     created_by = models.OneToOneField(User,related_name='member', null=True,blank=True,on_delete=models.CASCADE)
-    Children = models.CharField(max_length=100,null=True,blank=True)
-    children_field_count = models.CharField(max_length=100,null=True,blank=True)
+    Children = models.TextField(max_length=50000,null=True,blank=True)
     def __str__(self):
         return str(self.First_Name )+ ' ' + str(self.Second_Name)
                   
