@@ -67,8 +67,7 @@ sex=(('Female','Female'),('Male','Male'))
 ini=(('Mr.','Mr.'),('Mrs.','Mrs.'),('Ms.','Ms.'),('Pr.','Pr.'),('Dr.','Dr.'),('Eng.','Eng.'))
 status=(('Married','Married'),('Single','Single'),('Divorced','Divorced'),('Widower','Widower'),('Widow','Widow'))
 marriage=(('Church_Marriage','Church_Marriage'),('Customary','Customary'),('Legal','Legal'),('Cohabiting','Cohabiting'))
-education=(('Masters','Master'),('Degree','Degree'),('Diploma','Diploma'),('Certificate','Certificate'),('None','None'),
-    ('Still_Studying','Still_Studying'),('Primary_Graduate','Primary_Graduate'),('O_Level_Graduate','O_Level_Graduate'),('A_Level_Graduate','A_Level_Graduate'))
+education=(('Masters','Master'),('Degree','Degree'),('Diploma','Diploma'),('Certificate','Certificate'),('Still_Studying','Still_Studying'),('Primary_Graduate','Primary_Graduate'),('O_Level_Graduate','O_Level_Graduate'),('A_Level_Graduate','A_Level_Graduate'),('None','None'))
 employment=(('Employed','Employed'),('Unemployed','Unemployed'))
 cell=(
     ('Church Zone','Church Zone'),('Kabira Zone','Kabira Zone'),('Kafunda Zone','Kafunda Zone'),('Lugoba Zone','Lugoba Zone') ,('Katooke Zone','Katooke Zone'),
@@ -89,7 +88,7 @@ roles=(
    ('Website Admin', 'Website Admin'),  
 )
 rol=(('Security','Security'),('Secretary','Secretary'),('Church-Welfare','Church-Welfare'),('Admin','Admin'))
-education=(('Masters','Masters'),('Degree','Degree'),('Diploma','Diploma'),('Certificate','Certificate'))
+
 rel =(('Born Again','Born Again'),('Others','Others'))
 member=(('Yes','Yes'),('No','No'))
 THEMES = (
@@ -155,6 +154,7 @@ class User(AbstractBaseUser , PermissionsMixin):
     fname = models.CharField(max_length=260,blank=True, null=True)
     lname = models.CharField(max_length=255,blank=True, null=True)
     email = models.EmailField(max_length=255,blank=True, null=True)
+    avatar =models.ImageField(upload_to='avatars/', max_length=20000, null=True, blank=True)
     username = models.CharField(max_length=30, unique=True)
     Role = models.CharField(max_length=200, choices=roles, blank=True, null=True)
     full_name =  models.ForeignKey('Members', on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
@@ -259,11 +259,11 @@ class Members(models.Model):
     Initials=models.CharField(max_length=10, choices=ini,null=True, blank=True)
     First_Name=models.CharField(max_length=100,null=True, blank=True)
     Second_Name=models.CharField(max_length=100,null=True, blank=True)
-    Home_Cell=models.CharField(max_length=100, choices=cell,null=True)
+    Home_Cell=models.CharField(max_length=100, choices=cell,null=True, blank=True)
     Residence=models.CharField(max_length=100,null=True, blank=True)
     Telephone=models.CharField(max_length=100,null=True, blank=True)
     Email=models.EmailField(null=True, blank=True)
-    Photo=models.ImageField(upload_to='avatars/', max_length=10000, null=True, blank=True)
+    Photo=models.ImageField(upload_to='avatars/', max_length=20000, null=True, blank=True)
     Gender=models.CharField(max_length=100, choices=sex, null=True, blank=True)
     Marital_Status=models.CharField(max_length=100, choices=status,null=True, blank=True)
     Marriage_Kind=models.CharField(max_length=100, choices=marriage,null=True, blank=True)
@@ -282,6 +282,7 @@ class Members(models.Model):
     Date_Of_Joining_UCC_Bwaise=models.DateField(null=True,blank=True)
     Ministry_Involved_In=models.CharField(max_length=100, default='Discipleship', choices=ministries,null=True,blank=True)
     Name_Of_Next_Of_Kin=models.CharField(max_length=100,null=True,blank=True)
+    Spouse=models.CharField(max_length=100,null=True,blank=True,default="Spouse")
     Contact_Of_Next_Of_Kin=models.CharField(max_length=100,null=True,blank=True)
     Residence_Of_Next_Of_Kin=models.CharField(max_length=100,null=True,blank=True)
     More_Info =models.TextField(max_length=1000000,null=True,blank=True)

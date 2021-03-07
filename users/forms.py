@@ -48,12 +48,14 @@ class MembershipAccountForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['fname', 'lname','email','username']
+        fields = ['avatar','fname', 'lname','email','username',]
         labels = {
+            'avatar':'Profile Photo',
             'fname':'First Name',
             'lname':'Second Name',
             'email': 'Email',
             'username': 'Username',
+            
         }
         
     def clean_password2(self):
