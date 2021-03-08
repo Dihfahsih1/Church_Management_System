@@ -46,10 +46,14 @@ def reset_user_password(request, user_pk):
 @login_required
 def view_profile(request):
     context={}
-    member_id=request.user.full_name.id
+    try:
+        member_id=request.user.full_name.id
+    except:
+        member_id=request.user.id
+        
     pledges=Pledges.objects.filter(Pledge_Made_By_id=member_id)
-    tithes=Revenues.objects.filter(Revenue_filter='tithes',Member_Name_id=member_id)
-    thanks=Revenues.objects.filter(Revenue_filter='thanks',Member_Name_id=member_id)
+    tithes=Revenues.objects.filter(Revenue_filter='tithes',Member_Id=member_id)
+    thanks=Revenues.objects.filter(Revenue_filter='thanks',Member_Id=member_id)
     context['thanks']=thanks
     context['pledges']=pledges
     context['tithes']=tithes
@@ -58,7 +62,11 @@ def view_profile(request):
 
 @login_required
 def edit_profile(request):
-    get_member = Members.objects.get(id=request.user.full_name.id)
+    try:
+        get_member = Members.objects.get(id=request.user.full_name.id)
+    except:
+        get_member = Members.objects.get(id=request.user.id)
+        
     if request.method == 'POST':
         form = MembersForm(request.POST or None, request.FILES or None, instance=get_member)
         if form.is_valid():
