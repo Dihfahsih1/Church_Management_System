@@ -139,7 +139,9 @@ class MembersForm(forms.ModelForm):
             'Date_Of_Salvation': DatePickerInput(),             
           } 
         labels = {
-            'Spouse': 'Your Marriage Partner'
+            'Spouse': 'Your Marriage Partner',
+            'More_Info':'Brief intro about the member',
+            'Children': 'The names of member \'s children'
         }
         
 
