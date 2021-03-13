@@ -16,6 +16,11 @@ services = (('Sunday First Service','Sunday First Service'),('Sunday Second Serv
         ('Home Cell Service','Home Cell Service'),('Youth Service','Youth Service'),('Wednesday Service','Wednesday Service'),
         ('Bible Study Service','Bible Study Service'),('Friday Overnight','Friday Overnight')
         )
+cell=(
+    ('Church Zone','Church Zone'),('Kabira Zone','Kabira Zone'),('Katuba Zone','Katuba Zone'),('Kafunda Zone','Kafunda Zone'),('Lugoba Zone','Lugoba Zone') ,('Katooke Zone','Katooke Zone'),
+    ('Kazo Zone','Kazo Zone'),('Gombolola Zone','Gombolola Zone'),('Kawaala Zone','Kawaala Zone'),('Bombo Rd Zone','Bombo Rd Zone'),
+    ('Kampala Metropolitan','Kampala Metropolitan')
+    )
 
 ministries=(
     ('Pastoral', 'Pastoral'),
@@ -23,20 +28,26 @@ ministries=(
     ('Worship Team', 'Worship Team'),
     ('Ushering', 'Ushering'),
     ('Orchestra', 'Orchestra'),
-    ('Youth Leadership', 'Youth Leadership'),
+    ('Youth Ministry', 'Youth Ministry'),
+    ('Envangelism Ministry', 'Envangelism Ministry'),
+    ('Intercession Ministry', 'Intercession Ministry'),
     ('Teens', 'Teens'),)
+
+education=(('Masters','Master'),('Degree','Degree'),('Diploma','Diploma'),('A_Level_Graduate','A_Level_Graduate'),('O_Level_Graduate','O_Level_Graduate'),('Primary_Graduate','Primary_Graduate'),('Still_Studying','Still_Studying'),('None','None'))
+
 OPTIONS = (('Yes', 'Yes'),
            ('No', 'No'))
+
 ROLE_CHOICES = (
     ('SuperAdmin', 'SuperAdmin'),
     ('Members', 'Members'),
     ('Secretary', 'Secretary'),
     ('Admin', 'Admin'),
-    
     ('Building Chair', 'Building Chair'),
     ('Marrieds Leader', 'Marrieds Leader'),
     ('Youth Leader', 'Youth Leader'),
 )
+
 Week_Days = (
     ('Monday', 'Monday'),
     ('Tuesday', 'Tuesday'),
@@ -46,6 +57,7 @@ Week_Days = (
     ('Saturday', 'Saturday'),
     ('Sunday', 'Sunday'),
 )
+
 archive = (
     ('ARCHIVED', 'ARCHIVED'),
     ('NOT-ARCHIVED', 'NOT-ARCHIVED'),)
@@ -67,17 +79,14 @@ sex=(('Female','Female'),('Male','Male'))
 ini=(('Mr.','Mr.'),('Mrs.','Mrs.'),('Ms.','Ms.'),('Pr.','Pr.'),('Dr.','Dr.'),('Eng.','Eng.'))
 status=(('Married','Married'),('Single','Single'),('Divorced','Divorced'),('Widower','Widower'),('Widow','Widow'))
 marriage=(('Church_Marriage','Church_Marriage'),('Customary','Customary'),('Legal','Legal'),('Cohabiting','Cohabiting'))
-education=(('Masters','Master'),('Degree','Degree'),('Diploma','Diploma'),('Certificate','Certificate'),('Still_Studying','Still_Studying'),('Primary_Graduate','Primary_Graduate'),('O_Level_Graduate','O_Level_Graduate'),('A_Level_Graduate','A_Level_Graduate'),('None','None'))
+
 employment=(('Employed','Employed'),('Unemployed','Unemployed'))
-cell=(
-    ('Church Zone','Church Zone'),('Kabira Zone','Kabira Zone'),('Kafunda Zone','Kafunda Zone'),('Lugoba Zone','Lugoba Zone') ,('Katooke Zone','Katooke Zone'),
-    ('Kazo Zone','Kazo Zone'),('Gombolola Zone','Gombolola Zone'),('Kawaala Zone','Kawaala Zone'),('Bombo Rd Zone','Bombo Rd Zone'),
-    ('Kampala Metropolitan','Kampala Metropolitan')
-    )
+
 grouping=(
     ('God is Able','God is Able'),('Winners','Winners'),('Overcomers','Overcomers'),('Biyinzika','Biyinzika') ,
     ('Victors','Victors'),('Issachar','Issachar')
     )
+
 roles=(
     ('Admin','Admin'),('Secretary','Secretary') ,('SuperAdmin','SuperAdmin') ,
     ('Building Chair', 'Building Chair'),
@@ -87,6 +96,7 @@ roles=(
    ('Assistant_Admin', 'Assistant_Admin'),
    ('Website Admin', 'Website Admin'),  
 )
+
 rol=(('Security','Security'),('Secretary','Secretary'),('Church-Welfare','Church-Welfare'),('Admin','Admin'))
 
 rel =(('Born Again','Born Again'),('Others','Others'))
@@ -128,11 +138,11 @@ class Theme(models.Model):
 class PublishedStatusManager(models.Manager):
     def get_queryset(self):
         return super(PublishedStatusManager, self).get_queryset().filter(Is_View_on_Web='Yes')
+    
 class UserManager(BaseUserManager):
     def create_user(self, username,password=None):
         if not username:
-            raise ValueError('User must have a username.')
-            
+            raise ValueError('User must have a username.')    
         if not password:
             raise ValueError('User must have a password.')    
         user_obj = self.model(username=username,)
@@ -166,8 +176,10 @@ class User(AbstractBaseUser , PermissionsMixin):
     REQUIRED_FILEDS = []
     objects = UserManager()
     published = PublishedStatusManager()
+    
     def __str__(self):
         return str(self.username)
+    
     @property
     def UserEmail(self):
         get_member=Members.objects.filter(Full_Named=self.full_name)
@@ -313,6 +325,7 @@ class Members(models.Model):
             return 0    
     class Meta:
         ordering = ['First_Name'] 
+        
 class Ministry(models.Model):
     name = models.CharField(max_length=100, unique=True)
     leader = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100)
@@ -388,6 +401,7 @@ class SalariesPaid(models.Model):
     Month_being_cleared = models.CharField(max_length=200,null=True, blank=True)
     Archived_Status= models.CharField(max_length=1000, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
     Date_of_paying_salary = models.DateField(null=True, blank=True)
+    
     @property
     def basic_salary(self):
         if StaffDetails.objects.filter(Church_Member_id=self.Salary_Id):
@@ -788,7 +802,8 @@ class CashFloat(models.Model):
     
         #current week tithes
     one_week_ago = datetime.today() - timedelta(days=7) #Weekly
-    def total_current_week_tithes():
+    
+    def total_current_week_tithes(self):
         tithes = Revenues.objects.filter(Date__gte=one_week_ago).aggregate(total_tithes=Sum('Tithe_Amount'))
         total_tithes=tithes['total_tithes']
         if total_tithes == None:
@@ -797,7 +812,7 @@ class CashFloat(models.Model):
         return total_tithes
 
     #current week offerings
-    def total_current_week_offerings():
+    def total_current_week_offerings(self):
         offerings = Revenues.objects.filter(Date__gte=one_week_ago).aggregate(total_offerings=Sum('General_Offering_Amount'))
         total_offerings=offerings['total_offerings']
         if total_offerings == None:
@@ -806,7 +821,7 @@ class CashFloat(models.Model):
         return total_offerings
 
     #current week seeds
-    def total_current_week_seeds():
+    def total_current_week_seeds(self):
         seeds = Revenues.objects.filter(Date__gte=one_week_ago).aggregate(total_seeds=Sum('Seed_Amount'))
         total_seeds=seeds['total_seeds']
         if total_seeds == None:
@@ -815,7 +830,7 @@ class CashFloat(models.Model):
         return total_seeds
 
     #Current Week Cashfloat
-    def current_week_cashfloat():
+    def current_week_cashfloat(self):
         cashfloat = CashFloat.objects.filter(Date__gte=one_week_ago, Date__year=current_year).aggregate(total_cashfloat=Sum('Amount'))
         total_cashfloat=cashfloat['total_cashfloat']
         if total_cashfloat == None:
@@ -833,11 +848,11 @@ class CashFloat(models.Model):
         return current_week_total_revenues
 
 #for testing purposes
-
 class Testing(models.Model):
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(unique=True)
 
+#model class for conference
 class AnnualConference(models.Model):
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
@@ -846,7 +861,8 @@ class AnnualConference(models.Model):
     conference_report = RichTextUploadingField(max_length=100000, blank=True, null=True)
     def __str__(self):
         return self.conference_theme
-        
+
+#model class for new converts      
 class NewConvert(models.Model):
     is_church_member = models.CharField(max_length=100, choices=OPTIONS, default="No", blank=True, null=True)
     born_again_before = models.CharField(max_length=100, choices=OPTIONS, default="No", blank=True, null=True)
@@ -855,23 +871,25 @@ class NewConvert(models.Model):
     Telephone=models.CharField(max_length=100,null=True,blank=True)
     Date_Of_Salvation=models.DateField(null=True,blank=True)
     member_name = models.ForeignKey(Members, on_delete=models.CASCADE,null=True, blank=True)
+    
     def __str__(self):
         return self.member_name or self.First_Name + ' ' + self.Second_Name
+    
 def current_year():
     return datetime.now().year
 
-
+#model class for current year
 def max_value_current_year(value):
     return MaxValueValidator(current_year())(value)
     
+#model class for the theme of the year
 class ThemeOfTheYear(models.Model):
     scripture = models.CharField(max_length=3000, blank=True, null=True)
     title = models.CharField(max_length=2000, blank=True, null=True)
     details = RichTextUploadingField()
     theme_image = models.ImageField(upload_to='themes/',max_length=10000, blank=False)
     is_active = models.BooleanField(default=True)
-    theme_year = models.PositiveIntegerField(
-        default=current_year(), validators=[MinValueValidator(1984), max_value_current_year])
+    theme_year = models.PositiveIntegerField(default=current_year(),validators=[MinValueValidator(1984), max_value_current_year])
     
     def __str__(self):
         return self.title
