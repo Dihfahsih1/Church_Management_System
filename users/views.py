@@ -110,7 +110,7 @@ def MemberAccountRegister(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            member = Members.objects.create(username=user.username, created_by=user,First_Name=user.fname, Second_Name=user.lname, Email=user.email, Photo=avatar)
+            member = Members.objects.create(username=user.username, created_by=user,First_Name=user.fname, Second_Name=user.lname, Email=user.email, Photo=user.vatar)
             messages.success(request, f'Account has been created successfully!, Please Complete the registration')
             current_site = get_current_site(request)  
             mail_subject = user.fname + " " + user.lname + ' Created Account'  
