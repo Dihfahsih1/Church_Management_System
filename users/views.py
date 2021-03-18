@@ -157,7 +157,7 @@ def delete_user(request,pk):
     messages.success(request, "The User successfully deleted!")
     return redirect("register")
     
-    
+#updating the system users.
 @login_required
 def update_system_user(request, user_pk):
     user = get_object_or_404(User, pk=user_pk)
