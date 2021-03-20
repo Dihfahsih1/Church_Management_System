@@ -130,17 +130,6 @@ def MemberAccountRegister(request):
     
 @login_required    
 def member_profile(request):
-    recievers = []
-    for user in User.objects.all():
-        recievers.append(user.email)
-        if user.fname != None:
-            message = ('Dear ' + user.fname + ' '+ user.lname +', Thank you for supporting UCC Bwaise in whichever way. We are grateful to have you as part of our family. God Bless you')
-        church_email = Church.objects.get(id=1)
-        from_email=church_email.email_address
-        subject = 'UCC Bwaise Appreciation Email'
-
-    send_mail(subject, message, from_email, recievers)
-    
     current_user = request.user.username
     members_created_by_a_user = Members.objects.filter(username=request.user)
     try:
