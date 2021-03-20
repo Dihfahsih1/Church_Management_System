@@ -21,6 +21,7 @@ url(r'^Pledges/Add-Item/', views.add_Pledge_Items ,name='add-pledge-item'),
 url(r'^Employees/Add/', views.employee_register, name='employee-register'),
 url(r'^Membership/Register/', views.register_members, name='members-register'),
 url(r'^Visitors/Register/', views.register_visitors, name='visitors-register'),
+url(r'^print-members', views.print_all_members.as_view(), name='print_all_members'),
 
 # SEARCH ALL ARCHIVED REPORTS
 url(r'^pledgesarchivessearch/', views.pledgesarchivessearch, name='pledgesarchivessearch'),
