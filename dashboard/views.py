@@ -320,7 +320,12 @@ def activate_email(request, uidb64, token):
     else:  
         return HttpResponse('Activation link is invalid!')
 
-
+class print_all_members(View):
+    def get(self, request):
+        all_member = Members.objects.filter(is_active=True)
+        context = {'year' : year,'month' : month, 'today': today,'total_amount': total_amount,'request': request,'tithes': tithes,'get_member_name':get_member_name}
+        return Render.render('Tithes/memeber_annual_tithes_pdf.html', context)
+        
 @login_required
 def members_list(request):
     membership = Members.objects.filter(is_active=True).order_by('-id')
