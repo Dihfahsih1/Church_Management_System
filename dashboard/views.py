@@ -42,9 +42,10 @@ def theme_activate(request, theme_pk):
     theme.is_active = 'Yes'
     theme.save()
     unset_theme.save()
+    messages.success(request, f'The theme has been updated successfully!!')
     return redirect('theme_list')
 
-########=============>AUTOSUGGEST OF NAMES FROM DATABASES<======================#######
+########=============>AUTOSUGGEST OF NAMES FROM DATABASES<==============#######
 class Autocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = Members.objects.filter(is_active=True)
@@ -52,7 +53,7 @@ class Autocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(Q(First_Name__istartswith=self.q) | Q(Second_Name__istartswith=self.q))
             return qs
 
-########==================>FETCH FROM THE DATABASE TO THE WEBSITE<===============#######
+########============>FETCH FROM THE DATABASE TO THE WEBSITE<===============#######
 def web(request):
     date= datetime.now()
     month = date.month
