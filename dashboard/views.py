@@ -58,8 +58,8 @@ def web(request):
     date= datetime.now()
     month = date.month
     year = date.year
-    # da= date.day
-    # RUN_EVERY_MONTH=calendar._monthlen(year, month)
+    #da= date.day
+    #RUN_EVERY_MONTH=calendar._monthlen(year, month)
     form=ContactForm()
     context = {form:'form'}
     try:
