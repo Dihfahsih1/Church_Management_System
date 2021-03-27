@@ -29,14 +29,7 @@ from .tokens import account_activation_token
 from django.core.mail import EmailMessage,send_mail, BadHeaderError
 from django.views.decorators.clickjacking import xframe_options_exempt
 
-
-
-
-
-
-
-
-# #######################################===>BEGINNING OF THEME MODULE<===############################################
+#####################===>BEGINNING OF THEME MODULE<===###########################
 class ThemeListView(ListView):
     model = Theme
     template_name = 'themes/theme.html'
@@ -51,7 +44,7 @@ def theme_activate(request, theme_pk):
     unset_theme.save()
     return redirect('theme_list')
 
-########========================>AUTOSUGGEST OF NAMES FROM DATABASES<==============================#######
+########=============>AUTOSUGGEST OF NAMES FROM DATABASES<======================#######
 class Autocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = Members.objects.filter(is_active=True)
@@ -59,7 +52,7 @@ class Autocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(Q(First_Name__istartswith=self.q) | Q(Second_Name__istartswith=self.q))
             return qs
 
-########========================>FETCH FROM THE DATABASE TO THE WEBSITE<==========================#######
+########==================>FETCH FROM THE DATABASE TO THE WEBSITE<===============#######
 def web(request):
     date= datetime.now()
     month = date.month
@@ -115,7 +108,7 @@ def contact(request):
     return render(request, 'home/contacts.html')
 
 
-###############=============================>EMPLOYEE MODULE<====================================###################
+###############=================>EMPLOYEE MODULE<===================###################
 @login_required
 def employee_register(request):
     if request.method=="POST":
@@ -698,7 +691,7 @@ class offeringspdf(View):
         }
         return Render.render('Offerings/offeringspdf.html', context)
 
-##################=====================>SEEDS OFFERING MODULE<=========================#############################   
+#######==============>SEEDS OFFERING MODULE<==============#########   
 
 #this function is not being used.
 @login_required
@@ -768,7 +761,7 @@ class seed_offering_receipt(View):
         context = { 'today': today,'seeds': seeds,'request': request,}
         return Render.render('Seeds/seed_offerings_receipt.html', context)
 
-##############################<===========MINISTRY SUPPORT MODULE===========>################################# 
+#####<===========MINISTRY SUPPORT MODULE===========>###### 
 def record_member_support(request, pk):
     get_member_name=get_object_or_404(Members, pk=pk)
     if request.method=="POST":
@@ -1446,7 +1439,7 @@ class allowancereceipt(View):
         }
         return Render.render('Allowances/allowance_receipt.html', context) 
 
-################################<==============PLEDGES MODULE==============>################################
+###############<==============PLEDGES MODULE==============>#############
 
 @login_required
 def Enter_Pledges(request):
@@ -1690,8 +1683,7 @@ def airtime_data_report(request):
     context={'get_airtime':get_airtime, 'total_amount':total_amount, 'today':today}
     return render(request,'Expenses/airtime_data_report.html', context)
 
-    ##################################<==========SLIDER VIEW================>#################################
-
+##########<==========SLIDER VIEW================>##########
 class SliderListView(ListView):
     model = Slider
     template_name = 'sliders/slider_list.html'
@@ -1857,9 +1849,7 @@ def about_delete(request, about_pk):
     return JsonResponse(data)
 
 
-#########################===>PAGE MODULE<===########################
-
-
+###############===>PAGE MODULE<===###############
 class PageListView(ListView):
     model = Page
     template_name = 'pages/page_list.html'
@@ -1944,8 +1934,7 @@ def page_delete(request, page_pk):
                                              )
     return JsonResponse(data)
 
-###################===>GALLERY MODULE<===#########################
-
+###########===>GALLERY MODULE<===##############
 class GalleryListView(ListView):
     model = Gallery
     template_name = 'galleries/gallery_list.html'
@@ -2029,7 +2018,7 @@ def gallery_delete(request, gallery_pk):
     return JsonResponse(data)
 
 
-#####################===>IMAGE MODULE<===##########################
+#############===>IMAGE MODULE<===################
 class ImageListView(ListView):
     model = Image
     template_name = 'images/image_list.html'
@@ -2045,7 +2034,6 @@ class ImageCreateView(CreateView):
         image = form.save(commit=False)
         image.save()
         return redirect('image_list')
-
 
 class ImageUpdateView(UpdateView):
     model = Image
@@ -2208,7 +2196,7 @@ def news_delete(request, news_pk):
                                              context, request=request,)
     return JsonResponse(data)
 
-###################=============>CHURCH PROJECT MODULE<================########################
+##########=============>CHURCH PROJECT MODULE<================###############
 class ProjectsListView(ListView):
     model = Project
     template_name = 'Church-Projects/projects_list.html'
@@ -2271,8 +2259,7 @@ def project_detail(request, project_pk):
     context = {'project': project, 'more_projects': more_projects}
     return render(request, 'Church-Projects/projects_detail.html', context)
 
-
-####################========>EVENT MODULE<============#####################
+#############========>EVENT MODULE<============#############
 class EventListView(ListView):
     model = Event
     template_name = 'events/event_list.html'
@@ -2376,7 +2363,8 @@ def event_delete(request, event_pk):
                                              request=request,
                                              )
     return JsonResponse(data)
-# #######################################===>CHURCH MODULE<===######################################
+
+########################===>CHURCH MODULE<===#############################
 def churchCreateView(request):
     if request.method == "POST":
         form = churchForm(request.POST, request.FILES)
@@ -2538,7 +2526,7 @@ def ministry_detail(request, ministry_pk):
     return render(request, 'Ministry/ministry_detail.html', context)
 
 
-########========================>DASHBOARD DATA CALCULATIONS<=====================#######
+########===========>DASHBOARD DATA CALCULATIONS<==========#######
 current_year = datetime.now().year #Annual
 current_month = datetime.now().month #Monthly
 
@@ -2709,7 +2697,7 @@ def index(request):
         donations = 0
 
 
-    #WEEKLY EXPENSES    
+    ######=========>WEEKLY EXPENSES<============#######    
      #weekly Petty Cash expenses
     weekly_petty_expenses = Expenditures.objects.filter(Reason_filtering='petty',Date__gte=one_week_ago,Archived_Status='NOT-ARCHIVED').aggregate(totals=models.Sum("Amount"))
     if (weekly_petty_expenses['totals'])!=None:
@@ -3182,7 +3170,7 @@ def edit_cash_float(request, pk):
         form = CashFloatForm(instance=item)
         return render(request, 'edit_cash_float.html', {'form': form})
 
-######################<=======CHURCH GROUPS==========>#######################
+############<=======CHURCH GROUPS==========>##################
 @xframe_options_exempt
 def church_groups(request):
     able_group=Members.objects.filter(is_active=True, Group="God is Able")
@@ -3201,7 +3189,7 @@ def church_groups(request):
     }
     return render(request, 'Groups/church_groups.html', context)
 
-######################<=======HOME CELLS==========>######################
+###########<=======HOME CELLS==========>##############
 @xframe_options_exempt
 def home_cells(request):
     Church = Members.objects.filter(is_active=True, Home_Cell="Church Zone")
@@ -3259,7 +3247,7 @@ def edit_conference_details(request, pk):
     context = {'form':form}
     return render(request, 'conference/edit_conference.html', context) 
 
-######### New Converts Module ############
+#########===========>New Converts Module<==========############
 def record_new_convert(request):
     if request.method=="POST":
         form=NewConvertForm(request.POST)
