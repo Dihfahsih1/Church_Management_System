@@ -31,7 +31,6 @@
             <link href="{% static 'vendors/jqvmap/dist/jqvmap.min.css' %}" rel="stylesheet"/>
             <!--Class Routine -->
             <link href="{% static 'schools/css/routine.css' %}" rel="stylesheet">
-
             {# <link href="{% static 'schools/css/tables.css' %}" rel="stylesheet"> #}
             <!--Toastr -->
             <link href="{% static 'css/toastr.min.css' %}" rel="stylesheet">
@@ -40,7 +39,7 @@
         <link href="{% static 'build/css/custom.css' %}" rel="stylesheet">
 
     <!--LOAD THEMES--> 
-        {% active_theme as active_flag %}
+    {% active_theme as active_flag %}
         {% if active_flag == "black" %}
         <link href="{% static 'css/theme/black.css' %}" rel="stylesheet">
         {% elif active_flag == "slate-gray" %}
@@ -53,7 +52,6 @@
         <link href="{% static 'css/theme/deep-pink.css' %}" rel="stylesheet">
         {% elif active_flag == "dodger-blue" %}
         <link href="{% static 'css/theme/dodger-blue.css' %}" rel="stylesheet">
-        
         {% elif active_flag == "light-sea-green" %}
         <link href="{% static 'css/theme/light-sea-green.css' %}" rel="stylesheet">
         {% elif active_flag == "maroon" %}
@@ -68,7 +66,6 @@
         <link href="{% static 'css/theme/rebecca-purple.css' %}" rel="stylesheet">
         {% elif active_flag == "red" %}
         <link href="{% static 'css/theme/red.css' %}" rel="stylesheet">
-        
         {% elif active_flag == "trinidad" %}
         <link href="{% static 'css/theme/trinidad.css' %}" rel="stylesheet">
         {% elif active_flag == "umber" %}
