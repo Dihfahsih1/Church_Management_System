@@ -61,20 +61,18 @@
                         <td>Date</td>
                         <td>Member</td>
                         <td>Service</td>
-                        <td>Amount <i class=" glyphicon glyphicon-arrow-right"></i> (<span style="font-weight: bolder; color:red" class="totalCol"></span>)</td>
-                        <td>Archived Status</td>
+                        <td>Amount </td>
                         <td>Action</td>
                       </tr>
                     </thead>
                     <tbody>
                       {% for item in items %}
                         {% if item.Member_Name is not None %}
-                          <tr class="totalColumn">
+                          <tr>
                             <td>{{ item.Date}}</td>
                             <td>{{ item.Member_Name}}</td>
                             <td>{{ item.Service}}</td>
-                            <td class="rowDataSd">{{ item.Tithe_Amount }}</td>
-                            <td>{{ item.Archived_Status}}</td>
+                            <td>{{ item.Tithe_Amount }}</td>
                             <td>
                               <div class="mb-4">
                                     <a href="{% url 'edit-tithes' item.pk %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"> Edit</span></a>

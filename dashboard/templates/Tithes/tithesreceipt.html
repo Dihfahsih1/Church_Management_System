@@ -49,22 +49,27 @@
         </style>
 </head>
 <body>
-  <p style="font-size: smaller">Generated on: {{ today }}</p>
  <p> Receipt Number: <b style="color:red">{{ tithes.id }}</b><br><br>
   <div class='wrapper'>
 
 
-        <div align="center">
+        <div>
+            <div style="text-align:left">
+                <img src="static/img/uccb.jpg"
+                alt="logo"/>
+            </div>
+            <div style="text-align:right">
                    <b>UCC - BWAISE </b><br>
                  +256701614086<br>
                  Nabweru, Kampala Rd<br>
-               uccbwaise1@gmail.com<br>
+               church@uccbwaise.org<br>
                 <i style="font-size: smaller;">'Honor the Lord with your possessions, And with the firstfruits of all your increase' (Proverbs.. 3:9-10)</i>
+            </div>
          </div>
          
        
         <div class='details'>
-            <h1 style="text-align:center"><u> T<b style="color:red; font-size: 20px">i</b>THE RECE<b style="color:red; font-size: 20px">i</b>PT</u></h1>
+            <h1 style="text-align:center"><u>TITHE RECEIPT</u></h1>
             <hr class="hrItem">
             <strong style="font-size: large;"><pre>Tithe Date:</strong><u>{{ tithes.Date }}</pre></u>
             <strong style="font-size: large"><pre>Received From:</strong><u><b style="color:red; font-size: 20px"> {{ tithes.Member_Name.Initials}} {{ tithes.Member_Name}}</b></pre></u>
