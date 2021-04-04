@@ -36,7 +36,6 @@ urlpatterns = [
     ###################PASSWORD RESETING AND CHANGE ###################
     url(r'^password/change/', user_views.UserPasswordChangeView.as_view(), name='changing-password'),
     path('Login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
-    # path('Logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     url(r'^logout/', user_views.logout_request, name='logout'),
     url(r'^Password-Reset/', auth_views.PasswordResetView.as_view(template_name='users/home/password_reset.html'),
         name='password_reset'),
@@ -50,6 +49,7 @@ urlpatterns = [
         name='password_reset_confirm'),
     
     url(r'^Reseting-Password/(?P<user_pk>\d+)/password/reset/$', user_views.reset_user_password, name='reset_user_password'),
+    
 ]
 
 if settings.DEBUG:
