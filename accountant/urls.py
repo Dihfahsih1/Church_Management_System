@@ -13,13 +13,15 @@ from dashboard.sitemaps import GospelSitemap
 sitemaps = { 'posts': GospelSitemap}
 
 urlpatterns = [
-    path('captcha/', include('captcha.urls')),#captcha url
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),#Sitemap url
+    path('captcha/', include('captcha.urls')), 
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    
+    #Sitemap url
     path('admin/', admin.site.urls),
     path('', include('dashboard.urls')),
     re_path('^',include('django.contrib.auth.urls')),
-    path('ckeditor/', include('ckeditor_uploader.urls')),#richtexteditor
-    url(r'^tracking/', include('tracking.urls')),#site tracking url
+    path('ckeditor/', include('ckeditor_uploader.urls')),#richtexteditor app
+    url(r'^tracking/', include('tracking.urls')),#site tracking app
     
     ################# CHURCH WEBSITE USER PROFILE ####################
     path('register/', user_views.MemberAccountRegister, name='MemberAccountRegister'),
