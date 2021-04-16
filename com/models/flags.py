@@ -1,4 +1,4 @@
-from dashboard.models import User
+ 
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
@@ -25,7 +25,7 @@ class Flag(models.Model):
     count = models.PositiveIntegerField(default=0)
     state = models.SmallIntegerField(choices=STATES_CHOICES, default=UNFLAGGED)
     moderator = models.ForeignKey(
-        User,
+        'dashboard.User',
         on_delete=models.SET_NULL,
         null=True, blank=True,
         related_name='flags_moderated'
@@ -99,7 +99,7 @@ class Flag(models.Model):
 
 class FlagInstance(models.Model):
     flag = models.ForeignKey(Flag, on_delete=models.CASCADE, related_name='flags')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='flags')
+    user = models.ForeignKey('dashboard.User', on_delete=models.CASCADE, related_name='flags')
     info = models.TextField(null=True, blank=True)
     date_flagged = models.DateTimeField(auto_now=timezone.now())
 

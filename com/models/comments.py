@@ -1,5 +1,5 @@
 from math import ceil
-from dashboard.models import User
+
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.db import models
@@ -11,7 +11,7 @@ from com.utils import is_comment_moderator
 
 
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey('dashboard.User', on_delete=models.CASCADE, blank=True, null=True)
     email = models.EmailField(blank=True)
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
