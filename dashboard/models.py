@@ -12,7 +12,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 from django.contrib.contenttypes.fields import GenericRelation
-from comment.models import Comment
+from com.models import Comment
 
 services = (('Sunday First Service','Sunday First Service'),('Sunday Second Service','Sunday Second Service'),('Sunday Third Service','Sunday Third Service'), 
          ('All Sunday Services','All Sunday Services'),('Unspecified Service','Unspecified Service'),
