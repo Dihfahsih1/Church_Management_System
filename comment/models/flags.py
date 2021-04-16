@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model
+from dashboard.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
@@ -7,9 +7,6 @@ from comment.conf import settings
 from comment.managers import FlagManager, FlagInstanceManager
 from comment.models import Comment
 from comment.messages import FlagError, FlagState
-
-
-User = get_user_model()
 
 
 class Flag(models.Model):
