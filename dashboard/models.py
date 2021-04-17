@@ -176,6 +176,7 @@ class User(AbstractBaseUser , PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS,null=True,blank=True)
     USERNAME_FIELD = 'username'
+    EMAIL_FIELD = 'email'
     REQUIRED_FILEDS = []
     objects = UserManager()
     published = PublishedStatusManager()
