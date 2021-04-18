@@ -7,12 +7,8 @@ from django.forms import Textarea, TextInput, ChoiceField
 from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput, MonthPickerInput 
 from captcha.fields import CaptchaField
 
-
-    
-
 from functools import partial
  
-
 class SliderForm(forms.ModelForm):
     class Meta:
         model = Slider
@@ -182,7 +178,8 @@ class GalleryForm(forms.ModelForm):
 class ImageForm(forms.ModelForm):
     class Meta:
         model = Image
-        fields = ('gallery_title', 'gallery_image', 'image_caption','Is_View_on_Web')                                      
+        fields = ('gallery_title', 'gallery_image', 'image_caption','Is_View_on_Web')   
+                                           
 class NewsForm(forms.ModelForm):
     class Meta:
         model = News
@@ -210,6 +207,7 @@ class EventForm(forms.ModelForm):
             'Start_Time': TimePickerInput(),
             'End_Time': TimePickerInput(),
         }
+        
 class churchForm(forms.ModelForm):
     class Meta:
         model = Church
