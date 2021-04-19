@@ -675,7 +675,6 @@ class News(models.Model):
     news = RichTextUploadingField()
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS)
     author = models.CharField(max_length=1003, null=True, blank=True, default="Preacher")
-    comments = GenericRelation(Comment)
     objects = models.Manager()
     published = PublishedStatusManager()
     class Meta:
