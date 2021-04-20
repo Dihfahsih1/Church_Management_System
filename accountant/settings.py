@@ -152,9 +152,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
 
- #...
-SITE_ID = 1
-
 
 
 ####################################
