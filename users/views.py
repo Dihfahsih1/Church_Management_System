@@ -16,6 +16,7 @@ from django.contrib.auth import login, logout
 from django.core.mail import send_mail, BadHeaderError
 from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth import login as auth_login, authenticate
 
 class UserPasswordChangeView(LoginRequiredMixin, View):
     form_class = PasswordChangeForm
@@ -187,4 +188,23 @@ def church_user_account(request, user_pk):
 def logout_request(request):
     logout(request)
     messages.info(request, "Logged out successfully!")
-    return redirect("index_public")
+    return HttpResponseRedirect(request.GET.get('next','/'))
+
+def UserLogin(request):
+    form_class = MembershipAccountForm
+    if request.method == 'POST':
+        form = form_class(data=request.POST)
+        print(form)
+        if form.is_valid():
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                auth_login(request, user)
+                next_url = request.GET.get('next')
+                if next_url:
+                    return HttpResponseRedirect(next_url)
+                return redirect('')
+            else:
+                print('error')
+    return render(request, 'users/login.html', {'form':form_class})

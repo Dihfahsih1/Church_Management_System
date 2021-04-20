@@ -156,7 +156,7 @@
                             <span style="font-weight:100%; color: white"> 
                              
                             <i>{{request.user.username}}</i></span>
-                            <a class="text btn btn-primary" href="{% url 'logout' %}"><span class="fa fa-sign-out">Log Out</span></a>
+                            <a class="text btn btn-primary" href="{% url 'logout' %}/?next={{request.path}}"><span class="fa fa-sign-out">Log Out</span></a>
                         </div>
                     {% else %}
                         <div class="hta-box">                            

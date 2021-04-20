@@ -77,6 +77,9 @@ class EditUserForm(forms.ModelForm):
         model = User
         fields =['full_name','email','username','Role']
 
-   
+class UserLoginForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields =['username','password'] 
 
 
