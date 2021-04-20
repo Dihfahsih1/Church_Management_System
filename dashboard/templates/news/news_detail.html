@@ -45,7 +45,8 @@
                         <p class="text" >{{ news.news|safe }}</p>
 
                         {% render_comments news request %}  {# Render all the comments belong to the passed object "obj" #}
-                        {% include_bootstrap %} {# Include bootstrap 4.1.1 - remove this line if BS is already used in your project #}
+                        
+                        {# {% include_bootstrap %} Include bootstrap 4.1.1 - remove this line if BS is already used in your project #}
                     </div>
                 </div>
                 <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-12">

@@ -184,6 +184,9 @@ class User(AbstractBaseUser , PermissionsMixin):
     def __str__(self):
         return str(self.username)
     
+    def get_absolute_url(self):
+        return reverse('news_detail', args=[self.pk])   
+    
     @property
     def UserEmail(self):
         get_member=Members.objects.filter(Full_Named=self.full_name)
@@ -683,7 +686,7 @@ class News(models.Model):
         verbose_name = ("News")
         verbose_name_plural = ("News")
         ordering = ['-date']
-
+    
     def __str__(self):
         return self.news_title
 

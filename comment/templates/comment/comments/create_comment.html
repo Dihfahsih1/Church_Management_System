@@ -27,13 +27,13 @@
     <div class="d-flex mb-3">
         {% if is_anonymous_allowed %}
             <p class="text-muted {% if comment %}h7 my-auto {% endif %}">{% trans "Comment Anonymously or" %}
-            <a class="text-success {% if comment %}h7 my-auto {% endif %}" href="{{login_url}}?next={{request.path}}">
+            <a class="text-success {% if comment %}h7 my-auto {% endif %}" href="{% url 'Login' %}?next={{request.path}}">
                 {% trans "Login" %}
             </a>
             {% trans "to keep your conversations intact" %}</p>
         {% else %}
             <p class="text-muted">
-                <a class="text-success {% if comment %}h7 my-auto {% endif %}" href="{{login_url}}?next={{request.path}}">
+                <a class="text-success {% if comment %}h7 my-auto {% endif %}" href="{% url 'Login' %}?next={{request.path}}">
                     {% trans "Login" %}
                 </a>
                 {% trans "to join the discussion" %}

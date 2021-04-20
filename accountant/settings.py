@@ -198,3 +198,22 @@ CSRF_COOKIE_SECURE              = False
 SECURE_HSTS_SECONDS             = None
 SECURE_HSTS_INCLUDE_SUBDOMAINS  = False
 SECURE_FRAME_DENY               = False
+
+#Comments app
+PROFILE_APP_NAME = 'users'
+PROFILE_MODEL_NAME = 'UserProfile' # letter case insensitive
+COMMENT_FLAGS_ALLOWED = 5
+COMMENT_FLAG_REASONS = [
+    (1, ('Spam | Exists only to promote a service')),
+    (2, ('Abusive | Intended at promoting hatred')),
+    (3, ('Racist | Sick mentality')),
+    (4, ('Whatever | Your reason')),
+]
+
+COMMENT_ALLOW_ANONYMOUS = True
+COMMENT_FROM_EMAIL = 'church@uccbwaise.org'   # used for sending confirmation emails, if not set `EMAIL_HOST_USER` will be used.
+
+COMMENT_USE_GRAVATAR =True
+COMMENT_ALLOW_SUBSCRIPTION = True
+
+COMMENT_USE_EMAIL_FIRST_PART_AS_USERNAME = True

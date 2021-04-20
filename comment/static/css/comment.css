@@ -4,7 +4,7 @@
     box-shadow: 0 0 0 .2em #c8e1ff;
 }
 .js-comment-content {
-    font-size: 1.1rem;
+    font-size: 10px;
 }
 .js-comment-content>.js-comment-urlhash {
     opacity: 1;
@@ -14,7 +14,7 @@
     transition: opacity 200ms ease-in-out;
 }
 #comments .border-bottom {
-    border-bottom: 3px solid #00bc8c !important;
+    border-bottom: 3px solid black !important;
 }
 #comments .hr {
     margin-top: 0.2rem;
