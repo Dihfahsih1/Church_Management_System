@@ -62,7 +62,7 @@
                                 </div>      
                             </fieldset>
                        </div>
-                       <input type="hidden" name="next" value="{{ request.GET.next }}"/>
+                       
                        <div class="row">
                             <div class="form-group">
                                 <button class="btn btn-success" type="submit"> Login </button>
@@ -193,11 +193,11 @@
                         </div>
                         <div class="input-group mb-2">
                             <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                <span class="input-group-text"><i class="fa fa-key"></i></span>
                             </div>
                             <input type="password" name="password" placeholder="Password..." class="form-control">
                         </div>
-
+                        <input type="hidden" name="next" value="{{ next }}">
                         <div class="d-flex justify-content-center mt-3 login_container">
                             <input class="btn login_btn" type="submit" value="Login">
                         </div>

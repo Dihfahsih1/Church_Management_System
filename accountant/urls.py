@@ -38,6 +38,7 @@ urlpatterns = [
     ###################PASSWORD RESETING AND CHANGE ###################
     url(r'^password/change/', user_views.UserPasswordChangeView.as_view(), name='changing-password'),
     path('Login/', user_views.UserLogin, name='login'),
+    #path('Login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     url(r'^logout/', user_views.logout_request, name='logout'),
     url(r'^Password-Reset/', auth_views.PasswordResetView.as_view(template_name='users/home/password_reset.html'), name='password_reset'),
     

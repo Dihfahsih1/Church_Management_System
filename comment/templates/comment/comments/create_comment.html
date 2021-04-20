@@ -36,6 +36,7 @@
                 <a class="text-success {% if comment %}h7 my-auto {% endif %}" href="{% url 'login' %}?next={{request.path}}">
                     {% trans "Login" %}
                 </a>
+                
                 {% trans "to join the discussion" %}
             </p>
         {% endif %}

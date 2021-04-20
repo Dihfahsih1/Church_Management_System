@@ -160,7 +160,7 @@
                         </div>
                     {% else %}
                         <div class="hta-box">                            
-                            <a class="text btn btn-primary" href="{% url 'login' %}"><span class="fa fa-sign-out">Log In</span></a>
+                            <a class="text btn btn-primary" href="{% url 'login' %}?next={{request.path}}"><span class="fa fa-sign-out">Log In</span></a>
                             
                         </div>
                     {% endif %}
@@ -186,7 +186,7 @@
                         <nav id="mobile_menu_active">
                             <ul id="menu">
                                 <li><a href="{% url 'index_public' %}">HOME</a></li>
-                                <li><a href="{% url 'church_details' %}" {% if request.get_full_path == '/church-details' or request.get_full_path == '/Church-Mission' or request.get_full_path == '/Church/Vision' or request.get_full_path == '/core-values'  %} class="active"{% endif %}>ABOUT</a></li>
+                                <li><a href="{% url 'church_details' %}?next={{request.path}}" {% if request.get_full_path == '/church-details' or request.get_full_path == '/Church-Mission' or request.get_full_path == '/Church/Vision' or request.get_full_path == '/core-values'  %} class="active"{% endif %}>ABOUT</a></li>
 
                                 <li><a href="#" {% if request.get_full_path == '/Pastoral-Team' or request.get_full_path == '/Administrative-Team' %} class="active"{% endif %}>STAFF <span class="icon fa fa-chevron-down"></span></a>
                                     <ul class="drop">

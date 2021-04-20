@@ -119,9 +119,7 @@ TIME_ZONE = 'Africa/Kampala'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-
-LOGIN_REDIRECT_URL = 'member_profile'
-LOGOUT_REDIRECT_URL = 'index_public'
+USE_TZ
 LOGIN_URL = 'login'
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 

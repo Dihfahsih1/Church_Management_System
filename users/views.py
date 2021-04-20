@@ -200,14 +200,11 @@ def UserLogin(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 auth_login(request, user)
-                next_url = request.GET.get('next')
-                if next_url:
-                    return HttpResponseRedirect(next_url)
-                return redirect('')
+                return redirect('member_profile')
         else:
             return render(request, 'users/login.html', {'form':form})
             
     context = {
         'form': form,
     }
-    return render(request, 'users/login.html', {'form':form})
+    return render(request, 'users/login.html', context)
