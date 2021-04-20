@@ -77,9 +77,23 @@ class EditUserForm(forms.ModelForm):
         model = User
         fields =['full_name','email','username','Role']
 
-class UserLoginForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields =['username','password'] 
+class UserLoginForm(forms.Form):
+    username=forms.CharField(label='Username/Email')
+    password=forms.CharField(label='Password',widget=forms.PasswordInput)
+
+    def clean(self,*args,**kwargs):
+        query=self.cleaned_data.get('username')
+        password=self.cleaned_data.get('password')
+        user_qs_final=User.objects.filter(
+                Q(username__iexact=query)|
+                Q(email__iexact=query)
+            ).distinct()
+        if not user_qs_final.exists() and user_qs_final!=1:
+            raise forms.ValidationError("Invalid credentials-user does not exits")
+        user_obj=user_qs_final.first()
+        if not user_obj.check_password(password):
+            raise forms.ValidationError("credential are wrong")
+        self.cleaned_data["user_obj"]=user_obj
+        return super(UserLoginForm,self).clean(*args,**kwargs)
 
 

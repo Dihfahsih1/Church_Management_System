@@ -191,20 +191,23 @@ def logout_request(request):
     return HttpResponseRedirect(request.GET.get('next','/'))
 
 def UserLogin(request):
-    form_class = MembershipAccountForm
+    form = UserLoginForm()
     if request.method == 'POST':
-        form = form_class(data=request.POST)
-        print(form)
+        form = UserLoginForm(request.POST)
         if form.is_valid():
-            username = request.POST['username']
-            password = request.POST['password']
-            user = authenticate(request, username=username, password=password)
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
             if user is not None:
                 auth_login(request, user)
                 next_url = request.GET.get('next')
                 if next_url:
                     return HttpResponseRedirect(next_url)
                 return redirect('')
-            else:
-                print('error')
-    return render(request, 'users/login.html', {'form':form_class})
+        else:
+            return render(request, 'users/login.html', {'form':form})
+            
+    context = {
+        'form': form,
+    }
+    return render(request, 'users/login.html', {'form':form})
