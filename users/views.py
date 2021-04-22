@@ -200,7 +200,10 @@ def UserLogin(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 auth_login(request, user)
+                current_url = request.path
+                print(current_url)
                 return redirect('member_profile')
+            
         else:
             return render(request, 'users/login.html', {'form':form})
             

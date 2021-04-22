@@ -3,7 +3,7 @@ from dashboard.models import User
 from dashboard.views import *
 
 
-#foem for creating a system user from the dashboard
+"""form for creating a system user from the dashboard"""
 class RegisterForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
     password2 = forms.CharField(label='Password confirmation',
