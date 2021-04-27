@@ -38,22 +38,31 @@
                         <div class="form-row">
                             
                             <div class="form-group">
-                                {{ form.Initials|as_crispy_field }}
+                                {{ form.date|as_crispy_field }}
                             </div>
-                            <div class="form-group col-md-3 mb-0">
-                                {{ form.First_Name|as_crispy_field }}
+                            <div class="form-group">
+                                {{ form.location|as_crispy_field }}
                             </div>
-                            <div class="form-group col-md-3 mb-0">
-                                {{ form.Second_Name|as_crispy_field }}
+                            <div class="form-group" id="choice">
+                                {{ form.which_type|as_crispy_field }}
                             </div>
-                            <div class="form-group col-md-3 mb-0">
-                                {{ form.Date_Of_Birth|as_crispy_field }}
+                            <div class="form-group" id="conf">
+                                {{ form.conference_theme|as_crispy_field }}
                             </div>
-                            <div class="form-group col-md-3 mb-0">
-                                {{ form.Gender|as_crispy_field }}
+                            <div class="form-group" id="mission">
+                                {{ form.title|as_crispy_field }}
                             </div>
-                            <div class="form-group col-md-3 mb-0">
-                                {{ form.Group|as_crispy_field }}
+                            <div class="form-group">
+                                {{ form.preacher|as_crispy_field }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.image|as_crispy_field }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.embedded_video|as_crispy_field }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.audio_file|as_crispy_field }}
                             </div>
                         </div>
                             <button type="submit" class="btn btn-primary" name="button">Submit</button>
@@ -66,4 +75,22 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $("#id_which_type").change(function () {
+        if ($(this).val() === "mission") {
+            $('#mission').show(); 
+            $('#conf').hide();
+        
+        } else if ($(this).val() === "conference") {
+            $('#mission').hide(); 
+            $('#conf').show();
+            
+        } else {
+            $('#conf').hide();
+            $('#mission').hide(); 
+        }
+    });
+    $("#id_which_type").trigger("change");
+</script>
 {% endblock content %}
