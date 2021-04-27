@@ -1,0 +1,79 @@
+{% extends 'home/base.html' %}
+<body>
+
+{% block content %}
+   <h1 style="text-align:center" class="title">Lwaki Oli Mulamu</h1>
+   <hr>
+    <section class="page-event-area" style="margin-top:-5%">
+        <div class="container">
+          
+            <div class="row">
+                {% for item in sermon_list %}                
+                    <div class="col-lg-4">
+                        <div class="single-event">
+                            <div class="img" style="max-height: 170px">
+                                 {% if item.image %}
+                                    <img src="{{ item.image.url }}" data-fancybox="images" style="border-radius: 40%;" >
+                                {% endif %} 
+                            </div>
+
+                            <div>
+                                {% if item.audio %}
+                                   <img src="{{ item.audio }}" data-fancybox="images" style="border-radius: 40%;" >
+                               {% endif %} 
+                           </div>
+                           <div>
+                            {% if item.embedded_video %}
+                               <img src="{{ item.embedded_video }}" data-fancybox="images" style="border-radius: 40%;" >
+                           {% endif %} 
+                       </div>
+                            <a href="{% url 'lwakiolimulamu-detail' item.id %}"> 
+                                <div class="content">
+                                    
+                                    <ul class="list">
+                                        {% if item.conference_theme %}
+                                        <li class="info"><span class="icon"><i
+                                                class="fa fa-group"></i></span>{{item.conference_theme}}
+                                        </li>
+                                        {% endif %}
+
+                                        {% if item.title %}
+                                        <li class="info"><span class="icon"><i
+                                                class="fa fa-home"></i></span>{{ item.title }}
+                                            
+                                        </li>
+                                        {% endif %}
+                                        <li class="info"><span class="icon"><i
+                                                class="fa fa-map-marker"></i></span>Precher: {{ item.preacher }}
+                                            
+                                        </li>
+                                       
+                                    </ul>
+                                </div>
+                            </a>
+                        </div>
+                            
+                    </div>
+                {% endfor %}
+
+            </div>
+            {% if sermon_list.has_other_pages %}
+              <nav aria-label="Page navigation conatiner" style="text-align: center">
+              <ul class="pagination justify-content-center">
+                {% if sermon_list.has_previous %}
+                <li><a href="?page={{ sermon_list.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+                {% endif %}
+                {% if sermon_list.has_next %}
+                <li><a href="?page={{ sermon_list.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+               {% endif %}
+              </ul>
+              </nav>
+            {% endif %}
+            </div>
+            
+        </div>
+        </div>
+    </section>
+
+{% endblock %}
+</body>

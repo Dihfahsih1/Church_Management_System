@@ -3318,8 +3318,7 @@ def edit_lwakiolimulamu(request, pk):
     context = {'form':form}
     return render(request, 'lwakiolimulamu/edit_lwakiolimulamu.html', context) 
 
-def lwakiolimulamu_wall(request):
-    
+def lwakiolimulamu_wall(request): 
     all_sermons = LwakiOliMulamu.all().order_by('-id')
     paginator = Paginator(all_sermons, 4)  
     page = request.GET.get('page')
@@ -3331,3 +3330,24 @@ def lwakiolimulamu_wall(request):
         sermon_list = paginator.page(paginator.num_pages)
     context={'page':page, 'sermon_list': sermon_list}    
     return render(request, 'lwakiolimulamu/lwakiolimulamu_wall.html', context)
+
+
+def lwakiolimulamu_detail(request, pk):
+    item = get_object_or_404(LwakiOliMulamu, pk=pk)
+    item_details=Members.objects.all()
+    more_details = LwakiOliMulamu.objects.all().order_by('-date')
+    paginator = Paginator(mem_details, 7) 
+    page = request.GET.get('page')
+    try:
+        item_list = paginator.page(page)
+    except PageNotAnInteger:
+        item_list = paginator.page(1)
+    except EmptyPage:
+        item_list = paginator.page(paginator.num_pages)
+    context = {
+         'page':page,
+        'item': item,
+        'more_details': more_details,
+        'item_list': item_list,
+    }
+    return render(request, 'lwakiolimulamu/lwakiolimulamu_details.html', context)

@@ -1,0 +1,83 @@
+{% extends 'home/base.html' %}
+<body>
+{% block content %}
+
+<h1 style="text-align:center" class="title">Lwaki Olimulamu</h1>
+   <hr>
+    <section class="page-event-area" style="margin-top:-5%">
+        <div class="container">
+            <div class="row">
+                    <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                        
+                        <div class="page-news-details">
+                            <div class="banner">
+                                {% if item.image %}
+
+                                    <img src="{{ item.image.url }}"
+                                         alt="member photo" >
+                                {% endif %}
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-xs-12">
+                                        <div class="single-event">
+                                          {% if item.embedded_video %}
+                                                {{item.embedded_video }}
+                                          {% endif %}
+                                        </div>  
+                                    </div>
+                                   </div>
+                                </div>
+                            </div>
+
+                            </div>
+                    </div>
+              <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-12">
+                    <div class="sidebar">
+                        <div class="sidebar-widget">
+                    
+                                  {% for details in item_list %}
+                                    <li>
+                                        
+                                        <a href="{% url 'lwakiolimulamu-detail' details.pk %}">
+                                         <span class="img">
+                                             {% if details.image %}
+                                                 <img src="{{ details.image.url }}" alt="">
+                                             {% endif %}
+                                         </span>
+
+                                            <span class="content">
+                                                <span class="meta">
+                                                        <span class="icon">
+                                                        <i class="fa fa-user"></i>
+                                                        </span>
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+
+                            </ul>
+                        </div>
+            {% if item_list.has_other_pages %}
+              <nav aria-label="Page navigation conatiner" style="text-align: center">
+              <ul class="pagination justify-content-center">
+                {% if item_list.has_previous %}
+                <li><a href="?page={{ item_list.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+                {% endif %}
+                {% if item_list.has_next %}
+                <li><a href="?page={{ item_list.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+               {% endif %}
+              </ul>
+              </nav>
+            {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+</body>
