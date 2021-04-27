@@ -42,7 +42,7 @@
                                         cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <td>Date/td>
+                                                <td>Date</td>
                                                 <td>Location</td>
                                                 <td>Theme</td>
                                                 <td>Title</td>
@@ -62,7 +62,7 @@
                                                     {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
                                                         <div class="mb-4">
                                                             <a href ="{% url 'edit_lwakiolimulamu' pk=item.id %}" class="btn btn-info btn-sm">
-                                                                <span class="glyphicon glyphicon-edit">Edit</span>
+                                                                <span class="glyphicon glyphicon-edit">Update</span>
                                                             </a>
                                                         </div>
                                                     {% endif %}

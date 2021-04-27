@@ -245,7 +245,7 @@ path('<int:pk>/', views.edit_conference_details, name='edit_conference_details')
 #lwaki oli mulamu
 path('lwaki-oli-mulamu', views.record_lwakiolimulamu, name='record'),
 path('lwakiolimulamu', views.lwakiolimulamu_list, name='lwakiolimulamu'),
-path('<int:pk>/', views.edit_lwakiolimulamu, name='edit_lwakiolimulamu'),
+path('update_lwaki_oli_mulamu<int:pk>/', views.edit_lwakiolimulamu, name='edit_lwakiolimulamu'),
 
 #New Converts
 path('New-Converts', views.record_new_convert, name='record_new_convert'),

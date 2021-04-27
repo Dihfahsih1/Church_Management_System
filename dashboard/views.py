@@ -3298,21 +3298,36 @@ def record_lwakiolimulamu(request):
     else:
         form=LwakiOliMulamuForm()
         return render(request, 'lwakiolimulamu/record_lwakiolimulamu.html',{'form':form})
+    
 @login_required
 def lwakiolimulamu_list(request):
-    details = AnnualConference.objects.all()
+    details = LwakiOliMulamu.objects.all()
     context={'details':details}
     return render(request,'lwakiolimulamu/lwakiolimulamu.html', context)
 
 def edit_lwakiolimulamu(request, pk):
-    qs=AnnualConference.objects.get(id=pk)
+    qs=LwakiOliMulamu.objects.get(id=pk)
     if request.method == "POST":
-        form = AnnualConferenceForm(request.POST, instance=qs)
+        form = LwakiOliMulamuForm(request.POST, instance=qs)
         if form.is_valid():
             form.save()
             messages.success(request, f'details have been updated')
             return redirect('lwakiolimulamu')
     else:
-        form = AnnualConferenceForm(instance=qs)
+        form = LwakiOliMulamuForm(instance=qs)
     context = {'form':form}
     return render(request, 'lwakiolimulamu/edit_lwakiolimulamu.html', context) 
+
+def lwakiolimulamu_wall(request):
+    
+    all_sermons = LwakiOliMulamu.all().order_by('-id')
+    paginator = Paginator(all_sermons, 4)  
+    page = request.GET.get('page')
+    try:
+       sermon_list = paginator.page(page)
+    except PageNotAnInteger:
+        sermon_list = paginator.page(1)
+    except EmptyPage:
+        sermon_list = paginator.page(paginator.num_pages)
+    context={'page':page, 'sermon_list': sermon_list}    
+    return render(request, 'lwakiolimulamu/lwakiolimulamu_wall.html', context)
