@@ -190,6 +190,12 @@
                 
                     </ul>
                 </li>
+                <li><a><i class="fa fa-group"></i> <b>Lwaki Oli Mulamu<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="{% url 'record' %}">Record</a></li>
+                        <li><a href="{% url 'lwakiolimulamu' %}">List</a></li>
+                    </ul>
+                </li>
                 <!--the sidebar-->
                 <li><a href="{% url 'news_list' %}"><i class="fa fa-bullhorn"></i> Gospel Sermons</a>
                 </li>
@@ -221,15 +227,7 @@
                         <li><a href="#">Crusade</a></li>
                     </ul>
                 </li>
-                <li><a><i class="fa fa-map-marker"></i> <b>Missions<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="#">Team</a></li>
-                        <li><a href="#">Eastern Region</a></li>
-                        <li><a href="#">Western Region</a></li>
-                        <li><a href="#">Central Region</a></li>
-                        <li><a href="#">Northern Region</a></li>
-                    </ul>
-                </li>
+              
             </ul>
             <div class="separator"></div>
              <a class="text btn btn-primary" href="{% url 'logout' %}">Log Out<span class="fa fa-sign-out"></span></a>

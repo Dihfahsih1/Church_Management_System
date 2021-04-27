@@ -5,7 +5,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h1 style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b> ANNUAL CONFERENCE MODULE</b></h1>
+                    <h1 style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b> LWAKI OLI MULAMU MODULE</b></h1>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -15,25 +15,50 @@
                 <div class="x_content">
                     <div class="" data-example-id="togglable-tabs">
                         <ul class="nav nav-tabs bordered">
-                            <li role="presentation"><a href="{% url 'list_of_conferences' %}"><i class="fa fa-list-ol"></i>
-                                    List of conferences</a>
+                            <li role="presentation"><a href="{% url 'lwakiolimulamu' %}"><i class="fa fa-list-ol"></i>
+                                    List</a>
                             </li>
                             <li role="presentation" class="active"><a href="#"><i
-                                        class="fa fa-plus-square-o"></i> Record conferences</a>
+                                        class="fa fa-plus-square-o"></i> Record</a>
                             </li>
                         </ul>
-                        <h2 style="text-align: center">Record Annual Conference Details</h2>
+                        <h2 style="text-align: center">Record Lwaki Olimulamu Details</h2>
                         <div class="separator"></div>
                         <div style="margin-left: 25%" class="col-lg-4 col-md-4 col-sm-4 justify-content-center">
                             {% load crispy_forms_tags %}
-                            <form method="POST" enctype="multipart/form-data">
-                                {% csrf_token %}
-                                {{ form.date|as_crispy_field}}
-                                {{ form.tit|as_crispy_field}}
-                                {{ form.conference_theme|as_crispy_field}}
-                                {{ form.estimated_budget|as_crispy_field}}
-                                <button type="submit" class="btn btn-primary" name="button">Submit</button>
-                            </form>
+                            <form class="form-horizontal form-label-left"
+                            id="admissionForm" action="" method="POST" enctype="multipart/form-data" 
+                            accept-charset="utf-8" novalidate>
+                            {% csrf_token %}
+                            {% for errors in form_errors %}
+                            <p><b style="color: red;">{{errors}}</b> => Can't be empty</p>
+                            {% endfor %}
+                       
+            
+                        <div class="form-row">
+                            
+                            <div class="form-group">
+                                {{ form.Initials|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-3 mb-0">
+                                {{ form.First_Name|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-3 mb-0">
+                                {{ form.Second_Name|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-3 mb-0">
+                                {{ form.Date_Of_Birth|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-3 mb-0">
+                                {{ form.Gender|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-3 mb-0">
+                                {{ form.Group|as_crispy_field }}
+                            </div>
+                        </div>
+                            <button type="submit" class="btn btn-primary" name="button">Submit</button>
+                    </div>
+                    </form>
                         </div>
                     </div>
                 </div>
