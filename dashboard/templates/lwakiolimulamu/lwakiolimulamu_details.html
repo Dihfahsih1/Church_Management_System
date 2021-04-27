@@ -25,8 +25,11 @@
                                           {% if item.embedded_video %}
                                                 {{item.embedded_video|safe}}
                                           {% endif %}
-                                          <p>{{item.details|safe}}</p>
-                                        </div>  
+                                          
+                                        </div> 
+                                        <div class="content">
+                                            <p>{{item.details|safe}}</p>
+                                        </div> 
                                     </div>
                                    </div>
                                 </div>
@@ -41,9 +44,12 @@
                                     <li>
                                         
                                         <a href="{% url 'lwakiolimulamu_detail' details.pk %}">
+                                        <span class="title">{{details.date}}
+                                        <span class="icon"><i
+                                                class="fa fa-calendar"></i>{{details.day }} </span>
                                          <span class="img">
                                              {% if details.image %}
-                                                 <img src="{{ details.image.url }}" alt="">
+                                                 <img src="{{ details.image.url }}" alt="" width="100">
                                              {% endif %}
                                          </span>
 
