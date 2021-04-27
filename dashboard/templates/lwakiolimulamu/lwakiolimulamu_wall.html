@@ -16,17 +16,15 @@
                                     <img src="{{ item.image.url }}" data-fancybox="images" style="border-radius: 40%;" >
                                 {% endif %} 
                             </div>
-
-                            <div>
-                                {% if item.audio %}
-                                   <img src="{{ item.audio }}" data-fancybox="images" style="border-radius: 40%;" >
-                               {% endif %} 
+                            <h2 class="title"><a href="{{ news.get_absolute_url }}"> {{item.date}} - {{ item.day }}</a>
+                            </h2>
+                            <div >
+                                {% if item.audio_file %}
+                                <audio controls preload="auto">
+                                    <source src=" {{item.audio_file.url}} " type="audio/mpeg">
+                                </audio>
+                                {% endif %}
                            </div>
-                           <div>
-                            {% if item.embedded_video %}
-                               <img src="{{ item.embedded_video }}" data-fancybox="images" style="border-radius: 40%;" >
-                           {% endif %} 
-                       </div>
                             <a href="{% url 'lwakiolimulamu_detail' item.id %}"> 
                                 <div class="content">
                                     

@@ -3336,7 +3336,7 @@ def lwakiolimulamu_detail(request, pk):
     item = get_object_or_404(LwakiOliMulamu, pk=pk)
     item_details=Members.objects.all()
     more_details = LwakiOliMulamu.objects.all().order_by('-date')
-    paginator = Paginator(mem_details, 7) 
+    paginator = Paginator(more_details, 7) 
     page = request.GET.get('page')
     try:
         item_list = paginator.page(page)

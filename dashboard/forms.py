@@ -249,7 +249,7 @@ class AnnualConferenceForm(forms.ModelForm):
 class LwakiOliMulamuForm(forms.ModelForm):
     class Meta:
         model = LwakiOliMulamu
-        fields = ('date','location','which_type','conference_theme','title','preacher','embedded_video','image','audio_file')
+        fields = ('date','location','which_type','conference_theme','title','preacher','embedded_video','image','audio_file','day')
         widgets={
         'date':DatePickerInput(),
         }

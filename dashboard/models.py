@@ -879,11 +879,15 @@ class LwakiOliMulamu(models.Model):
     title = models.CharField(max_length=500, blank=True, null=True)
     which_type = models.CharField(max_length=100, choices=lwaki, default="No", blank=True, null=True)
     conference_theme = models.ForeignKey(AnnualConference,on_delete=models.CASCADE, max_length=500, blank=True, null=True)
+    day = models.CharField(max_length=500, blank=True, null=True)
     preacher = models.CharField(max_length=500, blank=True, null=True)
     location = models.CharField(max_length=500, blank=True, null=True)
     embedded_video = models.CharField(max_length=500, blank=True, null=True)
+    day = models.CharField(max_length=500, blank=True, null=True)
     image = models.ImageField(upload_to='images/', max_length=2000000, null=True, blank=True)
     audio_file = models.FileField(upload_to='audios/',max_length=1000000, null=True, blank=True)
+    def __str__(self):
+        return self.title
     
 #model class for new converts      
 class NewConvert(models.Model):
