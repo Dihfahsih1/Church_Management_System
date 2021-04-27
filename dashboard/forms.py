@@ -241,10 +241,17 @@ class MinistryForm(forms.ModelForm):
 class AnnualConferenceForm(forms.ModelForm):
     class Meta:
         model = AnnualConference
-        fields = ('start_date', 'end_date', 'estimated_budget', 'conference_theme','conference_report','preacher','embedded_video','image','audio_file')
+        fields = ('start_date', 'end_date', 'estimated_budget', 'conference_theme','conference_report')
         widgets={
         'start_date':DatePickerInput(),
         'end_date' :DatePickerInput()
+        }
+class LwakiOlimulamuForm(forms.ModelForm):
+    class Meta:
+        model = LwakiOliMulamu
+        fields = ('date','location','preacher','embedded_video','image','audio_file')
+        widgets={
+        'date':DatePickerInput(),
         }
 class NewConvertForm(forms.ModelForm):
     class Meta:

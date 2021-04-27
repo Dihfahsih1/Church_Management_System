@@ -862,19 +862,28 @@ class Testing(models.Model):
 
 #model class for conference
 class AnnualConference(models.Model):
+
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     estimated_budget = models.IntegerField(default=0,blank=True, null=True)
     conference_theme = models.CharField(max_length=500, blank=True, null=True)
-    conference_report = RichTextUploadingField(max_length=100000, blank=True, null=True)
+    conference_report = RichTextUploadingField(max_length=100000, blank=True, null=True) 
+    
+    def __str__(self):
+        return self.conference_theme
+lwaki = (
+    ('mission', 'mission'),
+    ('conference', 'conference'),)
+class LwakiOliMulamu(models.Model):
+    date = models.DateField(null=True, blank=True)
+    title = models.CharField(max_length=500, blank=True, null=True)
+    conference_theme = models.ForeignKey(AnnualConference,on_delete=models.CASCADE, max_length=500, blank=True, null=True)
     preacher = models.CharField(max_length=500, blank=True, null=True)
+    location = models.CharField(max_length=500, blank=True, null=True)
     embedded_video = models.CharField(max_length=500, blank=True, null=True)
     image = models.ImageField(upload_to='images/', max_length=2000000, null=True, blank=True)
     audio_file = models.FileField(upload_to='audios/',max_length=1000000, null=True, blank=True)
     
-    def __str__(self):
-        return self.conference_theme
-
 #model class for new converts      
 class NewConvert(models.Model):
     is_church_member = models.CharField(max_length=100, choices=OPTIONS, default="No", blank=True, null=True)
