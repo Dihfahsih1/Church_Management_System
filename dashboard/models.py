@@ -867,6 +867,11 @@ class AnnualConference(models.Model):
     estimated_budget = models.IntegerField(default=0,blank=True, null=True)
     conference_theme = models.CharField(max_length=500, blank=True, null=True)
     conference_report = RichTextUploadingField(max_length=100000, blank=True, null=True)
+    preacher = models.CharField(max_length=500, blank=True, null=True)
+    embedded_video = models.CharField(max_length=500, blank=True, null=True)
+    image = models.ImageField(upload_to='images/', max_length=2000000, null=True, blank=True)
+    audio_file = models.FileField(upload_to='audios/',max_length=1000000, null=True, blank=True)
+    
     def __str__(self):
         return self.conference_theme
 
@@ -902,3 +907,26 @@ class ThemeOfTheYear(models.Model):
     def __str__(self):
         return self.title
 
+
+# class LwakiOliMulamu(models.Model):
+#     title = models.CharField(max_length=150)
+#     date = models.DateField(auto_now_add=True)
+#     image = models.ImageField(upload_to='images/', max_length=10000, null=True, blank=True)
+#     audio_file = models.FileField(upload_to='audios/',max_length=10000, null=True, blank=True)
+#     news = RichTextUploadingField()
+#     comments = GenericRelation(Comment)
+#     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS)
+#     author = models.CharField(max_length=1003, null=True, blank=True, default="Preacher")
+#     objects = models.Manager()
+#     published = PublishedStatusManager()
+#     class Meta:
+#         default_permissions = ('view', 'add', 'change', 'delete')
+#         verbose_name = ("News")
+#         verbose_name_plural = ("News")
+#         ordering = ['-date']
+    
+#     def __str__(self):
+#         return self.news_title
+
+#     def get_absolute_url(self):
+#         return reverse('news_detail', args=[self.pk])  

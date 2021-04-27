@@ -241,7 +241,7 @@ class MinistryForm(forms.ModelForm):
 class AnnualConferenceForm(forms.ModelForm):
     class Meta:
         model = AnnualConference
-        fields = ('start_date', 'end_date', 'estimated_budget', 'conference_theme','conference_report')
+        fields = ('start_date', 'end_date', 'estimated_budget', 'conference_theme','conference_report','preacher','embedded_video','image','audio_file')
         widgets={
         'start_date':DatePickerInput(),
         'end_date' :DatePickerInput()
