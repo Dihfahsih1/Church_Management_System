@@ -3284,4 +3284,35 @@ def cells(request):
 def groups(request):
     return render(request, 'Groups/groups.html')
 
-#lwaki oli mulamu
+
+
+##########lwaki oli mulamu ############
+@login_required
+def record_lwakiolimulamu(request):
+    if request.method=="POST":
+        form=LwakiOliMulamuForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'details have been recorded')
+            return redirect('lwakiolimulamu')
+    else:
+        form=LwakiOliMulamuForm()
+        return render(request, 'lwakiolimulamu/record_lwakiolimulamu.html',{'form':form})
+@login_required
+def lwakiolimulamu_list(request):
+    details = AnnualConference.objects.all()
+    context={'details':details}
+    return render(request,'lwakiolimulamu/lwakiolimulamu.html', context)
+
+def edit_lwakiolimulamu(request, pk):
+    qs=AnnualConference.objects.get(id=pk)
+    if request.method == "POST":
+        form = AnnualConferenceForm(request.POST, instance=qs)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'details have been updated')
+            return redirect('lwakiolimulamu')
+    else:
+        form = AnnualConferenceForm(instance=qs)
+    context = {'form':form}
+    return render(request, 'lwakiolimulamu/edit_lwakiolimulamu.html', context) 
