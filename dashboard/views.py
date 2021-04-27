@@ -3319,7 +3319,7 @@ def edit_lwakiolimulamu(request, pk):
     return render(request, 'lwakiolimulamu/edit_lwakiolimulamu.html', context) 
 
 def lwakiolimulamu_wall(request): 
-    all_sermons = LwakiOliMulamu.all().order_by('-id')
+    all_sermons = LwakiOliMulamu.objects.all().order_by('-id')
     paginator = Paginator(all_sermons, 4)  
     page = request.GET.get('page')
     try:
