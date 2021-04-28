@@ -111,31 +111,15 @@
                 </div>
 
                 <div class="col-lg-4"> 
-                    <!--<b style="font-size:19px; text-align: right;"><a href="{% url 'news_wall' %}">Latest Gospel Teaching</a></b> <br>-->
-                        <a href="{% url 'news_detail' gospel.pk %}">
+                    <b style="font-size:19px; text-align: right;"><a href="{% url 'lwakiolimulamu_wall' %}">Archived Lwaki Oli Mulamu Series</a></b> <br>
+                        
                             <div class="single-news" style="height: 270px">
-                                <div class="img" style="height: 100px">
-                                    {% if gospel.image %}
-                                    <img src="{{ gospel.image.url }}" alt="imagegrouped">
-                                    {% endif %}
-                                </div>
                                 <div class="content">
-                                    <ul class="meta">
-                                        <li class="info"><span class="icon"><i class="fa fa-user"></i></span>By :
-                                            {{ gospel.author.full_name.Initials }} {{ gospel.author.full_name }} - {{ news.author}}
-                                        </li>
-        
-                                        <li class="info"><span class="icon"><i class="far fa-calendar-alt"></i></span>
-                                            {{ gospel.date }}
-                                        </li>
-                                    </ul>
-                                    <h2 class="title">{{ gospel.news_title }}</h2>
-                                    <p style="font-size: 18px">
-                                        {{ gospel.news|safe |truncatewords:10}}
-                                    </p>
+                                    {% for year in get_all_years %}
+                                    <a href="#"> {{year.date|date:"Y"}}</a><br />
+                                    {% endfor %}
                                 </div>
                             </div>
-                        </a>
                 </div>
             </div>
         </div>
