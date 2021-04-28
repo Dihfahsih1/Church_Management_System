@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.views import View
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.db.models import Q,Count
 from .forms import *
 from .models import *
 from time import strptime
@@ -27,8 +27,9 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode  
 from .tokens import account_activation_token  
 from django.core.mail import EmailMessage,send_mail, BadHeaderError
-from django.views.decorators.clickjacking import xframe_options_exempt
-from django.views.generic.dates import YearArchiveView
+from django.views.decorators.clickjacking import xframe_options_exempt 
+from django.db.models.functions import ExtractYear
+
 
 #####################===>BEGINNING OF THEME MODULE<===###########################
 class ThemeListView(ListView):
@@ -63,8 +64,15 @@ def web(request):
     #RUN_EVERY_MONTH=calendar._monthlen(year, month)
     form=ContactForm()
     context = {form:'form'}
+    lwaki = LwakiOliMulamu.objects.all()
+    years = lwaki.datetimes('date', kind='year')
+    for year in years:
+        yeari = lwaki.filter(date__year=year.year)
+        year_total = yeari.aggregate(total=Sum("id")).get("total")
+        print(f"Year: {year}, Total: {year_total}") 
     try:
-        get_all_years = LwakiOliMulamu.objects.all()
+
+
         theme = ThemeOfTheYear.objects.get(is_active=True)
         news = News.published.all().order_by('-id')
         events = Event.published.all().order_by('-id')
@@ -80,7 +88,7 @@ def web(request):
         form=ContactForm()
         context = {'get_all_years':get_all_years,
             'gospel':gospel,'pages' : pages,'feeback':feeback,'images':images,'events': events,'news': news,'theme':theme,
-        'abouts': abouts,'sliders' :sliders,'members': members, 'employees': employees,'ministry':ministry,form:'form'}
+        'abouts': abouts,'sliders' :sliders,'members': members, 'employees': employees,'ministry':ministry,form:'form','year':year}
     except:
         form=ContactForm()
         context = {form:'form'}
