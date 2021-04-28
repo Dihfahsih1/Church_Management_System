@@ -64,23 +64,7 @@
                                   {% for details in get_all_years %}
                                     <li>
                                         
-                                        <a href="#">
-                                        <span class="title">{{details.date}}
-                                        <span class="icon"><i
-                                                class="fa fa-calendar"></i>{{details.day }} </span>
-                                         <span class="img">
-                                             {% if details.image %}
-                                                 <img src="{{ details.image.url }}" alt="" width="100">
-                                             {% endif %}
-                                         </span>
-
-                                            <span class="content">
-                                                <span class="meta">
-                                                        <span class="icon">
-                                                        <i class="fa fa-user"></i>
-                                                        </span>
-                                                </span>
-                                            </span>
+                                        <a href="{% url 'lwakiolimulamu_year_archive' year=details.year|floatformat %}?year={{details.year|floatformat}}">{{details.year|floatformat}}</a><br>
                                         </a>
                                     </li>
                                 {% endfor %}

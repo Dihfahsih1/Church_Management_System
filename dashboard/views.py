@@ -3359,9 +3359,8 @@ def lwakiolimulamu_detail(request, pk):
 def lwakiolimulamu_archives(request, year):
     
     year = request.GET.get('year')
-    print(type(year))
     get_all_details = LwakiOliMulamu.objects.filter(date__year=year)
-    get_all_years = LwakiOliMulamu.objects.all()
+    get_all_years = LwakiOliMulamu.objects.extra(select={'year': 'extract( year from date )'}).values('year').annotate(dcount=Count('date'))
     paginator = Paginator(get_all_details, 7) 
     page = request.GET.get('page')
     try:

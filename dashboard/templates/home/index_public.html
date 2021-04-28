@@ -116,7 +116,7 @@
             <div class="single-news" style="height: 270px">
                 <div class="content">
                     {%for i in lwaki %}
-                    <a href="{% url 'lwakiolimulamu_year_archive' year=i.year|floatformat %}">{{i.year|floatformat}}</a><br>
+                    <a href="{% url 'lwakiolimulamu_year_archive' year=i.year|floatformat %}?year={{i.year|floatformat}}">{{i.year|floatformat}}</a><br>
                     {% endfor %}
                 </div>
             </div>
