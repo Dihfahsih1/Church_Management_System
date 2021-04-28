@@ -7,7 +7,7 @@
     <section class="page-event-area" style="margin-top:-5%">
         <div class="container">
             <div class="row">
-                    <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                    <div class="col-lg-9 col-md-12 col-sm-12 col-12">
                         
                         <div class="page-news-details">
                             {% for item in get_all_details %}                
@@ -57,17 +57,16 @@
                         {% endfor %}
                         </div>
                     </div>
-              <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-12">
+              <div class="col-lg-3 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-12">
                     <div class="sidebar">
-                        <div class="sidebar-widget">
-                    
-                                  {% for details in get_all_years %}
-                                    <li>
-                                        
-                                        <a href="{% url 'lwakiolimulamu_year_archive' year=details.year|floatformat %}?year={{details.year|floatformat}}">{{details.year|floatformat}}</a><br>
-                                        </a>
-                                    </li>
-                                {% endfor %}
+                        <div class="sidebar-widget" style="text-align: center;">
+                                <h3 class="title"> Lwaki Oli Mulamu Conferences</h3>
+                                  
+                                  <div class="jumbotron">
+                                    {% for details in get_all_years %}
+                                    <a class="btn btn-primary font-weight-bold" href="{% url 'lwakiolimulamu_year_archive' year=details.year|floatformat %}?year={{details.year|floatformat}}">{{details.year|floatformat}} Conference</a><hr />
+                                    {% endfor %}
+                                </div>
 
                             </ul>
                         </div>

@@ -88,7 +88,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <!--<h2 class="title" style="text-align: left;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">Gospel Teachings</a></h2> <br>-->
-                <div class="col-lg-8">
+                <div class="col-lg-10">
                     <div class="gallery-carousel owl-carousel" style="background:white">    
                         {% for news in news %}
                             <a href="{% url 'news_detail' news.pk %}">
@@ -110,13 +110,13 @@
                     </div> 
                 </div>
 
-                <div class="col-lg-4"> 
+                <div class="col-lg-2"> 
                     <b style="font-size:19px; text-align: right;"><a href="{% url 'lwakiolimulamu_wall' %}">Archived Lwaki Oli Mulamu Series</a></b> <br>
                     
-            <div class="single-news" style="height: 270px">
-                <div class="content">
+            <div class="single-news">
+                <div class="jumbotron" style="text-align: center;">
                     {%for i in lwaki %}
-                    <a href="{% url 'lwakiolimulamu_year_archive' year=i.year|floatformat %}?year={{i.year|floatformat}}">{{i.year|floatformat}}</a><br>
+                    <a class="btn btn-primary font-weight-bold" href="{% url 'lwakiolimulamu_year_archive' year=i.year|floatformat %}?year={{i.year|floatformat}}">{{i.year|floatformat}} Conference</a><hr />
                     {% endfor %}
                 </div>
             </div>
