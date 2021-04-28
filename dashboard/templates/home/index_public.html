@@ -112,14 +112,14 @@
 
                 <div class="col-lg-4"> 
                     <b style="font-size:19px; text-align: right;"><a href="{% url 'lwakiolimulamu_wall' %}">Archived Lwaki Oli Mulamu Series</a></b> <br>
-                        
-                            <div class="single-news" style="height: 270px">
-                                <div class="content">
-                                    {%for i in lwaki %}
-                                        {{i.year}}
-                                    {% endfor %}
-                                </div>
-                            </div>
+                    
+            <div class="single-news" style="height: 270px">
+                <div class="content">
+                    {%for i in lwaki %}
+                    <a href="{% url 'lwakiolimulamu_year_archive' year=i.year|floatformat %}">{{i.year|floatformat}}</a><br>
+                    {% endfor %}
+                </div>
+            </div>
                 </div>
             </div>
         </div>

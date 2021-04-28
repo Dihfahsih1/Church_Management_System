@@ -64,8 +64,7 @@ def web(request):
     #RUN_EVERY_MONTH=calendar._monthlen(year, month)
     form=ContactForm()
     context = {form:'form'}
-    lwaki = LwakiOliMulamu.objects.extra(select={'year': 'extract( year from date )'}).values('year').annotate(dcount=Count('date')) 
-    print(lwaki)
+    lwaki = LwakiOliMulamu.objects.extra(select={'year': 'extract( year from date )'}).values('year').annotate(dcount=Count('date'))
     try:
         theme = ThemeOfTheYear.objects.get(is_active=True)
         news = News.published.all().order_by('-id')
@@ -3358,9 +3357,12 @@ def lwakiolimulamu_detail(request, pk):
     return render(request, 'lwakiolimulamu/lwakiolimulamu_details.html', context)
 
 def lwakiolimulamu_archives(request, year):
+    
+    year = request.GET.get('year')
+    print(type(year))
     get_all_details = LwakiOliMulamu.objects.filter(date__year=year)
     get_all_years = LwakiOliMulamu.objects.all()
-    paginator = Paginator(more_details, 7) 
+    paginator = Paginator(get_all_details, 7) 
     page = request.GET.get('page')
     try:
         item_list = paginator.page(page)
