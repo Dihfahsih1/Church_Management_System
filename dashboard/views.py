@@ -3358,5 +3358,17 @@ def lwakiolimulamu_detail(request, pk):
 def lwakiolimulamu_archives(request, year):
     get_all_details = LwakiOliMulamu.objects.filter(date__year=year)
     get_all_years = LwakiOliMulamu.objects.all()
-    context = {'get_all_details':get_all_details, 'get_all_years':get_all_years}
-    return render(request,"archive.html", context)
+    paginator = Paginator(more_details, 7) 
+    page = request.GET.get('page')
+    try:
+        item_list = paginator.page(page)
+    except PageNotAnInteger:
+        item_list = paginator.page(1)
+    except EmptyPage:
+        item_list = paginator.page(paginator.num_pages)
+    context = {
+        'page':page,
+        'item_list': item_list,
+        'get_all_details':get_all_details, 'get_all_years':get_all_years
+    }
+    return render(request,"lwakiolimulamu/archives_of_lwakiolimulamu.html", context)
