@@ -116,7 +116,7 @@
             <div class="single-news">
                 <div class="jumbotron" style="text-align: center;">
                     {%for i in lwaki %}
-                    <a class="btn btn-primary font-weight-bold" href="{% url 'lwakiolimulamu_year_archive' year=i.year|floatformat %}?year={{i.year|floatformat}}">{{i.year|floatformat}} Conference</a><hr />
+                    <a class="btn btn-primary font-weight-bold" href="{% url 'lwakiolimulamu_year_archive' year=i.year|floatformat %}?year={{i.year|floatformat}}"><span><i class="fa fa-folder"></i></span> {{i.year|floatformat}} Conference</a><hr />
                     {% endfor %}
                 </div>
             </div>
