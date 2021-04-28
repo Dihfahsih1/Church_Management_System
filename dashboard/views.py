@@ -28,6 +28,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from .tokens import account_activation_token  
 from django.core.mail import EmailMessage,send_mail, BadHeaderError
 from django.views.decorators.clickjacking import xframe_options_exempt
+from django.views.generic.dates import YearArchiveView
 
 #####################===>BEGINNING OF THEME MODULE<===###########################
 class ThemeListView(ListView):
@@ -63,6 +64,7 @@ def web(request):
     form=ContactForm()
     context = {form:'form'}
     try:
+        get_all_years = LwakiOliMulamu.objects.all()
         theme = ThemeOfTheYear.objects.get(is_active=True)
         news = News.published.all().order_by('-id')
         events = Event.published.all().order_by('-id')
@@ -76,7 +78,8 @@ def web(request):
         feeback= Contact.objects.all().order_by('-id')
         pages = Page.objects.all().order_by('-id')
         form=ContactForm()
-        context = {'gospel':gospel,'pages' : pages,'feeback':feeback,'images':images,'events': events,'news': news,'theme':theme,
+        context = {'get_all_years':get_all_years,
+            'gospel':gospel,'pages' : pages,'feeback':feeback,'images':images,'events': events,'news': news,'theme':theme,
         'abouts': abouts,'sliders' :sliders,'members': members, 'employees': employees,'ministry':ministry,form:'form'}
     except:
         form=ContactForm()
@@ -3351,3 +3354,9 @@ def lwakiolimulamu_detail(request, pk):
         'item_list': item_list,
     }
     return render(request, 'lwakiolimulamu/lwakiolimulamu_details.html', context)
+
+def lwakiolimulamu_archives(request, year):
+    get_all_details = LwakiOliMulamu.objects.filter(date__year=year)
+    get_all_years = LwakiOliMulamu.objects.all()
+    context = {'get_all_details':get_all_details, 'get_all_years':get_all_years}
+    return render(request,"archive.html", context)

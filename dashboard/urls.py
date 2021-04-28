@@ -262,5 +262,7 @@ url(r'^Support-receipt/(?P<pk>\d+)', views.supportreceipt.as_view() ,name='suppo
 
 path('cells', views.cells, name='cells'),
 path('groups', views.groups, name='groups'),
+path('lwakiolimulamu/<int:year>',views.lwakiolimulamu_archives,name="year_archive"),
+
 
 ]
