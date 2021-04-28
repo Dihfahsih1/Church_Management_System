@@ -64,15 +64,9 @@ def web(request):
     #RUN_EVERY_MONTH=calendar._monthlen(year, month)
     form=ContactForm()
     context = {form:'form'}
-    lwaki = LwakiOliMulamu.objects.all()
-    years = lwaki.datetimes('date', kind='year')
-    for year in years:
-        yeari = lwaki.filter(date__year=year.year)
-        year_total = yeari.aggregate(total=Sum("id")).get("total")
-        print(f"Year: {year}, Total: {year_total}") 
+    lwaki = LwakiOliMulamu.objects.extra(select={'year': 'extract( year from date )'}).values('year').annotate(dcount=Count('date')) 
+    print(lwaki)
     try:
-
-
         theme = ThemeOfTheYear.objects.get(is_active=True)
         news = News.published.all().order_by('-id')
         events = Event.published.all().order_by('-id')
@@ -86,7 +80,7 @@ def web(request):
         feeback= Contact.objects.all().order_by('-id')
         pages = Page.objects.all().order_by('-id')
         form=ContactForm()
-        context = {'get_all_years':get_all_years,
+        context = { 'lwaki':lwaki,
             'gospel':gospel,'pages' : pages,'feeback':feeback,'images':images,'events': events,'news': news,'theme':theme,
         'abouts': abouts,'sliders' :sliders,'members': members, 'employees': employees,'ministry':ministry,form:'form','year':year}
     except:

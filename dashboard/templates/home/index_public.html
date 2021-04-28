@@ -115,7 +115,9 @@
                         
                             <div class="single-news" style="height: 270px">
                                 <div class="content">
-                                    {{year}}
+                                    {%for i in lwaki %}
+                                        {{i.year}}
+                                    {% endfor %}
                                 </div>
                             </div>
                 </div>
