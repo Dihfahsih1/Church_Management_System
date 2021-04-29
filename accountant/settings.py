@@ -166,11 +166,21 @@ CKEDITOR_CONFIGS = {
     },
 }
 
+####################################
+    ##  CKEDITOR CONFIGURATION ##
+####################################
+
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+
+CKEDITOR_UPLOAD_PATH = 'images/'
 CKEDITOR_IMAGE_BACKEND = "pillow"
-CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
-CKEDITOR_UPLOAD_PATH = "uploads/"
-CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': None,
+    },
+}
+
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 ###################################
