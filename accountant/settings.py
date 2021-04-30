@@ -182,10 +182,8 @@ CKEDITOR_CONFIGS = {
 }
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+####################################TRACKING WEBSITE VISITORS
 
-###################################
-
-#TRACKING WEBSITE VISITORS
 TRACK_AJAX_REQUESTS = True
 TRACK_ANONYMOUS_USERS =True
 TRACK_SUPERUSERS = False
@@ -207,7 +205,7 @@ SECURE_FRAME_DENY               = False
 #Comments app
 PROFILE_APP_NAME = 'users'
 PROFILE_MODEL_NAME = 'UserProfile' # letter case insensitive
-COMMENT_FLAGS_ALLOWED = 5
+COMMENT_FLAGS_ALLOWED = 5 #flag the post only five times            
 COMMENT_FLAG_REASONS = [
     (1, ('Spam | Exists only to promote a service')),
     (2, ('Abusive | Intended at promoting hatred')),
