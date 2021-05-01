@@ -9,15 +9,15 @@ from django.conf.urls.static import static
 from django.conf.urls import url
 from django.contrib.sitemaps.views import sitemap
 from dashboard.sitemaps import GospelSitemap
-
 sitemaps = { 'posts': GospelSitemap}
-
 urlpatterns = [
     path('captcha/', include('captcha.urls')), 
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     
     #Sitemap url
     path('admin/', admin.site.urls),
+    
+    #include dashboard urls
     path('', include('dashboard.urls')),
     re_path('^',include('django.contrib.auth.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),#richtexteditor app
