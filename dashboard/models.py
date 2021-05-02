@@ -877,6 +877,7 @@ lwaki = (
 class LwakiOliMulamu(models.Model):
     date = models.DateField(null=True, blank=True)
     title = models.CharField(max_length=500, blank=True, null=True)
+    topic_or_sub_title = models.CharField(max_length=5000, blank=True, null=True)
     which_type = models.CharField(max_length=100, choices=lwaki, default="No", blank=True, null=True)
     conference_theme = models.ForeignKey(AnnualConference,on_delete=models.CASCADE, max_length=500, blank=True, null=True)
     day = models.CharField(max_length=500, blank=True, null=True)

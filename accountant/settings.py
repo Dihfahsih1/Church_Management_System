@@ -8,13 +8,13 @@ env = environ.Env()
 # reading .env file
 environ.Env.read_env()
 
-
 SECRET_KEY = env("KEY")
 DEBUG = True
 ALLOWED_HOSTS = []
 CORS_ORIGIN_ALLOW_ALL = True
 APPEND_SLASH=True
 SITE_ID = 1
+
 INSTALLED_APPS = [
     'dashboard',
     'tracking',
