@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'django_social_share',
+    'django_comments',
     
     ]
 #captcha properties
