@@ -1,6 +1,6 @@
 {% extends 'home/base.html' %}
 {% load static  %} 
-
+{% load comments %}
 <body>
 {% block content %}
 
@@ -42,8 +42,28 @@
                         </audio>
                         {% endif %}
                         <p class="text" >{{ news.news|safe }}</p>
+                        {% get_comment_count for news as comment_count %}
+                        <div class="py-4 text-center">
+                        <a href="{% url 'news_wall' %}">Back to the post list</a>
+                        &nbsp;&sdot;&nbsp;
+                        {{ comment_count }} comment{{ comment_count|pluralize }}
+                        ha{{ comment_count|pluralize:"s,ve" }} been posted.
+                        </div>
 
-                    
+                        {% if comment_count %}
+                            <hr/>
+                            <div class="comments">
+                            {% render_comment_list for news %}
+                            </div>
+                        {% endif %}
+                        
+
+                        <div class="card card-block mb-5">
+                            <div class="card-body">
+                                <h4 class="card-title text-center pb-3">Post your comment</h4>
+                                {% render_comment_form for news %}
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-12">

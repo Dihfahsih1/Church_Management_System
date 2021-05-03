@@ -40,7 +40,21 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'django_social_share',
+    'django_comments_xtd',
+    'django_comments',
     ]
+COMMENTS_APP = 'django_comments_xtd'
+#  To help obfuscating comments before they are sent for confirmation.
+COMMENTS_XTD_SALT = (b"Please confirm this comment. "
+                     b"This has been commented through the website.")
+
+# Source mail address used for notifications.
+COMMENTS_XTD_FROM_EMAIL = "church@uccbwaise.org"
+
+# Contact mail address to show in messages.
+COMMENTS_XTD_CONTACT_EMAIL = "church@uccbwaise.org"
+
+
 #captcha properties
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 TEXT_ADDITIONAL_TAGS = ('iframe',)
@@ -200,24 +214,6 @@ SECURE_HSTS_SECONDS             = None
 SECURE_HSTS_INCLUDE_SUBDOMAINS  = False
 SECURE_FRAME_DENY               = False
 
-#Comments app
-PROFILE_APP_NAME = 'users'
-PROFILE_MODEL_NAME = 'UserProfile' # letter case insensitive
-COMMENT_FLAGS_ALLOWED = 5 #flag the post only five times            
-COMMENT_FLAG_REASONS = [
-    (1, ('Spam | Exists only to promote a service')),
-    (2, ('Abusive | Intended at promoting hatred')),
-    (3, ('Racist | Sick mentality')),
-    (4, ('Whatever | Your reason')),
-]
-
-COMMENT_ALLOW_ANONYMOUS = True
-COMMENT_FROM_EMAIL = 'church@uccbwaise.org'   # used for sending confirmation emails, if not set `EMAIL_HOST_USER` will be used.
-
-COMMENT_USE_GRAVATAR =True
-COMMENT_ALLOW_SUBSCRIPTION = True
-
-COMMENT_USE_EMAIL_FIRST_PART_AS_USERNAME = True
 
 SOCIALACCOUNT_AUTO_SIGNUP = True
 SOCIALACCOUNT_EMAIL_REQUIRED = True

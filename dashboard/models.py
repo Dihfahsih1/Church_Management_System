@@ -182,6 +182,10 @@ class User(AbstractBaseUser , PermissionsMixin):
     def __str__(self):
         return str(self.username)
     
+    @property
+    def get_full_name(self):
+        return str(self.full_name)
+    
     def get_absolute_url(self):
         return reverse('news_detail', args=[self.pk])   
     
