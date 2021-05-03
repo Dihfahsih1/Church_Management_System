@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django_comments_xtd',
     'django_comments',
     ]
+
+COMMENTS_XTD_CONFIRM_EMAIL = False
 COMMENTS_APP = 'django_comments_xtd'
 #  To help obfuscating comments before they are sent for confirmation.
 COMMENTS_XTD_SALT = (b"Please confirm this comment. "

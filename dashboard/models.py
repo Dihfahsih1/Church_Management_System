@@ -180,11 +180,11 @@ class User(AbstractBaseUser , PermissionsMixin):
     published = PublishedStatusManager()
     
     def __str__(self):
-        return str(self.username)
+        return self.username
     
     @property
     def get_full_name(self):
-        return str(self.full_name)
+        return self.email
     
     def get_absolute_url(self):
         return reverse('news_detail', args=[self.pk])   

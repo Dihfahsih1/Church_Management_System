@@ -53,7 +53,7 @@ urlpatterns = [
     
     url(r'^Reseting-Password/(?P<user_pk>\d+)/password/reset/$', user_views.reset_user_password, name='reset_user_password'),
     #comments url 
-    path(r'comments/', include('django_comments_xtd.urls')),
+    path('comments/', include('django_comments_xtd.urls')),
     
 ]
 
