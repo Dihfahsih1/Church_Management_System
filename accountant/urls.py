@@ -53,8 +53,6 @@ urlpatterns = [
     
     url(r'^Reseting-Password/(?P<user_pk>\d+)/password/reset/$', user_views.reset_user_password, name='reset_user_password'),
     
-    path('comment/', include('comment.urls')),
-    path('api/', include('comment.api.urls')),  # only required for API Framework
     
 ]
 

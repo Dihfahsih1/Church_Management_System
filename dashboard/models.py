@@ -12,8 +12,6 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.contenttypes.fields import GenericRelation
 
-from comment.models import Comment
-
 services = (('Sunday First Service','Sunday First Service'),('Sunday Second Service','Sunday Second Service'),('Sunday Third Service','Sunday Third Service'), 
          ('All Sunday Services','All Sunday Services'),('Unspecified Service','Unspecified Service'),
         ('Home Cell Service','Home Cell Service'),('Youth Service','Youth Service'),('Wednesday Service','Wednesday Service'),
@@ -676,7 +674,6 @@ class News(models.Model):
     image = models.ImageField(upload_to='images/', max_length=10000, null=True, blank=True)
     audio_file = models.FileField(upload_to='audios/',max_length=10000, null=True, blank=True)
     news = RichTextUploadingField()
-    comments = GenericRelation(Comment)
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS)
     author = models.CharField(max_length=1003, null=True, blank=True, default="Preacher")
     objects = models.Manager()
