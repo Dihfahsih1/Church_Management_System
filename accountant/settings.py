@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django_comments_xtd',
     'django_comments',
     ]
+COMMENTS_XTD_DEFAULT_FOLLOWUP = True
 
 COMMENTS_XTD_CONFIRM_EMAIL = False
 COMMENTS_APP = 'django_comments_xtd'
