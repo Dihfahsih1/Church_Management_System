@@ -1,6 +1,5 @@
 {% extends 'home/base.html' %}
-{% load static  %}
-{% load comments %} {# Loading the template tag #}
+{% load static  %} 
 
 <body>
 {% block content %}
@@ -43,17 +42,8 @@
                         </audio>
                         {% endif %}
                         <p class="text" >{{ news.news|safe }}</p>
-                        
-                        {{% get_comment_count for news as comment_count %}
-                        <p>{{ comment_count }} comments have been posted.</p>
-                        {% render_comment_list for news %}
-                        {% for comment in comment_list %}
-                            <p>Posted by: {{ comment.user_name }} on {{ comment.submit_date }}</p>
-                            
-                            <p>Comment: {{ comment.comment }}</p>
-                        {% endfor %}
 
-                        {% render_comment_form for entry %}
+                    
                     </div>
                 </div>
                 <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-12">

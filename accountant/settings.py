@@ -40,8 +40,6 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'django_social_share',
-    'django_comments',
-    
     ]
 #captcha properties
 X_FRAME_OPTIONS = 'SAMEORIGIN'
