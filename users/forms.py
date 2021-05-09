@@ -2,7 +2,6 @@ from django import forms
 from dashboard.models import User
 from dashboard.views import *
 
-
 """form for creating a system user from the dashboard"""
 class RegisterForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
