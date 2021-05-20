@@ -45,6 +45,7 @@ def reset_user_password(request, user_pk):
     context = {'mod_user': user,
                'password': password}
     return render(request, 'users/home/reset_user_password.html', context)
+
 @login_required
 def view_profile(request):
     context={}
