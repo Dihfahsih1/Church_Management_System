@@ -86,9 +86,10 @@ def edit_profile(request):
         args = {'form': form}
         return render(request, 'users/home/update_profile.html', args) 
 
-#create an account for user from the dashboard
+
 @login_required
 def register(request):
+    '''create an account for user from the dashboard'''
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         print(form.errors)
@@ -149,7 +150,7 @@ def delete_user(request,pk):
     messages.success(request, "The User successfully deleted!")
     return redirect("register")
     
-#updating the system users.
+ 
 @login_required
 def update_system_user(request, user_pk):
     user = get_object_or_404(User, pk=user_pk)
@@ -167,7 +168,6 @@ def update_system_user(request, user_pk):
         form = RegisterForm(instance=user)
         args = {'form': form,}
         return render(request, 'users/home/user_update.html', args)
-
 
 @login_required
 def church_user_account(request, user_pk):
