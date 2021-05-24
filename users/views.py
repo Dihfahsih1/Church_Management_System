@@ -33,8 +33,9 @@ class UserPasswordChangeView(LoginRequiredMixin, View):
             messages.success(request, f'Password updated successfully.')
         return render(request, self.template_name, {'form': form})
 
-'''Reset user password'''
+
 def reset_user_password(request, user_pk):
+    '''Reset user password'''
     user = get_object_or_404(User, pk=user_pk)
     if not request.user.is_authenticated:
         return HttpResponseForbidden()
