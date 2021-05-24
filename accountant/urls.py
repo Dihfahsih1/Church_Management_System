@@ -13,15 +13,12 @@ sitemaps = { 'posts': GospelSitemap}
 urlpatterns = [
     path('captcha/', include('captcha.urls')), 
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
-    
-    #Sitemap url
+ 
     path('admin/', admin.site.urls),
-    
-    #include dashboard urls
     path('', include('dashboard.urls')),
     re_path('^',include('django.contrib.auth.urls')),
-    path('ckeditor/', include('ckeditor_uploader.urls')),#richtexteditor app
-    url(r'^tracking/', include('tracking.urls')),#site tracking app
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+    url(r'^tracking/', include('tracking.urls')), 
     
     ################# CHURCH WEBSITE USER PROFILE ####################
     path('register/', user_views.MemberAccountRegister, name='MemberAccountRegister'),
@@ -52,6 +49,7 @@ urlpatterns = [
         name='password_reset_confirm'),
     
     url(r'^Reseting-Password/(?P<user_pk>\d+)/password/reset/$', user_views.reset_user_password, name='reset_user_password'),
+    
     #comments url 
     path('comments/', include('django_comments_xtd.urls')),
     
