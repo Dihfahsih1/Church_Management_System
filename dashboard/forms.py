@@ -262,3 +262,8 @@ class NewConvertForm(forms.ModelForm):
             'member_name': autocomplete.ModelSelect2(url='auto-complete',
             attrs={'data-placeholder': 'Type here the name....', 'data-minimum-input-length': 3})
         }
+        
+class BlogForm(forms.ModelForm):
+    class Meta:
+        model = Blog
+        fields = ['author', 'title', 'details', 'image','reference_link']

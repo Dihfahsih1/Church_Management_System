@@ -3375,3 +3375,49 @@ def lwakiolimulamu_archives(request, year):
         'get_all_details':get_all_details, 'get_all_years':get_all_years
     }
     return render(request,"lwakiolimulamu/archives_of_lwakiolimulamu.html", context)
+
+############# Blog Module ##################
+def add_blogpost(request):
+    #user = Profile.objects.get(user=request.user)
+    forms = BlogForm(request.POST or None)
+    if request.method == 'POST':
+        if forms.is_valid():
+            forms.save()
+            return redirect('BlogPosts')
+    context = {
+            'form': forms
+        }
+    return render(request, 'blog/add_blogpost.html', context)
+
+def list_blogs(request):
+    posts = Blog.objects.all().order_by('-created_at')
+    context = {
+            'posts': posts
+        }
+    return render(request, 'blog/blogs-list.html', context)
+
+def BlogPosts(request):
+    blogposts = Blog.objects.all().order_by('-created_at')
+    context = {'blogposts':blogposts, }
+    return render(request, 'blog/blogposts.html',context)
+
+def BlogPost_detail(request, pk):
+    blogposts = Blog.objects.get(id=pk)
+    context = {'blogposts':blogposts, }
+    return render(request, 'blog/blogpost_details.html',context)
+
+def blog_wall(request):
+    blogs = Blog.all().order_by('-date')
+    paginator = Paginator(blogs, 6)
+    page = request.GET.get('page')
+    try:
+       blog_list = paginator.page(page)
+    except PageNotAnInteger:
+        blog_list = paginator.page(1)
+    except EmptyPage:
+        blog_list = paginator.page(paginator.num_pages)
+    context={'page':page, 'blog_list': blog_list}
+    return render(request, 'blog/blogs_wall.html', context)
+    
+
+

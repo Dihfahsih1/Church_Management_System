@@ -925,6 +925,21 @@ class ThemeOfTheYear(models.Model):
         return self.title
 
 
+class Blog(models.Model):
+    author = models.CharField(max_length=1200, blank=True, null=True)
+    title = models.CharField(max_length=1200, blank=True, null=True)
+    image = models.ImageField(upload_to='blog/',blank=True, null=True)
+    date=models.DateTimeField(auto_now_add=True)
+    details =RichTextUploadingField()
+    reference_link = models.CharField(max_length=120000, blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+    
+
+    
+
+
 # class LwakiOliMulamu(models.Model):
 #     title = models.CharField(max_length=150)
 #     date = models.DateField(auto_now_add=True)

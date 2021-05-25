@@ -264,5 +264,12 @@ path('cells', views.cells, name='cells'),
 path('groups', views.groups, name='groups'),
 path('lwakiolimulamu_archives/<str:year>',views.lwakiolimulamu_archives,name="lwakiolimulamu_year_archive"),
 
+#Blog Module
+path('create-blogpost/', views.add_blogpost, name="blog"),
+path('blog-posts/', views.list_blogs, name="blogposts"),
+path('blogs', views.BlogPosts, name="Blog_Posts"),
+path('christian-blogs', views.blog_wall, name="blogs_wall"),
+path('blogs/<int:pk>/details', views.BlogPost_detail, name="BlogPost_detail"),
+
 
 ]

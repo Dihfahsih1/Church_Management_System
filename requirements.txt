@@ -29,6 +29,7 @@ django-simple-captcha==0.5.13
 django-social-share==2.2.1
 django-tracking2==0.5.0
 django-widget-tweaks==1.4.8
+djangorestframework==3.12.4
 docutils==0.16
 fleep==1.0.1
 future==0.18.2
@@ -46,11 +47,13 @@ prompt-toolkit==3.0.16
 psycopg2-binary==2.8.6
 pycparser==2.20
 Pygments==2.8.0
+pymemcache==3.4.1
 pyparsing==2.4.7
 PyPDF2==1.26.0
 pyquery==1.4.3
 python-bidi==0.4.2
 python-dateutil==1.5
+python-memcached==1.59
 python-utils==2.5.6
 pytz==2021.1
 readme-renderer==28.0

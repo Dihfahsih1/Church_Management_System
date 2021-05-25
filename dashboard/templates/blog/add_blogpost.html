@@ -1,0 +1,51 @@
+
+
+{% extends "oscar/layout_2_col.html" %}
+
+{% load basket_tags %}
+{% load category_tags %}
+{% load product_tags %}
+{% load i18n %}
+{% block content %}
+{% load crispy_forms_tags %
+<h3>Create a Blog Post</h3>
+<form method="post" enctype="multipart/form-data" action="">
+    <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-10">
+                        <h2>Blog Posts Info</h2>
+                    </div>
+                    <div class="col-md-2">
+                        <a class="btn btn-success" href="{% url 'list-posts' %}">Blog List</a>
+                    </div>
+                </div>
+            </div>
+            {% csrf_token %}
+            <div class="form-row">
+                <input type="hidden" value="{{request.user}}" name="author">
+                <div class="form-group col-lg-3">
+                    {{ form.title|as_crispy_field }}
+                </div>
+                <div class="form-group col-lg-3">
+                    {{ form.image|as_crispy_field }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-lg-12">
+                    {{ form.details|as_crispy_field }}
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary text-center">Add Post</button>
+            </div>
+    </div>
+  </form>
+
+{% endblock content %}
+
+{% block onbodyload %}
+    {{ block.super }}
+    oscar.search.init();
+{% endblock %}

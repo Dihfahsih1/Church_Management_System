@@ -1,0 +1,62 @@
+
+
+{% extends "oscar/layout_2_col.html" %}
+
+{% load basket_tags %}
+{% load category_tags %}
+{% load product_tags %}
+{% load i18n %}
+{% block content %}
+{% load crispy_forms_tags %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h2>Blog Posts Info</h2>
+                        </div>
+                        <div class="col-md-2">
+                            <a class="btn btn-success" href="{% url 'add-blogpost' %}">Add Blog</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    {% if posts %}
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Title</th>
+                                <th>Details</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for post in posts %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>{{ post.created_at }}</td>
+                                <td>{{ post.title }}</td>
+                                <td>{{ post.details|truncatewords:20|safe }}</td>
+                                <td><a href="{% url 'update-post' post.id %}"><i class="fa fa-pencil"></i> </a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <p>No posts</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block onbodyload %}
+    {{ block.super }}
+    oscar.search.init();
+{% endblock %}
+
+
