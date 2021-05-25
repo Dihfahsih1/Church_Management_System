@@ -28,7 +28,7 @@
                         </div>
 
                         <ul class="meta">
-                            <li class="info"><span class="icon"><i class="fa fa-user"></i></span> By / {{ blogposts.author }}
+                            <li class="info"><span class="icon"><i class="fa fa-user"></i></span> By: {{ blogposts.author }}
                             </li>
                             <li class="info"><span class="icon"><i class="fa fa-calendar"></i></span> {{ blogposts.date }}
                             </li>
@@ -37,9 +37,10 @@
                         <h2 class="title">{{ blogposts.title }}</h2>
                      
                         <p class="text" >{{ blogposts.details|safe }}</p>
+                        <p class="text" >Recommended Resource: {{ reference_link }}</p>
                         {% get_comment_count for blogposts as comment_count %}
                         <div class="py-4 text-center">
-                        <a href="{% url 'blog_list' %}">Back to the post list</a>
+                        <a href="{% url 'blogs_wall' %}">Back to the Blog list</a>
                         &nbsp;&sdot;&nbsp;
                         {{ comment_count }} comment{{ comment_count|pluralize }}
                         ha{{ comment_count|pluralize:"s,ve" }} been posted.
@@ -90,14 +91,14 @@
                                 {% endfor %}
                             </ul>
                         </div>
-                        {% if news_list.has_other_pages %}
+                        {% if blogs_list.has_other_pages %}
                         <nav aria-label="Page navigation conatiner" style="text-align: center">
                             <ul class="pagination justify-content-center">
-                                {% if news_list.has_previous %}
-                                <li><a href="?page={{ news_list.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+                                {% if blogs_list.has_previous %}
+                                <li><a href="?page={{ blogs_list.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
                                 {% endif %}
-                                {% if news_list.has_next %}
-                                <li><a href="?page={{ news_list.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+                                {% if blogs_list.has_next %}
+                                <li><a href="?page={{ blogs_list.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
                                 {% endif %}
                             </ul>
                         </nav>

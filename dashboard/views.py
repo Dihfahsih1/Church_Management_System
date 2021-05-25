@@ -3403,7 +3403,16 @@ def BlogPosts(request):
 
 def BlogPost_detail(request, pk):
     blogposts = Blog.objects.get(id=pk)
-    context = {'blogposts':blogposts, }
+    more_blogs = Blog.objects.all().order_by('-date')
+    paginator = Paginator(more_blogs, 10) 
+    page = request.GET.get('page')
+    try:
+       blogs_list = paginator.page(page)
+    except PageNotAnInteger:
+        blogs_list = paginator.page(1)
+    except EmptyPage:
+        blogs_list = paginator.page(paginator.num_pages)
+    context={'blogposts':blogposts,'page':page, 'blogs_list': blogs_list, 'more_blogs': more_blogs}
     return render(request, 'blog/blogpost_details.html',context)
 
 def blog_wall(request):
