@@ -1,6 +1,9 @@
 from django.conf.urls import url
 from django.urls import reverse,path
 from . import views
+from django.conf.urls import (
+handler400, handler403, handler404, handler500
+)
 
 urlpatterns=[
 ######################============>CHURCH SYSTEM URLS<=========#####################
@@ -273,3 +276,5 @@ path('<slug:slug>', views.BlogPost_detail, name="BlogPost_detail"),
 
 
 ]
+
+

@@ -30,6 +30,10 @@ from django.core.mail import EmailMessage,send_mail, BadHeaderError
 from django.views.decorators.clickjacking import xframe_options_exempt 
 from django.db.models.functions import ExtractYear
 
+def view_404(request, exception=None):
+    # make a redirect to homepage
+    # you can use the name of url or just the plain link
+    return redirect('index_public') # or redirect('name-of-index-url')
 
 #####################===>BEGINNING OF THEME MODULE<===###########################
 class ThemeListView(ListView):
