@@ -932,9 +932,13 @@ class Blog(models.Model):
     date=models.DateTimeField(auto_now_add=True)
     details =RichTextUploadingField()
     reference_link = models.CharField(max_length=120000, blank=True, null=True)
+    slug = models.SlugField(null=True , unique=True)
 
     def __str__(self):
         return self.title
+    
+    def get_absolute_url(self):
+        return reverse('BlogPost_detail', kwargs={'slug': self.slug})
     
 
     

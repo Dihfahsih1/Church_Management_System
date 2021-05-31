@@ -50,3 +50,7 @@ admin.site.register(AnnualConference)
 admin.site.register(UserRole)
 admin.site.register(ThemeOfTheYear)
 admin.site.register(LwakiOliMulamu)
+
+class BlogAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('title',)}
+admin.site.register(Blog, BlogAdmin)

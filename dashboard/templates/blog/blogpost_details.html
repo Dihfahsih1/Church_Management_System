@@ -9,7 +9,7 @@
             <h2 class="title">Christian Blog</h2>
             <ul class="links">
                 <li><a href="{% url 'index_public' %}">Home</a></li>
-                <li><a href="{% url 'list_blogs' %}">Blogs</a></li>
+                <li><a href="{% url 'blogs_wall' %}">Blogs</a></li>
                 <li><a href="javascript:void(0);">Blog Detail</a></li>
             </ul>
         </div>
@@ -70,7 +70,7 @@
                             <ul class="widget-news">
                                 {% for blogposts in blog_list %}
                                     <li>
-                                        <a href="{% url 'BlogPost_detail' blogposts.pk %}">
+                                        <a href="{% url 'BlogPost_detail' blogposts.slug %}">
                                          <span class="img">
                                              {% if news.image %}
                                                  <img src="{{ blogposts.image.url }}" alt="">

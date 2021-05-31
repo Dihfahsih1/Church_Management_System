@@ -3401,8 +3401,8 @@ def BlogPosts(request):
     context = {'blogposts':blogposts, }
     return render(request, 'blog/blogposts.html',context)
 
-def BlogPost_detail(request, pk):
-    blogposts = Blog.objects.get(id=pk)
+def BlogPost_detail(request, slug):
+    blogposts = get_object_or_404(Blog, slug=slug)
     more_blogs = Blog.objects.all().order_by('-date')
     paginator = Paginator(more_blogs, 10) 
     page = request.GET.get('page')
@@ -3416,7 +3416,7 @@ def BlogPost_detail(request, pk):
     return render(request, 'blog/blogpost_details.html',context)
 
 def blog_wall(request):
-    blogs = Blog.all().order_by('-date')
+    blogs = Blog.objects.all().order_by('-date')
     paginator = Paginator(blogs, 6)
     page = request.GET.get('page')
     try:
