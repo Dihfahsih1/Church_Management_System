@@ -197,7 +197,7 @@ url(r'^Articles/$', views.news_wall, name='news_wall'),
 url(r'^Articles/add/$', views.NewsCreateView.as_view(), name='news_create'),
 url(r'^Articles/update/(?P<news_pk>\d+)/$', views.NewsUpdate, name='news_update'),
 url(r'^Articles/view/(?P<news_pk>\d+)/$', views.news_view, name='news_view'),
-url(r'^Articles/artcle-detail/(?P<news_pk>\d+)/$', views.news_detail, name='news_detail'),
+path('Gospel/<slug:slug>', views.news_detail, name='news_detail'),
 url(r'^Articles/delete/(?P<news_pk>\d+)/$', views.news_delete, name='news_delete'),
 #events
 url(r'^event/index/$', views.EventListView.as_view(), name='event_list'),
@@ -272,7 +272,7 @@ path('create-blogpost/', views.add_blogpost, name="blog"),
 path('blog-posts/', views.list_blogs, name="blogposts"),
 path('blogs', views.BlogPosts, name="Blog_Posts"),
 path('christian-blogs', views.blog_wall, name="blogs_wall"),
-path('<slug:slug>', views.BlogPost_detail, name="BlogPost_detail"),
+path('<blogs/slug:slug>', views.BlogPost_detail, name="BlogPost_detail"),
 
 
 ]
