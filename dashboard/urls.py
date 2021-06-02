@@ -99,7 +99,6 @@ url(r'^Reports/Other-Sources/List', views.donations_report, name='donations-repo
 url(r'^Revenue/Other-Sources/Edit/(?P<pk>\d+)', views.edit_donation,name='edit-donation'),
 url(r'^pledgespdf/', views.pledgespdf.as_view() ,name='pledgespdf'),
 
-
 # url(r'^Archived/Pledge-Debt/Receipt/(?P<pk>\d+)', views.settled_archived_pledge_receipt.as_view() ,name='settled-pledge-receipt'),
 url(r'^Archived/Pledge-Debt/Invoice/(?P<pk>\d+)', views.pledge_debt_invoice.as_view() ,name='pledge-invoice'),
 url(r'^pledgesreceipt/(?P<pk>\d+)', views.pledgesreceipt.as_view() ,name='pledgesreceipt'),
@@ -140,7 +139,7 @@ url(r'^Employees/Salary/Paid-List/', views.current_month_salary_paid, name='curr
 url(r'^Petty-Expenses/Airtime/', views.airtime_data_report, name='airtime-data-report'),
 url(r'^Employee/Salary/Delete/(?P<pk>\d+)', views.delete_salary_paid,name='delete-salary-paid'),
 
-########################=======>WEBSITE URLS<=======#################################
+#######===>WEBSITE URLS<===#######
 url(r'^$', views.web, name='index_public'),
 url(r'^feedback', views.contact, name='contact'),
 url(r'^System', views.index, name='index'),
@@ -199,6 +198,7 @@ url(r'^Articles/update/(?P<news_pk>\d+)/$', views.NewsUpdate, name='news_update'
 url(r'^Articles/view/(?P<news_pk>\d+)/$', views.news_view, name='news_view'),
 path('Gospel/<slug:slug>', views.news_detail, name='news_detail'),
 url(r'^Articles/delete/(?P<news_pk>\d+)/$', views.news_delete, name='news_delete'),
+
 #events
 url(r'^event/index/$', views.EventListView.as_view(), name='event_list'),
 url(r'^event/$', views.event_wall, name='event_wall'),
@@ -257,11 +257,12 @@ path('New-Converts', views.record_new_convert, name='record_new_convert'),
 path('List-New-Converts', views.new_converts_list, name='new_converts_list'),
 path('<int:pk>/', views.edit_new_convert, name='edit_new_convert'),
 
-# SUPPORT MODULE
+#SUPPORT MODULE
 url(r'^Ministry-Support/', views.Supportreport, name='Supportreport'),
 url(r'^Revenues/Member-Support/(?P<pk>\d+)', views.record_member_support, name='record-member-support'),
 path('Support-Edit/<str:pk>/', views.edit_support, name='edit-support'),
 url(r'^Support-receipt/(?P<pk>\d+)', views.supportreceipt.as_view() ,name='supportreceipt'),
+
 
 path('cells', views.cells, name='cells'),
 path('groups', views.groups, name='groups'),
