@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>UCC Bwaise</title>
+    </head>
+    <body>
+        <h2 style="color:red">Creator's Mind International Ministry</h2>
+        <br />
+
+        {% for name in get_all_members %}
+            <h3>Dear {{ name.Initials }}. {{name.First_Name}} {{name.First_Name}}</h3> 
+
+
+
+        {% endfor %}
+        <p>
+            Praise the name of God, we wish you all the best.
+        </p>
+
+       
+    </body>
+</html>

@@ -15,6 +15,7 @@ from .models import *
 from time import strptime
 from .render import Render
 from django.template.loader import render_to_string
+from django.core.mail import EmailMultiAlternatives
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.contrib.auth import update_session_auth_hash, login
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -66,6 +67,7 @@ def web(request):
     year = date.year
     #da= date.day
     #RUN_EVERY_MONTH=calendar._monthlen(year, month)
+
     form=ContactForm()
     context = {form:'form'}
     lwaki = LwakiOliMulamu.objects.extra(select={'year': 'extract( year from date )'}).values('year').annotate(dcount=Count('date'))
@@ -3432,5 +3434,19 @@ def blog_wall(request):
     context={'page':page, 'blog_list': blog_list}
     return render(request, 'blog/blogs_wall.html', context)
     
-
-
+def sendemail(request):
+    #get_all_members = Members.objects.filter(is_active=True).exclude(Email='email@email.com').values_list("Email", flat=True)
+    get_all_members = Members.objects.filter(Email='dihfahsihm@gmail.com')
+    church_email = 'church@uccbwaise.org'
+    recipients = list(i for i in get_all_members if bool(i))
+    
+    html_content = render_to_string('notification.html',{'get_all_members':get_all_members})
+    
+    subject="Communication From UCC Bwaise"
+    
+    from_email = church_email
+    message = EmailMultiAlternatives(subject, from_email, bcc=recipients)
+    message.attach_alternative(html_content, "text/html")
+    message.send()
+    
+    return redirect('/')

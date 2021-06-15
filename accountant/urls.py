@@ -10,7 +10,7 @@ from django.conf.urls import url
 from django.contrib.sitemaps.views import sitemap
 from dashboard.sitemaps import GospelSitemap
 sitemaps = { 'posts': GospelSitemap}
-handler404 = 'dashboard.views.view_404' 
+#handler404 = 'dashboard.views.view_404' 
 urlpatterns = [
     path('captcha/', include('captcha.urls')), 
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),

@@ -273,7 +273,8 @@ path('create-blogpost/', views.add_blogpost, name="blog"),
 path('blog-posts/', views.list_blogs, name="blogposts"),
 path('blogs', views.BlogPosts, name="Blog_Posts"),
 path('christian-blogs', views.blog_wall, name="blogs_wall"),
-path('<blogs/slug:slug>', views.BlogPost_detail, name="BlogPost_detail"),
+path('<slug:slug>', views.BlogPost_detail, name="BlogPost_detail"),
+path('sendemail/', views.sendemail, name="sendemail"),
 
 
 ]
