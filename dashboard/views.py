@@ -3442,7 +3442,7 @@ def search_tagged_blogs(request):
 
     get_all_posts = Blog.objects.filter(tags__name=qs).order_by('-date')
     
-    context={'get_all_posts':get_all_posts}
+    context={'get_all_posts':get_all_posts, 'qs':qs}
     return render(request,'blog/blogs_searched.html', context)
     
 def sendemail(request):
