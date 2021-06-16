@@ -266,4 +266,4 @@ class NewConvertForm(forms.ModelForm):
 class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
-        fields = ['author', 'title', 'details', 'image','reference_link']
+        fields = ['author', 'title', 'details', 'image','reference_link','tags']

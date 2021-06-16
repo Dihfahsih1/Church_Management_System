@@ -45,7 +45,6 @@ admin.site.register(Event)
 admin.site.register(Expenditures)
 admin.site.register(Ministry)
 admin.site.register(About)
-admin.site.register(News)
 admin.site.register(AnnualConference)
 admin.site.register(UserRole)
 admin.site.register(ThemeOfTheYear)
@@ -54,3 +53,7 @@ admin.site.register(LwakiOliMulamu)
 class BlogAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
 admin.site.register(Blog, BlogAdmin)
+
+class NewsAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('news_title',)}
+admin.site.register(News)

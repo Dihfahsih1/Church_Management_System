@@ -91,7 +91,7 @@
                 <div class="col-lg-10">
                     <div class="gallery-carousel owl-carousel" style="background:white">    
                         {% for news in news %}
-                            <a href="{% url 'news_detail' news.pk %}">
+                            <a href="{% url 'news_detail' news.slug %}">
                                 <div class="single-gallery" style="background:white; height:250px">
                                     {% if news.image %}
                                     <img src="{{ news.image.url }}" alt="">

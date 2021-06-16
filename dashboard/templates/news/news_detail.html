@@ -43,7 +43,9 @@
                         {% endif %}
                         <p class="text" >{{ news.news|safe }}</p>
                         <hr >
-                        <button class="btn btn-default">{{news.tags}}</button>
+                        {% for tag in news.tags.all %}
+                            <button class="btn btn-default" style="text-decoration:None"> #{{ tag }} </button>
+                        {% endfor %}<hr >
                         {% get_comment_count for news as comment_count %}
                         <div class="py-4 text-center">
                         <a href="{% url 'news_wall' %}">Back to the post list</a>

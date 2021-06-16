@@ -276,6 +276,8 @@ path('christian-blogs', views.blog_wall, name="blogs_wall"),
 path('<slug:slug>', views.BlogPost_detail, name="BlogPost_detail"),
 path('sendemail/', views.sendemail, name="sendemail"),
 
+path('search_tagged_blogs/', views.search_tagged_blogs, name="search_tagged_blogs")
+
 
 ]
 

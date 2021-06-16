@@ -37,7 +37,13 @@
                         <h2 class="title">{{ blogposts.title }}</h2>
                      
                         <p class="text" >{{ blogposts.details|safe }}</p>
-                        <p class="text" >Recommended Resource: {{ reference_link }}</p>
+                       <p>
+                           Tags
+                           {% for tag in blogposts.tags.all %}
+                                <a href="{% url 'search_tagged_blogs' %}?q={{tag}}" style="text-decoration:none">{{ tag }} </a>
+                             {% endfor %}
+                        </p> 
+                        <hr >
                         {% get_comment_count for blogposts as comment_count %}
                         <div class="py-4 text-center">
                         <a href="{% url 'blogs_wall' %}">Back to the Blog list</a>

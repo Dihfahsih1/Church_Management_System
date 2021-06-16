@@ -2177,8 +2177,11 @@ def news_view(request, news_pk):
         form = NewsForm(instance=news)
     return save_news_form(request, form, 'news/includes/partial_news_view.html')
 
-def news_detail(request, news_pk):
-    news = get_object_or_404(News, pk=news_pk)
+
+    
+def news_detail(request, slug):
+    
+    news = get_object_or_404(News,slug=slug)
     more_news = News.published.order_by('-date')
     paginator = Paginator(more_news, 10) 
     page = request.GET.get('page')
@@ -3433,6 +3436,14 @@ def blog_wall(request):
         blog_list = paginator.page(paginator.num_pages)
     context={'page':page, 'blog_list': blog_list}
     return render(request, 'blog/blogs_wall.html', context)
+
+def search_tagged_blogs(request):        
+    qs=str(request.GET.get('q'))
+
+    get_all_posts = Blog.objects.filter(tags__name=qs).order_by('-date')
+    
+    context={'get_all_posts':get_all_posts}
+    return render(request,'blog/blogs_searched.html', context)
     
 def sendemail(request):
     #get_all_members = Members.objects.filter(is_active=True).exclude(Email='email@email.com').values_list("Email", flat=True)

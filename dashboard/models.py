@@ -681,6 +681,7 @@ class News(models.Model):
     news = RichTextUploadingField()
     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS)
     author = models.CharField(max_length=1003, null=True, blank=True, default="Preacher")
+    slug = models.SlugField(null=True , unique=True)
     tags = TaggableManager()
     objects = models.Manager()
     published = PublishedStatusManager()
@@ -694,7 +695,7 @@ class News(models.Model):
         return self.news_title
 
     def get_absolute_url(self):
-        return reverse('news_detail', args=[self.pk])        
+        return reverse('news_detail', kwargs={'slug': self.slug})       
 
 class Event(models.Model):
     activity =(('Events','Events'), ('Church_Program','Church_Program'))
@@ -935,6 +936,7 @@ class Blog(models.Model):
     details =RichTextUploadingField()
     reference_link = models.CharField(max_length=120000, blank=True, null=True)
     slug = models.SlugField(null=True , unique=True)
+    tags = TaggableManager()
 
     def __str__(self):
         return self.title
