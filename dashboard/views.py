@@ -3436,14 +3436,15 @@ def blog_wall(request):
     
 def sendemail(request):
     #get_all_members = Members.objects.filter(is_active=True).exclude(Email='email@email.com').values_list("Email", flat=True)
-    get_all_members = Members.objects.filter(Email='dihfahsihm@gmail.com')
-    church_email = 'church@uccbwaise.org'
+    get_all_members = Members.objects.filter(Email='dihfahsihm@gmail.com').values_list("Email", flat=True)
+    
     recipients = list(i for i in get_all_members if bool(i))
+    print(recipients)
     
     html_content = render_to_string('notification.html',{'get_all_members':get_all_members})
     
     subject="Communication From UCC Bwaise"
-    
+    church_email = 'church@uccbwaise.org'
     from_email = church_email
     message = EmailMultiAlternatives(subject, from_email, bcc=recipients)
     message.attach_alternative(html_content, "text/html")

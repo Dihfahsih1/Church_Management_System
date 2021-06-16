@@ -183,7 +183,7 @@ class ImageForm(forms.ModelForm):
 class NewsForm(forms.ModelForm):
     class Meta:
         model = News
-        fields = ('news_title', 'image','audio_file', 'news', 'Is_View_on_Web')
+        fields = ('news_title', 'image','audio_file', 'news', 'tags','Is_View_on_Web')
 
 class ProjectForm(forms.ModelForm):
     class Meta:
