@@ -157,7 +157,9 @@ class PledgeItemsForm(forms.ModelForm):
             'Date': DatePickerInput(),
             'Pledge_Deadline': DatePickerInput(),
             'Item_That_Needs_Pledges': TextInput(attrs={'placeholder': 'Item'}),
-          }                
+          } 
+          
+                         
 
 
 class AboutForm(forms.ModelForm):
