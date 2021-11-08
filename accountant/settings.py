@@ -11,7 +11,7 @@ environ.Env.read_env()
 
 SECRET_KEY = env("KEY")
 DEBUG = True
-ALLOWED_HOSTS = ['uccbwaise.org', 'www.uccbwaise.org','82.163.176.120']
+ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 APPEND_SLASH=True
 SITE_ID = 1
@@ -71,7 +71,7 @@ CAPTCHA_NOISE_FUNCTIONS = None
 
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 USE_X_FORWARDED_HOST = True
@@ -113,10 +113,10 @@ TEMPLATES = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME':'uccbwais_church',
-        'USER': 'uccbwais_admin',
-        'PASSWORD':'uccbwaise2021',
-        'HOST': 'localhost',
+        'NAME':'church_db',
+        'USER': 'church_system',
+        'PASSWORD':'ilovegod',
+        'HOST': '127.0.0.1',
         'PORT':'5432',
     }
 }

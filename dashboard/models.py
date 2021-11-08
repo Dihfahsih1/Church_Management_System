@@ -922,7 +922,7 @@ class Blog(models.Model):
     date=models.DateTimeField(auto_now_add=True)
     details =RichTextUploadingField()
     reference_link = models.CharField(max_length=120000, blank=True, null=True)
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     slug = models.SlugField(null=True , unique=True)
     tags = TaggableManager()
 

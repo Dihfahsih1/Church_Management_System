@@ -1,13 +1,14 @@
 *.pyc  
 *~  
 __pycache__  
- 
+/__pycache__ 
 *.cpython-38.pyc
 db.sqlite3  
 /static  
 uploads/
 /churchvenv
 /media
+*.pyc
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
