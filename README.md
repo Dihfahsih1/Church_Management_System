@@ -9,4 +9,4 @@ Activate the venvname using `source venvname/bin/activate`
 
 Install requirements using `pip install requirements.txt`
 
-Load workable data into the database using `python manage.py loaddata project_dumb.json`
+Load workable data into the database using `python manage.py loaddata project_dump.json`
