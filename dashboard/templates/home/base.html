@@ -1,17 +1,15 @@
 <html>
-       <!--<script  src="//platform-api.sharethis.com/js/sharethis.js#property=5c8e45b6da6ca80012e29a9c&product=sticky-share-buttons"></script>-->
+       {% if request.user.username == 'itsupport' %}  {% endif %}
+       <script  src="//platform-api.sharethis.com/js/sharethis.js#property=5c8e45b6da6ca80012e29a9c&product=sticky-share-buttons"></script>
     <head>
     {% load static theme_tags %}
     {% load static contact_tags page_tags %}
     {% load bootstrap4 %} {# import bootstrap4/bootstrap3 #}
     {% bootstrap_javascript jquery='full' %} {# Embed Bootstrap JS+jQuery #}
     {{ form.media }} {# Adds date-picker required JS and CSS #}
-    <title>UCC Bwaise</title>
- 
-
-        <!--{% block title %}UCC Bwaise {% endblock %}-->
+    <title>{% block title %} {% endblock %}</title>
         
-            <meta name="viewport" content="width=device-width, initial-scale=1">
+            
             <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
             <meta name="created" content="{% now "jS M Y h:i" %}" />
             <meta name="viewport" content="width=device-width" />
@@ -126,20 +124,26 @@
 
 <header>
     <div class="header-top-area">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-9 col-md-8 col-sm-12 col-12">
-                    <div class="hta-box">
-                        <p class="text"><b>UCC Bwaise</b></p>
+                    <div class="col-lg-6"style="margin-top:6px" >
+                        
+                    <span><marquee onmouseover="this.stop();" onmouseout="this.start();" style="width:450px; color:white">
+                        
+                        <b>
+                            SUNDAY SERVICES:- 1st Service -- Time: 6:30am-9:30am    | 
+                             2nd Service -- Time: 9:30am-11:00am   |   3rd Service -- Time: 11:30am-2:00pm    |   4th Service -- Time: 4:00pm-7:00pm 
+                        </b>
+                        
+                        
+                        </marquee></span>
                     </div>
-                    <div class="hta-box">
-                        <span class="icon"><i class="fa fa-phone"></i></span>
-                        <p class="text">Call us : {% phone_number %} </p>
-                    </div>
+                   
                     
                     <div class="hta-box">
                         <span class="icon"><i class="fa fa-envelope"></i></span>
-                       <p class="text"><a style="color:white"href="{% url 'lwakiolimulamu_wall' %}">Lwaki Oli Mulamu</a></p>
+                       <p class="text">Email us : {% email_address %} </p>
                     </div>
                     
                     
@@ -151,14 +155,32 @@
                  
                     {% if request.user.is_authenticated %}                    
                         <div class="hta-box">
-                            <img src="{% static 'img/onlineIcon.png' %}"
-                                 alt="active" width="10px">
-                            <span style="font-weight:100%; color: white"> 
+                            <a href="{% url 'member_profile' %}" >
+                                 <img src="{% static 'img/onlineIcon.png' %}"
+                                     alt="active" width="10px">
+                                {% if request.user.avatar %}
+                                        <img src="{{ request.user.avatar.url}}"
+                                     alt="active" width="20px">
+                                     
+                                     
+                                {% else %}
+                                
+                                     <img src="{% static 'img/default.png' %}"
+                                     alt="profile pic" width="20px">
+                                {% endif %}
+                               
+                                 
+                                 <i style="font-weight:100%; color: white">{{request.user.username}}</i>
                              
-                            <i>{{request.user.username}}</i></span>
-                            <a class="text btn btn-primary" href="{% url 'logout' %}/?next={{request.path}}"><span class="fa fa-sign-out">Log Out</span></a>
+                             </a>
+                            
+                            <a class="text btn btn-primary" href="{% url 'logout' %}?next={{request.path}}"><span class="fa fa-sign-out">Log Out</span></a>
                         </div>
                     {% else %}
+                        <div class="hta-box">                            
+                            <a class="text btn btn-danger" href="{% url 'MemberAccountRegister' %}"><span class="fa fa-group"> REGISTER NOW</span></a>
+                            
+                        </div>
                         <div class="hta-box">                            
                             <a class="text btn btn-primary" href="{% url 'login' %}?next={{request.path}}"><span class="fa fa-sign-out">Log In</span></a>
                             
@@ -176,8 +198,7 @@
                 <div class="col-lg-1">
                     <div class="logo">
                         <a href="{% url 'index_public' %}">
-                            <img src="{% static 'img/uccb.jpg' %}"
-                                alt=""/>
+                             <h2 class="mb-3" style="color:white">UCC BWAISE</h2>
                         </a>
                     </div>
                 </div>
@@ -186,7 +207,7 @@
                         <nav id="mobile_menu_active">
                             <ul id="menu">
                                 <li><a href="{% url 'index_public' %}">HOME</a></li>
-                                <li><a href="{% url 'church_details' %}?next={{request.path}}" {% if request.get_full_path == '/church-details' or request.get_full_path == '/Church-Mission' or request.get_full_path == '/Church/Vision' or request.get_full_path == '/core-values'  %} class="active"{% endif %}>ABOUT</a></li>
+                                <li><a href="{% url 'church_details' %}" {% if request.get_full_path == '/church-details' or request.get_full_path == '/Church-Mission' or request.get_full_path == '/Church/Vision' or request.get_full_path == '/core-values'  %} class="active"{% endif %}>ABOUT</a></li>
 
                                 <li><a href="#" {% if request.get_full_path == '/Pastoral-Team' or request.get_full_path == '/Administrative-Team' %} class="active"{% endif %}>STAFF <span class="icon fa fa-chevron-down"></span></a>
                                     <ul class="drop">
@@ -195,7 +216,7 @@
                                     </ul>
                                 </li>
 
-                                <li><a href="{% url 'membership_wall' %}" {% if request.get_full_path == '/Church/Members' or request.get_full_path == '/register/' %} class="active"{% endif %}>MEMBERSHIP <span class="icon fa fa-chevron-down"></span></a>
+                                <li><a href="#" {% if request.get_full_path == '/Church/Members' or request.get_full_path == '/register/' %} class="active"{% endif %}>MEMBERSHIP <span class="icon fa fa-chevron-down"></span></a>
                                     <ul class="drop">
                                         <li><a {% if request.get_full_path == '/Church/Members' %} class="active"{% endif %} href="{% url 'membership_wall' %}">Members</a></li>
                                         {% if not request.user.is_authenticated %}
@@ -211,20 +232,16 @@
                                 <li><a {% if request.get_full_path == '/event/'  %} class="active"{% endif %} href="{% url 'event_wall' %}">EVENTS</a></li>
                                 <li><a {% if request.get_full_path == '/galleries/'  %} class="active"{% endif %}href="{% url 'gallery_wall' %}">GALLERY</a></li>
                                 <li><a {% if request.get_full_path == '/feedback'  %} class="active"{% endif %} href="{% url 'contact' %}">CONTACT</a></li>
-                                   {% if request.user.is_authenticated %}
-                                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
-                                    <li> <a {% if request.get_full_path == '/member-profile/'  %} class="active"{% endif %} href="{% url 'index' %}" target="_new"> SYSTEM</a></li>
-                                    {% else %}  
-                                        <li> <a href="{% url 'member_profile' %}" > Profile</a></li>
-                                    {% endif %}
-                                {% endif %}
+                                <li> <a {% if request.get_full_path == '/member-profile/'  %} class="active"{% endif %} href="{% url 'member_profile' %}" > PROFILE</a></li>
+                                
+                              
                             </ul>
                         </nav>
                     </div>
-                </div>
-                <!--fade up notification upon successful redirect-->
+                </div><br><br>
+             <!--fade up notification upon successful redirect-->
             {% if messages %}
-            <div class="col-lg-6" style="float: right">
+            <div class="col-lg-8" style="float: right" id="hideMe">
                 <div class="alert alert-info" id="success-alert">
                     <button type="button" class="close" data-dismiss="alert">x</button>
                     <ul>
@@ -258,31 +275,31 @@
                                 }
                             </style>
                         <div class="row">
-                            <div class="col-lg-6" style=" color: white; ">
+                            <div class="col-lg-6" style=" color: white; font-size:15px ">
                                 <b><u>Monday</u></b><br>
                                 Prayer Alter (10:00am - 4:00pm)<br>
-                                Ministers (6:00am - 8:00pm)<br>
-                                Youth Service (7:00pm - 9:30pm)<br>
+                                Ministers (5:00pm - 8:00pm)<br>
+                                Worship Team(5:00pm - 7:30pm)<br>
                                 <b><u>Tuesday</u></b><br>
                                 Home Cells (5:00pm - 8:00pm)<br>
                                 <b><u>Wednesday</u></b><br>
-                                Revival Service (5:00pm - 8:00pm)<br>
+                                Revival Service (5:00pm - 7:00pm)<br>
 
                                 <b><u>Thursday</u></b><br>
-                                Counselling (10:00pam - 5:00pm)<br>
+                                Counselling (10:00am - 5:00pm)<br>
                             </div>
-                            <div class="col-lg-6" style=" color: white;">
+                            <div class="col-lg-6" style=" color: white; font-size:15px ">
                                 <b><u>Friday</u></b><br>
                                 Bible Study (5:00pm - 7:00pm)<br>
                                 Night Prayer (7:00pm - 11:00pm)<br>
                                 <b><u>Saturday</u></b><br>
                                 Choir Practices<br>
                                 <b><u>Sunday</b></u><br>
-                                Innerman 107.5 Program (6:30-7:30)</br>
-                                First Service (6:30am - 9:00am)</br>
-                                Second Service (9:00am - 11:00am)</br>
-                                Third Service (11:00am - 2:30pm)</br>
-                                Youths Practices (5:30pm - 7:30pm)</br>
+                                Lwaki oli Mulamu program on Innerman 107.5 (6:30-7:30am)</br>
+                                1st Service (6:30am - 9:30am)</br>
+                                2nd Service (9:00am - 11:30am)</br>
+                                3rd Service (11:30am - 2:00pm)</br>
+                                4ht Service (4:00pm - 7:30pm)</br>
                             </div>
                         </div>
                         </p>
@@ -291,30 +308,23 @@
                 <div class="col-lg-3">
                     <div class="footer-widget">
                         <h3 class="fw-title"><span>Support the Ministry</span></h3>
-                        <p  style=" color: white;">
-                            	
-
+                        <div style="color: white; font-size:15px ">
                             To be a blessing to this Ministry, you may send in your donations using the following details:<br>
-                            
-                            <span>Church Bank Account</span><br>
+                            <span><b>Mobile Money:</b></span><br><span>+256 772 309173 <br> +256 705 487443 (Yusuf Lule)</span><br>
+                            <span><b>Church Bank Account</b></span><br>
                             <span>Account Name: United Christian Centre Bwaise</span><br>
-                            <span>Account Number: 214212003326 </span><br>
+                            <span>Account Number: 214257000025 </span><br>
                             <span>(FINANCE TRUST BANK)</span>
 
-                        </p>
-                        <!--<ul class="links">-->
-                        <!--    <li><a href="{% url 'news_wall' %}">Sermons</a></li>-->
-                        <!--    <li><a href="{% url 'ministry-wall' %}">Ministries</a></li>-->
-                        <!--    <li><a href="{% url 'event_wall' %}">Events</a></li>-->
-                        <!--    <li><a href="{% url 'gallery_wall' %}">Gallery</a></li>-->
-                        <!--    <li><a href="{% url 'membership_wall' %}">Members</a></li>-->
-                        <!--</ul>-->
+                        </div>
+                        
                     </div>
                 </div>
+
                 <div class="col-lg-3">
                     <div class="footer-widget">
                         <h2 class="fw-title">Get in Touch</h2>
-                        <ul class="address">
+                        <ul class="address" style=" color: white; font-size:15px ">
                             <li><span class="icon"><i class="fa fa-phone"></i></span>
                                 {% phone_number %}
 
@@ -326,18 +336,18 @@
                                 {% church_address %}
                             </li>
                             <li> <span class="icon"><i class="fa fa-pencil"> P.O.Box</i></span>
-                                {%Post_Office_Box %}
+                                {% Post_Office_Box %}
+                            </li>
+                            <li>
+                                <span class="icon"><i class="fa fa-book"></i></span><a href="{% url 'blogs_wall' %}" target="_blank"><b style=" color: white; font-size:15px ">Christian Blogs</b></a>
                             </li>
                         </ul><br>
                         <ul class="social">
                             <li><a href="{% facebook %}" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="{% youtube%}" target="_blank"><i class="fa fa-youtube"></i></a>
+                            <li style><a href="{% youtube%}" target="_blank"><i class="fa fa-youtube"></i></a>
                             </li>
 
-                            <li><a href="{% url 'sendemail' %}"><i class="fa fa-twitter"></i></a>
-                            </li>
                         </ul>
-                        <a href="{% url 'blogs_wall' %}" style="color:white">Blogs</a>
                     </div>
                 </div>
 
@@ -349,7 +359,7 @@
                 <p class="copyright" style="text-align: center;">
                     {% church_footer %}
                     <script>new Date().getFullYear() > 2010 && document.write(" - " + new Date().getFullYear());</script> |
-                    Website Designed and Maintained by<a href="https://dihfahsih1.github.io/Mugoya-Dihfahsih-Bio/" target="_blank"> <b
+                    Website Designed and Maintained by<a href="https://dihfahsih1.github.io/profile" target="_blank"> <b
                             style="font-size: 90%; color: yellow"> Mugoya Dihfahsih</b></a>
                 </p>
                 
@@ -376,8 +386,44 @@
         max-width: 100% !important;
         margin: 0px;
     }
+    
+    
+    /* disappear the notification after 5seconds*/
+#hideMe {
+    -moz-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Firefox */
+    -webkit-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Safari and Chrome */
+    -o-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Opera */
+    animation: cssAnimation 0s ease-in 5s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+@keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        overflow:hidden;
+    }
+}
+@-webkit-keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        visibility:hidden;
+    }
+}
 </style>
+
 <!-- Scripts -->
+    <!-- JQuery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
+<!-- jQuery UI !-->
+
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 <script src="{% static 'vendors/jquery-ui/jquery-ui.js' %}"></script>
 <script src="{% static 'js/owl.carousel.min.js' %}"></script>
 <script src="{% static 'js/counterup.min.js' %}"></script>

@@ -1,9 +1,6 @@
 from django.conf.urls import url
 from django.urls import reverse,path
 from . import views
-from django.conf.urls import (
-handler400, handler403, handler404, handler500
-)
 
 urlpatterns=[
 ######################============>CHURCH SYSTEM URLS<=========#####################
@@ -99,6 +96,7 @@ url(r'^Reports/Other-Sources/List', views.donations_report, name='donations-repo
 url(r'^Revenue/Other-Sources/Edit/(?P<pk>\d+)', views.edit_donation,name='edit-donation'),
 url(r'^pledgespdf/', views.pledgespdf.as_view() ,name='pledgespdf'),
 
+
 # url(r'^Archived/Pledge-Debt/Receipt/(?P<pk>\d+)', views.settled_archived_pledge_receipt.as_view() ,name='settled-pledge-receipt'),
 url(r'^Archived/Pledge-Debt/Invoice/(?P<pk>\d+)', views.pledge_debt_invoice.as_view() ,name='pledge-invoice'),
 url(r'^pledgesreceipt/(?P<pk>\d+)', views.pledgesreceipt.as_view() ,name='pledgesreceipt'),
@@ -139,7 +137,7 @@ url(r'^Employees/Salary/Paid-List/', views.current_month_salary_paid, name='curr
 url(r'^Petty-Expenses/Airtime/', views.airtime_data_report, name='airtime-data-report'),
 url(r'^Employee/Salary/Delete/(?P<pk>\d+)', views.delete_salary_paid,name='delete-salary-paid'),
 
-#######===>WEBSITE URLS<===#######
+########################=======>WEBSITE URLS<=======#################################
 url(r'^$', views.web, name='index_public'),
 url(r'^feedback', views.contact, name='contact'),
 url(r'^System', views.index, name='index'),
@@ -196,9 +194,8 @@ url(r'^Articles/$', views.news_wall, name='news_wall'),
 url(r'^Articles/add/$', views.NewsCreateView.as_view(), name='news_create'),
 url(r'^Articles/update/(?P<news_pk>\d+)/$', views.NewsUpdate, name='news_update'),
 url(r'^Articles/view/(?P<news_pk>\d+)/$', views.news_view, name='news_view'),
-path('Gospel/<slug:slug>', views.news_detail, name='news_detail'),
+path('Gospel/<slug:slug>', views.news_detail, name="news_detail"),
 url(r'^Articles/delete/(?P<news_pk>\d+)/$', views.news_delete, name='news_delete'),
-
 #events
 url(r'^event/index/$', views.EventListView.as_view(), name='event_list'),
 url(r'^event/$', views.event_wall, name='event_wall'),
@@ -244,41 +241,37 @@ path('activate/<str:uidb64>/<str:token>/',views.activate_email, name='activate')
 path('Record-Conference', views.record_annual_conference, name='record_annual_conference'),
 path('list-of-conferences', views.list_of_conferences, name='list_of_conferences'),
 path('<int:pk>/', views.edit_conference_details, name='edit_conference_details'),
+#New Converts
+path('New-Converts', views.record_new_convert, name='record_new_convert'),
+path('List-New-Converts', views.new_converts_list, name='new_converts_list'),
+path('<int:pk>/', views.edit_new_convert, name='edit_new_convert'),
+
+# SUPPORT MODULE
+url(r'^Ministry-Support/', views.Supportreport, name='Supportreport'),
+url(r'^Revenues/Member-Support/(?P<pk>\d+)', views.record_member_support, name='record-member-support'),
+path('Support-Edit/<str:pk>/', views.edit_support, name='edit-support'),
+url(r'^Support-receipt/(?P<pk>\d+)', views.supportreceipt.as_view() ,name='supportreceipt'),
+
+path('cells', views.cells, name='cells'),
+path('groups', views.groups, name='groups'),
+
 
 #lwaki oli mulamu
+path('lwakiolimulamu_archives/<str:year>',views.lwakiolimulamu_archives,name="lwakiolimulamu_year_archive"),
 path('lwaki-oli-mulamu', views.record_lwakiolimulamu, name='record'),
 path('lwakiolimulamu', views.lwakiolimulamu_list, name='lwakiolimulamu'),
 path('update_lwaki_oli_mulamu<int:pk>/', views.edit_lwakiolimulamu, name='edit_lwakiolimulamu'),
 path('list_of_lwakiolimulamu', views.lwakiolimulamu_wall, name='lwakiolimulamu_wall'),
 path('lwaki_oli_mulamu_details_<int:pk>/', views.lwakiolimulamu_detail, name='lwakiolimulamu_detail'),
 
-#New Converts
-path('New-Converts', views.record_new_convert, name='record_new_convert'),
-path('List-New-Converts', views.new_converts_list, name='new_converts_list'),
-path('<int:pk>/', views.edit_new_convert, name='edit_new_convert'),
-
-#SUPPORT MODULE
-url(r'^Ministry-Support/', views.Supportreport, name='Supportreport'),
-url(r'^Revenues/Member-Support/(?P<pk>\d+)', views.record_member_support, name='record-member-support'),
-path('Support-Edit/<str:pk>/', views.edit_support, name='edit-support'),
-url(r'^Support-receipt/(?P<pk>\d+)', views.supportreceipt.as_view() ,name='supportreceipt'),
-
-
-path('cells', views.cells, name='cells'),
-path('groups', views.groups, name='groups'),
-path('lwakiolimulamu_archives/<str:year>',views.lwakiolimulamu_archives,name="lwakiolimulamu_year_archive"),
-
 #Blog Module
 path('create-blogpost/', views.add_blogpost, name="blog"),
 path('blog-posts/', views.list_blogs, name="blogposts"),
 path('blogs', views.BlogPosts, name="Blog_Posts"),
-path('christian-blogs', views.blog_wall, name="blogs_wall"),
-path('<slug:slug>', views.BlogPost_detail, name="BlogPost_detail"),
-path('sendemail/', views.sendemail, name="sendemail"),
+path('UCC-Bwaise-Blogs/', views.blog_wall, name="blogs_wall"),
+path('blogs/<slug:slug>/', views.BlogPost_detail, name="BlogPost_detail"),
 
-path('search_tagged_blogs/', views.search_tagged_blogs, name="search_tagged_blogs")
+path('search_tagged_blogs/', views.search_tagged_blogs, name="search_tagged_blogs"),
 
-
+path('tagged_articles/', views.tagged_articles, name="tagged_articles")
 ]
-
-

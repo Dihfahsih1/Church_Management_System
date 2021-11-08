@@ -10,8 +10,9 @@ from django.contrib.admin.widgets import AdminDateWidget
 from django.contrib.auth.models import PermissionsMixin
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.contrib.contenttypes.fields import GenericRelation
 from taggit.managers import TaggableManager
+
+ 
 
 services = (('Sunday First Service','Sunday First Service'),('Sunday Second Service','Sunday Second Service'),('Sunday Third Service','Sunday Third Service'), 
          ('All Sunday Services','All Sunday Services'),('Unspecified Service','Unspecified Service'),
@@ -23,7 +24,7 @@ cell=(
     ('Kazo Zone','Kazo Zone'),('Gombolola Zone','Gombolola Zone'),('Kawaala Zone','Kawaala Zone'),('Bombo Rd Zone','Bombo Rd Zone'),
     ('Kampala Metropolitan','Kampala Metropolitan')
     )
-
+    
 ministries=(
     ('Pastoral', 'Pastoral'),
     ('Discipleship', 'Discipleship'),
@@ -31,25 +32,24 @@ ministries=(
     ('Ushering', 'Ushering'),
     ('Orchestra', 'Orchestra'),
     ('Youth Ministry', 'Youth Ministry'),
+    ('Wells Of Hope', 'Wells Of Hope'),
     ('Envangelism Ministry', 'Envangelism Ministry'),
     ('Intercession Ministry', 'Intercession Ministry'),
     ('Teens', 'Teens'),)
-
+    
 education=(('Masters','Master'),('Degree','Degree'),('Diploma','Diploma'),('A_Level_Graduate','A_Level_Graduate'),('O_Level_Graduate','O_Level_Graduate'),('Primary_Graduate','Primary_Graduate'),('Still_Studying','Still_Studying'),('None','None'))
-
 OPTIONS = (('Yes', 'Yes'),
            ('No', 'No'))
-
 ROLE_CHOICES = (
     ('SuperAdmin', 'SuperAdmin'),
     ('Members', 'Members'),
     ('Secretary', 'Secretary'),
     ('Admin', 'Admin'),
+    
     ('Building Chair', 'Building Chair'),
     ('Marrieds Leader', 'Marrieds Leader'),
     ('Youth Leader', 'Youth Leader'),
 )
-
 Week_Days = (
     ('Monday', 'Monday'),
     ('Tuesday', 'Tuesday'),
@@ -59,7 +59,6 @@ Week_Days = (
     ('Saturday', 'Saturday'),
     ('Sunday', 'Sunday'),
 )
-
 archive = (
     ('ARCHIVED', 'ARCHIVED'),
     ('NOT-ARCHIVED', 'NOT-ARCHIVED'),)
@@ -78,8 +77,11 @@ general = (('Tithe of Tithes','Tithe of Tithes'),('Generator Mechanic','Generato
         ('Renovations','Renovations')
         )
 sex=(('Female','Female'),('Male','Male'))
+
 ini=(('Mr.','Mr.'),('Mrs.','Mrs.'),('Ms.','Ms.'),('Pr.','Pr.'),('Dr.','Dr.'),('Eng.','Eng.'))
+
 status=(('Married','Married'),('Single','Single'),('Divorced','Divorced'),('Widower','Widower'),('Widow','Widow'))
+
 marriage=(('Church_Marriage','Church_Marriage'),('Customary','Customary'),('Legal','Legal'),('Cohabiting','Cohabiting'))
 
 employment=(('Employed','Employed'),('Unemployed','Unemployed'))
@@ -88,7 +90,6 @@ grouping=(
     ('God is Able','God is Able'),('Winners','Winners'),('Overcomers','Overcomers'),('Biyinzika','Biyinzika') ,
     ('Victors','Victors'),('Issachar','Issachar')
     )
-
 roles=(
     ('Admin','Admin'),('Secretary','Secretary') ,('SuperAdmin','SuperAdmin') ,
     ('Building Chair', 'Building Chair'),
@@ -98,7 +99,6 @@ roles=(
    ('Assistant_Admin', 'Assistant_Admin'),
    ('Website Admin', 'Website Admin'),  
 )
-
 rol=(('Security','Security'),('Secretary','Secretary'),('Church-Welfare','Church-Welfare'),('Admin','Admin'))
 
 rel =(('Born Again','Born Again'),('Others','Others'))
@@ -140,11 +140,11 @@ class Theme(models.Model):
 class PublishedStatusManager(models.Manager):
     def get_queryset(self):
         return super(PublishedStatusManager, self).get_queryset().filter(Is_View_on_Web='Yes')
-    
 class UserManager(BaseUserManager):
     def create_user(self, username,password=None):
         if not username:
-            raise ValueError('User must have a username.')    
+            raise ValueError('User must have a username.')
+            
         if not password:
             raise ValueError('User must have a password.')    
         user_obj = self.model(username=username,)
@@ -165,9 +165,10 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser , PermissionsMixin):
     fname = models.CharField(max_length=260,blank=True, null=True)
     lname = models.CharField(max_length=255,blank=True, null=True)
-    email = models.EmailField(max_length=255,blank=True, null=True)
-    avatar =models.ImageField(upload_to='avatars/', max_length=20000, null=True, blank=True)
+    email = models.EmailField(max_length=255,blank=True, null=True, default='user@uccbwaise.org')
+    avatar =models.ImageField(upload_to='avatars/', max_length=20000, null=True, blank=True, default='avatars/default.png')
     username = models.CharField(max_length=30, unique=True)
+    get_full_name = models.CharField(max_length=300, blank=True, null=True, default="ucc bwaise")
     Role = models.CharField(max_length=200, choices=roles, blank=True, null=True)
     full_name =  models.ForeignKey('Members', on_delete=models.SET_NULL,  max_length=100, null=True, blank=True)
     is_active = models.BooleanField(default=True) 
@@ -179,17 +180,8 @@ class User(AbstractBaseUser , PermissionsMixin):
     REQUIRED_FILEDS = []
     objects = UserManager()
     published = PublishedStatusManager()
-    
     def __str__(self):
-        return self.username
-    
-    @property
-    def get_full_name(self):
-        return self.email
-    
-    def get_absolute_url(self):
-        return reverse('news_detail', args=[self.pk])   
-    
+        return str(self.username)
     @property
     def UserEmail(self):
         get_member=Members.objects.filter(Full_Named=self.full_name)
@@ -198,6 +190,7 @@ class User(AbstractBaseUser , PermissionsMixin):
                 self.email=i.Email
                 self.save()
                 return self.email
+    
 
 class Expenditures(Model):
     Date = models.DateField(null=True, blank=True)
@@ -304,7 +297,7 @@ class Members(models.Model):
     Date_Of_Joining_UCC_Bwaise=models.DateField(null=True,blank=True)
     Ministry_Involved_In=models.CharField(max_length=100, default='Discipleship', choices=ministries,null=True,blank=True)
     Name_Of_Next_Of_Kin=models.CharField(max_length=100,null=True,blank=True)
-    Spouse=models.CharField(max_length=100,null=True,blank=True,default="Spouse")
+    Spouse=models.CharField(max_length=100,null=True,blank=True)
     Contact_Of_Next_Of_Kin=models.CharField(max_length=100,null=True,blank=True)
     Residence_Of_Next_Of_Kin=models.CharField(max_length=100,null=True,blank=True)
     More_Info =models.TextField(max_length=1000000,null=True,blank=True)
@@ -335,7 +328,6 @@ class Members(models.Model):
             return 0    
     class Meta:
         ordering = ['First_Name'] 
-        
 class Ministry(models.Model):
     name = models.CharField(max_length=100, unique=True)
     leader = models.ForeignKey(Members, on_delete=models.CASCADE, max_length=100)
@@ -411,7 +403,6 @@ class SalariesPaid(models.Model):
     Month_being_cleared = models.CharField(max_length=200,null=True, blank=True)
     Archived_Status= models.CharField(max_length=1000, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
     Date_of_paying_salary = models.DateField(null=True, blank=True)
-    
     @property
     def basic_salary(self):
         if StaffDetails.objects.filter(Church_Member_id=self.Salary_Id):
@@ -674,8 +665,8 @@ class Image(models.Model):
         return self.image_caption
 #News   
 class News(models.Model):
-    news_title = models.CharField(max_length=150)
-    date = models.DateField(auto_now_add=True)
+    news_title = models.CharField(max_length=100)
+    date = models.DateField(null=True, blank=True, default='2021-04-12')
     image = models.ImageField(upload_to='images/', max_length=10000, null=True, blank=True)
     audio_file = models.FileField(upload_to='audios/',max_length=10000, null=True, blank=True)
     news = RichTextUploadingField()
@@ -690,12 +681,14 @@ class News(models.Model):
         verbose_name = ("News")
         verbose_name_plural = ("News")
         ordering = ['-date']
+
     
+
     def __str__(self):
         return self.news_title
-
+    
     def get_absolute_url(self):
-        return reverse('news_detail', kwargs={'slug': self.slug})       
+        return reverse('news_detail', kwargs={'slug': self.slug})      
 
 class Event(models.Model):
     activity =(('Events','Events'), ('Church_Program','Church_Program'))
@@ -798,8 +791,8 @@ class Contact(models.Model):
     email = models.CharField(max_length=130, blank=True, null=True)
     phone = models.CharField(max_length=130, blank=True, null=True)
     subject = models.CharField(max_length=130, blank=True, null=True)
-    message = RichTextUploadingField(blank=True, null=True)
-    feedback = RichTextUploadingField(max_length=100000, blank=True, null=True)
+    message = models.TextField(max_length=100000,blank=True, null=True)
+    feedback = models.TextField(max_length=100000, blank=True, null=True)
     def __str__(self):
         return self.name
 
@@ -814,8 +807,7 @@ class CashFloat(models.Model):
     
         #current week tithes
     one_week_ago = datetime.today() - timedelta(days=7) #Weekly
-    
-    def total_current_week_tithes(self):
+    def total_current_week_tithes():
         tithes = Revenues.objects.filter(Date__gte=one_week_ago).aggregate(total_tithes=Sum('Tithe_Amount'))
         total_tithes=tithes['total_tithes']
         if total_tithes == None:
@@ -824,7 +816,7 @@ class CashFloat(models.Model):
         return total_tithes
 
     #current week offerings
-    def total_current_week_offerings(self):
+    def total_current_week_offerings():
         offerings = Revenues.objects.filter(Date__gte=one_week_ago).aggregate(total_offerings=Sum('General_Offering_Amount'))
         total_offerings=offerings['total_offerings']
         if total_offerings == None:
@@ -833,7 +825,7 @@ class CashFloat(models.Model):
         return total_offerings
 
     #current week seeds
-    def total_current_week_seeds(self):
+    def total_current_week_seeds():
         seeds = Revenues.objects.filter(Date__gte=one_week_ago).aggregate(total_seeds=Sum('Seed_Amount'))
         total_seeds=seeds['total_seeds']
         if total_seeds == None:
@@ -842,7 +834,7 @@ class CashFloat(models.Model):
         return total_seeds
 
     #Current Week Cashfloat
-    def current_week_cashfloat(self):
+    def current_week_cashfloat():
         cashfloat = CashFloat.objects.filter(Date__gte=one_week_ago, Date__year=current_year).aggregate(total_cashfloat=Sum('Amount'))
         total_cashfloat=cashfloat['total_cashfloat']
         if total_cashfloat == None:
@@ -860,28 +852,56 @@ class CashFloat(models.Model):
         return current_week_total_revenues
 
 #for testing purposes
+
 class Testing(models.Model):
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(unique=True)
 
-#model class for conference
 class AnnualConference(models.Model):
-
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     estimated_budget = models.IntegerField(default=0,blank=True, null=True)
     conference_theme = models.CharField(max_length=500, blank=True, null=True)
-    conference_report = RichTextUploadingField(max_length=100000, blank=True, null=True) 
-    
+    conference_report = RichTextUploadingField(max_length=100000, blank=True, null=True)
     def __str__(self):
         return self.conference_theme
+        
+class NewConvert(models.Model):
+    is_church_member = models.CharField(max_length=100, choices=OPTIONS, default="No", blank=True, null=True)
+    born_again_before = models.CharField(max_length=100, choices=OPTIONS, default="No", blank=True, null=True)
+    First_Name=models.CharField(max_length=100,null=True, blank=True)
+    Second_Name=models.CharField(max_length=100,null=True, blank=True)
+    Telephone=models.CharField(max_length=100,null=True,blank=True)
+    Date_Of_Salvation=models.DateField(null=True,blank=True)
+    member_name = models.ForeignKey(Members, on_delete=models.CASCADE,null=True, blank=True)
+    def __str__(self):
+        return self.member_name or self.First_Name + ' ' + self.Second_Name
+def current_year():
+    return datetime.now().year
+
+
+def max_value_current_year(value):
+    return MaxValueValidator(current_year())(value)
+    
+class ThemeOfTheYear(models.Model):
+    scripture = models.CharField(max_length=3000, blank=True, null=True)
+    title = models.CharField(max_length=2000, blank=True, null=True)
+    details = RichTextUploadingField()
+    theme_image = models.ImageField(upload_to='themes/',max_length=10000, blank=False)
+    is_active = models.BooleanField(default=True)
+    theme_year = models.PositiveIntegerField(
+        default=current_year(), validators=[MinValueValidator(1984), max_value_current_year])
+    
+    def __str__(self):
+        return self.title
+        
 lwaki = (
     ('mission', 'mission'),
     ('conference', 'conference'),)
 class LwakiOliMulamu(models.Model):
     date = models.DateField(null=True, blank=True)
     title = models.CharField(max_length=500, blank=True, null=True)
-    topic_or_sub_title = models.CharField(max_length=5000, blank=True, null=True)
+    topic_or_sub_title = models.CharField(max_length=5000, blank=True, null=True, default='Topic or sub title')
     which_type = models.CharField(max_length=100, choices=lwaki, default="No", blank=True, null=True)
     conference_theme = models.ForeignKey(AnnualConference,on_delete=models.CASCADE, max_length=500, blank=True, null=True)
     day = models.CharField(max_length=500, blank=True, null=True)
@@ -893,41 +913,8 @@ class LwakiOliMulamu(models.Model):
     details = RichTextUploadingField()
     audio_file = models.FileField(upload_to='audios/',max_length=1000000, null=True, blank=True)
     def __str__(self):
-        return self.title
-    
-#model class for new converts      
-class NewConvert(models.Model):
-    is_church_member = models.CharField(max_length=100, choices=OPTIONS, default="No", blank=True, null=True)
-    born_again_before = models.CharField(max_length=100, choices=OPTIONS, default="No", blank=True, null=True)
-    First_Name=models.CharField(max_length=100,null=True, blank=True)
-    Second_Name=models.CharField(max_length=100,null=True, blank=True)
-    Telephone=models.CharField(max_length=100,null=True,blank=True)
-    Date_Of_Salvation=models.DateField(null=True,blank=True)
-    member_name = models.ForeignKey(Members, on_delete=models.CASCADE,null=True, blank=True)
-    
-    def __str__(self):
-        return self.member_name or self.First_Name + ' ' + self.Second_Name
-    
-def current_year():
-    return datetime.now().year
-
-#model class for current year
-def max_value_current_year(value):
-    return MaxValueValidator(current_year())(value)
-    
-#model class for the theme of the year
-class ThemeOfTheYear(models.Model):
-    scripture = models.CharField(max_length=3000, blank=True, null=True)
-    title = models.CharField(max_length=2000, blank=True, null=True)
-    details = RichTextUploadingField()
-    theme_image = models.ImageField(upload_to='themes/',max_length=10000, blank=False)
-    is_active = models.BooleanField(default=True)
-    theme_year = models.PositiveIntegerField(default=current_year(),validators=[MinValueValidator(1984), max_value_current_year])
-    
-    def __str__(self):
-        return self.title
-
-
+        return self.topic_or_sub_title
+        
 class Blog(models.Model):
     author = models.CharField(max_length=1200, blank=True, null=True)
     title = models.CharField(max_length=1200, blank=True, null=True)
@@ -935,6 +922,7 @@ class Blog(models.Model):
     date=models.DateTimeField(auto_now_add=True)
     details =RichTextUploadingField()
     reference_link = models.CharField(max_length=120000, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
     slug = models.SlugField(null=True , unique=True)
     tags = TaggableManager()
 
@@ -943,30 +931,3 @@ class Blog(models.Model):
     
     def get_absolute_url(self):
         return reverse('BlogPost_detail', kwargs={'slug': self.slug})
-    
-
-    
-
-
-# class LwakiOliMulamu(models.Model):
-#     title = models.CharField(max_length=150)
-#     date = models.DateField(auto_now_add=True)
-#     image = models.ImageField(upload_to='images/', max_length=10000, null=True, blank=True)
-#     audio_file = models.FileField(upload_to='audios/',max_length=10000, null=True, blank=True)
-#     news = RichTextUploadingField()
-#     comments = GenericRelation(Comment)
-#     Is_View_on_Web = models.CharField(max_length=20, default='Yes', choices=OPTIONS)
-#     author = models.CharField(max_length=1003, null=True, blank=True, default="Preacher")
-#     objects = models.Manager()
-#     published = PublishedStatusManager()
-#     class Meta:
-#         default_permissions = ('view', 'add', 'change', 'delete')
-#         verbose_name = ("News")
-#         verbose_name_plural = ("News")
-#         ordering = ['-date']
-    
-#     def __str__(self):
-#         return self.news_title
-
-#     def get_absolute_url(self):
-#         return reverse('news_detail', args=[self.pk])  

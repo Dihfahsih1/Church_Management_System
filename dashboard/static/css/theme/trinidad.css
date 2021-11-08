@@ -32,7 +32,7 @@
 /*  Theme default CSS
 /*----------------------------------------*/
 
-@import url('https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800');
+@import url('https://fonts.googleapis.com/css?family=Arial:300,400,500,600,700,800');
 
 @media print {
     header, footer , .page-breadcumb-area, .no-print{ display: none; }
@@ -169,7 +169,7 @@ body {
     margin-left:10px;
     background: #fff;
     font-weight: normal;
-    font-size: 15px;
+    font-size: 18px;
     letter-spacing: 1.5px;
     color: #888;
     line-height: 30px;
@@ -205,7 +205,7 @@ Table Of Contents
 */
 
 body {
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Arial', sans-serif;
 }
 
 h1,
@@ -215,7 +215,7 @@ h4,
 h5,
 h6 {
     margin: 0;
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Arial', sans-serif;
     font-weight: 700;
     color: #000;
     letter-spacing: 0;
@@ -228,7 +228,7 @@ h4 a,
 h5 a,
 h6 a {
     font-weight: inherit;
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Arial', sans-serif;
 }
 
 h1 {
@@ -266,7 +266,7 @@ h6 {
 }
 
 p {
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Arial', sans-serif;
     font-size: 14px;
     font-weight: normal;
     letter-spacing: 0;
@@ -279,7 +279,7 @@ p img {
 }
 
 span {
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Arial', sans-serif;
 }
 
 /* em and strong */
@@ -298,53 +298,6 @@ small {
     line-height: inherit;
 }
 
-/*  blockquotes */
-
-blockquote {
-    border-left: 0 none;
-    font-family: 'Raleway', sans-serif;
-    margin: 10px 0;
-    padding-left: 40px;
-    position: relative;
-}
-
-blockquote::before {
-    color: #4e5665;
-    content: "ï„";
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 36px;
-    left: 20px;
-    line-height: 0;
-    margin: 0;
-    opacity: 0.5;
-    position: absolute;
-    top: 20px;
-}
-
-blockquote p {
-    font-style: italic;
-    padding: 0;
-    font-size: 18px;
-    line-height: 36px;
-}
-
-blockquote cite {
-    display: block;
-    font-size: 12px;
-    font-style: normal;
-    line-height: 18px;
-}
-
-blockquote cite:before {
-    content: "\2014 \0020";
-}
-
-blockquote cite a,
-blockquote cite a:visited {
-    color: #8B9798;
-    border: none
-}
 
 /* abbreviations */
 
@@ -365,7 +318,7 @@ abbr:hover {
 a,
 a:visited {
     text-decoration: none;
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Arial', sans-serif;
     font-weight: normal;
     font-size: 12px;
     color: #fff;
@@ -1081,10 +1034,6 @@ header {
 
 /* 1.6 Achivement Area */
 
-.achivement-area {
-    background: rgba(0, 0, 0, 0) url("../../../../assets/images/front/achivement-bg.jpg") no-repeat fixed center center / cover;
-    padding: 93px 0 68px;
-}
 
 .achivement-area::before {
     opacity: 0.8;
@@ -1299,14 +1248,14 @@ header {
 }
 
 .single-testimonial .content .text::before {
-    content: "ï„";
+    content: " ";
     left: 0;
     top: 0;
 }
 
 .single-testimonial .content .text::after {
     bottom: 0;
-    content: "ï„Ž";
+    content: " ";
     right: 0;
 }
 
@@ -1602,7 +1551,7 @@ footer {
     margin: 0 0 29px;
 }
 
-.page-news-details .blockquote {
+.page-news-details{
     border-left: 2px solid #2489e5;
     color: #161616;
     font-size: 18px;
@@ -2324,24 +2273,6 @@ footer {
     opacity: 1;
 }
 
-.gallery-carousel .owl-nav {}
-
-.gallery-carousel .owl-nav>div {
-    color: #ffffff;
-    font-size: 22px;
-    position: absolute;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
-}
-
-.gallery-carousel .owl-nav .owl-prev {
-    left: 34px;
-}
-
-.gallery-carousel .owl-nav .owl-next {
-    right: 34px;
-}
 
 /*----------------------------------------*/
 /*  12. Contact

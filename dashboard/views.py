@@ -9,13 +9,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.views import View
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q,Count
+from django.db.models import Q, Count
 from .forms import *
 from .models import *
 from time import strptime
 from .render import Render
 from django.template.loader import render_to_string
-from django.core.mail import EmailMultiAlternatives
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.contrib.auth import update_session_auth_hash, login
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -28,15 +27,19 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode  
 from .tokens import account_activation_token  
 from django.core.mail import EmailMessage,send_mail, BadHeaderError
-from django.views.decorators.clickjacking import xframe_options_exempt 
-from django.db.models.functions import ExtractYear
+from django.views.decorators.clickjacking import xframe_options_exempt
+from tracking.models import Visitor
+
+
+
 
 def view_404(request, exception=None):
     # make a redirect to homepage
     # you can use the name of url or just the plain link
-    return redirect('index_public') # or redirect('name-of-index-url')
+    return redirect('news_wall') # or redirect('name-of-index-url')
 
-#####################===>BEGINNING OF THEME MODULE<===###########################
+
+# #######################################===>BEGINNING OF THEME MODULE<===############################################
 class ThemeListView(ListView):
     model = Theme
     template_name = 'themes/theme.html'
@@ -49,10 +52,9 @@ def theme_activate(request, theme_pk):
     theme.is_active = 'Yes'
     theme.save()
     unset_theme.save()
-    messages.success(request, f'The theme has been updated successfully!!')
     return redirect('theme_list')
 
-########=============>AUTOSUGGEST OF NAMES FROM DATABASES<==============#######
+########========================>AUTOSUGGEST OF NAMES FROM DATABASES<==============================#######
 class Autocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = Members.objects.filter(is_active=True)
@@ -60,14 +62,21 @@ class Autocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(Q(First_Name__istartswith=self.q) | Q(Second_Name__istartswith=self.q))
             return qs
 
-########============>FETCH FROM THE DATABASE TO THE WEBSITE<===============#######
+########========================>FETCH FROM THE DATABASE TO THE WEBSITE<==========================#######
 def web(request):
+    #code to delete all the unwanted bots
+    try:
+        strings = ['bot', 'htm', 'php','spd','bingbot','facebookexternalhit','petalsearch','petalbot']
+        for string in strings:
+            delete_visitor=Visitor.objects.filter(user_agent__icontains=string)
+            delete_visitor.delete()
+    except:
+        pass
     date= datetime.now()
     month = date.month
     year = date.year
     #da= date.day
     #RUN_EVERY_MONTH=calendar._monthlen(year, month)
-
     form=ContactForm()
     context = {form:'form'}
     lwaki = LwakiOliMulamu.objects.extra(select={'year': 'extract( year from date )'}).values('year').annotate(dcount=Count('date'))
@@ -81,12 +90,13 @@ def web(request):
         employees = StaffDetails.published.all()
         sliders = Slider.objects.all().order_by('-id')
         abouts = About.objects.all()
-        gospel = News.published.latest('date')
+        gospel = News.published.latest('-date')
         feeback= Contact.objects.all().order_by('-id')
         pages = Page.objects.all().order_by('-id')
+        blogs = Blog.objects.filter(is_active=True).order_by('-date')[:3]
         form=ContactForm()
         context = { 'lwaki':lwaki,
-            'gospel':gospel,'pages' : pages,'feeback':feeback,'images':images,'events': events,'news': news,'theme':theme,
+            'gospel':gospel,'pages' : pages,'feeback':feeback,'images':images,'events': events,'news': news,'theme':theme,'blogs':blogs,
         'abouts': abouts,'sliders' :sliders,'members': members, 'employees': employees,'ministry':ministry,form:'form','year':year}
     except:
         form=ContactForm()
@@ -96,9 +106,9 @@ def web(request):
 
 def contact(request):
     if request.method=="POST":
-        form=ContactForm(request.POST, request.FILES,)
+        form=ContactForm(request.POST)
+        print(form.errors)
         if form.is_valid():
-            human = True
             #form.save()
             church_email = Church.objects.get(id=1)
             emailing_to=church_email.email_address
@@ -112,14 +122,14 @@ def contact(request):
                 from_email=received_from, reply_to=[received_from])   
             email.send()
             messages.success(request, f'Thanks for contacting UCC Bwaise, we shall reply you via your email address.')
-            return redirect('index_public')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     else:
         form=ContactForm()
         return render(request, 'home/contacts.html',{'form':form})
     return render(request, 'home/contacts.html')
 
 
-###############=================>EMPLOYEE MODULE<===================###################
+###############=============================>EMPLOYEE MODULE<====================================###################
 @login_required
 def employee_register(request):
     if request.method=="POST":
@@ -140,7 +150,15 @@ def delete_employee(request,pk):
         return redirect("employee-list")
     context= {'employee': employee}
     return render(request, 'Employees/employee_delete.html', context)
-
+    
+#############function to print all registered members######################    
+class print_all_members(View):
+    def get(self, request):
+        all_members = Members.objects.filter(is_active=True).order_by('-id')
+        context = {'all_members':all_members, 
+                   'request':request
+                   }
+        return Render.render('Members/print_all_members.html', context)
 @login_required
 def employee_list(request):
     employees = StaffDetails.objects.all().order_by('-id')
@@ -324,14 +342,7 @@ def activate_email(request, uidb64, token):
     else:  
         return HttpResponse('Activation link is invalid!')
 
-class print_all_members(View):
-    def get(self, request):
-        all_members = Members.objects.filter(is_active=True).order_by('-id')
-        context = {'all_members':all_members, 
-                   'request':request
-                   }
-        return Render.render('Members/print_all_members.html', context)
-        
+
 @login_required
 def members_list(request):
     membership = Members.objects.filter(is_active=True).order_by('-id')
@@ -702,7 +713,7 @@ class offeringspdf(View):
         }
         return Render.render('Offerings/offeringspdf.html', context)
 
-#######==============>SEEDS OFFERING MODULE<==============#########   
+##################=====================>SEEDS OFFERING MODULE<=========================#############################   
 
 #this function is not being used.
 @login_required
@@ -772,7 +783,7 @@ class seed_offering_receipt(View):
         context = { 'today': today,'seeds': seeds,'request': request,}
         return Render.render('Seeds/seed_offerings_receipt.html', context)
 
-#####<===========MINISTRY SUPPORT MODULE===========>###### 
+##############################<===========MINISTRY SUPPORT MODULE===========>################################# 
 def record_member_support(request, pk):
     get_member_name=get_object_or_404(Members, pk=pk)
     if request.method=="POST":
@@ -1450,7 +1461,7 @@ class allowancereceipt(View):
         }
         return Render.render('Allowances/allowance_receipt.html', context) 
 
-###############<==============PLEDGES MODULE==============>#############
+################################<==============PLEDGES MODULE==============>################################
 
 @login_required
 def Enter_Pledges(request):
@@ -1694,7 +1705,8 @@ def airtime_data_report(request):
     context={'get_airtime':get_airtime, 'total_amount':total_amount, 'today':today}
     return render(request,'Expenses/airtime_data_report.html', context)
 
-##########<==========SLIDER VIEW================>##########
+    ##################################<==========SLIDER VIEW================>#################################
+
 class SliderListView(ListView):
     model = Slider
     template_name = 'sliders/slider_list.html'
@@ -1860,7 +1872,9 @@ def about_delete(request, about_pk):
     return JsonResponse(data)
 
 
-###############===>PAGE MODULE<===###############
+#########################===>PAGE MODULE<===########################
+
+
 class PageListView(ListView):
     model = Page
     template_name = 'pages/page_list.html'
@@ -1945,7 +1959,8 @@ def page_delete(request, page_pk):
                                              )
     return JsonResponse(data)
 
-###########===>GALLERY MODULE<===##############
+###################===>GALLERY MODULE<===#########################
+
 class GalleryListView(ListView):
     model = Gallery
     template_name = 'galleries/gallery_list.html'
@@ -2029,7 +2044,7 @@ def gallery_delete(request, gallery_pk):
     return JsonResponse(data)
 
 
-#############===>IMAGE MODULE<===################
+#####################===>IMAGE MODULE<===##########################
 class ImageListView(ListView):
     model = Image
     template_name = 'images/image_list.html'
@@ -2045,6 +2060,7 @@ class ImageCreateView(CreateView):
         image = form.save(commit=False)
         image.save()
         return redirect('image_list')
+
 
 class ImageUpdateView(UpdateView):
     model = Image
@@ -2121,7 +2137,7 @@ class NewsListView(ListView):
 
 def news_wall(request):
     news = News.published.all().order_by('-date')
-    paginator = Paginator(news, 6)
+    paginator = Paginator(news, 9)
     page = request.GET.get('page')
     try:
        news_list = paginator.page(page)
@@ -2131,6 +2147,8 @@ def news_wall(request):
         news_list = paginator.page(paginator.num_pages)
     context={'page':page, 'news_list': news_list}
     return render(request, 'news/news_wall.html', context)
+    
+    
 
 class NewsCreateView(CreateView):
     model = News
@@ -2177,13 +2195,10 @@ def news_view(request, news_pk):
         form = NewsForm(instance=news)
     return save_news_form(request, form, 'news/includes/partial_news_view.html')
 
-
-    
 def news_detail(request, slug):
-    
-    news = get_object_or_404(News,slug=slug)
+    news = get_object_or_404(News, slug=slug)
     more_news = News.published.order_by('-date')
-    paginator = Paginator(more_news, 10) 
+    paginator = Paginator(more_news, 18) 
     page = request.GET.get('page')
     try:
        news_list = paginator.page(page)
@@ -2210,7 +2225,7 @@ def news_delete(request, news_pk):
                                              context, request=request,)
     return JsonResponse(data)
 
-##########=============>CHURCH PROJECT MODULE<================###############
+###################=============>CHURCH PROJECT MODULE<================########################
 class ProjectsListView(ListView):
     model = Project
     template_name = 'Church-Projects/projects_list.html'
@@ -2273,7 +2288,8 @@ def project_detail(request, project_pk):
     context = {'project': project, 'more_projects': more_projects}
     return render(request, 'Church-Projects/projects_detail.html', context)
 
-#############========>EVENT MODULE<============#############
+
+####################========>EVENT MODULE<============#####################
 class EventListView(ListView):
     model = Event
     template_name = 'events/event_list.html'
@@ -2377,8 +2393,7 @@ def event_delete(request, event_pk):
                                              request=request,
                                              )
     return JsonResponse(data)
-
-########################===>CHURCH MODULE<===#############################
+# #######################################===>CHURCH MODULE<===######################################
 def churchCreateView(request):
     if request.method == "POST":
         form = churchForm(request.POST, request.FILES)
@@ -2460,7 +2475,7 @@ def church_delete(request, church_pk):
 
 class MinistryListView(ListView):
     model = Ministry
-    template_name = 'Ministry/Ministry_list.html'
+    template_name = 'Ministry/ministry_list.html'
     context_object_name = 'ministry'
 
 def ministry_wall(request):
@@ -2540,7 +2555,7 @@ def ministry_detail(request, ministry_pk):
     return render(request, 'Ministry/ministry_detail.html', context)
 
 
-########===========>DASHBOARD DATA CALCULATIONS<==========#######
+########========================>DASHBOARD DATA CALCULATIONS<=====================#######
 current_year = datetime.now().year #Annual
 current_month = datetime.now().month #Monthly
 
@@ -2711,7 +2726,7 @@ def index(request):
         donations = 0
 
 
-    ######=========>WEEKLY EXPENSES<============#######    
+    #WEEKLY EXPENSES    
      #weekly Petty Cash expenses
     weekly_petty_expenses = Expenditures.objects.filter(Reason_filtering='petty',Date__gte=one_week_ago,Archived_Status='NOT-ARCHIVED').aggregate(totals=models.Sum("Amount"))
     if (weekly_petty_expenses['totals'])!=None:
@@ -3184,7 +3199,7 @@ def edit_cash_float(request, pk):
         form = CashFloatForm(instance=item)
         return render(request, 'edit_cash_float.html', {'form': form})
 
-############<=======CHURCH GROUPS==========>##################
+######################<=======CHURCH GROUPS==========>#######################
 @xframe_options_exempt
 def church_groups(request):
     able_group=Members.objects.filter(is_active=True, Group="God is Able")
@@ -3203,7 +3218,7 @@ def church_groups(request):
     }
     return render(request, 'Groups/church_groups.html', context)
 
-###########<=======HOME CELLS==========>##############
+######################<=======HOME CELLS==========>######################
 @xframe_options_exempt
 def home_cells(request):
     Church = Members.objects.filter(is_active=True, Home_Cell="Church Zone")
@@ -3261,7 +3276,7 @@ def edit_conference_details(request, pk):
     context = {'form':form}
     return render(request, 'conference/edit_conference.html', context) 
 
-#########===========>New Converts Module<==========############
+######### New Converts Module ############
 def record_new_convert(request):
     if request.method=="POST":
         form=NewConvertForm(request.POST)
@@ -3296,9 +3311,7 @@ def cells(request):
     
 def groups(request):
     return render(request, 'Groups/groups.html')
-
-
-
+    
 ##########lwaki oli mulamu ############
 @login_required
 def record_lwakiolimulamu(request):
@@ -3332,7 +3345,7 @@ def edit_lwakiolimulamu(request, pk):
     return render(request, 'lwakiolimulamu/edit_lwakiolimulamu.html', context) 
 
 def lwakiolimulamu_wall(request): 
-    all_sermons = LwakiOliMulamu.objects.all().order_by('-id')
+    all_sermons = LwakiOliMulamu.objects.all().order_by('-date')
     paginator = Paginator(all_sermons, 4)  
     page = request.GET.get('page')
     try:
@@ -3343,27 +3356,6 @@ def lwakiolimulamu_wall(request):
         sermon_list = paginator.page(paginator.num_pages)
     context={'page':page, 'sermon_list': sermon_list}    
     return render(request, 'lwakiolimulamu/lwakiolimulamu_wall.html', context)
-
-
-def lwakiolimulamu_detail(request, pk):
-    item = get_object_or_404(LwakiOliMulamu, pk=pk)
-    item_details=Members.objects.all()
-    more_details = LwakiOliMulamu.objects.all().order_by('-date')
-    paginator = Paginator(more_details, 7) 
-    page = request.GET.get('page')
-    try:
-        item_list = paginator.page(page)
-    except PageNotAnInteger:
-        item_list = paginator.page(1)
-    except EmptyPage:
-        item_list = paginator.page(paginator.num_pages)
-    context = {
-         'page':page,
-        'item': item,
-        'more_details': more_details,
-        'item_list': item_list,
-    }
-    return render(request, 'lwakiolimulamu/lwakiolimulamu_details.html', context)
 
 def lwakiolimulamu_archives(request, year):
     
@@ -3384,7 +3376,28 @@ def lwakiolimulamu_archives(request, year):
         'get_all_details':get_all_details, 'get_all_years':get_all_years
     }
     return render(request,"lwakiolimulamu/archives_of_lwakiolimulamu.html", context)
-
+    
+def lwakiolimulamu_detail(request, pk):
+    item = get_object_or_404(LwakiOliMulamu, pk=pk)
+    year = request.GET.get('year')
+    more_details = LwakiOliMulamu.objects.all().order_by('-date')
+    paginator = Paginator(more_details, 7) 
+    page = request.GET.get('page')
+    try:
+        item_list = paginator.page(page)
+    except PageNotAnInteger:
+        item_list = paginator.page(1)
+    except EmptyPage:
+        item_list = paginator.page(paginator.num_pages)
+    context = {
+         'page':page,
+        'item': item,
+        'more_details': more_details,
+        'item_list': item_list,
+    }
+    return render(request, 'lwakiolimulamu/lwakiolimulamu_details.html', context)
+    
+    
 ############# Blog Module ##################
 def add_blogpost(request):
     #user = Profile.objects.get(user=request.user)
@@ -3399,7 +3412,7 @@ def add_blogpost(request):
     return render(request, 'blog/add_blogpost.html', context)
 
 def list_blogs(request):
-    posts = Blog.objects.all().order_by('-created_at')
+    posts = Blog.objects.filter(is_active=True).order_by('-created_at')
     context = {
             'posts': posts
         }
@@ -3411,8 +3424,8 @@ def BlogPosts(request):
     return render(request, 'blog/blogposts.html',context)
 
 def BlogPost_detail(request, slug):
-    blogposts = get_object_or_404(Blog, slug=slug)
-    more_blogs = Blog.objects.all().order_by('-date')
+    blogposts = Blog.objects.get(slug=slug)
+    more_blogs = Blog.objects.filter(is_active=True).order_by('-date')
     paginator = Paginator(more_blogs, 10) 
     page = request.GET.get('page')
     try:
@@ -3423,10 +3436,10 @@ def BlogPost_detail(request, slug):
         blogs_list = paginator.page(paginator.num_pages)
     context={'blogposts':blogposts,'page':page, 'blogs_list': blogs_list, 'more_blogs': more_blogs}
     return render(request, 'blog/blogpost_details.html',context)
-
+    
 def blog_wall(request):
-    blogs = Blog.objects.all().order_by('-date')
-    paginator = Paginator(blogs, 6)
+    blogs = Blog.objects.filter(is_active=True).order_by('-date')
+    paginator = Paginator(blogs, 12)
     page = request.GET.get('page')
     try:
        blog_list = paginator.page(page)
@@ -3436,29 +3449,21 @@ def blog_wall(request):
         blog_list = paginator.page(paginator.num_pages)
     context={'page':page, 'blog_list': blog_list}
     return render(request, 'blog/blogs_wall.html', context)
-
+    
+    
 def search_tagged_blogs(request):        
     qs=str(request.GET.get('q'))
 
     get_all_posts = Blog.objects.filter(tags__name=qs).order_by('-date')
     
-    context={'get_all_posts':get_all_posts, 'qs':qs}
+    context={'get_all_posts':get_all_posts,'qs':qs}
     return render(request,'blog/blogs_searched.html', context)
     
-def sendemail(request):
-    #get_all_members = Members.objects.filter(is_active=True).exclude(Email='email@email.com').values_list("Email", flat=True)
-    get_all_members = Members.objects.filter(Email='dihfahsihm@gmail.com').values_list("Email", flat=True)
+def tagged_articles(request):        
+    qs=str(request.GET.get('q'))
+
+    tagged_sermons = News.objects.filter(tags__name=qs).order_by('-date')
     
-    recipients = list(i for i in get_all_members if bool(i))
-    print(recipients)
+    context={'tagged_sermons':tagged_sermons,'qs':qs}
+    return render(request,'news/tagged_sermons.html', context)
     
-    html_content = render_to_string('notification.html',{'get_all_members':get_all_members})
-    
-    subject="Communication From UCC Bwaise"
-    church_email = 'church@uccbwaise.org'
-    from_email = church_email
-    message = EmailMultiAlternatives(subject, from_email, bcc=recipients)
-    message.attach_alternative(html_content, "text/html")
-    message.send()
-    
-    return redirect('/')

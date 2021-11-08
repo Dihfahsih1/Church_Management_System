@@ -1,8 +1,9 @@
 {% extends 'home/base.html' %}
 {% load static contact_tags %}
-
+{% block title %}UCC Bwaise | Contact{% endblock %}
 {% block content %}
- <h1 style="text-align:center" class="title">Contact us at UCC Bwaise</h1>
+
+ <h1 style="text-align:center" class="title">Contact | UCC Bwaise</h1>
    <hr>
 
     <section>
@@ -27,33 +28,19 @@
                 }
             </style>
 
-
-            <script type="text/javascript">
-                $(function () {
-                    $('#message_div').delay(10000).fadeOut();
-                    $('.remove').click(function () {
-                        $('#message_div').hide();
-                    });
-                });
-            </script>
         </div>
     </section>
 
     <section class="page-contact-area">
         <div class="container">
-            <!--<div id="mymap"> </div>-->
-            <div class="row">
-                 <div class="col-lg-12 col-12">
-                    <iframe src="{% church_map %}" width="1200" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
-                    
-                 </div>
-             </div>    
             <div class="row">
               <div class="col-lg-6 col-12">
                     <div class="contact-form-area">
                         <h2 class="contact-page-title">Contact Us</h2>
-
-                        <form action="" method="POST" id="contact_us" name="contact_us">
+                            <script src='https://www.google.com/recaptcha/api.js'>
+                                
+                            </script>
+                        <form action="" method="POST" onsubmit="post.disabled = true; return submitUserForm();">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
@@ -88,17 +75,36 @@
 
                                 <div class="col-4">
                                     <div class="contact-input-box text-right">
-                                        <h3>Type the text below</h3>
                                         
-                                        {{ form.captcha }}
-                                        <input class="glbscl-link-btn hvr-bs" type="submit" name="submit" id="submit"
-                                               value="Submit">
+                                     <div class="g-recaptcha" data-sitekey="6LeugsUaAAAAABMI74vlJi90v5nlLOwY56WKR9wK" data-callback="verifyCaptcha">
+                                         
+                                     </div>
+                                     <div id="g-recaptcha-error"></div>
+                                    
+                                    <div class="row form-group">
+                                            <div class="offset-md-3 col-md-7">
+                                    <input type="submit" name="post" value="Submit" class="glbscl-link-btn hvr-bs" > </div>
+                                        </div>
                                     </div>
                                 </div>
 
                             </div>
 
                         </form>
+                        <script>
+                            function submitUserForm() {
+                                var response = grecaptcha.getResponse();
+                                if(response.length == 0) {
+                                    document.getElementById('g-recaptcha-error').innerHTML = '<span style="color:red;">This field is required.</span>';
+                                    return false;
+                                }
+                                return true;
+                            }
+                             
+                            function verifyCaptcha() {
+                                document.getElementById('g-recaptcha-error').innerHTML = '';
+                            }
+                        </script>
 
                     </div>
               </div>
@@ -129,15 +135,24 @@
                         <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="single-contact-info">
                                 <span class="icon"><i class="fa fa-fax"></i></span>
-                                <p class="info">Fax: {% Post_Office_Box %}</p>
+                                <p class="info">P.O.BOX: {% Post_Office_Box %}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="row">
+                 <div class="col-lg-12 col-12">
+                    <iframe src="{% church_map %}" width="1200" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                    
+                 </div>
+             </div>    
+            
         </div>
     </section>
-
+        
+        
+        
     <script type="text/javascript">
         function myMap() {
             var myCenter = new google.maps.LatLng({% church_latitude %}, {% church_longitude %});
@@ -166,7 +181,6 @@
             infowindow.open(map, marker);
         }
 
-        $('#contact_us').validate();
     </script>
 
 

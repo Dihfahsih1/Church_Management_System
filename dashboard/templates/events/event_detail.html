@@ -1,7 +1,7 @@
 {% extends 'home/base.html' %}
 
-<body>
-
+{% block title %} {{ event.event_title }}{% endblock %}
+{% load comments %}
 {% block content %}
 
   <h1 style="text-align: center">Event Details</h1><hr>
@@ -18,9 +18,30 @@
                             {% endif %}
                         </div>
                         <h2 class="title">{{ event.event_title }}</h2>
-                        <p>Event Date: {{ event.from_date }} </p><br><hr>
+                        <p>{{ event.from_date }}  to {{ event.to_date }}  </p><br><hr>
                       
-                        <div class="text">{{event.note|linebreaksbr}}</div>
+                        <div class="text">{{event.note|safe}}</div>
+                        
+                          {% get_comment_count for event as comment_count %}
+                        <div class="py-4 text-center">
+                        
+                        {{ comment_count }} comment{{ comment_count|pluralize }}
+                        ha{{ comment_count|pluralize:"s,ve" }} been posted.
+                        </div>
+
+                        {% if comment_count %}
+                            <hr/>
+                            <div class="comments">
+                            {% render_comment_list for event %}
+                            </div>
+                        {% endif %}
+                        
+                            <div class="card card-block mb-5">
+                                <div class="card-body">
+                                    <h4 class="card-title text-center pb-3">Post your comment</h4>
+                                    {% render_comment_form for event %}
+                                </div>
+                            </div>
                     </div>
                 </div>
 
@@ -39,7 +60,7 @@
                                          </span>
                                           <span class="content">
                                             <span class="title">{{ events.event_title }}</span>
-                                            Starting {{ events.from_date }}
+                                             {{ events.from_date }}
                                          </span>
                                        </a>  
                                     </li>

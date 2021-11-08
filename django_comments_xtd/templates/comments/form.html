@@ -1,0 +1,77 @@
+{% load i18n %}
+{% load comments %}
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<form method="POST" action="{% comment_form_target %}" onsubmit="post.disabled = true; return submitUserForm();">
+    {% csrf_token %}
+    <fieldset>
+        <input type="hidden" name="next" value="{% url 'comments-xtd-sent' %}" />
+
+        <div class="alert alert-danger" data-comment-element="errors" hidden>
+        </div>
+
+        {% for field in form %}
+        {% if field.is_hidden %}<div>{{ field }}</div>{% endif %}
+        {% endfor %}
+
+        <div style="display:none">{{ form.honeypot }}</div>
+
+        <div class="row form-group {% if 'comment' in form.errors %}has-danger{% endif %}">
+            <div class="offset-md-1 col-md-10">
+                {{ form.comment }}
+            </div>
+        </div>
+
+        {% if request.user.is_authenticated %}
+        <div class="row form-group" id ="name">
+            <label for="id_name" class="col-form-label col-md-3 text-right">
+                {{ form.name.label }}
+            </label>
+            <input type="text" name="name" value="{{ request.user.username }}" readonly="true">
+        </div>
+        {% else %}
+           <div class="row form-group {% if 'name' in form.errors %}has-danger{% endif %}">
+            <label for="id_name" class="col-form-label col-md-3 text-right">
+                {{ form.name.label }}
+            </label>
+            <div class="col-md-7">
+                {{ form.name }}
+            </div>
+        </div>
+        
+  
+        
+        {% endif %}
+
+
+
+  
+    </fieldset>
+        <div class="g-recaptcha" data-sitekey="6LeugsUaAAAAABMI74vlJi90v5nlLOwY56WKR9wK" data-callback="verifyCaptcha"></div>
+        <div id="g-recaptcha-error"></div>
+        <div class="row form-group">
+            <div class="offset-md-3 col-md-7">
+                <input type="submit" name="post" value="{% trans 'Comment' %}" class="btn btn-primary" />
+               
+            </div>
+        </div>
+
+</form>
+
+        <script type="text/javascript"> 
+            $("#name").hide();
+        </script>
+        
+        <script>
+            function submitUserForm() {
+                var response = grecaptcha.getResponse();
+                if(response.length == 0) {
+                    document.getElementById('g-recaptcha-error').innerHTML = '<span style="color:red;">This field is required.</span>';
+                    return false;
+                }
+                return true;
+            }
+             
+            function verifyCaptcha() {
+                document.getElementById('g-recaptcha-error').innerHTML = '';
+            }
+        </script>

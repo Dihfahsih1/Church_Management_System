@@ -60,10 +60,10 @@
                 {% for member in members_list %}                
                     <div class="col-lg-4">
                         <div class="single-event">
-                            <div class="img" style="max-height: 170px">
+                            <div class="img" style="max-height: 250px">
                                 <h3> Member No. {{member.id}}</h3>
                                  {% if member.Photo %}
-                                    <img src="{{ member.Photo.url }}" data-fancybox="images" style="border-radius: 40%;" >
+                                    <img src="{{ member.Photo.url }}" data-fancybox="images"  >
                                 {% endif %} 
                             </div>
                             <a href="{% url 'member-detail' member.id %}"> 

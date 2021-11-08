@@ -1,5 +1,5 @@
 {%load static %}
-{% if user.is_authenticated %}
+{% if user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
 <div class="left_col scroll-view">
     <style type="text/css">
         img {
@@ -19,11 +19,8 @@
         <h3 style="font-weight:bolder; color: white; text-align: center"> 
             <img src="{% static 'img/onlineIcon.png' %}" alt="active" width="10px">
         {{user.full_name.Initials}} {{user.full_name}}</h3>
-         {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
            <h5 style="font-weight:bold; color: white; text-align: center">UCC Bwaise {{user.Role}}</h5>
-           {% else %}
-           <h5 style="font-weight:bold; color: white; text-align: center">UCC Bwaise Church Member</h5>
-         {% endif %}
+          
     </div>
     <div class="clearfix"></div>
     <div class="separator"></div>
@@ -33,10 +30,9 @@
         <div class="menu_section">
             <ul class="nav side-menu">
                 <li><a href="{% url 'index' %}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
                 
                 <li><a href="{% url 'theme_list' %}"><i class="fa fa-cubes"></i> System Themes</a></li>
-                {% endif %}
+                
 
                 <div class="separator"></div>
                     <h3 style="font-weight:bolder; color: white; text-align: center">Financial Functions <i class="glyphicon glyphicon-arrow-down"></i></h3>
@@ -45,35 +41,27 @@
                 <li><a href="{% url 'church_list' %}"><i class="fa fa fa-institution"></i> Manage Church Details</a></li>
                 
                 <li><a href="{% url 'list_of_conferences' %}"><i class="fa fa-book"></i> Annual Conference</a></li>
-                
-                {% if user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Secretary' %}
                     <li><a href="{% url 'record-cashfloat' %}"><i class="fa fa-phone"></i> Cash Float</a></li>
-                {% endif %}
+                
 
                 <li><a href="{% url 'Building-Renovation-report'%}"><i class="fa fa-money"></i>Building Collections</a></li>
                 
                 <li><a><i class="fa fa-group"></i> Members <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
                         <li><a href="{% url 'members-register'%}">Register Members</a></li>
                         <li><a href="{% url 'members-archived'%}"> Archived Members</a></li>
                         <li><a href="{% url 'un-approved-list'%}"> Un approved Members</a></li>
-                        {% endif %}
                         <li><a href="{% url 'members-list'%}"> Church Members</a></li>
                     </ul>
                 </li>
 
                 <li><a><i class="fa fa-group"></i> Visitors <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
                         <li><a href="{% url 'visitors-register'%}"> Register Visitor</a></li>
-                        {% endif %}
                         <li><a href="{% url 'visitors-list'%}"> List of visitors</a></li>
                     </ul>
                 </li>
         
-
-                {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
                 <li><a><i class="fa fa-calculator"></i> Revenue Module <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{% url 'Enter_Tithes' %}">Total Tithes</a></li>
@@ -98,14 +86,11 @@
                         <li><a href="{% url 'enter_sundryexpense'  %}">Petty/Other Expenses</a></li>
                     </ul>
                 </li>
-                {% endif %}
 
                 <li><a><i class="fa fa-dollar"></i> Pledges Module <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
                         <li><a href="{% url 'add-pledge-item' %}">Add Pledge Items</a></li>
                         <li><a href="{% url 'Enter_Pledges' %}">Record Pledges</a></li>
-                        {% endif %}
                         <li><a href="{% url 'list-of-pledge-items' %}">List of Pledge Items</a></li>
                         <li><a href="{% url 'Pledgesreport' %}">Pledges Made</a></li>
                     </ul>
@@ -117,14 +102,12 @@
                         <li><a href="{% url 'general-expenses-report' %}">General Expenses Reports</a></li>
                         <li><a href="{% url 'Offeringsreport'  %}">Offerings Reports</a></li>
                         <li><a href="{% url 'sundryreport'  %}"> Petty Expenses Reports</a></li>
-                        {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
                             <li><a href="{% url 'Supportreport'  %}"> Ministry Support Reports</a></li>
                             <li><a href="{% url 'Tithesreport'  %}"> Tithe Reports</a></li>
                             <li><a href="{% url 'allowancereport'  %}"> Allowances Reports</a></li>
                             <li><a href="{% url 'current-month-salaries'  %}">Salaries Report</a></li>
                             <li><a href="{% url 'Seeds-report'  %}"> Seeds Offering Report</a></li>
                             <li><a href="{% url 'thanks-giving-report'  %}">Thanks Giving Report</a></li>
-                        {% endif %}
                         <li><a href="{% url 'donations-report'  %}">Other Sources Report</a></li>
                     </ul>
                 </li>
@@ -136,19 +119,16 @@
                         <li><a href="{% url 'offeringsarchivessearch' %}"> Offerings Archived</a></li>
                         <li><a href="{% url 'pledgesarchivessearch' %}"> Pledges Archived</a></li>
                         <li><a href="{% url 'sundryarchivessearch' %}"> Petty Expenses Archived</a></li>
-                        {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
                         <li><a href="{% url 'tithesarchivessearch' %}"> Tithes Archived</a></li>
                         <li><a href="{% url 'allowancearchivessearch' %}"> Allowances Archived</a></li>
                         <li><a href="{% url 'salariespaidarchivessearch' %}"> Salaries Archived</a></li>
                         <li><a href="{% url 'seeds-archives-search' %}"> Seed Offerings Archived</a></li>
                         <li><a href="{% url 'thanksgivingarchivessearch' %}">Thanks Giving Archived</a></li>
-                        {% endif %}
                         <li><a href="{% url 'donationsarchivessearch' %}"> Other Sources</a></li>
                         <li><a href="{% url 'BuildingRenovationarchivessearch' %}">Building Collections Archived</a></li>
                     </ul>
                 </li>
 
-                {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
                 <li><a><i class="fa fa-group"></i> Church Employees <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{% url 'employee-register' %}">Add Employees</a></li>
@@ -156,14 +136,11 @@
                         
                     </ul>
                 </li>
-                {% endif %}
                 <div class="separator"></div>
                  
                  <h3 style="font-weight:bolder; color: white; text-align: center">Other Functions <i class="glyphicon glyphicon-arrow-down"></i></h3>
                  <div class="separator"></div>
-                {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
                 <li><a href="{% url 'register' %}"><i class="fa fa-user"></i> Add New System User</a></li>
-                {% endif %}
                 <li><a href="{% url 'projects_list' %}"><i class="fa fa-folder"></i> Church Projects</a>
                 </li>
                 <li><a href="{% url 'church-groups' %}"><i class="fa fa-cloud"></i> Church Groups</a>
@@ -171,23 +148,19 @@
 
                 <li><a href="{% url 'home-cells' %}"><i class="fa fa-home"></i> Home Cells </a></li>
                 
-                <li><a><i class="fa fa-list"></i> Manage Ministries <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
-                        <li><a href="{% url 'ministry-create' %}">Add Ministry</a></li>
-                        {% endif %}
-                        <li><a href="{% url 'ministry-list' %}">Ministries List</a></li>
-                    </ul>
-                </li>
-                {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
-
-                <li><a><i class="fa fa-group"></i>Lwaki Oli Mulamu<span class="fa fa-chevron-down"></span></a>
+                 <li><a><i class="fa fa-group"></i>Lwaki Oli Mulamu<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{% url 'record' %}">Record</a></li>
                         <li><a href="{% url 'lwakiolimulamu' %}">List</a></li>
                     </ul>
                 </li>
 
+                <li><a><i class="fa fa-list"></i> Manage Ministries <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="{% url 'ministry-create' %}">Add Ministry</a></li>
+                        <li><a href="{% url 'ministry-list' %}">Ministries List</a></li>
+                    </ul>
+                </li>
                 <li><a><i class="fa fa-laptop"></i> Manage Website <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="font-size:16px;">
                         <li><a href="{% url 'gallery_list'%}">Gallery Categories</a></li>
@@ -198,16 +171,10 @@
                 
                     </ul>
                 </li>
-
-
-                
-
-
                 <!--the sidebar-->
                 <li><a href="{% url 'news_list' %}"><i class="fa fa-bullhorn"></i> Gospel Sermons</a>
                 </li>
                 <li><a href="{% url 'event_list' %}"><i class="fa fa fa-calendar-check-o"></i> Church Event</a></li>
-                {% endif %}
                 <li><a href="{% url 'new_converts_list' %}"><i class="fa fa fa-users"></i> New Converts</a></li>
                 <li><a><i class="fa fa-film"></i> Church Departments <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -234,7 +201,15 @@
                         <li><a href="#">Crusade</a></li>
                     </ul>
                 </li>
-              
+                <li><a><i class="fa fa-map-marker"></i> <b>Missions<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="#">Team</a></li>
+                        <li><a href="#">Eastern Region</a></li>
+                        <li><a href="#">Western Region</a></li>
+                        <li><a href="#">Central Region</a></li>
+                        <li><a href="#">Northern Region</a></li>
+                    </ul>
+                </li>
             </ul>
             <div class="separator"></div>
              <a class="text btn btn-primary" href="{% url 'logout' %}">Log Out<span class="fa fa-sign-out"></span></a>

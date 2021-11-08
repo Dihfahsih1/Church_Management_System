@@ -21,14 +21,21 @@
                                 <div class="col-lg-12">
                                     <div class="row">
                                     <div class="col-lg-12 col-md-12 col-xs-12">
+                                        <h2 class="page-title">Theme: {{item.conference_theme}}</h2>
+                                        
+                                        <div class="info">
+                                            <p>Preachers: {{item.preachers}}</p>
+                                        </div> 
+                                        
+                                        <div class="content">
+                                            <p>{{item.details|safe}}</p>
+                                        </div> 
+                                        
                                         <div class="single-event">
                                           {% if item.embedded_video %}
                                                 {{item.embedded_video|safe}}
                                           {% endif %}
                                           
-                                        </div> 
-                                        <div class="content">
-                                            <p>{{item.details|safe}}</p>
                                         </div> 
                                     </div>
                                    </div>
@@ -44,24 +51,25 @@
                                     <li>
                                         
                                         <a href="{% url 'lwakiolimulamu_detail' details.pk %}">
-                                        <span class="title">{{details.date}}
-                                        <span class="icon"><i
-                                                class="fa fa-calendar"></i>{{details.day }} </span>
+                                        
                                          <span class="img">
                                              {% if details.image %}
                                                  <img src="{{ details.image.url }}" alt="" width="100">
                                              {% endif %}
                                          </span>
-
-                                            <span class="content">
-                                                <span class="meta">
-                                                        <span class="icon">
-                                                        <i class="fa fa-user"></i>
-                                                        </span>
-                                                </span>
-                                            </span>
+                                            
+                                            
+                                        <span class="content">
+                                            {{details.date}} - {{details.day }} 
+                                            
+                                        </span> <br>
+                                        
+                                        <span class="title">                        {{details.title}}
+                                        </span>
                                         </a>
                                     </li>
+                                    <hr />
+                                    <br>
                                 {% endfor %}
 
                             </ul>

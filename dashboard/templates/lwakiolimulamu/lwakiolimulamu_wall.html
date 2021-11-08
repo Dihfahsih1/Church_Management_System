@@ -16,7 +16,7 @@
                                     <img src="{{ item.image.url }}" data-fancybox="images" style="border-radius: 40%;" >
                                 {% endif %} 
                             </div>
-                            <h2 class="title"><a href="{{ news.get_absolute_url }}"> {{item.date}} - {{ item.day }}</a>
+                            <h2 class="title"><a href="{{ news.get_absolute_url }}"> {{item.date}} - {{ item.day }} ( {{item.conference_theme}} ) </a>
                             </h2>
                             <div >
                                 {% if item.audio_file %}
@@ -29,12 +29,6 @@
                                 <div class="content">
                                     
                                     <ul class="list">
-                                        {% if item.conference_theme %}
-                                        <li class="info"><span class="icon"><i
-                                                class="fa fa-group"></i></span>{{item.conference_theme}}
-                                        </li>
-                                        {% endif %}
-
                                         {% if item.title %}
                                         <li class="info"><span class="icon"><i
                                                 class="fa fa-home"></i></span>{{ item.title }}

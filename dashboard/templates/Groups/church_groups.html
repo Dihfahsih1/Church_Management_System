@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
-                {% if user.is_authenticated %}
+                {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
                 <div class="x_title">
                     <h1 class="head-title" style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b> CHURCH GROUPS MODULE</b></h1>
                     <ul class="nav navbar-right panel_toolbox">
@@ -20,22 +20,21 @@
                     |<a href="{% url 'Offeringsreport' %}"> Offerings</a> 
                     |<a href="{% url 'Pledgesreport' %}"> Pledges</a> 
                     |<a href="{% url 'sundryreport' %}"> Petty Expenses</a> 
-                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+                    
                     |<a href="{% url 'allowancereport' %}"> Allowances</a> 
                     |<a href="{% url 'current-month-salaries' %}"> Salaries</a> 
                     |<a href="{% url 'Tithesreport' %}"> Tithes</a> 
                     |<a href="{% url 'donations-report' %}"> Doantions</a> 
                     |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a>
-                    {% endif %}
                     <div class="separator"></div>
                 </div>
                 {% endif %}
                 <p>{{ message }}</p>
-                <h1 class="head-title" style="text-align: center;">All Church Groups</h1>
+                <h1 class="head-title" style="text-align: center;">UCC Bwaise Church Groups</h1>
                 <div class="separator"></div>
+                <p>Please click on each module to see the group details</p>
                 <div class="x_content">
                     <div class="" data-example-id="togglable-tabs">
-                        {% if user.is_authenticated %}
                         <ul class="nav nav-tabs bordered">
                             <li role="presentation"><a href="{% url 'home-cells' %}"><i
                                         class="glyphicon glyphicon-home"></i>
@@ -45,7 +44,6 @@
                                     Groups</a>
                             </li>
                         </ul>
-                        {% endif %}
                         <br />
                         <ul class="nav nav-tabs bordered">
                             <li role="presentation">

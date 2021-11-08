@@ -39,7 +39,9 @@
             </div>
 
             <div class="form-row">
-                
+                  <div class="form-group col-md-3 mb-0">
+                    {{ form.Photo|as_crispy_field }}
+                </div>
                 <div class="form-group">
                     {{ form.Initials|as_crispy_field }}
                 </div>
@@ -72,9 +74,7 @@
                 <div class="form-group col-md-3 mb-0">
                     {{ form.Home_Cell|as_crispy_field }}
                 </div>
-                <div class="form-group col-md-3 mb-0">
-                    {{ form.Photo|as_crispy_field }}
-                </div>
+              
             </div>
                 <hr>
 
@@ -98,6 +98,15 @@
                     {{ form.Spouse|as_crispy_field }}
                 </div>
                 <div class="form-group col-md-3 mb-0">
+                <label for="cars">Member has Children?</label>
+
+                <select id="select">
+                  <option value="yes">Yes</option>
+                  <option value="no" selected>No</option>
+                </select>
+                </div>
+              
+                <div class="form-group col-md-3 mb-0" id="children">
                     {{ form.Children|as_crispy_field }}
                 </div>
               
@@ -241,5 +250,14 @@
         }
     });
     $("#id_Profession").trigger("change");
+    
+        $("#select").change(function () {
+        if ($(this).val() === "yes") {
+            $('#children').show();
+        } else {
+            $('#children').hide();
+        }
+    });
+    $("#select").trigger("change");
 </script>
 {% endblock %}

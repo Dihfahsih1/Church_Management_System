@@ -2,16 +2,16 @@
 
 
 {% block content %}
-   <h1 style="text-align:center" class="title">Create Personal Account</h1>
+   <h1 style="text-align:center" class="title">Create UCC Bwaise Personal Account</h1>
    <hr>
-   <p>Please if you created already an account and you forgot your password, just<a href="{% url 'login' %}}">RESET YOUR PASSWORD</a></p>
+   
 	{% load crispy_forms_tags %}
 	    <div class="container">
 	    	
 	    	<div class="row">
 	    		<div class="col-lg-4"></div>
 			    <div class="col-lg-3" >	
-				    <form method="POST">
+				    <form method="POST" enctype="multipart/form-data">
 					{% csrf_token %}
 						<fieldset class="form-group">
 							<div class="separator"></div>	
@@ -25,5 +25,6 @@
 				    </form>
 				</div>
 		   </div>
+		   <p>Please if you created already an account and you forgot your password, just<a href="{% url 'password_reset' %}" style="color:red"><u>RESET YOUR PASSWORD</u></a></p>
 	    </div>
 {% endblock %}

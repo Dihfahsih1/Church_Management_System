@@ -41,6 +41,9 @@
                                 {{ form.date|as_crispy_field }}
                             </div>
                             <div class="form-group">
+                                {{ form.day|as_crispy_field }}
+                            </div>
+                            <div class="form-group">
                                 {{ form.location|as_crispy_field }}
                             </div>
                             <div class="form-group" id="choice">
@@ -51,6 +54,9 @@
                             </div>
                             <div class="form-group" id="mission">
                                 {{ form.title|as_crispy_field }}
+                            </div>
+                            <div class="form-group" id="choice">
+                                {{ form.topic_or_sub_title|as_crispy_field }}
                             </div>
                             <div class="form-group">
                                 {{ form.preachers|as_crispy_field }}
@@ -69,7 +75,7 @@
                             </div>
                         </div>
                             <button type="submit" class="btn btn-primary" name="button">Submit</button>
-                    </div>
+                        </div>
                     </form>
                         </div>
                     </div>

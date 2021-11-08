@@ -1,18 +1,7 @@
 {% extends 'home/base.html' %}
- 
-<body>
-
-{% block content %}
-
-    <section class="page-breadcumb-area bg-with-black">
-        <div class="container text-center">
-            <h2 class="title">Christian Blogs</h2>
-            <ul class="links">
-                <li><a href="{% url 'index_public' %}">Home</a></li>
-                <li><a href="javascript:void(0);">Blogs</a></li>
-            </ul>
-        </div>
-    </section>
+ {% block content %}
+            <h2 class="title" style="text-align:center">Christian Blogs tagged -- <b style="color:green">{{qs}}</b> </h2>
+          
 
     <section class="page-news-area">
         <div class="container">

@@ -51,225 +51,243 @@
                         </ul>
                         <br/>
                     {% load crispy_forms_tags %}
-                    <form class="form-horizontal form-label-left"
-                    id="admissionForm" action="" method="POST" enctype="multipart/form-data" 
-                    accept-charset="utf-8" novalidate>
-                    {% csrf_token %}
-                    {% for errors in form_errors %}
-                    <p><b style="color: red;">{{errors}}</b> => Can't be empty</p>
-                    {% endfor %}
-                <div class="form-row">
-                    <div class="form-group col-md-12 mb-0">
-                        <p class="text-muted well well-sm no-shadow"
-                            style="margin-top: 10px;">
-                            <h3>Basic Information:</h3>
-                        </p>
-                    </div>
+            <form class="form-horizontal form-label-left"
+                id="admissionForm" action="" method="POST" enctype="multipart/form-data" 
+                accept-charset="utf-8" novalidate>
+                {% csrf_token %}
+                {% for errors in form_errors %}
+                <p><b style="color: red;">{{errors}}</b> => Can't be empty</p>
+                {% endfor %}
+            <div class="form-row">
+                <div class="form-group col-md-12 mb-0">
+                    <p class="text-muted well well-sm no-shadow"
+                        style="margin-top: 10px;">
+                        <h3>Basic Information:</h3>
+                    </p>
                 </div>
-    
-                <div class="form-row">
-                    
-                    <div class="form-group">
-                        {{ form.Initials|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.First_Name|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.Second_Name|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.Date_Of_Birth|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.Gender|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.Group|as_crispy_field }}
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.Telephone|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.Email|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.Residence|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.Home_Cell|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.Photo|as_crispy_field }}
-                    </div>
-                </div>
-                    <hr>
-    
-                <div class="form-row">
-                    <div class="form-group col-md-12 mb-0">
-                        <p class="text-muted well well-sm no-shadow"
-                            style="margin-top: 10px;">
-                            <h3>Marriage Information:</h3>
-                        </p>
-                    </div>
-                </div>
-    
-                <div class="form-row">
-                    <div class="form-group col-md-3 mb-0" >
-                        {{ form.Marital_Status|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0" id="Marriage_Kind">
-                        {{ form.Marriage_Kind|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0" id="spouse">
-                        {{ form.Spouse|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.Children|as_crispy_field }}
-                    </div>
-                  
-                </div>
-                <hr>
-                <div class="form-row">
-                    <div class="form-group col-md-12 mb-0">
-                        <p class="text-muted well well-sm no-shadow"
-                            style="margin-top: 10px;">
-                            <h3>Profession Information:</h3>
-                        </p>
-                    </div>
-                </div>
-    
-                <div class="form-row">
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.Education_Level|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.Profession|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0" id="work">
-                        {{ form.Type_of_Work|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0" id="place">
-                        {{ form.Place_of_Work|as_crispy_field }}
-                    </div>
-                </div>
-                <hr>
-                <div class="form-row">
-                    <div class="form-group col-md-12 mb-0">
-                        <p class="text-muted well well-sm no-shadow"
-                            style="margin-top: 10px;">
-                            <h3>More Residence Information:</h3>
-                        </p>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-3">
-                        {{ form.Country|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.County|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.Parish|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.District|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.Sub_County|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.Village|as_crispy_field }}
-                    </div>
-                </div>
-                <hr>
-    
-                <div class="form-row">
-                    <div class="form-group col-md-12 mb-0">
-    
-                        <p class="text-muted well well-sm no-shadow"
-                            style="margin-top: 10px;">
-                            <h3>Next Of Kin Information:</h3>
-                        </p>
-                    </div>
-                </div>
-    
-                <div class="form-row">
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.Name_Of_Next_Of_Kin|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.Contact_Of_Next_Of_Kin|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.Residence_Of_Next_Of_Kin|as_crispy_field }}
-                    </div>
-                </div>
-                <hr>
-                <div class="form-row">
-                    <div class="form-group col-md-12 mb-0">
-    
-                        <p class="text-muted well well-sm no-shadow"
-                            style="margin-top: 10px;">
-                            <h3>Faith Information:</h3>
-                        </p>
-                    </div>
-                </div>
-    
-                <div class="form-row">
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.Date_Of_Salvation|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.Date_Of_Joining_UCC_Bwaise|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.Ministry_Involved_In|as_crispy_field }}
-                    </div>
-                        <div class="form-group col-md-3 mb-0">
-                        {{ form.Is_View_on_Web|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-3 mb-0">
-                        {{ form.More_Info|as_crispy_field }}
-                    </div>
-                    
-                    <div class="form-group col-md-3 mb-0" id="status">
-                        {{ form.is_active|as_crispy_field }}
-                    </div>
-                </div>
-                    <button type="submit" class="btn btn-primary" name="button">Submit</button>
             </div>
-            </form>
+
+            <div class="form-row">
+                  <div class="form-group col-md-3 mb-0">
+                    {{ form.Photo|as_crispy_field }}
+                </div>
+                <div class="form-group">
+                    {{ form.Initials|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    {{ form.First_Name|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    {{ form.Second_Name|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    {{ form.Date_Of_Birth|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    {{ form.Gender|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    {{ form.Group|as_crispy_field }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    {{ form.Telephone|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    {{ form.Email|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    {{ form.Residence|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    {{ form.Home_Cell|as_crispy_field }}
+                </div>
+              
+            </div>
+                <hr>
+
+            <div class="form-row">
+                <div class="form-group col-md-12 mb-0">
+                    <p class="text-muted well well-sm no-shadow"
+                        style="margin-top: 10px;">
+                        <h3>Marriage Information:</h3>
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0" >
+                    {{ form.Marital_Status|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0" id="Marriage_Kind">
+                    {{ form.Marriage_Kind|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0" id="spouse">
+                    {{ form.Spouse|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                <label for="cars">Member has Children?</label>
+
+                <select id="select">
+                  <option value="yes">Yes</option>
+                  <option value="no" selected>No</option>
+                </select>
+                </div>
+              
+                <div class="form-group col-md-3 mb-0" id="children">
+                    {{ form.Children|as_crispy_field }}
+                </div>
+              
+            </div>
+            <hr>
+            <div class="form-row">
+                <div class="form-group col-md-12 mb-0">
+                    <p class="text-muted well well-sm no-shadow"
+                        style="margin-top: 10px;">
+                        <h3>Profession Information:</h3>
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    {{ form.Education_Level|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    {{ form.Profession|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0" id="work">
+                    {{ form.Type_of_Work|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0" id="place">
+                    {{ form.Place_of_Work|as_crispy_field }}
+                </div>
+            </div>
+            <hr>
+            <div class="form-row">
+                <div class="form-group col-md-12 mb-0">
+                    <p class="text-muted well well-sm no-shadow"
+                        style="margin-top: 10px;">
+                        <h3>More Residence Information:</h3>
+                    </p>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    {{ form.Country|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    {{ form.County|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    {{ form.Parish|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    {{ form.District|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    {{ form.Sub_County|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    {{ form.Village|as_crispy_field }}
+                </div>
+            </div>
+            <hr>
+
+            <div class="form-row">
+                <div class="form-group col-md-12 mb-0">
+
+                    <p class="text-muted well well-sm no-shadow"
+                        style="margin-top: 10px;">
+                        <h3>Next Of Kin Information:</h3>
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    {{ form.Name_Of_Next_Of_Kin|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    {{ form.Contact_Of_Next_Of_Kin|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    {{ form.Residence_Of_Next_Of_Kin|as_crispy_field }}
+                </div>
+            </div>
+            <hr>
+            <div class="form-row">
+                <div class="form-group col-md-12 mb-0">
+
+                    <p class="text-muted well well-sm no-shadow"
+                        style="margin-top: 10px;">
+                        <h3>Faith Information:</h3>
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    {{ form.Date_Of_Salvation|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    {{ form.Date_Of_Joining_UCC_Bwaise|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    {{ form.Ministry_Involved_In|as_crispy_field }}
+                </div>
+                    <div class="form-group col-md-3 mb-0">
+                    {{ form.Is_View_on_Web|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    {{ form.More_Info|as_crispy_field }}
+                </div>
+                
+                <div class="form-group col-md-3 mb-0" id="status">
+                    {{ form.is_active|as_crispy_field }}
+                </div>
+            </div>
+                <button type="submit" class="btn btn-primary" name="button">Submit</button>
         </div>
-    </section>
+        </form>
+    </div>
+</section>
+
+<script type="text/javascript">
+    $("#id_Marital_Status").change(function () {
+        if ($(this).val() === "Married") {
+            $('#Marriage_Kind').show();
+            $('#spouse').show();
+        
+        } else {
+            $('#Marriage_Kind').hide();
+            $('#spouse').hide();
+        }
+    });
+    $("#id_Marital_Status").trigger("change");
+
+    $("#status").hide();
+
+    $("#id_Profession").change(function () {
+        if ($(this).val() === "Employed") {
+            $('#work').show();
+            $('#place').show();
+        } else {
+            $('#work').hide();
+            $('#place').hide();
+        }
+    });
+    $("#id_Profession").trigger("change");
     
-    <script type="text/javascript">
-        $("#id_Marital_Status").change(function () {
-            if ($(this).val() === "Married") {
-                $('#Marriage_Kind').show();
-                $('#spouse').show();
-            
-            } else {
-                $('#Marriage_Kind').hide();
-                $('#spouse').hide();
-            }
-        });
-        $("#id_Marital_Status").trigger("change");
-    
-        $("#status").hide();
-    
-        $("#id_Profession").change(function () {
-            if ($(this).val() === "Employed") {
-                $('#work').show();
-                $('#place').show();
-            } else {
-                $('#work').hide();
-                $('#place').hide();
-            }
-        });
-        $("#id_Profession").trigger("change");
-    </script>
+        $("#select").change(function () {
+        if ($(this).val() === "yes") {
+            $('#children').show();
+        } else {
+            $('#children').hide();
+        }
+    });
+    $("#select").trigger("change");
+</script>
     
 {% endblock content %}

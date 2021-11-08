@@ -1,0 +1,55 @@
+{% extends 'home/base.html' %}
+ 
+{% block title %} UCC Bwaise| {{qs}}{% endblock %}
+
+{% block content %}
+
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">All sermons tagged <b style="color:green">{{qs}}</b></h2>
+            
+        </div>
+    </section>
+
+    <section class="page-news-area">
+        <div class="container">
+            <div class="row justify-content-center">
+
+                {% for news in tagged_sermons %}
+                    <div class="col-lg-4 col-md-6 col-sm-8 col-12">
+                        <div class="single-news" style="height: 556px;">
+                            <a href="{% url 'news_detail' news.slug %}">
+                            <div class="img">
+                                {% if news.image %}
+                                    <img src="{{ news.image.url }}" alt="">
+                                {% endif %}
+                            
+                            </div>
+                            
+                            <div class="content">
+                              
+                                <h2 class="title"><a href="{{ news.get_absolute_url }}">{{ news.news_title }}</a>
+                                </h2>
+                                 
+                                <div class="text">
+                                    {{ news.news|truncatewords:20|safe }}
+                                </div>
+                               
+                            </div>
+                            </a>
+                             <div class="more text-right">
+                                <a class="link glbscl-link-btn hvr-bs"
+                                       href="{% url 'news_detail' news.slug %}">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                {% endfor %}
+
+            </div>
+            
+        </div>
+    </section>
+{% endblock %}
+ 
+

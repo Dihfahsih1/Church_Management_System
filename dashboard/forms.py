@@ -5,10 +5,11 @@ from django import forms
 from .models import *
 from django.forms import Textarea, TextInput, ChoiceField
 from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput, MonthPickerInput 
-from captcha.fields import CaptchaField
 
+from captcha.fields import CaptchaField
 from functools import partial
  
+
 class SliderForm(forms.ModelForm):
     class Meta:
         model = Slider
@@ -18,7 +19,7 @@ class SliderForm(forms.ModelForm):
 class UserForm(forms.ModelForm):
     class Meta:
         model=User
-        fields=('Is_View_on_Web','email','username','Role','full_name','is_active','is_staff','is_superuser')
+        fields=('Is_View_on_Web','email','username','Role','full_name','is_active','is_staff','is_superuser','get_full_name')
         widgets = {
             'Date': DatePickerInput(),
             
@@ -157,9 +158,7 @@ class PledgeItemsForm(forms.ModelForm):
             'Date': DatePickerInput(),
             'Pledge_Deadline': DatePickerInput(),
             'Item_That_Needs_Pledges': TextInput(attrs={'placeholder': 'Item'}),
-          } 
-          
-                         
+          }                
 
 
 class AboutForm(forms.ModelForm):
@@ -180,12 +179,11 @@ class GalleryForm(forms.ModelForm):
 class ImageForm(forms.ModelForm):
     class Meta:
         model = Image
-        fields = ('gallery_title', 'gallery_image', 'image_caption','Is_View_on_Web')   
-                                           
+        fields = ('gallery_title', 'gallery_image', 'image_caption','Is_View_on_Web')                                      
 class NewsForm(forms.ModelForm):
     class Meta:
         model = News
-        fields = ('news_title', 'image','audio_file', 'news', 'tags','Is_View_on_Web')
+        fields = ('news_title', 'image','audio_file', 'news', 'date','tags', 'Is_View_on_Web')
 
 class ProjectForm(forms.ModelForm):
     class Meta:
@@ -209,7 +207,6 @@ class EventForm(forms.ModelForm):
             'Start_Time': TimePickerInput(),
             'End_Time': TimePickerInput(),
         }
-        
 class churchForm(forms.ModelForm):
     class Meta:
         model = Church
@@ -231,7 +228,6 @@ class churchForm(forms.ModelForm):
 
         }
 class ContactForm(forms.ModelForm):
-    captcha = CaptchaField()
     class Meta:
         model = Contact
         fields = ('name', 'email', 'phone', 'subject','message','feedback')
@@ -248,13 +244,6 @@ class AnnualConferenceForm(forms.ModelForm):
         'start_date':DatePickerInput(),
         'end_date' :DatePickerInput()
         }
-class LwakiOliMulamuForm(forms.ModelForm):
-    class Meta:
-        model = LwakiOliMulamu
-        fields = ('date','location','which_type','conference_theme','title','preachers','embedded_video','image','audio_file','day','details','topic_or_sub_title')
-        widgets={
-        'date':DatePickerInput(),
-        }
 class NewConvertForm(forms.ModelForm):
     class Meta:
         model = NewConvert
@@ -265,7 +254,16 @@ class NewConvertForm(forms.ModelForm):
             attrs={'data-placeholder': 'Type here the name....', 'data-minimum-input-length': 3})
         }
         
+        
+class LwakiOliMulamuForm(forms.ModelForm):
+    class Meta:
+        model = LwakiOliMulamu
+        fields = ('date','location','which_type','conference_theme','title','topic_or_sub_title','preachers','embedded_video','image','audio_file','day','details')
+        widgets={
+        'date':DatePickerInput(),
+        }
+        
 class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
-        fields = ['author', 'title', 'details', 'image','reference_link','tags']
+        fields = ['author', 'title', 'details', 'image','reference_link','tags','is_active']

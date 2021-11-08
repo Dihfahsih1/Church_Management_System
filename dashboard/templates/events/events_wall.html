@@ -1,6 +1,6 @@
 {% extends 'home/base.html' %}
 
-<body>
+{% block title %} Events at UCC Bwaise {% endblock %}
 
 {% block content %}
  <h1 style="text-align:center" class="title">All Events at UCC Bwaise</h1>
@@ -22,15 +22,8 @@
                                 </h2>
                                 <ul class="list">
                                     <li class="info"><span class="icon"><i
-                                            class="fa fa-calendar"></i></span>Start Date: {{ event.from_date }}
+                                            class="fa fa-calendar"></i></span>{{ event.from_date }}
                                         
-                                    </li>
-                                    <li class="info"><span class="icon"><i
-                                            class="fa fa-calendar"></i></span>End Date: {{ event.to_date }}
-                                        
-                                    </li>
-                                    <li class="info"><span class="icon"><i
-                                            class="fa fa-map-marker"></i></span>{{ event.event_place }}
                                     </li>
                                 </ul>
                                 <div class="more text-center">

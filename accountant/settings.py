@@ -8,13 +8,13 @@ env = environ.Env()
 # reading .env file
 environ.Env.read_env()
 
+
 SECRET_KEY = env("KEY")
 DEBUG = True
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['uccbwaise.org', 'www.uccbwaise.org','82.163.176.120']
 CORS_ORIGIN_ALLOW_ALL = True
 APPEND_SLASH=True
 SITE_ID = 1
-
 INSTALLED_APPS = [
     'dashboard',
     'tracking',
@@ -40,25 +40,17 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'django_social_share',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
+    'allauth',
     'django_comments_xtd',
     'django_comments',
-    'taggit'
+    'taggit',
+    
+    
     ]
-COMMENTS_XTD_DEFAULT_FOLLOWUP = True
-
-COMMENTS_XTD_CONFIRM_EMAIL = False
-COMMENTS_APP = 'django_comments_xtd'
-#  To help obfuscating comments before they are sent for confirmation.
-COMMENTS_XTD_SALT = (b"Please confirm this comment. "
-                     b"This has been commented through the website.")
-
-# Source mail address used for notifications.
-COMMENTS_XTD_FROM_EMAIL = "church@uccbwaise.org"
-
-# Contact mail address to show in messages.
-COMMENTS_XTD_CONTACT_EMAIL = "church@uccbwaise.org"
-
-
 #captcha properties
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 TEXT_ADDITIONAL_TAGS = ('iframe',)
@@ -71,8 +63,20 @@ CAPTCHA_LETTER_ROTATION = (-38, 38)
 CAPTCHA_NOISE_FUNCTIONS = None
 #CAPTCHA_IMAGE_SIZE = '30'
 
+# DEFAULT_FILE_STORAGE='github_storages.backend.BackendStorages'
+# GITHUB_HANDLE='Pythonista1'
+# ACCESS_TOKEN='f284bcf2c4651226f99da98e821abfb98a24a610'
+# GITHUB_REPO_NAME='amazing'
+# MEDIA_BUCKET_NAME='media'
+
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+USE_X_FORWARDED_HOST = True
 #SESSION_EXPIRE_AT_BROWSER_CLOSE = True     # opional, as this will log you out when browser is closed
-SESSION_COOKIE_AGE = 6000                   # 0r 10 * 60, same thing
+SESSION_COOKIE_AGE = 60000                # 0r 10 * 60, same thing
 #SESSION_SAVE_EVERY_REQUEST = True   
 
 AUTH_USER_MODEL = 'dashboard.User'
@@ -109,13 +113,24 @@ TEMPLATES = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME':'postgres',
-        'USER': 'postgres',
-        'PASSWORD':'uccbwaise',
-        'HOST': '127.0.0.1',
+        'NAME':'uccbwais_church',
+        'USER': 'uccbwais_admin',
+        'PASSWORD':'uccbwaise2021',
+        'HOST': 'localhost',
         'PORT':'5432',
     }
 }
+# if os.environ.get('GITHUB_WORKFLOW'):
+#     DATABASES = {
+#         'default': {
+#           'ENGINE': 'django.db.backends.postgresql',
+#           'NAME': env("DB_GIT"),
+#           'USER': env("DB_USER"),
+#           'PASSWORD': env("DB_PASSWORD"),
+#           'HOST': env("DB_HOST"),
+#           'PORT': env("DB_PORT"),
+#         }
+#     }
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -135,17 +150,25 @@ TIME_ZONE = 'Africa/Kampala'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-USE_TZ
-LOGIN_URL = 'login'
+
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
+EMAIL_HOST = 'mail.uccbwaise.org'
 EMAIL_HOST_USER = env('MAIL_HOST')
 EMAIL_HOST_PASSWORD = env('MAIL_PASSWORD')
-EMAIL_USE_TLS = True
+EMAIL_USE_SSL= True
+EMAIL_PORT = 290
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = env('MAIL_HOST')
+# EMAIL_HOST_PASSWORD = env('MAIL_PASSWORD')
+# EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -161,30 +184,31 @@ MESSAGE_TAGS = {
 }
 
 
-STATIC_ROOT = ''
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATICFILES_DIRS = [ BASE_DIR+"/assets", ]
+STATIC_ROOT = '/home/uccbwais/public_html/static'
+MEDIA_ROOT = '/home/uccbwais/public_html/media'
+
+
+
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
+ #...
+SITE_ID = 1
 
-
-
-####################################
-    ##  CKEDITOR CONFIGURATION ##
-####################################
-
-
-
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': None,
-    },
+CACHES = {
+  'default': {
+    'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+    'LOCATION': '127.0.0.1:11211',
+   }
 }
 
-
+####################################
     ##  CKEDITOR CONFIGURATION ##
 ####################################
+
+
 
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 
@@ -198,8 +222,10 @@ CKEDITOR_CONFIGS = {
 }
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
-####################################TRACKING WEBSITE VISITORS
 
+###################################
+
+#TRACKING WEBSITE VISITORS
 TRACK_AJAX_REQUESTS = True
 TRACK_ANONYMOUS_USERS =True
 TRACK_SUPERUSERS = False
@@ -208,16 +234,77 @@ TRACK_IGNORE_STATUS_CODES = [400, 404, 403, 405, 410, 500]
 TRACK_REFERER = True
 TRACK_QUERY_STRING = True
 
-CORS_REPLACE_HTTPS_REFERER      = False
-HOST_SCHEME                     = "http://"
-SECURE_PROXY_SSL_HEADER         = None
-SECURE_SSL_REDIRECT             = False
-SESSION_COOKIE_SECURE           = False
-CSRF_COOKIE_SECURE              = False
-SECURE_HSTS_SECONDS             = None
-SECURE_HSTS_INCLUDE_SUBDOMAINS  = False
-SECURE_FRAME_DENY               = False
+COMMENTS_XTD_APP_MODEL_OPTIONS = {
+    'default': {
+        'allow_flagging': False,
+        'allow_feedback': False,
+        'show_feedback': False,
+        'who_can_post': 'all'
+    }
+}
+
+COMMENTS_XTD_MAX_THREAD_LEVEL = 0
+COMMENTS_XTD_MARKUP_FALLBACK_FILTER = 'markdown'
+COMMENTS_XTD_CONFIRM_EMAIL = False
+COMMENTS_APP = 'django_comments_xtd'
+COMMENTS_XTD_FROM_EMAIL = "church@uccbwaise.org"
+COMMENTS_XTD_CONTACT_EMAIL = "church@uccbwaise.org"
+
+#allauth app
+SOCIALACCOUNT_PROVIDERS = {
+    
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SCOPE': ['email', 'public_profile'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'INIT_PARAMS': {'cookie': True},
+        'FIELDS': [
+            'id',
+            'first_name',
+            'last_name',
+            'middle_name',
+            'name',
+            'name_format',
+            'picture',
+            'short_name'
+        ],
+        'EXCHANGE_TOKEN': True,
+        'LOCALE_FUNC': 'path.to.callable',
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v10.0',
+    },
+        
+    'google': {
+        "APP": {
+            "client_id": "188820696910-s9fv09qcqlsgsqjklbjhtf74akb909dj.apps.googleusercontent.com",
+            "secret": "hu0l6I1zCDipaoRj2zjVF9ON", 
+        },
+        'SCOPE': [
+        
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+    },
+    
+    'twitter':{}
+}
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_EMAIL_REQUIRED = False
+SOCIALACCOUNT_QUERY_EMAIL = True
+#ACCOUNT_ADAPTER = "users.adapters.AccountsAdapter"
+SOCIALACCOUNT_AUTO_SIGNUP =True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+TAGGIT_CASE_INSENSITIVE = True
+#ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.MembershipAccountForm'
+
+############# GOOGLE RECAPTCHA ###############################
+# SITE KEY FOR CLIENT SIDE INTEGRATION = 6LeugsUaAAAAABMI74vlJi90v5nlLOwY56WKR9wK
+
+# SECRET KEY FOR SERVER SIDE INTEGRATION = 6LeugsUaAAAAAD_BpNftqXyAAaKut3d7AJ2bIJTO
 
 
-SOCIALACCOUNT_AUTO_SIGNUP = True
-SOCIALACCOUNT_EMAIL_REQUIRED = True

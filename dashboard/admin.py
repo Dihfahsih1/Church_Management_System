@@ -56,4 +56,4 @@ admin.site.register(Blog, BlogAdmin)
 
 class NewsAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('news_title',)}
-admin.site.register(News)
+admin.site.register(News, NewsAdmin)

@@ -57,7 +57,7 @@
                                                 <td>{{ item.location}}</td>
                                                 <td>{{ item.conference_theme}}</td>
                                                 <td>{{ item.title|intcomma}}</td>
-                                                <td>{{ item.preacher}}</td>
+                                                <td>{{ item.preachers}}</td>
                                                 <td>
                                                     {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
                                                         <div class="mb-4">

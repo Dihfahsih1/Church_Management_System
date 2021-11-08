@@ -29,10 +29,10 @@
                                                     <li class="info"><b>Last Name: </b>{{member.Second_Name}}</li>
                                                     <li class="info"><b>Group: </b>{{member.Group}}</li>
                                                     <li class="info"><b>Home Cell:</b> {{member.Home_Cell}}</li>
-                                                    <li class="info"><b>Residence:</b>  {{member.Residence}}</li>
-                                                    <li class="info"><b>Telephone:</b>  {{member.Telephone}}</li>
-                                                    <li class="info"><b>Email:</b>  {{member.Email}}</li>
-                                                    <li class="info"><b>Gender: </b> {{member.Gender}}</li>
+                                                    <!--<li class="info"><b>Residence:</b>  {{member.Residence}}</li>-->
+                                                    <!--<li class="info"><b>Telephone:</b>  {{member.Telephone}}</li>-->
+                                                    <!--<li class="info"><b>Email:</b>  {{member.Email}}</li>-->
+                                                    <!--<li class="info"><b>Gender: </b> {{member.Gender}}</li>-->
                                                     <!--<li class="info"><b>Marital Status:</b>  {{member.Marital_Status}}</li>-->
                                                     <!--<li class="info"><b>Type of Marriage: </b> {{member.Marriage_Kind}}</li>-->
                                                     <!--<li class="info"><b>Education Level: </b> {{member.Education_Level}}</li>-->
@@ -66,6 +66,7 @@
                                     {% endcomment%}
                                    </div>
                                 </div>
+                                
                                 {% if user.is_authenticated %}
                                     {% if user.id == member.created_by.id %}  
                                         <button class="more text-right"><a class="link glbscl-link-btn hvr-bs" href="{% url 'user_update' request.user.id %}">Update Your Details</a></button>
@@ -74,7 +75,7 @@
                                     
                                         <button class="more text-right"><a class="link glbscl-link-btn hvr-bs" href="{% url 'edit-member' member.id %}">Update {{member.full_name}} Details</a></button>
                                     {% endif %}
-                                {% endif %} 
+                                {% endif %}  
                                 
                             </div>
 

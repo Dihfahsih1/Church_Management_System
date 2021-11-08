@@ -1,10 +1,10 @@
 {% extends 'home/base.html' %}
-{% load static  %} 
-{% load comments %}
-<body>
-{% block content %}
+{% block title %} {{ news.news_title }}{% endblock %}
 
-    <section class="page-breadcumb-area bg-with-black">
+{% load comments %}
+{% block content  %}
+
+    <section class="page-breadcumb-area bg-with-black" style="margin-bottom:-7%">
         <div class="container text-center">
             <h2 class="title">Gospel Detail</h2>
             <ul class="links">
@@ -29,7 +29,7 @@
                         </div>
 
                         <ul class="meta">
-                            <li class="info"><span class="icon"><i class="fa fa-user"></i></span> By / {{ news.author }}
+                            <li class="info"><span class="icon"><i class="fa fa-user"></i></span> By {{ news.author }}
                             </li>
                             <li class="info"><span class="icon"><i class="fa fa-calendar"></i></span> {{ news.date }}
                             </li>
@@ -42,13 +42,20 @@
                         </audio>
                         {% endif %}
                         <p class="text" >{{ news.news|safe }}</p>
+                        
+                        
+                             <br><br>
+                          <h3 style="font:50px">
+                           Tags:
+                           {% for tag in news.tags.all %}
+                                <a href="{% url 'tagged_articles' %}?q={{tag}}" style="text-decoration:none"><button type="button" class="btn btn-default"><h4>{{ tag }}</h4> </button> </a>
+                             {% endfor %}
+                          </h3> 
                         <hr >
-                        {% for tag in news.tags.all %}
-                            <button class="btn btn-default" style="text-decoration:None"> #{{ tag }} </button>
-                        {% endfor %}<hr >
-                        {% get_comment_count for news as comment_count %}
+                            
+                         {% get_comment_count for news as comment_count %}
                         <div class="py-4 text-center">
-                        <a href="{% url 'news_wall' %}">Back to the post list</a>
+                        <a href="{% url 'news_wall' %}">Back to list of Sermons</a>
                         &nbsp;&sdot;&nbsp;
                         {{ comment_count }} comment{{ comment_count|pluralize }}
                         ha{{ comment_count|pluralize:"s,ve" }} been posted.
@@ -61,24 +68,23 @@
                             </div>
                         {% endif %}
                         
-                    {% if not request.user.is_authenticated %}
-                        <div class="card card-block mb-5">
-                            <div class="card-body">
-                                <h4 class="card-title text-center pb-3">Post your comment</h4>
-                                {% render_comment_form for news %}
+                            <div class="card card-block mb-5">
+                                <div class="card-body">
+                                    <h4 class="card-title text-center pb-3">Post your comment</h4>
+                                    {% render_comment_form for news %}
+                                </div>
                             </div>
-                        </div>
-                    {% endif %}
+                      
                     </div>
                 </div>
                 <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-12">
                     <div class="sidebar">
                         <div class="sidebar-widget">
-                            <h2 class="sidebar-title">Gospel Series</h2>
+                            <h2 class="sidebar-title">Popular Gospel</h2>
                             <ul class="widget-news">
                                 {% for news in news_list %}
                                     <li>
-                                        <a href="{% url 'news_detail' news.pk %}">
+                                        <a href="{% url 'news_detail' news.slug %}">
                                          <span class="img">
                                              {% if news.image %}
                                                  <img src="{{ news.image.url }}" alt="">
@@ -86,12 +92,12 @@
                                          </span>
 
                                             <span class="content">
-                                             <span class="meta">
-                                                 <span class="info"><span class="icon"><i
-                                                         class="fa fa-user"></i></span> By  {{ news.author }}</span>
-                                                 <span class="info"><span class="icon"><i
-                                                         class="fa fa-calendar"></i></span> {{ news.date }}</span>
-                                             </span>
+                                             <!--<span class="meta">-->
+                                             <!--    <span class="info"><span class="icon"><i-->
+                                             <!--            class="fa fa-user"></i></span> By  {{ news.author }}</span>-->
+                                             <!--    <span class="info"><span class="icon"><i-->
+                                             <!--            class="fa fa-calendar"></i></span> {{ news.date }}</span>-->
+                                             <!--</span>-->
                                              <span class="title">{{ news.news_title }}</span>
                                          </span>
                                         </a>

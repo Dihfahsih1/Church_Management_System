@@ -24,7 +24,7 @@
                                     {% if about.about_image %}
                                     <img src="{{ about.about_image.url }}" alt="">
                                     {% endif %}
-                                </div><br><br><p style="font-size:18px">{{ about.about|linebreaksbr }}</p>
+                                </div><br><br><p style="font-size:18px">{{ about.about|safe }}</p>
                                 </div>
                             </div>
                         </div>

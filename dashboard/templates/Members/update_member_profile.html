@@ -22,7 +22,7 @@
                 
             </div>
         <h3 style="color: red;">Hello <b style="color:black">{{request.user.fname }} {{request.user.lname }}</b>, Update your profile with new information.</h3>
-        <form class="form-horizontal form-label-left"
+       <form class="form-horizontal form-label-left"
                 id="admissionForm" action="" method="POST" enctype="multipart/form-data" 
                 accept-charset="utf-8" novalidate>
                 {% csrf_token %}
@@ -39,7 +39,9 @@
             </div>
 
             <div class="form-row">
-                
+                  <div class="form-group col-md-3 mb-0">
+                    {{ form.Photo|as_crispy_field }}
+                </div>
                 <div class="form-group">
                     {{ form.Initials|as_crispy_field }}
                 </div>
@@ -72,9 +74,7 @@
                 <div class="form-group col-md-3 mb-0">
                     {{ form.Home_Cell|as_crispy_field }}
                 </div>
-                <div class="form-group col-md-3 mb-0">
-                    {{ form.Photo|as_crispy_field }}
-                </div>
+              
             </div>
                 <hr>
 
@@ -94,17 +94,22 @@
                 <div class="form-group col-md-3 mb-0" id="Marriage_Kind">
                     {{ form.Marriage_Kind|as_crispy_field }}
                 </div>
-                <script type="text/javascript">
-                        $("#id_Marital_Status").change(function () {
-                    if ($(this).val() === "Married") {
-                        $('#Marriage_Kind').hide();
+                <div class="form-group col-md-3 mb-0" id="spouse">
+                    {{ form.Spouse|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                <label for="cars">Member has Children?</label>
 
-                    } else {
-                        $('#Marriage_Kind').hide();
-                    }
-                    });
-                    $("#id_Marital_Status").trigger("change");
-                </script>
+                <select id="select">
+                  <option value="yes">Yes</option>
+                  <option value="no" selected>No</option>
+                </select>
+                </div>
+              
+                <div class="form-group col-md-3 mb-0" id="children">
+                    {{ form.Children|as_crispy_field }}
+                </div>
+              
             </div>
             <hr>
             <div class="form-row">
@@ -115,6 +120,7 @@
                     </p>
                 </div>
             </div>
+
             <div class="form-row">
                 <div class="form-group col-md-3 mb-0">
                     {{ form.Education_Level|as_crispy_field }}
@@ -208,12 +214,13 @@
                 <div class="form-group col-md-3 mb-0">
                     {{ form.More_Info|as_crispy_field }}
                 </div>
+                
                 <div class="form-group col-md-3 mb-0" id="status">
                     {{ form.is_active|as_crispy_field }}
                 </div>
             </div>
                 <button type="submit" class="btn btn-primary" name="button">Submit</button>
-         </div>
+        </div>
         </form>
     </div>
 </section>
@@ -222,13 +229,17 @@
     $("#id_Marital_Status").change(function () {
         if ($(this).val() === "Married") {
             $('#Marriage_Kind').show();
+            $('#spouse').show();
         
         } else {
             $('#Marriage_Kind').hide();
+            $('#spouse').hide();
         }
     });
-    $("#status").hide();
     $("#id_Marital_Status").trigger("change");
+
+    $("#status").hide();
+
     $("#id_Profession").change(function () {
         if ($(this).val() === "Employed") {
             $('#work').show();
@@ -239,5 +250,14 @@
         }
     });
     $("#id_Profession").trigger("change");
+    
+        $("#select").change(function () {
+        if ($(this).val() === "yes") {
+            $('#children').show();
+        } else {
+            $('#children').hide();
+        }
+    });
+    $("#select").trigger("change");
 </script>
 {% endblock %}

@@ -2,7 +2,8 @@ from django import forms
 from dashboard.models import User
 from dashboard.views import *
 
-"""form for creating a system user from the dashboard"""
+
+#form for creating a system user from the dashboard
 class RegisterForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
     password2 = forms.CharField(label='Password confirmation',
@@ -10,17 +11,13 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['full_name','username','Role','Is_View_on_Web']
+        fields = ['full_name','username','Role']
         labels = {
             'full_name': 'Name',
             'email': 'Email',
             'username': 'Username',
         }
-        error_messages = {
-            'full_name': {
-                'max_length': "Name can only be 25 characters in length"
-            }
-        }
+        
         widgets = {
             'full_name': autocomplete.ModelSelect2(url='auto-complete',
             attrs={'data-placeholder': 'Type here the name....', 'data-minimum-input-length': 3})
@@ -70,7 +67,17 @@ class MembershipAccountForm(forms.ModelForm):
         if commit:
             user.save()
         return user
-
+    
+    # def signup(self, request, user, commit=True):
+    #     user = super(MembershipAccountForm, self).save(commit=False)
+    #     user.first_name = self.cleaned_data['fname']
+    #     user.last_name = self.cleaned_data['lname']
+    #     user.id = self.cleaned_data['username']
+    #     user.picture = self.cleaned_data['avatar']
+    #     user.set_password(self.cleaned_data["password1"])
+    #     if commit:
+    #         user.save()
+    #     return user
 class EditUserForm(forms.ModelForm):
     class Meta:
         model = User
@@ -93,6 +100,6 @@ class UserLoginForm(forms.Form):
         if not user_obj.check_password(password):
             raise forms.ValidationError("credential are wrong")
         self.cleaned_data["user_obj"]=user_obj
-        return super(UserLoginForm,self).clean(*args,**kwargs)
+        return super(UserLoginForm,self).clean(*args,**kwargs)  
 
 
