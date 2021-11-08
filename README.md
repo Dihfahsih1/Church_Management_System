@@ -3,7 +3,7 @@ This is a UCC Bwaise Church management system in which the admin, accountant, de
 
 First Download this project or clone from this repo to your machine
 
-Create virtual environment using 'python -m venv venvname` on linux 
+Create virtual environment using `python -m venv venvname` on linux 
 
 Activate the venvname using `source venvname/bin/activate`
 
