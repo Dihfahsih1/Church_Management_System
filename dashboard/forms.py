@@ -24,6 +24,7 @@ class UserForm(forms.ModelForm):
             'Date': DatePickerInput(),
             
         } 
+        #userform
 class UserEmailForm(forms.ModelForm):
     class Meta:
         model = User
