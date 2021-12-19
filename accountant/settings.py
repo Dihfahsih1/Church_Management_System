@@ -113,11 +113,11 @@ TEMPLATES = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME':'church_db',
-        'USER': 'church_system',
-        'PASSWORD':'ilovegod',
-        'HOST': '127.0.0.1',
-        'PORT':'5432',
+        'NAME':env("DB_NAME"),
+        'USER': env("DB_USER"),
+        'PASSWORD':env("DB_PASSWORD"),
+        'HOST': env("DB_HOST"),
+        'PORT':env("DB_PORT"),
     }
 }
 # if os.environ.get('GITHUB_WORKFLOW'):
@@ -153,9 +153,9 @@ USE_TZ = True
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'mail.uccbwaise.org'
-EMAIL_HOST_USER = env('MAIL_HOST')
+EMAIL_BACKEND = env('EMAIL_BACKEND')
+EMAIL_HOST = env('MAIL_HOST')
+EMAIL_HOST_USER = env('MAIL_USER')
 EMAIL_HOST_PASSWORD = env('MAIL_PASSWORD')
 EMAIL_USE_SSL= True
 EMAIL_PORT = 290
@@ -186,7 +186,7 @@ MESSAGE_TAGS = {
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-STATICFILES_DIRS = [ BASE_DIR+"/assets", ]
+STATICFILES_DIRS =[ BASE_DIR+"/assets", ]
 STATIC_ROOT = '/home/uccbwais/public_html/static'
 MEDIA_ROOT = '/home/uccbwais/public_html/media'
 
