@@ -1,6 +1,4 @@
 from django import template
-from ..models import *
-from ..views import *
 
 register = template.Library()
 @register.simple_tag

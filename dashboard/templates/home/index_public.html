@@ -123,11 +123,11 @@
                         <b style="font-size:19px; text-align: right;"><a href="{% url 'lwakiolimulamu_wall' %}">Archived Lwaki Oli Mulamu Series</a></b> <br>
                         
                
-                    <div class="jumbotron" style="text-align: center;">
+                    {% comment %} <div class="jumbotron" style="text-align: center;">
                         {%for i in lwaki %}
                         <a class="btn btn-primary" href="{% url 'lwakiolimulamu_year_archive' year=i.year|floatformat %}?year={{i.year|floatformat}}"><span><i class="fa fa-folder"></i></span>  {{i.year|floatformat}} Conference</a><hr />
                         {% endfor %}
-                    </div>
+                    </div> {% endcomment %}
                     </div>
                 </div>
             </div>

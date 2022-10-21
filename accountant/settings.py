@@ -35,19 +35,22 @@ INSTALLED_APPS = [
     'bootstrap4',
     'widget_tweaks',
     'celery',
-    'github_storages',
+    #'github_storages',
     'captcha',
     'ckeditor',
     'ckeditor_uploader',
     'django_social_share',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.facebook',
-    'allauth',
     'django_comments_xtd',
     'django_comments',
     'taggit',
+    
+    #Social auth
+    'allauth', 
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.twitter',
     
     
     ]
@@ -111,15 +114,21 @@ TEMPLATES = [
     },
 ]
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME':env("DB_NAME"),
-        'USER': env("DB_USER"),
-        'PASSWORD':env("DB_PASSWORD"),
-        'HOST': env("DB_HOST"),
-        'PORT':env("DB_PORT"),
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME':env("DB_NAME"),
+#         'USER': env("DB_USER"),
+#         'PASSWORD':env("DB_PASSWORD"),
+#         'HOST': env("DB_HOST"),
+#         'PORT':env("DB_PORT"),
+#     }
+# }
 # if os.environ.get('GITHUB_WORKFLOW'):
 #     DATABASES = {
 #         'default': {
@@ -153,22 +162,22 @@ USE_TZ = True
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
-EMAIL_BACKEND = env('EMAIL_BACKEND')
-EMAIL_HOST = env('MAIL_HOST')
-EMAIL_HOST_USER = env('MAIL_USER')
-EMAIL_HOST_PASSWORD = env('MAIL_PASSWORD')
-EMAIL_USE_SSL= True
-EMAIL_PORT = 290
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
-
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = env('MAIL_HOST')
+# EMAIL_BACKEND = env('EMAIL_BACKEND')
+# EMAIL_HOST = env('MAIL_HOST')
+# EMAIL_HOST_USER = env('MAIL_USER')
 # EMAIL_HOST_PASSWORD = env('MAIL_PASSWORD')
-# EMAIL_USE_TLS = True
+# EMAIL_USE_SSL= True
+# EMAIL_PORT = 290
 # DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER ='dihfahsihm@gmail.com'
+EMAIL_HOST_PASSWORD ='desire1996?'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

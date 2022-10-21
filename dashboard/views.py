@@ -16,15 +16,12 @@ from time import strptime
 from .render import Render
 from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
-from django.contrib.auth import update_session_auth_hash, login
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 import calendar
 from dal import autocomplete
-import json
-import urllib
-from django.contrib.sites.shortcuts import get_current_site  
-from django.utils.encoding import force_bytes, force_text  
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode  
+ 
+from django.utils.encoding import force_text  
+from django.utils.http import urlsafe_base64_decode  
 from .tokens import account_activation_token  
 from django.core.mail import EmailMessage,send_mail, BadHeaderError
 from django.views.decorators.clickjacking import xframe_options_exempt
@@ -72,35 +69,39 @@ def web(request):
             delete_visitor.delete()
     except:
         pass
-    date= datetime.now()
-    month = date.month
-    year = date.year
-    #da= date.day
-    #RUN_EVERY_MONTH=calendar._monthlen(year, month)
-    form=ContactForm()
-    context = {form:'form'}
-    lwaki = LwakiOliMulamu.objects.extra(select={'year': 'extract( year from date )'}).values('year').annotate(dcount=Count('date'))
     try:
-        theme = ThemeOfTheYear.objects.get(is_active=True)
-        news = News.published.all().order_by('-id')
-        events = Event.published.all().order_by('-id')
-        images = Image.published.all().order_by('-id')
-        members = Members.published.filter(is_active=True).order_by('-id')
-        ministry = Ministry.published.all().order_by('-id')
-        employees = StaffDetails.published.all()
-        sliders = Slider.objects.all().order_by('-id')
-        abouts = About.objects.all()
-        gospel = News.published.latest('-date')
-        feeback= Contact.objects.all().order_by('-id')
-        pages = Page.objects.all().order_by('-id')
-        blogs = Blog.objects.filter(is_active=True).order_by('-date')[:3]
-        form=ContactForm()
-        context = { 'lwaki':lwaki,
-            'gospel':gospel,'pages' : pages,'feeback':feeback,'images':images,'events': events,'news': news,'theme':theme,'blogs':blogs,
-        'abouts': abouts,'sliders' :sliders,'members': members, 'employees': employees,'ministry':ministry,form:'form','year':year}
-    except:
+        
+        date= datetime.now()
+        month = date.month
+        year = date.year
+        #da= date.day
+        #RUN_EVERY_MONTH=calendar._monthlen(year, month)
         form=ContactForm()
         context = {form:'form'}
+        lwaki = LwakiOliMulamu.objects.extra(select={'year': 'extract( year from date )'}).values('year').annotate(dcount=Count('date'))
+        try:
+            theme = ThemeOfTheYear.objects.get(is_active=True)
+            news = News.published.all().order_by('-id')
+            events = Event.published.all().order_by('-id')
+            images = Image.published.all().order_by('-id')
+            members = Members.published.filter(is_active=True).order_by('-id')
+            ministry = Ministry.published.all().order_by('-id')
+            employees = StaffDetails.published.all()
+            sliders = Slider.objects.all().order_by('-id')
+            abouts = About.objects.all()
+            gospel = News.published.latest('-date')
+            feeback= Contact.objects.all().order_by('-id')
+            pages = Page.objects.all().order_by('-id')
+            blogs = Blog.objects.filter(is_active=True).order_by('-date')[:3]
+            form=ContactForm()
+            context = { 'lwaki':lwaki,
+                'gospel':gospel,'pages' : pages,'feeback':feeback,'images':images,'events': events,'news': news,'theme':theme,'blogs':blogs,
+            'abouts': abouts,'sliders' :sliders,'members': members, 'employees': employees,'ministry':ministry,form:'form','year':year}
+        except:
+            form=ContactForm()
+            context = {form:'form'}
+    except:
+        pass
     
     return render(request, 'home/index_public.html', context)
 

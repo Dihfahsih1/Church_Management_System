@@ -10,7 +10,7 @@ certifi==2020.12.5
 cffi==1.14.5
 chardet==4.0.0
 click==7.1.2
-click-didyoumean==0.0.3
+click-didyoumean
 click-plugins==1.1.1
 click-repl==0.1.6
 cssselect==1.1.0
@@ -39,13 +39,13 @@ html5lib==1.1
 idna==2.10
 importlib-metadata==2.1.1
 kombu==5.0.2
-lxml==4.6.2
+#lxml==4.6.2
 Markdown==3.3.3
 markdown2==2.4.0
 packaging==20.9
-Pillow==8.1.0
+#Pillow==8.1.0
 prompt-toolkit==3.0.16
-psycopg2-binary==2.8.6
+# psycopg2-binary==2.8.6
 pycparser==2.20
 Pygments==2.8.0
 pymemcache==3.4.1
@@ -72,3 +72,12 @@ wcwidth==0.2.5
 webencodings==0.5.1
 xhtml2pdf==0.2.5
 zipp==3.4.0
+
+
+########################################################################
+#Fix the error                                                          #
+#i used sudo apt install --fix-broken for installing broken             #
+#packages in my debian machine after that i used this command           #
+#for installing essential packages : sudo apt-get install build-essential# 
+#libssl-dev libffi-dev python-dev                                        #
+##########################################################################

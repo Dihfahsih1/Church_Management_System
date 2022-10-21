@@ -6,7 +6,7 @@ from .models import *
 from django.forms import Textarea, TextInput, ChoiceField
 from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput, MonthPickerInput 
 
-from captcha.fields import CaptchaField
+#from captcha.fields import CaptchaField
 from functools import partial
  
 
