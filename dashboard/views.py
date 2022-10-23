@@ -59,7 +59,7 @@ class Autocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(Q(First_Name__istartswith=self.q) | Q(Second_Name__istartswith=self.q))
             return qs
 
-########========================>FETCH FROM THE DATABASE TO THE WEBSITE<==========================#######
+########=============>FETCH FROM THE DATABASE TO THE WEBSITE<=====================#######
 def web(request):
     #code to delete all the unwanted bots
     try:
@@ -130,7 +130,7 @@ def contact(request):
     return render(request, 'home/contacts.html')
 
 
-###############=============================>EMPLOYEE MODULE<====================================###################
+###############==========>EMPLOYEE MODULE<===============###################
 @login_required
 def employee_register(request):
     if request.method=="POST":

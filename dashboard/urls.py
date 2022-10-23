@@ -138,9 +138,9 @@ url(r'^Petty-Expenses/Airtime/', views.airtime_data_report, name='airtime-data-r
 url(r'^Employee/Salary/Delete/(?P<pk>\d+)', views.delete_salary_paid,name='delete-salary-paid'),
 
 ########################=======>WEBSITE URLS<=======#################################
-url(r'^$', views.web, name='index_public'),
+url(r'^home', views.web, name='index_public'),
 url(r'^feedback', views.contact, name='contact'),
-url(r'^System', views.index, name='index'),
+url(r'^$', views.index, name='index'),
 url(r'^online-register/$', views.Online_Registration, name='online_registration'),
 url(r'^Church/Members', views.membership_wall, name='membership_wall'),
 url(r'^Member/Details/(?P<pk>\d+)', views.member_detail, name='member-detail'),
