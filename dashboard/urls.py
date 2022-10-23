@@ -3,8 +3,11 @@ from django.urls import reverse,path
 from . import views
 
 urlpatterns=[
+#Dashboard and website homepage urls
+url(r'^home', views.web, name='index_public'),
+url(r'^$', views.index, name='index'),
+
 ######################============>CHURCH SYSTEM URLS<=========#####################
-#ENTER DATA INTO THE DATABASE URLS
 url(r'^Expenses/Main-Expenses', views.enter_main_expenses, name='enter_expenditure'),
 url(r'^Expenses/Petty-Expenses/', views.enter_petty_expenses, name='enter_sundryexpense'),
 url(r'^Expenses/General-Expenses/Enter', views.enter_general_expenses, name='enter-general-expenses'),
@@ -138,9 +141,7 @@ url(r'^Petty-Expenses/Airtime/', views.airtime_data_report, name='airtime-data-r
 url(r'^Employee/Salary/Delete/(?P<pk>\d+)', views.delete_salary_paid,name='delete-salary-paid'),
 
 ########################=======>WEBSITE URLS<=======#################################
-url(r'^home', views.web, name='index_public'),
 url(r'^feedback', views.contact, name='contact'),
-url(r'^$', views.index, name='index'),
 url(r'^online-register/$', views.Online_Registration, name='online_registration'),
 url(r'^Church/Members', views.membership_wall, name='membership_wall'),
 url(r'^Member/Details/(?P<pk>\d+)', views.member_detail, name='member-detail'),
