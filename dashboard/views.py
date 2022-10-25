@@ -27,6 +27,10 @@ from django.core.mail import EmailMessage,send_mail, BadHeaderError
 from django.views.decorators.clickjacking import xframe_options_exempt
 from tracking.models import Visitor
 
+from .serializers import RegisteredMemberSerializer
+
+def member_list(request):
+    pass
 
 
 
