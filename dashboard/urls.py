@@ -274,5 +274,8 @@ path('blogs/<slug:slug>/', views.BlogPost_detail, name="BlogPost_detail"),
 
 path('search_tagged_blogs/', views.search_tagged_blogs, name="search_tagged_blogs"),
 
-path('tagged_articles/', views.tagged_articles, name="tagged_articles")
+path('tagged_articles/', views.tagged_articles, name="tagged_articles"),
+
+#rest framework urls
+path('memebership/api', views.MemberAPIView.as_view())
 ]

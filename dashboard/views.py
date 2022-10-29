@@ -15,7 +15,7 @@ from .models import *
 from time import strptime
 from .render import Render
 from django.template.loader import render_to_string
-from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
+from django.http import Http404, JsonResponse, HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 import calendar
 from dal import autocomplete
@@ -3455,4 +3455,64 @@ def tagged_articles(request):
     
     context={'tagged_sermons':tagged_sermons,'qs':qs}
     return render(request,'news/tagged_sermons.html', context)
+
+#################Implement rest framework #######################
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django.http.response import Http404
+from .serializers import RegisteredMemberSerializer
+class MemberAPIView(APIView):
     
+    def get_object(self, pk):
+        try:
+            return Members.objects.filter(pk=pk)
+        except Members.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk=None, format=None):
+        if pk:
+            data = self.get_object(pk)
+        else:
+            data = Members.objects.all()
+        serializer = RegisteredMemberSerializer(data, many=True)
+
+        return Response(serializer.data)
+
+
+    def post(self, request, format=None):
+        data = request.data
+        serializer = RegisteredMemberSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        response = Response()
+        response.data = {
+            'message': 'member Created Successfully',
+            'data': serializer.data
+        }
+        return response
+
+
+    def put(self, request, pk=None, format=None):
+
+        todo_to_update = Members.objects.get(pk=pk)
+
+        serializer = RegisteredMemberSerializer(instance=todo_to_update,data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        response = Response()
+        response.data = {
+            'message': 'member Updated Successfully',
+            'data': serializer.data
+        }
+        return response
+
+
+    def delete(self, request, pk, format=None):
+        todo_to_delete =  Members.objects.get(pk=pk)
+        todo_to_delete.delete()
+
+        return Response({
+            'message': 'member Deleted Successfully'
+        })
