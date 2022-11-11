@@ -45,16 +45,17 @@ INSTALLED_APPS = [
     'taggit',
     'rest_framework',
     
-    #Social auth
-    'allauth', 
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.twitter',
+    # #Social auth
+    # 'allauth', 
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.facebook',
+    # 'allauth.socialaccount.providers.google',
+    # 'allauth.socialaccount.providers.twitter',
     
     
     ]
+
 #captcha properties
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 TEXT_ADDITIONAL_TAGS = ('iframe',)
@@ -310,6 +311,7 @@ SOCIALACCOUNT_AUTO_SIGNUP =True
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 TAGGIT_CASE_INSENSITIVE = True
+LOGIN_URL = 'Login/'
 #ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.MembershipAccountForm'
 
 ############# GOOGLE RECAPTCHA ###############################

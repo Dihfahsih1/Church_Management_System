@@ -17,7 +17,7 @@ urlpatterns = [
     path('captcha/', include('captcha.urls')),
     
     #allauth urls
-    path('accounts/', include('allauth.urls')),
+    #path('accounts/', include('allauth.urls')),
      
     
     #Sitemap url
