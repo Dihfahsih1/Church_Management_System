@@ -70,7 +70,7 @@
                         <tr class="totalColumn">
                           <td>{{ item.Date}}</td>
                           <td>{{ item.Payment_Made_To}}</td>
-                          <td>{{ item.Petty_Cash_Reason}}</td>
+                          <td>{{ item.Petty_Cash_Reason | safe }}</td>
                           <td class="rowDataSd">{{ item.Amount}}</td>
                           <td>{{ item.Archived_Status}}</td>
                           {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
