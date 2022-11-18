@@ -30,6 +30,7 @@ from tracking.models import Visitor
 from .serializers import RegisteredMemberSerializer
 
 current_month = datetime.now().month
+today = datetime.now()
 
 def member_list(request):
     pass
@@ -641,12 +642,15 @@ def Offeringsreport (request):
             item.save()
         messages.success(request, f'General Offerings Report has been Archived')
         return redirect('Offeringsreport')
-    today = datetime.now()
-    years=today.year
+ 
     context={}
-    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED")
-    context['items']=items
-    context['years']=years
+    year=datetime.now().year
+    
+    qs1 = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=year, Date__month=current_month, Revenue_filter='offering')
+    qs2=Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=year, Date__month=current_month, General_Offering_Amount__gte=1)
+    qs=qs1.union(qs2)
+    context['items']=qs
+    context['years']=year
     context['today']=today
     return render(request, 'Offerings/offeringsindex.html', context)
 
@@ -872,7 +876,7 @@ def Tithesreport (request):
         
         total_tithes=Sum('Amount', filter=Q(Revenue_filter='tithes'))
         ).values('Date','Service', 'Archived_Status', 'Amount','Member_Name','Tithe_Amount').annotate(monthly_total=models.Sum("Amount"))
-    print(items)
+       
     context['items']=items
     context['years']=year
     context['today']=datetime.now()

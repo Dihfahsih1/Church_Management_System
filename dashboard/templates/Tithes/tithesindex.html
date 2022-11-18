@@ -60,7 +60,6 @@
                     <thead>
                       <tr>
                         <td>Date</td>
-                        
                         <td>Service</td>
                         <td>Member Name</td>
                         <td>Amount <i class=" glyphicon glyphicon-arrow-right"></i> (<span style="font-weight: bolder; color:red" class="totalCol"></span>)</td>
@@ -77,10 +76,10 @@
                         
                         {% if item.Member_Name is not None %}
                           <td>{{ item.Member_Name}}</td>
-                           <td class="rowDataSd">{{ item.Tithe_Amount |intcomma }}</td>
+                           <td class="rowDataSd">{{ item.Tithe_Amount }}</td>
                         {% else %}
                           <td>-----</td>
-                          <td class="rowDataSd">{{ item.Amount |intcomma }}</td>
+                          <td class="rowDataSd">{{ item.Amount }}</td>
                         {% endif %}
                         <td>{{ item.Archived_Status}}</td>
                         <td>

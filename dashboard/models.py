@@ -264,8 +264,8 @@ class Revenues(Model):
     Other_Sources=models.CharField(max_length=100, blank=True, null=True)
     def __str__(self):
         return str(self.Member_Name)
-    class Meta:
-        ordering = ['-Date']    
+    # class Meta:
+    #     ordering = ['-Date']    
         
 class Members(models.Model):
     Archived_Status= models.CharField(max_length=111, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')

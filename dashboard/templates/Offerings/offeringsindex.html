@@ -60,27 +60,44 @@
                       <tr>
                         <td>Date</td>
                         <td>Service</td>
+                        <td>Member Name</td>
                         <td>Amount <i class=" glyphicon glyphicon-arrow-right"></i> (<span style="font-weight: bolder; color:red" class="totalCol"></span>)</td>
                         <td>Archived Status</td>
                         <td>Action</td>
                       </tr>
                     </thead>
                     <tbody>
-
                       {% for item in items %}
-                        <tr class="totalColumn">
-                          <td>{{ item.Date}}</td>
-                          <td>{{ item.Service}}</td>
-                          <td class="rowDataSd">{{ item.General_Offering_Amount}}</td>
-                          <td>{{ item.Archived_Status}}</td>
-                          <td>
-                              {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
-                              <div class="mb-4">
-                                    <a href="{% url 'edit-offerings' item.pk %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit">Edit</span></a>
-                              </div>
-                              {% endif %}
-                          </td>
+                      <tr class="totalColumn">
+                        <td>{{ item.Date}}</td>
+                        <td>{{ item.Service}}</td>
+                        
+                        
+                        {% if item.Member_Name is not None %}
+                          <td>{{ item.Member_Name}}</td>
+                           <td class="rowDataSd">{{ item.General_Offering_Amount }}</td>
+                        {% else %}
+                          <td>-----</td>
+                          <td class="rowDataSd">{{ item.Amount }}</td>
+                        {% endif %}
+                        <td>{{ item.Archived_Status}}</td>
+                        <td>
                         </tr>
+                        {% comment %} {% if item.Member_Name is not None %}
+                          <tr class="totalColumn">
+                            <td>{{ item.Date}}</td>
+                            <td>{{ item.Member_Name}}</td>
+                            <td>{{ item.Service}}</td>
+                            <td class="rowDataSd">{{ item.Tithe_Amount }}</td>
+                            <td>{{ item.Archived_Status}}</td>
+                            <td>
+                              <div class="mb-4">
+                                    <a href="{% url 'edit-tithes' item.pk %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"> Edit</span></a>
+                                    <a href="{% url 'tithesreceipt' item.pk %}"class="btn btn-success btn-sm" target="_blank"><span class="glyphicon glyphicon-print"> Receipt</span></a>
+                              </div>
+                            </td>
+                          </tr>
+                        {% endif %} {% endcomment %}
                       {% endfor %}
                     </tbody>
                   </table>
