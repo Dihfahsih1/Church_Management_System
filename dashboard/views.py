@@ -29,6 +29,8 @@ from tracking.models import Visitor
 
 from .serializers import RegisteredMemberSerializer
 
+current_month = datetime.now().month
+
 def member_list(request):
     pass
 
@@ -862,15 +864,30 @@ def Tithesreport (request):
             item.save()
         messages.success(request, f'Tithes Report has been Archived')
         return redirect('Tithesreport')
-    month = datetime.now().month
-    years=datetime.now().year
-    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=years).order_by('-Date')
-
+    #month = datetime.now().month
+    year=datetime.now().year
+    # items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=year).order_by('-Date')
+    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=year, Date__month=current_month).annotate(
+        individual=Sum('Tithe_Amount',filter=(~Q(Revenue_filter='tithes'))),
+        
+        total_tithes=Sum('Amount', filter=Q(Revenue_filter='tithes'))
+        ).values('Date','Service', 'Archived_Status', 'Amount','Member_Name','Tithe_Amount').annotate(monthly_total=models.Sum("Amount"))
+    print(items)
     context['items']=items
-    context['years']=years
+    context['years']=year
     context['today']=datetime.now()
     return render(request, 'Tithes/tithesindex.html', context)    
 
+def monthly_tithes(request):
+    
+    results = Revenues.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Tithe_Amount"))
+    if (results['totals']):
+        all_tithes = results["totals"]
+    else:
+        all_tithes = 0  
+    context={'all_tithes':all_tithes}
+    return render(request, "Tithes/current_month_tithes.html", context)
+    
 
 @login_required
 def Annual_Tithes(request):

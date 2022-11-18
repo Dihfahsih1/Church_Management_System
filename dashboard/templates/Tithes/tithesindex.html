@@ -2,6 +2,7 @@
 
 {% extends "app/base_site.html" %}
 {% block content %}
+{% load humanize %}
 <head>
   <title>UCC Bwaise | Tithes Report as of {{today}}</title>
 </head>
@@ -59,8 +60,9 @@
                     <thead>
                       <tr>
                         <td>Date</td>
-                        <td>Member</td>
+                        
                         <td>Service</td>
+                        <td>Member Name</td>
                         <td>Amount <i class=" glyphicon glyphicon-arrow-right"></i> (<span style="font-weight: bolder; color:red" class="totalCol"></span>)</td>
                         <td>Archived Status</td>
                         <td>Action</td>
@@ -68,7 +70,22 @@
                     </thead>
                     <tbody>
                       {% for item in items %}
+                      <tr class="totalColumn">
+                        <td>{{ item.Date}}</td>
+                        <td>{{ item.Service}}</td>
+                        
+                        
                         {% if item.Member_Name is not None %}
+                          <td>{{ item.Member_Name}}</td>
+                           <td class="rowDataSd">{{ item.Tithe_Amount |intcomma }}</td>
+                        {% else %}
+                          <td>-----</td>
+                          <td class="rowDataSd">{{ item.Amount |intcomma }}</td>
+                        {% endif %}
+                        <td>{{ item.Archived_Status}}</td>
+                        <td>
+                        </tr>
+                        {% comment %} {% if item.Member_Name is not None %}
                           <tr class="totalColumn">
                             <td>{{ item.Date}}</td>
                             <td>{{ item.Member_Name}}</td>
@@ -82,7 +99,7 @@
                               </div>
                             </td>
                           </tr>
-                        {% endif %}
+                        {% endif %} {% endcomment %}
                       {% endfor %}
                     </tbody>
                   </table>
