@@ -870,14 +870,11 @@ def Tithesreport (request):
         return redirect('Tithesreport')
     #month = datetime.now().month
     year=datetime.now().year
-    # items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=year).order_by('-Date')
-    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=year, Date__month=current_month).annotate(
-        individual=Sum('Tithe_Amount',filter=(~Q(Revenue_filter='tithes'))),
-        
-        total_tithes=Sum('Amount', filter=Q(Revenue_filter='tithes'))
-        ).values('Date','Service', 'Archived_Status', 'Amount','Member_Name','Tithe_Amount').annotate(monthly_total=models.Sum("Amount"))
-       
-    context['items']=items
+    qs1 = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=year, Date__month=current_month, Revenue_filter='tithes')
+    
+    qs2=Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=year, Date__month=current_month, Tithe_Amount__gte=1)
+    qs=qs1.union(qs2)
+    context['items']=qs
     context['years']=year
     context['today']=datetime.now()
     return render(request, 'Tithes/tithesindex.html', context)    
