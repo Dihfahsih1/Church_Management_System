@@ -320,3 +320,4 @@ LOGIN_URL = 'Login/'
 # SECRET KEY FOR SERVER SIDE INTEGRATION = 6LeugsUaAAAAAD_BpNftqXyAAaKut3d7AJ2bIJTO
 
 
+### fix error of not loading the jquery for auto complete by downgrading to pip install django-autocomplete-light==3.5.1

@@ -58,10 +58,12 @@ def theme_activate(request, theme_pk):
     unset_theme.save()
     return redirect('theme_list')
 
-########========================>AUTOSUGGEST OF NAMES FROM DATABASES<==============================#######
+########============>AUTOSUGGEST OF NAMES FROM DATABASES<==============#######
 class Autocomplete(autocomplete.Select2QuerySetView):
+     
     def get_queryset(self):
         qs = Members.objects.filter(is_active=True)
+         
         if self.q:
             qs = qs.filter(Q(First_Name__istartswith=self.q) | Q(Second_Name__istartswith=self.q))
             return qs
