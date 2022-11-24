@@ -40,7 +40,7 @@
                                     class="fa fa-list-ol"></i> Cash Float List</a>
                 </li>
                 <li role="presentation"><a href="{% url 'record-cashfloat' %}"><i
-                      class="fa fa-plus-square-o"></i> Give Cash Float</a>
+                      class="fa fa-plus-square-o"></i> Give/Update Float</a>
                 </li>
             </ul>
           <h2 style="text-align: center">The List of Cash Floats Given Out In {{current_year}}</h2>
@@ -64,13 +64,13 @@
                         <tr class="totalColumn">
                           <td>{{ item.Date }}</td>
                           <td class="rowDataSd">{{ item.Amount}}</td>
-                          <td>{{ item.Notes}}</td>
+                          <td>{{ item.Notes|safe}}</td>
                           <td>
                           <div class="mb-4">
-                            {% if one_week_ago %}
+                            {% if one_week_ago and user.Role is 'Secretary' %}
                                 <a href="{% url 'edit-cashfloat' item.pk %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit">Update</span></a>
                                 {% else %}
-                                <h3>Floated</h3>
+                                ---
                             {% endif %}    
                           </div>
                           </td>
