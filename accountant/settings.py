@@ -198,8 +198,12 @@ MESSAGE_TAGS = {
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 STATICFILES_DIRS =[ BASE_DIR+"/assets", ]
-STATIC_ROOT = '/home/uccbwais/public_html/static'
-MEDIA_ROOT = '/home/uccbwais/public_html/media'
+# STATIC_ROOT = '/home/uccbwais/public_html/static'
+# MEDIA_ROOT = '/home/uccbwais/public_html/media'
+
+#Settings for development
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 
