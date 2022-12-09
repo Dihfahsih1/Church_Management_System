@@ -3536,3 +3536,16 @@ class MemberAPIView(APIView):
         return Response({
             'message': 'member Deleted Successfully'
         })
+        
+        
+def record_group_contributions(request):
+    if request.method=="POST":
+        form=GroupContributionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Group Contribution has been recorded')
+            return redirect('Offeringsreport')
+    else:
+        form=GroupContributionForm()
+        context={'form':form}
+        return render(request, 'Groups/record_contributions.html', context)

@@ -66,13 +66,13 @@
                           <td class="rowDataSd">{{ item.Amount}}</td>
                           <td>{{ item.Notes|safe}}</td>
                           <td>
-                          <div class="mb-4">
+                          {% comment %} <div class="mb-4">
                             {% if one_week_ago and user.Role is 'Secretary' %}
                                 <a href="{% url 'edit-cashfloat' item.pk %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit">Update</span></a>
                                 {% else %}
                                 ---
                             {% endif %}    
-                          </div>
+                          </div> {% endcomment %}
                           </td>
                         </tr>
                       {% endfor %}

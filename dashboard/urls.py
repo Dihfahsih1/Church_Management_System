@@ -20,6 +20,10 @@ url(r'^Revenues/Tithes/Add', views.recording_tithes, name='Enter_Tithes'),
 url(r'^Enter_Pledges/', views.Enter_Pledges, name='Enter_Pledges'),
 url(r'^Revenue/Thanks-giving/Add', views.record_thanks_giving,name='record-thanks-giving'),
 url(r'^Revenue/Other-Sources/Add', views.record_donations, name='record-donations'),
+#group contributions 
+
+url(r'^Revenue/Group/Add', views.record_group_contributions, name='group-contribution'),
+
 url(r'^Pledges/Add-Item/', views.add_Pledge_Items ,name='add-pledge-item'),
 url(r'^Employees/Add/', views.employee_register, name='employee-register'),
 url(r'^Membership/Register/', views.register_members, name='members-register'),

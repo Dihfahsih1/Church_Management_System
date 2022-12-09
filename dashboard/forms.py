@@ -62,7 +62,16 @@ class RevenuesForm(forms.ModelForm):
             'Date': DatePickerInput(),
             'Other_Sources': TextInput(attrs={'placeholder': 'e.g lwaki olimulamu missions'}),
             'Other_Notes': TextInput(attrs={'placeholder': 'Something like title'}),
-        }                 
+        }  
+                    
+class GroupContributionForm(forms.ModelForm):
+    class Meta:
+        model=Revenues
+        fields=('Date','Group', 'Amount', 'Other_Notes')  
+        widgets = {
+            'Date': DatePickerInput(),
+            'Other_Notes': TextInput(attrs={'placeholder': 'Contribution Reason'}),
+        }                   
 
 class PledgesCashedOutForm(forms.ModelForm):
     class Meta:
