@@ -3544,8 +3544,13 @@ def record_group_contributions(request):
         if form.is_valid():
             form.save()
             messages.success(request, f'Group Contribution has been recorded')
-            return redirect('Offeringsreport')
+            return redirect('list-group-contributions')
     else:
         form=GroupContributionForm()
         context={'form':form}
         return render(request, 'Groups/record_contributions.html', context)
+    
+def list_group_contributions(request):
+    qs = Revenues.objects.exclude(Group__exact=None)
+    context={'qs':qs, 'today':today}
+    return render(request, 'Groups/group_contribution_list.html', context)

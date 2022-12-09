@@ -250,7 +250,7 @@ class Revenues(Model):
     Member_Id= models.CharField(max_length=100, blank=True, null=True)
     Member_Name = models.CharField(max_length=100, blank=True, null=True)
     Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
-    Group = models.CharField(max_length=100, choices=grouping, null=True, blank=True, default="God Is Able")
+    Group = models.CharField(max_length=100, choices=grouping, null=True, blank=True,)
     Revenue_filter=models.CharField(max_length=100, blank=True, null=True)
     Other_Notes=models.CharField(max_length=10000, blank=True, null=True)
     Building_Amount = models.IntegerField(default=0, blank=True, null=True)
