@@ -9,7 +9,15 @@
 	    <div class="container">
 	    	
 	    	<div class="row">
-	    		<div class="col-lg-4"></div>
+	    		<div class="col-lg-4">
+
+					<p>
+						As a church, we believe in both spiritual and physical growth. We are open to new membership in our congregation and various departments. 
+
+						If you find yourself interested in being part of God's work in our midst, we request that you fill in our online membership form and one of our representatives will get back to you after. 
+
+					</p>
+				</div>
 			    <div class="col-lg-3" >	
 				    <form method="POST" enctype="multipart/form-data">
 					{% csrf_token %}
@@ -25,6 +33,6 @@
 				    </form>
 				</div>
 		   </div>
-		   <p>Please if you created already an account and you forgot your password, just<a href="{% url 'password_reset' %}" style="color:red"><u>RESET YOUR PASSWORD</u></a></p>
+		   <p>Please if you created already an account and you forgot your password, just<a href="{% url 'password_reset' %}" style="color:red"><u> RESET YOUR PASSWORD</u></a></p>
 	    </div>
 {% endblock %}

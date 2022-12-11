@@ -24,6 +24,7 @@ url(r'^Revenue/Other-Sources/Add', views.record_donations, name='record-donation
 
 url(r'^Revenue/Group/Add', views.record_group_contributions, name='record-group-contribution'),
 url(r'^Revenue/Group-Contributions', views.list_group_contributions, name='list-group-contributions'),
+
 url(r'^Pledges/Add-Item/', views.add_Pledge_Items ,name='add-pledge-item'),
 url(r'^Employees/Add/', views.employee_register, name='employee-register'),
 url(r'^Membership/Register/', views.register_members, name='members-register'),

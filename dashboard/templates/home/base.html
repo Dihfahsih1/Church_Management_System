@@ -133,7 +133,7 @@
                         
                         <b>
                             SUNDAY SERVICES:- 1st Service -- Time: 6:30am-9:30am    | 
-                             2nd Service -- Time: 9:30am-11:00am   |   3rd Service -- Time: 11:30am-2:00pm    |   4th Service -- Time: 4:00pm-7:00pm 
+                             2nd Service -- Time: 9:30am-11:00am   |   3rd Service -- Time: 11:30am-2:00pm   
                         </b>
                         
                         
@@ -209,30 +209,37 @@
                                 <li><a href="{% url 'index_public' %}">HOME</a></li>
                                 <li><a href="{% url 'church_details' %}" {% if request.get_full_path == '/church-details' or request.get_full_path == '/Church-Mission' or request.get_full_path == '/Church/Vision' or request.get_full_path == '/core-values'  %} class="active"{% endif %}>ABOUT</a></li>
 
-                                <li><a href="#" {% if request.get_full_path == '/Pastoral-Team' or request.get_full_path == '/Administrative-Team' %} class="active"{% endif %}>STAFF <span class="icon fa fa-chevron-down"></span></a>
-                                    <ul class="drop">
-                                        <li><a {% if request.get_full_path == '/Pastoral-Team' %} class="active"{% endif %} href="{% url 'church_pastors' %}">Pastoral</a></li>
-                                        <li><a {% if request.get_full_path == '/Administrative-Team' %} class="active"{% endif %}href="{% url 'church_administration' %}">Administrative</a></li>
-                                    </ul>
-                                </li>
+                                <!--<li><a href="#" {% if request.get_full_path == '/Pastoral-Team' or request.get_full_path == '/Administrative-Team' %} class="active"{% endif %}>STAFF <span class="icon fa fa-chevron-down"></span></a>-->
+                                <!--    <ul class="drop">-->
+                                <!--        <li><a {% if request.get_full_path == '/Pastoral-Team' %} class="active"{% endif %} href="{% url 'church_pastors' %}">Pastoral</a></li>-->
+                                <!--        <li><a {% if request.get_full_path == '/Administrative-Team' %} class="active"{% endif %}href="{% url 'church_administration' %}">Administrative</a></li>-->
+                                <!--    </ul>-->
+                                <!--</li>-->
 
-                                <li><a href="#" {% if request.get_full_path == '/Church/Members' or request.get_full_path == '/register/' %} class="active"{% endif %}>MEMBERSHIP <span class="icon fa fa-chevron-down"></span></a>
-                                    <ul class="drop">
-                                        <li><a {% if request.get_full_path == '/Church/Members' %} class="active"{% endif %} href="{% url 'membership_wall' %}">Members</a></li>
-                                        {% if not request.user.is_authenticated %}
-                                            <li><a {% if request.get_full_path == '/register/'  %} class="active"{% endif %} href="{% url 'MemberAccountRegister' %}">Register</a></li>
-                                        {% endif %}
-                                    </ul>
+                                <li> <a href="{% url 'MemberAccountRegister' %}">MEMBERSHIP</a>
+                                        </li>
+                                    
+                                    <!--<a href="#" {% if request.get_full_path == '/Church/Members' or request.get_full_path == '/register/' %} class="active"{% endif %}>MEMBERSHIP -->
+                                <!--<span class="icon fa fa-chevron-down"></span></a>-->
+                                <!--    <ul class="drop">-->
+                                        <!--<li><a {% if request.get_full_path == '/Church/Members' %} class="active"{% endif %} href="{% url 'membership_wall' %}">Members</a></li>-->
+                                       
+                                <!--        {% if not request.user.is_authenticated %}-->
+                                <!--        <li>-->
+                                <!--            <a {% if request.get_full_path == '/register/'  %} class="active"{% endif %} href="{% url 'MemberAccountRegister' %}">BECOME MEMEBER</a>-->
+                                <!--        </li>-->
+                                <!--        {% endif %}-->
+                                <!--    </ul>-->
                                 </li>
 
                                 <li><a {% if request.get_full_path == '/Ministry/'  %} class="active"{% endif %} href="{% url 'ministry-wall' %}">MINISTRIES</a></li>
-                                <li><a {% if request.get_full_path == '/Projects/'  %} class="active"{% endif %} href="{% url 'projects_wall' %}">PROJECTS</a></li>
-                                <li><a {% if request.get_full_path == '/Articles/'  %} class="active"{% endif %} href="{% url 'news_wall' %}">SERMONS</a></li>
+                                <!--<li><a {% if request.get_full_path == '/Projects/'  %} class="active"{% endif %} href="{% url 'projects_wall' %}">PROJECTS</a></li>-->
+                                <li><a {% if request.get_full_path == '/Articles/'  %} class="active"{% endif %} href="{% url 'news_wall' %}">CHRISTIAN BLOGS</a></li>
                                 <!--<li><a href="https://www.youtube.com/channel/UCFMCB_zTwBQNunbpjBsPcSw/videos" target="_blank">YOUTUBE</a></li>-->
-                                <li><a {% if request.get_full_path == '/event/'  %} class="active"{% endif %} href="{% url 'event_wall' %}">EVENTS</a></li>
-                                <li><a {% if request.get_full_path == '/galleries/'  %} class="active"{% endif %}href="{% url 'gallery_wall' %}">GALLERY</a></li>
+                                <!--<li><a {% if request.get_full_path == '/event/'  %} class="active"{% endif %} href="{% url 'event_wall' %}">EVENTS</a></li>-->
+                                <!--<li><a {% if request.get_full_path == '/galleries/'  %} class="active"{% endif %}href="{% url 'gallery_wall' %}">GALLERY</a></li>-->
                                 <li><a {% if request.get_full_path == '/feedback'  %} class="active"{% endif %} href="{% url 'contact' %}">CONTACT</a></li>
-                                <li> <a {% if request.get_full_path == '/member-profile/'  %} class="active"{% endif %} href="{% url 'member_profile' %}" > PROFILE</a></li>
+                                <!--<li> <a {% if request.get_full_path == '/member-profile/'  %} class="active"{% endif %} href="{% url 'member_profile' %}" > PROFILE</a></li>-->
                                 
                               
                             </ul>
@@ -287,19 +294,19 @@
 
                                 <b><u>Thursday</u></b><br>
                                 Counselling (10:00am - 5:00pm)<br>
+                                Youth Service (7pm - 9pm)
                             </div>
                             <div class="col-lg-6" style=" color: white; font-size:15px ">
                                 <b><u>Friday</u></b><br>
                                 Bible Study (5:00pm - 7:00pm)<br>
-                                Night Prayer (7:00pm - 11:00pm)<br>
+                                Overnight Prayers (8:00pm - 5:00am)<br>
                                 <b><u>Saturday</u></b><br>
                                 Choir Practices<br>
                                 <b><u>Sunday</b></u><br>
-                                Lwaki oli Mulamu program on Innerman 107.5 (6:30-7:30am)</br>
+                                Lwaki oli Mulamu program on Innerman 107.5 (6:30-7:00am)</br>
                                 1st Service (6:30am - 9:30am)</br>
                                 2nd Service (9:00am - 11:30am)</br>
                                 3rd Service (11:30am - 2:00pm)</br>
-                                4ht Service (4:00pm - 7:30pm)</br>
                             </div>
                         </div>
                         </p>
