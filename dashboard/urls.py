@@ -13,8 +13,6 @@ url(r'^Expenses/Petty-Expenses/', views.enter_petty_expenses, name='enter_sundry
 url(r'^Expenses/General-Expenses/Enter', views.enter_general_expenses, name='enter-general-expenses'),
 url(r'^Allowances/Add/', views.give_allowance, name='give-allowance'),
 url(r'^Record-Offerings/', views.Enter_Offerings, name='Enter_Offerings'),
-url(r'^RECORD-CASHFLOAT/', views.record_cashfloat, name='record-cashfloat'),
-path('Top-Up-Cashfloat/<str:pk>/', views.cashfloat_topup, name='cashfloat_topup'),
 url(r'^Revenue/Seeds/Add/', views.add_seeds, name='add-seeds'),
 url(r'^Revenues/Tithes/Add', views.recording_tithes, name='Enter_Tithes'),
 url(r'^Enter_Pledges/', views.Enter_Pledges, name='Enter_Pledges'),
@@ -74,10 +72,6 @@ url(r'^offeringsarchivepdf/(?P<report_month>.+?)/(?P<report_year>.+?)/', views.o
 
 url(r'^REVENUES/', views.total_revenues, name='total_revenues'),
 url(r'^EXPENSES/', views.total_expenses, name='total_expenses'),
-
-#CASHFLOAT
-url(r'^CASHFLOAT/LIST', views.cashfloat_lst, name='cashfloat-list'),
-url(r'^EDIT-CASHFLOAT/(?P<pk>\d+)', views.edit_cash_float ,name='edit-cashfloat'),
 
 #Seeds Module
 url(r'^Revenues/Seeds-Report', views.Seedsreport, name='Seeds-report'),

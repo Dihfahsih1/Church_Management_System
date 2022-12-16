@@ -2600,21 +2600,13 @@ def total_current_week_seeds():
         return total_seeds
     return total_seeds
 
-#Current Week Cashfloat
-def current_week_cashfloat():
-    cashfloat = CashFloat.objects.filter(Date__gte=one_week_ago, Date__year=current_year).aggregate(total_cashfloat=Sum('Amount'))
-    total_cashfloat=cashfloat['total_cashfloat']
-    if total_cashfloat == None:
-        total_cashfloat=0  
-        return total_cashfloat
-    return total_cashfloat
+
 
 #total current week revenues
 def total_current_week_revenue():
     total_tithes = total_current_week_tithes()
     total_offerings = total_current_week_offerings()
     total_seeds = total_current_week_seeds()
-    cashfloat = current_week_cashfloat()
     current_week_total_revenues = (total_tithes + total_offerings + total_seeds)
     return current_week_total_revenues
 
@@ -2647,22 +2639,13 @@ def total_current_month_seeds():
         return total_oseeds
     return total_oseeds
 
-#Current Month Cashfloat
-def current_month_cashfloat():
-    cashfloat = CashFloat.objects.filter(Date__month=current_month, Date__year=current_year).aggregate(total_cashfloat=Sum('Amount'))
-    total_cashfloat=cashfloat['total_cashfloat']
-    if total_cashfloat == None:
-        total_cashfloat=0  
-        return total_cashfloat
-    return total_cashfloat
 
 #total current month revenues
 def total_current_month_revenue():
     total_tithes = total_current_month_tithes()
     total_offerings = total_current_month_offerings()
     total_seeds = total_current_month_seeds()
-    cashfloat = current_month_cashfloat()
-    current_month_total_revenues = (total_tithes + total_offerings + total_seeds) - cashfloat
+    current_month_total_revenues = (total_tithes + total_offerings + total_seeds)
     return current_month_total_revenues
 def week_of_month(date):
     date= datetime.now()
@@ -3012,25 +2995,6 @@ def index(request):
         net_income = total_monthly_incomes - total_monthly_expenditure
         
 
-        #Weekly cash float given out.
-        one_week_ago = datetime.today() - timedelta(days=7) 
-        cash_float= CashFloat.objects.filter(Date__gte=one_week_ago, Date__year=current_year)
-        if cash_float:
-            for i in cash_float:
-                if (one_week_ago): 
-                    get_cash_float= i.Amount
-                    net_float = int(get_cash_float) - total_weekly_expenditure
-                    new_float = net_float + get_cash_float
-        else:
-            get_cash_float = 0
-            net_float = 0
-            new_float = 0
-
-        annual_float= CashFloat.objects.filter(Date__year=current_year)
-        annual_cashfloat=annual_float.aggregate(totals=Sum('Amount'))
-        total_annual_float=annual_cashfloat['totals']
-        if total_annual_float is None:
-            total_annual_float=0
         annual_revenues = (revenues_in_a_year)
         annual_net = annual_revenues-annual_expenditure  
         today = timezone.now()
@@ -3042,14 +3006,12 @@ def index(request):
         total_offerings = total_current_month_offerings()
         total_seeds = total_current_month_seeds()
         current_month_total_revenues = total_current_month_revenue()
-        current_mth_cashfloat=current_month_cashfloat()
-
+        
         #calling other functions for the current week
         total_week_tithes = total_current_week_tithes()
         total_week_offerings = total_current_week_offerings()
         total_week_seeds= total_current_week_seeds()
         current_week_total_revenues = total_current_week_revenue()
-        current_week__cashfloat=current_week_cashfloat()
         week=week_of_month(current_month)
 
 
@@ -3058,9 +3020,7 @@ def index(request):
         'Annualtithes':Annualtithes,'Annualseeds':Annualseeds,'Annualbuilding':Annualbuilding,
         'Annualgeneral':Annualgeneral,'Annualmain':Annualmain,'Annualpetty':Annualpetty,
         'Annualallowances':Annualallowances,'annual_pledges_paid':annual_pledges_paid, 'Annualsalaries':Annualsalaries, 
-        'Annualpledgecashed':Annualpledgecashed,'total_annual_float':total_annual_float,
-
-        'get_cash_float':get_cash_float,'net_float':net_float,'new_float':new_float,
+        'Annualpledgecashed':Annualpledgecashed,
         'mth':mth, 'current_year':current_year,'current_month': current_month,
         'annual_revenues':annual_revenues, 'annual_expenditure':annual_expenditure,'annual_net':annual_net,
         'total_current_building':total_current_building, 'd_building': d_building,"building":building,
@@ -3068,10 +3028,9 @@ def index(request):
         'd_seeds':d_seeds,'d_thanks':d_thanks,'d_pledges':d_pledges,'day':day, 'total_weekly_expenditure':total_weekly_expenditure,
         
         'current_month_total_revenues':current_month_total_revenues,'total_tithes':total_tithes,'total_offerings':total_offerings,
-        'total_seeds':total_seeds,'current_mth_cashfloat':current_mth_cashfloat,
         
         'current_week_total_revenues':current_week_total_revenues,'total_week_tithes':total_week_tithes,
-        'total_week_offerings':total_week_offerings,'total_week_seeds':total_week_seeds,'current_week__cashfloat':current_week__cashfloat,
+        'total_week_offerings':total_week_offerings,'total_week_seeds':total_week_seeds,
 
         'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,
         'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_cash_out':total_cash_out,
@@ -3139,75 +3098,6 @@ def total_expenses(request):
     'total_amount':total_amount,'pledgecash': pledgecash, 'month':month}
     return render(request, 'total_expenses.html', context)
 
-########========================>CASHFLOAT MODULE<=====================#######
-@login_required
-def record_cashfloat(request):
-    one_week_ago = datetime.today() - timedelta(days=7) #Weekly
-    current_year = datetime.now().year
-    current_month = datetime.now().month
-    month=calendar.month_name[current_month]
-    get_data = CashFloat.objects.filter(Date__gte=one_week_ago or None)
-    total_amount = get_data.aggregate(totals=models.Sum('Amount'))
-    total_float = total_amount["totals"]
-    if request.method=="POST":
-        form=CashFloatForm(request.POST)
-        if form.is_valid():
-            #call save to implement a function (total_current_week_revenues) in the model(CashFloat)
-            get_amount = request.POST.get('Amount')
-            new_revenue = CashFloat()
-            new_revenue.total_current_week_revenues
-            new_revenue.save()
-            #save the form submitted
-            form.save()
-            return redirect('cashfloat-list')
-    else:    
-        if get_data:
-            week=week_of_month(current_month)
-            mesg="You have already given out the float"
-            context={'week':week,'mesg':mesg, 'get_data':get_data,'month':month, 'current_year':current_year,'total_float':total_float}
-            return render(request, 'give_cash_float.html',context) 
-        form=CashFloatForm()
-        context={'form':form,}
-        return render(request, 'give_cash_float.html',context) 
-
-def cashfloat_topup(request,pk):
-    get_cashfloat = CashFloat.objects.get(id=pk)
-    form=CashFloatForm(instance=get_cashfloat)
-    if request.method=="POST":
-        get_amount = request.POST.get('Amount')
-        get_topup = request.POST.get('TopUpAmount')
-        new_amount = int(get_amount) + int(get_topup)
-        form=CashFloatForm(request.POST,instance=get_cashfloat)
-        if form.is_valid():
-            #update the original cashfloat with the new amount after a topup
-            instance = form.save(commit=False)
-            instance.Amount = new_amount
-            instance.save()
-            messages.success(request, f'Cashfloat has been topped up with shs. ' + get_topup)
-            return redirect('cashfloat-list')
-    context={'form':form}
-    return render(request, 'topup_cash_float.html',context) 
-
-#list of all cash float given out
-def cashfloat_lst(request):
-    x = datetime.now() - timedelta(days=7)
-    one_week_ago=x.day
-    mth = datetime.now().month
-    current_year = datetime.now().year
-    lists=CashFloat.objects.filter(Date__year=current_year).order_by('-Date')
-    return render(request, 'cashfloat_list.html',{'one_week_ago':one_week_ago,'lists':lists,'current_year':current_year, 'mth': mth})
-
-def edit_cash_float(request, pk):
-    item = get_object_or_404(CashFloat, pk=pk)
-    if request.method == "POST":
-        form = CashFloatForm(request.POST, instance=item)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Cashfloat Update was successful")
-            return redirect('cashfloat-list')
-    else:
-        form = CashFloatForm(instance=item)
-        return render(request, 'edit_cash_float.html', {'form': form})
 
 ######################<=======CHURCH GROUPS==========>#######################
 @xframe_options_exempt

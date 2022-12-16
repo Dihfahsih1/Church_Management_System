@@ -112,14 +112,6 @@ class PledgesForm(forms.ModelForm):
             'data-placeholder': 'Type here Member name....', 'data-minimum-input-length': 3}),
 
         }
-
-class CashFloatForm(forms.ModelForm):
-    class Meta:
-        model=CashFloat
-        fields = ('Date','Amount','Notes','TopUpAmount')
-        widgets = {
-            'Date': DatePickerInput(),
-        } 
 class UpdatePledgesForm(forms.ModelForm):
     class Meta:
         model=Pledges
