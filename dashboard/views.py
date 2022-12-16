@@ -2584,7 +2584,7 @@ def total_current_week_tithes():
 
 #current week offerings
 def total_current_week_offerings():
-    offerings = Revenues.objects.filter(Date__gte=one_week_ago).aggregate(total_offerings=Sum('General_Offering_Amount'))
+    offerings = Revenues.objects.filter(Date__gte=one_week_ago, Revenue_filter="offering").aggregate(total_offerings=Sum('Amount'))
     total_offerings=offerings['total_offerings']
     if total_offerings == None:
         total_offerings=0  
@@ -2600,6 +2600,14 @@ def total_current_week_seeds():
         return total_seeds
     return total_seeds
 
+def total_current_week_rev():
+    amount = Revenues.objects.filter(Date__gte=one_week_ago).aggregate(Amounts=Sum('Amount'))
+    Amounts=amount['Amounts'] 
+    if Amounts == None:
+        Amounts=0  
+        return Amounts
+    return Amounts
+
 
 
 #total current week revenues
@@ -2607,6 +2615,7 @@ def total_current_week_revenue():
     total_tithes = total_current_week_tithes()
     total_offerings = total_current_week_offerings()
     total_seeds = total_current_week_seeds()
+    total_direct_revenue = total_current_week_rev()
     current_week_total_revenues = (total_tithes + total_offerings + total_seeds)
     return current_week_total_revenues
 
@@ -2675,7 +2684,9 @@ def index(request):
     if (total_weekly_offerings['totals'])!=None:
         int(total_weekly_offerings["totals"])
         d_offerings=total_weekly_offerings["totals"]
+        print("this")
     else:
+        
         total_weekly_offerings = 0
         d_offerings = 0
 
@@ -3013,9 +3024,11 @@ def index(request):
         total_week_seeds= total_current_week_seeds()
         current_week_total_revenues = total_current_week_revenue()
         week=week_of_month(current_month)
+        
+        weekly_balance = current_week_total_revenues - total_weekly_expenditure
 
 
-        context={'week':week,
+        context={'week':week, 'weekly_balance':weekly_balance,
         'Annualthanks':Annualthanks, 'Annualothers':Annualothers, 'Annualoffering':Annualoffering,
         'Annualtithes':Annualtithes,'Annualseeds':Annualseeds,'Annualbuilding':Annualbuilding,
         'Annualgeneral':Annualgeneral,'Annualmain':Annualmain,'Annualpetty':Annualpetty,

@@ -237,18 +237,22 @@ class Revenues(Model):
     Member_Name = models.CharField(max_length=100, blank=True, null=True)
     Archived_Status= models.CharField(max_length=100, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
     Group = models.CharField(max_length=100, choices=grouping, null=True, blank=True,)
+    
     Revenue_filter=models.CharField(max_length=100, blank=True, null=True)
     Other_Notes=models.CharField(max_length=10000, blank=True, null=True)
+    Other_Sources=models.CharField(max_length=100, blank=True, null=True)
+    
     Building_Amount = models.IntegerField(default=0, blank=True, null=True)
     Love_Offering_Amount = models.IntegerField(default=0, blank=True, null=True)
     Thanks_Giving_Amount = models.IntegerField(default=0, blank=True, null=True)
     Bills_Amount = models.IntegerField(default=0, blank=True, null=True)
-    General_Offering_Amount = models.IntegerField(default=0, blank=True, null=True)
+    Seed_Amount = models.IntegerField(default=0, blank=True, null=True)    
     Envag_Or_Missions_Amount = models.IntegerField(default=0, blank=True, null=True)
+    
     Tithe_Amount = models.IntegerField(default=0, blank=True, null=True)
-    Seed_Amount = models.IntegerField(default=0, blank=True, null=True)
+    General_Offering_Amount = models.IntegerField(default=0, blank=True, null=True)
     Amount = models.IntegerField(default=0, blank=True, null=True)
-    Other_Sources=models.CharField(max_length=100, blank=True, null=True)
+    
     def __str__(self):
         return str(self.Member_Name)
     # class Meta:

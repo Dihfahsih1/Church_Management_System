@@ -15,7 +15,7 @@
             {% if request.user.is_authenticated %}
                 <div class="right_col" role="main"> 
                         <!-- top tiles -->
-                        {% if user.Role == 'Admin' or user.Role == 'Assistant_Admin' or user.Role == 'SuperAdmin'%}
+                        {% if user.Role == 'Admin' or user.Role == 'Secretary' or user.Role == 'SuperAdmin'%}
                         <div class="row ">
                             <!--Start of Annual summary tiles -->
                             <!-- <div class="row top_tiles">
@@ -35,14 +35,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-                                    <a href="{% url 'cashfloat-list' %}">
-                                    <div class="tile-stats">
-                                        <h4> <b style="font-size: 17px">Total Annual Cash Float</b></h4>
-                                        <div class="count red">{{total_annual_float|intcomma}}</div>
-                                    </div>
-                                    </a>
-                                </div>
+                                 
                             </div> -->
                             <!--Start of monthly summary tiles -->
                             <div class="separator"></div>
@@ -50,11 +43,10 @@
                                 <h2 style="text-align:center; color:red;"><b>Summary for the {% if week == 1 %} first {% elif week == 2 %} Second {% elif week == 3 %} Third {% elif week == 4 %} fourth {% elif week == 5 %} last {% endif %} week of {{ month }} {{ current_year }}</b></h2>
                                     <!--Start of Annual summary tiles -->
                                 <div class="row top_tiles" style="margin-left:1%;">  
-                                    <h3 class="blue" style="margin-left: 5%; font-weight: bold;"><b> Cash Float Information</b>(7 days)</h3>
                                     <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
                                         <div class="tile-stats">
-                                            <h4><b style="font-size:15px">Cash Float Given</b></h4>
-                                            <div class="count blue">{{get_cash_float|intcomma}}</div>
+                                            <h4> <b style="font-size:15px">Total Week Revenue</b></h4>
+                                            <div class="count blue">{{current_week_total_revenues|intcomma}}</div>
                                         </div>
                                     </div>
 
@@ -65,10 +57,11 @@
                                         </div>
                                     </div>
 
+
                                     <div class="col-md-4 col-sm-4 col-xs-4 tile_stats_count">
                                         <div class="tile-stats">
                                             <h4> <b style="font-size: 15px;text-align: center;">Balance</b></h4><br>
-                                        <b style="font-size: 26px; color: blue"> {{net_float|intcomma}}</b>
+                                        <b style="font-size: 26px; color: blue"> {{weekly_balance|intcomma}}</b>
                                         </div>
                                     </div>
                                 </div>    
@@ -87,7 +80,7 @@
                                     <a href="{% url 'Offeringsreport'  %}">
                                     <div class="tile-stats">
                                         <h4 style="text-align: center;"> Total Offerings</h4>
-                                        <p class="green" style="font-size: 19px" ><b>Shs.{{ total_offerings|intcomma }}</b></p>
+                                        <p class="green" style="font-size: 19px" ><b>Shs.{{ d_offerings|intcomma }}</b></p>
                                     </div>
                                 </a>
                                 </div>
@@ -152,37 +145,7 @@
                             <li role="presentation"><a href="{% url 'edit-profile' %}"><i class="fa fa-pencil-square-o"></i> Update Profile</a>
                             </li>
                         </ul>
-                        {%endif%}
-                        {% if user.Role == 'Secretary'  %}
-                                <div class="row ">
-                                        <!--Start of Annual summary tiles -->
-                                    <div class="row top_tiles">
-                                        <h2 class="red" style="margin-left: 5%;"><b>Cash Float Information for <i><u>{{ month }}</u></i></b></h2>
-                                        <div class="separator"></div>
-
-                                        <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
-                                            <div class="tile-stats">
-                                                <h2 style="text-align: center;">Cash Float Given</h2>
-                                                <div class="count red">{{get_cash_float|intcomma}}</div>
-                                            </div>
-                                        </div>
-
-                                        <a href="{% url 'total_expenses'  %}"><div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
-                                            <div class="tile-stats">
-                                                <h2 style="text-align: center;"> Total Expenditure</h2>
-                                                <div class="count red">{{total_monthly_expenditure|intcomma}}</div>
-                                            </div>
-                                        </div>
-                                        </a>
-                                    <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
-                                            <div class="tile-stats" id='update'>
-                                                <h2 style="text-align: center;">Balance</h2>
-                                                <div class="count red">{{net_float|intcomma}}</div>
-                                            </div>
-                                        </div>
-                                    </div>    
-                                </div>
-                        {%endif%}
+                        {%endif%} 
                         
                         <!-- /top tiles -->
                         <script>
