@@ -275,6 +275,8 @@ path('search_tagged_blogs/', views.search_tagged_blogs, name="search_tagged_blog
 
 path('tagged_articles/', views.tagged_articles, name="tagged_articles"),
 
+path('deduct-expenses', views.deduct_sunday_expenses, name="deduct-sunday-expenses"),
+
 #rest framework urls
 path('memebership/api', views.MemberAPIView.as_view())
 ]

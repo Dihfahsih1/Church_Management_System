@@ -2616,7 +2616,7 @@ def total_current_week_revenue():
     total_offerings = total_current_week_offerings()
     total_seeds = total_current_week_seeds()
     total_direct_revenue = total_current_week_rev()
-    current_week_total_revenues = (total_tithes + total_offerings + total_seeds)
+    current_week_total_revenues = (total_tithes + total_offerings + total_seedssource)
     return current_week_total_revenues
 
 
@@ -3457,3 +3457,8 @@ def list_group_contributions(request):
     qs = Revenues.objects.exclude(Group__exact=None)
     context={'qs':qs, 'today':today}
     return render(request, 'Groups/group_contribution_list.html', context)
+
+def deduct_sunday_expenses(request):
+    context = {}
+    return render(request, 'Expenses/deduct_sunday_expenses.html', context)
+    
