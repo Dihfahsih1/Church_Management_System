@@ -52,7 +52,16 @@ class ExpendituresForm(forms.ModelForm):
             'Date': DatePickerInput(),
             'Member_Name': autocomplete.ModelSelect2(url='auto-complete',
             attrs={'data-placeholder': 'Type here the name....', 'data-minimum-input-length': 3})
-        }                 
+        }   
+        
+class SundayExpensesForm(forms.ModelForm):
+    class Meta:
+        model=Expenditures
+        fields=('Date', 'Amount', 'Reason_filtering')
+        widgets = {
+            'Date': DatePickerInput(),
+            'Amount':TextInput(attrs={'placeholder': 'Shs.'}),
+        }
 class RevenuesForm(forms.ModelForm):
     class Meta:
         model=Revenues

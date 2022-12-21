@@ -117,7 +117,6 @@ def web(request):
 def contact(request):
     if request.method=="POST":
         form=ContactForm(request.POST)
-        print(form.errors)
         if form.is_valid():
             #form.save()
             church_email = Church.objects.get(id=1)
@@ -603,7 +602,7 @@ def BuildingRenovationarchivessearch(request):
     context = {'years': years,}
     return render(request, "BuildingRenovation/buildingarchive.html", context)
 
-####################=================>GENERAL OFFERINGS MODULE<===================###################
+##############=====>GENERAL OFFERINGS MODULE<======###################
 #record offerings
 @login_required
 def Enter_Offerings(request):
@@ -762,7 +761,7 @@ def seedsarchivessearch(request):
 
 def edit_seed(request, pk):
     item = get_object_or_404(Revenues, pk=pk)
-    print(item)
+     
     if request.method == "POST":
         form = RevenuesForm(request.POST, instance=item)
         if form.is_valid():
@@ -2575,8 +2574,14 @@ day = datetime.now().today #Today
 
 #current week tithes
 def total_current_week_tithes():
-    tithes = Revenues.objects.filter(Date__gte=one_week_ago).aggregate(total_tithes=Sum('Tithe_Amount'))
-    total_tithes=tithes['total_tithes']
+    i_tithes = Revenues.objects.filter(Date__gte=one_week_ago).aggregate(i_total_tithes=Sum('Tithe_Amount'))
+    i_total_tithes=i_tithes['i_total_tithes']
+    
+    s_tithes = Revenues.objects.filter(Date__gte=one_week_ago,Revenue_filter='tithes' ).aggregate(s_total_tithes=Sum('Amount'))
+    s_total_tithes=s_tithes['s_total_tithes']
+    
+    total_tithes = i_total_tithes + s_total_tithes
+    
     if total_tithes == None:
         total_tithes=0  
         return total_tithes
@@ -2584,8 +2589,13 @@ def total_current_week_tithes():
 
 #current week offerings
 def total_current_week_offerings():
-    offerings = Revenues.objects.filter(Date__gte=one_week_ago, Revenue_filter="offering").aggregate(total_offerings=Sum('Amount'))
-    total_offerings=offerings['total_offerings']
+    i_offerings = Revenues.objects.filter(Date__gte=one_week_ago).aggregate(i_total_offerings=Sum('General_Offering_Amount'))
+    i_total_offerings=i_offerings['i_total_offerings']
+    
+    s_offerings = Revenues.objects.filter(Date__gte=one_week_ago, Revenue_filter="offering").aggregate(s_total_offerings=Sum('Amount'))
+    s_total_offerings=s_offerings['s_total_offerings']
+    
+    total_offerings=i_total_offerings + s_total_offerings
     if total_offerings == None:
         total_offerings=0  
         return total_offerings
@@ -2616,7 +2626,7 @@ def total_current_week_revenue():
     total_offerings = total_current_week_offerings()
     total_seeds = total_current_week_seeds()
     total_direct_revenue = total_current_week_rev()
-    current_week_total_revenues = (total_tithes + total_offerings + total_seedssource)
+    current_week_total_revenues = (total_tithes + total_offerings + total_seeds)
     return current_week_total_revenues
 
 
@@ -2684,7 +2694,7 @@ def index(request):
     if (total_weekly_offerings['totals'])!=None:
         int(total_weekly_offerings["totals"])
         d_offerings=total_weekly_offerings["totals"]
-        print("this")
+        
     else:
         
         total_weekly_offerings = 0
@@ -3459,6 +3469,13 @@ def list_group_contributions(request):
     return render(request, 'Groups/group_contribution_list.html', context)
 
 def deduct_sunday_expenses(request):
-    context = {}
+    if request.method == "POST":
+        form = SundayExpensesForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Sunday expenses have been deducted')
+            return redirect('expenditurereport')
+    form = SundayExpensesForm()
+    context = {'form':form}
     return render(request, 'Expenses/deduct_sunday_expenses.html', context)
     
