@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"
+      class="no-js no-svg">
+    <head>
+        
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="profile" href="https://gmpg.org/xfn/11">
+
+        <link media="all" href="{% static 'assets/css/home.css' %}" rel="stylesheet"/>
+
+
+        <link media="all" href="{% static 'assets/main.css' %}" rel="stylesheet"/>
+        <link media="all" href="{% static 'assets/bootstrap.min.css' %}" rel="stylesheet"/>
+        <link media="all" href="{% static 'assets/css/autoptimize_dd11a3120d69fa7851ebfb5e2c071dfa.css' %}" rel="stylesheet"/>
+
+        <link media="only screen and (max-width: 768px)"
+            href="{% static 'assets/css/autoptimize_541e2ced151704f4ff1844c6de47ec02.css' %}"
+            rel="stylesheet"/>
+
+        <link rel='stylesheet' id='elementor-post-6522-css' href="{% static 'assets/css/1627363694.css' %}" type='text/css' media='all'/>
+
+        <script type='text/javascript' src={% static 'assets/bootstrap.bundle.min.js' %}
+            id='jquery-core-js'></script>
+
+        <script type='text/javascript' src={% static 'assets/js/jquery/jquery.min-ver=3.6.0.js' %}
+                id='jquery-core-js'></script>
+        <title>UCC-BWAISE | {% block title %} Home {% endblock title %}</title>
+        <meta name='robots' content='max-image-preview:large' />
+        
+        <meta property="og:title" content="Landing Page" />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="index.html" />
+        <meta property="og:site_name" content="Living Witness" />
+        <meta property="og:description" content="<p> We are a community of people loving each other and our Lord. Our goal is to forward the propagation of the gospel by reaching out to as many as possible through the internet.</p>" />
+
+        <link rel="stylesheet" id='elementor-post-17005-css' href="{% static 'assets/css/1626180938.css' %}" type='text/css' media='all'/>
+
+        <link rel='stylesheet' id='elementor-post-16804-css' href="{% static  'assets/css/1626345219.css' %}"
+                    type='text/css'
+                    media='all'/>
+      
+        <script type='text/javascript' id='charitable-sessions-js-extra'>
+            var CHARITABLE_SESSION = {
+                "ajaxurl": "https:\/\/elementor.zozothemes.com\/zegen\/wp-admin\/admin-ajax.php",
+                "id": "",
+                "cookie_name": "charitable_session",
+                "expiration": "86400",
+                "expiration_variant": "82800",
+                "secure": "",
+                "cookie_path": "\/",
+                "cookie_domain": "",
+                "generated_id": "150b8be11cdedb3994e2db40b0567150",
+                "disable_cookie": ""
+            };
+        </script>
+        <script type='text/javascript' src="{% static 'assets/js/jquery/jquery.min-ver=3.6.0.js' %}" id='jquery-core-js'></script>
+
+       
+        
+        <script type='text/javascript' src="{% static 'assets/themes/zegen/assets/js/html5-ver=3.7.3.js' %}" id='html5-js'></script>
+        
+       
+      
+        <link rel="EditURI" type="application/rsd+xml"   title="RSD" href="https://elementor.zozothemes.com/zegen/xmlrpc.php?rsd"/>
+
+        <script type="text/javascript">
+            function setREVStartSize(e) {
+                //window.requestAnimationFrame(function() {				 
+                window.RSIW = window.RSIW === undefined ? window.innerWidth : window.RSIW;
+                window.RSIH = window.RSIH === undefined ? window.innerHeight : window.RSIH;
+                try {
+                    var pw = document.getElementById(e.c).parentNode.offsetWidth,
+                        newh;
+                    pw = pw === 0 || isNaN(pw) ? window.RSIW : pw;
+                    e.tabw = e.tabw === undefined ? 0 : parseInt(e.tabw);
+                    e.thumbw = e.thumbw === undefined ? 0 : parseInt(e.thumbw);
+                    e.tabh = e.tabh === undefined ? 0 : parseInt(e.tabh);
+                    e.thumbh = e.thumbh === undefined ? 0 : parseInt(e.thumbh);
+                    e.tabhide = e.tabhide === undefined ? 0 : parseInt(e.tabhide);
+                    e.thumbhide = e.thumbhide === undefined ? 0 : parseInt(e.thumbhide);
+                    e.mh = e.mh === undefined || e.mh == "" || e.mh === "auto" ? 0 : parseInt(e.mh, 0);
+                    if (e.layout === "fullscreen" || e.l === "fullscreen")
+                        newh = Math.max(e.mh, window.RSIH);
+                    else {
+                        e.gw = Array.isArray(e.gw) ? e.gw : [e.gw];
+                        for (var i in e.rl)
+                            if (e.gw[i] === undefined || e.gw[i] === 0) e.gw[i] = e.gw[i - 1];
+                        e.gh = e.el === undefined || e.el === "" || (Array.isArray(e.el) && e.el.length == 0) ? e.gh : e.el;
+                        e.gh = Array.isArray(e.gh) ? e.gh : [e.gh];
+                        for (var i in e.rl)
+                            if (e.gh[i] === undefined || e.gh[i] === 0) e.gh[i] = e.gh[i - 1];
+                        var nl = new Array(e.rl.length),
+                            ix = 0,
+                            sl;
+                        e.tabw = e.tabhide >= pw ? 0 : e.tabw;
+                        e.thumbw = e.thumbhide >= pw ? 0 : e.thumbw;
+                        e.tabh = e.tabhide >= pw ? 0 : e.tabh;
+                        e.thumbh = e.thumbhide >= pw ? 0 : e.thumbh;
+                        for (var i in e.rl) nl[i] = e.rl[i] < window.RSIW ? 0 : e.rl[i];
+                        sl = nl[0];
+                        for (var i in nl)
+                            if (sl > nl[i] && nl[i] > 0) {
+                                sl = nl[i];
+                                ix = i;
+                            }
+                        var m = pw > (e.gw[ix] + e.tabw + e.thumbw) ? 1 : (pw - (e.tabw + e.thumbw)) / (e.gw[ix]);
+                        newh = (e.gh[ix] * m) + (e.tabh + e.thumbh);
+                    }
+                    var el = document.getElementById(e.c);
+                    if (el !== null && el) el.style.height = newh + "px";
+                    el = document.getElementById(e.c + "_wrapper");
+                    if (el !== null && el) {
+                        el.style.height = newh + "px";
+                        el.style.display = "block";
+                    }
+                } catch (e) {
+                    console.log("Failure at Presize of Slider:" + e)
+                }
+                });
+            };
+        </script>
+    </head>
+    <body class="page-template-default page page-id-16804 wp-embed-responsive theme-zegen woocommerce-no-js elementor-default elementor-kit-17005 elementor-page elementor-page-16804">
+        {% block content %} 
+            {% include "includes/toggle.html" %}
+
+            <div id="page" class="zegen-wrapper">
+                {% include "includes/head.html" %}
+            </div>
+
+            {% include "includes/footer.html" %}
+            <div class="full-search-wrapper">
+                <a class="full-search-toggle close" href="index.html#"></a>
+                <form method="get" class="search-form" action="index.html">
+                    <div class="input-group">
+                        <input type="text"
+                            class="form-control"
+                            name="s"
+                            value=""
+                            placeholder="Search..">
+                        <span class="input-group-btn">
+                            <button class="btn btn-secondary" type="submit">
+                                <i class="ti-arrow-right"></i>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+            {% include "includes/js.html" %}
+        {% endblock content %}
+    </body>
+</html>

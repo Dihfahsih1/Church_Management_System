@@ -24,7 +24,9 @@ urlpatterns = [
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     
     path('admin/', admin.site.urls),
-    path('', include('dashboard.urls')),
+    path('', include('siteapp.urls')),
+    path('system', include('dashboard.urls')),
+    
     re_path('^',include('django.contrib.auth.urls')),
     path('account-register/', user_views.register, name='register'),
     path('register/', user_views.MemberAccountRegister, name='MemberAccountRegister'),

@@ -166,6 +166,12 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
+*.mp4
+*.pm3
+*.pdf 
+*.png 
+*.jpg 
+*.jpeg
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/

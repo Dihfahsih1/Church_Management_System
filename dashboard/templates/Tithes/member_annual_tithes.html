@@ -17,22 +17,7 @@
                     </ul>
                     <div class="clearfix"></div>
                 </div>
-                <div class="x_content quick-link">
-                  <span style="color:red"><b>Make Other Entries:</b></span>
-                  <a href="{% url  'enter_expenditure' %}"> Main</a>
-                  |<a href="{% url 'enter-general-expenses' %}"> General</a>
-                  |<a href="{% url 'enter_sundryexpense' %}"> Petty</a>
-                  |<a href="{% url 'Enter_Offerings' %}"> Offerings</a>
-                  |<a href="{% url 'Enter_Tithes' %}"> Tithes</a>
-                  |<a href="{% url 'Enter_Pledges' %}"> Pledges</a>
-                  |<a href="{% url 'give-allowance' %}"> Allowances</a>
-                  |<a href="{% url 'employee-list' %}"> Salaries</a>
-                  |<a href="{% url 'record-donations' %}"> Doantions</a>
-                  |<a href="{% url 'add-seeds' %}"> Seeds</a>
-                  |<a href="{% url 'record-thanks-giving' %}"> TGiving</a>
-                  |<a href="{% url 'members-register' %}"> Membership</a>
-                  <div class="separator"></div>
-                </div>
+               
                 <p>{{ msg}}</p>
                 <h3 style="text-align: center">{{years}} Annual Tithes Report of {% for name in members%} {{name.First_Name}}
                   {{name.Second_Name}}{%endfor%} </h3>

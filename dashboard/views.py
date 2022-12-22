@@ -2578,13 +2578,19 @@ def total_current_week_tithes():
     i_total_tithes=i_tithes['i_total_tithes']
     
     s_tithes = Revenues.objects.filter(Date__gte=one_week_ago,Revenue_filter='tithes' ).aggregate(s_total_tithes=Sum('Amount'))
+    
     s_total_tithes=s_tithes['s_total_tithes']
+        
     
-    total_tithes = i_total_tithes + s_total_tithes
-    
-    if total_tithes == None:
+    if s_total_tithes == None:
+        s_total_tithes=0  
+    if i_total_tithes == None:
+        i_total_tithes = 0
+        
+    if s_total_tithes == None or i_total_tithes == None:
         total_tithes=0  
-        return total_tithes
+        
+    total_tithes = i_total_tithes + s_total_tithes
     return total_tithes
 
 #current week offerings
@@ -2595,10 +2601,15 @@ def total_current_week_offerings():
     s_offerings = Revenues.objects.filter(Date__gte=one_week_ago, Revenue_filter="offering").aggregate(s_total_offerings=Sum('Amount'))
     s_total_offerings=s_offerings['s_total_offerings']
     
-    total_offerings=i_total_offerings + s_total_offerings
-    if total_offerings == None:
+    if s_total_offerings== None:
+        s_total_offerings=0  
+    if i_total_offerings == None:
+        i_total_offerings = 0
+        
+    if s_total_offerings == None and i_total_offerings == None:
         total_offerings=0  
-        return total_offerings
+        
+    total_offerings = i_total_offerings + s_total_offerings
     return total_offerings
 
 #current week seeds
@@ -2666,6 +2677,8 @@ def total_current_month_revenue():
     total_seeds = total_current_month_seeds()
     current_month_total_revenues = (total_tithes + total_offerings + total_seeds)
     return current_month_total_revenues
+
+
 def week_of_month(date):
     date= datetime.now()
     month = date.month
@@ -2759,13 +2772,7 @@ def index(request):
         d_allowances=0
 
     #Total general expenses of the week.
-    weekly_general_expenses = Expenditures.objects.filter(Reason_filtering='general',Date__gte=one_week_ago,Archived_Status='NOT-ARCHIVED').aggregate(totals=models.Sum("Amount"))
-    if (weekly_general_expenses['totals'])!=None:
-        int(weekly_general_expenses["totals"])
-        d_general=weekly_general_expenses["totals"]
-    else:
-        weekly_general_expenses = 0
-        d_general = 0
+   
 
     #weekly main expenses
     total_weekly_expenses = Expenditures.objects.filter(Reason_filtering='main',Date__gte=one_week_ago,Archived_Status='NOT-ARCHIVED').aggregate(totals=models.Sum("Amount"))
@@ -2863,14 +2870,7 @@ def index(request):
         total_main_expenses = 0
         expenses = 0
 
-    #Total general expenses of the current month of the year.
-    total_general_expenses = Expenditures.objects.filter(Reason_filtering='general',Archived_Status='NOT-ARCHIVED',Date__month=current_month,Date__year=current_year).aggregate(totals=models.Sum("Amount"))
-    if (total_general_expenses['totals'])!=None:
-        int(total_general_expenses["totals"])
-        general=total_general_expenses["totals"]
-    else:
-        total_general_expenses = 0
-        general = 0
+    
 
     #Monthly Petty Cash expenses
     total_petty_expenses = Expenditures.objects.filter(Reason_filtering='petty',Archived_Status='NOT-ARCHIVED',Date__month=current_month,Date__year=current_year).aggregate(totals=models.Sum("Amount"))
@@ -2921,11 +2921,7 @@ def index(request):
     if Annualbuilding is None:
         Annualbuilding =0
      
-    #expenses
-    A_general=Expenditures.objects.filter(Reason_filtering='general',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
-    Annualgeneral=(A_general["totals"])
-    if Annualgeneral is None:
-        Annualgeneral =0
+    
 
     A_main=Expenditures.objects.filter(Reason_filtering='main',Date__year=current_year).aggregate(totals=models.Sum("Amount"))
     Annualmain=(A_main["totals"])
@@ -2982,13 +2978,12 @@ def index(request):
    
     #in case the totals are Zero
     if (annual_revenue, annual_paid_pledges,annual_expenses,A_salaries,pledgecash,
-        total_petty_expenses,total_current_tithes,total_general_expenses, total_current_salaries, 
+        total_petty_expenses,total_current_tithes, total_current_salaries, 
         total_current_offerings,total_current_pledges,total_allowances,total_main_expenses,total_cash_out)== 0:
         total_monthly_incomes = 0
         annual_revenues = 0
         annual_expenditure = 0
         total_monthly_expenditure =  0
-        total_general_expenses = 0
         pledges = 0
 
         #calculating net income
@@ -2999,10 +2994,9 @@ def index(request):
         context={
         'total_current_salaries':total_current_salaries,
         'annual_revenues':annual_revenues, 'annual_expenditure':annual_expenditure,
-        'annual_net':annual_net, 'total_current_building':total_current_building, 'd_building': d_building, 'building':building, 'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,'total_current_seeds':total_current_seeds,'total_general_expenses':total_general_expenses,'total_petty_expenses':total_petty_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
-        'general':general,'allowances':allowances,'seeds':seeds, 'expenses':expenses,'day':day,
+        'annual_net':annual_net, 'total_current_building':total_current_building, 'd_building': d_building, 'building':building, 'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,'allowances':allowances,'seeds':seeds, 'expenses':expenses,'day':day,
         'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income,'thanks':thanks,'donations':donations
-        ,'d_petty':d_petty,'d_allowances':d_allowances,'d_salaries':d_salaries, 'd_pledges':d_pledges, 'd_general':d_general,'d_expenses':d_expenses,
+        ,'d_petty':d_petty,'d_allowances':d_allowances,'d_salaries':d_salaries, 'd_pledges':d_pledges,'d_expenses':d_expenses,
         }
         #return the index of the user dashboard
         return render(request,'index.html', context)
@@ -3011,8 +3005,8 @@ def index(request):
     else:
         annual_expenditure =   expenses_in_a_year + Annualsalaries 
         total_monthly_incomes =  tithes + offerings + seeds + thanks + donations 
-        total_monthly_expenditure =  allowances + expenses + general + petty + salaries
-        total_weekly_expenditure =d_allowances  + d_general + d_expenses + d_petty 
+        total_monthly_expenditure =  allowances + expenses  + petty + salaries
+        total_weekly_expenditure =d_allowances   + d_expenses + d_petty 
         net_income = total_monthly_incomes - total_monthly_expenditure
         
 
@@ -3040,8 +3034,7 @@ def index(request):
 
         context={'week':week, 'weekly_balance':weekly_balance,
         'Annualthanks':Annualthanks, 'Annualothers':Annualothers, 'Annualoffering':Annualoffering,
-        'Annualtithes':Annualtithes,'Annualseeds':Annualseeds,'Annualbuilding':Annualbuilding,
-        'Annualgeneral':Annualgeneral,'Annualmain':Annualmain,'Annualpetty':Annualpetty,
+        'Annualtithes':Annualtithes,'Annualseeds':Annualseeds,'Annualbuilding':Annualbuilding,'Annualmain':Annualmain,'Annualpetty':Annualpetty,
         'Annualallowances':Annualallowances,'annual_pledges_paid':annual_pledges_paid, 'Annualsalaries':Annualsalaries, 
         'Annualpledgecashed':Annualpledgecashed,
         'mth':mth, 'current_year':current_year,'current_month': current_month,
@@ -3056,12 +3049,11 @@ def index(request):
         'total_week_offerings':total_week_offerings,'total_week_seeds':total_week_seeds,
 
         'total_current_donations':total_current_donations,'total_current_thanks':total_current_thanks,
-        'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_cash_out':total_cash_out,
-        'total_general_expenses':total_general_expenses,'salaries':salaries,'total_current_salaries':total_current_salaries,
+        'total_current_seeds':total_current_seeds,'total_petty_expenses':total_petty_expenses,'total_cash_out':total_cash_out,'salaries':salaries,'total_current_salaries':total_current_salaries,
         'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
-        'petty':petty,'allowances':allowances,'seeds':seeds,'general':general, 'expenses':expenses,'tithes':tithes, 
+        'petty':petty,'allowances':allowances,'seeds':seeds,'expenses':expenses,'tithes':tithes, 
         'offerings':offerings,'pledges':pledges,'net_income':net_income,'thanks':thanks,'donations':donations,
-        'd_petty':d_petty,'d_allowances':d_allowances,'d_salaries':d_salaries, 'd_general':d_general,'d_expenses':d_expenses,
+        'd_petty':d_petty,'d_allowances':d_allowances,'d_salaries':d_salaries, 'd_expenses':d_expenses,
         }
         return render(request,'index.html', context)
 

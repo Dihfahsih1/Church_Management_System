@@ -1,7 +1,7 @@
 {% extends "app/base_site.html" %}
 
 {% load static i18n humanize %}
-{% block title %} Home {% endblock title %}
+{% block title %} System {% endblock title %}
 
 {% block stylesheets %}
     {{ block.super }}
@@ -57,13 +57,15 @@
                                         </div>
                                     </div>
 
-
-                                    <div class="col-md-4 col-sm-4 col-xs-4 tile_stats_count">
+                                    <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
                                         <div class="tile-stats">
-                                            <h4> <b style="font-size: 15px;text-align: center;">Balance</b></h4><br>
-                                        <b style="font-size: 26px; color: blue"> {{weekly_balance|intcomma}}</b>
+                                            <h4> <b style="font-size:15px">Balance</b></h4>
+                                            <div class="count blue">{{weekly_balance|intcomma}}</div>
                                         </div>
                                     </div>
+
+
+                                    
                                 </div>    
                             </div>
 
@@ -99,7 +101,7 @@
                             <div class="row top_tiles" style="margin-left: 1%;">
                                 <h3 style="margin-left: 5%; font-weight: bold;"><a href="{% url 'total_expenses'  %}">
                                 <b class="blue" >Current Week Total Expenditure ({{total_monthly_expenditure|intcomma}})</b></a></h3>
-                                <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 tile_stats_count">
                                     <a href="{% url 'expenditurereport'  %}">
                                     <div class="tile-stats">
                                         <h4 style="text-align: center;"> Main Expenditure</h4>
@@ -108,25 +110,16 @@
                                 </a>
                                 </div>
 
-                                <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-                                    <a href="{% url 'general-expenses-report'  %}">
-                                    <div class="tile-stats">
-                                        <h4 style="text-align: center;"> General Expenses</h4>
-                                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ general|intcomma }}</b></p>
-                                    </div>
-                                    </a>
-                                </div>
-
-                                <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 tile_stats_count">
                                     <a href="{% url 'sundryreport'  %}">
                                     <div class="tile-stats">
                                         <h4 style="text-align: center;"> Petty Expenses</h4>
-                                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ petty|intcomma }}</b></p>
+                                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ d_petty|intcomma }}</b></p>
                                     </div>
                                 </a>
                                 </div>
 
-                                <div class="col-md-3 col-sm-4 col-xs-4 tile_stats_count">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 tile_stats_count">
                                     <a href="{% url 'allowancereport'  %}">
                                     <div class="tile-stats">
                                         <h4 style="text-align: center;"> Allowances</h4>
@@ -166,7 +159,7 @@
                                     },
                                     xAxis: {
                                         categories: [
-                                        '<strong style="color: red; font-weight:bolder">Gen Expenses</strong>', 
+                                         
                                         '<strong style="color: red; font-weight:bolder">Main Expenses</strong>',
                                         '<strong style="color: red; font-weight:bolder">Petty Expenses</strong>',
                                         '<strong style="color: red; font-weight:bolder">Allowances</strong>',
@@ -184,7 +177,7 @@
                                     },
                                     series: [ {
                                             name:'Bar Chart showing Expenses made in this week',
-                                            data: [{{general}},{{expenses}},{{petty}},{{allowances}}
+                                            data: [{{expenses}},{{petty}},{{allowances}}
                                             ]
                                         }
                                         ,
@@ -213,7 +206,6 @@
                                         '<strong>Other Sources</strong>',
                                         '<strong>Thanks Giving</strong>',
                                         '<strong>Building Collections</strong>',
-                                        '<strong style="color: red; font-weight:bolder">Gen Expenses</strong>', 
                                         '<strong style="color: red; font-weight:bolder">Main Expenses</strong>',
                                         '<strong style="color: red; font-weight:bolder">Petty Expenses</strong>',
                                         '<strong style="color: red; font-weight:bolder">Allowances</strong>',
@@ -232,7 +224,7 @@
                                     series: [ {
                                             name:'REVENUES AND EXPENSES',
                                             data: [{{total_week_offerings}},{{total_week_tithes}},{{total_week_seeds}},{{donations}},{{thanks}},{{building}},
-                                            {{general}},{{expenses}},{{petty}},{{allowances}}
+                                            {{expenses}},{{petty}},{{allowances}}
                                             ]
                                         }
                                         ,
@@ -348,7 +340,7 @@
                                     series: [{
                                         name: 'Total',
                                         data: [
-                                            ['General Expenses', {{general}}],
+                                             
                                             ['Main Expenses', {{expenses}}],
                                             ['Petty Expenses', {{petty}}],
                                             ['Allowances Expenses', {{allowances}}],

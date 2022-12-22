@@ -17,6 +17,7 @@ APPEND_SLASH=True
 SITE_ID = 1
 INSTALLED_APPS = [
     'dashboard',
+    'siteapp',
     'tracking',
     'dal',
     'dal_select2',

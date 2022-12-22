@@ -37,32 +37,8 @@
                 <div class="separator"></div>
                     <h3 style="font-weight:bolder; color: white; text-align: center">Financial Functions <i class="glyphicon glyphicon-arrow-down"></i></h3>
                 <div class="separator"></div>
-
-                <li><a href="{% url 'church_list' %}"><i class="fa fa fa-institution"></i> Manage Church Details</a></li>
-                
-                <li><a href="{% url 'list_of_conferences' %}"><i class="fa fa-book"></i> Annual Conference</a></li>
-                
-                
-
-                <li><a href="{% url 'Building-Renovation-report'%}"><i class="fa fa-money"></i>Building Collections</a></li>
-                
-                <li><a><i class="fa fa-group"></i> Members <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="{% url 'members-register'%}">Register Members</a></li>
-                        <li><a href="{% url 'members-archived'%}"> Archived Members</a></li>
-                        <li><a href="{% url 'un-approved-list'%}"> Un approved Members</a></li>
-                        <li><a href="{% url 'members-list'%}"> Church Members</a></li>
-                    </ul>
-                </li>
-
-                <li><a><i class="fa fa-group"></i> Visitors <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="{% url 'visitors-register'%}"> Register Visitor</a></li>
-                        <li><a href="{% url 'visitors-list'%}"> List of visitors</a></li>
-                    </ul>
-                </li>
         
-                <li><a><i class="fa fa-calculator"></i> Revenue Module <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-calculator"></i> Revenues <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{% url 'Enter_Tithes' %}">Total Tithes</a></li>
                         
@@ -73,23 +49,22 @@
                     </ul>
                 </li>
 
-                <li><a><i class="fa fa-balance-scale"></i> Expenditure Module <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-balance-scale"></i> Expenses <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{% url 'deduct-sunday-expenses' %}">Sunday Expenses</a></li>
-                        <li><a href="{% url 'enter-general-expenses'  %}">General  Expenditure</a>
-                        </li>
                         <li><a href="{% url 'enter_expenditure'  %}">Main Expenditure</a>
-                        </li>                        
+                        </li>    
+                        <li><a href="{% url 'enter_sundryexpense'  %}">Petty/Other Expenses</a></li>                    
                         <li><a href="{% url 'give-allowance'  %}">Allowances</a>
                         </li>
                         <li><a href="{% url 'employee-list'  %}">Salaries</a>
                         </li>
                         <li><a href="{% url 'airtime-data-report'  %}">Airtime/Data</a></li>
-                        <li><a href="{% url 'enter_sundryexpense'  %}">Petty/Other Expenses</a></li>
+                        
                     </ul>
                 </li>
 
-                <li><a><i class="fa fa-dollar"></i> Pledges Module <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-dollar"></i> Pledges <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{% url 'add-pledge-item' %}">Add Pledge Items</a></li>
                         <li><a href="{% url 'Enter_Pledges' %}">Record Pledges</a></li>
@@ -100,25 +75,23 @@
 
                 <li><a><i class="fa fa-database"></i> Monthly Reports <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li><a href="{% url 'expenditurereport'  %}">Main Expenses Reports</a></li>
-                        <li><a href="{% url 'general-expenses-report' %}">General Expenses Reports</a></li>
+                        <li><a href="{% url 'expenditurereport'  %}">Main Expenses </a></li>
                         <li><a href="{% url 'list-group-contributions'  %}">Group Contributions </a></li>
-                        <li><a href="{% url 'Offeringsreport'  %}">Offerings Reports</a></li>
-                        <li><a href="{% url 'sundryreport'  %}"> Petty Expenses Reports</a></li>
-                            <li><a href="{% url 'Supportreport'  %}"> Ministry Support Reports</a></li>
-                            <li><a href="{% url 'Tithesreport'  %}"> Tithe Reports</a></li>
-                            <li><a href="{% url 'allowancereport'  %}"> Allowances Reports</a></li>
-                            <li><a href="{% url 'current-month-salaries'  %}">Salaries Report</a></li>
-                            <li><a href="{% url 'Seeds-report'  %}"> Seeds Offering Report</a></li>
-                            <li><a href="{% url 'thanks-giving-report'  %}">Thanks Giving Report</a></li>
-                        <li><a href="{% url 'donations-report'  %}">Other Sources Report</a></li>
+                        <li><a href="{% url 'Offeringsreport'  %}">Offerings </a></li>
+                        <li><a href="{% url 'sundryreport'  %}"> Petty Expenses </a></li>
+                            <li><a href="{% url 'Supportreport'  %}"> Ministry Support </a></li>
+                            <li><a href="{% url 'Tithesreport'  %}"> Tithe </a></li>
+                            <li><a href="{% url 'allowancereport'  %}"> Allowances </a></li>
+                            <li><a href="{% url 'current-month-salaries'  %}">Salaries </a></li>
+                            <li><a href="{% url 'Seeds-report'  %}"> Seeds Offering </a></li>
+                            <li><a href="{% url 'thanks-giving-report'  %}">Thanks Giving </a></li>
+                        <li><a href="{% url 'donations-report'  %}">Other Sources </a></li>
                     </ul>
                 </li>
 
                 <li><a><i class="fa fa-archive"></i> Archived Reports <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{% url 'expensesarchivessearch' %}"> Main Expenses Archived</a></li>
-                         <li><a href="{% url 'general-expensesarchives-search' %}"> General Expenses Archived</a></li>
                         <li><a href="{% url 'offeringsarchivessearch' %}"> Offerings Archived</a></li>
                         <li><a href="{% url 'pledgesarchivessearch' %}"> Pledges Archived</a></li>
                         <li><a href="{% url 'sundryarchivessearch' %}"> Petty Expenses Archived</a></li>
@@ -131,19 +104,41 @@
                         <li><a href="{% url 'BuildingRenovationarchivessearch' %}">Building Collections Archived</a></li>
                     </ul>
                 </li>
+                <li><a href="{% url 'list_of_conferences' %}"><i class="fa fa-book"></i> Annual Conference</a></li>
+                
+                
 
-                <li><a><i class="fa fa-group"></i> Church Employees <span class="fa fa-chevron-down"></span></a>
+                <li><a href="{% url 'Building-Renovation-report'%}"><i class="fa fa-money"></i>Building Collections</a></li>
+                
+                
+                <div class="separator"></div>
+                 
+                 <h3 style="font-weight:bolder; color: white; text-align: center">Other Functions <i class="glyphicon glyphicon-arrow-down"></i></h3>
+                 <div class="separator"></div>
+                 <li><a><i class="fa fa-group"></i> Members <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="{% url 'members-register'%}">Register Members</a></li>
+                        <li><a href="{% url 'members-archived'%}"> Archived Members</a></li>
+                        <li><a href="{% url 'un-approved-list'%}"> Un approved Members</a></li>
+                        <li><a href="{% url 'members-list'%}"> Church Members</a></li>
+                    </ul>
+                </li>
+
+                <li><a><i class="fa fa-group"></i> Visitors <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="{% url 'visitors-register'%}"> Add Visitor</a></li>
+                        <li><a href="{% url 'visitors-list'%}"> List</a></li>
+                    </ul>
+                </li>
+                <li><a><i class="fa fa-group"></i> Employees <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{% url 'employee-register' %}">Add Employees</a></li>
                         <li><a href="{% url 'employee-list' %}">Employee List</a></li>
                         
                     </ul>
                 </li>
-                <div class="separator"></div>
-                 
-                 <h3 style="font-weight:bolder; color: white; text-align: center">Other Functions <i class="glyphicon glyphicon-arrow-down"></i></h3>
-                 <div class="separator"></div>
-                <li><a href="{% url 'register' %}"><i class="fa fa-user"></i> Add New System User</a></li>
+                 <li><a href="{% url 'church_list' %}"><i class="fa fa fa-institution"></i> Church Details</a></li>
+                <li><a href="{% url 'register' %}"><i class="fa fa-user"></i> System Users</a></li>
                 <li><a href="{% url 'projects_list' %}"><i class="fa fa-folder"></i> Church Projects</a>
                 </li>
                 <li><a href="{% url 'church-groups' %}"><i class="fa fa-cloud"></i> Church Groups</a>

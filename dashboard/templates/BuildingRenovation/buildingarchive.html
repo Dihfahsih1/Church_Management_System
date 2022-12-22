@@ -16,25 +16,7 @@
                     </ul>
                     <div class="clearfix"></div>
                 </div>
-                <div class="x_content quick-link">
-                  <span style="color:red"><b>Other Archived Reports:</b></span>
-                  <a href="{% url  'expensesarchivessearch' %}"> Main Expenses</a>
-                  |<a href="{% url 'general-expensesarchives-search' %}"> General Expenses</a>
-                  |<a href="{% url 'offeringsarchivessearch' %}"> Offerings</a>
-                
-                  |<a href="{% url 'pledgesarchivessearch' %}"> Pledges</a>
-                
-                  |<a href="{% url 'sundryarchivessearch' %}"> Petty Expenses</a>
-                  {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
-                  |<a href="{% url 'allowancearchivessearch' %}"> Allowances</a>
-                  |<a href="{% url 'salariespaidarchivessearch' %}"> Salaries</a>
-                  |<a href="{% url 'tithesarchivessearch' %}"> Tithes</a>
-                  |<a href="{% url 'seeds-archives-search' %}"> Seeds</a>
-                  |<a href="{% url 'thanksgivingarchivessearch' %}"> ThanksGiving</a>
-                  {% endif %}
-                  |<a href="{% url 'BuildingRenovationarchivessearch' %}"> Building</a>
-                  <div class="separator"></div>
-                </div>
+               
                 
             <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">

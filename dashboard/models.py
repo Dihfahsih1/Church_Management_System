@@ -70,12 +70,13 @@ main=(
         ('Water Bills','Water Bills'),('Yaka Bills','Yaka Bills'),
         ('Transport','Transport'), ('Love Offering','Love Offering'),('Medical Bills','Medical Bills'),('Rent','Rent'),
         ('Help','Help'),('Drinks','Drinks'),('Savings','Savings'),
-        ('Evangelism','Evangelism')
-    )
-general = (('Tithe of Tithes','Tithe of Tithes'),('Generator Mechanic','Generator Mechanic'),('Instruments','Servicing Music Instruments'),('Condolences','Condolences'),
+        ('Evangelism','Evangelism'),
+        #General
+        ('Tithe of Tithes','Tithe of Tithes'),('Generator Mechanic','Generator Mechanic'),('Instruments','Servicing Music Instruments'),('Condolences','Condolences'),
         ('Stationery','Stationery'),('Repair','Any Other Repair'),('Purchase','Purchase'),
         ('Renovations','Renovations')
-        )
+    )
+
 sex=(('Female','Female'),('Male','Male'))
 
 ini=(('Mr.','Mr.'),('Mrs.','Mrs.'),('Ms.','Ms.'),('Pr.','Pr.'),('Dr.','Dr.'),('Eng.','Eng.'))
@@ -200,7 +201,6 @@ class Expenditures(Model):
     Other_Expenditure=models.CharField(max_length=1000, blank=True, null=True)
     Notes=models.CharField(max_length=1000, blank=True, null=True)
     Main_Expense_Reason=models.CharField(max_length=1000, choices=main,blank=True, null=True)
-    General_Expenses_Reason=models.CharField(max_length=1000, choices=general, blank=True, null=True)
     Petty_Cash_Reason=models.CharField(max_length=1000, choices=petty, blank=True, null=True)
     Archived_Status= models.CharField(max_length=1000, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
     Member_Name = models.ForeignKey('Members', on_delete=models.SET_NULL,  max_length=1000, null=True, blank=True)
