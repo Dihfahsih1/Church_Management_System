@@ -14,40 +14,91 @@
                     </ul>
                     <div class="clearfix"></div>
                 </div>
-                {% comment %} <div class="x_content quick-link">
-                    <span style="color:red"><b>Make Other Entries:</b></span>
-                    <a href="{% url  'enter_expenditure' %}"> Main</a>
-                    |<a href="{% url 'enter-general-expenses' %}"> General</a>
-                    |<a href="{% url 'enter_sundryexpense' %}"> Petty</a>
-                    |<a href="{% url 'Enter_Offerings' %}"> Offerings</a>
-                    |<a href="{% url 'Enter_Tithes' %}"> Tithes</a>
-                    |<a href="{% url 'Enter_Pledges' %}"> Pledges</a>
-                    |<a href="{% url 'give-allowance' %}"> Allowances</a>
-                    |<a href="{% url 'employee-list' %}"> Salaries</a>
-                    |<a href="{% url 'record-donations' %}"> Doantions</a>
-                    |<a href="{% url 'add-seeds' %}"> TGiving</a>
-                    |<a href="{% url 'record-thanks-giving' %}"> TGiving</a>
-                    |<a href="{% url 'members-register' %}"> Membership</a>
-                    <div class="separator"></div>
-                </div> {% endcomment %}
+               
 		  	    <div class="x_content">
 		            <div class="" data-example-id="togglable-tabs">
 		               
                         <h2 style="text-align: center">Record Total Sunday Expenses</h2>
                         <div class="separator"></div>
                       <p>{{ msg}}</p>
-						<div style="margin-left: 25%"class="col-lg-4 col-md-4 col-sm-4 justify-content-center">
+						<div style="margin-left:5%" class="col-lg-12 col-md-12 col-sm-12 justify-content-center">
 					    	{% load crispy_forms_tags %}
-							<form method="POST" enctype="multipart/form-data" >
-								{% csrf_token %}
-								{{ form.Date|as_crispy_field}}
-                                {{ form.Amount|as_crispy_field}}
-                                {% for message in messages %}
-                                <h3>{{message}}</h3>
-                                {% endfor %}
-                                <input type="hidden" id="sunday_expenses" name="Reason_filtering" value="main">
-							    <button type="submit" class="btn btn-primary" name="button">Submit</button>
-							</form>
+                            <form method="POST" action="" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div style="" class="col-lg-4 col-md-4 col-sm-4 justify-content-center"> 
+                                    <div id="div_id_Date" class="col-lg-9 form-group">
+                                        <label for ='id_Date'>Date</label>
+                                        <div class="">
+                                            <input type="date" id="id_Date" name="Date" class="numberinput form-control">
+                                        </div>
+                                    </div>
+
+
+                                    <div id="div_id_Allowances_Amount" class="form-group">
+                                        <label for="id_Allowances_Amount" class="">Allowances</label>
+                                        <div class="">
+                                            <input type="number" name="Allowances_Amount" value=0 class="numberinput form-control" id="id_Allowances_Amount">
+                                        </div>
+                                    </div>
+
+                                      <div id="div_id_Love_Offering_Amount" class="form-group">
+                                        <label for="id_Love_Offering_Amount" class="">Love Offering</label>
+                                        <div class="">
+                                            <input type="number" name="Love_Offering_Amount" value=0 class="numberinput form-control" id="id_Love_Offering_Amount">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style="" class="col-lg-4 col-md-4 col-sm-4 justify-content-center"> 
+                                  
+
+                                    <div id="div_id_Help_Amount" class="form-group">
+                                        <label for="id_Help_Amount" class="">Help</label>
+                                        <div class="">
+                                            <input type="number" name="Help_Amount" value=0 class="numberinput form-control" id="id_Help_Amount">
+                                        </div>
+                                    </div>
+
+                                    <div id="div_id_Seed_Amount" class="form-group">
+                                        <label for="id_Seed_Amount" class="">Seed Amount</label>
+                                        <div class="">
+                                            <input type="number" name="Seed_Amount" value=0 class="numberinput form-control" id="id_Seed_Amount">
+                                        </div>
+                                    </div>
+
+                                    <div id="div_id_Bills_Amount" class="form-group">
+                                        <label for="id_Bills_Amount" class="">Bills</label>
+                                        <div class="">
+                                            <input type="number" name="Bills_Amount" value=0 class="numberinput form-control" id="id_Bills_Amount">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style="" class="col-lg-4 col-md-4 col-sm-4 justify-content-center"> 
+                                    <div id="div_id_Tithe_Of_Tithes_Amount" class="form-group">
+                                        <label for="id_Tithe_Of_Tithes_Amount" class="">Tithe of Tithes</label>
+                                        <div class="">
+                                            <input type="number" name="Tithe_Of_Tithes_Amount" value=0 class="numberinput form-control" id="id_Tithe_Of_Tithes_Amount">
+                                        </div>
+                                    </div>
+
+                                    <div id="div_id_Savings_Amount" class="form-group">
+                                        <label for="id_Savings_Amount" class="">Saving</label>
+                                        <div class="">
+                                            <input type="number" name="Savings_Amount" value=0 class="numberinput form-control" id="id_Savings_Amount">
+                                        </div>
+                                    </div>
+
+                                    <div id="div_id_Other_Expenses_Amount" class="form-group">
+                                        <label for="id_Other_Expenses_Amount" class="">Other Expenses</label>
+                                        <div class="">
+                                            <input type="number" name="Other_Expenses_Amount" value=0 class="numberinput form-control" id="id_Other_Expenses_Amountt">
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary" name="button">Submit</button>
+                                </div>                                
+                            </form>
 						</div>
 			        </div>
 		        </div>

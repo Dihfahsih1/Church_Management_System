@@ -121,7 +121,12 @@ THEMES = (
     ("light-sea-green", "LightSeaGreen"),
     ("navy-blue", "Navy Blue"),
     ("red", "Red"))
-
+allowances=(
+    ("Transport","Transport"),
+    ("Help","Help"),
+    ("Lunch","Lunch"),
+    ("Other","Other"),
+)
 class UserRole(models.Model):
     name = models.CharField(max_length=100, default='Roles', null=True, blank=True)
     description = RichTextUploadingField(null=True, blank=True)
@@ -196,7 +201,16 @@ class User(AbstractBaseUser , PermissionsMixin):
 class Expenditures(Model):
     Date = models.DateField(null=True, blank=True)
     Payment_Made_To = models.CharField(max_length=1000,blank=True, null=True)
-    Amount = models.IntegerField(default=0)
+    Amount = models.IntegerField(default=0, blank=True, null=True)
+    
+    Allowances_Amount = models.IntegerField(default=0, blank=True, null=True)
+    Love_Offering_Amount = models.IntegerField(default=0, blank=True, null=True)
+    Help_Amount = models.IntegerField(default=0, blank=True, null=True)
+    Bills_Amount = models.IntegerField(default=0, blank=True, null=True)
+    Tithe_Of_Tithes_Amount = models.IntegerField(default=0, blank=True, null=True)  
+    Savings_Amount = models.IntegerField(default=0, blank=True, null=True)  
+    Other_Expenses_Amount = models.IntegerField(default=0, blank=True, null=True)
+    
     Reason_filtering=models.CharField(max_length=1000, blank=True, null=True)
     Other_Expenditure=models.CharField(max_length=1000, blank=True, null=True)
     Notes=models.CharField(max_length=1000, blank=True, null=True)

@@ -5,7 +5,7 @@ from . import views
 urlpatterns=[
 #Dashboard and website homepage urls
 path("web", views.web, name='index_public'),
-path('dashboard', views.index, name='index'),
+url(r'^$', views.index, name='index'),
 
 ######################============>CHURCH SYSTEM URLS<=========#####################
 url(r'^Expenses/Main-Expenses', views.enter_main_expenses, name='enter_expenditure'),

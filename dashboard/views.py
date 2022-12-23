@@ -138,7 +138,7 @@ def contact(request):
     return render(request, 'home/contacts.html')
 
 
-###############==========>EMPLOYEE MODULE<===============###################
+###############=======>EMPLOYEE MODULE<=======#############
 @login_required
 def employee_register(request):
     if request.method=="POST":
