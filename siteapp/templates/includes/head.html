@@ -1,169 +1,114 @@
-<header class="zegen-header header-absolute">
-    <div class="header-inner">
-        <div class="topbar clearfix">
-            <div class="custom-container topbar-inner">
-                <ul class="topbar-items nav pull-left">
-                    <li class="nav-item">
-                        <div class="nav-item-inner">
-                            <div class="header-address">
-                                <span class="ti-location-pin"></span> John Caliv Street, Gbaga Freeway, Lagos, Nigeria
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <ul class="topbar-items nav pull-right">
-                    <li class="nav-item">
-                        <div class="nav-item-inner">
-                            <ul class="nav social-icons  social-squared social-white social-h-own social-bg-transparent social-hbg-transparent">
-                                <li class="nav-item">
-                                    <a href="https://www.facebook.com/zozothemes.official/"
-                                       class="nav-link social-fb"
-                                       target="_self"> <i class=" ti-facebook"></i> </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="https://twitter.com/zozothemes"
-                                       class="nav-link social-twitter"
-                                       target="_self"> <i class=" ti-twitter"></i> </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="https://www.instagram.com/zozotheme/"
-                                       class="nav-link social-instagram"
-                                       target="_self"> <i class=" ti-instagram"></i> </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="https://in.pinterest.com/zozothemesofficial/"
-                                       class="nav-link social-pinterest"
-                                       target="_self"> <i class=" ti-pinterest"></i> </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="https://www.youtube.com/channel/UCAOkwuYxJuOqiYAj1Vy5JIg"
-                                       class="nav-link social-youtube"
-                                       target="_self"> <i class=" ti-youtube"></i> </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="https://dribbble.com/zozothemes"
-                                       class="nav-link social-dribbble"
-                                       target="_self"> <i class=" ti-dribbble"></i> </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <div class="nav-item-inner">
-                            <div class="search-toggle-wrap">
-                                <a class="full-bar-search-toggle" href="index.html#"><i class="ti-search"></i></a>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="full-bar-search-wrap">
-                <form method="get" class="search-form" action="index.html">
-                    <div class="input-group">
-                        <input name="s"
-                               type="text"
-                               class="form-control"
-                               value=""
-                               placeholder="Search..">
-                    </div>
-                </form>
-                <a href="index.html#" class="close full-bar-search-toggle"></a>
-            </div>
-        </div>
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="https://gmpg.org/xfn/11">
+    <link media="all" href="{% static 'wp-content/cache/autoptimize/2/css/autoptimize_dd11a3120d69fa7851ebfb5e2c071dfa.css' %}" rel="stylesheet" />
+    <link media="only screen and (max-width: 768px)" href="{% static 'wp-content/cache/autoptimize/2/css/autoptimize_541e2ced151704f4ff1844c6de47ec02.css' %}" rel="stylesheet" />
+    <link rel='stylesheet' id='elementor-post-6522-css' href="{% static 'wp-content/cache/autoptimize/2/css/autoptimize_single_6b1465ecef2db49c7dc8b34e1648e6d9-ver=1627363694.css' %}" type='text/css' media='all' />
+    <script type='text/javascript' src="{% static 'wp-includes/js/jquery/jquery.min-ver-3.6.0.js' %}" id='jquery-core-js'></script>
 
-        <div class="sticky-outer">
-            <style>
-                .ti-plus:before {
-                    content: none;
+    <title> UCC Bwaise | {% block title %} Website {% endblock title %}</title>
+
+    <meta name='robots' content='max-image-preview:large' />
+    <meta property="og:title" content="Landing Page" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="website-home.html" />
+    <meta property="og:site_name" content="UCC Bwaise" />
+    <meta property="og:description" content="<p>Discovering and doing God's will is the reason as to why we are still alive.</p> "
+    />
+    <link rel='stylesheet' href="{% static 'css/main.css' %}" />
+
+    <link rel='stylesheet' id='elementor-post-17005-css' href="{% static 'wp-content/cache/autoptimize/2/css/1626180938.css' %}" type='text/css' media='all' />
+
+    <link rel='stylesheet' id='elementor-post-16804-css' href="{% static 'wp-content/cache/autoptimize/2/css/1626345219.css' %}" type='text/css' media='all' />
+    
+    <link rel='stylesheet' id='google-fonts-1-css' href='https://fonts.googleapis.com/css?family=Roboto:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic%7CRoboto+Slab:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic%7CDamion:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic%7CDancing+Script:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&display=auto&ver=5.8.1'
+        type='text/css' media='all' />
+
+    <script type='text/javascript' id='charitable-sessions-js-extra'>
+        var CHARITABLE_SESSION = {
+            "ajaxurl": "https:\/\/elementor.zozothemes.com\/zegen\/wp-admin\/admin-ajax.php",
+            "id": "",
+            "cookie_name": "charitable_session",
+            "expiration": "86400",
+            "expiration_variant": "82800",
+            "secure": "",
+            "cookie_path": "\/",
+            "cookie_domain": "",
+            "generated_id": "150b8be11cdedb3994e2db40b0567150",
+            "disable_cookie": ""
+        };
+    </script>
+
+    <script type='text/javascript' src="{% static 'wp-includes/js/jquery/jquery.min-ver-3.6.0.js' %}" id='jquery-core-js'>
+
+    </script>
+  
+    <meta name="generator" content="Powered by Slider Revolution 6.5.6 - responsive, Mobile-Friendly Slider Plugin for WordPress with comfortable drag and drop interface."
+    />
+    <link rel="icon" href="{% static 'images/favicon_io/favicon-16x16.png' %}" sizes="16x16" />
+    <link rel="icon" href="{% static 'images/favicon_io/favicon-32x32.png' %}" sizes="32x32" />
+    <link rel="icon" href="{% static 'images/favicon_io/android-chrome-192x192.png' %}" sizes="192x192" />
+
+    <link rel="icon" href="{% static 'images/favicon_io/apple-touch-icon.png' %}" />
+
+    <link rel="apple-touch-icon" href="{% static 'images/favicon_io/android-chrome-512x512.png' %}" sizes="512x512"/>
+    <meta name="msapplication-TileImage" content="{% static 'wp-content/uploads/sites/2/2019/11/cropped-fav-icon-270x270.jpg' %}" />
+    <script type="text/javascript">
+        function setREVStartSize(e) {
+            //window.requestAnimationFrame(function() {				 
+            window.RSIW = window.RSIW === undefined ? window.innerWidth : window.RSIW;
+            window.RSIH = window.RSIH === undefined ? window.innerHeight : window.RSIH;
+            try {
+                var pw = document.getElementById(e.c).parentNode.offsetWidth,
+                    newh;
+                pw = pw === 0 || isNaN(pw) ? window.RSIW : pw;
+                e.tabw = e.tabw === undefined ? 0 : parseInt(e.tabw);
+                e.thumbw = e.thumbw === undefined ? 0 : parseInt(e.thumbw);
+                e.tabh = e.tabh === undefined ? 0 : parseInt(e.tabh);
+                e.thumbh = e.thumbh === undefined ? 0 : parseInt(e.thumbh);
+                e.tabhide = e.tabhide === undefined ? 0 : parseInt(e.tabhide);
+                e.thumbhide = e.thumbhide === undefined ? 0 : parseInt(e.thumbhide);
+                e.mh = e.mh === undefined || e.mh == "" || e.mh === "auto" ? 0 : parseInt(e.mh, 0);
+                if (e.layout === "fullscreen" || e.l === "fullscreen")
+                    newh = Math.max(e.mh, window.RSIH);
+                else {
+                    e.gw = Array.isArray(e.gw) ? e.gw : [e.gw];
+                    for (var i in e.rl)
+                        if (e.gw[i] === undefined || e.gw[i] === 0) e.gw[i] = e.gw[i - 1];
+                    e.gh = e.el === undefined || e.el === "" || (Array.isArray(e.el) && e.el.length == 0) ? e.gh : e.el;
+                    e.gh = Array.isArray(e.gh) ? e.gh : [e.gh];
+                    for (var i in e.rl)
+                        if (e.gh[i] === undefined || e.gh[i] === 0) e.gh[i] = e.gh[i - 1];
+                    var nl = new Array(e.rl.length),
+                        ix = 0,
+                        sl;
+                    e.tabw = e.tabhide >= pw ? 0 : e.tabw;
+                    e.thumbw = e.thumbhide >= pw ? 0 : e.thumbw;
+                    e.tabh = e.tabhide >= pw ? 0 : e.tabh;
+                    e.thumbh = e.thumbhide >= pw ? 0 : e.thumbh;
+                    for (var i in e.rl) nl[i] = e.rl[i] < window.RSIW ? 0 : e.rl[i];
+                    sl = nl[0];
+                    for (var i in nl)
+                        if (sl > nl[i] && nl[i] > 0) {
+                            sl = nl[i];
+                            ix = i;
+                        }
+                    var m = pw > (e.gw[ix] + e.tabw + e.thumbw) ? 1 : (pw - (e.tabw + e.thumbw)) / (e.gw[ix]);
+                    newh = (e.gh[ix] * m) + (e.tabh + e.thumbh);
                 }
-
-                .custom-logo {
-                    width:300px;
-                    height: 100px;
-                    max-height: unset !important;
-                    max-width: unset !important;
-                    padding: 3px 0 !important;
+                var el = document.getElementById(e.c);
+                if (el !== null && el) el.style.height = newh + "px";
+                el = document.getElementById(e.c + "_wrapper");
+                if (el !== null && el) {
+                    el.style.height = newh + "px";
+                    el.style.display = "block";
                 }
-            </style>
-
-            <div class="sticky-head">
-                <nav class="navbar clearfix">
-                    <div class="custom-container navbar-inner">
-                        <ul class="navbar-items nav pull-left">
-                            <li class="nav-item">
-                                <div class="nav-item-inner">
-                                    <div class="main-logo">
-                                        <a href="index.html" title="Zegen">
-                                            <noscript>
-                                                <img class="custom-logo img-responsive"
-                                                 src="static/assets/uploads/sites/2/2019/11/Artboard 1 copy 2.jpg"
-                                                 alt="Zegen"
-                                                 title="Zegen"/>
-                                            </noscript>
-                                            <img class="lazyload custom-logo img-responsive"
-                                             src='data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20210%20140%22%3E%3C/svg%3E'
-                                             data-src="static/assets/uploads/sites/2/2019/11/living-logo-main.png"
-                                             alt="Zegen"
-                                             title="Zegen"/>
-                                        </a>
-                                    </div>
-                                    <div class="sticky-logo">
-                                        <a href="index.html" title="Zegen"><noscript>
-                                            <img class="custom-logo img-responsive"
-                                                src="static/assets/uploads/sites/2/2019/11/Artboard 1 copy 2.jpg"
-                                                alt="Zegen"
-                                                title="Zegen"/>
-                                        </noscript>
-                                        <img class="lazyload custom-logo img-responsive"
-                                            src='data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20210%20140%22%3E%3C/svg%3E'
-                                            data-src="static/assets/uploads/sites/2/2019/11/living-logo-sticky.png"
-                                            alt="Zegen"
-                                            title="Zegen"/>
-                                        </a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                        <ul class="navbar-items nav pull-right">
-                            <li class="nav-item">
-                                <div class="nav-item-inner">
-                                    <ul id="zegen-main-menu" class="nav zegen-main-menu">
-                                        <li id="menu-item-16797"
-                                            class="homeder menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children nav-item menu-item-16797">
-                                            <a href="index.html#section-top" class="nav-link activer">Home</a>
-                                        
-                                        </li>
-                                        <li id="menu-item-16798"
-                                            class="menu-item menu-item-type-custom menu-item-object-custom nav-item menu-item-16798">
-                                            <a href="index.html#section-about" class="nav-link">About</a>
-                                        </li>
-                                        <li id="menu-item-16799"
-                                            class="menu-item menu-item-type-custom menu-item-object-custom nav-item menu-item-16799">
-                                            <a href="index.html#section-sermon" class="nav-link">Sermons</a>
-                                        </li>
-                                        <li id="menu-item-16800"
-                                            class="menu-item menu-item-type-custom menu-item-object-custom nav-item menu-item-16800">
-                                            <a href="index.html#section-events" class="nav-link">Events</a>
-                                        </li>
-                                        <li id="menu-item-16801"
-                                            class="mt-2 mt-lg-0 menu-item menu-item-type-custom menu-item-object-custom nav-item menu-item-16800">
-                                            <div class="nav-item-inner">
-                                                <div class="header-navbar-text-1">
-                                                    <a href="index.html#sectioncontact" class="h-donate-btn">Subscribe</a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <!--<li id="menu-item-16802" class="menu-item menu-item-type-custom menu-item-object-custom nav-item menu-item-16802"><a href="index.html#section-pastors" class="nav-link">Pastors</a></li>
-                                            <li id="menu-item-16801" class="menu-item menu-item-type-custom menu-item-object-custom nav-item menu-item-16801"><a href="index.html#section-blog" class="nav-link">Blog</a></li>
-                                            <li id="menu-item-16803" class="menu-item menu-item-type-custom menu-item-object-custom nav-item menu-item-16803"><a href="index.html#section-contact" class="nav-link">Subscribe</a></li>-->
-                                    </ul>
-                                </div>
-                            </li>
-                            
-                        </ul>
-                     </div>
-                </nav>
-            </div>
-         </div>
-    </div>
-</header>
+            } catch (e) {
+                console.log("Failure at Presize of Slider:" + e)
+            }
+            //});
+        };
+    </script>
+</head>

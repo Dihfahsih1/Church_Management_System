@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#" class="no-js no-svg">
+
+    {% include "includes/head.html" %}
+    <body>  
+        {% include "includes/mobile-toggle.html" %}
+        {% include "includes/header.html" %}
+        <div id="page" class="zegen-wrapper">
+            {% block content %} 
+                <div class="zegen-content-wrapper">
+
+                </div> 
+            {% endblock content %}
+         </div>
+        </div>
+        {% include "includes/footer.html" %} 
+        {% include "includes/js_scripts.html" %}
+    </body>
+</html>
