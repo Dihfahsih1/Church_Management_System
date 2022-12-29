@@ -80,7 +80,7 @@
                     
                     <div class="col-lg-6">
                          <div style="text-align: center;"> 
-                             <img src="{% sliding_image1%}">
+                             <img src="{% sliding_image1 %}">
                         </div>
                     </div>
                 </div>
@@ -90,45 +90,21 @@
         <!--Church Highlights Section-->
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="title" style="text-align: left;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">Gospel Teachings</a></h2> <br>
+                    <h2 class="title" style="text-align: left;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">Recent Sermons</a></h2> <br> 
+                    <iframe width=”260″ height=”515″
+                      src="https://www.youtube.com/embed?listType=playlist&list=PLuZBtIGdvrUO4yfMokCmguiFq80-mHPkc&jct=LQq4HrGPM8RcAl26GdU-P-flSi8aMA">
+                    </iframe>
+                    <iframe
+                      src="https://www.youtube.com/embed?listType=playlist&list=PLuZBtIGdvrUO4yfMokCmguiFq80-mHPkc&jct=LQq4HrGPM8RcAl26GdU-P-flSi8aMA&index=2">
+                    </iframe>
+                    <iframe
+                      src="https://www.youtube.com/embed?listType=playlist&list=PLuZBtIGdvrUO4yfMokCmguiFq80-mHPkc&jct=LQq4HrGPM8RcAl26GdU-P-flSi8aMA&index=3">
+                    </iframe>
                     
-                    <div class="col-lg-10">
-                        <div class="gallery-carousel owl-carousel" style="background:white">    
-                            {% for news in news %}
-                                <a href="{% url 'news_detail' news.slug %}">
-                                    <div style="background:white; height:170px">
-                                        {% if news.image %}
-                                        <style>
-                                            .imgi {
-                                                  display: block;
-                                                  max-width:230px;
-                                                  max-height:95px;
-                                                  width: auto;
-                                                  height: auto;
-                                                }
-                                        </style>
-                                        <img class="imgi" src="{{ news.image.url }}" height="400">
-                                        {% endif %}
-                                        <div class="content" style="text-align:center"> 
-                                             <i class="info">{{ news.date }}</i>
-                                            <h4 class="title">{{ news.news_title |safe |truncatewords:6 }}</h4>
-                                        </div>
-                                    </div> 
-                                </a>
-                            {% endfor %}
-                        </div> 
-                    </div>
-    
-                    <div class="col-lg-2"> 
-                        <b style="font-size:19px; text-align: right;"><a href="{% url 'lwakiolimulamu_wall' %}">Archived Lwaki Oli Mulamu Series</a></b> 
-                        <br>
-                        
-               
-                    {% comment %} <div class="jumbotron" style="text-align: center;">
-                        {%for i in lwaki %}
-                        <a class="btn btn-primary" href="{% url 'lwakiolimulamu_year_archive' year=i.year|floatformat %}?year={{i.year|floatformat}}"><span><i class="fa fa-folder"></i></span>  {{i.year|floatformat}} Conference</a><hr />
-                        {% endfor %}
-                    </div> {% endcomment %}
+                    <iframe
+                      src="https://www.youtube.com/embed?listType=playlist&list=PLuZBtIGdvrUO4yfMokCmguiFq80-mHPkc&jct=LQq4HrGPM8RcAl26GdU-P-flSi8aMA&index=4">
+                    </iframe>
+                                
                     </div>
                 </div>
             </div>
@@ -136,15 +112,6 @@
         <!--Church Feedback-->
         <div class="row" style="">
             <div class="col-lg-12 col-md-12 co-sm-12">
-                
-                  <!-- <div class="col-lg-4" >-->
-                  <!--  <h2>The theme of the year ( {{theme.theme_year }} ) </h2>-->
-                  <!--  <p>-->
-                  <!--      {{theme.details|safe}}-->
-                  <!--  </p>-->
-                  <!--</div>-->
-                
-                    
                     {% for blog in blogs %} 
                     <div class="col-lg-4" >
                         <div class="single-news">
