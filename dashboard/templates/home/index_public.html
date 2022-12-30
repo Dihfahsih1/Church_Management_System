@@ -85,33 +85,76 @@
                     </div>
                 </div>
             </div>
-        <br>
-    
-        <!--Church Highlights Section-->
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2 class="title" style="text-align: left;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">Recent Sermons</a></h2> <br> 
-                    <iframe width=”260″ height=”515″
-                      src="https://www.youtube.com/embed?listType=playlist&list=PLuZBtIGdvrUO4yfMokCmguiFq80-mHPkc&jct=LQq4HrGPM8RcAl26GdU-P-flSi8aMA">
-                    </iframe>
-                    <iframe
-                      src="https://www.youtube.com/embed?listType=playlist&list=PLuZBtIGdvrUO4yfMokCmguiFq80-mHPkc&jct=LQq4HrGPM8RcAl26GdU-P-flSi8aMA&index=2">
-                    </iframe>
-                    <iframe
-                      src="https://www.youtube.com/embed?listType=playlist&list=PLuZBtIGdvrUO4yfMokCmguiFq80-mHPkc&jct=LQq4HrGPM8RcAl26GdU-P-flSi8aMA&index=3">
-                    </iframe>
-                    
-                    <iframe
-                      src="https://www.youtube.com/embed?listType=playlist&list=PLuZBtIGdvrUO4yfMokCmguiFq80-mHPkc&jct=LQq4HrGPM8RcAl26GdU-P-flSi8aMA&index=4">
-                    </iframe>
-                                
+        <div class="row">
+                <div class="col-lg-12 col-md-12 co-sm-12">
+                    <p class="title" style="text-align: left;"><a class="link glbscl-link-btn hvr-bs">Books By Pr. Joshua</a></p>
+                     <div class="col-lg-3" >
+                        <div class="single-news">
+                             <img src="{% static 'img/amidst_the_storm.png' %}">
+                        </div>
+                    </div>
+                    <div class="col-lg-3" >
+                        <div class="single-news">
+                            <img src="{% static 'img/an_upright_heart.png' %}">
+                        </div>
+                    </div>
+                    <div class="col-lg-3" >
+                        <div class="single-news">
+                             <img src="{% static 'img/why_are_you_alive.png' %}">
+                        </div>
+                    </div>
+                    <div class="col-lg-3" >
+                        <div class="single-news">
+                            <img src="{% static 'img/the_inner_burning.png' %}">
+                            
+                        </div>
+                    </div>
+                         
                     </div>
                 </div>
             </div>
     
+        <!--Church Highlights Section-->
+            <div class="row">
+                <div class="col-lg-12 col-md-12 co-sm-12">
+                    <p class="title" style="text-align: left;"><a class="link glbscl-link-btn hvr-bs">Recent Sermons</a></p>
+                     <div class="col-lg-3" >
+                        <div class="single-news">
+                             <iframe src="https://www.youtube.com/embed?listType=playlist&list=PLuZBtIGdvrUO4yfMokCmguiFq80-mHPkc&jct=LQq4HrGPM8RcAl26GdU-P-flSi8aMA">
+                             </iframe>
+                        </div>
+                    </div>
+                    <div class="col-lg-3" >
+                        <div class="single-news">
+                            <iframe
+                              src="https://www.youtube.com/embed?listType=playlist&list=PLuZBtIGdvrUO4yfMokCmguiFq80-mHPkc&jct=LQq4HrGPM8RcAl26GdU-P-flSi8aMA&index=2">
+                            </iframe>
+                        </div>
+                    </div>
+                    <div class="col-lg-3" >
+                        <div class="single-news">
+                             <iframe
+                              src="https://www.youtube.com/embed?listType=playlist&list=PLuZBtIGdvrUO4yfMokCmguiFq80-mHPkc&jct=LQq4HrGPM8RcAl26GdU-P-flSi8aMA&index=3">
+                            </iframe>
+                        </div>
+                    </div>
+                    <div class="col-lg-3" >
+                        <div class="single-news">
+                            <iframe
+                              src="https://www.youtube.com/embed?listType=playlist&list=PLuZBtIGdvrUO4yfMokCmguiFq80-mHPkc&jct=LQq4HrGPM8RcAl26GdU-P-flSi8aMA&index=4">
+                            </iframe>
+                            
+                        </div>
+                    </div>
+                         
+                    </div>
+                </div>
+            </div>
+            
         <!--Church Feedback-->
         <div class="row" style="">
             <div class="col-lg-12 col-md-12 co-sm-12">
+                <h2 class="title" style="text-align: left;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">Christian Articles</a></h2>
                     {% for blog in blogs %} 
                     <div class="col-lg-4" >
                         <div class="single-news">
