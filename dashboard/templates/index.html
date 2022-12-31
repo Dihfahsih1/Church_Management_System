@@ -53,7 +53,7 @@
                                     <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
                                         <div class="tile-stats">
                                             <h4> <b style="font-size:15px">Total Week Expenditure</b></h4>
-                                            <div class="count blue">{{total_weekly_expenditure|intcomma}}</div>
+                                            <div class="count blue">{{current_week_total_expenses|intcomma}}</div>
                                         </div>
                                     </div>
 
@@ -68,67 +68,6 @@
                                     
                                 </div>    
                             </div>
-
-                            <div class="row top_tiles" style="margin-left: 1%; ">
-                                <h3 style="margin-left: 5%; font-weight: bold;"><b class="blue" > Current week total Revenue({{current_week_total_revenues|intcomma}})</b> </h3>
-                                <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
-                                    <div class="tile-stats">
-                                        <h4 style="text-align: center;"> Total Tithes</h4>
-                                        <p class="green" style="font-size: 19px" ><b>Shs.{{ total_week_tithes|intcomma }}</b></p>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
-                                    <a href="{% url 'Offeringsreport'  %}">
-                                    <div class="tile-stats">
-                                        <h4 style="text-align: center;"> Total Offerings</h4>
-                                        <p class="green" style="font-size: 19px" ><b>Shs.{{ total_week_offerings|intcomma }}</b></p>
-                                    </div>
-                                </a>
-                                </div>
-
-                                <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
-                                    <a href="{% url 'Seeds-report' %}">
-                                        <div class="tile-stats">
-                                            <h4 style="text-align: center;"> Total Seeds</h4>
-                                            <p class="green" style="font-size: 19px"  ><b>Shs.{{ total_weekly_seeds|intcomma }}</b></p>
-                                        </div>
-                                    </a>
-                                </div>                          
-                            </div>
-
-
-                            <div class="row top_tiles" style="margin-left: 1%;">
-                                <h3 style="margin-left: 5%; font-weight: bold;"><a href="{% url 'total_expenses'  %}">
-                                <b class="blue" >Current Week Total Expenditure ({{total_monthly_expenditure|intcomma}})</b></a></h3>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 tile_stats_count">
-                                    <a href="{% url 'expenditurereport'  %}">
-                                    <div class="tile-stats">
-                                        <h4 style="text-align: center;"> Main Expenditure</h4>
-                                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ expenses|intcomma }}</b></p>
-                                    </div>
-                                </a>
-                                </div>
-
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 tile_stats_count">
-                                    <a href="{% url 'sundryreport'  %}">
-                                    <div class="tile-stats">
-                                        <h4 style="text-align: center;"> Petty Expenses</h4>
-                                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ d_petty|intcomma }}</b></p>
-                                    </div>
-                                </a>
-                                </div>
-
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 tile_stats_count">
-                                    <a href="{% url 'allowancereport'  %}">
-                                    <div class="tile-stats">
-                                        <h4 style="text-align: center;"> Allowances</h4>
-                                        <p class="green" style="font-size: 19px"  ><b>Shs.{{ allowances|intcomma }}</b></p>
-                                    </div>
-                                    </a>
-                                </div>
-                            </div>         
-                        
                         </div>
                         {%endif%}
                         {% if user.Role == 'Secretary' or user.Role == None %}
@@ -200,15 +139,22 @@
                                     },
                                     xAxis: {
                                         categories: [
-                                        '<strong>Offerings</strong>', 
-                                        '<strong>Tithes</strong>',
+                                        '<strong>Tithes</strong>', 
+                                        '<strong>Offerings</strong>',
                                         '<strong>Seeds</strong>', 
                                         '<strong>Other Sources</strong>',
+                                        '<strong>Bills Contribution</strong>',
+                                        '<strong>Envagelism</strong>',
                                         '<strong>Thanks Giving</strong>',
-                                        '<strong>Building Collections</strong>',
-                                        '<strong style="color: red; font-weight:bolder">Main Expenses</strong>',
-                                        '<strong style="color: red; font-weight:bolder">Petty Expenses</strong>',
+                                        '<strong>Love Offering</strong>',
+                                        '<strong style="color: red; font-weight:bolder">Tithe of Tithes</strong>',
+                                        '<strong style="color: red; font-weight:bolder">Help Expenses</strong>',
                                         '<strong style="color: red; font-weight:bolder">Allowances</strong>',
+                                        '<strong style="color: red; font-weight:bolder">Other Expenses</strong>',
+                                        '<strong style="color: red; font-weight:bolder">Bills Expenses</strong>',
+                                        '<strong style="color: red; font-weight:bolder">Savings</strong>',
+                                        '<strong style="color: red; font-weight:bolder">Petty Expenses</strong>',
+                                        '<strong style="color: red; font-weight:bolder">Salaries</strong>',
                                         ]
                                     },
 
@@ -223,8 +169,11 @@
                                     },
                                     series: [ {
                                             name:'REVENUES AND EXPENSES',
-                                            data: [{{total_week_offerings}},{{total_week_tithes}},{{total_week_seeds}},{{donations}},{{thanks}},{{building}},
-                                            {{expenses}},{{petty}},{{allowances}}
+                                            data: [{{total_tithes}},{{total_offerings}},{{total_seeds}},{{total_other_sources}},{{total_bills_contrib}},{{total_eva}},
+                                            {{total_thanks}},{{total_love_offer}},
+
+                                            {{total_tot}},{{total_help}},{{total_allowances}},{{total_others}},{{total_bills}},{{total_savings}},
+                                            {{total_petty}},{{total_salaries}},
                                             ]
                                         }
                                         ,
@@ -270,38 +219,39 @@
                                         headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
                                         pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.1f} / {{total_monthly_incomes}}</b><br/>'
                                     },
+                                   
                                     series: [{
                                         name: 'Revenue',
                                         colorByPoint: true,
                                         data: [{
                                             name: 'Offerings',
-                                            y: {{total_week_offerings}},
+                                            y: {{total_offerings}},
                                             drilldown: null
                                         }, 
                                         {
                                             name: 'Tithes',
-                                            y: {{total_week_tithes}},
+                                            y: {{total_tithes}},
                                             drilldown: null
                                         }, 
                                         {
                                             name: 'Thanks Giving',
-                                            y: {{thanks}},
+                                            y: {{total_thanks}},
                                             drilldown: null
                                         },
 
                                         {
-                                            name: 'Building Collections',
-                                            y: {{building}},
-                                            drilldown: null
-                                        },
-                                        {
-                                            name: 'Seeds',
-                                            y:{{total_week_seeds}},
-                                            drilldown: null
-                                        },
-                                        {
                                             name: 'Other Sources',
-                                            y: {{donations}},
+                                            y: {{total_other_sources}},
+                                            drilldown: null
+                                        },
+                                        {
+                                            name: 'Bills',
+                                            y:{{total_bills_contrib}},
+                                            drilldown: null
+                                        },
+                                        {
+                                            name: 'Love Offerings',
+                                            y: {{total_love_offer}},
                                             drilldown: null
                                         }]
                                     }],
@@ -339,11 +289,14 @@
                                     },
                                     series: [{
                                         name: 'Total',
-                                        data: [
-                                             
-                                            ['Main Expenses', {{expenses}}],
-                                            ['Petty Expenses', {{petty}}],
-                                            ['Allowances Expenses', {{allowances}}],
+                                        data: [                                             
+                                            ['Tithe Of Tithes', {{total_tot}}],
+                                            ['Allowances', {{total_allowances}}],
+                                            ['Bills', {{total_bills}}],
+                                            ['Salaries', {{total_salaries}}],
+                                            ['Petty Expenses', {{total_petty}}],
+                                            ['Helping', {{total_help}}],
+                                            ['Other Things', {{total_others}}],
                                         ]
                                     }]
                                 });

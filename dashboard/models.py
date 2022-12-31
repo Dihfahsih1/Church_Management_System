@@ -219,7 +219,7 @@ class Expenditures(Model):
     Archived_Status= models.CharField(max_length=1000, choices=archive, blank=True, null=True, default='NOT-ARCHIVED')
     Member_Name = models.ForeignKey('Members', on_delete=models.SET_NULL,  max_length=1000, null=True, blank=True)
     def __str__(self):
-        return self.Reason_filtering
+        return str(self.Date)
 
     @property
     def expenses_total(self):
