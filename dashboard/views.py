@@ -2850,8 +2850,10 @@ def week_of_month(date):
 
 @login_required
 def index(request):
+    
     current_year = datetime.now().year #Annual
     current_month = datetime.now().month #Monthly
+    week=week_of_month(current_month) #Weekly
 
     one_week_ago = datetime.today() - timedelta(days=7) #Weekly
     day = datetime.now().today #Today
@@ -2895,6 +2897,8 @@ def index(request):
     context={
             'day':day,
             'week':week, 
+            'month':current_month,
+            'current_year':current_year,
             'weekly_balance':weekly_balance,
             'current_week_total_expenses':current_week_total_expenses,
             'current_week_total_revenues':current_week_total_revenues,
