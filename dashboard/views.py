@@ -2897,7 +2897,8 @@ def index(request):
     context={
             'day':day,
             'week':week, 
-            'month':current_month,
+            'month':month,
+            
             'current_year':current_year,
             'weekly_balance':weekly_balance,
             'current_week_total_expenses':current_week_total_expenses,
