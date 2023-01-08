@@ -22,15 +22,14 @@
           <div class="" data-example-id="togglable-tabs">
             <ul class="nav nav-tabs bordered">
               <li role="presentation" class="active"><a href="{% url 'sundryreport' %}"><i
-                          class="fa fa-list-ol"></i> Petty Cash Report</a></li>
+                          class="fa fa-list-ol"></i> List</a></li>
               {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
               <li role="presentation"><a href="{% url 'enter_sundryexpense' %}"><i
-                    class="fa fa-plus-square-o"></i> Record Petty Expense</a></li>
+                    class="fa fa-plus-square-o"></i> Record</a></li>
               {% endif %}      
-              <li role="presentation"><a href="{% url 'airtime-data-report' %}"><i
-                        class="glyphicon glyphicon-cloud"></i> Airtime-Data Payments</a> </li>
+              
                 <li role="presentation"><a href="{% url 'sundryarchivessearch' %}"><i
-                            class="glyphicon glyphicon-king"></i> Petty Expenses Archived</a></li>
+                            class="glyphicon glyphicon-king"></i>Archived</a></li>
             </ul>
             <h2 class="head-title" style="text-align: center">The Petty Cash Expenses Report as of {{today}}</h2>
             <div class="separator"></div>
@@ -45,7 +44,6 @@
                         <td>Payment Made To</td>
                         <td>Reason</td>
                         <td>Amount <i class=" glyphicon glyphicon-arrow-right"></i> (<span style="font-weight: bolder; color:red" class="totalCol"></span>)</td>
-                        <td>Archived Status</td>
                         <td>Action</td>
                       </tr>
                     </thead>
@@ -54,9 +52,14 @@
                         <tr class="totalColumn">
                           <td>{{ item.Date}}</td>
                           <td>{{ item.Payment_Made_To}}</td>
-                          <td>{{ item.Petty_Cash_Reason | safe }}</td>
-                          <td class="rowDataSd">{{ item.Amount}}</td>
-                          <td>{{ item.Archived_Status}}</td>
+                          {% if item.Petty_Cash_Reason == 'Other' %}
+                            <td>{{ item.Other_Expenditure | safe}}</td>
+                            
+                            {% else %}
+                             <td>{{ item.Petty_Cash_Reason | safe }}</td> 
+                          {% endif %}
+                         
+                          <td>{{ item.Amount }}</td> 
                           {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
                           <td>
                           <div class="mb-4">

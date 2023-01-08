@@ -1,7 +1,5 @@
 <html>
-       {% if request.user.username == 'itsupport' %}  {% endif %}
-       {% comment %} <script  src="//platform-api.sharethis.com/js/sharethis.js#property=5c8e45b6da6ca80012e29a9c&product=sticky-share-buttons"></script> {% endcomment %}
-    <head>
+ 
     {% load static theme_tags %}
     {% load static contact_tags page_tags %}
     {% load bootstrap4 %} {# import bootstrap4/bootstrap3 #}
@@ -14,8 +12,9 @@
             <meta name="created" content="{% now "jS M Y h:i" %}" />
             <meta name="viewport" content="width=device-width" />
             <meta name="keywords" content="UCC Bwaise Mission is Why are you alive - Lwaki Oli Mulamu, UCC Bwaise Vision is To Discover and Do The Will of God" />
-            <meta name="author" content="Mugoya Dihfahsih" />
-            
+            <meta name="author" content="Creator's Mind International Ministry" />
+            <!--<meta property="og:description" content="A church where Christians are taught discovering and doing God's will in their lives to help them understand the reason as to why they are alive"/>-->
+      
             <!-- Facebook and Twitter integration -->
             <!--<meta property="og:title" content="UCC Bwaise"/>-->
             <!--<meta property="og:image" content="UCC Bwaise"/>-->
@@ -23,7 +22,12 @@
             <meta name="robots" content="NOARCHIVE,NOCACHE" />
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             
-            <link rel="shortcut icon" type="image/jpg" href="{% static 'img/favicon.ico' %}"/>
+            <link rel="shortcut icon"  href="{% static 'img/favicon_io/android-chrome-192x192.png' %}"/>
+            <link rel="shortcut icon"  href="{% static 'img/favicon_ico/android-chrome-512x512.png' %}"/>
+            <link rel="shortcut icon"  href="{% static 'img/favicon_ico/apple-touch-icon.png' %}"/>
+            <link rel="shortcut icon"  href="{% static 'img/favicon_ico/favicon-16x16.png' %}"/>
+            <link rel="shortcut icon"  href="{% static 'img/favicon_ico/favicon-32x32.png' %}"/>
+            <link rel="shortcut icon"  href="{% static 'img/favicon_ico/favicon.ico' %}"/>
             <!-- Meta, title, CSS, favicons, etc. -->
             <meta charset="utf-8">
             <meta charset="ISO-8859-15">
@@ -74,36 +78,52 @@
         {% active_theme as active_flag %}
         {% if active_flag == "slate-gray" %}
         <link href="{% static 'css/front/theme/slate-gray.css' %}" rel="stylesheet">
+        
         {% elif active_flag == "jazzberry-jam" %}
         <link href="{% static 'css/front/theme/jazzberry-jam.css' %}" rel="stylesheet">
+        
         {% elif active_flag == "black" %}
         <link href="{% static 'css/front/theme/black.css' %}" rel="stylesheet">
+        
         {% elif active_flag == "dark-orange" %}
         <link href="{% static 'css/front/theme/dark-orange.css' %}" rel="stylesheet">
+        
         {% elif active_flag == "deep-pink" %}
         <link href="{% static 'css/front/theme/deep-pink.css' %}" rel="stylesheet">
+        
         {% elif active_flag == "dodger-blue" %}
         <link href="{% static 'css/front/theme/dodger-blue.css' %}" rel="stylesheet"> 
+        
         {% elif active_flag == "light-sea-green" %}
         <link href="{% static 'css/front/theme/light-sea-green.css' %}" rel="stylesheet">
+        
         {% elif active_flag == "maroon" %}
         <link href="{% static 'css/front/theme/maroon.css' %}" rel="stylesheet">
+        
         {% elif active_flag == "medium-purple" %}
         <link href="{% static 'css/front/theme/medium-purple.css' %}" rel="stylesheet">
+        
         {% elif active_flag == "navy-blue" %}
         <link href="{% static 'css/front/theme/navy-blue.css' %}" rel="stylesheet">
+        
         {% elif active_flag == "radical-red" %}
-        <link href="{% static 'css/theme/red.css' %}" rel="stylesheet">
+        <link href="{% static 'css/front/theme/radical-red.css' %}" rel="stylesheet">
+        
         {% elif active_flag == "rebecca-purple" %}
         <link href="{% static 'css/front/theme/rebecca-purple.css' %}" rel="stylesheet">
+        
         {% elif active_flag == "red" %}
         <link href="{% static 'css/front/theme/red.css' %}" rel="stylesheet">
+        
         {% elif active_flag == "trinidad" %}
         <link href="{% static 'css/front/theme/trinidad.css' %}" rel="stylesheet">
+        
         {% elif active_flag == "umber" %}
         <link href="{% static 'css/front/theme/umber.css' %}" rel="stylesheet">
+        
         {% elif active_flag == "lime-green" %}
         <link href="{% static 'css/front/theme/lime-green.css' %}" rel="stylesheet">
+        
         {% else %}
         <link href="{% static 'css/front/theme/slate-gray.css' %}" rel="stylesheet">
         {% endif %}
@@ -119,6 +139,8 @@
                   height: 100%;
               }
               </style>
+              
+              {% if request.user.username == 'admin' %} <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=63b4a844caf2ee001a714c17&product=sticky-share-buttons&source=platform" async="async"></script>{% endif %}
 </head>
 <body>
 
@@ -127,18 +149,22 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-9 col-md-8 col-sm-12 col-12">
-                    <div class="col-lg-6"style="margin-top:6px" >
+                    
                         
-                    <span><marquee onmouseover="this.stop();" onmouseout="this.start();" style="width:450px; color:white">
+                    <!--<div class="col-lg-6"style="margin-top:6px" > 
+                    <span><marquee onmouseover="this.stop();" onmouseout="this.start();" style="width:450px; color:white">-->
                         
-                        <b>
-                            SUNDAY SERVICES:- 1st Service -- Time: 6:30am-9:30am    | 
-                             2nd Service -- Time: 9:30am-11:00am   |   3rd Service -- Time: 11:30am-2:00pm   
-                        </b>
+                    <!--    <b>SUNDAY SERVICES:- 1st Service -- Time: 6:30am-10:00am    | -->
+                    <!--         2nd Service -- Time: 10:30am-1:30pm </b>-->
                         
                         
-                        </marquee></span>
-                    </div>
+                    <!--    </marquee></span> </div>-->
+                    
+                   <div class="hta-box">
+                        <span class="icon"><i class="fa fa-phone"></i></span>
+                       <p class="text">Call us Now 0772 614086</p>
+                    </div> 
+                    
                    
                     
                     <div class="hta-box">
@@ -195,52 +221,41 @@
     <div class="header-bottom-area">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-1">
+                <div class="col-lg-3">
                     <div class="logo">
                         <a href="{% url 'index_public' %}">
-                             <h2 class="mb-3" style="color:white">UCC BWAISE</h2>
+                            <!--<img src="{% static 'img/logo.png' %}">-->
+                            <img src="{% static 'img/uccbwaise-logo.jpeg' %}">
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-11">
+                <div class="col-lg-9">
                     <div class="menu">
                         <nav id="mobile_menu_active">
                             <ul id="menu">
-                                <li><a href="{% url 'index_public' %}">HOME</a></li>
-                                <li><a href="{% url 'church_details' %}" {% if request.get_full_path == '/church-details' or request.get_full_path == '/Church-Mission' or request.get_full_path == '/Church/Vision' or request.get_full_path == '/core-values'  %} class="active"{% endif %}>ABOUT</a></li>
-
-                                <!--<li><a href="#" {% if request.get_full_path == '/Pastoral-Team' or request.get_full_path == '/Administrative-Team' %} class="active"{% endif %}>STAFF <span class="icon fa fa-chevron-down"></span></a>-->
-                                <!--    <ul class="drop">-->
-                                <!--        <li><a {% if request.get_full_path == '/Pastoral-Team' %} class="active"{% endif %} href="{% url 'church_pastors' %}">Pastoral</a></li>-->
-                                <!--        <li><a {% if request.get_full_path == '/Administrative-Team' %} class="active"{% endif %}href="{% url 'church_administration' %}">Administrative</a></li>-->
-                                <!--    </ul>-->
-                                <!--</li>-->
-
-                                <li> <a href="{% url 'MemberAccountRegister' %}">MEMBERSHIP</a>
-                                        </li>
-                                    
-                                    <!--<a href="#" {% if request.get_full_path == '/Church/Members' or request.get_full_path == '/register/' %} class="active"{% endif %}>MEMBERSHIP -->
-                                <!--<span class="icon fa fa-chevron-down"></span></a>-->
-                                <!--    <ul class="drop">-->
-                                        <!--<li><a {% if request.get_full_path == '/Church/Members' %} class="active"{% endif %} href="{% url 'membership_wall' %}">Members</a></li>-->
-                                       
-                                <!--        {% if not request.user.is_authenticated %}-->
-                                <!--        <li>-->
-                                <!--            <a {% if request.get_full_path == '/register/'  %} class="active"{% endif %} href="{% url 'MemberAccountRegister' %}">BECOME MEMEBER</a>-->
-                                <!--        </li>-->
-                                <!--        {% endif %}-->
-                                <!--    </ul>-->
+                                <li><a href="{% url 'index_public' %}">HOME</a>
                                 </li>
-
-                                <li><a {% if request.get_full_path == '/Ministry/'  %} class="active"{% endif %} href="{% url 'ministry-wall' %}">MINISTRIES</a></li>
-                                <!--<li><a {% if request.get_full_path == '/Projects/'  %} class="active"{% endif %} href="{% url 'projects_wall' %}">PROJECTS</a></li>-->
-                                <li><a {% if request.get_full_path == '/Articles/'  %} class="active"{% endif %} href="{% url 'news_wall' %}">CHRISTIAN BLOGS</a></li>
-                                <!--<li><a href="https://www.youtube.com/channel/UCFMCB_zTwBQNunbpjBsPcSw/videos" target="_blank">YOUTUBE</a></li>-->
-                                <!--<li><a {% if request.get_full_path == '/event/'  %} class="active"{% endif %} href="{% url 'event_wall' %}">EVENTS</a></li>-->
-                                <!--<li><a {% if request.get_full_path == '/galleries/'  %} class="active"{% endif %}href="{% url 'gallery_wall' %}">GALLERY</a></li>-->
-                                <li><a {% if request.get_full_path == '/feedback'  %} class="active"{% endif %} href="{% url 'contact' %}">CONTACT</a></li>
-                                <!--<li> <a {% if request.get_full_path == '/member-profile/'  %} class="active"{% endif %} href="{% url 'member_profile' %}" > PROFILE</a></li>-->
                                 
+                                <li><a href="{% url 'church_details' %}" {% if request.get_full_path == '/church-details' or request.get_full_path == '/Church-Mission' or request.get_full_path == '/Church/Vision' or request.get_full_path == '/core-values'  %} class="active"{% endif %}>ABOUT</a>
+                                </li>
+                                
+                                 <li><a {% if request.get_full_path == '/feedback'  %} class="active"{% endif %} href="{% url 'contact' %}">CONTACT</a>
+                                </li>
+                                
+                                 <li><a {% if request.get_full_path == '/Ministry/'  %} class="active"{% endif %} href="{% url 'ministry-wall' %}">MINISTRIES</a>
+                                </li>
+                                
+                                 <li><a href="{% url 'MemberAccountRegister' %}" {% if request.get_full_path == '/church-membership'  %} class="active"{% endif %}>MEMBERSHIP</a>
+                                </li>
+                                
+                                <li><a {% if request.get_full_path == '/galleries/'  %} class="active"{% endif %} href="{% url 'gallery_wall' %}">GALLERY</a>
+                                </li>
+                               
+                                
+                                <li><a {% if request.get_full_path == '/UCC-Bwaise-Blog/'  %} class="active"{% endif %} href="{% url 'blogs_wall' %}">BLOG</a>
+                                </li>
+                             
+                               
                               
                             </ul>
                         </nav>
@@ -264,6 +279,7 @@
     </div>
 </header>
 {% block content %}
+<div class="sharethis-sticky-share-buttons"></div>
 {% endblock content %}
 {% include "home/scripts.html" %}
 
@@ -285,28 +301,30 @@
                             <div class="col-lg-6" style=" color: white; font-size:15px ">
                                 <b><u>Monday</u></b><br>
                                 Prayer Alter (10:00am - 4:00pm)<br>
-                                Ministers (5:00pm - 8:00pm)<br>
-                                Worship Team(5:00pm - 7:30pm)<br>
+                                Ministers Classes (5:00pm - 8:00pm)<br>
+                                
                                 <b><u>Tuesday</u></b><br>
                                 Home Cells (5:00pm - 8:00pm)<br>
                                 <b><u>Wednesday</u></b><br>
                                 Revival Service (5:00pm - 7:00pm)<br>
+                                Men's Service (7pm - 9pm)
 
                                 <b><u>Thursday</u></b><br>
                                 Counselling (10:00am - 5:00pm)<br>
+                                Women Fellowship (5:00pm - 7:00pm)<br>
                                 Youth Service (7pm - 9pm)
+                                
                             </div>
                             <div class="col-lg-6" style=" color: white; font-size:15px ">
                                 <b><u>Friday</u></b><br>
                                 Bible Study (5:00pm - 7:00pm)<br>
-                                Overnight Prayers (8:00pm - 5:00am)<br>
+                                Overnight Prayers (8pm - 5am)<br>
                                 <b><u>Saturday</u></b><br>
                                 Choir Practices<br>
                                 <b><u>Sunday</b></u><br>
                                 Lwaki oli Mulamu program on Innerman 107.5 (6:30-7:00am)</br>
-                                1st Service (6:30am - 9:30am)</br>
-                                2nd Service (9:00am - 11:30am)</br>
-                                3rd Service (11:30am - 2:00pm)</br>
+                                1st Service (6:30am - 10:00am)</br>
+                                2nd Service (10:00am - 1:30pm)</br>
                             </div>
                         </div>
                         </p>
@@ -366,7 +384,7 @@
                 <p class="copyright" style="text-align: center;">
                     {% church_footer %}
                     <script>new Date().getFullYear() > 2010 && document.write(" - " + new Date().getFullYear());</script> |
-                    Website Designed and Maintained by<a href="https://dihfahsih1.github.io/profile" target="_blank"> <b
+                    Website Designed and Maintained by<a href="https://dihfahsih.com" target="_blank"> <b
                             style="font-size: 90%; color: yellow"> Mugoya Dihfahsih</b></a>
                 </p>
                 

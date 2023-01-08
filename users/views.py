@@ -95,7 +95,6 @@ def register(request):
         return render(request, 'users/home/register.html', context)
 
 
-@user_passes_test(lambda u: u.is_anonymous)
 def MemberAccountRegister(request):
     members=Members.objects.all()
     if request.method == 'POST':

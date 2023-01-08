@@ -23,24 +23,7 @@
                         <div class="clearfix"></div>
                     </div>
 
-                    <div class="x_content quick-link">
-                        <span style="color:red"><b>quick-links:</b></span>
-                        <a href="{% url  'expenditurereport' %}"> Main Expenses</a></li>
-                        |<a href="{% url 'general-expenses-report' %}"> General Expenses</a></li>
-                        |<a href="{% url 'Offeringsreport' %}"> Offerings</a></li>
-                        |<a href="{% url 'members-list' %}">Membership</a>
-                        |<a href="{% url 'Pledgesreport' %}"> Pledges</a></li>
-                        |<a href="{% url 'sundryreport' %}"> Petty Expenses</a></li>
-                        {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
-                        |<a href="{% url 'allowancereport' %}"> Allowances</a></li>
-                        |<a href="{% url 'current-month-salaries' %}"> Salaries</a></li>
-                        |<a href="{% url 'Tithesreport' %}"> Tithes</a></li>
-                        |<a href="{% url 'donations-report' %}"> Doantions</a></li>
-                        |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a></li>
-                        {% endif %}
-                        <div class="separator"></div>
-                    </div>
-                    <h1 style="text-align: center;">List of gallery categories</h1>
+                    <h3 style="text-align: center;">List of gallery categories</h3>
                     <div class="separator"></div>
                     <div class="x_content">
                         <div class="" data-example-id="togglable-tabs">
@@ -73,8 +56,8 @@
                                             <tbody>
                                             {% for gallery in galleries %}
                                             <tr>
-                                                <td>{{ gallery.gallery_title }}</td>
-                                                <td>{{ gallery.note }}</td>
+                                                <td>{{ gallery.gallery_title | safe }}</td>
+                                                <td>{{ gallery.note | safe }}</td>
                                                 <td>{{ gallery.Is_View_on_Web }}</td>
                                                 <td>
                                                     <a href="{% url 'gallery_update' gallery.pk %}" class="btn btn-info btn-sm">

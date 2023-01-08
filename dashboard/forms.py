@@ -57,7 +57,7 @@ class ExpendituresForm(forms.ModelForm):
 class SundayExpensesForm(forms.ModelForm):
     class Meta:
         model=Expenditures
-        fields=('Date', 'Allowances_Amount', 'Love_Offering_Amount', 'Help_Amount', 'Bills_Amount', 'Tithe_Of_Tithes_Amount', 'Savings_Amount', 'Other_Expenses_Amount',)
+        fields=('Date', 'Allowances_Amount', 'Love_Offering_Amount', 'Help_Amount', 'Bills_Amount', 'Tithe_Of_Tithes_Amount', 'Savings_Amount', 'Other_Expenses_Amount','Data_or_airtime', 'Lunch','Transport')
         widgets = {
             'Date': DatePickerInput(),
             'Amount':TextInput(attrs={'placeholder': 'Shs.'}),

@@ -268,7 +268,7 @@ path('lwaki_oli_mulamu_details_<int:pk>/', views.lwakiolimulamu_detail, name='lw
 path('create-blogpost/', views.add_blogpost, name="blog"),
 path('blog-posts/', views.list_blogs, name="blogposts"),
 path('blogs', views.BlogPosts, name="Blog_Posts"),
-path('UCC-Bwaise-Blogs/', views.blog_wall, name="blogs_wall"),
+path('UCC-Bwaise-Blog/', views.blog_wall, name="blogs_wall"),
 path('blogs/<slug:slug>/', views.BlogPost_detail, name="BlogPost_detail"),
 
 path('search_tagged_blogs/', views.search_tagged_blogs, name="search_tagged_blogs"),

@@ -1,9 +1,8 @@
 {% extends 'home/base.html' %}
 {% load static total_tags %}
-<body>
-
+{% block title %} UCC | Bwaise Ministries {% endblock title %}
 {% block content %}
- <h1 style="text-align:center" class="title">All Ministries at UCC Bwaise</h1>
+ <h1 style="text-align:center" class="title">UCC Bwaise Ministries and Departments</h1>
    <hr>
     
     <section class="page-event-area">
@@ -20,12 +19,12 @@
                             <div class="content">
                                 <h2 class="title"><a href="{{ i.get_absolute_url }}">{{ i.name }}</a>
                                 </h2>
-                                <ul class="list">
-                                    <li class="info"><span class="icon"><i
-                                            class="fa fa-calendar"></i></span>Leader: {{ i.leader }}
+                                <!--<ul class="list">-->
+                                <!--    <li class="info"><span class="icon"><i-->
+                                <!--            class="fa fa-calendar"></i></span>Leader: {{ i.leader }}-->
                                         
-                                    </li>
-                                </ul>
+                                <!--    </li>-->
+                                <!--</ul>-->
                                 <div class="more text-center">
                                     <a href="{% url 'ministry-detail' i.pk %}"
                                        class="link glbscl-link-btn hvr-bs">Read More</a>
@@ -51,4 +50,3 @@
     </section>
 {% endblock %}
 
-</body>

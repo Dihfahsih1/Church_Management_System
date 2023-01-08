@@ -5,46 +5,28 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h1 class="head-title" style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i>
-                        <b> MAIN EXPENSES MODULE</b></h1>
+                    <h3 class="head-title" style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i>
+                        <b> MAIN EXPENSES MODULE</b></h3>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
                     </ul>
-                    <div class="clearfix"></div>
-                </div>
-                {% comment %} <div class="x_content quick-link">
-                    <span style="color:red"><b>Make Other Entries:</b></span>
-                    <a href="{% url  'enter_expenditure' %}"> Main</a>
-                    |<a href="{% url 'enter-general-expenses' %}"> General</a>
-                    |<a href="{% url 'enter_sundryexpense' %}"> Petty</a>
-                    |<a href="{% url 'Enter_Offerings' %}"> Offerings</a>
-                    |<a href="{% url 'Enter_Tithes' %}"> Tithes</a>
-                    |<a href="{% url 'Enter_Pledges' %}"> Pledges</a>
-                    |<a href="{% url 'give-allowance' %}"> Allowances</a>
-                    |<a href="{% url 'employee-list' %}"> Salaries</a>
-                    |<a href="{% url 'record-donations' %}"> Doantions</a>
-                    |<a href="{% url 'add-seeds' %}"> TGiving</a>
-                    |<a href="{% url 'record-thanks-giving' %}"> TGiving</a>
-                    |<a href="{% url 'members-register' %}"> Membership</a>
-                    <div class="separator"></div>
-                </div>             {% endcomment %}
             <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
                     <ul class="nav nav-tabs bordered">
                         <li role="presentation" ><a href="{% url 'expenditurereport' %}"><i
-                                    class="fa fa-list-ol"></i> List of Main Expenses</a>
+                                    class="fa fa-list-ol"></i> List</a>
                         </li>
                         {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
                         <li role="presentation" class="active"><a href="{% url 'enter_expenditure' %}"><i
-                              class="fa fa-plus-square-o"></i> Record Main Expense</a>
+                              class="fa fa-plus-square-o"></i> Record</a>
                          </li>
                          {% endif %}
                         <li role="presentation"><a href="{% url 'expensesarchivessearch' %}"><i
-                              class="glyphicon glyphicon-king"></i> Archived Main Expense</a>
+                              class="glyphicon glyphicon-king"></i> Archived</a>
                          </li>
                     </ul>
-                    <h2 style="text-align: center;">Record all Main Expenses Transactions</h2>
+                    <h4 style="text-align: center;">Record all Main Expenses Transactions</h4>
                     <div class="separator"></div>
 					<div class="col-lg-6 col-offset-8 centered">
               

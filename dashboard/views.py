@@ -1186,7 +1186,7 @@ def enter_petty_expenses(request):
         form = ExpendituresForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('sundryreport')
+            return redirect('enter_sundryexpense')
     else:
         today = timezone.now()
         current_month = today.strftime('%B')
@@ -1200,7 +1200,7 @@ def enter_main_expenses(request):
         form=ExpendituresForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('expenditurereport')
+            return redirect('enter_expenditure')
     else:
         form=ExpendituresForm()
         context = {'form': form}
@@ -1240,7 +1240,7 @@ def main_expenses_report (request):
     today = datetime.now()
     years=today.year
     context={}
-    items = Expenditures.objects.filter(Archived_Status="NOT-ARCHIVED",Reason_filtering='main')
+    items = Expenditures.objects.filter(Archived_Status="NOT-ARCHIVED")
     context['items']=items
     context['years']=years
     context['today']=today
@@ -1265,7 +1265,7 @@ def main_expenses_archives_search(request):
 class main_expenses_archived_pdf(View):
     def get(self, request, report_month, report_year):        
         month=strptime(report_month, '%B').tm_mon
-        archived = Expenditures.objects.filter(Archived_Status='ARCHIVED', Reason_filtering='main',\
+        archived = Expenditures.objects.filter(Archived_Status='ARCHIVED',
         Date__month=month, Date__year=report_year)
         today = datetime.now()
         total = archived.aggregate(totals=models.Sum("Amount"))
@@ -1323,7 +1323,7 @@ class main_expenditure_report_pdf(View):
     def get(self, request):
         current_month = datetime.now().month
         current_year = datetime.now().year
-        expenses = Expenditures.objects.filter(Archived_Status='NOT-ARCHIVED', Reason_filtering='main'\
+        expenses = Expenditures.objects.filter(Archived_Status='NOT-ARCHIVED'\
         ,Date__year=current_year)
         today = datetime.now()
         year=today.year
@@ -2572,6 +2572,15 @@ one_week_ago = datetime.today() - timedelta(days=7) #Weekly
 day = datetime.now().today #Today
 
 #CURRENT WEEK EXPENSES
+#current week main
+def total_current_week_main():
+    main  = Expenditures.objects.filter(Date__gte=one_week_ago,Reason_filtering='main' ).aggregate(main=Sum('Amount'))
+    total_main=main['main']
+    
+    if total_main == None:
+        total_main = 0
+    return total_main
+    
 #current week Allowances_Amount
 def total_current_week_allowances():
     i_allowances = Expenditures.objects.filter(Date__gte=one_week_ago, Archived_Status='NOT-ARCHIVED').aggregate(i_total_allowances=Sum('Allowances_Amount'))
@@ -2583,11 +2592,13 @@ def total_current_week_allowances():
         
     if s_total_allowances  == None:
         s_total_allowances =0  
-    if i_total_allowances  == None:
-        i_total_tithes = 0
         
-    if s_total_allowances == None or i_total_allowances  == None:
+    if i_total_allowances  == None:
+        i_total_allowances = 0
+        
+    if s_total_allowances == None:
         total_allowances=0  
+        
         
     total_allowances  = i_total_allowances + s_total_allowances 
     return total_allowances
@@ -2607,9 +2618,17 @@ def total_current_week_tot():
     tot = Expenditures.objects.filter(Date__gte=one_week_ago, Archived_Status='NOT-ARCHIVED').aggregate(tot=Sum('Tithe_Of_Tithes_Amount'))
     tot_Amount=tot['tot']
     
+    main_tot = Expenditures.objects.filter(Date__gte=one_week_ago,Main_Expense_Reason='Tithe of Tithes' ).aggregate(total_tot=Sum('Amount'))
+    
+    
+    main_tot=main_tot['total_tot']  
+    
     if tot_Amount == None:
         tot_Amount = 0
-    return tot_Amount
+        
+    if main_tot == None:
+        main_tot = 0
+    return tot_Amount + main_tot
 
 #current week love offering
 def total_current_week_love_offering_expenses():
@@ -2679,8 +2698,10 @@ def total_current_week_expenses():
     total_savings = total_current_week_savings()
     total_salaries = total_current_week_salaries()
     
+    total_main = total_current_week_main()
     
-    current_week_total_expenses = (total_tot + total_help + total_allowances+ total_others + total_bills + total_savings + total_love + total_petty + total_salaries)
+    
+    current_week_total_expenses = (total_tot + total_help + total_allowances+ total_others + total_bills + total_savings + total_love + total_petty + total_salaries + total_main)
     return current_week_total_expenses
 
 
@@ -2885,6 +2906,8 @@ def index(request):
     total_savings = total_current_week_savings()
     total_salaries = total_current_week_salaries()
     
+    total_main_expenses = total_current_week_main()
+    
     current_week_total_revenues = total_current_week_revenue()
     
     current_week_total_expenses = total_current_week_expenses()
@@ -2905,7 +2928,7 @@ def index(request):
             'current_week_total_revenues':current_week_total_revenues,
             
             #Weekly Expenses
-            'total_tot':total_tot,  'total_help':total_help, 'total_allowances':total_allowances,'total_others':total_others, 'total_bills':total_bills,'total_savings':total_savings, 'total_love':total_love,'total_petty':total_petty, 'total_salaries':total_salaries,
+            'total_tot':total_tot,  'total_help':total_help, 'total_allowances':total_allowances,'total_others':total_others, 'total_bills':total_bills,'total_savings':total_savings, 'total_love':total_love,'total_petty':total_petty, 'total_salaries':total_salaries, 'total_main_expenses':total_main_expenses,
             
             #Weekly Revenues
             'total_tithes':total_tithes, 'total_offerings':total_offerings,'total_seeds':total_seeds,'total_other_sources':total_other_sources, 'total_bills_contrib':total_bills_contrib, 'total_eva':total_eva, 'total_thanks':total_thanks, 'total_love_offer':total_love_offer 

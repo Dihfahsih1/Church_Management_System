@@ -42,45 +42,62 @@
         <link href="{% static 'build/css/custom.css' %}" rel="stylesheet">
 
     <!--LOAD THEMES--> 
-        {% active_theme as active_flag %}
-        {% if active_flag == "black" %}
-        <link href="{% static 'css/front/theme/black.css' %}" rel="stylesheet">
-        {% elif active_flag == "slate-gray" %}
-        <link href="{% static 'css/front/theme/slate-gray.css' %}" rel="stylesheet">
-        {% elif active_flag == "jazzberry-jam" %}
-        <link href="{% static 'css/front/theme/jazzberry-jam.css' %}" rel="stylesheet">
-        {% elif active_flag == "dark-orange" %}
-        <link href="{% static 'css/front/theme/dark-orange.css' %}" rel="stylesheet">
-        {% elif active_flag == "deep-pink" %}
-        <link href="{% static 'css/front/theme/deep-pink.css' %}" rel="stylesheet">
-        {% elif active_flag == "dodger-blue" %}
-        <link href="{% static 'css/theme/dodger-blue.css' %}" rel="stylesheet">
+    <!--{% block comment %}-->
+    <!--     {% active_theme as active_flag %}-->
+    <!--    {% if active_flag == "slate-gray" %}-->
+    <!--    <link href="{% static 'css/front/theme/slate-gray.css' %}" rel="stylesheet">-->
         
-        {% elif active_flag == "light-sea-green" %}
-        <link href="{% static 'css/front/theme/light-sea-green.css' %}" rel="stylesheet">
-        {% elif active_flag == "maroon" %}
-        <link href="{% static 'css/front/theme/maroon.css' %}" rel="stylesheet">
-        {% elif active_flag == "medium-purple" %}
-        <link href="{% static 'css/front/theme/medium-purple.css' %}" rel="stylesheet">
-        {% elif active_flag == "navy-blue" %}
-        <link href="{% static 'css/front/theme/navy-blue.css' %}" rel="stylesheet">
-        {% elif active_flag == "radical-red" %}
-        <link href="{% static 'css/theme/radical-red.css' %}" rel="stylesheet">
-        {% elif active_flag == "rebecca-purple" %}
-        <link href="{% static 'css/theme/rebecca-purple.css' %}" rel="stylesheet">
-        {% elif active_flag == "red" %}
-        <link href="{% static 'css/theme/red.css' %}" rel="stylesheet">
+    <!--    {% elif active_flag == "jazzberry-jam" %}-->
+    <!--    <link href="{% static 'css/front/theme/jazzberry-jam.css' %}" rel="stylesheet">-->
         
-        {% elif active_flag == "trinidad" %}
-        <link href="{% static 'css/front/theme/trinidad.css' %}" rel="stylesheet">
-        {% elif active_flag == "umber" %}
-        <link href="{% static 'css/front/theme/umber.css' %}" rel="stylesheet">
+    <!--    {% elif active_flag == "black" %}-->
+    <!--    <link href="{% static 'css/front/theme/black.css' %}" rel="stylesheet">-->
         
-        {% elif active_flag == "lime-green" %}
-        <link href="{% static 'css/front/theme/lime-green.css' %}" rel="stylesheet">
-        {% else %}
-        <link href="{% static 'css/front/theme/slate-gray.css' %}" rel="stylesheet">
-        {% endif %}
+    <!--    {% elif active_flag == "dark-orange" %}-->
+    <!--    <link href="{% static 'css/front/theme/dark-orange.css' %}" rel="stylesheet">-->
+        
+    <!--    {% elif active_flag == "deep-pink" %}-->
+    <!--    <link href="{% static 'css/front/theme/deep-pink.css' %}" rel="stylesheet">-->
+        
+    <!--    {% elif active_flag == "dodger-blue" %}-->
+    <!--    <link href="{% static 'css/front/theme/dodger-blue.css' %}" rel="stylesheet"> -->
+        
+    <!--    {% elif active_flag == "light-sea-green" %}-->
+    <!--    <link href="{% static 'css/front/theme/light-sea-green.css' %}" rel="stylesheet">-->
+        
+    <!--    {% elif active_flag == "maroon" %}-->
+    <!--    <link href="{% static 'css/front/theme/maroon.css' %}" rel="stylesheet">-->
+        
+    <!--    {% elif active_flag == "medium-purple" %}-->
+    <!--    <link href="{% static 'css/front/theme/medium-purple.css' %}" rel="stylesheet">-->
+        
+    <!--    {% elif active_flag == "navy-blue" %}-->
+    <!--    <link href="{% static 'css/front/theme/navy-blue.css' %}" rel="stylesheet">-->
+        
+    <!--    {% elif active_flag == "radical-red" %}-->
+    <!--    <link href="{% static 'css/front/theme/radical-red.css' %}" rel="stylesheet">-->
+        
+    <!--    {% elif active_flag == "rebecca-purple" %}-->
+    <!--    <link href="{% static 'css/front/theme/rebecca-purple.css' %}" rel="stylesheet">-->
+        
+    <!--    {% elif active_flag == "red" %}-->
+    <!--    <link href="{% static 'css/front/theme/red.css' %}" rel="stylesheet">-->
+        
+    <!--    {% elif active_flag == "trinidad" %}-->
+    <!--    <link href="{% static 'css/front/theme/trinidad.css' %}" rel="stylesheet">-->
+        
+    <!--    {% elif active_flag == "umber" %}-->
+    <!--    <link href="{% static 'css/front/theme/umber.css' %}" rel="stylesheet">-->
+        
+    <!--    {% elif active_flag == "lime-green" %}-->
+    <!--    <link href="{% static 'css/front/theme/lime-green.css' %}" rel="stylesheet">-->
+        
+    <!--    {% else %}-->
+    <!--    <link href="{% static 'css/front/theme/slate-gray.css' %}" rel="stylesheet">-->
+    <!--    {% endif %}-->
+        
+    <!--{% endblock comment%}-->
+        
     {% endblock head %}
 
     <style>

@@ -5,7 +5,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h1 style="text-align: center;" class="head-title"><i class="fa fa fa-calendar-check-o"></i><b> PETTY CASH EXPENSES MODULE</b></h1>
+                    <h3 style="text-align: center;" class="head-title"><i class="fa fa fa-calendar-check-o"></i><b> PETTY CASH EXPENSES MODULE</b></h3>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -17,19 +17,17 @@
                 <div class="" data-example-id="togglable-tabs">
                     <ul class="nav nav-tabs bordered">
                         <li role="presentation"><a href="{% url 'sundryreport' %}"><i
-                            class="fa fa-list-ol"></i> Petty Expenses List</a>
+                            class="fa fa-list-ol"></i>List</a>
                         </li>
                         <li role="presentation" class="active"><a href="{% url 'enter_sundryexpense' %}"><i
-                      class="fa fa-plus-square-o"></i> Record Petty Expense</a>
+                      class="fa fa-plus-square-o"></i> Record</a>
                         </li>
                           <li role="presentation"><a href="{% url 'sundryarchivessearch' %}"><i
-                              class="fa fa-plus-square-o"></i> Petty Expenses Archived</a>
+                              class="fa fa-plus-square-o"></i> Archived</a>
                          </li>
-                           <li role="presentation"><a href="{% url 'airtime-data-report' %}"><i
-                              class="fa fa-plus-square-o"></i> Airtime-Data Payments</a>
-                         </li>
+                          
                     </ul>
-                    <h2 style="text-align: center" class="head-title">Record Petty Cash Expense</h2>
+                    <h3 style="text-align: center" class="head-title">Record Petty Cash Expense</h3>
                     <div class="separator"></div>
 					<div class="col-lg-6 col-offset-8 centered">
                
@@ -38,17 +36,16 @@
 						      <form method="post" enctype="multipart/form-data">
 						          {% csrf_token %}
 						          {{ form.Date|as_crispy_field}}
-                      {{ form.Payment_Made_To|as_crispy_field}}
-                      {{ form.Petty_Cash_Reason|as_crispy_field}}
-                      {{ form.Other_Expenditure|as_crispy_field}}
-                      <div class="form-group">
-                      <label for="id_Amount"> Amount Paid</label>
-                      <!--max='{{form.instance.net_float}}'-->
-                      <input type="number" value="" name="Amount" required id="id_Amount" class="form-control" min='1' >
-                    </div>
+                                  {{ form.Payment_Made_To|as_crispy_field}}
+                                  {{ form.Petty_Cash_Reason|as_crispy_field}}
+                                  {{ form.Other_Expenditure|as_crispy_field}}
+                                    <div class="form-group">
+                                      <label for="id_Amount"> Amount Paid</label>
+                                      <input type="number" value="" name="Amount" required id="id_Amount" class="form-control" min='1' >
+                                    </div>
                       
-                      <input type="hidden" id="general" name="Reason_filtering" value="petty">
-						        <button type="submit" class="btn btn-primary" name="button">Submit</button>
+                                  <input type="hidden" id="general" name="Reason_filtering" value="petty">
+            						        <button type="submit" class="btn btn-primary" name="button">Submit</button>
 						      </form>
 					    </div>
 					</div>

@@ -69,11 +69,11 @@ petty=(
 main=(
         ('Water Bills','Water Bills'),('Yaka Bills','Yaka Bills'),
         ('Transport','Transport'), ('Love Offering','Love Offering'),('Medical Bills','Medical Bills'),('Rent','Rent'),
-        ('Help','Help'),('Drinks','Drinks'),('Savings','Savings'),
+        ('Help','Help'),('Savings','Savings'),
         ('Evangelism','Evangelism'),
         #General
         ('Tithe of Tithes','Tithe of Tithes'),('Generator Mechanic','Generator Mechanic'),('Instruments','Servicing Music Instruments'),('Condolences','Condolences'),
-        ('Stationery','Stationery'),('Repair','Any Other Repair'),('Purchase','Purchase'),
+        ('Stationery','Stationery'),('Repair','Any Other Repair'),
         ('Renovations','Renovations')
     )
 
@@ -210,6 +210,10 @@ class Expenditures(Model):
     Tithe_Of_Tithes_Amount = models.IntegerField(default=0, blank=True, null=True)  
     Savings_Amount = models.IntegerField(default=0, blank=True, null=True)  
     Other_Expenses_Amount = models.IntegerField(default=0, blank=True, null=True)
+    
+    Transport = models.IntegerField(default=0, blank=True, null=True)  
+    Lunch = models.IntegerField(default=0, blank=True, null=True)
+    Data_or_airtime = models.IntegerField(default=0, blank=True, null=True)
     
     Reason_filtering=models.CharField(max_length=1000, blank=True, null=True)
     Other_Expenditure=models.CharField(max_length=1000, blank=True, null=True)
