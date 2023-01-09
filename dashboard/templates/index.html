@@ -18,30 +18,36 @@
                         {% if user.Role == 'Admin' or user.Role == 'Secretary' or user.Role == 'SuperAdmin'%}
                         <div class="row ">
                             <!--Start of Annual summary tiles -->
-                            <!-- <div class="row top_tiles">
+                             <div class="row top_tiles">
                                 <div class="separator"></div>
-                                <h2 style="text-align:center; color:red;"><b>Annual Financial Summary of {{ current_year }}</b></h2>
+                                <h2 style="text-align:center; color:red;"><b> Summary of {{month}} {{ current_year }}</b></h2>
                                 <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
                                     <div class="tile-stats">
-                                        <h4><b style="font-size: 17px">Total Annual Revenue</b></h4>
-                                        <div class="count red">{{annual_revenues|intcomma}}</div>
+                                        <h4><b style="font-size: 17px">Current Month Revenue</b></h4>
+                                        <div class="count red">{{total_monthly_revenues|intcomma}}</div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
                                     <div class="tile-stats">
-                                        <h4> <b style="font-size: 17px">Total Annual Expenditure</b></h4>
-                                        <div class="count red">{{annual_expenditure|intcomma}}</div>
+                                        <h4> <b style="font-size: 17px">Current Month Expenditure</b></h4>
+                                        <div class="count red">{{total_monthly_expenses|intcomma}}</div>
                                     </div>
                                 </div>
-
-                                 
-                            </div> -->
+                                
+                                <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                                    <div class="tile-stats">
+                                        <h4> <b style="font-size: 17px">Current Month Balance</b></h4>
+                                        <div class="count red">{{current_monthly_balance|intcomma}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <!--Start of monthly summary tiles -->
                             <div class="separator"></div>
                             <div class="row " style="margin-left:1%;">
                                 <h2 style="text-align:center; color:red;"><b>Summary for the {% if week == 1 %} first {% elif week == 2 %} Second {% elif week == 3 %} Third {% elif week == 4 %} fourth {% elif week == 5 %} last {% endif %} week of {{ month }} {{ current_year }}</b></h2>
-                                    <!--Start of Annual summary tiles -->
+                                    <!--Start of weekly summary tiles -->
                                 <div class="row top_tiles" style="margin-left:1%;">  
                                     <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
                                         <div class="tile-stats">
@@ -56,18 +62,16 @@
                                             <div class="count blue">{{current_week_total_expenses|intcomma}}</div>
                                         </div>
                                     </div>
-
+                                        
                                     <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
                                         <div class="tile-stats">
                                             <h4> <b style="font-size:15px">Balance</b></h4>
                                             <div class="count blue">{{weekly_balance|intcomma}}</div>
                                         </div>
                                     </div>
-
-
                                     
-                                </div>    
-                            </div>
+                                </div> 
+                                
                         </div>
                         {%endif%}
                         {% if user.Role == 'Secretary' or user.Role == None %}

@@ -28,6 +28,7 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 from tracking.models import Visitor
 
 from .serializers import RegisteredMemberSerializer
+from .MonthlyViews import *
 
 current_month = datetime.now().month
 today = datetime.now()
@@ -2571,10 +2572,40 @@ current_month = datetime.now().month #Monthly
 one_week_ago = datetime.today() - timedelta(days=7) #Weekly
 day = datetime.now().today #Today
 
+    
+def _get_dates_of_week(now):
+    this_week = ['date' for i in range(7)]
+    current_day = now.weekday()
+    if current_day == 6:
+        this_week[0] = now
+        for i in range(1, 7):
+            add_date = now + timedelta(days=i)
+            this_week[i] = add_date
+    else:
+        num_things_before = current_day + 1
+        num_things_after = 5 - current_day
+        sunday = now - timedelta(days=current_day + 1)
+        this_week[0] = sunday
+
+        for i in range(0, current_day):
+            diff = current_day - i
+            add_date = now - timedelta(days=diff)
+            this_week[i + 1] = add_date
+        for j in range(current_day + 1, 7):
+            diff = j - current_day - 1
+            add_date = now + timedelta(days=diff)
+            this_week[j] = add_date
+    return this_week
+    
+now = datetime.now()
+date = datetime.day
+current_week = _get_dates_of_week(now)
+current_week_dates = [date for date in current_week]
+
 #CURRENT WEEK EXPENSES
 #current week main
 def total_current_week_main():
-    main  = Expenditures.objects.filter(Date__gte=one_week_ago,Reason_filtering='main' ).aggregate(main=Sum('Amount'))
+    main  = Expenditures.objects.filter(Date__in=current_week_dates,Reason_filtering='main' ).aggregate(main=Sum('Amount'))
     total_main=main['main']
     
     if total_main == None:
@@ -2583,10 +2614,10 @@ def total_current_week_main():
     
 #current week Allowances_Amount
 def total_current_week_allowances():
-    i_allowances = Expenditures.objects.filter(Date__gte=one_week_ago, Archived_Status='NOT-ARCHIVED').aggregate(i_total_allowances=Sum('Allowances_Amount'))
+    i_allowances = Expenditures.objects.filter(Date__in=current_week_dates, Archived_Status='NOT-ARCHIVED').aggregate(i_total_allowances=Sum('Allowances_Amount'))
     i_total_allowances =i_allowances ['i_total_allowances']
     
-    s_allowances  = Expenditures.objects.filter(Date__gte=one_week_ago,Reason_filtering='allowance' ).aggregate(s_total_allowances=Sum('Amount'))
+    s_allowances  = Expenditures.objects.filter(Date__in=current_week_dates,Reason_filtering='allowance' ).aggregate(s_total_allowances=Sum('Amount'))
     
     s_total_allowances=s_allowances['s_total_allowances']   
         
@@ -2605,7 +2636,7 @@ def total_current_week_allowances():
 
 #current week help
 def total_current_week_help():
-    i_help = Expenditures.objects.filter(Date__gte=one_week_ago, Archived_Status='NOT-ARCHIVED').aggregate(i_total_help=Sum('Help_Amount'))
+    i_help = Expenditures.objects.filter(Date__in=current_week_dates, Archived_Status='NOT-ARCHIVED').aggregate(i_total_help=Sum('Help_Amount'))
     i_total_help=i_help['i_total_help']
     
     if i_total_help == None:
@@ -2615,10 +2646,10 @@ def total_current_week_help():
 
 #current week tot
 def total_current_week_tot():
-    tot = Expenditures.objects.filter(Date__gte=one_week_ago, Archived_Status='NOT-ARCHIVED').aggregate(tot=Sum('Tithe_Of_Tithes_Amount'))
+    tot = Expenditures.objects.filter(Date__in=current_week_dates, Archived_Status='NOT-ARCHIVED').aggregate(tot=Sum('Tithe_Of_Tithes_Amount'))
     tot_Amount=tot['tot']
     
-    main_tot = Expenditures.objects.filter(Date__gte=one_week_ago,Main_Expense_Reason='Tithe of Tithes' ).aggregate(total_tot=Sum('Amount'))
+    main_tot = Expenditures.objects.filter(Date__in=current_week_dates,Main_Expense_Reason='Tithe of Tithes' ).aggregate(total_tot=Sum('Amount'))
     
     
     main_tot=main_tot['total_tot']  
@@ -2632,7 +2663,7 @@ def total_current_week_tot():
 
 #current week love offering
 def total_current_week_love_offering_expenses():
-    Love_Offering_Amount = Expenditures.objects.filter(Date__gte=one_week_ago, Archived_Status='NOT-ARCHIVED').aggregate(Love_Offering_Amount=Sum('Love_Offering_Amount'))
+    Love_Offering_Amount = Expenditures.objects.filter(Date__in=current_week_dates, Archived_Status='NOT-ARCHIVED').aggregate(Love_Offering_Amount=Sum('Love_Offering_Amount'))
     Love_Offering_Amount=Love_Offering_Amount['Love_Offering_Amount']
     
     if Love_Offering_Amount == None:
@@ -2641,7 +2672,7 @@ def total_current_week_love_offering_expenses():
 
 #current week bills
 def total_current_week_bills_expenses():
-    Bills_Amount = Expenditures.objects.filter(Date__gte=one_week_ago, Archived_Status='NOT-ARCHIVED').aggregate(Bills_Amount=Sum('Bills_Amount'))
+    Bills_Amount = Expenditures.objects.filter(Date__in=current_week_dates, Archived_Status='NOT-ARCHIVED').aggregate(Bills_Amount=Sum('Bills_Amount'))
     Bills_Amount=Bills_Amount['Bills_Amount']
     if Bills_Amount == None:
         Bills_Amount = 0
@@ -2649,7 +2680,7 @@ def total_current_week_bills_expenses():
 
 #current week savings
 def total_current_week_savings():
-    Savings_Amount = Expenditures.objects.filter(Date__gte=one_week_ago, Archived_Status='NOT-ARCHIVED').aggregate(Savings_Amount=Sum('Savings_Amount'))
+    Savings_Amount = Expenditures.objects.filter(Date__in=current_week_dates, Archived_Status='NOT-ARCHIVED').aggregate(Savings_Amount=Sum('Savings_Amount'))
     Savings_Amount=Savings_Amount['Savings_Amount']
     if Savings_Amount == None:
         Savings_Amount = 0
@@ -2657,7 +2688,7 @@ def total_current_week_savings():
 
 #current week expenses on other things
 def total_current_week_other_expenses():
-    others = Expenditures.objects.filter(Date__gte=one_week_ago, Archived_Status='NOT-ARCHIVED').aggregate(others=Sum('Other_Expenses_Amount'))
+    others = Expenditures.objects.filter(Date__in=current_week_dates, Archived_Status='NOT-ARCHIVED').aggregate(others=Sum('Other_Expenses_Amount'))
     others=others['others']
     if others == None:
         others = 0
@@ -2665,7 +2696,7 @@ def total_current_week_other_expenses():
 
 #current week petty expenses
 def total_current_week_petty_expenses():
-    weekly_petty_expenses = Expenditures.objects.filter(Reason_filtering='petty',Date__gte=one_week_ago,Archived_Status='NOT-ARCHIVED').aggregate(totals=models.Sum("Amount"))
+    weekly_petty_expenses = Expenditures.objects.filter(Reason_filtering='petty',Date__in=current_week_dates,Archived_Status='NOT-ARCHIVED').aggregate(totals=models.Sum("Amount"))
     if (weekly_petty_expenses['totals'])!=None:
         int(weekly_petty_expenses["totals"])
         d_petty=weekly_petty_expenses["totals"]
@@ -2676,7 +2707,7 @@ def total_current_week_petty_expenses():
 
 #Current week salaries
 def total_current_week_salaries():
-    total_current_salaries = SalariesPaid.objects.filter(Date_of_paying_salary__gte=one_week_ago).aggregate(totals=models.Sum("Salary_Amount"))
+    total_current_salaries = SalariesPaid.objects.filter(Date_of_paying_salary__in=current_week_dates).aggregate(totals=models.Sum("Salary_Amount"))
     if (total_current_salaries['totals'])!=None:
         int(total_current_salaries["totals"])
         salaries=total_current_salaries["totals"]
@@ -2708,10 +2739,10 @@ def total_current_week_expenses():
 #CURRENT WEEK REVENUES
 #current week tithes
 def total_current_week_tithes():
-    i_tithes = Revenues.objects.filter(Date__gte=one_week_ago, Archived_Status='NOT-ARCHIVED').aggregate(i_total_tithes=Sum('Tithe_Amount'))
+    i_tithes = Revenues.objects.filter(Date__in=current_week_dates, Archived_Status='NOT-ARCHIVED').aggregate(i_total_tithes=Sum('Tithe_Amount'))
     i_total_tithes=i_tithes['i_total_tithes']
     
-    s_tithes = Revenues.objects.filter(Date__gte=one_week_ago,Revenue_filter='tithes', Archived_Status='NOT-ARCHIVED').aggregate(s_total_tithes=Sum('Amount'))
+    s_tithes = Revenues.objects.filter(Date__in=current_week_dates,Revenue_filter='tithes', Archived_Status='NOT-ARCHIVED').aggregate(s_total_tithes=Sum('Amount'))
     
     s_total_tithes=s_tithes['s_total_tithes']   
         
@@ -2728,10 +2759,10 @@ def total_current_week_tithes():
 
 #current week offerings
 def total_current_week_offerings():
-    i_offerings = Revenues.objects.filter(Date__gte=one_week_ago, Archived_Status='NOT-ARCHIVED').aggregate(i_total_offerings=Sum('General_Offering_Amount'))
+    i_offerings = Revenues.objects.filter(Date__in=current_week_dates, Archived_Status='NOT-ARCHIVED').aggregate(i_total_offerings=Sum('General_Offering_Amount'))
     i_total_offerings=i_offerings['i_total_offerings']
     
-    s_offerings = Revenues.objects.filter(Date__gte=one_week_ago, Revenue_filter="offering", Archived_Status='NOT-ARCHIVED').aggregate(s_total_offerings=Sum('Amount'))
+    s_offerings = Revenues.objects.filter(Date__in=current_week_dates, Revenue_filter="offering", Archived_Status='NOT-ARCHIVED').aggregate(s_total_offerings=Sum('Amount'))
     s_total_offerings=s_offerings['s_total_offerings']
     
     if s_total_offerings== None:
@@ -2747,7 +2778,7 @@ def total_current_week_offerings():
 
 #current week seeds
 def total_current_week_seeds():
-    Seed_Amount = Revenues.objects.filter(Date__gte=one_week_ago, Archived_Status='NOT-ARCHIVED').aggregate(Seed_Amount=Sum('Seed_Amount'))
+    Seed_Amount = Revenues.objects.filter(Date__in=current_week_dates, Archived_Status='NOT-ARCHIVED').aggregate(Seed_Amount=Sum('Seed_Amount'))
     Seed_Amount=Seed_Amount['Seed_Amount']
     
     if Seed_Amount == None:
@@ -2756,7 +2787,7 @@ def total_current_week_seeds():
 
 #current week love offering
 def total_current_week_love_offering():
-    Love_Offering_Amount = Revenues.objects.filter(Date__gte=one_week_ago, Archived_Status='NOT-ARCHIVED').aggregate(Love_Offering_Amount=Sum('Love_Offering_Amount'))
+    Love_Offering_Amount = Revenues.objects.filter(Date__in=current_week_dates, Archived_Status='NOT-ARCHIVED').aggregate(Love_Offering_Amount=Sum('Love_Offering_Amount'))
     Love_Offering_Amount=Love_Offering_Amount['Love_Offering_Amount']
     
     if Love_Offering_Amount == None:
@@ -2765,7 +2796,7 @@ def total_current_week_love_offering():
 
 #current week thanks giving
 def total_current_week_thanks_giving():
-    Thanks_Giving_Amount = Revenues.objects.filter(Date__gte=one_week_ago, Archived_Status='NOT-ARCHIVED').aggregate(Thanks_Giving_Amount=Sum('Thanks_Giving_Amount'))
+    Thanks_Giving_Amount = Revenues.objects.filter(Date__in=current_week_dates, Archived_Status='NOT-ARCHIVED').aggregate(Thanks_Giving_Amount=Sum('Thanks_Giving_Amount'))
     Thanks_Giving_Amount=Thanks_Giving_Amount['Thanks_Giving_Amount']
     
     if Thanks_Giving_Amount == None:
@@ -2774,7 +2805,7 @@ def total_current_week_thanks_giving():
 
 #current week bills
 def total_current_week_bills_contributions():
-    Bills_Amount = Revenues.objects.filter(Date__gte=one_week_ago, Archived_Status='NOT-ARCHIVED').aggregate(Bills_Amount=Sum('Bills_Amount'))
+    Bills_Amount = Revenues.objects.filter(Date__in=current_week_dates, Archived_Status='NOT-ARCHIVED').aggregate(Bills_Amount=Sum('Bills_Amount'))
     Bills_Amount=Bills_Amount['Bills_Amount']
     if Bills_Amount == None:
         Bills_Amount = 0
@@ -2782,7 +2813,7 @@ def total_current_week_bills_contributions():
 
 #current week contributions towards envagelism
 def total_current_week_evanglism_contributions():
-    Envag_Or_Missions_Amount = Revenues.objects.filter(Date__gte=one_week_ago, Archived_Status='NOT-ARCHIVED').aggregate(Envag_Or_Missions_Amount=Sum('Envag_Or_Missions_Amount'))
+    Envag_Or_Missions_Amount = Revenues.objects.filter(Date__in=current_week_dates, Archived_Status='NOT-ARCHIVED').aggregate(Envag_Or_Missions_Amount=Sum('Envag_Or_Missions_Amount'))
     Envag_Or_Missions_Amount=Envag_Or_Missions_Amount['Envag_Or_Missions_Amount']
     if Envag_Or_Missions_Amount == None:
         Envag_Or_Missions_Amount = 0
@@ -2790,7 +2821,7 @@ def total_current_week_evanglism_contributions():
 
 #current week revenue from other sources
 def total_current_week_other_revenue_sources():
-    others = Revenues.objects.filter(Date__gte=one_week_ago, Revenue_filter="others", Archived_Status='NOT-ARCHIVED').aggregate(others=Sum('Amount'))
+    others = Revenues.objects.filter(Date__in=current_week_dates, Revenue_filter="others", Archived_Status='NOT-ARCHIVED').aggregate(others=Sum('Amount'))
     others=others['others']
     if others == None:
         others = 0
@@ -2822,44 +2853,6 @@ def current_week_pledges():
         d_pledges = 0
     return d_pledges
 
-#CURRENT MONTH REVENUES
-#current month tithes
-def total_current_month_tithes():
-    tithes = Revenues.objects.filter(Date__month=current_month).aggregate(total_tithes=Sum('Tithe_Amount'))
-    total_tithes=tithes['total_tithes']
-    if total_tithes == None:
-        total_tithes=0  
-        return total_tithes
-    return total_tithes
-
-#current month offerings
-def total_current_month_offerings():
-    offerings = Revenues.objects.filter(Date__month=current_month).aggregate(total_offerings=Sum('General_Offering_Amount'))
-    total_offerings=offerings['total_offerings']
-    if total_offerings == None:
-        total_offerings=0  
-        return total_offerings
-    return total_offerings
-
-#current month other_sources of revenue
-def total_current_month_seeds():
-    seeds = Revenues.objects.filter(Date__month=current_month).aggregate(total_oseeds=Sum('Seed_Amount'))
-    total_oseeds=seeds['total_oseeds']
-    if total_oseeds == None:
-        total_oseeds=0  
-        return total_oseeds
-    return total_oseeds
-
-
-#total current month revenues
-def total_current_month_revenue():
-    total_tithes = total_current_month_tithes()
-    total_offerings = total_current_month_offerings()
-    total_seeds = total_current_month_seeds()
-    current_month_total_revenues = (total_tithes + total_offerings + total_seeds)
-    return current_month_total_revenues
-
-
 def week_of_month(date):
     date= datetime.now()
     month = date.month
@@ -2869,69 +2862,55 @@ def week_of_month(date):
         date -= timedelta(days=7)
     return week
 
+current_year = datetime.now().year #Annual
+current_month = datetime.now().month #Monthly
+week=week_of_month(current_month) #Weekly
+
+
+
+#current month totals
+def current_month_balances():
+    revenues=total_current_month_revenue()
+    expenses=total_current_month_expenses()
+    balance = revenues - expenses
+    return balance 
+    
+     
 @login_required
 def index(request):
-    
-    current_year = datetime.now().year #Annual
-    current_month = datetime.now().month #Monthly
-    week=week_of_month(current_month) #Weekly
-
-    one_week_ago = datetime.today() - timedelta(days=7) #Weekly
-    day = datetime.now().today #Today
-    
-    today = timezone.now()
-    month = today.strftime('%B')
+    weekly_balances=total_current_week_revenue() - total_current_week_expenses()
+ 
     mth=calendar.month_name[current_month]
-    
-    #calling weekly revenue functions
-    total_tithes = total_current_week_tithes()
-    total_offerings = total_current_week_offerings()
-    total_seeds = total_current_week_seeds()
-    total_other_sources = total_current_week_other_revenue_sources()
-    total_bills_contrib = total_current_week_bills_contributions()
-    total_eva = total_current_week_evanglism_contributions()
-    total_thanks = total_current_week_thanks_giving()
-    total_love_offer = total_current_week_love_offering()
-    
-    
-    #call weekly expenses functions
-    total_tot = total_current_week_tot()
-    total_allowances = total_current_week_allowances()
-    total_help = total_current_week_help()
-    total_petty = total_current_week_petty_expenses()
-    
-    total_others = total_current_week_other_expenses()
-    total_bills = total_current_week_bills_expenses()
-    total_love = total_current_week_love_offering_expenses()
-    total_savings = total_current_week_savings()
-    total_salaries = total_current_week_salaries()
-    
-    total_main_expenses = total_current_week_main()
-    
-    current_week_total_revenues = total_current_week_revenue()
-    
-    current_week_total_expenses = total_current_week_expenses()
-    
-    
-    
-    week=week_of_month(current_month)
-    
-    weekly_balance = current_week_total_revenues - current_week_total_expenses
     context={
-            'day':day,
-            'week':week, 
-            'month':month,
-            
+            'day':datetime.now().today,
+            'week':week_of_month(current_month), 
+            'month':today.strftime('%B'),
+            'total_monthly_expenses':total_current_month_expenses(),
+            'total_monthly_revenues':total_current_month_revenue(),
+            'current_monthly_balance':current_month_balances(),
             'current_year':current_year,
-            'weekly_balance':weekly_balance,
-            'current_week_total_expenses':current_week_total_expenses,
-            'current_week_total_revenues':current_week_total_revenues,
+            'weekly_balance':weekly_balances,
+            'current_week_total_expenses':total_current_week_expenses(),
+            'current_week_total_revenues':total_current_week_revenue(),
             
             #Weekly Expenses
-            'total_tot':total_tot,  'total_help':total_help, 'total_allowances':total_allowances,'total_others':total_others, 'total_bills':total_bills,'total_savings':total_savings, 'total_love':total_love,'total_petty':total_petty, 'total_salaries':total_salaries, 'total_main_expenses':total_main_expenses,
+            'total_tot':total_current_week_tot(),
+            'total_help':total_current_week_help(), 
+            'total_allowances':total_current_week_allowances(),
+            'total_others':total_current_week_other_expenses(), 
+            'total_bills':total_current_week_bills_expenses(),
+            'total_savings':total_current_week_savings(), 
+            'total_love':total_current_week_love_offering_expenses(),
+            'total_petty':total_current_week_petty_expenses(),
+            'total_salaries':total_current_week_salaries(), 'total_main_expenses':total_current_week_main(),
             
             #Weekly Revenues
-            'total_tithes':total_tithes, 'total_offerings':total_offerings,'total_seeds':total_seeds,'total_other_sources':total_other_sources, 'total_bills_contrib':total_bills_contrib, 'total_eva':total_eva, 'total_thanks':total_thanks, 'total_love_offer':total_love_offer 
+            'total_tithes':total_current_week_tithes(), 
+            'total_offerings':total_current_week_offerings(),
+            'total_seeds':total_current_week_seeds(),
+            'total_other_sources':total_current_week_other_revenue_sources(), 'total_bills_contrib':total_current_week_bills_contributions(), 
+            'total_eva':total_current_week_evanglism_contributions(), 'total_thanks':total_current_week_thanks_giving(),
+            'total_love_offer':total_current_week_love_offering(), 
             
             }
     return render(request,'index.html', context)
