@@ -14,9 +14,14 @@
             <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
                     <ul class="nav nav-tabs bordered">
-                        <li role="presentation" ><a href="{% url 'expenditurereport' %}"><i
-                                    class="fa fa-list-ol"></i> List</a>
-                        </li>
+                        <li role="presentation" class="">
+                            <a href="{% url 'expenditurereport' %}"><i class="fa fa-list-ol"></i> Sunday Expenses </a>
+                          </li>
+                          
+                          <li role="presentation" class="">
+                            <a href="{% url 'weekly_main_expenses' %}"><i class="fa fa-list-ol"></i> Weekly Main Expenses </a>
+                          </li>
+                                    
                         {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
                         <li role="presentation" class="active"><a href="{% url 'enter_expenditure' %}"><i
                               class="fa fa-plus-square-o"></i> Record</a>
@@ -26,7 +31,7 @@
                               class="glyphicon glyphicon-king"></i> Archived</a>
                          </li>
                     </ul>
-                    <h4 style="text-align: center;">Record all Main Expenses Transactions</h4>
+                    <h4 style="text-align: center;">Record weekly main expenses transactions</h4>
                     <div class="separator"></div>
 					<div class="col-lg-6 col-offset-8 centered">
               
@@ -45,7 +50,7 @@
 
                 <button type="submit" class="btn btn-primary" name="button">Record</button>
                   </form>
-                    <p style="color:red"><b>NB:</b> 1. Record other expenses not listed among main expenses reasons as General Expenses or Petty<br>.</p>
+                    <p style="color:red"><b>NB:</b> 1. Record other expenses not listed among main expenses reasons In petty expenses module<br>.</p>
 					    </div>
 					</div>
 				</div>

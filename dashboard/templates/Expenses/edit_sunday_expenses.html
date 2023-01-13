@@ -1,0 +1,77 @@
+{% extends "app/base_site.html" %}
+{% block content %}
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h3 style="text-align: center;" class="head-title"><i class="fa fa fa-calendar-check-o"></i><b>EXPENSES MODULE</b></h3>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+               
+                
+            <div class="x_content">
+                <div class="" data-example-id="togglable-tabs">
+                     <ul class="nav nav-tabs bordered">
+                      <li role="presentation">
+                        <a href="{% url 'expenditurereport' %}"><i class="fa fa-list-ol"></i> All Sunday Expenses </a>
+                      </li>
+                      
+                      <li role="presentation">
+                        <a href="{% url 'weekly_main_expenses' %}"><i class="fa fa-list-ol"></i> Weekly Main Expenses </a>
+                      </li>
+                      <li role="presentation" class="active"><a href="#"><i class="fa fa-plus-square-o"></i> Update </a>
+                      </li>
+                      
+                    
+                    <div class="x_content">
+		            <div class="" data-example-id="togglable-tabs">
+		               
+                        <h2 style="text-align: center">Update Sunday Expenses</h2>
+                        <div class="separator"></div>
+                      <p>{{ msg}}</p>
+						<div style="margin-left:5%" class="col-lg-12 col-md-12 col-sm-12 justify-content-center">
+					    	{% load crispy_forms_tags %}
+                            <form method="POST" action="" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div style="" class="col-lg-4 col-md-4 col-sm-4 justify-content-center">
+                                    {{form.Date|as_crispy_field }}
+                                    {{form.Allowances_Amount|as_crispy_field }}
+                                    {{form.Love_Offering_Amount|as_crispy_field }}
+                                    {{form.Lunch|as_crispy_field }}
+                                </div>
+
+                                <div style="" class="col-lg-4 col-md-4 col-sm-4 justify-content-center"> 
+                                    {{form.Help_Amount|as_crispy_field }}
+                                    {{form.Seed_Amount|as_crispy_field }}
+                                    {{form.Bills_Amount|as_crispy_field }}
+                                    {{form.Data_or_airtime|as_crispy_field }}
+                                    {{form.Stationery|as_crispy_field }}
+                                
+                                </div>
+
+                                <div style="" class="col-lg-4 col-md-4 col-sm-4 justify-content-center"> 
+                                    {{form.Tithe_Of_Tithes_Amount|as_crispy_field }}
+                                    {{form.Savings_Amount|as_crispy_field }}
+                                    {{form.Transport|as_crispy_field }}
+                                    {{form.Renovation|as_crispy_field }}
+                                    {{form.Other_Expenses_Amount|as_crispy_field }}
+                                    
+                                </div>
+
+                                <button type="submit" class="btn btn-primary" name="button">Submit</button>
+                                </div>                                
+                            </form>
+						</div>
+			        </div>
+		        </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

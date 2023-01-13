@@ -1,67 +1,86 @@
-<form method="post" class="js-members-view-form" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <h2 style="text-align: center;" class="modal-title"> 
-            {% if form.instance.Full_Named is None %}
-            Request Membership Details of {{ form.instance.First_Name }} {{form.instance.Second_Name}}
-            {% else %}
-            All Membership Information of {{ form.instance.Full_Named }}
-            {% endif %} </h2>
-    </div>
-    <div class="modal-body">
-        <div class="" role="tabpanel" data-example-id="togglable-tabs">
-            <div id="myTabContent" class="tab-content">
-                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="basic-tab">
-                    <table id="tablePreview" class="table table-bordered table-striped">
-                        <tbody>
-                            <tr>
-                                <th>Member Photo</th>
-                                <td><img src="{{ form.instance.Photo.url }}" alt="" width="200"
-                                        style="background: rgba(15,174,221,0.97); padding: 2px;" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>First Name</th>
-                                <td>{{ form.instance.First_Name }}</td>
-                                <th>Second Name</th>
-                                <td>{{ form.instance.Second_Name }}</td>
-                            </tr>
-                           
-                            <tr>
-                                <th>Gender</th>
-                                <td>{{ form.instance.Gender }}</td>
-                                <th>Home Cell</th>
-                                <td>{{ form.instance.Home_Cell }}</td>
+{% extends "app/base_site.html" %}
+
+{% block content %}
+
+<h3 style="text-align:center" class="title">Member Details</h3>
+   <hr>
+    <section class="page-event-area" style="margin-top:-5%">
+        <div class="container">
+            <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                       <h2 class="title">The Details of <i style="color: red; text-align:center">{{ member.Initials }}{{ member.full_name }}</i></h2>
+                        <div class="page-news-details">
+                            <div class="banner">
+                                {% if member.Photo %}
+
+                                    <img src="{{ member.Photo.url }}"
+                                         alt="member photo" >
+                                {% endif %}
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-xs-12">
+                                        <div class="single-event">
+                                            <div class="content">
+                                                <ul class="list">
+                                                    <h3>Membership Number:{{member.id}} </h3>
+                                                                                <li class="info"><b>First Name :</b> {{member.First_Name}}</li>
+                                                                                <li class="info"><b>Last Name: </b>{{member.Second_Name}}</li>
+                                                                                <li class="info"><b>Group: </b>{{member.Group}}</li>
+                                                    
+                                        <li class="info"><b>Home Cell:</b> {{member.Home_Cell}}</li>
+                                                    
+                                        <li class="info"><b>Residence:</b>  {{member.Residence}}</li>
+                                        
+                                        <li class="info"><b>Telephone:</b>  {{member.Telephone}}</li>
+                                        
+                                        <li class="info"><b>Email:</b>  {{member.Email}}</li>
+                                        
+                                        <li class="info"><b>Gender: </b> {{member.Gender}}</li>
+                                        
+                                        <li class="info"><b>Marital Status:</b>  {{member.Marital_Status}}</li>
+                                        
+                                         <li class="info"><b>Type of Marriage: </b> {{member.Marriage_Kind}}</li>
+                                                    
+                                        <li class="info"><b>Education Level: </b> {{member.Education_Level}}</li>
+                                                    
+                                        <li class="info"><b>Type Of Work: </b> {{member.Type_of_Work}}</li>
+                                                </ul>
+                                            </div>
+                                        </div>  
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="single-event">
+                                            <div class="content">
+                                                <ul class="list">
+                                                    <li class="info"><b>Country:</b>  {{member.Country}}</li>
+                                                    <li class="info"><b>County: </b> {{member.County}}</li>
+                                                    <li class="info"><b>Parish: </b> {{member.Parish}}</li>
+                                                    <li class="info"><b>District:</b>  {{member.District}}</li>
+                                                    <li class="info"><b>Sub County:</b> {{member.Sub_County}}</li>
+                                                    <li class="info"><b>Village: </b> {{member.Village}}</li>
+                                                    <li class="info"><b>Salvation Date: </b> {{member.Date_Of_Salvation}}</li>
+                                                    <li class="info"><b>Joining UCC Bwaise: </b>{{member.Date_Of_Joining_UCC_Bwaise}}</li>
+                                                    <li class="info"><b>Birth Date: </b> {{member.Date_Of_Birth}}</li>
+                                                    <li class="info"><b>Next of Kin:</b>  {{member.Name_Of_Next_Of_Kin}}</li>
+                                                    <li class="info"><b>Ministry:</b>  {{member.Ministry_Involved_In}}</li>
+                                                    <li class="info"><b>Profession:</b> {{member.Profession}}</li>
+                                                </ul>
+                                            </div>
+                                        </div> 
+                                        
+                                    </div>
+                                   </div>
+                                </div> 
                                 
-                            </tr>
-                            <tr>
-                                <th>Residence</th>
-                                <td>{{ form.instance.Residence }}</td>
-                                <th>Telephone</th>
-                                <td>{{ form.instance.Telephone }}</td>
-                            </tr>
-                            <tr>
-                                <th>Marriage Status</th>
-                                <td>{{ form.instance.Marital_Status }}</td>
-                                <th>Marriage Type</th>
-                                <td>{{ form.instance.Marriage_Kind }}</td>
-                            </tr>
-                            <tr>
-                                <th>Birth Date</th>
-                                <td>{{ form.instance.Date_Of_Birth }}</td>
-                                <th>Date of Joining UCC </th>
-                                <td>{{ form.instance.Date_Of_Joining_UCC_Bwaise }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                            </div>
+
+                            </div>
+                    </div>
+              
             </div>
         </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    </div>
-</form>
+    </section>
+
+{% endblock content %}

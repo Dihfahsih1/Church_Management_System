@@ -38,7 +38,16 @@
 						          {{ form.Date|as_crispy_field}}
                                   {{ form.Payment_Made_To|as_crispy_field}}
                                   {{ form.Petty_Cash_Reason|as_crispy_field}}
-                                  {{ form.Other_Expenditure|as_crispy_field}}
+                                  <div id="div_id_Other_Expenditure" class="form-group">
+        
+                                    <label for="id_Other_Expenditure" class="">
+                                        Expense Description
+                                    </label>
+                                    <div class="">
+                                        <input type="text" name="Other_Expenditure" placeholder="precise description of the expense" maxlength="1000" class="textinput textInput form-control" id="id_Other_Expenditure">
+                                        </div>
+                                    </div>
+                                    
                                     <div class="form-group">
                                       <label for="id_Amount"> Amount Paid</label>
                                       <input type="number" value="" name="Amount" required id="id_Amount" class="form-control" min='1' >
@@ -58,7 +67,7 @@
 </div>
 <script type="text/javascript">
   
-$("#id_Petty_Cash_Reason").change(function () {
+$("#id_Petty_Cash_Reasond").change(function () {
 if ($(this).val() === "Other") {
     $('#div_id_Other_Expenditure').show();
 

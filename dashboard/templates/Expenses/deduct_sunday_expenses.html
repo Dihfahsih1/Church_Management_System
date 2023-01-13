@@ -2,7 +2,6 @@
 
 {% extends "app/base_site.html" %}
 {% block content %}
-<div class="right_col" role="main">
     <div class="row">
     	<div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
@@ -86,6 +85,13 @@
                                             <input type="number" name="Data_or_airtime" value=0 class="numberinput form-control" id="id_Data_or_airtime">
                                         </div>
                                     </div>
+                                    
+                                    <div id="div_id_Renovation" class="form-group">
+                                        <label for="id_Renovation" class="">Renovation</label>
+                                        <div class="">
+                                            <input type="number" name="Stationery" value=0 class="numberinput form-control" id="id_Renovation">   
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div style="" class="col-lg-4 col-md-4 col-sm-4 justify-content-center"> 
@@ -97,24 +103,30 @@
                                     </div>
 
                                     <div id="div_id_Savings_Amount" class="form-group">
-                                        <label for="id_Savings_Amount" class="">Saving</label>
+                                        <label for="id_Savings_Amount" class="">Savings </label>
                                         <div class="">
                                             <input type="number" name="Savings_Amount" value=0 class="numberinput form-control" id="id_Savings_Amount">
                                         </div>
                                     </div>
                                     
-                                    <div id="div_id_Savings_Amount" class="form-group">
-                                        <label for="id_Savings_Amount" class="">Saving</label>
+                                    <div id="div_id_Stationery" class="form-group">
+                                        <label for="id_Stationery" class="">Stationery</label>
                                         <div class="">
-                                            <input type="number" name="Savings_Amount" value=0 class="numberinput form-control" id="id_Savings_Amount">
+                                            <input type="number" name="Stationery" value=0 class="numberinput form-control" id="id_Stationery">   
                                         </div>
                                     </div>
-                                    
-
+                                   
                                     <div id="div_id_Transport" class="form-group">
                                         <label for="id_Transport" class="">Transport</label>
                                         <div class="">
                                             <input type="number" name="Transport" value=0 class="numberinput form-control" id="id_Transport">   
+                                        </div>
+                                    </div>
+                                    
+                                     <div id="div_id_Other_Expenses_Amount" class="form-group">
+                                        <label for="id_Other_Expenses_Amount" class="">Other Expense</label>
+                                        <div class="">
+                                            <input type="number" name="Other_Expenses_Amount" value=0 class="numberinput form-control" id="id_Other_Expenses_Amount">   
                                         </div>
                                     </div>
 
@@ -127,5 +139,4 @@
             </div>
         </div>
     </div>
-</div>
 {% endblock content %}

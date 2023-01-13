@@ -5,30 +5,14 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h1 style="text-align: center;" class="head-title"><i class="fa fa fa-calendar-check-o"></i><b> GENERAL EXPENSES MODULE</b></h1>
+                    <h3 style="text-align: center;" class="head-title"><i class="fa fa fa-calendar-check-o"></i><b>EXPENSES MODULE</b></h3>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
                     </ul>
                     <div class="clearfix"></div>
                 </div>
-                <div class="x_content quick-link">
-                    <span style="color:red"><b>Other Reports:</b></span>
-                    <a href="{% url  'expenditurereport' %}"> Main Expenses</a></li>
-                    |<a href="{% url 'general-expenses-report' %}"> General Expenses</a></li>
-                    |<a href="{% url 'Offeringsreport' %}"> Offerings</a></li>
-                    |<a href="{% url 'members-list' %}">Membership</a>
-                    |<a href="{% url 'Pledgesreport' %}"> Pledges</a></li>
-                    |<a href="{% url 'sundryreport' %}"> Petty Expenses</a></li>
-                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
-                    |<a href="{% url 'allowancereport' %}"> Allowances</a></li>
-                    |<a href="{% url 'current-month-salaries' %}"> Salaries</a></li>
-                    |<a href="{% url 'Tithesreport' %}"> Tithes</a></li>
-                    |<a href="{% url 'donations-report' %}"> Doantions</a></li>
-                    |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a></li>
-                    {% endif %}
-                    <div class="separator"></div>
-                </div>
+               
                 
             <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
@@ -36,26 +20,118 @@
                         <li role="presentation"><a href="{% url 'general-expenses-report' %}"><i class="fa fa-list-ol"></i> General Expenses</a></li>
                         <li role="presentation" ><a href="{% url 'enter-general-expenses' %}"><i class="fa fa-plus-square-o"></i> Record General Expense</a></li>
                          <li role="presentation" ><a href="{% url 'general-expensesarchives-search' %}"><i class="fa fa-list-ol"></i> Archived General Expenses</a></li>
-                        <li role="presentation" class="active" ><a href="#"><i class="fa fa-list-ol"></i> Editing General Expenses</a></li>
+                        <li role="presentation" class="active" ><a href="#"><i class="fa fa-list-ol"></i> Editing Sunday Expenses</a></li>
                     </ul>
-                    <h2 class="head-title" style="text-align: center">Editting General Expenses </h2>
-                    <div class="separator"></div>
-					<div class="col-lg-6 col-offset-8 centered">
-					    <div class="col-md-10">
-					      {% load crispy_forms_tags %}
-						      <form method="post" enctype="multipart/form-data">
-						      {% csrf_token %}
-						        {{ form.Date|as_crispy_field}}
-                                {{ form.Payment_Made_To|as_crispy_field}}
-                                {{ form.General_Expenses_Reason|as_crispy_field}}
-                                {{ form.Amount|as_crispy_field}}
-                                <input type="hidden" id="general" name="Reason_filtering" value="general">
-						      <button type="submit" class="btn btn-primary" name="button">Submit</button>
+                    <h2 class="head-title" style="text-align: center">Edit Sunday Expenses </h2>
+                    <div class="x_content">
+		            <div class="" data-example-id="togglable-tabs">
+		               
+                        <h2 style="text-align: center">Record Total Sunday Expenses</h2>
+                        <div class="separator"></div>
+                      <p>{{ msg}}</p>
+						<div style="margin-left:5%" class="col-lg-12 col-md-12 col-sm-12 justify-content-center">
+					    	{% load crispy_forms_tags %}
+                            <form method="POST" action="" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div style="" class="col-lg-4 col-md-4 col-sm-4 justify-content-center"> 
+                                    <div id="div_id_Date" class="col-lg-9 form-group">
+                                        <label for ='id_Date'>Date</label>
+                                        <div class="">
+                                            <input type="date" id="id_Date" name="Date" class="numberinput form-control">
+                                        </div>
+                                    </div>
 
-						      </form>
-					          
-					    </div>
-					</div>
+
+                                    <div id="div_id_Allowances_Amount" class="form-group">
+                                        <label for="id_Allowances_Amount" class="">Allowances</label>
+                                        <div class="">
+                                            <input type="number" name="Allowances_Amount" value=0 class="numberinput form-control" id="id_Allowances_Amount">
+                                        </div>
+                                    </div>
+
+                                      <div id="div_id_Love_Offering_Amount" class="form-group">
+                                        <label for="id_Love_Offering_Amount" class="">Love Offering</label>
+                                        <div class="">
+                                            <input type="number" name="Love_Offering_Amount" value=0 class="numberinput form-control" id="id_Love_Offering_Amount">
+                                        </div>
+                                    </div>
+                                    
+                                    <div id="div_id_Lunch" class="form-group">
+                                        <label for="id_Lunch" class="">Lunch</label>
+                                        <div class="">
+                                            <input type="number" name="Lunch" value=0 class="numberinput form-control" id="id_Lunch">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style="" class="col-lg-4 col-md-4 col-sm-4 justify-content-center"> 
+                                  
+
+                                    <div id="div_id_Help_Amount" class="form-group">
+                                        <label for="id_Help_Amount" class="">Help</label>
+                                        <div class="">
+                                            <input type="number" name="Help_Amount" value=0 class="numberinput form-control" id="id_Help_Amount">
+                                        </div>
+                                    </div>
+
+                                    <div id="div_id_Seed_Amount" class="form-group">
+                                        <label for="id_Seed_Amount" class="">Seed Amount</label>
+                                        <div class="">
+                                            <input type="number" name="Seed_Amount" value=0 class="numberinput form-control" id="id_Seed_Amount">
+                                        </div>
+                                    </div>
+
+                                    <div id="div_id_Bills_Amount" class="form-group">
+                                        <label for="id_Bills_Amount" class="">Bills (Yaka, Water and Medical)</label>
+                                        <div class="">
+                                            <input type="number" name="Bills_Amount" value=0 class="numberinput form-control" id="id_Bills_Amount">
+                                        </div>
+                                    </div>
+                                    
+                                     <div id="div_id_Data_or_airtime" class="form-group">
+                                        <label for="id_Data_or airtime" class="">Data or Airtime</label>
+                                        <div class="">
+                                            <input type="number" name="Data_or_airtime" value=0 class="numberinput form-control" id="id_Data_or_airtime">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style="" class="col-lg-4 col-md-4 col-sm-4 justify-content-center"> 
+                                    <div id="div_id_Tithe_Of_Tithes_Amount" class="form-group">
+                                        <label for="id_Tithe_Of_Tithes_Amount" class="">Tithe of Tithes</label>
+                                        <div class="">
+                                            <input type="number" name="Tithe_Of_Tithes_Amount" value=0 class="numberinput form-control" id="id_Tithe_Of_Tithes_Amount">
+                                        </div>
+                                    </div>
+
+                                    <div id="div_id_Savings_Amount" class="form-group">
+                                        <label for="id_Savings_Amount" class="">Savings </label>
+                                        <div class="">
+                                            <input type="number" name="Savings_Amount" value=0 class="numberinput form-control" id="id_Savings_Amount">
+                                        </div>
+                                    </div>
+                                    
+                                   
+                                    <div id="div_id_Transport" class="form-group">
+                                        <label for="id_Transport" class="">Transport</label>
+                                        <div class="">
+                                            <input type="number" name="Transport" value=0 class="numberinput form-control" id="id_Transport">   
+                                        </div>
+                                    </div>
+                                    
+                                     <div id="div_id_Other_Expenses_Amount" class="form-group">
+                                        <label for="id_Other_Expenses_Amount" class="">Other Expense</label>
+                                        <div class="">
+                                            <input type="number" name="Other_Expenses_Amount" value=0 class="numberinput form-control" id="id_Other_Expenses_Amount">   
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary" name="button">Submit</button>
+                                </div>                                
+                            </form>
+						</div>
+			        </div>
+		        </div>
 				</div>
 			</div>
 		</div>

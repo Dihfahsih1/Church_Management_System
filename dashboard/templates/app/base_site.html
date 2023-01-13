@@ -113,52 +113,49 @@
         }
         
     </style>
-</head>
-    <body class="{% block body_class %}nav-md {% endblock body_class %}" >
-        <div style="max-width: 1130px">
-            {% block body %}
+    </head>
 
-                <div class="fakeLoader"></div>
-                <div class="container body">
-                    <div class="main_container">
+<body class="{% block body_class %}nav-md {% endblock body_class %}"> 
+    <div class="container body"> 
+        <div class="row">
+                <div class="col-lg-3 col-md-3 left_col">
+                    {% block sidebar %}
                         
-                        {% if user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
-                            {% block sidebar %}
-                                <div class="col-md-3 left_col">
-                                    {% include "app/sidebar.html" %}
-                                </div>
-                            {% endblock sidebar %}
-    
-                            {% block top_navigation %}
-                                <div class="top_nav">
-                                    
-                                {% include "app/top_navigation.html" %}
-                                </div>
-                            {% endblock top_navigation %}
-                            
-                            {% else %}
-                             
-                        {% endif %}
+                      {% include "app/sidebar.html" %}
+                        
+                    {% endblock sidebar %}
+                </div>
+                
+                <div class="col-lg-9 col-md-9 col-sm-12 right_col">
+                    <div class="row">
+                        {% block top_navigation %}
+                            <div class="top_nav">
+                                
+                            {% include "app/top_navigation.html" %}
+                            </div>
+                        {% endblock top_navigation %}
+                    </div>
+                    <div class ="row">
                         
                         {% block content %}
-                            <h3 style="color: red">
-                            {{ message }}
-                            </h3>
-                            
+                            <div class="container-fluid">
+                                <h3 style="color: red">
+                                {{ message }}
+                                </h3>
+                            </div> 
                         {% endblock content %}
-
-                        {% block footer %}
-                            
-                        {% endblock footer %}
-
+                        
                     </div>
-                
                 </div>
-                {% include "app/footer.html" %}
-            {% endblock body %}
+            </div>
+        
+        <div class="row">
+            {% include "app/footer.html" %}
         </div>
-                    
-    </body>
+    
+    </div>
+                
+</body>
             
     {% include "app/js_assets.html" %}
 

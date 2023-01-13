@@ -9,55 +9,12 @@
                 </div>
                 
                {% load static total_tags %}
-                <!--<div class="col-lg-5">-->
-                <!--    <ul class="nav navbar-nav navbar-left">-->
-                <!--        <li class="nav-item">-->
-                <!--            <a href="{% url 'index' %}" class="border border-light grey-text">-->
-                <!--                <h3>-->
-                <!--                    {% if custom_header %}-->
-                <!--                        <span class="name">{{ custom_header }}</span>-->
-                <!--                    {% else %}-->
-                <!--                        <span class="regular"  style="color:white">UCC Bwaise | CHURCH WEB SYSTEM</span>-->
-                <!--                    {% endif %}-->
-                <!--                </h3>-->
-                <!--            </a>-->
-                <!--        </li>-->
-                <!--    </ul>-->
-                <!--</div>-->
-                <!--<div class="col-lg-6"> -->
-                <!--    <ul class="nav navbar-nav">-->
-                <!--        <li style="font-size:25px;"><a href="{% url 'un-approved-list' %}" target="_new">-->
-                <!--                <span class="fa fa-bell"><b style="background-color: red;border-radius: 55%; margin-left: -17%;" >-->
-                <!--                        <strong style="color:white;">{% un_approved_members %}</strong></b></span>-->
-                <!--            </a>-->
-                <!--        </li>-->
-                <!--        <li class="nav-item">-->
-                <!--            <a href="{% url 'index_public' %}" class="nav-link border border-light grey-text rounded waves-effect" target="_blank">-->
-                <!--                <i class="fa fa-globe mr-3"></i> <strong style="color:white;"> Website</strong>-->
-                <!--            </a>-->
-                <!--        </li>-->
-                <!--        <li class="nav-item">-->
-                <!--            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">-->
-                <!--                <i><img src="{{ request.user.full_name.Photo.url }}" /><i> <b-->
-                <!--                            style="color:white; font-size: 120%">{{ request.user.username }}-->
-                <!--                            <span class=" fa fa-angle-down"></span></b></i>-->
-                <!--            </a>-->
-                <!--            <ul class="dropdown-menu dropdown-usermenu pull-left" style="background-color: crimson;">-->
-                <!--                <li><a href="{% url 'profile' %}"> <i class="fa fa-user mr-3"></i> Profile</a></li>-->
-                <!--                <li><a href="{% url 'changing-password' %}"><i class="fa fa-edit mr-3"></i> Change Password</a></li>-->
-                <!--                <li><a href="{% url 'logout'%}"><i class="fa fa-sign-out"></i>Log Out</a></li>-->
-                <!--            </ul>-->
-                <!--        </li>-->
-                      
-                <!--    </ul>-->
-                   
-                <!--</div>-->
             </nav>
         </div>
     </div>
 
     {% if messages %}
-    <div class="col-lg-8" style="float: right">
+    <div class="col-lg-8 col-md-6 col-sm-12" style="float: right">
         <div class="alert alert-info" id="success-alert">
             <button type="button" class="close" data-dismiss="alert">x</button>
             <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>

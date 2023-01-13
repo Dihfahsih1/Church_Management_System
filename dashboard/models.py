@@ -64,7 +64,7 @@ archive = (
     ('NOT-ARCHIVED', 'NOT-ARCHIVED'),)
 
 petty=(
-        ('Lunch','Lunch'),('Upkeep','Upkeep'),('Airtime/Data','Airtime/Data'),('Other','Other')     
+        ('Lunch','Lunch'),('Breakfast','Breakfast'),('Upkeep','Upkeep'),('Airtime or Data','Airtime or Data'),('Other','Other')     
     )
 main=(
         ('Water Bills','Water Bills'),('Yaka Bills','Yaka Bills'),
@@ -209,11 +209,14 @@ class Expenditures(Model):
     Bills_Amount = models.IntegerField(default=0, blank=True, null=True)
     Tithe_Of_Tithes_Amount = models.IntegerField(default=0, blank=True, null=True)  
     Savings_Amount = models.IntegerField(default=0, blank=True, null=True)  
+    Seed_Amount = models.IntegerField(default=0, blank=True, null=True) 
     Other_Expenses_Amount = models.IntegerField(default=0, blank=True, null=True)
     
     Transport = models.IntegerField(default=0, blank=True, null=True)  
     Lunch = models.IntegerField(default=0, blank=True, null=True)
     Data_or_airtime = models.IntegerField(default=0, blank=True, null=True)
+    Renovation = models.IntegerField(default=0, blank=True, null=True)
+    Stationery = models.IntegerField(default=0, blank=True, null=True)
     
     Reason_filtering=models.CharField(max_length=1000, blank=True, null=True)
     Other_Expenditure=models.CharField(max_length=1000, blank=True, null=True)

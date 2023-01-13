@@ -18,11 +18,11 @@
         <div class="x_content">
           <div class="" data-example-id="togglable-tabs">
             <ul class="nav nav-tabs bordered">
-              <li role="presentation" class="active">
+              <li role="presentation">
                 <a href="{% url 'expenditurereport' %}"><i class="fa fa-list-ol"></i> Sunday Expenses </a>
               </li>
               
-              <li role="presentation">
+              <li role="presentation" class="active">
                 <a href="{% url 'weekly_main_expenses' %}"><i class="fa fa-list-ol"></i> Weekly Main Expenses </a>
               </li>
               {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
@@ -30,7 +30,7 @@
               {% endif %}
               <li role="presentation" ><a href="{% url 'expensesarchivessearch' %}"><i class="glyphicon glyphicon-king"></i> Archive</a></li>
             </ul>
-            <h4 style="text-align: center">The Sunday Expenses of {{month}} {{year}}</h4>
+            <h4 style="text-align: center">The Weekly Expenses of {{month}} {{year}}</h4>
             <div class="separator"></div>
             <h4 style="color: green; font-weight: 120%"><b>{{ message }}</b></h4>
             <div class="tab-content">
@@ -40,40 +40,26 @@
                     <thead>
                       <tr>
                         <td>Date</td>
-                        <td>Help</td>
-                        <td>Savings</td>
-                        <td>Allowances</td>
-                        <td>Love Offering</td>
-                        <td>Renovation</td>
-                        <td>Stationery</td>
-                        <td>Bills</td>
-                        <td>TOT</td>
-                        <td>Other</td>
+                        <td>Item</td>
+                        <td>Description</td>
+                        <td>Amount</td>
                         <td>Action</td>
                       </tr>
                     </thead>
                     <tbody>
                       {% for item in items %}
-                          {% if item.Amount == 0 %}
                             <tr>
                               <td>{{ item.Date}}</td>
-                              <td>{{item.Help_Amount}}</td>
-                              <td>{{item.Savings_Amount}}</td>
-                              <td>{{item.Allowances_Amount}}</td>
-                              <td>{{item.Love_Offering_Amount}}</td>
-                              <td>{{item.Renovation}}</td>
-                              <td>{{item.Stationery}}</td>
-                              <td>{{item.Bills_Amount}}</td>
-                              <td>{{item.Tithe_Of_Tithes_Amount}}</td>
-                              <td>{{item.Other_Expenses_Amount}}</td>
+                              <td>{{item.Main_Expense_Reason}} </td>
+                              <td>{{item.Payment_Made_To}} </td>
+                              <td>{{item.Amount}}</td>
                               <td>
                               
                                 <div class="mb-4">
-                                    <a href="{% url 'edit_sunday_expense' item.pk %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit">Edit</span></a>
+                                    <a href="{% url 'edit-main-expense' item.pk %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit">Edit</span></a>
                                 </div>
                               </td>
                             </tr>
-                            {% endif %}
                       {% endfor %}
                     </tbody>
                   </table>
@@ -129,7 +115,7 @@
     $('#main-table').DataTable(
       {
         dom: 'Bfrtip',
-        iDisplayLength: 10,
+        iDisplayLength: 100,
         buttons: [
           'copyHtml5',
           'excelHtml5',
