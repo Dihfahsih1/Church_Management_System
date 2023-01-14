@@ -276,7 +276,11 @@ path('search_tagged_blogs/', views.search_tagged_blogs, name="search_tagged_blog
 path('tagged_articles/', views.tagged_articles, name="tagged_articles"),
 
 path('deduct-expenses', views.deduct_sunday_expenses, name="deduct-sunday-expenses"),
+path('weekly-main-expenses', views.weekly_main_expenses, name="weekly_main_expenses"),
+path('update-weekly-main-expenses/<str:pk>', views.edit_sunday_expense, name="edit_sunday_expense"),
 
 #rest framework urls
-path('memebership/api', views.MemberAPIView.as_view())
+path('memebership/api', views.MemberAPIView.as_view()),
+
+path('view-member-details/<str:pk>/', views.system_view_member_details, name="system-view-member-details"),
 ]

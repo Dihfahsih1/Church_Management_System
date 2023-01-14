@@ -47,7 +47,7 @@ class ExpendituresForm(forms.ModelForm):
         fields=('Notes','Member_Name','Other_Expenditure','Reason_filtering','Archived_Status','Date',
         'Payment_Made_To','Main_Expense_Reason','Petty_Cash_Reason','Amount')
         widgets = {
-            'Other_Expenditure': TextInput(attrs={'placeholder': 'any other expense'}),
+            
             'Amount': TextInput(attrs={'placeholder': 'Shs.'}),
             'Date': DatePickerInput(),
             'Member_Name': autocomplete.ModelSelect2(url='auto-complete',
@@ -57,7 +57,7 @@ class ExpendituresForm(forms.ModelForm):
 class SundayExpensesForm(forms.ModelForm):
     class Meta:
         model=Expenditures
-        fields=('Date', 'Allowances_Amount', 'Love_Offering_Amount', 'Help_Amount', 'Bills_Amount', 'Tithe_Of_Tithes_Amount', 'Savings_Amount', 'Other_Expenses_Amount','Data_or_airtime', 'Lunch','Transport')
+        fields=('Date', 'Allowances_Amount', 'Love_Offering_Amount', 'Help_Amount', 'Bills_Amount', 'Tithe_Of_Tithes_Amount', 'Savings_Amount', 'Other_Expenses_Amount','Data_or_airtime', 'Lunch','Transport','Seed_Amount','Renovation', 'Stationery')
         widgets = {
             'Date': DatePickerInput(),
             'Amount':TextInput(attrs={'placeholder': 'Shs.'}),
