@@ -33,7 +33,7 @@ django-widget-tweaks==1.4.8
 djangorestframework==3.12.4
 docutils==0.16
 fleep==1.0.1
-future==0.18.2
+future==0.18.3
 heroku==0.1.4
 html5lib==1.1
 idna==2.10
