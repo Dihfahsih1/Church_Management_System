@@ -50,7 +50,7 @@ pycparser==2.20
 Pygments==2.8.0
 pymemcache==3.4.1
 pyparsing==2.4.7
-PyPDF2==1.26.0
+PyPDF2==1.27.5
 pyquery==1.4.3
 python-bidi==0.4.2
 python-dateutil==1.5
