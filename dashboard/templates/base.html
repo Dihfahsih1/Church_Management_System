@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+{% block head %}
+    {% block meta %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% endblock meta %}
+
+    {% load staticfiles %}
+    {% load bootstrap4 %} {# import bootstrap4/bootstrap3 #}
+    {% bootstrap_javascript jquery='full' %} {# Embed Bootstrap JS+jQuery #}
+    {{ form.media }} {# Adds date-picker required JS and CSS #}
+<title>UCC Bwaise</title>
+    {% block stylesheets %}
+     <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+     <script src="{% static 'js/jquery-3.3.1.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    {% endblock stylesheets %}
+    
+    
+{% endblock head %}
+</head>
+
+<body>
+    <br>
+<nav class="nav navbar-expand navbar-dark bg-dark">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    {% if user.is_authenticated %}
+    <div class="collapse navbar-collapse" id="navbarExample02">
+
+        <ul class="navbar-nav mr-auto">
+         {% with url_name=request.resolver_match.url_name %}
+             <li class="nav-item {% if url_name == 'members-register' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'members-register'  %}">Register Members</a>
+            </li>
+             <li class="nav-item {% if url_name == 'visitors-register' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'visitors-register'  %}">Register Visitors</a>
+            </li>
+            <li class="nav-item {% if url_name == 'Enter_Offerings' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'Enter_Offerings'  %}">Record Offerings</a>
+            </li>
+             <li class="nav-item {% if url_name == 'Enter_Tithes' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'Enter_Tithes'  %}">Record Tithes</a>
+            </li>
+            <li class="nav-item {% if url_name == 'Enter_Pledges' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'Enter_Pledges'  %}">Record Pledges</a>
+            </li>
+
+            <li class="nav-item {% if url_name == 'enter_expenditure' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'enter_expenditure'  %}">Record Main Expenses</a>
+            </li>
+
+            <li class="nav-item {% if url_name == 'enter_sundryexpense' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'enter_sundryexpense'  %}"> Record Petty Expenses</a>
+            </li>
+
+            <li class="nav-item {% if url_name == 'pay_salary' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'pay_salary'  %}">Record Allowances</a>
+            </li>
+
+
+            <li class="nav-item {% if url_name == 'Pledgesreport' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'Pledgesreport'  %}">Monthly Reports</a>
+            </li>
+
+            <li class="nav-item {% if url_name == 'tithessarchivessearch'%}active{% endif %}">
+            <a class="nav-link" href="{% url 'tithesarchivessearch' %}">All Archived Records</a>
+            </li>
+
+           <li class="nav-item {% if url_name == 'archived-pledge-debts'%}active{% endif %}">
+            <a class="nav-link" href="{% url 'archived-pledge-debts' %}">Archived Pledge Debts</a>
+            </li>
+
+
+         {% endwith %}
+      </ul>
+
+      <!--
+     Form for searching
+
+     <form class="form-inline my-2 my-md-8">
+        <input class="form-control " type="text">
+      </form>-->
+    </div>
+  
+  <li class="nav-item active float-lg-right" >
+       <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+    </li>
+   {% else %} 
+   <li class="nav-item active float-lg-right" >
+       <a class="nav-link" href="{% url 'login' %}">Login</a>
+    </li>
+    <li class="nav-item active float-lg-right" >
+       <a class="nav-link" href="{% url 'register' %}">Register</a>
+    </li>
+  {% endif %}
+</nav>
+
+
+{% block body %}
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-success">
+     <h1> {{ message }} </h1>
+    </div>
+  {% endfor %}
+{% endif %}
+{% endblock %}
+{% block javascripts %}
+        <!-- jQuery -->
+        <script src="/static/vendors/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="/static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="/static/vendors/iCheck/icheck.min.js"></script>
+         <!-- bootstrap-daterangepicker -->
+        <script src="/static/vendors/moment/min/moment.min.js"></script>
+        <script src="/static/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+  {% endblock %}      
+</body>
+</html>

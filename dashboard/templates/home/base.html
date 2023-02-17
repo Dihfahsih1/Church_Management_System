@@ -1,0 +1,466 @@
+<html>
+ 
+    {% load static theme_tags %}
+    {% load static contact_tags page_tags %}
+    {% load bootstrap4 %} {# import bootstrap4/bootstrap3 #}
+    {% bootstrap_javascript jquery='full' %} {# Embed Bootstrap JS+jQuery #}
+    {{ form.media }} {# Adds date-picker required JS and CSS #}
+    <title>{% block title %} {% endblock %}</title>
+        
+            
+            <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+            <meta name="created" content="{% now "jS M Y h:i" %}" />
+            <meta name="viewport" content="width=device-width" />
+            <meta name="keywords" content="UCC Bwaise Mission is Why are you alive - Lwaki Oli Mulamu, UCC Bwaise Vision is To Discover and Do The Will of God" />
+            <meta name="author" content="Creator's Mind International Ministry" />
+            <!--<meta property="og:description" content="A church where Christians are taught discovering and doing God's will in their lives to help them understand the reason as to why they are alive"/>-->
+      
+            <!-- Facebook and Twitter integration -->
+            <!--<meta property="og:title" content="UCC Bwaise"/>-->
+            <!--<meta property="og:image" content="UCC Bwaise"/>-->
+            <!--<meta property="og:url" content="https://www.uccbwaise.org/Articles/"/>-->
+            <meta name="robots" content="NOARCHIVE,NOCACHE" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            
+            <link rel="shortcut icon"  href="{% static 'img/favicon_io/android-chrome-192x192.png' %}"/>
+            <link rel="shortcut icon"  href="{% static 'img/favicon_ico/android-chrome-512x512.png' %}"/>
+            <link rel="shortcut icon"  href="{% static 'img/favicon_ico/apple-touch-icon.png' %}"/>
+            <link rel="shortcut icon"  href="{% static 'img/favicon_ico/favicon-16x16.png' %}"/>
+            <link rel="shortcut icon"  href="{% static 'img/favicon_ico/favicon-32x32.png' %}"/>
+            <link rel="shortcut icon"  href="{% static 'img/favicon_ico/favicon.ico' %}"/>
+            <!-- Meta, title, CSS, favicons, etc. -->
+            <meta charset="utf-8">
+            <meta charset="ISO-8859-15">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- Custom Theme Style -->
+        <link href="{% static 'build/css/custom.css' %}" rel="stylesheet">
+        
+        
+        <style>
+            .topnav {
+              overflow: hidden;
+              background-color: #333;
+            }
+            
+            .topnav a {
+              float: center;
+              color: #f2f2f2;
+              text-align: center;
+              padding: 5px 6px;
+              text-decoration: none;
+              font-size: 17px;
+            }
+            
+            .topnav a:hover {
+              background-color: #ddd;
+              color: black;
+            }
+            
+            .topnav a.active {
+              background-color: #4CAF50;
+              color: white;
+            }
+        </style>
+        
+        <!-- CSS -->
+        <link rel="stylesheet" href="{% static 'css/front/classy-nav.css' %}">
+        <link rel="stylesheet" href="{% static 'css/front/magnific-popup.css' %}">
+        <link rel="stylesheet" href="{% static 'css/front/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/front/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/front/jquery-ui.css' %}">
+        <link rel="stylesheet" href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/front/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/front/animate.css' %}">
+        <link rel="stylesheet" href="{% static 'css/front/meanmenu.css' %}">
+        <link rel="stylesheet" href="{% static 'css/front/jquery.fancybox.min.css' %}">
+        {% active_theme as active_flag %}
+        {% if active_flag == "slate-gray" %}
+        <link href="{% static 'css/front/theme/slate-gray.css' %}" rel="stylesheet">
+        
+        {% elif active_flag == "jazzberry-jam" %}
+        <link href="{% static 'css/front/theme/jazzberry-jam.css' %}" rel="stylesheet">
+        
+        {% elif active_flag == "black" %}
+        <link href="{% static 'css/front/theme/black.css' %}" rel="stylesheet">
+        
+        {% elif active_flag == "dark-orange" %}
+        <link href="{% static 'css/front/theme/dark-orange.css' %}" rel="stylesheet">
+        
+        {% elif active_flag == "deep-pink" %}
+        <link href="{% static 'css/front/theme/deep-pink.css' %}" rel="stylesheet">
+        
+        {% elif active_flag == "dodger-blue" %}
+        <link href="{% static 'css/front/theme/dodger-blue.css' %}" rel="stylesheet"> 
+        
+        {% elif active_flag == "light-sea-green" %}
+        <link href="{% static 'css/front/theme/light-sea-green.css' %}" rel="stylesheet">
+        
+        {% elif active_flag == "maroon" %}
+        <link href="{% static 'css/front/theme/maroon.css' %}" rel="stylesheet">
+        
+        {% elif active_flag == "medium-purple" %}
+        <link href="{% static 'css/front/theme/medium-purple.css' %}" rel="stylesheet">
+        
+        {% elif active_flag == "navy-blue" %}
+        <link href="{% static 'css/front/theme/navy-blue.css' %}" rel="stylesheet">
+        
+        {% elif active_flag == "radical-red" %}
+        <link href="{% static 'css/front/theme/radical-red.css' %}" rel="stylesheet">
+        
+        {% elif active_flag == "rebecca-purple" %}
+        <link href="{% static 'css/front/theme/rebecca-purple.css' %}" rel="stylesheet">
+        
+        {% elif active_flag == "red" %}
+        <link href="{% static 'css/front/theme/red.css' %}" rel="stylesheet">
+        
+        {% elif active_flag == "trinidad" %}
+        <link href="{% static 'css/front/theme/trinidad.css' %}" rel="stylesheet">
+        
+        {% elif active_flag == "umber" %}
+        <link href="{% static 'css/front/theme/umber.css' %}" rel="stylesheet">
+        
+        {% elif active_flag == "lime-green" %}
+        <link href="{% static 'css/front/theme/lime-green.css' %}" rel="stylesheet">
+        
+        {% else %}
+        <link href="{% static 'css/front/theme/slate-gray.css' %}" rel="stylesheet">
+        {% endif %}
+        <link rel="stylesheet" href="{% static 'css/front/responsive.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/top_header.css' %}">
+        
+        <script src="{% static 'js/front/jquery-ui.js' %}"></script>
+        <script src="{% static 'js/jquery.validate.js' %}"></script>
+              <style>
+              .carousel-inner img {
+                  width: 100%;
+                  height: 100%;
+              }
+              </style>
+              
+              {% if request.user.username == 'admin' %} <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=63b4a844caf2ee001a714c17&product=sticky-share-buttons&source=platform" async="async"></script>{% endif %}
+</head>
+<body>
+
+<header>
+    <div class="header-top-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-9 col-md-8 col-sm-12 col-12">
+                    
+                        
+                    <!--<div class="col-lg-6"style="margin-top:6px" > 
+                    <span><marquee onmouseover="this.stop();" onmouseout="this.start();" style="width:450px; color:white">-->
+                        
+                    <!--    <b>SUNDAY SERVICES:- 1st Service -- Time: 6:30am-10:00am    | -->
+                    <!--         2nd Service -- Time: 10:30am-1:30pm </b>-->
+                        
+                        
+                    <!--    </marquee></span> </div>-->
+                    
+                   <div class="hta-box">
+                        <span class="icon"><i class="fa fa-phone"></i></span>
+                       <p class="text">Call us Now 0772 614086</p>
+                    </div> 
+                    
+                   
+                    
+                    <div class="hta-box">
+                        <span class="icon"><i class="fa fa-envelope"></i></span>
+                       <p class="text">Email us : {% email_address %} </p>
+                    </div>
+                    
+                    
+                    <div class="hta-box">
+                        <a href="https://api.whatsapp.com/send?phone=256701614086"><span class="icon" target="_blank"><i class="fa fa-whatsapp"></i></span>
+                        <p class="text">Let's Whatsapp </p></a>
+                    </div>
+                </div>
+                 
+                    {% if request.user.is_authenticated %}                    
+                        <div class="hta-box">
+                            <a href="{% url 'member_profile' %}" >
+                                 <img src="{% static 'img/onlineIcon.png' %}"
+                                     alt="active" width="10px">
+                                {% if request.user.avatar %}
+                                        <img src="{{ request.user.avatar.url}}"
+                                     alt="active" width="20px">
+                                     
+                                     
+                                {% else %}
+                                
+                                     <img src="{% static 'img/default.png' %}"
+                                     alt="profile pic" width="20px">
+                                {% endif %}
+                               
+                                 
+                                 <i style="font-weight:100%; color: white">{{request.user.username}}</i>
+                             
+                             </a>
+                            
+                            <a class="text btn btn-primary" href="{% url 'logout' %}?next={{request.path}}"><span class="fa fa-sign-out">Log Out</span></a>
+                        </div>
+                    {% else %}
+                        <div class="hta-box">                            
+                            <a class="text btn btn-danger" href="{% url 'MemberAccountRegister' %}"><span class="fa fa-group"> REGISTER NOW</span></a>
+                            
+                        </div>
+                        <div class="hta-box">                            
+                            <a class="text btn btn-primary" href="{% url 'login' %}?next={{request.path}}"><span class="fa fa-sign-out">Log In</span></a>
+                            
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+    </div>
+   
+   
+    <div class="header-bottom-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="logo">
+                        <a href="{% url 'index_public' %}">
+                            <!--<img src="{% static 'img/logo.png' %}">-->
+                            <img src="{% static 'img/uccbwaise-logo.jpeg' %}">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="menu">
+                        <nav id="mobile_menu_active">
+                            <ul id="menu">
+                                <li><a href="{% url 'index_public' %}">HOME</a>
+                                </li>
+                                
+                                <li><a href="{% url 'church_details' %}" {% if request.get_full_path == '/church-details' or request.get_full_path == '/Church-Mission' or request.get_full_path == '/Church/Vision' or request.get_full_path == '/core-values'  %} class="active"{% endif %}>ABOUT</a>
+                                </li>
+                                
+                                 <li><a {% if request.get_full_path == '/feedback'  %} class="active"{% endif %} href="{% url 'contact' %}">CONTACT</a>
+                                </li>
+                                
+                                 <li><a {% if request.get_full_path == '/Ministry/'  %} class="active"{% endif %} href="{% url 'ministry-wall' %}">MINISTRIES</a>
+                                </li>
+                                
+                                 <li><a href="{% url 'MemberAccountRegister' %}" {% if request.get_full_path == '/church-membership'  %} class="active"{% endif %}>MEMBERSHIP</a>
+                                </li>
+                                
+                                <li><a {% if request.get_full_path == '/galleries/'  %} class="active"{% endif %} href="{% url 'gallery_wall' %}">GALLERY</a>
+                                </li>
+                               
+                                
+                                <li><a {% if request.get_full_path == '/UCC-Bwaise-Blog/'  %} class="active"{% endif %} href="{% url 'blogs_wall' %}">BLOG</a>
+                                </li>
+                             
+                               
+                              
+                            </ul>
+                        </nav>
+                    </div>
+                </div><br><br>
+             <!--fade up notification upon successful redirect-->
+            {% if messages %}
+            <div class="col-lg-8" style="float: right" id="hideMe">
+                <div class="alert alert-info" id="success-alert">
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                    <ul>
+                        {% for message in messages %}
+                        <h1 style="font-weight: bolder" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h1>
+                        {% endfor %}
+                    </ul>
+            </div>
+            </div>       
+            {% endif %} 
+            </div>
+        </div>
+    </div>
+</header>
+{% block content %}
+<div class="sharethis-sticky-share-buttons"></div>
+{% endblock content %}
+{% include "home/scripts.html" %}
+
+<!-- footer content -->`
+<div class="row" style="margin-right:0.1px">
+    <div class=" container-fluid" id="program">
+        <div class="footer-top-area">
+            <div class="row" style="margin-left: 5px">
+                <div class="col-lg-6">
+                    <div class="footer-widget">
+                        <h2 class="fw-title" style="text-align: center"><span> UCC Bwaise Weekly Services</span></h2>
+                        <p class="text">
+                            <style type="text/css">
+                                b {
+                                    font: 500px;
+                                }
+                            </style>
+                        <div class="row">
+                            <div class="col-lg-6" style=" color: white; font-size:15px ">
+                                <b><u>Monday</u></b><br>
+                                Prayer Alter (10:00am - 4:00pm)<br>
+                                Ministers Classes (5:00pm - 8:00pm)<br>
+                                
+                                <b><u>Tuesday</u></b><br>
+                                Home Cells (5:00pm - 8:00pm)<br>
+                                <b><u>Wednesday</u></b><br>
+                                Revival Service (5:00pm - 7:00pm)<br>
+                                Men's Service (7pm - 9pm)
+
+                                <b><u>Thursday</u></b><br>
+                                Counselling (10:00am - 5:00pm)<br>
+                                Women Fellowship (5:00pm - 7:00pm)<br>
+                                Youth Service (7pm - 9pm)
+                                
+                            </div>
+                            <div class="col-lg-6" style=" color: white; font-size:15px ">
+                                <b><u>Friday</u></b><br>
+                                Bible Study (5:00pm - 7:00pm)<br>
+                                Overnight Prayers (8pm - 5am)<br>
+                                <b><u>Saturday</u></b><br>
+                                Choir Practices<br>
+                                <b><u>Sunday</b></u><br>
+                                Lwaki oli Mulamu program on Innerman 107.5 (6:30-7:00am)</br>
+                                1st Service (6:30am - 10:00am)</br>
+                                2nd Service (10:00am - 1:30pm)</br>
+                            </div>
+                        </div>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="footer-widget">
+                        <h3 class="fw-title"><span>Support the Ministry</span></h3>
+                        <div style="color: white; font-size:15px ">
+                            To be a blessing to this Ministry, you may send in your donations using the following details:<br>
+                            <span><b>Mobile Money:</b></span><br><span>+256 772 309173 <br> +256 705 487443 (Yusuf Lule)</span><br>
+                            <span><b>Church Bank Account</b></span><br>
+                            <span>Account Name: United Christian Centre Bwaise</span><br>
+                            <span>Account Number: 214257000025 </span><br>
+                            <span>(FINANCE TRUST BANK)</span>
+
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="footer-widget">
+                        <h2 class="fw-title">Get in Touch</h2>
+                        <ul class="address" style=" color: white; font-size:15px ">
+                            <li><span class="icon"><i class="fa fa-phone"></i></span>
+                                {% phone_number %}
+
+                            </li>
+                            <li><span class="icon"><i class="fa fa-envelope"></i></span>
+                                {% email_address %}
+                            </li>
+                            <li><span class="icon"><i class="fa fa-map-marker"></i></span>
+                                {% church_address %}
+                            </li>
+                            <li> <span class="icon"><i class="fa fa-pencil"> P.O.Box</i></span>
+                                {% Post_Office_Box %}
+                            </li>
+                            <li>
+                                <span class="icon"><i class="fa fa-book"></i></span><a href="{% url 'blogs_wall' %}" target="_blank"><b style=" color: white; font-size:15px ">Christian Blogs</b></a>
+                            </li>
+                        </ul><br>
+                        <ul class="social">
+                            <li><a href="{% facebook %}" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                            <li style><a href="{% youtube%}" target="_blank"><i class="fa fa-youtube"></i></a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    
+        <div class="footer-bottom-area">
+            <div class="container">
+                <p class="copyright" style="text-align: center;">
+                    {% church_footer %}
+                    <script>new Date().getFullYear() > 2010 && document.write(" - " + new Date().getFullYear());</script> |
+                    Website Designed and Maintained by<a href="https://dihfahsih.com" target="_blank"> <b
+                            style="font-size: 90%; color: yellow"> Mugoya Dihfahsih</b></a>
+                </p>
+                
+                <!--{% if user.is_authenticated %}-->
+                <!--    <a class="text btn btn-primary" href="{% url 'logout' %}"><span class="fa fa-sign-out">Log Out</span></a>-->
+
+                <!--{% else %}-->
+                <!--<a class="text btn btn-primary" href="{% url 'login' %}"><span class="fa fa-sign-in">Login</span></a>-->
+                <!--{% endif %}-->
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<style>
+    .active {
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        height: auto;
+        background:gray
+    }
+
+    .wrapper {
+        max-width: 100% !important;
+        margin: 0px;
+    }
+    
+    
+    /* disappear the notification after 5seconds*/
+#hideMe {
+            -moz-animation: cssAnimation 0s ease-in 5s forwards;
+            /* Firefox */
+            -webkit-animation: cssAnimation 0s ease-in 5s forwards;
+            /* Safari and Chrome */
+            -o-animation: cssAnimation 0s ease-in 5s forwards;
+            /* Opera */
+            animation: cssAnimation 0s ease-in 5s forwards;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+        }
+@keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        overflow:hidden;
+    }
+}
+@-webkit-keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        visibility:hidden;
+    }
+}
+</style>
+
+<!-- Scripts -->
+    <!-- JQuery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
+<!-- jQuery UI !-->
+
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script src="{% static 'vendors/jquery-ui/jquery-ui.js' %}"></script>
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/counterup.min.js' %}"></script>
+<script src="{% static 'js/jquery.meanmenu.js' %}"></script>
+<script src="{% static 'js/jquery.fancybox.min.js' %}"></script>
+<script src="{% static 'js/jquery.scrollUp.js' %}"></script>
+<script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/theme.js' %}"></script>
+<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'build/js/custom.js' %}"></script>
+</body>
+</html>
+

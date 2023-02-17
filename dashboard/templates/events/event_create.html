@@ -1,0 +1,204 @@
+{% extends "app/base_site.html" %}
+
+{% block title %} Event {% endblock title %}
+
+{% load static i18n %}
+
+{% block javascript %}
+    <script src="{% static 'schools/js/events.js' %}"></script>
+{% endblock %}
+ {% load crispy_forms_tags %}
+{% block content %}
+    <div class="right_col" role="main">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h1 style="text-align: center;"><i class="fa fa-calendar-check-o"></i><b> EVENTS MODULE</b></h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                            </div>
+                        
+                            <div class="x_content quick-link">
+                                <span style="color:red"><b>Other Reports:</b></span>
+                                <a href="{% url  'expenditurereport' %}"> Main Expenses</a></li>
+                                |<a href="{% url 'general-expenses-report' %}"> General Expenses</a></li>
+                                |<a href="{% url 'Offeringsreport' %}"> Offerings</a></li>
+                                |<a href="{% url 'members-list' %}">Membership</a>
+                                |<a href="{% url 'Pledgesreport' %}"> Pledges</a></li>
+                                |<a href="{% url 'sundryreport' %}"> Petty Expenses</a></li>
+                                {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+                                |<a href="{% url 'allowancereport' %}"> Allowances</a></li>
+                                |<a href="{% url 'current-month-salaries' %}"> Salaries</a></li>
+                                |<a href="{% url 'Tithesreport' %}"> Tithes</a></li>
+                                |<a href="{% url 'donations-report' %}"> Doantions</a></li>
+                                |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a></li>
+                                {% endif %}
+                                <div class="separator"></div>
+                            </div>
+                            <h1 style="text-align: center;">Create Church Events</h1>
+                            <div class="separator"></div>
+                        <div class="" data-example-id="togglable-tabs">
+
+                            <ul class="nav nav-tabs bordered">
+                                <li role="presentation"><a href="{% url 'event_list' %}"><i
+                                        class="fa fa-list-ol"></i> Event List</a>
+                                </li>
+                                <li role="presentation" class="active"><a href="{% url 'event_create' %}"><i
+                                        class="fa fa-plus-square-o"></i> Add Event</a>
+                                </li>
+                            </ul>
+                            <br/>
+
+                            <div class="row">
+                                <div class="col-sm-offset-1 col-sm-8">
+
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade in active" id="tab_event_list">
+                                            <div class="x_content">
+
+                                                <form class="form-horizontal form-label-left"
+                                                      role="form"
+                                                      action=""
+                                                      method="post"
+                                                      enctype="multipart/form-data"
+                                                      accept-charset="utf-8">{% csrf_token %}
+                                                <div class="col-lg-6 center">
+                                                    <div class="form-group">
+                                                        {{ form.Activity_Type|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group" id="title">
+                                                        {{ form.event_title|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group" id="for">
+                                                        {{ form.event_for|as_crispy_field }}
+                                                    </div>
+                                                     <div class="form-group" id="place">
+                                                        {{ form.event_place|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group" id="from">
+                                                        {{ form.from_date|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group" id="to">
+                                                        {{ form.to_date|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group" id="image">
+                                                        {{ form.image|as_crispy_field }}
+                                                    </div>
+                                                    
+                                                    <div class="form-group" id="start">
+                                                        {{ form.Start_Time|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group" id="end">
+                                                        {{ form.End_Time|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group" id="day" >
+                                                        {{ form.Day|as_crispy_field }}
+                                                    </div>
+                                                     <div class="form-group" id="both">
+                                                        {{ form.note|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group" id="both">
+                                                        {{ form.Is_View_on_Web|as_crispy_field }}
+                                                    </div>
+
+                                                </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12 mb-0">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <hr>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <div class="col-sm-offset-4 col-sm-8">
+                                                            <a href="{% url 'gallery_list' %}"
+                                                               class="btn btn-outline-secondary"
+                                                               type="button">Cancel</a>
+                                                            <button type="submit" class="btn btn-success">Submit
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<script type="text/javascript">
+$("#id_Activity_Type").change(function () {
+if ($(this).val() === "Events") {
+    $('#div_id_event_title').show();
+    $('#div_id_event_for').show();
+    $('#div_id_event_place').show();
+    $('#div_id_from_date').show();
+    $('#div_id_to_date').show();
+    $('#div_id_image').show();
+
+    $('#div_id_Start_Time').hide();
+    $('#div_id_End_Time').hide();
+    $('#div_id_Day').hide();
+    $('#div_id_Note').hide();
+    $('#div_id_Is_View_on_Web').hide();
+
+} else {
+     $('#div_id_event_title').hide();
+    $('#div_id_event_for').hide();
+    $('#div_id_event_place').hide();
+    $('#div_id_from_date').hide();
+    $('#div_id_to_date').hide();
+    $('#div_id_image').hide();
+
+    $('#div_id_Start_Time').show();
+    $('#div_id_End_Time').show();
+    $('#div_id_Day').show();
+    $('#div_id_Note').show();
+    $('#div_id_Is_View_on_Web').show();
+
+}
+});
+$("#id_Activity_Type").trigger("change");
+</script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#event-table').DataTable({
+                    dom: 'Bfrtip',
+                    iDisplayLength: 15,
+                    buttons: [
+                        'copyHtml5',
+                        'excelHtml5',
+                        'csvHtml5',
+                        'pdfHtml5',
+                        'print',
+                        'pageLength'
+                    ],
+                    search: true,
+                    responsive: true
+                });
+            });
+
+        </script>
+    </div>
+
+{% endblock content %}
+
+{% block javascripts %}
+
+    {{ block.super }}
+
+{% endblock javascripts %}
+

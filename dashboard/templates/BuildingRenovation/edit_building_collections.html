@@ -1,0 +1,56 @@
+{% extends "app/base_site.html" %}
+{% block content %}
+<div class="right_col" role="main">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h1 style="text-align:center"><i class="fa fa-money"></i><b> BUILDING MODULE</b></h1>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                
+            <h1 style="text-align: center">Updating Building Collections</h1>
+            <div class="separator"></div>
+            <div class="x_content">
+                <div class="" data-example-id="togglable-tabs">
+                    <ul class="nav nav-tabs bordered">
+                        <li role="presentation" ><a href="{% url 'Building-Renovation-report' %}"><i
+                                    class="fa fa-list-ol"></i> Collections Report</a>
+                        </li>
+                        <li role="presentation"><a href="{% url 'record-building-collections' %}"><i
+                            class="fa fa-plus-square-o"></i> Record Building Collections</a>
+                        </li>
+                        <li role="presentation"><a href="{% url 'BuildingRenovationarchivessearch' %}"><i
+                          class="glyphicon glyphicon-king"></i> Archived Building Collections</a>
+                        </li>
+                        <li role="presentation" class="active"><a href="#"><i
+                            class="fa fa-edit-square-o"></i> Edit Collection</a>
+                        </li>
+                    </ul>
+                    <br/>
+					<div class="col-lg-6 col-offset-8 centered">
+					    <div class="col-md-10">
+					      {% load crispy_forms_tags %}
+						      <form method="post" enctype="multipart/form-data">
+						        {% csrf_token %}
+                                {{ form.Date|as_crispy_field}}
+                                {{ form.Service|as_crispy_field}}
+                                {{ form.Amount|as_crispy_field}}
+                                {{ form.Other_Notes|as_crispy_field}}
+                                <input type="hidden" id="build" name="Revenue_filter" value="build">
+						        <button type="submit" class="btn btn-primary" name="button">Submit</button>
+						      </form>
+					    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+{% endblock %}

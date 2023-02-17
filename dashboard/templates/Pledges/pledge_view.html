@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container">
+    <br><br>
+   
+    <h4>The pledge Made by {{ form.instance.Pledge_Made_By }}</h4>
+    <p>{{ message }}</p>
+
+     <table class="table table-hover" border="2">
+
+        <thead class="table-success">
+
+        <tr>
+            
+            <th>#PID</th>
+            <th>Reason</th>
+            <th>Amount Pledged</th>
+        </tr>
+        </thead>
+
+        <tbody>
+          <td style="width:15%">{{ form.instance.pk }}</td>
+          <td style="width:25%"> {{ form.instance.Reason }}</td>
+          <td style="width:35%">{{ form.instance.Amount_Pledged }}</td>
+        </tbody>
+      </table>  
+
+        <div class="row">
+          <div class="col-xs-12">
+              <button class="btn btn-default" onclick="window.print();"><i
+                      class="fa fa-print"></i> Print
+              </button>
+              <a href="{% url 'paying_pledges' form.instance.Pledge_Made_By.id %}">
+                  <button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i>
+                      Submit Payment
+                  </button>
+              </a>
+          </div>
+      </div>          
+
+
+  </div>
+
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends "app/base_site.html" %}
+{% block content %}
+<div class="right_col" role="main">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h1 class="head-title" style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i>
+                        <b>NEW CONVERTS MODULE</b></h1>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="" data-example-id="togglable-tabs">
+                        <ul class="nav nav-tabs bordered">
+                            <li role="presentation"><a href="{% url 'new_converts_list' %}"><i
+                                        class="fa fa-list-ol"></i>
+                                    Converts List</a>
+                            </li>
+                            {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+                            <li role="presentation"><a href="{% url 'record_new_convert' %}"><i class="fa fa-plus-square-o"></i> Add
+                                    New Convert</a>
+                            </li>
+                            <li role="presentation" class="active"><a href="#"><i class="fa fa-plus-square-o"></i> Edit
+                                    New Convert</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                        <br />
+                        <h3>Update Details of New Convert</h3>
+                        {% load crispy_forms_tags %}
+
+                        <form method="POST" enctype="multipart/form-data" action="">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.is_church_member|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0" id="born_again_before">
+                                    {{ form.born_again_before|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0" id="first">
+                                    {{ form.First_Name|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0" id="second">
+                                    {{ form.Second_Name|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0" id="member_name">
+                                    {{ form.member_name|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0" id="tel">
+                                    {{ form.Telephone|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Date_Of_Salvation|as_crispy_field }}
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary" name="button">Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#id_is_church_member").change(function () {
+        if ($(this).val() === "Yes") {
+            $('#member_name').show();
+            $('#born_again_before').hide();
+            $('#first').hide();
+            $('#second').hide();
+            $('#tel').hide();
+
+        } else {
+            $('#member_name').hide();
+            $('#born_again_before').show();
+            $('#first').show();
+            $('#second').show();
+            $('#tel').show();
+        }
+    });
+    $("#id_is_church_member").trigger("change");
+</script>
+{% endblock content %}

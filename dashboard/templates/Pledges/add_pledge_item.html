@@ -1,0 +1,91 @@
+
+{% extends "app/base_site.html" %}
+{% block content %}
+{% load humanize %}
+  <div class="right_col" role="main">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h1 style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i> <b>PLEDGES MODULE</b></h1>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content quick-link">
+            <span style="color:red"><b>Make Other Entries:</b></span>
+            <a href="{% url  'enter_expenditure' %}"> Main</a>
+            |<a href="{% url 'enter-general-expenses' %}"> General</a>
+            |<a href="{% url 'enter_sundryexpense' %}"> Petty</a>
+            |<a href="{% url 'Enter_Offerings' %}"> Offerings</a>
+            |<a href="{% url 'Enter_Tithes' %}"> Tithes</a>
+            |<a href="{% url 'Enter_Pledges' %}"> Pledges</a>
+            |<a href="{% url 'give-allowance' %}"> Allowances</a>
+            |<a href="{% url 'employee-list' %}"> Salaries</a>
+            |<a href="{% url 'record-donations' %}"> Doantions</a>
+            |<a href="{% url 'add-seeds' %}"> TGiving</a>
+            |<a href="{% url 'record-thanks-giving' %}"> TGiving</a>
+            |<a href="{% url 'members-register' %}"> Membership</a>
+            <div class="separator"></div>
+          </div>
+          
+                    <p>{{ message }}</p>
+          <div class="x_content">
+            <div class="" data-example-id="togglable-tabs">
+              <ul class="nav nav-tabs bordered">
+                <li role="presentation" class="active"><a href="{% url 'add-pledge-item' %}"><i
+                              class="fa fa-plus-square-o"></i> Add Pledge Item</a>
+                </li>
+                 <li role="presentation"><a href="{% url 'list-of-pledge-items' %}"><i
+                                      class="fa fa-plus-square-o"></i> Pledge Item List</a>
+                </li>
+                <li role="presentation" ><a href="{% url 'Pledgesreport' %}"><i
+                            class="fa fa-list-ol"></i> Pledges Made</a>
+                </li>
+                <li role="presentation"><a href="{% url 'Enter_Pledges' %}"><i
+                      class="fa fa-plus-square-o"></i> Record Pledges</a>
+                </li>
+                <li role="presentation"><a href="{% url 'pledgesarchivessearch' %}"><i
+                              class="fa fa-plus-square-o"></i> Pledges Archived</a>
+                </li>
+              </ul>
+              <h1 style="text-align: center">Create a pledge item </h1>
+              <div class="separator"></div>
+				{% load crispy_forms_tags %}
+
+        <div  class="col-lg-6 col-offset-8">
+				<form method="POST" enctype="multipart/form-data" >
+				{% csrf_token %}
+					    {{ form.Date|as_crispy_field }}
+					
+					    {{ form.Item_That_Needs_Pledges|as_crispy_field }}
+					
+					    {{ form.Amount_Needed|as_crispy_field }}
+					
+					    {{ form.Pledge_Deadline|as_crispy_field }}
+				
+				    <button type="submit" class="btn btn-primary" name="button">Submit</button>
+				</form>
+      </div>
+      <div  class="col-lg-6 col-offset-8">
+        <h4>List of all Pledge Items in {{current_year}}</h4>
+        <div class="separator"></div>
+        {% for item in items %}
+          <h5>{{forloop.counter}}. {{item.Item_That_Needs_Pledges}}  (Shs.{{item.Amount_Needed|intcomma}}) - <i style="font-size: 80%; color: red">{{item.Date}}</i> </h5><br>
+        {% endfor %}
+      </div>
+				
+			    </div>
+			   </div>
+			   </div>
+         <p style="color:red; font-size: 150%"><b>NB: </b> Please Use Different Item Name to avoid Conflict</p>
+			    </div>
+			  </div>
+			</div>
+}
+
+
+{% endblock content %}
+

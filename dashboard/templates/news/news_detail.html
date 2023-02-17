@@ -1,0 +1,128 @@
+{% extends 'home/base.html' %}
+{% block title %} {{ news.news_title }}{% endblock %}
+
+{% load comments %}
+{% block content  %}
+
+    <section class="page-breadcumb-area bg-with-black" style="margin-bottom:-7%">
+        <div class="container text-center">
+            <h2 class="title">Gospel Detail</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href="{% url 'news_wall' %}">Gospel</a></li>
+                <li><a href="javascript:void(0);">Sermon Detail</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="page-news-details-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                    <div class="page-news-details">
+
+                        <div class="banner">
+                            {% if news.image %}
+                                <img src="{{ news.image.url }}"
+                                     alt="">
+                            {% endif %}
+                        </div>
+
+                        <ul class="meta">
+                            <li class="info"><span class="icon"><i class="fa fa-user"></i></span> By {{ news.author }}
+                            </li>
+                            <li class="info"><span class="icon"><i class="fa fa-calendar"></i></span> {{ news.date }}
+                            </li>
+                        </ul>
+
+                        <h2 class="title">{{ news.news_title }}</h2>
+                        {% if news.audio_file %}
+                        <audio controls preload="auto">
+                            <source src=" {{news.audio_file.url}} " type="audio/mpeg">
+                        </audio>
+                        {% endif %}
+                        <p class="text" >{{ news.news|safe }}</p>
+                        
+                        
+                             <br><br>
+                          <h3 style="font:50px">
+                           Tags:
+                           {% for tag in news.tags.all %}
+                                <a href="{% url 'tagged_articles' %}?q={{tag}}" style="text-decoration:none"><button type="button" class="btn btn-default"><h4>{{ tag }}</h4> </button> </a>
+                             {% endfor %}
+                          </h3> 
+                        <hr >
+                            
+                         {% get_comment_count for news as comment_count %}
+                        <div class="py-4 text-center">
+                        <a href="{% url 'news_wall' %}">Back to list of Sermons</a>
+                        &nbsp;&sdot;&nbsp;
+                        {{ comment_count }} comment{{ comment_count|pluralize }}
+                        ha{{ comment_count|pluralize:"s,ve" }} been posted.
+                        </div>
+
+                        {% if comment_count %}
+                            <hr/>
+                            <div class="comments">
+                            {% render_comment_list for news %}
+                            </div>
+                        {% endif %}
+                        
+                            <div class="card card-block mb-5">
+                                <div class="card-body">
+                                    <h4 class="card-title text-center pb-3">Post your comment</h4>
+                                    {% render_comment_form for news %}
+                                </div>
+                            </div>
+                      
+                    </div>
+                </div>
+                <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-12">
+                    <div class="sidebar">
+                        <div class="sidebar-widget">
+                            <h2 class="sidebar-title">Popular Gospel</h2>
+                            <ul class="widget-news">
+                                {% for news in news_list %}
+                                    <li>
+                                        <a href="{% url 'news_detail' news.slug %}">
+                                         <span class="img">
+                                             {% if news.image %}
+                                                 <img src="{{ news.image.url }}" alt="">
+                                             {% endif %}
+                                         </span>
+
+                                            <span class="content">
+                                             <!--<span class="meta">-->
+                                             <!--    <span class="info"><span class="icon"><i-->
+                                             <!--            class="fa fa-user"></i></span> By  {{ news.author }}</span>-->
+                                             <!--    <span class="info"><span class="icon"><i-->
+                                             <!--            class="fa fa-calendar"></i></span> {{ news.date }}</span>-->
+                                             <!--</span>-->
+                                             <span class="title">{{ news.news_title }}</span>
+                                         </span>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% if news_list.has_other_pages %}
+                        <nav aria-label="Page navigation conatiner" style="text-align: center">
+                            <ul class="pagination justify-content-center">
+                                {% if news_list.has_previous %}
+                                <li><a href="?page={{ news_list.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+                                {% endif %}
+                                {% if news_list.has_next %}
+                                <li><a href="?page={{ news_list.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+</body>

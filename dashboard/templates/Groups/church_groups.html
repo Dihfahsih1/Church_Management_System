@@ -1,0 +1,480 @@
+{% extends "app/base_site.html" %}
+{% block content %}
+<div class="right_col" role="main">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+                <div class="x_title">
+                    <h1 class="head-title" style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b> CHURCH GROUPS MODULE</b></h1>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content quick-link">
+                    <span style="color:red"><b>Other Reports:</b></span>
+                    <a href="{% url  'expenditurereport' %}"> Main Expenses</a> 
+                    |<a href="{% url 'general-expenses-report' %}"> General Expenses</a> 
+                    |<a href="{% url 'Offeringsreport' %}"> Offerings</a> 
+                    |<a href="{% url 'Pledgesreport' %}"> Pledges</a> 
+                    |<a href="{% url 'sundryreport' %}"> Petty Expenses</a> 
+                    
+                    |<a href="{% url 'allowancereport' %}"> Allowances</a> 
+                    |<a href="{% url 'current-month-salaries' %}"> Salaries</a> 
+                    |<a href="{% url 'Tithesreport' %}"> Tithes</a> 
+                    |<a href="{% url 'donations-report' %}"> Doantions</a> 
+                    |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a>
+                    <div class="separator"></div>
+                </div>
+                {% endif %}
+                <p>{{ message }}</p>
+                <h1 class="head-title" style="text-align: center;">UCC Bwaise Church Groups</h1>
+                <div class="separator"></div>
+                <p>Please click on each module to see the group details</p>
+                <div class="x_content">
+                    <div class="" data-example-id="togglable-tabs">
+                        <ul class="nav nav-tabs bordered">
+                            <li role="presentation"><a href="{% url 'home-cells' %}"><i
+                                        class="glyphicon glyphicon-home"></i>
+                                    Home Cells</a>
+                            </li>
+                            <li role="presentation" class="active"><a href="{% url 'church-groups' %}"><i class="glyphicon glyphicon-cloud"></i> Church
+                                    Groups</a>
+                            </li>
+                        </ul>
+                        <br />
+                        <ul class="nav nav-tabs bordered">
+                            <li role="presentation">
+                                <button data-toggle="modal"
+                                 data-target="#able" style=" border-radius: 7%; background-color: yellow; padding: 30px; margin-left:20px">God Is Able
+                                    {% if request.user.full_name.Group == 'God is Able' %}
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                    </li>{% endif %}
+                                </button>
+                            </li>
+                            <li role="presentation">
+                                <button data-toggle="modal" data-target="#Issachar" style="background-color: green; padding: 30px;
+                                border-radius: 7%; margin-left:20px; color: white;">Issachar
+                                    {% if request.user.full_name.Group == 'Issachar' %}
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                    </li>{% endif %}
+                                </button>
+                            </li>
+                            
+                            <li role="presentation">
+                                
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#Winners" style="padding: 30px; margin-left:20px">Winners
+                                {% if request.user.full_name.Group == 'Winners' %}
+                                <span class="glyphicon glyphicon-ok"></span>
+                                </li>{% endif %}
+                                </button>
+                                
+                            
+                            <li role="presentation">
+                                <button class="btn btn-default" data-toggle="modal" data-target="#Biyinzika" style="padding: 30px; margin-left:20px">Biyinzika
+                                {% if request.user.full_name.Group == 'Biyinzika' %}
+                                <span class="glyphicon glyphicon-ok"></span>
+                                </li>{% endif %}
+                                </button>
+                            </li>
+                            <li role="presentation">
+                                <button class="btn btn-danger" data-toggle="modal" data-target="#Overcommers" style="padding: 30px; margin-left:20px">Overcommers
+                                {% if request.user.full_name.Group == 'Overcommers' %}
+                                <span class="glyphicon glyphicon-ok"></span>
+                                </li>{% endif %}
+                                </button>
+                            </li>
+                            <li role="presentation">
+                                <button  data-toggle="modal" data-target="#Victors" style=" color:white; border-radius: 7%; background-color: purple; padding: 30px; margin-left:20px">Victors
+                                {% if request.user.full_name.Group == 'Victors' %}
+                                <span class="glyphicon glyphicon-ok"></span>
+                                </li>{% endif %}
+                                </button>
+                            </li>
+                        </ul>
+                        <br />
+                        
+                        <!-- God is Able Modal -->
+                        <div class="modal fade" id="able" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class=" container modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">UCC BWAISE GROUPS</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4 class="text-danger" style="text-align: center;"><b>GOD IS ABLE GROUP</b></h4>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active" id="tab_invoice_list">
+                                                <div class="x_content">
+                                                    <table id="invoice-table" class="table table-bordered dt-responsive nowrap" cellspacing="0"
+                                                        width="100%" style="background-color: ghostwhite;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>First Name</th>
+                                                                <th>Second Name</th>
+                                                                <th>Address</th>
+                                                                <th>Telephone</th>
+                                                                <th>Status</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for item in able_group %}
+                                                            <tr>
+                                                                <td>{{ item.First_Name}}</td>
+                                                                <td>{{ item.Second_Name}}</td>
+                                                                <td>{{ item.Residence}}</td>
+                                                                <td>{{ item.Telephone}}</td>
+                                                                <td>{{ item.Marital_Status}}</td>
+                                                                <td>
+                                                                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+                                        
+                                                                    <div class="mb-4">
+                                                                        <a href="#" class="btn btn-info btn-sm"><span
+                                                                                class="fa fa-pencil-square-o"></span> Edit</a>
+                                        
+                                                                        <a href="#" class="btn btn-danger btn-sm "><span
+                                                                                class="glyphicon glyphicon-trash"></span> Delete</a>
+                                                                    </div>
+                                                                    {% endif %}
+                                                                </td>
+                                                            </tr>
+                                                            {% endfor%}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Issachar Modal -->
+                        <div class="modal fade" id="Issachar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class=" container modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">UCC BWAISE GROUPS</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4 class="text-danger" style="text-align: center;"><b>Issachar GROUP</b></h4>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active" id="tab_invoice_list">
+                                                <div class="x_content">
+                                                    <table id="invoice-table" class="table table-bordered dt-responsive nowrap" cellspacing="0"
+                                                        width="100%" style="background-color: ghostwhite;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>First Name</th>
+                                                                <th>Second Name</th>
+                                                                <th>Address</th>
+                                                                <th>Telephone</th>
+                                                                <th>Status</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for item in Issachar_group %}
+                                                            <tr>
+                                                                <td>{{ item.First_Name}}</td>
+                                                                <td>{{ item.Second_Name}}</td>
+                                                                <td>{{ item.Residence}}</td>
+                                                                <td>{{ item.Telephone}}</td>
+                                                                <td>{{ item.Marital_Status}}</td>
+                                                                <td>
+                                                                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+                        
+                                                                    <div class="mb-4">
+                                                                        <a href="#"
+                                                                            class="btn btn-info btn-sm"><span
+                                                                                class="fa fa-pencil-square-o"></span> Edit</a>
+                        
+                                                                        <a href="#"
+                                                                            class="btn btn-danger btn-sm "><span
+                                                                                class="glyphicon glyphicon-trash"></span> Delete</a>
+                                                                    </div>
+                                                                    {% endif %}
+                                                                </td>
+                                                            </tr>
+                                                            {% endfor%}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Winners Modal -->
+                        <div class="modal fade" id="Winners" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class=" container modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">UCC BWAISE GROUPS</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4 class="text-danger" style="text-align: center;"><b>Winners GROUP</b></h4>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active" id="tab_invoice_list">
+                                                <div class="x_content">
+                                                    <table id="invoice-table" class="table table-bordered dt-responsive nowrap" cellspacing="0"
+                                                        width="100%" style="background-color: ghostwhite;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>First Name</th>
+                                                                <th>Second Name</th>
+                                                                <th>Address</th>
+                                                                <th>Telephone</th>
+                                                                <th>Status</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for item in winners_group %}
+                                                            <tr>
+                                                                <td>{{ item.First_Name}}</td>
+                                                                <td>{{ item.Second_Name}}</td>
+                                                                <td>{{ item.Residence}}</td>
+                                                                <td>{{ item.Telephone}}</td>
+                                                                <td>{{ item.Marital_Status}}</td>
+                                                                <td>
+                                                                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+                        
+                                                                    <div class="mb-4">
+                                                                        <a href="#"
+                                                                            class="btn btn-info btn-sm"><span
+                                                                                class="fa fa-pencil-square-o"></span> Edit</a>
+                        
+                                                                        <a href="#"
+                                                                            class="btn btn-danger btn-sm "><span
+                                                                                class="glyphicon glyphicon-trash"></span> Delete</a>
+                                                                    </div>
+                                                                    {% endif %}
+                                                                </td>
+                                                            </tr>
+                                                            {% endfor%}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Biyinzika Modal -->
+                        <div class="modal fade" id="Biyinzika" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class=" container modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">UCC BWAISE GROUPS</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4 class="text-danger" style="text-align: center;"><b>Biyinzika GROUP</b></h4>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active" id="tab_invoice_list">
+                                                <div class="x_content">
+                                                    <table id="invoice-table" class="table table-bordered dt-responsive nowrap" cellspacing="0"
+                                                        width="100%" style="background-color: ghostwhite;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>First Name</th>
+                                                                <th>Second Name</th>
+                                                                <th>Address</th>
+                                                                <th>Telephone</th>
+                                                                <th>Status</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for item in biyinzika_group %}
+                                                            <tr>
+                                                                <td>{{ item.First_Name}}</td>
+                                                                <td>{{ item.Second_Name}}</td>
+                                                                <td>{{ item.Residence}}</td>
+                                                                <td>{{ item.Telephone}}</td>
+                                                                <td>{{ item.Marital_Status}}</td>
+                                                                <td>
+                                                                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+                        
+                                                                    <div class="mb-4">
+                                                                        <a href="#"
+                                                                            class="btn btn-info btn-sm"><span
+                                                                                class="fa fa-pencil-square-o"></span> Edit</a>
+                        
+                                                                        <a href="#"
+                                                                            class="btn btn-danger btn-sm "><span
+                                                                                class="glyphicon glyphicon-trash"></span> Delete</a>
+                                                                    </div>
+                                                                    {% endif %}
+                                                                </td>
+                                                            </tr>
+                                                            {% endfor%}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Overcommers Modal -->
+                        <div class="modal fade" id="Overcommers" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class=" container modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">UCC BWAISE GROUPS</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4 class="text-danger" style="text-align: center;"><b>Overcommers GROUP</b></h4>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active" id="tab_invoice_list">
+                                                <div class="x_content">
+                                                    <table id="invoice-table" class="table table-bordered dt-responsive nowrap" cellspacing="0"
+                                                        width="100%" style="background-color: ghostwhite;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>First Name</th>
+                                                                <th>Second Name</th>
+                                                                <th>Address</th>
+                                                                <th>Telephone</th>
+                                                                <th>Status</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for item in overcomers_group %}
+                                                            <tr>
+                                                                <td>{{ item.First_Name}}</td>
+                                                                <td>{{ item.Second_Name}}</td>
+                                                                <td>{{ item.Residence}}</td>
+                                                                <td>{{ item.Telephone}}</td>
+                                                                <td>{{ item.Marital_Status}}</td>
+                                                                <td>
+                                                                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+                        
+                                                                    <div class="mb-4">
+                                                                        <a href="#"
+                                                                            class="btn btn-info btn-sm"><span
+                                                                                class="fa fa-pencil-square-o"></span> Edit</a>
+                        
+                                                                        <a href="#"
+                                                                            class="btn btn-danger btn-sm "><span
+                                                                                class="glyphicon glyphicon-trash"></span> Delete</a>
+                                                                    </div>
+                                                                    {% endif %}
+                                                                </td>
+                                                            </tr>
+                                                            {% endfor%}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Victors Modal -->
+                        <div class="modal fade" id="Victors" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class=" container modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">UCC BWAISE GROUPS</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4 class="text-danger" style="text-align: center;"><b>Victors GROUP</b></h4>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active" id="tab_invoice_list">
+                                                <div class="x_content">
+                                                    <table id="invoice-table" class="table table-bordered dt-responsive nowrap" cellspacing="0"
+                                                        width="100%" style="background-color: ghostwhite;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>First Name</th>
+                                                                <th>Second Name</th>
+                                                                <th>Address</th>
+                                                                <th>Telephone</th>
+                                                                <th>Status</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for item in victors_group %}
+                                                            <tr>
+                                                                <td>{{ item.First_Name}}</td>
+                                                                <td>{{ item.Second_Name}}</td>
+                                                                <td>{{ item.Residence}}</td>
+                                                                <td>{{ item.Telephone}}</td>
+                                                                <td>{{ item.Marital_Status}}</td>
+                                                                <td>
+                                                                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+                        
+                                                                    <div class="mb-4">
+                                                                        <a href="#"
+                                                                            class="btn btn-info btn-sm"><span
+                                                                                class="fa fa-pencil-square-o"></span> Edit</a>
+                        
+                                                                        <a href="#"
+                                                                            class="btn btn-danger btn-sm "><span
+                                                                                class="glyphicon glyphicon-trash"></span> Delete</a>
+                                                                    </div>
+                                                                    {% endif %}
+                                                                </td>
+                                                            </tr>
+                                                            {% endfor%}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <h1 style="color: khaki;">Hey {{request.user.full_name.Initials}}
+                        {{request.user.full_name.First_Name}}
+                        your group is {{request.user.full_name.Group}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

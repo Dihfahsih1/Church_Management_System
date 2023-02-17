@@ -1,0 +1,261 @@
+{% extends "app/base_site.html" %}
+{% block content %}
+<div class="right_col" role="main">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                        <h1 class="head-title" style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b>CHURCH MEMBERSHIP
+                                MODULE</b></h1>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+               
+                <h1 class="head-title" style="text-align: center;"><b>Edit Details of {{ item }}</b></h1>
+                <div class="separator"></div>
+                <div class="x_content">
+                    <div class="" data-example-id="togglable-tabs">
+                        <ul class="nav nav-tabs bordered">
+                            <li role="presentation"><a href="{% url 'members-list' %}"><i class="fa fa-list-ol"></i>
+                                    Memebers List</a>
+                            </li>
+                           
+                            <li role="presentation"  class="active"><a href="#"><i class="fa fa-plus-square-o"></i> Edit Member                                  Member</a>
+                            </li>
+                            {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+                            <li role="presentation"><a href="{% url 'members-register' %}"><i
+                                        class="fa fa-plus-square-o"></i> Add Member</a>
+                            </li>
+                            <li role="presentation"><a href="{% url 'members-archived' %}"><i
+                                class="fa fa-list-ol"></i> Archived Members</a>
+                            </li>
+                            <li role="presentation"><a href="{% url 'un-approved-list'%}"> <i class="fa fa-list-ol"></i>Unapproved</a></li>
+                    
+                            {% endif %}
+                        </ul>
+                        <br />
+                        {% load crispy_forms_tags %}
+
+                        <form method="POST" action="" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group col-md-12 mb-0">
+
+                                    <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                                        <strong>Basic Information:</strong>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Initials|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.First_Name|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Second_Name|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Date_Of_Birth|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Gender|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Group|as_crispy_field }}
+                                </div>
+
+                            </div>
+
+                            <div class="form-row">
+
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Telephone|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Email|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Residence|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Home_Cell|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Photo|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-12 mb-0">
+
+                                    <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                                        <strong>Marriage Information:</strong>
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <div class="form-row">
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Marital_Status|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0" id="Marriage_Kind">
+                                    {{ form.Marriage_Kind|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-12 mb-0">
+
+                                    <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                                        <strong>Profession Information:</strong>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Education_Level|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Profession|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0" id="work">
+                                    {{ form.Type_of_Work|as_crispy_field }}
+                                </div>
+
+                                <div class="form-group col-md-3 mb-0" id="place">
+                                    {{ form.Place_of_Work|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-12 mb-0">
+
+                                    <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                                        <strong>More Residence Information:</strong>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Country|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.County|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Parish|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.District|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Sub_County|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Village|as_crispy_field }}
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-row">
+                                <div class="form-group col-md-12 mb-0">
+
+                                    <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                                        <strong>Next Of Kin Information:</strong>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Name_Of_Next_Of_Kin|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Contact_Of_Next_Of_Kin|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Residence_Of_Next_Of_Kin|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-12 mb-0">
+
+                                    <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                                        <strong>Faith Information:</strong>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Date_Of_Salvation|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Date_Of_Joining_UCC_Bwaise|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Ministry_Involved_In|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.Is_View_on_Web|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.More_Info|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    {{ form.is_active|as_crispy_field }}
+                                </div>
+
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-12 mb-0">
+                                    <br></br>
+                                </div>
+                            </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" name="button">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+    $("#id_Marital_Status").change(function () {
+        if ($(this).val() === "Married") {
+            $('#Marriage_Kind').show();
+
+        } else {
+            $('#Marriage_Kind').hide();
+        }
+    });
+    $("#id_Marital_Status").trigger("change");
+
+    $("#id_Profession").change(function () {
+        if ($(this).val() === "Employed") {
+            $('#work').show();
+            $('#place').show();
+
+        } else {
+            $('#work').hide();
+            $('#place').hide();
+        }
+    });
+    $("#id_Profession").trigger("change");
+
+
+</script>
+{% endblock content %}

@@ -1,0 +1,72 @@
+<form method="post" action="{% url 'church_view' form.instance.pk %}" class="js-school-view-form"
+      enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="modal-lg modal-notify modal-info" tabindex="-1" role="document" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h1 style="text-align: center;">All Church Information</h1>
+                <div class="separator"></div>
+            </div>
+            <div class="modal-body">
+                <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                    <div id="myTabContent" class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade active in" id="tab_content1"
+                             aria-labelledby="basic-tab">
+                            <p></p>
+                            <table id="tablePreview" class="table table-bordered table-striped">
+                                <!--Table head-->
+                                <tbody>
+                                    <tr>
+                                        <th style="font-size: 16px;">Church Logo</th>
+                                        <td>
+                                            {% if form.instance.Church_Logo %}
+                                            <img src="{{ form.instance.Church_Logo.url }}" width="150" />
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="font-size: 16px;">Church Name</th>
+                                        <td>{{ form.instance.church_name }}</td>
+                                        <th style="font-size: 16px;">Status</th>
+                                        <td>{{ form.instance.status }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="font-size: 16px;">Church Vision</th>
+                                        <td>{{ form.instance.church_vision }}</td>
+                                        <th style="font-size: 16px;">Church Mission</th>
+                                        <td>{{ form.instance.church_mission }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="font-size: 16px;">Founding Date</th>
+                                        <td>{{ form.instance.registration_date }}</td>
+                                        <th style="font-size: 16px;">Email Address</th>
+                                        <td>{{ form.instance.email_address }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="font-size: 16px;">P.O.BOX</th>
+                                        <td>{{ form.instance.Post_Office_Box }}</td>
+                                        <th style="font-size: 16px;">Physical Address</th>
+                                        <td>{{ form.instance.address }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="font-size: 16px;">Facebook Address</th>
+                                        <td><a href="{{form.instance.facebook_url}}"><b>Visit Facebook Page</b></a></td>
+                                        <th style="font-size: 16px;">Youtube Address</th>
+                                        <td><a href="{{form.instance.youtube_url}}"><b>Visit YouTube Channel</b></a> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</form>

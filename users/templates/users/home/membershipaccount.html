@@ -1,0 +1,48 @@
+{% extends 'home/base.html' %}
+
+{% block title %}UCC Bwaise | Membership {% endblock title %} 
+{% block content %}
+   
+   <hr>
+   
+	{% load crispy_forms_tags static %}
+	<style>
+	    p{
+	        font-size:16px;
+	        color:black;
+	    }
+	</style>
+	<div class="row">
+	    <div class="container">
+	    		<div class="col-lg-7 jumbotron">
+					<h1 class="display-4">Church Membership</h1>
+					<hr class="my-4">
+				
+					<img src="{% static 'img/members.png' %}">
+					<hr class="my-4">
+					<p>As a church, we believe in both spiritual and physical growth. We are open to new membership in our congregation and various departments. 
+					</p>
+					<hr class="my-4">
+					<p>If you find yourself interested in being part of God's work in our midst, we request that you fill in our online membership form and one of our representatives will get back to you after. 
+					</p>
+				</div>
+			    <div class="col-lg-5" >	
+			    <h3 style="text-align:center" class="title">Membership form</h3>
+				    <form method="POST" enctype="multipart/form-data">
+					{% csrf_token %}
+						<fieldset class="form-group">
+							<div class="separator"></div>	
+							<div class="form-group">
+							{{ form|crispy}}
+						    </div>		
+						</fieldset>
+						<div class="form-group">
+							<button class="btn btn-primary" type="submit"> Submit</button> 
+						</div>
+				    </form>
+					<p>Please if you created already an account and you forgot your password, just<a href="{% url 'password_reset' %}" style="color:red"><u> RESET YOUR PASSWORD</u></a></p>
+			</div>
+		</div>
+		   
+	</div>
+{% endblock %}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tithe Collection</title>
+
+        {% load static %}
+        {% load humanize %}
+
+    <link type="text/css" rel="stylesheet" href="{% static '/css/bootstrap.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static '/styles.css' %}"/>
+       <style type="text/css">
+
+           @page {
+            size: A4;
+            margin: 1cm;
+        }
+            body {
+                font-weight: 200;
+                font-size: 14px;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 100;
+                text-align: center;
+                color: #007cae;
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               padding: 10px 20px 0px 20px;
+            }
+            .title span {
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #333; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+        </style>
+</head>
+<body>
+  <p style="font-size: smaller">Generated on: {{ today }}</p>
+ <p> Receipt Number: <b style="color:red">{{ tithes.id }}</b><br><br>
+  <div class='wrapper'>
+
+
+        <div align="center">
+                   <b>UCC - BWAISE </b><br>
+                 +256701614086<br>
+                 Nabweru, Kampala Rd<br>
+               uccbwaise1@gmail.com<br>
+                <i style="font-size: smaller;">'Honor the Lord with your possessions, And with the firstfruits of all your increase' (Proverbs.. 3:9-10)</i>
+         </div>
+         
+       
+        <div class='details'>
+            <h1 style="text-align:center"><u> T<b style="color:red; font-size: 20px">i</b>THE RECE<b style="color:red; font-size: 20px">i</b>PT</u></h1>
+            <hr class="hrItem">
+            <strong style="font-size: large;"><pre>Tithe Date:</strong><u>{{ tithes.Date }}</pre></u>
+            <strong style="font-size: large"><pre>Received From:</strong><u><b style="color:red; font-size: 20px"> {{ tithes.Member_Name.Initials}} {{ tithes.Member_Name}}</b></pre></u>
+            <strong style="font-size: large"><pre>Service:</strong><u>{{ tithes.Service}}</pre></u>
+           <strong style="font-size: large"><pre>Amount Tithed:</strong><u> Shs.{{ tithes.Tithe_Amount|intcomma}}</pre></u>
+            <i><pre>Received with thanks by:<u>                          </pre> </u></i>
+
+        </div>
+    </div><br><br>
+      <hr class="hrItem">
+      <i>Thank You for supporting the Ministry, God Bless You</i>
+<p style="font-size: smaller; text-align: left; color: red">Generated on: {{ today }}</p>
+
+</body>
+</html>

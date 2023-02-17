@@ -1,0 +1,87 @@
+
+{% extends "app/base_site.html" %}
+{% block content %}
+<div class="right_col" role="main">
+    <div class="row">
+    	<div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h1 style="text-align:center"><i class="fa fa fa-user"></i><b> RECORD VISITORS</b></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content quick-link">
+                        <span>Quick Link:</span>
+                        <a href="{% url 'members-register' %}">Register Member</a>
+                        | <a href="{% url 'members-list' %}">Members List</a>
+                        | <a href="{% url 'visitors-register' %}">Register Visitor</a>
+                        | <a href="{% url 'visitors-list' %}">Visitors List</a>
+                    </div>
+        <h1 style='text-align:center'>Record Church Visitors</h1>
+        <div class="separator"></div>            
+  	    <div class="x_content">
+            <div class="" data-example-id="togglable-tabs">
+                <ul class="nav nav-tabs bordered">
+                    <li role="presentation" ><a href="{% url 'visitors-list' %}"><i
+                                class="fa fa-list-ol"></i> Visitors List</a>
+                    </li>
+                    <li role="presentation"class="active"><a href="{% url 'visitors-register' %}"><i
+                                class="fa fa-plus-square-o"></i> Add Visitors</a>
+                     </li>
+                </ul>
+                <br/>
+            {% load crispy_forms_tags %}
+			<form method="POST" enctype="multipart/form-data" >
+			    {% csrf_token %}
+			    <div class="row">
+				  	<div class="col-lg-4">
+                        <div class="col-lg-12">
+                            {{ form.Date|as_crispy_field}}
+                        </div>  
+					    <div class="col-lg-12">
+						    {{ form.First_Name|as_crispy_field }}
+						</div>
+						<div class="col-lg-12">
+						    {{ form.Second_Name|as_crispy_field }}
+						</div>
+						<div class="col-lg-12">
+						    {{ form.Telephone|as_crispy_field }}
+						</div>
+				   </div>
+				   <div class="col-lg-4">
+						<div class="col-lg-12">
+						    {{ form.Address|as_crispy_field }}
+						</div>
+						<div class="col-lg-12">
+						    {{ form.Church|as_crispy_field }}
+						</div>
+						
+					</div>
+			   </div>
+			    <button type="submit" class="btn btn-primary" name="button">Submit</button>
+			</form>
+		  </div>
+	     </div>
+	   </div>
+     </div>
+   {% include 'messages.html' %}
+  </div>
+</div>
+{% endblock content %}
+{% block javascripts %}
+    {{ block.super }}
+    <!-- Datatables -->
+    <!-- DateJS -->
+    <script src="/static/vendors/DateJS/build/date.js"></script>
+    <!-- JQVMap -->
+    <script src="/static/vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="/static/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="/static/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+{% endblock javascripts %}
+
+
+
+

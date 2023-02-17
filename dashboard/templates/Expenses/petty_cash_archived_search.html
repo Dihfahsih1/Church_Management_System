@@ -1,0 +1,130 @@
+{% extends "app/base_site.html" %}
+{% block content %}
+{% load humanize %}
+<head>
+  <title>UCC Bwaise | Archived Petty Cash Expenses for the month of {{report_month}} {{ report_year }}</title>
+</head>
+<div class="right_col" role="main">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+            <h1 class="head-title" style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b> PETTY CASH EXPENSES MODULE</b></h1>
+            <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+     
+        <div class="x_content">
+          <div class="" data-example-id="togglable-tabs">
+            <ul class="nav nav-tabs bordered">
+              <li role="presentation" ><a href="{% url 'sundryreport' %}"><i
+                          class="fa fa-list-ol"></i> Petty Cash Report</a></li>
+              {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
+              <li role="presentation"><a href="{% url 'enter_sundryexpense' %}"><i
+                    class="fa fa-plus-square-o"></i> Record Petty Expense</a></li>
+                    {% endif %}
+              <li role="presentation"><a href="{% url 'airtime-data-report' %}"><i
+                          class="glyphicon glyphicon-cloud"></i> Airtime-Data Payments</a> </li>
+              <li role="presentation" class="active"><a href="{% url 'sundryarchivessearch' %}"><i
+                            class="glyphicon glyphicon-king"></i> Petty Expenses Archived</a></li>
+            </ul>
+            <h2 style="text-align: center;">Search For Archived Petty Cash Expenses </h2>
+            <div class="separator"></div>
+            <h4><i class='glyphicon glyphicon-arrow-down'></i>Please search for the archived Petty Cash Expenses by <b>Year</b> and <b>Month</b></h4><br>
+            <form class="x_content" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-row">
+                <div class="col-lg-12 " style="background-color: rgb(227, 237, 239)">
+                  <div class="col-lg-2" style="margin-top: 8px">
+                  </div>
+                  <div class="col-lg-3" style="margin-top: 8px">
+                    <label>Year</label>
+                    <div class="form-group">
+                      <b><input class='form-control' type="number" placeholder="Enter Year, e.g. 2020" name="report_year" width="2%"
+                          required="required" value="{{report_year}}"></b>
+                    </div>
+                  </div>
+                  <div class="col-lg-3" style="margin-top: 8px">
+                    <label>Month</label>
+                    <div class="form-group">
+                      <select class='form-control' name="report_month" value="" id="inlineFormCustomSelect" required="required"
+                        style="cursor: pointer">
+                        <option>{{report_month}}</option>
+                        <option class="btn-success" name="1" value="1">January</option>
+                        <option class="btn-success" name="2" value="2">February</option>
+                        <option class="btn-success" name="3" value="3">March</option>
+                        <option class="btn-success" name="4" value="4">April</option>
+                        <option class="btn-success" name="5" value="5">May</option>
+                        <option class="btn-success" name="6" value="6">June</option>
+                        <option class="btn-success" name="7" value="7">July</option>
+                        <option class="btn-success" name="8" value="8">August</option>
+                        <option class="btn-success" name="9" value="9">September</option>
+                        <option class="btn-success" name="10" value="10">October</option>
+                        <option class="btn-success" name="11" value="11">November</option>
+                        <option class="btn-success" name="12" value="12">December</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-2">
+                    <br>
+                    <button class='form-control' type="submit" class="btn btn-info">Search &nbsp; <span
+                        class='glyphicon glyphicon-search'></span></button>
+                  </div>
+                  <div class="col-lg-2" style="margin-top: 8px">
+                  </div>
+                </div>
+              </div>
+            </form><br> <br>
+          {% if archived_reports %}
+              <h2 style="text-align: center">Monthly Archived Petty Cash Expenses For the financial cycle of <b>{{ report_month }}
+                  {{ report_year }}</b> </h2>
+              {% elif archived_reports == empty %}
+                <p style="color: red"><i class='glyphicon glyphicon-arrow-up'></i>You have not yet made any search!, please do so</p>
+              {% else %}
+                <h2> No archived Data in the query you have made of the cycle {{ report_month }} {{ report_year }}</h2>
+          {% endif %}
+          <div class="tab-content">
+           <div class="tab-pane fade in active" id="tab_invoice_list">
+              <div class="x_content"> 
+                                
+                   <table id="invoice-table" class=" sum_table table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    <thead>
+                      <tr>
+                        <td>Date</td>
+                        <td>Payment Made To</td>
+                        <td>Reason</td>
+                        <td>Amount <i class=" glyphicon glyphicon-arrow-right"></i> (<span style="font-weight: bolder; color:red" class="totalCol"></span>)</td>
+                        <td>Archived Status</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for item in archived_reports %}
+                        <tr class="totalColumn">
+                          <td>{{ item.Date}}</td>
+                          <td>{{ item.Payment_Made_To}}</td>
+                          <td>{{ item.Petty_Cash_Reason}}</td>
+                          <td class="rowDataSd">{{ item.Amount}}</td>
+                          <td>{{ item.Archived_Status}}</td>
+                          <td>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                {% if archived_reports %}
+                <a href="{% url 'archivedpettypdf' report_month report_year %}" target="_new" class="btn btn-info bt-sm"
+                  role="button"><span class="glyphicon glyphicon-print"> PRINT REPORT</span></a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content%}

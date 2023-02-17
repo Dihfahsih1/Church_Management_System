@@ -1,0 +1,8 @@
+
+        {% autoescape off %}
+                Hi {{ member.First_Name }},
+                Thanks for requesting for membership at UCC Bwaise,
+                Please use the following link to confirm that this is your active email address.
+                https://uccbwaise.org{% url 'activate' uidb64=uid token=token %}
+        
+        {% endautoescape %}

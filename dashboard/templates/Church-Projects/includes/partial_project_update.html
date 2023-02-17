@@ -1,0 +1,29 @@
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Update Project Information</h4>
+    </div>
+    <div class="modal-body">
+            {% load crispy_forms_tags %}
+        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="basic-tab">
+                    <form method="POST" action="" class="js-news-view-form"
+                        enctype="multipart/form-data">
+                        {% csrf_token %}
+                            {{ form |crispy }}
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" data-dismiss="modal">Update</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    

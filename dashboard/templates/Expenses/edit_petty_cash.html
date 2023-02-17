@@ -1,0 +1,58 @@
+{% extends "app/base_site.html" %}
+{% block content %}
+<div class="" role="main">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h1 class="head-title" style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b> PETTY CASH MODULE</b></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+               
+            <div class="x_content">
+                <div class="" data-example-id="togglable-tabs">
+                    <ul class="nav nav-tabs bordered">
+                        <li role="presentation"><a href="{% url 'sundryreport' %}"><i
+                            class="fa fa-list-ol"></i> Petty Expenses List</a>
+                        </li>
+                        <li role="presentation"><a href="{% url 'enter_sundryexpense' %}"><i
+                      class="fa fa-plus-square-o"></i> Record Petty Expense</a>
+                        </li>
+                          <li role="presentation"><a href="{% url 'sundryarchivessearch' %}"><i
+                              class="fa fa-plus-square-o"></i> Petty Expenses Archived</a>
+                         </li>
+                           <li role="presentation"><a href="{% url 'airtime-data-report' %}"><i
+                              class="fa fa-plus-square-o"></i> Airtime-Data Payments</a>
+                         </li>
+                         <li role="presentation" class="active" ><a href="#"><i
+                                    class="fa fa-list-ol"></i> Editing Petty Cash</a>
+                        </li>
+                    </ul>
+                    <h2 style="text-align: center" class="head-title">Edit Petty Cash Expense Made To {{item.Payment_Made_To}}</h2>
+                    <div class="separator"></div>
+					<div class="col-lg-6 col-offset-8 centered">
+					    <div class="col-md-10">
+					      {% load crispy_forms_tags %}
+                            <form method="post" enctype="multipart/form-data">
+						      {% csrf_token %}
+						        {{ form.Date|as_crispy_field}}
+                                {{ form.Payment_Made_To|as_crispy_field}}
+                                {{ form.Petty_Cash_Reason|as_crispy_field}}
+                                {{ form.Amount|as_crispy_field}}
+                                <input type="hidden" id="general" name="Reason_filtering" value="petty">
+                                <button type="submit" class="btn btn-primary" name="button">Submit</button>
+                            </form>
+					    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+{% endblock %}

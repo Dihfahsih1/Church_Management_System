@@ -1,0 +1,43 @@
+{% extends 'home/base.html' %}
+<body>
+
+{% block content %}
+<h1 style="text-align:center" class="title">UCC Bwaise Pastoral Team</h1>
+   <hr>
+        <div class="container">
+            <div class="row">
+                 {% for pastor in pastors %} 
+                 {% if pastor.Ministry_Involved_In == "Pastoral"%}
+                  
+                    <div class="col-lg-6 single-event"> 
+                        <div class="row">        
+                                 {% if pastor.Photo %}
+                                    <img src="{{ pastor.Photo.url }}" data-fancybox="images" style="border-radius: 40%;" >
+                                {% endif %} 
+
+                                <div class="content">
+                                    <h2 class="title"><a href="{{ pastor.get_absolute_url }}"> {{pastor.Initials}} {{pastor.First_Name}} {{pastor.Second_Name}}</a>
+                                    </h2>
+                                    <ul class="list">
+                                        <li class="info"><span class="icon"><i class="fa fa-group"></i></span>Group: {{pastor.Group}}
+                                        </li>
+                                        <li class="info"><span class="icon"><i class="fa fa-home"></i></span>Cell: {{ pastor.Home_Cell }}
+                                        </li>
+                                        <li class="info"><span class="icon"><i class="fa fa-map-marker"></i></span>Residence: {{ pastor.Residence }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            <div class="content">
+                                  <p style="font-size:18px">{{ pastor.More_Info|linebreaksbr}}</p>
+                            </div>       
+                        </div>
+                    </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+        </div>
+
+{% endblock %}
+
+</body>

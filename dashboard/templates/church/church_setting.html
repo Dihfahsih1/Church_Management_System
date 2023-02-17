@@ -1,0 +1,265 @@
+{% extends "app/base_site.html" %}
+
+{% block title %} church {% endblock title %}
+
+{% load static i18n %}
+
+{% block javascript %}
+    <script src="{% static 'schools/js/schools.js' %}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ block.super }}
+{% endblock stylesheets %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="right_col" role="main">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2><i class="fa fa-cogs"></i><small> church Setting</small></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="x_content quick-link">
+                        <span>Quick Link:</span>
+                        <a href="#">church Setting</a>
+                        | <a href="#">Payment Setting</a>
+                        | <a href="#">SMS Setting</a>
+                        | <a href="#">Email Setting</a>
+                    </div>
+
+                    <div class="x_content">
+                        <div class="" data-example-id="togglable-tabs">
+
+                            <ul class="nav nav-tabs bordered" style="margin-bottom: 10px;">
+                                <li role="presentation" class="active"><a href="{% url 'church_update' church.pk %}">
+                                    <i class="fa fa-gear"></i> church Setting</a>
+                                </li>
+                            </ul>
+                            <br/>
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="tab_church_list">
+                                    <div class="x_content">
+
+                                        <form class="form-horizontal form-label-left"
+                                              role="form"
+                                              action=""
+                                              method="post"
+                                              enctype="multipart/form-data"
+                                              accept-charset="utf-8">{% csrf_token %}
+
+                                            <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                                                <strong>Basic Information:</strong>
+                                            </p>
+
+                                            <div class="form-row">
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.church_code|as_crispy_field }}
+                                                </div>
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.church_name|as_crispy_field }}
+                                                </div>
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.address|as_crispy_field }}
+                                                </div>
+
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.phone|as_crispy_field }}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row">
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.registration_date|as_crispy_field }}
+                                                </div>
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.email_address|as_crispy_field }}
+                                                </div>
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.fax|as_crispy_field }}
+                                                </div>
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.footer|as_crispy_field }}
+                                                </div>
+                                            </div>
+                                            <br/>
+
+                                            <div class="form-row">
+                                                <div class="form-group col-md-12 mb-0">
+
+                                                    <p class="text-muted well well-sm no-shadow"
+                                                       style="margin-top: 10px;">
+                                                        <strong>Setting Information:</strong>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row">
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.currency|as_crispy_field }}
+                                                </div>
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.currency_symbol|as_crispy_field }}
+                                                </div>
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.enable_frontend|as_crispy_field }}
+                                                </div>
+
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.exam_final_result|as_crispy_field }}
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-row">
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.latitude|as_crispy_field }}
+                                                </div>
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.longitude|as_crispy_field }}
+                                                </div>
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.api_key|as_crispy_field }}
+                                                </div>
+                                                 <div class="form-group col-md-3 mb-0">
+                                                    {{ form.theme|as_crispy_field }}
+                                                </div>
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.online_Admission|as_crispy_field }}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row">
+                                                <div class="form-group col-md-12 mb-0">
+
+                                                    <p class="text-muted well well-sm no-shadow"
+                                                       style="margin-top: 10px;">
+                                                        <strong>Social Information:</strong>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row">
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.facebook_url|as_crispy_field }}
+                                                </div>
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.twitter_url|as_crispy_field }}
+                                                </div>
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.linkedIn_url|as_crispy_field }}
+                                                </div>
+
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.google_plus_url|as_crispy_field }}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row">
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.youtube_url|as_crispy_field }}
+                                                </div>
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.instagram_url|as_crispy_field }}
+                                                </div>
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.pinterest_url|as_crispy_field }}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row">
+                                                <div class="form-group col-md-12 mb-0">
+
+                                                    <p class="text-muted well well-sm no-shadow"
+                                                       style="margin-top: 10px;">
+                                                        <strong>Other Information:</strong>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row">
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.frontend_Logo|as_crispy_field }}
+                                                </div>
+                                                <div class="form-group col-md-3 mb-0">
+                                                    {{ form.backend_Logo|as_crispy_field }}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row">
+                                                <div class="form-group col-md-12 mb-0">
+                                                    <br></br>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-row">
+                                                <div class="form-group col-md-12 mb-0">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <hr>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-3 col-sm-9">
+                                                    <button type="submit" class="btn btn-primary">Update</button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+
+                                <!-- THE MODAL WE WILL BE USING -->
+                                <div class="modal fade" id="modal-church">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#church-table').DataTable({
+                    dom: 'Bfrtip',
+                    iDisplayLength: 15,
+                    buttons: [
+                        'copyHtml5',
+                        'excelHtml5',
+                        'csvHtml5',
+                        'pdfHtml5',
+                        'print',
+                        'pageLength'
+                    ],
+                    search: true,
+                    responsive: true
+                });
+            });
+
+        </script>
+    </div>
+
+{% endblock content %}
+{% block javascripts %}
+    {{ block.super }}
+{% endblock javascripts %}

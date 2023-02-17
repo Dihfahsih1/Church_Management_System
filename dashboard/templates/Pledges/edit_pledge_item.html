@@ -1,0 +1,78 @@
+
+{% extends "app/base_site.html" %}
+{% block content %}
+  <div class="right_col" role="main">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h1 style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b> PLEDGES MODULE</b></h1>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              </ul>
+            <div class="clearfix"></div>
+          </div>
+              <div class="x_content quick-link">
+                <span style="color:red"><b>Other Reports:</b></span>
+                <a href="{% url  'expenditurereport' %}"> Main Expenses</a></li>
+                |<a href="{% url 'general-expenses-report' %}"> General Expenses</a></li>
+                |<a href="{% url 'Offeringsreport' %}"> Offerings</a></li>
+                |<a href="{% url 'members-list' %}">Membership</a>
+                |<a href="{% url 'Pledgesreport' %}"> Pledges</a></li>
+                |<a href="{% url 'sundryreport' %}"> Petty Expenses</a></li>
+                {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+                |<a href="{% url 'allowancereport' %}"> Allowances</a></li>
+                |<a href="{% url 'current-month-salaries' %}"> Salaries</a></li>
+                |<a href="{% url 'Tithesreport' %}"> Tithes</a></li>
+                |<a href="{% url 'donations-report' %}"> Doantions</a></li>
+                |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a></li>
+                {% endif %}
+                <div class="separator"></div>
+              </div>
+               
+          <div class="x_content">
+            <div class="" data-example-id="togglable-tabs">
+              <ul class="nav nav-tabs bordered">
+                <li role="presentation"><a href="{% url 'add-pledge-item' %}"><i
+                              class="fa fa-plus-square-o"></i> Add Pledge Item</a>
+                </li>
+                 <li role="presentation" class="active"><a href="#"><i
+                              class="fa fa-plus-square-o"></i> Edit Pledge Item</a>
+                </li>
+                 <li role="presentation"><a href="{% url 'list-of-pledge-items' %}"><i
+                                      class="fa fa-plus-square-o"></i> Pledge Item List</a>
+                </li>
+                <li role="presentation" ><a href="{% url 'Pledgesreport' %}"><i
+                            class="fa fa-list-ol"></i> Pledges Made</a>
+                </li>
+                <li role="presentation"><a href="{% url 'Enter_Pledges' %}"><i
+                      class="fa fa-plus-square-o"></i> Record Pledges</a>
+                </li>
+                <li role="presentation"><a href="{% url 'pledgesarchivessearch' %}"><i
+                              class="fa fa-plus-square-o"></i> Pledges Archived</a>
+                </li>
+                
+              </ul> 
+              <h1 style="text-align: center">Edit a Pledge Item </h1>
+              <div class="separator"></div>
+				{% load crispy_forms_tags %}
+        <div  class="col-lg-6 col-offset-8 centered">
+				<form method="POST" enctype="multipart/form-data" >
+				{% csrf_token %}
+					    {{ form|crispy }}
+				
+				    <button type="submit" class="btn btn-primary" name="button">Submit</button>
+				</form>
+      </div>
+				{% include 'messages.html' %}
+
+			    </div>
+			   </div>
+			   </div>
+			    </div>
+			  </div>
+			</div>
+
+
+{% endblock content %}

@@ -1,0 +1,142 @@
+{% extends "app/base_site.html" %}
+{% block content %}
+<div class="" role="main">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h3 class="head-title" style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i> <b>MINISTRY SUPPORT MODULE</b></h3>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="separator"></div>
+                
+                <div class="x_content">
+                    <div class="" data-example-id="togglable-tabs">
+                        <ul class="nav nav-tabs bordered">
+                            <li role="presentation"><a href="{% url 'members-list' %}"><i class="glyphicon glyphicon-user"></i> List of Members</a>
+                            </li>
+                            <li role="presentation"><a href="{% url 'Supportreport' %}"><i class="fa fa-list-ol"></i>
+                                    Support Report</a>
+                            </li>
+                            <li role="presentation" class="active"><a href="#"><i class="fa fa-money"></i> Record Ministry Support</a>
+                             </li>
+                        </ul>
+                        <h2 class="head-title" style="text-align: center">Ministry Support made by <span style="color:red"><b>{{get_member_name}}</b></span></h2>
+                        <div class="separator"></div>
+                            <div class="row">
+                                {% load crispy_forms_tags %}
+                                <form method="POST" action="" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div style="" class="col-lg-4 col-md-4 col-sm-4 justify-content-center">
+                                        <div id="div_id_Date" class="col-lg-9 form-group">
+                                            <label for ='id_Date'>Date</label>
+                                            <div class="">
+                                                <input type="date" id="id_Date" name="Date" class="numberinput form-control">
+                                            </div>
+                                        </div>
+                                        
+                                        <div id="div_id_Member_Name" class="form-group">
+                                            <label for ='id_Member_Name'>Member Name</label>
+                                            <div class="">
+                                                <input type="text" name="Member_Name" class="numberinput form-control" value="{{get_member_name}}" readonly=True>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="Member_Id" value="{{get_member_name.id}}">
+
+                                        <div id="div_id_Service" class="form-group">
+                                            <label for="id_Service" class="">Service</label>
+                                            <div class="">
+                                                <select name="Service" class="select form-control" id="id_Service">
+                                                    <option value="" selected>---------</option>
+                                                    <option value="Unspecified Service">Unspecified Service</option>
+                                                    <option value="Home Cell Service">Home Cell Service</option>
+                                                    <option value="Youth Service">Youth Service</option>
+                                                    <option value="Wednesday Service">Wednesday Service</option>
+                                                    <option value="Bible Study Service">Bible Study Service</option>
+                                                    <option value="Friday Overnight">Friday Overnight</option>
+                                                    <option value="Sunday First Service">Sunday First Service</option>
+                                                    <option value="Sunday Second Service">Sunday Second Service</option>
+                                                    <option value="Sunday Third Service">Sunday Third Service</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div id="div_id_General_Offering_Amount" class="form-group">
+                                            <label for="id_General_Offering_Amount" class="">General Offering Amount</label>
+                                            <div class="">
+                                                <input type="number" name="General_Offering_Amount" value=0 class="numberinput form-control" id="id_General_Offering_Amount">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div style="" class="col-lg-4 col-md-4 col-sm-4 justify-content-center"> 
+                                        <div id="div_id_Envag_Or_Missions_Amount" class="form-group">
+                                            <label for="id_Envag_Or_Missions_Amount" class="">Envag Or Missions Amount</label>
+                                            <div class="">
+                                                <input type="number" name="Envag_Or_Missions_Amount" value=0 class="numberinput form-control" id="id_Envag_Or_Missions_Amount">
+                                            </div>
+                                        </div>
+
+                                        <div id="div_id_Love_Offering_Amount" class="form-group">
+                                            <label for="id_Love_Offering_Amount" class="">Love Offering Amount</label>
+                                            <div class="">
+                                                <input type="number" name="Love_Offering_Amount" value=0 class="numberinput form-control" id="id_Love_Offering_Amount">
+                                            </div>
+                                        </div>
+
+                                        <div id="div_id_Seed_Amount" class="form-group">
+                                            <label for="id_Seed_Amount" class="">Seed Amount</label>
+                                            <div class="">
+                                                <input type="number" name="Seed_Amount" value=0 class="numberinput form-control" id="id_Seed_Amount">
+                                            </div>
+                                        </div>
+
+                                        <div id="div_id_Tithe_Amount" class="form-group">
+                                            <label for="id_Tithe_Amount" class="">Tithe Amount</label>
+                                            <div class="">
+                                                <input type="number" name="Tithe_Amount" value=0 class="numberinput form-control" id="id_Tithe_Amount">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div style="" class="col-lg-4 col-md-4 col-sm-4 justify-content-center"> 
+                                        <div id="div_id_Building_Amount" class="form-group">
+                                            <label for="id_Building_Amount" class="">Building Amount</label>
+                                            <div class="">
+                                                <input type="number" name="Building_Amount" value=0 class="numberinput form-control" id="id_Building_Amount">
+                                            </div>
+                                        </div>
+
+                                        <div id="div_id_Thanks_Giving_Amount" class="form-group">
+                                            <label for="id_Thanks_Giving_Amount" class="">Thanks Giving Amount</label>
+                                            <div class="">
+                                                <input type="number" name="Thanks_Giving_Amount" value=0 class="numberinput form-control" id="id_Thanks_Giving_Amount">
+                                            </div>
+                                        </div>
+
+                                        <div id="div_id_Bills_Amount" class="form-group">
+                                            <label for="id_Bills_Amount" class="">Bills Amount</label>
+                                            <div class="">
+                                                <input type="number" name="Bills_Amount" value=0 class="numberinput form-control" id="id_Bills_Amount">
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary" name="button">Submit</button>
+                                    </div>
+
+                                    <!-- <input type="hidden" id="tithes" name="Revenue_filter" value="tithes"> -->
+                                    
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

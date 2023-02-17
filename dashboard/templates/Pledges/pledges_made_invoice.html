@@ -1,0 +1,84 @@
+<DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Expenditure Report</title>
+
+        {% load staticfiles %}
+        {% load humanize %}
+    <link type="text/css" rel="stylesheet" href="{% static '/css/bootstrap.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static '/styles.css' %}"/>
+       <style type="text/css">
+
+           @page {
+            size: A5;
+            margin: 1cm;
+        }
+            body {
+                font-weight: 200;
+                font-size: 14px;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 100;
+                text-align: center;
+                color: #007cae;
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               padding: 10px 20px 0px 20px;
+            }
+            .title span {
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #333; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+        </style>
+</head>
+<body>
+  <div class='wrapper'>
+
+<small align="right" style="color: red; font-weight: bolder">Voucher No.{{pledge.id}}</small>
+        <div align="center">
+                   <b>UCC - BWAISE </b><br>
+                 +256701614086<br>
+                 Nabweru, Kampala Rd<br>
+               uccbwaise1@gmail.com<br>
+               <i>"Discovering and Doing God's Will"</i>
+         </div>
+
+        <div>
+        <div class='details'>
+            <h1 align="center"><u> Pledge Invoice </u></h1>
+            <strong style="font-size: large"><pre>Pledge Date: </strong><u> {{ pledge.Date }}</pre></u>
+            <strong style="font-size: large">
+                <pre>Pledge Made By: </strong> {% if pledge.Pledge_Made_By_Visitor%}<u>{{pledge.Pledge_Made_By_Visitor}}</pre></u>
+                {% else %}
+                {{ pledge.Pledge_Made_By.Initials}}{{ pledge.Pledge_Made_By}} </pre></u>{% endif %}
+                {% if not pledge.Pledge_Made_By_Visitor%}
+            <strong style="font-size: large"><pre>Church Group: </strong><u>{{ pledge.Pledge_Made_By.Group}}</pre></u>{% endif %}
+            <strong style="font-size: large"><pre>Pledge Status: </strong><u> {{ pledge.Status }}</pre></u>
+            
+           <strong style="font-size: large"><pre>Pledge Reason: </strong><u> {{ pledge.Reason}}</pre></u>
+           <strong style="font-size: large"><pre>Pledged Amount: </strong><u> Shs.{{ pledge.Amount_Pledged|intcomma}}</pre></u>
+           <strong style="font-size: large"><pre>Amount Paid: </strong><u> Shs.{{ pledge.Amount_Paid|intcomma}}</pre></u>
+           <strong style="font-size: large; "><pre>Balance: </strong><u> <b style="font-size: large; color: red">Shs.{{ pledge.Pledge_Balance|intcomma}}</b></pre></u>
+         </div>
+    </div><br>
+    <i>Thank You for supporting the Ministry, God Bless You</i>
+  </div><hr style="color:gray" class="hrItem">
+<p style="font-size: smaller; text-align: left; color: red">Generated on: {{ today }}</p>
+</body>
+</html>

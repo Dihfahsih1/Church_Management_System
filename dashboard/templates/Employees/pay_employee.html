@@ -1,0 +1,101 @@
+
+{% extends "app/base_site.html" %}
+{% block content %}
+<div class="right_col" role="main">
+    <div class="row">
+    	<div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h3 style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b> EMPLOYEE MODULE</b></h3>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+              
+            <div class="" data-example-id="togglable-tabs">
+                <ul class="nav nav-tabs bordered">
+             <li role="presentation"><a href="{% url 'employee-list' %}"><i
+                                class="fa fa-list-ol"></i> Employee List</a>
+                    </li>
+                    <li role="presentation"><a href="{% url 'current-month-salaries' %}"><i
+                                class="fa fa-plus-square-o"></i> Salaries Paid Report</a>
+                     </li>
+                    <li role="presentation"><a href="{% url 'salariespaidarchivessearch' %}"><i
+                                class="glyphicon glyphicon-king"></i> Archived Salaries Paid Report</a>
+                     </li>
+                    <li role="presentation"class="active"><a href="#"><i
+                                class="fa fa-plus-square-o"></i> Pay Employee</a>
+                     </li>
+                </ul>
+                <br/>
+                <h2 style="text-align: center;">Paying Employee Salary </h2>
+                <div class="separator"></div>
+            {% load crispy_forms_tags %}
+
+			<form method="POST" enctype="multipart/form-data" action="{% url 'paid-salary'%}" >
+			    {% csrf_token %}
+			    <div class="row">
+
+                    <div class="col-lg-4">
+                        <div class="col-lg-12" id="Salary_Id">
+                                              
+        
+                    {% for id in retrieve_employee_id %}
+                            <input type="hidden" name="Salary_Id" id="Salary_Id" maxlength="100"
+                                   class="textinput textInput form-control"
+                                   {%if id.UCC_Bwaise_Member == 'Yes'%}value="{{ id.Church_Member_id }}" {%else%}value="{{ id.id }}" {%endif%}>
+                        </div>
+                        <div class="col-lg-8">
+                        <label>Employee Name</label>
+                        <input type="text" name="Name" id="Name" maxlength="100"
+                                   class="textinput textInput form-control"
+                                   {%if id.UCC_Bwaise_Member == 'Yes'%}value="{{ id.Church_Member }}" {%else%} value="{{ id.full_name }}" {%endif%} readonly="true" >
+                         </div>
+                    {% endfor %}
+                    </div>
+				  	<div class="col-lg-4">
+						<div class="col-lg-12">
+						    {{ form.Date_of_paying_salary|as_crispy_field }}
+						</div>
+                        <div class="col-lg-12" style="margin-top: 8px">
+                            <label>Month Being Paid</label>
+                            <div class="form-group">
+                                <select class='form-control' name="Month_being_cleared" value="" style="cursor: pointer">
+                                    <option >--Select Month--</option>
+                                    <option class="btn-success" name="1" value="1">January</option>
+                                    <option class="btn-success" name="2" value="2">February</option>
+                                    <option class="btn-success" name="3" value="3">March</option>
+                                    <option class="btn-success" name="4" value="4">April</option>
+                                    <option class="btn-success" name="5" value="5">May</option>
+                                    <option class="btn-success" name="6" value="6">June</option>
+                                    <option class="btn-success" name="7" value="7">July</option>
+                                    <option class="btn-success" name="8" value="8">August</option>
+                                    <option class="btn-success" name="9" value="9">September</option>
+                                    <option class="btn-success" name="10" value="10">October</option>
+                                    <option class="btn-success" name="11" value="11">November</option>
+                                    <option class="btn-success" name="12" value="12">December</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                              <label for="id_paid_amount"> Amount Paid</label>
+                               <input type="number" value="{{form.instance.Balance}}" name="Salary_Amount" required id="id_paid_amount" class="textinput textInput form-control" min='1' max='{{form.instance.Balance}}'>
+                        </div>
+                        <button type="submit" class="btn btn-primary" name="button">Submit</button>
+				   </div>
+			   </div>
+			    
+			</form>
+                </div>
+            </div>
+		</div>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+    $("#Salary_Id").hide();
+    document.getElementById('Name').readOnly = true;
+</script>
+{% endblock content %}

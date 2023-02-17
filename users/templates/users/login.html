@@ -1,0 +1,109 @@
+ <!DOCTYPE html>
+
+<html>
+    <head>
+        {% load static %} 
+    	<title>Login Page</title>
+            <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width" />
+            <meta name="keywords" content="UCC Bwaise Mission is Why are you alive - Lwaki Oli Mulamu, UCC Bwaise Vision is To Discover and Do The Will of God" />
+            <meta name="author" content="Mugoya Dihfahsih" />
+            <meta name="robots" content="NOARCHIVE,NOCACHE" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <!-- Meta, title, CSS, favicons, etc. -->
+            <meta charset="utf-8">
+            <meta charset="ISO-8859-15">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            
+                        
+            <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+            
+            <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js">
+                
+            </script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+                
+            </script>
+            
+            	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+                <!--Fontawesome CDN-->
+            	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    
+    	<!--Custom styles-->
+    	<link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    	<style>
+    	    a, a:hover { color: inherit; } 
+    	</style>
+    </head>
+    
+    <body>
+        <div class="container">
+        	<div class="d-flex justify-content-center h-100">
+        		<div class="card">
+        			
+        			<div class="card-body">
+        			    <div class="card-header">
+        			        <h3>You have an account Login</h3>
+        			    </div>
+        				<form method="POST" action="">
+                                {% csrf_token %}
+        					<div class="input-group form-group">
+        					    
+        						<div class="input-group-prepend">
+        							<span class="input-group-text">
+        							    <i class="fas fa-user"></i>
+        							</span>
+        						</div>
+        						
+        						<input type="text" name="username" class="form-control" placeholder="username">
+        				    </div>
+        					
+        					<div class="input-group form-group">
+        						<div class="input-group-prepend">
+        							<span class="input-group-text">
+        							    <i class="fas fa-key"></i>
+        							</span>
+        						</div>
+        						
+        						<input type="password" name="password"  class="form-control" placeholder="password">
+        					</div>
+        					<div class="row align-items-center remember">
+        						<input type="checkbox">Remember Me
+        					</div>
+        					<div class="form-group">
+        						<input type="submit" value="Login" class="btn float-right login_btn">
+        					</div>
+        				</form>
+        				<div class="card-footer">
+            				<h3 style="color:white">OR Just<a style="color:red" href= "{% url 'MemberAccountRegister' %}"> Register Here</a></h3>
+        				</div>
+        			</div>
+        			<div class="card-footer">
+        				<!--<div class="d-flex justify-content-center links">-->
+        				<!--	Don't have an account?<a href= "{% url 'MemberAccountRegister' %}">Sign Up</a>-->
+        				<!--</div>-->
+        				<div class="d-flex justify-content-center" style="color:white">
+        					<a href="{% url 'password_reset' %}">Forgot your password?</a>
+        				</div>
+        			</div>
+        			
+        			{% for message in messages %}
+                        <p id="messages">{{message}}</p>
+                    {% endfor %}
+                    
+                     
+        		</div>
+        	</div>
+        </div>
+    </body>
+</html>
+
+
+
+
+
+
+

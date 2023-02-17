@@ -1,0 +1,154 @@
+
+{% extends "app/base_site.html" %}
+{% block title %} CHURCH MEMBERS {% endblock title %}
+
+{% load static i18n %}
+
+{% block stylesheets %}
+{{ block.super }}
+
+{% endblock stylesheets %}
+{% block content %}
+      <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h3 class="head-title" style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b>CHURCH MEMBERSHIP MODULE</b></h3>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                   
+            <h2 class="head-title" style="text-align: center">List Of Church Members</h2>
+            <div class="separator"></div>
+            <div class="x_content">
+                <div class="" data-example-id="togglable-tabs">
+                    <ul class="nav nav-tabs bordered">
+                        <li role="presentation" class="active"><a href="{% url 'members-list' %}"><i
+                                class="fa fa-list-ol"></i> Memebers</a>
+                        </li>
+                        {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+                          <li role="presentation"><a href="{% url 'members-archived' %}"><i
+                                class="fa fa-list-ol"></i> Archived Members</a>
+                        </li>
+                        <li role="presentation"><a href="{% url 'members-register' %}"><i
+                                class="fa fa-plus-square-o"></i> Add Member</a>
+                        </li>
+                        <li role="presentation"><a href="{% url 'un-approved-list'%}"> <i class="fa fa-list-ol"></i>Unapproved</a></li>
+                        
+                        {% endif %}
+
+                    </ul>
+                    <br/>
+                    
+                </div>
+
+               <div class="tab-content">
+                 <div class="tab-pane fade in active">
+                    <div class="x_content">
+                         <table id="members-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <!--<td>Photo</td>-->
+                                    <th>Name</th>
+                                    <th>Telephone</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for member in membership %}
+                                <tr>
+                                     <!--<td>{% if member.Photo %}-->
+                                     <!-- <img src="{{ member.Photo.url }}" width="150" height="100" />-->
+                                     <!-- {% endif %}-->
+                                     </td>
+                                     <td>{{ member.full_name}}</td>
+                                     <td>{{ member.Telephone}}</td>
+                                      {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+                                     <td>
+                                        <a href="{% url 'edit-member' member.id  %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                                        
+                                        <!--<button type="button" class="btn btn-warning btn-sm js-view-members" data-url="{% url 'view-member' member.id %}">-->
+                                        <!--    <span class="glyphicon glyphicon-eye-open"></span> View-->
+                                        <!--</button>-->
+
+                                        <a href="{% url 'system-view-member-details' member.id  %}"class="btn btn-success btn-sm"><span class="glyphicon glyphicon-eye-open"></span>Details</a>
+                                        
+                                        <a href="{% url 'record-member-support' member.id  %}" class="btn btn-success"><span
+                                                class="fa fa-money"></span>Tithe</a>
+                                          <a href="{% url 'archive-member' member.pk %}"class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-king"></span></a>
+                                         {% endif %}
+                                     </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="9" class="text-center bg-warning">No Members</td>
+                                </tr>
+                                {% endfor%}
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                  </div>
+                <!-- THE MODAL WE WILL BE USING -->
+                <div class="modal fade" id="modal-members">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                        </div>
+                    </div>
+                </div>
+               </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <button class="btn btn-warning"><a href="{% url 'print_all_members' %}">PRINT ALL MEMBERS</a></button>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#members-table').DataTable({
+            dom: 'Bfrtip',
+            iDisplayLength: 100,
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5',
+                'print',
+                'pageLength'
+            ],
+            search: true,
+            responsive: true
+        });
+    });
+
+
+    $(function () {
+        var loadForm = function () {
+            var btn = $(this);
+            $.ajax({
+                url: btn.attr("data-url"),
+                type: 'get',
+                dataType: 'json',
+                beforeSend: function () {
+                    $("#modal-members").modal("show");
+                },
+                success: function (data) {
+                    $("#modal-members .modal-content").html(data.html_form);
+                }
+            });
+        };
+        $("#members-table").on("click", ".js-view-members", loadForm);
+        }
+        );
+
+</script>
+{% endblock content %}
+{% block javascripts %}
+
+{{ block.super }}
+<!-- Datatables -->
+
+{% endblock javascripts %}

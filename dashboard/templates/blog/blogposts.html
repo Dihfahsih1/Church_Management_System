@@ -1,0 +1,46 @@
+
+{% extends "oscar/layout_2_col.html" %}
+
+{% load basket_tags %}
+{% load category_tags %}
+{% load product_tags %}
+{% load i18n %}
+{% block content %}
+<div id="breadcrumb">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li class="active"><a href="{% url 'Blog_Posts' %}">Blogs</a></li>
+        </ul>
+    </div>
+</div>
+<!-- Contact Details -->
+<div class="row">
+{% for rq in blogposts %}
+<div class="card col-lg-4 col-md-4 col-sm-4">
+    <div class="single-blog-area wow fadeInUp" data-wow-delay="1s">
+        
+        <!-- <p style="color: darkgray;">{{rq.created_at}}</p> -->
+        <h3 style="margin:10px;"><a href="{% url 'BlogPost_detail' rq.pk %}">{{rq.title}}</a></h3>
+
+        {% if rq.image %}
+        <a href="{% url 'BlogPost_detail' rq.pk %}"><img src="{{ rq.image.url}}" alt="" width="50%"></a>
+        {% endif %}
+        <div class="blog-content">
+            <p>{{ rq.details|truncatewords:20|safe}}</p>
+            <a href="{% url 'BlogPost_detail' rq.pk %}">Read More</a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+</div>
+   
+{% endblock content %}
+
+{% block onbodyload %}
+    {{ block.super }}
+    oscar.search.init();
+{% endblock %}
+
+
+
+

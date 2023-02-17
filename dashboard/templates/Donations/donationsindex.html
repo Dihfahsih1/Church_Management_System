@@ -1,0 +1,144 @@
+
+
+{% extends "app/base_site.html" %}
+{% block content %}
+<head>
+  <title>UCC Bwaise | Other Sources Report as of {{today}}</title>
+</head>
+<div class="" role="main">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h1 style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i> <b>OTHER SOURCES OF REVENUE MODULE</b></h1>
+          <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content quick-link">
+          <span style="color:red"><b>Other Archived Reports:</b></span>
+          <a href="{% url  'expensesarchivessearch' %}"> Main Expenses</a>
+          |<a href="{% url 'general-expensesarchives-search' %}"> General Expenses</a>
+          |<a href="{% url 'offeringsarchivessearch' %}"> Offerings</a>
+        
+          |<a href="{% url 'pledgesarchivessearch' %}"> Pledges</a>
+        
+          |<a href="{% url 'sundryarchivessearch' %}"> Petty Expenses</a>
+          {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
+          |<a href="{% url 'allowancearchivessearch' %}"> Allowances</a>
+          |<a href="{% url 'salariespaidarchivessearch' %}"> Salaries</a>
+          |<a href="{% url 'tithesarchivessearch' %}"> Tithes</a>
+          |<a href="{% url 'seeds-archives-search' %}"> Seeds</a>
+          |<a href="{% url 'thanksgivingarchivessearch' %}"> ThanksGiving</a>
+          {% endif %}
+          |<a href="{% url 'BuildingRenovationarchivessearch' %}"> Building</a>
+          <div class="separator"></div>
+        </div>
+        
+
+        <h2 style="text-align: center">The Other Revenue Sources Report as of {{today}}</h2>
+        <div class="separator"></div>
+        <div class="x_content">
+          <div class="" data-example-id="togglable-tabs">
+          <ul class="nav nav-tabs bordered">
+               <li role="presentation" class="active"><a href="{% url 'donations-report' %}"><i class="fa fa-list-ol"></i> Other Sources Report</a>
+               </li>
+               {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
+
+               <li role="presentation"><a href="{% url 'record-donations' %}"><i
+                    class="fa fa-plus-square-o"></i> Record Other Sources</a>
+               </li>
+               {% endif %}
+               <li role="presentation"><a href="{% url 'donationsarchivessearch'%}"><i
+                    class="glyphicon glyphicon-king"></i> Other Sources Archived</a>
+               </li>
+          </ul>
+          <br>
+           
+            <h4 style="color: green; font-weight: 120%"><b>{{ message }}</b></h4>
+            <div class="tab-content">
+              <div class="tab-pane fade in active" id="tab_invoice_list">
+                <div class="x_content">                     
+                  <table id="invoice-table" class=" sum_table table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    <thead>
+                      <tr>
+                        <td>Date</td>
+                        <td>Source Name</td>
+                        <td>Amount <i class=" glyphicon glyphicon-arrow-right"></i> (<span style="font-weight: bolder; color:red" class="totalCol"></span>)</td>
+                        <td>Archived Status</td>
+                        <td>Action</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for item in items%}
+                        <tr class="totalColumn">
+                          <td>{{ item.Date}}</td>
+                          <td>{{ item.Other_Sources}}</td>
+                          <td class="rowDataSd">{{ item.Amount}}</td>
+                          <td>{{ item.Archived_Status}}</td>
+                          <td>
+                                      {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
+
+                          <div class="mb-4">
+                                <a href="{% url 'edit-donation' item.pk %}"class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit">Edit</span></a>
+                          </div>
+                          {% endif %}
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% if items %}
+
+          <a href="#" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print"> PRINT REPORT</span></a>
+         {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
+          <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end of every month</p>
+
+          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-king">ARCHIVE</span></button>
+          {% endif %}
+          {% endif %}
+            <!-- Button trigger modal -->
+          
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Other Sources report archiving</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <h4 class="text-danger"><b>Confirmation</b></h4>
+                  <form class="x_content" method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="form-row">
+                    <div class="col-lg-12" style="background-color: rgb(227, 237, 239">
+                     <h3>Are You Yure You Want To ARCHIVE this report<b>?</b></h3>
+                      <br>
+                      <div class="col-lg-6">
+                        <button type="submit" class="btn btn-info">YES <span class='glyphicon glyphicon-send'></span></button>
+                      </div>
+                    </div>
+                  </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">NO</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
+{% endblock content %}

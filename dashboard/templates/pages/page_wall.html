@@ -1,0 +1,45 @@
+{% extends 'home/base.html' %}
+<body>
+
+{% block content %}
+
+    {% for page in pages %}
+    
+        <section class="page-breadcumb-area bg-with-black">
+            <div class="container text-center">
+                <h2 class="title">{{ page.page_title }}</h2>
+                <ul class="links">
+                    <li><a href="{% url 'index_public' %}">Home</a></li>
+                    <li><a href="javascript:void(0);">{{ page.page_title }}</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="top-banner-area">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                        <div class="top-banner-content">
+                            <!--<h2 class="title">{{page.page_title}}  </h2>-->
+                            <div class="text">
+                                {{ page.page_description }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12 text-center">
+                        <div class="top-banner-img">
+                            {% if page.page_image %}
+                                <img src="{{ page.page_image.url }}" alt="">
+                            {% endif %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    {% endfor %}
+
+{% endblock %}
+
+</body>

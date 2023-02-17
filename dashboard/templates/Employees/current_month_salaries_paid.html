@@ -1,0 +1,148 @@
+{% extends "app/base_site.html" %}
+{% block content %}
+{% load humanize %}
+{% load danceschool_tags %}
+
+<head>
+  <title>UCC Bwaise | Salaries Report as of {{day}}</title>
+</head>
+<div class="right_col" role="main">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+            <h3 style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b> EMPLOYEE MODULE</b></h3>
+
+          <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+       
+        <div class="x_content">
+          <div class="" data-example-id="togglable-tabs">
+            <ul class="nav nav-tabs bordered">
+              <li role="presentation"><a href="{% url 'employee-list' %}"><i class="fa fa-list-ol"></i> Employee List</a>
+              </li>
+              <li role="presentation"><a href="{% url 'employee-register' %}"><i class="fa fa-plus-square-o"></i> Add Employees</a>
+              </li>
+              <li role="presentation" class="active"><a href="{% url 'current-month-salaries' %}"><i
+                    class="fa fa-plus-square-o"></i> Salaries Paid Report</a>
+              </li>
+              <li role="presentation"><a href="{% url 'salariespaidarchivessearch' %}"><i class="glyphicon glyphicon-king"></i> Archived
+                  Salaries Paid Report</a>
+              </li>
+            </ul>
+            <h1 style="text-align: center">All salaries Paid as of {{day}}</h1>
+            <div class="separator"></div>
+            <h4 style="color: green; font-weight: 120%"><b>{{ message }}</b></h4>
+            <div class="tab-content">
+              <div class="tab-pane fade in active" id="tab_invoice_list">
+                <div class="x_content">
+                  <table id="invoice-table" class=" sum_table table table-striped table-bordered dt-responsive nowrap"
+                    cellspacing="0" width="100%">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Contract Salary</th>
+                        <th>Date</th>
+                        <th>Month</th>
+                        <th>Amount Paid</th>
+                        <th>Remaining Balance</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for salary in salaries %}
+                      <tr>
+                        <td>{{ salary.Name}}</td>
+                        <td>{{ salary.basic_salary|intcomma}}</td>
+                        <td>{{ salary.Date_of_paying_salary}}</td>
+                        <td>{{ salary.Month_being_cleared|stringed_month}}</td>
+                        <td>{{ salary.Salary_Amount|intcomma}}</td>
+                        <td>{{ salary.Balance|intcomma}}</td>
+                        <td>
+                          <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
+                            <span class='glyphicon glyphicon-trash'> </span> Delete
+                          </button>
+                      
+                          <!-- Modal -->
+                          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h4 class="modal-title" id="myModalLabel">Delete Salary</h4>
+                                </div>
+                                <div class="modal-body">
+                                  <h3>Are you sure you want to delete Salary?</h3>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                  <a href="{% url 'delete-salary-paid' salary.pk %}" class="btn btn-danger bt-sm" role="button">Confirm</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      {% endfor%}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p>Total Salary Paid for this month is: <i class=" glyphicon glyphicon-arrow-right"></i>
+            (<span style="font-weight: bolder; color:red"> {{total_amount|intcomma}}</span>)</p>
+          </div>
+          {% if salaries %}
+          <p style="color:red; font-size: 150%"><b>NB: </b> Please archive this report <b>ONLY</b> at the end the Year</p>
+          <!--   <a href="{% url 'tithespdf' %}" target="_new" class="btn btn-info bt-sm" role="button"><span class="glyphicon glyphicon-print">Print</span></a> -->
+          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><span
+              class="glyphicon glyphicon-king">Archive</span></button>
+          {% endif %}
+
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Salaries report archiving</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <h4 class="text-danger"><b>Confirmation</b></h4>
+                  <form class="x_content" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-row">
+                      <div class="col-lg-12" style="background-color: rgb(227, 237, 239">
+                        <h3>Are You Sure You Want To ARCHIVE this report<b>?</b></h3>
+                        <br>
+                        <div class="col-lg-6">
+                          <button type="submit" class="btn btn-info">YES <span
+                              class='glyphicon glyphicon-send'></span></button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">NO</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+
+
+

@@ -1,0 +1,80 @@
+{% extends 'home/base.html' %}
+
+{% block title %} {{ event.event_title }}{% endblock %}
+{% load comments %}
+{% block content %}
+
+  <h1 style="text-align: center">Event Details</h1><hr>
+
+    <section class="page-event-details-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                    <div class="page-event-details">
+                        <div class="banner">
+                            {% if event.image %}
+                                <img src="{{ event.image.url }}"
+                                     alt="">
+                            {% endif %}
+                        </div>
+                        <h2 class="title">{{ event.event_title }}</h2>
+                        <p>{{ event.from_date }}  to {{ event.to_date }}  </p><br><hr>
+                      
+                        <div class="text">{{event.note|safe}}</div>
+                        
+                          {% get_comment_count for event as comment_count %}
+                        <div class="py-4 text-center">
+                        
+                        {{ comment_count }} comment{{ comment_count|pluralize }}
+                        ha{{ comment_count|pluralize:"s,ve" }} been posted.
+                        </div>
+
+                        {% if comment_count %}
+                            <hr/>
+                            <div class="comments">
+                            {% render_comment_list for event %}
+                            </div>
+                        {% endif %}
+                        
+                            <div class="card card-block mb-5">
+                                <div class="card-body">
+                                    <h4 class="card-title text-center pb-3">Post your comment</h4>
+                                    {% render_comment_form for event %}
+                                </div>
+                            </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-12">
+                    <div class="sidebar">
+                        <div class="sidebar-widget">
+                            <h2 class="sidebar-title">Latest Event</h2>
+                            <ul class="widget-event">
+                                {% for events in more_events %}
+                                    <li>
+                                       <a href="{% url 'event_detail' events.pk %}">
+                                         <span class="img">
+                                             {% if events.image %}
+                                                 <img src="{{ events.image.url }}" alt="">
+                                             {% endif %}
+                                         </span>
+                                          <span class="content">
+                                            <span class="title">{{ events.event_title }}</span>
+                                             {{ events.from_date }}
+                                         </span>
+                                       </a>  
+                                    </li>
+                                {% endfor %}
+
+                            </ul>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+</body>

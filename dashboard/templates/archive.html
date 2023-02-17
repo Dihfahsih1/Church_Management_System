@@ -1,0 +1,28 @@
+<!-- <ul>
+    {% for date in date_list %}
+        <li>{{ date|date }}</li>
+    {% endfor %}
+</ul>
+
+<div>
+    <h1>All Sermons for {{ year|date:"Y" }}</h1>
+    {% for obj in object_list %}
+        <p>
+            {{ obj.title }} - {{ obj.date|date:"F j, Y" }}
+        </p>
+    {% endfor %}
+</div> -->
+    
+
+
+
+<ul>
+    {% for year, years in years.items %}
+     <li> <a href ="{% url archive_year year %}"> {{ year }} <ul>
+        {% for month in years %}
+            <li> <a href ="{% url archive_month year month.month %}/">{{ month|date:"M Y" }}</a> </li>
+        {% endfor %}
+        </ul>
+     </li>
+    {% endfor %}
+ </ul>

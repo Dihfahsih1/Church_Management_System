@@ -1,0 +1,51 @@
+{% extends 'home/base.html' %}
+{% load static  %}
+
+<body>
+
+    {% block content %}
+
+    <h1 style="text-align:center" class="title">UCC Bwaise Projects</h1>
+   <hr>
+
+    <section class="page-news-area">
+        <div class="container">
+            <div class="row justify-content-center">
+
+                {% for details in projects %}
+                <div class="col-lg-4 col-md-6 col-sm-8 col-12">
+                    <div class="single-news">
+                        <div class="img">
+                            {% if details.image %}
+                            <img src="{{ details.image.url }}" alt="">
+                            {% endif %}
+                        </div>
+
+                        <div class="content">
+                            <ul class="meta">
+                                <li class="info"><span class="icon"><i class="fa fa-user"></i></span>Leader: {{ details.project_leader }}
+                                </li>
+                                <li class="info"><span class="icon"><i class="fa fa-calendar"></i></span>Start Date: {{ details.start_date }}
+                                </li>
+                            </ul>
+                            <h2 class="title"><a href="{{ details.get_absolute_url }}">{{ details.project_title }}</a>
+                            </h2>
+                            <div class="text">
+                                {{ details.project_description | safe |truncatewords:40}}
+                            </div>
+                            <div class="more text-right">
+                                <a class="link glbscl-link-btn hvr-bs" href="{% url 'project_detail' details.pk %}">Read
+                                    More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+    {% endblock %}
+
+</body>

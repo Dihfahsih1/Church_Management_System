@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Offerings Collection</title>
+
+        {% load staticfiles humanize %}
+
+    <link type="text/css" rel="stylesheet" href="{% static '/css/bootstrap.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static '/styles.css' %}"/>
+       <style type="text/css">
+
+           @page {
+            size: A5;
+            margin: 1cm;
+        }
+            body {
+                font-weight: 100;
+                font-size: 14px;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 100;
+                text-align: center;
+                color: #007cae;
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               padding: 10px 20px 0px 20px;
+            }
+            .title span {
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #333; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+        </style>
+</head>
+<body>
+<p style="font-size: smaller">Generated on: {{ today }}</p>
+ <p> Receipt Number: <b style="color:red">{{ pledges.id }}</b><br><br>
+  <div class='wrapper'>
+
+
+        <div align="center">
+                   <b>UCC - BWAISE </b><br>
+                 +256701614086<br>
+                 Nabweru, Kampala Rd<br>
+               uccbwaise1@gmail.com<br>
+         </div>
+        <div class='details'>
+            <h1 align="center"><u> PLEDGES RECEiPT</u></h1>
+            <hr class="hrItem">
+            <strong style="font-size: large"><pre>Pledging Date: </strong><u>{{ pledges.Date }}</pre></u>
+            <strong style="font-size: large"><pre>Received From: </strong> {% if pledges.Pledge_Made_By_Visitor%}<u>{{pledges.Pledge_Made_By_Visitor}}</pre></u>
+                {% else %}
+                {{ pledges.Pledge_Made_By.Initials}}{{ pledges.Pledge_Made_By}} </pre></u>{% endif %}
+            {% if not pledges.Pledge_Made_By_Visitor%}
+            <strong style="font-size: large"><pre>Church Group: </strong><u>{{ pledges.Pledge_Made_By.Group}}</pre></u>{% endif %}
+            <strong style="font-size: large"><pre>Pledge Reason: </strong><u>{{ pledges.Reason}}</pre> </u>
+            <strong style="font-size: large"><pre>Amount Pledged: </strong><u> Shs.{{ pledges.Amount_Pledged|intcomma}}</pre></u>
+            <strong style="font-size: large"><pre>Amount Paid: </strong><u>Shs.{{ pledges.Amount_Paid|intcomma}}</pre></u>
+            <strong style="font-size: large"><pre>Balance: </strong><u><i style="color:red">Shs.{{ pledges.Pledge_Balance|intcomma}}</pre></i></u>
+            <i><pre>Received with thanks by:<u></pre> </u></i>
+
+        </div>
+  </div>
+
+</body>
+</html>

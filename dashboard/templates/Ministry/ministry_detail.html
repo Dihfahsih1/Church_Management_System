@@ -1,0 +1,74 @@
+{% extends 'home/base.html' %}
+{% load static total_tags %}
+
+<body>
+
+{% block content %}
+
+ <h1 style="text-align:center" class="title">UCC Bwaise Church Ministries</h1>
+   <hr>
+
+    <section class="page-event-details-area">
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                <h1 class="info-title" style="text-align: left;">{{ ministry.name }}</h1>
+                 <hr/>
+                    <div class="page-event-details">
+                        <div class="banner">
+                            {% if ministry.photos %}
+                                <img src="{{ ministry.photos.url }}"
+                                     alt="">
+                            {% endif %}
+                        </div>
+                        <ul class="event-meta">
+                            <li class="info"><span class="icon"><i class="fa fa-user"></i> Leader:</span> {{ ministry.leader }}
+                            </li>
+                        </ul>
+                        <div class="text">{{ministry.details|safe}}</div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-12">
+                    <div class="sidebar">
+                        <div class="sidebar-widget">
+                            <h2 class="sidebar-title">All Ministries</h2>
+                            <ul class="widget-event">
+                                {% for item in min_list %}
+                                    <li>
+                                       <a href="{% url 'ministry-detail' item.pk %}">
+                                         <span class="img">
+                                             {% if item.photos %}
+                                                 <img src="{{ item.photos.url }}" alt="">
+                                             {% endif %}
+                                         </span>
+                                          <span class="content">
+                                            <span class="title">{{ item.name }}</span>
+                                         </span>
+                                       </a>  
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% if min_list.has_other_pages %}
+                            <nav aria-label="Page navigation conatiner" style="text-align: center">
+                                <ul class="pagination justify-content-center">
+                                    {% if min_list.has_previous %}
+                                    <li><a href="?page={{ min_list.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+                                    {% endif %}
+                                    {% if min_list.has_next %}
+                                    <li><a href="?page={{ min_list.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+</body>

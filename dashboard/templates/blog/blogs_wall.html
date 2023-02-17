@@ -1,0 +1,60 @@
+{% extends 'home/base.html' %}
+ {% block title %} UCC Bwaise|Christian Blogs{% endblock %}
+{% block content %}
+    <div class="container-fluid page-breadcumb-area bg-with-black" style="margin-bottom:-7%">
+        <div class="contrainer text-center">
+        <a href="{% url 'blogs_wall' %}"><h2 class="title links">Christian Blogs</h2></a> 
+        </div>
+    </div>
+<section class="page-event-area">
+    <div class="row justify-content-center">
+
+        {% for blog in blog_list %}
+        
+            <div class="col-lg-4 col-md-6 col-sm-8 col-12">
+                <div class="single-news">
+                    <a href="{% url 'BlogPost_detail' blog.slug %}">
+                    <div class="img">
+                        {% if blog.image %}
+                            <img src="{{ blog.image.url }}" alt="">
+                        {% endif %}
+                    
+                    </div>
+                    
+                    <div class="content">
+                        <!--<ul class="meta">-->
+                        <!--    <li class="info"><span class="icon"><i class="fa fa-user"></i></span>By-->
+                        <!--        - {{ blog.author }}-->
+                        <!--    </li>-->
+                        <!--    <li class="info"><span class="icon"><i-->
+                        <!--            class="fa fa-calendar"></i></span>{{ blog.date }}-->
+                        <!--    </li>-->
+                        <!--</ul>-->
+                        <h2 class="title">{{ blog.title }}</h2>
+                         
+                        <div class="text">
+                            {{ blog.details|truncatewords:20|safe }}
+                        </div>
+                        <!--<div class="more text-right">-->
+                        <!--    <a class="link glbscl-link-btn hvr-bs"-->
+                        <!--       href="{% url 'BlogPost_detail' blog.slug %}">Read More</a>-->
+                        <!--</div>-->
+                    </div>
+                    </a> 
+                </div>
+            </div>
+         
+        {% endfor %}
+
+    </div>
+    
+    {% if blog_list.has_other_pages %}
+        <nav aria-label="Page navigation conatiner" style="text-align: center">
+            
+        </nav>
+    {% endif %}
+
+</section>
+  
+{% endblock %}
+

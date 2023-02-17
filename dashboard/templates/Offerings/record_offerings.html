@@ -1,0 +1,57 @@
+
+
+{% extends "app/base_site.html" %}
+{% block content %}
+<div class="" role="main">
+    <div class="row">
+    	<div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h1 style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b> GENERAL OFFERINGS MODULE</b></h1>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+               
+		  	    <div class="x_content">
+		            <div class="" data-example-id="togglable-tabs">
+		                <ul class="nav nav-tabs bordered">
+		                    <li role="presentation" ><a href="{% url 'Offeringsreport' %}"><i
+		                                class="fa fa-list-ol"></i> List of offerings</a>
+		                    </li>
+		                    <li role="presentation"class="active"><a href="{% url 'Enter_Offerings' %}"><i
+	                            class="fa fa-plus-square-o"></i> Record Offering</a>
+		                    </li>
+                            <li role="presentation"><a href="{% url 'offeringsarchivessearch' %}"><i
+                            class="fa fa-plus-square-o"></i> Offerings Archived</a>
+                            </li>
+		                </ul>
+                        <h2 style="text-align: center">Record Total Offerings Collected in a Particular Service</h2>
+                        <div class="separator"></div>
+                      <p>{{ msg}}</p>
+						<div style="margin-left: 25%"class="col-lg-4 col-md-4 col-sm-4 justify-content-center">
+					    	{% load crispy_forms_tags %}
+					    	{% if form.errors %}
+                                <div class="alert alert-danger">
+                                    {{ form.errors }}
+                                </div>
+                            {% endif %}
+							<form method="POST" enctype="multipart/form-data" >
+								{% csrf_token %}
+								{{ form.Date|as_crispy_field}}
+								{{ form.Service|as_crispy_field}}
+                                {{ form.Amount|as_crispy_field}}
+                                 
+                                <input type="hidden" id="offering" name="Revenue_filter" value="offering">
+							    <button type="submit" class="btn btn-primary" name="button">Submit</button>
+							</form>
+						</div>
+			        </div>
+		        </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

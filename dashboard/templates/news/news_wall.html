@@ -1,0 +1,70 @@
+
+{% extends 'home/base.html' %}
+{% load static total_tags %}
+{% block title %} Sermons Preached at UCC Bwaise{% endblock %}
+{% block content %}
+     <div class="container-fluid page-breadcumb-area bg-with-black" style="margin-bottom:-7%">
+        <div class="contrainer text-center">
+        <a href="{% url 'news_wall' %}"><h2 class="title links">Gospel Teachings at UCC Bwaise</h2></a> 
+        <!--<ul class="links">-->
+        <!--    <li><a href="{% url 'index_public' %}">Home</a></li>-->
+        <!--    <li><a href="javascript:void(0);">Blogs</a></li>-->
+        <!--</ul>-->
+        </div>
+    </div>
+    
+    <section class="page-event-area">
+        <div class="container">
+            <div class="row justify-content-center">
+                {% for news in news_list %}
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="single-event" >
+                            <a href="{% url 'news_detail' news.slug %}">
+                           <div class="img">
+                                {% if news.image %}
+                                    <img src="{{ news.image.url }}" alt="">
+                                {% endif %}
+                            
+                            </div>
+                            <div class="content"> 
+                                <!--<i class="info"><span class="icon"><i-->
+                                <!--        class="fa fa-calendar"> </i> </span> {{ news.date }}</i><br>-->
+                                   
+                                <h2 class="title"><a href="{{ news.get_absolute_url }}">{{ news.news_title }}</a>
+                                </h2>
+                                {% if news.audio_file %}
+                                <audio controls preload="auto">
+                                    <source src=" {{news.audio_file.url}} " type="audio/mpeg">
+                                </audio>
+                                {% endif %}
+                                <div class="text">
+                                    {{ news.news|truncatewords:10|safe }}
+                                </div>
+                                
+                            </a>
+                            <div class="more text-right">
+                                    <a class="link glbscl-link-btn hvr-bs"
+                                       href="{% url 'news_detail' news.slug %}">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            
+             {% if news_list.has_other_pages %}
+                <nav aria-label="Page navigation conatiner" style="text-align: center">
+                    <ul class="pagination justify-content-center">
+                        {% if news_list.has_previous %}
+                        <li><a href="?page={{ news_list.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+                        {% endif %}
+                        {% if news_list.has_next %}
+                        <li><a href="?page={{ news_list.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}
+

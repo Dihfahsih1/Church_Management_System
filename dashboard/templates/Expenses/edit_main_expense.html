@@ -1,0 +1,59 @@
+{% extends "app/base_site.html" %}
+{% block content %}
+{% load humanize %}
+<head>
+  <title>UCC Bwaise | main expenses for the month of {{report_month}} {{ report_year }}</title>
+</head>
+<div class="right_col" role="main">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+            <h1 class="head-title" style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i> <b>MAIN EXPENSES MODULE</b></h1>
+            <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+             
+            <div class="x_content">
+                <div class="" data-example-id="togglable-tabs">
+                    <ul class="nav nav-tabs bordered">
+                        <li role="presentation" ><a href="{% url 'expenditurereport' %}"><i
+                                    class="fa fa-list-ol"></i> Main Expenses</a>
+                        </li>
+                        <li role="presentation" ><a href="{% url 'enter_expenditure' %}"><i
+                              class="fa fa-plus-square-o"></i> Record Main Expense</a>
+                         </li>
+                         <li role="presentation"><a href="{% url 'expensesarchivessearch' %}"><i class="fa fa-list-ol"></i> Archived Main Expenses</a></li>
+                        <li role="presentation" class="active" ><a href="#"><i
+                                    class="fa fa-list-ol"></i> Editing Main Expenses</a>
+                        </li>
+                    </ul>
+                    <h2 style="text-align: center;">Edit Main Expense</h2>
+                    <div class="separator"></div>
+					<div class="col-lg-6 col-offset-8 centered">
+					    <div class="col-md-10">
+					      {% load crispy_forms_tags %}
+						      <form method="post" enctype="multipart/form-data">
+						      {% csrf_token %}
+						        {{ form.Date|as_crispy_field}}
+                                {{ form.Payment_Made_To|as_crispy_field}}
+                                {{ form.Main_Expense_Reason|as_crispy_field}}
+                                {{ form.Amount|as_crispy_field}}
+                                <input type="hidden" id="general" name="Reason_filtering" value="main">
+						      <button type="submit" class="btn btn-primary" name="button">Submit</button>
+
+						      </form>
+					          
+					    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+{% endblock %}

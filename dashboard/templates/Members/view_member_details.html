@@ -1,0 +1,212 @@
+{% extends "app/base_site.html" %}
+
+{% block title %} Member Details {% endblock title %}
+
+{% load static i18n %}
+
+{% block javascript %}
+    <script src="{% static 'schools/js/profiles.js' %}"></script>
+{% endblock %}
+{% block content %}
+{% load humanize %}
+    <div class="right_col" role="main">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h3 class="head-title"><i class="fa fa-lock"></i><small> Member Details</small></h3>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    
+                    <div class="x_content">
+                        <div class="" data-example-id="togglable-tabs">
+
+                            <ul class="nav nav-tabs bordered">
+                                <li role="presentation" class="active"><a href="{% url 'members-list' %}"><i
+                                        class="fa fa-list-ol"></i> Memebers</a>
+                                </li>
+                                {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+                                  <li role="presentation"><a href="{% url 'members-archived' %}"><i
+                                        class="fa fa-list-ol"></i> Archived Members</a>
+                                </li>
+                                <li role="presentation"><a href="{% url 'members-register' %}"><i
+                                        class="fa fa-plus-square-o"></i> Add Member</a>
+                                </li>
+                                <li role="presentation"><a href="{% url 'un-approved-list'%}"> <i class="fa fa-list-ol"></i>Unapproved</a></li>
+                                
+                                {% endif %}
+        
+                            </ul>
+                            
+                            <br/>
+                            
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="tab_profile">
+                                    <div class="x_content">
+                                        <div  class="text-center">
+                                            <div class="profile_img">
+                                                {% if member.Photo %}
+                                                    <img src="{{ member.Photo.url }}"
+                                                         alt="..." width="100"
+                                                         style="background: rgba(15,174,221,0.97); padding: 2px;"/>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <h3> Personal Information</h3>
+                                        <table id="tablePreview" class="table table-bordered table-striped">
+                                            <tbody>
+                                            <tr>
+                                                <th>1. Username</th>
+                                                <td>{{ member.username }}</td>
+                                                <th>2. First Name</th>
+                                                <td>{{ member.First_Name }}</td>
+                                                <th>4. Second Name</th>
+                                                <td>{{ member.Second_Name }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>5. Gender</th>
+                                                <td>{{ member.Gender }}</td>
+                                                <th>6. Marital Status</th>
+                                                <td>{{ member.Marital_Status }}</td>
+                                                <th>7. Home Cell</th>
+                                                <td> {{ member.Home_Cell }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>8. Email</th>
+                                                <td>{{ member.Email }}</td>
+                                                <th>9. Phone</th>
+                                                <td>{{ member.Telephone }}</td>
+                                                <th>10. Residence</th>
+                                                <td>{{ member.Residence }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>11. Education</th>
+                                                <td>{{ member.Education_Level }}</td>
+                                                <th>12. Profession</th>
+                                                <td>{{ member.Profession }}</td>
+                                                <th>13. Place of Work</th>
+                                                <td>{{ member.Place_of_Work }}</td>
+                                            </tr>
+                                           <tr>
+                                                <th>14. Salvation Date</th>
+                                                <td>{{ member.Date_Of_Salvation }}</td>
+                                                <th>15. Date Of Birth</th>
+                                                <td>{{ member.Date_Of_Birth }}</td>
+                                                <th>16. Ministry at Church</th>
+                                                <td>{{ member.Ministry_Involved_In }}</td>
+                                            </tr>
+                                             <tr>
+                                                <th>17. Home District</th>
+                                                <td>{{ member.District }}</td>
+                                                <th>18. Village</th>
+                                                <td>{{ member.Village }}</td>
+                                                <th>19. Next of Kin</th>
+                                                <td>{{ member.Name_Of_Next_Of_Kin }}</td>
+                                            </tr>
+
+                                            
+                                            </tbody>
+                                            <!--Table body-->
+                                        </table>
+                                       
+                                    </div>
+                                    {% if member.id == member_id %}
+                                    <h3><span> Hello <b>{{member.Initials}} {{member}}</b> Here Are Your Reports</span></h3><br><br>
+                                    
+
+                                    <h4><b>1. Tithes Report </h4><br>
+                                    <table id="invoice-table" class=" table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Service</th>
+                                                <th>Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                
+                                                {% for item in tithes %}
+                                                <tr>
+                                                  <td >{{ item.Date}}</td>
+                                                  <td>{{ item.Service}}</td>
+                                                  <td>{{ item.Amount|intcomma}}</td>
+                                                </tr>
+                                                {% endfor %}
+                                        </tbody>
+                                    </table><br><br>
+                                      <h4><b>2. Thanks Giving Report </h4><br>
+                                    <table id="invoice-table" class=" table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Service</th>
+                                                <th>Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in thanks %}
+                                            <tr>
+                                              <td >{{ item.Date}}</td>
+                                              <td>{{ item.Service}}</td>
+                                              <td>{{ item.Amount|intcomma}}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table><br><br>
+                                    <h4><b>3. Pledges Report </h4><br>
+                                    <table id="invoice-table" class=" table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Pledge Reason</th>
+                                                <th>Pledged Amount</th>
+                                                <th>Amount Paid</th>
+                                                <th> Pledge Balance</th>
+                                                <th>Pledge Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in pledges %}
+                                            {% if item.Amount_Pledged is not 0 %}
+                                            <tr>    
+                                                  <td>{{ item.Reason}}</td>
+                                                  <td>{{ item.Amount_Pledged |intcomma}}</td>
+                                                  <td>{{ item.total_pledge_paid|intcomma}}</td>
+                                                  <td>{{ item.Pledge_Balance|intcomma}}</td>
+                                                  <td>{{ item.updatestatus}}</td>
+                                            </tr>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    {% else %}
+                                    <p>id's didn't march</p>
+                                    {% endif %}
+                                    
+
+                                </div>
+
+                                <!-- THE MODAL WE WILL BE USING -->
+                                <div class="modal fade" id="modal-profile">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+
+

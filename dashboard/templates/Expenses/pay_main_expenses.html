@@ -1,0 +1,63 @@
+{% extends "app/base_site.html" %}
+{% block content %}
+<div role="main">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h3 class="head-title" style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i>
+                        <b> MAIN EXPENSES MODULE</b></h3>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+            <div class="x_content">
+                <div class="" data-example-id="togglable-tabs">
+                    <ul class="nav nav-tabs bordered">
+                        <li role="presentation" class="">
+                            <a href="{% url 'expenditurereport' %}"><i class="fa fa-list-ol"></i> Sunday Expenses </a>
+                          </li>
+                          
+                          <li role="presentation" class="">
+                            <a href="{% url 'weekly_main_expenses' %}"><i class="fa fa-list-ol"></i> Weekly Main Expenses </a>
+                          </li>
+                                    
+                        {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
+                        <li role="presentation" class="active"><a href="{% url 'enter_expenditure' %}"><i
+                              class="fa fa-plus-square-o"></i> Record</a>
+                         </li>
+                         {% endif %}
+                        <li role="presentation"><a href="{% url 'expensesarchivessearch' %}"><i
+                              class="glyphicon glyphicon-king"></i> Archived</a>
+                         </li>
+                    </ul>
+                    <h4 style="text-align: center;">Record weekly main expenses transactions</h4>
+                    <div class="separator"></div>
+					<div class="col-lg-6 col-offset-8 centered">
+              
+					    <div class="col-md-10">
+					      {% load crispy_forms_tags %}
+						      <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %} 
+                    {{ form.Date|as_crispy_field}}
+                    {{ form.Payment_Made_To|as_crispy_field}}
+                    {{ form.Main_Expense_Reason|as_crispy_field}}
+                    <div class="form-group">
+                      <label for="id_Amount"> Amount Paid</label>
+                      <input type="number" value="" step="any" name="Amount"  class="form-control" required id="id_Amount" min='1'>
+                    </div>
+                    <input type="hidden" id="main" name="Reason_filtering" value="main">
+
+                <button type="submit" class="btn btn-primary" name="button">Record</button>
+                  </form>
+                    <p style="color:red"><b>NB:</b> 1. Record other expenses not listed among main expenses reasons In petty expenses module<br>.</p>
+					    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+{% endblock %}

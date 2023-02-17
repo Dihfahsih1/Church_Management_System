@@ -1,0 +1,105 @@
+{% extends "app/base_site.html" %}
+{% block content %}
+<div class="right_col" role="main">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h1 style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b> LWAKI OLI MULAMU MODULE</b></h1>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="" data-example-id="togglable-tabs">
+                        <ul class="nav nav-tabs bordered">
+                            <li role="presentation"><a href="{% url 'lwakiolimulamu' %}"><i class="fa fa-list-ol"></i>
+                                    List</a>
+                            </li>
+                            <li role="presentation" class="active"><a href="#"><i
+                                        class="fa fa-plus-square-o"></i> Record</a>
+                            </li>
+                        </ul>
+                        <h2 style="text-align: center">Record Lwaki Olimulamu Details</h2>
+                        <div class="separator"></div>
+                        <div style="margin-left: 25%" class="col-lg-4 col-md-4 col-sm-4 justify-content-center">
+                    {% load crispy_forms_tags %}
+                    <form class="form-horizontal form-label-left"
+                            id="admissionForm" action="" method="POST" enctype="multipart/form-data" 
+                            accept-charset="utf-8" novalidate>
+                            {% csrf_token %}
+                            {% for errors in form_errors %}
+                            <p><b style="color: red;">{{errors}}</b> => Can't be empty</p>
+                            {% endfor %}
+                       
+            
+                        <div class="form-row">
+                            
+                            <div class="form-group">
+                                {{ form.date|as_crispy_field }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.day|as_crispy_field }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.location|as_crispy_field }}
+                            </div>
+                            <div class="form-group" id="choice">
+                                {{ form.which_type|as_crispy_field }}
+                            </div>
+                            <div class="form-group" id="conf">
+                                {{ form.conference_theme|as_crispy_field }}
+                            </div>
+                            <div class="form-group" id="mission">
+                                {{ form.title|as_crispy_field }}
+                            </div>
+                            <div class="form-group" id="choice">
+                                {{ form.topic_or_sub_title|as_crispy_field }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.preachers|as_crispy_field }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.details|as_crispy_field }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.image|as_crispy_field }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.embedded_video|as_crispy_field }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.audio_file|as_crispy_field }}
+                            </div>
+                        </div>
+                            <button type="submit" class="btn btn-primary" name="button">Submit</button>
+                        </div>
+                    </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $("#id_which_type").change(function () {
+        if ($(this).val() === "mission") {
+            $('#mission').show(); 
+            $('#conf').hide();
+        
+        } else if ($(this).val() === "conference") {
+            $('#mission').hide(); 
+            $('#conf').show();
+            
+        } else {
+            $('#conf').hide();
+            $('#mission').hide(); 
+        }
+    });
+    $("#id_which_type").trigger("change");
+</script>
+{% endblock content %}

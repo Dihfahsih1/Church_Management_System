@@ -1,0 +1,235 @@
+{% extends "app/base_site.html" %}
+
+{% block title %} Church {% endblock title %}
+
+{% load static i18n %}
+
+{% load crispy_forms_tags %}
+
+{% block javascript %}
+    <script src="{% static 'schools/js/schools.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <div class="right_col" role="main">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h1 style="text-align: center;"><i class="fa fa-home"></i><b> CHURCH MODULE</b></h1>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content quick-link">
+                        <span style="color:red"><b>Other Archived Reports:</b></span>
+                        <a href="{% url  'expensesarchivessearch' %}"> Main Expenses</a>
+                        |<a href="{% url 'general-expensesarchives-search' %}"> General Expenses</a>
+                        |<a href="{% url 'offeringsarchivessearch' %}"> Offerings</a>
+                    
+                        |<a href="{% url 'pledgesarchivessearch' %}"> Pledges</a>
+                    
+                        |<a href="{% url 'sundryarchivessearch' %}"> Petty Expenses</a>
+                        {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
+                        |<a href="{% url 'allowancearchivessearch' %}"> Allowances</a>
+                        |<a href="{% url 'salariespaidarchivessearch' %}"> Salaries</a>
+                        |<a href="{% url 'tithesarchivessearch' %}"> Tithes</a>
+                        |<a href="{% url 'seeds-archives-search' %}"> Seeds</a>
+                        |<a href="{% url 'thanksgivingarchivessearch' %}"> ThanksGiving</a>
+                        {% endif %}
+                        |<a href="{% url 'BuildingRenovationarchivessearch' %}"> Building</a>
+                        <div class="separator"></div>
+                    </div>
+
+                    <div class="x_content">
+                        <div class="" data-example-id="togglable-tabs">
+
+                            <ul class="nav nav-tabs bordered" style="margin-bottom: 10px;">
+                                <li role="presentation"><a href="{% url 'church_list' %}">
+                                    <i class="fa fa-list-ol"></i> Church Details</a>
+                                </li>
+                                
+                                
+                                {% if item.id is None %}
+                                <li role="presentation"><a href="{% url 'church_create' %}"><i class="fa fa-plus-square-o"></i> Add
+                                        church Details</a>
+                                </li>
+                                {% endif %}
+                                
+                                <li role="presentation" class="active"><a href="#">
+                                    <i class="fa fa-pencil-square-o"></i> Edit church</a>
+                                </li>
+                            </ul>
+                            <br/>
+                            <h2 style="text-align: center;">Updating Church Details</h2>
+                            <div class="separator"></div>
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="tab_school_list">
+                                    <div class="x_content">
+
+                                        <form class="form-horizontal form-label-left"
+                                              role="form" action="" method="post" enctype="multipart/form-data"
+                                              accept-charset="utf-8">
+                                              {% csrf_token %}
+                                                <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                                                    <strong>Basic Information:</strong>
+                                                </p>
+
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        {{ form.church_code|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        {{ form.church_name|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        {{ form.address|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        {{ form.Church_Logo|as_crispy_field }}
+                                                    </div>
+
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        {{ form.phone|as_crispy_field }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        {{ form.registration_date|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        {{ form.email_address|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        {{ form.Post_Office_Box|as_crispy_field }}
+                                                    </div>
+                                                    
+                                                </div>
+                                                <br/>
+
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-12 mb-0">
+
+                                                        <p class="text-muted well well-sm no-shadow"
+                                                           style="margin-top: 10px;">
+                                                            <strong>Setting Information:</strong>
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        {{ form.footer|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        {{ form.enable_frontend|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        {{ form.latitude|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        {{ form.longitude|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        {{ form.maps_embedded_link|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        {{ form.church_mission|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        {{ form.church_vision|as_crispy_field }}
+                                                    </div>
+                                                
+                                                </div>
+                                                
+
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-12 mb-0">
+
+                                                        <p class="text-muted well well-sm no-shadow"
+                                                           style="margin-top: 10px;">
+                                                            <strong>Social Information:</strong>
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        {{ form.facebook_url|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        {{ form.twitter_url|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        {{ form.linkedIn_url|as_crispy_field }}
+                                                    </div>
+
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        {{ form.google_plus_url|as_crispy_field }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        {{ form.youtube_url|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        {{ form.instagram_url|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        {{ form.pinterest_url|as_crispy_field }}
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-12 mb-0">
+                                                        <br></br>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-12 mb-0">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <hr>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <div class="col-sm-offset-3 col-sm-9">
+                                                        <button type="submit" class="btn btn-primary">Update</button>
+                                                    </div>
+                                                </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <!-- THE MODAL WE WILL BE USING -->
+                                <div class="modal fade" id="modal-school">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock content %}
+
+{% block javascripts %}
+
+    {{ block.super }}
+
+{% endblock javascripts %}

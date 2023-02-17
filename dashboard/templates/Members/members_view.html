@@ -1,0 +1,220 @@
+ 
+{% extends "app/base_site.html" %}
+{% block content %}
+<div class="right_col" role="main">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h1 style="text-align: center;"><i class="fa fa fa-calendar-check-o"></i><b> MEMBERSHIP MODULE</b></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                
+                    
+                    
+          <div class="x_content">
+            <div class="" data-example-id="togglable-tabs">
+                <ul class="nav nav-tabs bordered">
+                  <li role="presentation" ><a href="{% url 'members-list' %}"><i
+                                class="fa fa-list-ol"></i> Memebers List</a>
+                </li>
+                <li role="presentation"><a href="{% url 'members-register' %}"><i
+                                class="fa fa-plus-square-o"></i> Add Member</a>
+                </li>
+                <li role="presentation"class="active"><a href="#"><i
+                                class="fa fa-plus-square-o"></i> View Member Details</a>
+                </li>
+                </ul>
+                <br/>
+    <div class="modal-header">
+        <h2 class="modal-title" style="text-align: center">Membership Details of {{ member}}</h2>
+        <!-- {% if member.is_active is "False" and member.Archived_Status is "NOT-ARCHIVED" %}
+            <h3 style="text-align: center;"><a href="{% url 'approve-member' member.id  %}" class="btn btn-success btn-sm "><span
+                    class="glyphicon glyphicon-ok"></span> Approve Request</a> | <a href="{% url 'reject-request' i.id %}" class="btn btn-danger btn-sm "><span class="fa fa-close"></span>
+                        Reject Request</a></h3>
+        {% elif member.is_active == "False" and member.Archived_Status == "ARCHIVED" %}
+        <h3 style="text-align: center;"><a href="{% url 'un-archive-member' member.id  %}" class="btn btn-success btn-sm "><span
+                    class="glyphicon glyphicon-ok"></span> Un-Archive Member</a></h3>
+        {% else %}
+        <h3 style="text-align: center;"><a href="{% url 'archive-member' member.id %}" class="btn btn-warning btn-sm "><span
+        class="fa fa-close"></span> Archive Member</a></h3>
+        {% endif %} -->
+    </div>
+
+    <div class="modal-body">
+        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+            <ul id="myTab" class="nav nav-tabs bordered" role="tablist">
+                <li class="active"><a href="#tab_content1" id="basic-tab" role="tab"
+                                      data-toggle="tab" aria-expanded="true">
+                    <i class="fa fa-info-circle">&nbsp;</i>Basic Info</a>
+                </li>
+                <li class=""><a href="#tab_content2" role="tab" id="parent-tab" data-toggle="tab"
+                                aria-expanded="false">
+                    <i class="fa fa-male">&nbsp;</i>Home Info</a>
+                </li>
+                <li class=""><a href="#tab_content3" role="tab" id="profession-tab" data-toggle="tab"
+                                aria-expanded="false">
+                    <i class="fa fa-male">&nbsp;</i>Working Info</a>
+                </li>
+                <li class=""><a href="#tab_content4" role="tab" id="faith-tab" data-toggle="tab"
+                                aria-expanded="false">
+                    <i class="fa fa-male">&nbsp;</i>Church Info</a>
+                </li>
+                 <li class=""><a href="#tab_content5" role="tab" id="kin-tab" data-toggle="tab"
+                                aria-expanded="false">
+                    <i class="fa fa-male">&nbsp;</i>Next of Kin Info</a>
+                </li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1"
+                     aria-labelledby="basic-tab">
+                    <table id="tablePreview" class="table table-bordered table-striped">
+                     
+                        <style type="text/css">
+                            th   {color: blue;font-size: 120%; font-weight: bolder}
+                        </style>
+                        <tbody>
+                        <tr>
+                            <th>First Name</th>
+                            <td>{{ form.instance.First_Name }}</td>
+                            <th>Second Name</th>
+                            <td>{{ form.instance.Second_Name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Member Photo</th>
+                            <td><img src="{{ form.instance.Photo.url }}"
+                                     alt="" width="30"
+                                     style="background: rgba(15,174,221,0.97); padding: 2px;"/>
+                            </td>
+                            <th>Birth Date</th>
+                            <td>{{ form.instance.Date_Of_Birth }}</td>
+                            
+
+                        </tr>
+                        <tr>
+                            <th>Gender</th>
+                            <td>{{ form.instance.Gender }}</td>
+                            <th>Home Cell</th>
+                            <td>{{ form.instance.Home_Cell }}</td>
+                        </tr>
+                         <tr>
+                            <th>Residence</th>
+                            <td>{{ form.instance.Residence }}</td>
+                            <th>Telephone</th>
+                            <td>{{ form.instance.Telephone }}</td>
+                        </tr>
+                         <tr>
+                            <th>Marriage Status</th>
+                            <td>{{ form.instance.Marital_Status }}</td>
+                            <th>Marriage Type</th>
+                            <td>{{ form.instance.Marriage_Kind }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div role="tabpanel" class="tab-pane fade active in" id="tab_content2"
+                     aria-labelledby="parent-tab">
+                    <table id="tablePreview" class="table table-bordered table-striped">
+                        <style type="text/css">
+                            th   {color: blue;font-size: 120%; font-weight: bolder}
+                        </style>
+                        <tbody>
+                        <tr>
+                            <th>Country</th>
+                            <td>{{ form.instance.Country }}</td>
+                            <th>County</th>
+                            <td>{{ form.instance.County }}</td>
+                        </tr>
+                        <tr>
+                            <th>Sub-County</th>
+                            <td>{{ form.instance.Sub_County }}
+                            </td>
+                            <th>Parish</th>
+                            <td>{{ form.instance.Parish }}</td>
+                        </tr>
+                        <tr>
+                            <th>District </th>
+                            <td>{{ form.instance.District }}</td>
+                            <th>Village</th>
+                            <td>{{ form.instance.Village }}</td>
+                        </tr>
+                          
+                        </tbody>
+                        <!--Table body-->
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane fade active in" id="tab_content3"
+                     aria-labelledby="profession-tab">
+                    <table id="tablePreview" class="table table-bordered table-striped">
+                        <style type="text/css">
+                            th   {color: blue;font-size: 120%; font-weight: bolder}
+                        </style>
+                        <tbody>
+                        <tr>
+                            <th>Education Level</th>
+                            <td>{{ form.instance.Education_Level }}</td>
+                            <th>Profession</th>
+                            <td>{{ form.instance.Profession }}</td>
+                        </tr>
+                        <tr>
+                            <th>Type Of Work</th>
+                            <td>{{ form.instance.Type_of_Work }}
+                            </td>
+                            <th>Place Of Work</th>
+                            <td>{{ form.instance.Place_of_Work }}</td>
+                        </tr>
+                        </tbody>
+                        <!--Table body-->
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane fade active in" id="tab_content4"
+                     aria-labelledby="faith-tab">
+                    <table id="tablePreview" class="table table-bordered table-striped">
+                        <style type="text/css">
+                            th   {color: blue;font-size: 120%; font-weight: bolder}
+                        </style>
+                        <tbody>
+                        <tr>
+                            <th>Date Of Salvation</th>
+                            <td>{{ form.instance.Date_Of_Salvation }}</td>
+                            <th>Date Of Joining UCC Bwaise</th>
+                            <td>{{ form.instance.Date_Of_Joining_UCC_Bwaise }}</td>
+                        </tr>
+                        <tr>
+                            <th>Ministry</th>
+                            <td>{{ form.instance.Ministry_Involved_In }}
+                            </td>
+                        </tr>
+                        </tbody>
+                        <!--Table body-->
+                    </table>
+                </div>
+                 <div role="tabpanel" class="tab-pane fade active in" id="tab_content5"
+                     aria-labelledby="kin-tab">
+                    <table id="tablePreview" class="table table-bordered table-striped">
+                        <style type="text/css">
+                            th   {color: blue;font-size: 120%; font-weight: bolder}
+                        </style>
+                        <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <td>{{ form.instance.Name_Of_Next_Of_Kin }}</td>
+                            <th>Contact</th>
+                            <td>{{ form.instance.Contact_Of_Next_Of_Kin }}</td>
+                            <th>Residence</th>
+                            <td>{{ form.instance.Residence_Of_Next_Of_Kin }}</td>
+                        </tr>
+                        </tbody>
+                        <!--Table body-->
+                    </table>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div></div></div></div></div></div></div>
+{% endblock content %}

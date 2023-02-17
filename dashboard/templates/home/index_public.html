@@ -1,0 +1,254 @@
+
+{% extends 'home/base.html' %}
+{% block title %} UCC Bwaise {% endblock %}
+
+{% load static contact_tags slider_tags %}
+{% block content %}
+
+    <div class="container-fluid" style="background-color: white;">
+        
+        <!--Top Slider -->
+       
+             
+        <div class="row">
+                <div class="slider-area owl-carousel">
+                    <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
+                    style="height:430px;background-image: url('{% sliding_image1 %}')" >
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="hero-slides-content">
+                                        <h3 data-animation="fadeInUp" data-delay="100ms"  style="color:white;">YOU ARE WELCOME TO</h3>
+                                        <h2 data-animation="fadeInUp" data-delay="200ms" style="color:white;">UNITED CHRISTIAN CENTER Bwaise</h2>
+                                        <h3 data-animation="fadeInUp" data-delay="300ms" style="color:white;">Where we discover and do the will of God in our lives</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
+                    style="height:430px; background-image: url('{% sliding_image3 %}');">
+                        <!-- Post Content -->
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="hero-slides-content">
+                                        <h3 data-animation="fadeInUp" data-delay="100ms" style="color:white;">Church Mission</h3>
+                                        <h2  data-animation="fadeInUp" data-delay="130ms" style = "color:white">Why Are You Alive</h2>
+                                        <a href="{% url 'abouts_mission' %}" class="btn crose-btn" data-animation="fadeInUp" data-delay="700ms">find out More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="single-hero-slide bg-img bg-overlay d-flex align-items-center justify-content-center" 
+                    style="background-image: url('{% sliding_image2 %}');height:430px;">
+                        <!-- Post Content -->
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="hero-slides-content">
+                                        <h3 data-animation="fadeInUp" data-delay="100ms" style="color:white;"> Church Vision</h3>
+                                        <h2 data-animation="fadeInUp" data-delay="110ms" style="color:white;"> Discovering and Doing God's will(1 John 2:15-17)</h2>
+                                        <a href="{% url 'abouts_vision' %}" class="btn crose-btn" data-animation="fadeInUp" data-delay="500ms">find out More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             
+        <br>
+    
+        <!--About Church with sliding Images-->
+            <div class="row" style="margin-top:-1%">
+                <div class="col-lg-12">
+                    <div class="col-lg-6">
+                    
+                        <h1>Discovering</h1>
+                        <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;And</h1>
+                        <h1>Doing God's Will</h1>
+                        <p style="font-size:20px; color:black" >
+                        Welcome to United Christian Centre Bwaise (UCC Bwaise)! We are glad you are here; our vision is discovering and doing God's will. At UCC Bwaise, you can find meaningful connections, tools to grow in your faith, and opportunities to make a difference in the world.
+                        
+                        <a href="{% url 'church_details'%}"><b>... Read More </b></a>
+                    </p>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                         <div style="text-align: center;"> 
+                             <img src="{% sliding_image1 %}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            
+            <div class="row">
+                <div class="col-lg-12 col-md-12 co-sm-12">
+                    <p class="title" style="text-align: center;"><a class="link glbscl-link-btn hvr-bs">Church Weekly Services</a></p>
+                     <div class="col-lg-3" >
+                        <div class="single-news">
+                             <img src="{% static 'img/weekly-services/monday.PNG' %}">
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3" >
+                        <div class="single-news">
+                            <img src="{% static 'img/weekly-services/tuesday.PNG' %}">
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3" >
+                        <div class="single-news">
+                             <img src="{% static 'img/weekly-services/wednesday.PNG' %}">
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3" >
+                        <div class="single-news">
+                             <img src="{% static 'img/weekly-services/wednesday-men-service.PNG' %}">
+                        </div>
+                    </div></div></div>
+                
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 co-sm-12">
+                        
+                        <div class="col-lg-3" >
+                            <div class="single-news">
+                                <img src="{% static 'img/weekly-services/thursday-guidance.PNG' %}">
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3" >
+                            <div class="single-news">
+                                <img src="{% static 'img/weekly-services/youth-service.PNG' %}">
+                                
+                            </div>
+                        </div>
+                        <div class="col-lg-3" >
+                            <div class="single-news">
+                                <img src="{% static 'img/weekly-services/friday-study.PNG' %}">
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3" >
+                            <div class="single-news">
+                                <img src="{% static 'img/weekly-services/sunday-service.PNG' %}">
+                                
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 co-sm-12">
+                        <p class="title" style="text-align: center;"><a class="link glbscl-link-btn hvr-bs">Church Library Resources</a></p>
+                         <div class="col-lg-3" >
+                            <div class="single-news">
+                                 <img src="{% static 'img/amidst_the_storm.png' %}">
+                            </div>
+                        </div>
+                        <div class="col-lg-3" >
+                            <div class="single-news">
+                                <img src="{% static 'img/an_upright_heart.png' %}">
+                            </div>
+                        </div>
+                        <div class="col-lg-3" >
+                            <div class="single-news">
+                                 <img src="{% static 'img/why_are_you_alive.png' %}">
+                            </div>
+                        </div>
+                        <div class="col-lg-3" >
+                            <div class="single-news">
+                                <img src="{% static 'img/the_inner_burning.png' %}">
+                                
+                            </div>
+                        </div>
+                             
+                        </div>
+                    </div>
+            </div>
+    
+        <!--Church Highlights Section-->
+            <hr>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 co-sm-12">
+                    <p class="title" style="text-align: center;"><a class="link glbscl-link-btn hvr-bs">Recent Sermons</a></p>
+                     <div class="col-lg-3" >
+                        <div class="single-news">
+                             <iframe src="https://www.youtube.com/embed?listType=playlist&list=PLuZBtIGdvrUO4yfMokCmguiFq80-mHPkc&jct=LQq4HrGPM8RcAl26GdU-P-flSi8aMA">
+                             </iframe>
+                        </div>
+                    </div>
+                    <div class="col-lg-3" >
+                        <div class="single-news">
+                            <iframe
+                              src="https://www.youtube.com/embed?listType=playlist&list=PLuZBtIGdvrUO4yfMokCmguiFq80-mHPkc&jct=LQq4HrGPM8RcAl26GdU-P-flSi8aMA&index=2">
+                            </iframe>
+                        </div>
+                    </div>
+                    <div class="col-lg-3" >
+                        <div class="single-news">
+                             <iframe
+                              src="https://www.youtube.com/embed?listType=playlist&list=PLuZBtIGdvrUO4yfMokCmguiFq80-mHPkc&jct=LQq4HrGPM8RcAl26GdU-P-flSi8aMA&index=3">
+                            </iframe>
+                        </div>
+                    </div>
+                    <div class="col-lg-3" >
+                        <div class="single-news">
+                            <iframe
+                              src="https://www.youtube.com/embed?listType=playlist&list=PLuZBtIGdvrUO4yfMokCmguiFq80-mHPkc&jct=LQq4HrGPM8RcAl26GdU-P-flSi8aMA&index=4">
+                            </iframe>
+                            
+                        </div>
+                    </div>
+                         
+                    </div>
+                </div>
+            </div>
+            
+        <!--Church Feedback-->
+        <hr>
+        <div class="row" style="">
+            <div class="col-lg-12 col-md-12 co-sm-12">
+                <h2 class="title" style="text-align: center;"><a class="link glbscl-link-btn hvr-bs" href="{% url 'news_wall' %}">Church Blog Posts</a></h2>
+                    {% for blog in blogs %} 
+                    <div class="col-lg-4" >
+                        <div class="single-news">
+                            <a href="{% url 'BlogPost_detail' blog.slug %}">
+                            <div class="img">
+                                {% if blog.image %}
+                                    <img src="{{ blog.image.url }}" alt="">
+                                {% endif %}
+                            
+                            </div>
+                            
+                            <div class="content"> 
+                                <h2 class="title">{{ blog.title }}</h2>
+                                 
+                                <div class="text">
+                                    {{ blog.details|truncatewords:20|safe }}
+                                </div> 
+                            </div>
+                            </a> 
+                        </div>
+                    </div>
+                     
+                    {% endfor %} 
+                    
+                    <p><span class="icon"><i class="fa fa-book"></i></span>
+                    <a href="{% url 'blogs_wall' %}" target=""><b style="font-size:15px ">Visit the blog</b></a></p>
+                    
+                
+            </div>
+        </div>  
+    </div>
+    
+{% endblock %}
+ 

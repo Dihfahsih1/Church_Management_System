@@ -1,0 +1,57 @@
+
+
+{% extends "app/base_site.html" %}
+{% block content %}
+<div class="right_col" role="main">
+    <div class="row">
+    	<div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h1><i class="fa fa fa-calendar-check-o"></i><b>Manage Church Seed Offerings</b></h1>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+             
+		  	    <div class="x_content">
+		            <div class="" data-example-id="togglable-tabs">
+		                <ul class="nav nav-tabs bordered">
+		                    <li role="presentation" ><a href="{% url 'Seeds-report' %}"><i
+		                                class="fa fa-list-ol"></i> List of Seeds</a>
+		                    </li>
+		                    <!-- <li role="presentation"><a href="{% url 'add-seeds' %}"><i
+	                            class="fa fa-plus-square-o"></i> Record Seed</a>
+		                    </li> -->
+                            <li role="presentation"><a href="{% url 'seeds-archives-search' %}"><i
+                              class="fa fa-plus-square-o"></i> Seeds Archived</a>
+                            </li>
+                             <li role="presentation"class="active"><a href="#"><i
+                              class="glyphicon glyphicon-edit"></i> Edit Seed</a>
+                            </li>
+                            
+		                </ul>
+		                <br/>
+                         <h2 style="text-align: center">Edit Seed Offerings Made</h2>
+                      <p>{{ msg}}</p>
+						<div style="margin-left: 25%"class="col-lg-4 col-md-4 col-sm-4 justify-content-center">
+						{% load crispy_forms_tags %}
+							<form method="POST" enctype="multipart/form-data" >
+								{% csrf_token %}
+                                {{ form.Date|as_crispy_field}}
+                                {{ form.Member_Name|as_crispy_field}}
+                                {{ form.Service|as_crispy_field}}
+                                {{ form.Seed_Amount|as_crispy_field}}
+                                <input type="hidden" id="seeds" name="Revenue_filter" value="seeds">
+							<button type="submit" class="btn btn-primary" name="button">Submit</button>
+							</form>
+						</div>
+			        </div>
+		        </div>
+                {% include 'messages.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

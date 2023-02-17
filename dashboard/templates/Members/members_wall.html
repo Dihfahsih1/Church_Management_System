@@ -1,0 +1,117 @@
+{% extends 'home/base.html' %}
+<body>
+
+{% block content %}
+   <h1 style="text-align:center" class="title">UCC Bwaise Registered Members</h1>
+   <hr>
+    <section class="page-event-area" style="margin-top:-5%">
+        <div class="container">
+            <form action="{% url 'membership_wall' %}" method="GET" value="{{request.GET.q}}">
+                <div style="text-align: center;">
+                <input type="text" name="q" value="{{request.GET.q}}" placeholder="Search For Member" />
+                <input type="submit" class="btn btn-primary" name="submit" value="Search" />
+                </div>
+            </form>
+            {% if submitbutton == 'Search' and request.GET.q != '' %}
+            {% if results %}
+            <!-- <h3 style="text-align: center;">Results for <b>{{ request.GET.q }}</b></h3> -->
+            <br>
+            <div class="row">
+                {% for result in results %}
+                <div class="col-lg-6">
+                    <div class="single-event">
+                        <div class="img" style="max-height: 170px">
+                            {% if result.Photo %}
+                            <img src="{{ result.Photo.url }}" data-fancybox="images" style="border-radius: 40%;">
+                            {% endif %}
+                        </div>
+                        <a href="{% url 'member-detail' result.id %}">
+                            <div class="content">
+                                <h2 class="head-title">{{result.Initials}} {{result.First_Name}} {{result.Second_Name}}
+                                </h2>
+                                <ul class="list">
+                                    <li class="info"><span class="icon"><i class="fa fa-group"></i></span>Group: {{result.Group}}
+                                    </li>
+                                    <li class="info"><span class="icon"><i class="fa fa-home"></i></span>Cell: {{ result.Home_Cell }}
+                
+                                    </li>
+                                    <li class="info"><span class="icon"><i class="fa fa-map-marker"></i></span>Residence:
+                                        {{ result.Residence }}
+                
+                                    </li>
+                                    <li class="info"><span class="icon"><i class="fa fa-map-marker"></i></span>Ministry:
+                                        {{ result.Ministry_Involved_In }}
+                
+                                    </li>
+                                </ul>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                {% endfor %}
+                {% else %}
+                <h3>No member is registered with that search query </h3>
+                <p>Please enter the correct spelling or Click <a href="{% url 'online_registration' %}" style="color: red;">Here</a>  to Request for membership</p>
+                {% endif %}
+                {% endif %}
+            </div><br>
+            <div class="row">
+                {% for member in members_list %}                
+                    <div class="col-lg-4">
+                        <div class="single-event">
+                            <div class="img" style="max-height: 250px">
+                                <h3> Member No. {{member.id}}</h3>
+                                 {% if member.Photo %}
+                                    <img src="{{ member.Photo.url }}" data-fancybox="images"  >
+                                {% endif %} 
+                            </div>
+                            <a href="{% url 'member-detail' member.id %}"> 
+                                <div class="content">
+                                    <h2 class="head-title">{{member.Initials}} {{member.First_Name}} {{member.Second_Name}}
+                                    </h2>
+                                    <ul class="list">
+                                        <li class="info"><span class="icon"><i
+                                                class="fa fa-group"></i></span>Group: {{member.Group}}
+                                        </li>
+                                        <li class="info"><span class="icon"><i
+                                                class="fa fa-home"></i></span>Cell: {{ member.Home_Cell }}
+                                            
+                                        </li>
+                                        <li class="info"><span class="icon"><i
+                                                class="fa fa-map-marker"></i></span>Residence: {{ member.Residence }}
+                                            
+                                        </li>
+                                        <li class="info"><span class="icon"><i
+                                                class="fa fa-map-marker"></i></span>Ministry: {{ member.Ministry_Involved_In }}
+                                            
+                                        </li>
+                                    </ul>
+                                </div>
+                            </a>
+                        </div>
+                            
+                    </div>
+                {% endfor %}
+
+            </div>
+            {% if members_list.has_other_pages %}
+              <nav aria-label="Page navigation conatiner" style="text-align: center">
+              <ul class="pagination justify-content-center">
+                {% if members_list.has_previous %}
+                <li><a href="?page={{ members_list.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+                {% endif %}
+                {% if members_list.has_next %}
+                <li><a href="?page={{ members_list.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+               {% endif %}
+              </ul>
+              </nav>
+            {% endif %}
+            </div>
+            
+        </div>
+        </div>
+    </section>
+
+{% endblock %}
+</body>

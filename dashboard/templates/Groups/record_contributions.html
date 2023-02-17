@@ -1,0 +1,61 @@
+
+
+{% extends "app/base_site.html" %}
+{% block content %}
+{% load humanize%}
+<div class="right_col" role="main">
+    <div class="row">
+    	<div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h1 style="text-align: center;"><b><i class="fa fa fa-calendar-check-o"></i> GROUP CONTRIBUTION MODULE</b></h1>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content quick-link">
+                    <span style="color:red"><b>Make Other Entries:</b></span>
+                    <a href="{% url  'enter_expenditure' %}"> Main</a>
+                    |<a href="{% url 'enter-general-expenses' %}"> General</a>
+                    |<a href="{% url 'enter_sundryexpense' %}"> Petty</a>
+                    |<a href="{% url 'Enter_Offerings' %}"> Offerings</a>
+                    |<a href="{% url 'Enter_Tithes' %}"> Tithes</a>
+                    |<a href="{% url 'Enter_Pledges' %}"> Pledges</a>
+                    |<a href="{% url 'give-allowance' %}"> Allowances</a>
+                    |<a href="{% url 'employee-list' %}"> Salaries</a>
+                    |<a href="{% url 'record-donations' %}"> Doantions</a>
+                    |<a href="{% url 'add-seeds' %}"> Seeds</a>
+                    |<a href="{% url 'record-thanks-giving' %}"> Thanks Giving</a>
+                    |<a href="{% url 'members-register' %}"> Membership</a>
+                    <div class="separator"></div>
+                </div>
+		  	    <div class="x_content">
+		            <div class="" data-example-id="togglable-tabs">
+                        <ul class="nav nav-tabs bordered">
+                            <li role="presentation" class="active"><a href="{% url 'record-group-contribution' %}"><i class="fa fa-plus-square-o"></i> Record Group Contribution</a></li>
+                           
+                            <li role="presentation"><a href="{% url 'list-group-contributions' %}"><i class="glyphicon glyphicon-king"></i> Contribution List</a></li>
+                          </ul>
+                          
+                         <h2 style="text-align: center">Record Group Contribution</h2>
+						<div style="margin-left: 25%"class="col-lg-4 col-md-4 col-sm-4 justify-content-center">
+						{% load crispy_forms_tags %}
+							<form method="POST" enctype="multipart/form-data" >
+								{% csrf_token %}
+								{{ form.Date|as_crispy_field}}
+                                {{ form.Group|as_crispy_field}}
+								{{ form.Amount|as_crispy_field}}
+								{{ form.Other_Notes|as_crispy_field}}
+							<button type="submit" class="btn btn-primary" name="button">Submit</button>
+							</form>
+						</div>
+                        
+			        </div>
+		        </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

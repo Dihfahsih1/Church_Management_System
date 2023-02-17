@@ -1,0 +1,192 @@
+{% extends "app/base_site.html" %}
+
+{% block title %} Page {% endblock title %}
+
+{% load static i18n %}
+
+{% block javascript %}
+    <script src="{% static 'schools/js/pages.js' %}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ block.super }}
+    {% endblock stylesheets %}
+
+{% block content %}
+    <div class="right_col" role="main">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_title">
+                    <h1 style="text-align: center;"><i class="fa fa-calendar"></i><b>WEBSITE PAGES MODULE</b></h1>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                
+                <div class="x_content quick-link">
+                    <span style="color:red"><b>quick-links:</b></span>
+                    <a href="{% url  'expenditurereport' %}"> Main Expenses</a></li>
+                    |<a href="{% url 'general-expenses-report' %}"> General Expenses</a></li>
+                    |<a href="{% url 'Offeringsreport' %}"> Offerings</a></li>
+                    |<a href="{% url 'members-list' %}">Membership</a>
+                    |<a href="{% url 'Pledgesreport' %}"> Pledges</a></li>
+                    |<a href="{% url 'sundryreport' %}"> Petty Expenses</a></li>
+                    {% if request.user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin'%}
+                    |<a href="{% url 'allowancereport' %}"> Allowances</a></li>
+                    |<a href="{% url 'current-month-salaries' %}"> Salaries</a></li>
+                    |<a href="{% url 'Tithesreport' %}"> Tithes</a></li>
+                    |<a href="{% url 'donations-report' %}"> Doantions</a></li>
+                    |<a href="{% url 'thanks-giving-report' %}"> ThanksGiving</a></li>
+                    {% endif %}
+                    <div class="separator"></div>
+                </div>
+                <h1 style="text-align: center;">Update Website Page</h1>
+                <div class="separator"></div>
+                <div class="x_content">
+                        <div class="" data-example-id="togglable-tabs">
+
+                            <ul class="nav nav-tabs bordered">
+                                <li role="presentation"><a href="{% url 'page_list' %}"><i
+                                        class="fa fa-list-ol"></i> Page List</a>
+                                </li>
+                                <li role="presentation"><a href="{% url 'page_create' %}"><i
+                                        class="fa fa-plus-square-o"></i> Create Page</a>
+                                </li>
+                                <li role="presentation" class="active"><a href="{% url 'page_update' page.pk %}"><i
+                                        class="fa fa-pencil-square-o"></i> Edit Page</a>
+                                </li>
+                            </ul>
+                            <br/>
+
+                            <div class="row">
+                                <div class="col-sm-offset-1 col-sm-8">
+
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade in active" id="tab_page_list">
+                                            <div class="x_content">
+
+
+                                                <form class="form-horizontal form-label-left"
+                                                      role="form"
+                                                      action=""
+                                                      method="post"
+                                                      enctype="multipart/form-data"
+                                                      accept-charset="utf-8">{% csrf_token %}
+
+                                                    {% include 'home/form_template.html' %}
+
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12 mb-0">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <hr>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <div class="col-sm-offset-4 col-sm-8">
+                                                            <a href="{% url 'page_list' %}"
+                                                               class="btn btn-outline-secondary"
+                                                               type="button">Cancel</a>
+                                                            <button type="submit" class="btn btn-success">Update
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                </form>
+
+
+                                            </div>
+                                        </div>
+
+                                        <!-- THE MODAL WE WILL BE USING -->
+                                        <div class="modal fade" id="modal-page">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#page-table').DataTable({
+                    dom: 'Bfrtip',
+                    iDisplayLength: 15,
+                    buttons: [
+                        'copyHtml5',
+                        'excelHtml5',
+                        'csvHtml5',
+                        'pdfHtml5',
+                        'print',
+                        'pageLength'
+                    ],
+                    search: true,
+                    responsive: true
+                });
+            });
+
+        </script>
+    </div>
+
+{% endblock content %}
+
+{% block javascripts %}
+
+    {{ block.super }}
+    <!-- Datatables -->
+    <script src="/static/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/static/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="/static/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/static/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="/static/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="/static/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="/static/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="/static/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="/static/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="/static/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/static/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="/static/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="/static/vendors/jszip/dist/jszip.min.js"></script>
+    <script src="/static/vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="/static/vendors/pdfmake/build/vfs_fonts.js"></script>
+    <!-- Chart.js -->
+    <script src="/static/vendors/Chart.js/dist/Chart.min.js"></script>
+    <!-- gauge.js -->
+    <script src="/static/vendors/gauge.js/dist/gauge.min.js"></script>
+    <!-- Skycons -->
+    <script src="/static/vendors/skycons/skycons.js"></script>
+    <!-- Flot -->
+    <script src="/static/vendors/Flot/jquery.flot.js"></script>
+    <script src="/static/vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="/static/vendors/Flot/jquery.flot.time.js"></script>
+    <script src="/static/vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="/static/vendors/Flot/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="/static/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="/static/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="/static/vendors/flot.curvedlines/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="/static/vendors/DateJS/build/date.js"></script>
+    <!-- JQVMap -->
+    <script src="/static/vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="/static/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="/static/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+
+
+
+{% endblock javascripts %}
+

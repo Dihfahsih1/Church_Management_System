@@ -1,0 +1,97 @@
+<head>
+    {% load static  theme_tags total_tags %}
+    {% load bootstrap4 %} {# import bootstrap4/bootstrap3 #}
+    {% bootstrap_javascript jquery='full' %} {# Embed Bootstrap JS+jQuery #}
+    {{ form.media }} {# Adds date-picker required JS and CSS #}
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block head %}
+        {% block meta %}
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <link rel="shortcut icon"/>
+            <meta charset="utf-8">
+            <meta charset="ISO-8859-15">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% endblock meta %}
+        {% block stylesheets %}
+            <!-- Bootstrap -->
+            <link href="{% static 'vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+            <!-- Datable -->
+            <link href="{% static 'datatables/css/dataTables.bootstrap.min.css' %}" rel="stylesheet">
+            <!-- Font Awesome -->
+            <link href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+            <!-- NProgress -->
+            <link href="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.css' %}" rel="stylesheet">
+            <!-- iCheck -->
+            <link href="{% static 'vendors/iCheck/skins/flat/green.css' %}" rel="stylesheet">
+            <!-- bootstrap-progressbar -->
+            <link href="{% static 'vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet">
+            <!-- JQVMap -->
+            <link href="{% static 'vendors/jqvmap/dist/jqvmap.min.css' %}" rel="stylesheet"/>
+            <!--Class Routine -->
+            <link href="{% static 'schools/css/routine.css' %}" rel="stylesheet">
+
+            {# <link href="{% static 'schools/css/tables.css' %}" rel="stylesheet"> #}
+            <!--Toastr -->
+            <link href="{% static 'css/toastr.min.css' %}" rel="stylesheet">
+        {% endblock stylesheets %}
+        <!-- Custom Theme Style -->
+        <link href="{% static 'build/css/custom.css' %}" rel="stylesheet">
+
+    <!--LOAD THEMES--> 
+        {% active_theme as active_flag %}
+        {% if active_flag == "black" %}
+        <link href="{% static 'css/front/theme/black.css' %}" rel="stylesheet">
+        {% elif active_flag == "slate-gray" %}
+        <link href="{% static 'css/front/theme/slate-gray.css' %}" rel="stylesheet">
+        {% elif active_flag == "jazzberry-jam" %}
+        <link href="{% static 'css/front/theme/jazzberry-jam.css' %}" rel="stylesheet">
+        {% elif active_flag == "dark-orange" %}
+        <link href="{% static 'css/front/theme/dark-orange.css' %}" rel="stylesheet">
+        {% elif active_flag == "deep-pink" %}
+        <link href="{% static 'css/front/theme/deep-pink.css' %}" rel="stylesheet">
+        {% elif active_flag == "dodger-blue" %}
+        <link href="{% static 'css/theme/dodger-blue.css' %}" rel="stylesheet">
+        
+        {% elif active_flag == "light-sea-green" %}
+        <link href="{% static 'css/front/theme/light-sea-green.css' %}" rel="stylesheet">
+        {% elif active_flag == "maroon" %}
+        <link href="{% static 'css/front/theme/maroon.css' %}" rel="stylesheet">
+        {% elif active_flag == "medium-purple" %}
+        <link href="{% static 'css/front/theme/medium-purple.css' %}" rel="stylesheet">
+        {% elif active_flag == "navy-blue" %}
+        <link href="{% static 'css/front/theme/navy-blue.css' %}" rel="stylesheet">
+        {% elif active_flag == "radical-red" %}
+        <link href="{% static 'css/theme/radical-red.css' %}" rel="stylesheet">
+        {% elif active_flag == "rebecca-purple" %}
+        <link href="{% static 'css/theme/rebecca-purple.css' %}" rel="stylesheet">
+        {% elif active_flag == "red" %}
+        <link href="{% static 'css/theme/red.css' %}" rel="stylesheet">
+        
+        {% elif active_flag == "trinidad" %}
+        <link href="{% static 'css/front/theme/trinidad.css' %}" rel="stylesheet">
+        {% elif active_flag == "umber" %}
+        <link href="{% static 'css/front/theme/umber.css' %}" rel="stylesheet">
+        
+        {% elif active_flag == "lime-green" %}
+        <link href="{% static 'css/front/theme/lime-green.css' %}" rel="stylesheet">
+        {% else %}
+        <link href="{% static 'css/front/theme/slate-gray.css' %}" rel="stylesheet">
+        {% endif %}
+    {% endblock head %}
+
+    <style>
+        .modal-header {
+            background-color: #73879C;
+            color: #FFF;
+            font-size: 24px;
+            font-weight: 300
+        }
+        div.disabled {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        }
+        
+    </style>
+</head>

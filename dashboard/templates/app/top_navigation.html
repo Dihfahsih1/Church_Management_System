@@ -1,0 +1,30 @@
+
+    <div class="nav_menu">
+        <div class="col-lg-12">
+            <nav>
+                <div class="col-lg-1">
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                </div>
+                
+               {% load static total_tags %}
+            </nav>
+        </div>
+    </div>
+
+    {% if messages %}
+    <div class="col-lg-8 col-md-6 col-sm-12" style="float: right">
+        <div class="alert alert-info" id="success-alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+            <span class="lead">Dear {{user.full_name.Initials}} {{user.full_name}}...</span>
+            <ul>
+                {% for message in messages %}
+                <h3 style="font-weight: bolder" {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}
+                </h3>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
