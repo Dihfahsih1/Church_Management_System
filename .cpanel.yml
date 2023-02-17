@@ -1,4 +1,4 @@
 deployment:
 tasks:
-- export DEPLOYPATH=/home/uccbwai1/public_html/system
+- export DEPLOYPATH=ssh://uccbwai1@uccbwaise.org:27015/home/uccbwai1/public_html/system
 - /bin/cp -r * $DEPLOYPATH
