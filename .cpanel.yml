@@ -1,0 +1,4 @@
+deployment:
+tasks:
+- export DEPLOYPATH=/home/uccbwai1/public_html/system
+- /bin/cp -r * $DEPLOYPATH
