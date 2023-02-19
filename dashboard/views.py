@@ -3192,10 +3192,6 @@ def expenditures_api(request):
     serializer  = ExpendituresSerializer(results, many=True)
     return Response(serializer.data)
 
-
-
-from django.shortcuts import render
-from .models import Revenues, Expenditures
 import datetime
 
 def yearly_comparison(request, year):
