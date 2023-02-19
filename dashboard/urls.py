@@ -290,4 +290,5 @@ path('api/v1/revenues-list', views.revenues_api),
 path('api/v1/expenditures-list', views.expenditures_api),
 
 path('view-member-details/<str:pk>/', views.system_view_member_details, name="system-view-member-details"),
+path('yearly_comparison/<int:year>/', views.yearly_comparison, name='yearly_comparison'),
 ]

@@ -1,5 +1,4 @@
 {%load static %}
-{% if user.Role == 'Secretary' or user.Role == 'Admin' or user.Role == 'SuperAdmin' or user.Role == 'Assistant_Admin' %}
 <div class="left_col scroll-view">
     <style type="text/css">
         img {
@@ -46,6 +45,20 @@
                         <li><a href="{% url 'members-list' %}">Ministry Support</a></li>
                         <li><a href="{% url 'record-group-contribution' %}">Group Contribution</a></li>
                         <li><a href="{% url 'record-donations' %}">Other Sources</a></li>
+                    </ul>
+                </li>
+
+                <li><a><i class="fa fa-balance-scale"></i> Expenses <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="{% url 'deduct-sunday-expenses' %}">Sunday Expenses</a></li>
+                        <li><a href="{% url 'enter_expenditure'  %}">Weekly Main Expenses</a>
+                        </li>    
+                        <li><a href="{% url 'enter_sundryexpense'  %}">Petty/Other Expenses</a></li>                    
+                        <li><a href="{% url 'give-allowance'  %}">Allowances</a>
+                        </li>
+                        <li><a href="{% url 'employee-list'  %}">Salaries</a>
+                        </li>
+                        
                     </ul>
                 </li>
 
@@ -217,4 +230,3 @@
     </div>
     <br>
 </div>
-{% endif %}

@@ -115,7 +115,7 @@ def web(request):
             form=ContactForm()
             context = {form:'form'}
     except:
-        pass
+        context={}
     
     return render(request, 'home/index_public.html', context)
 
@@ -2675,7 +2675,7 @@ def current_week_pledges():
     return d_pledges
 
 def week_of_month(date):
-    date= datetime.now()
+    date= today
     month = date.month
     week = 0
     while date.month == month:
@@ -2683,8 +2683,8 @@ def week_of_month(date):
         date -= timedelta(days=7)
     return week
 
-current_year = datetime.now().year #Annual
-current_month = datetime.now().month #Monthly
+current_year = today.year #Annual
+current_month = today.month #Monthly
 week=week_of_month(current_month) #Weekly
 
 
@@ -2699,11 +2699,14 @@ def current_month_balances():
      
 @login_required
 def index(request):
+    current_year = today.year
+    years = list(range(2023, current_year + 1))
     weekly_balances=total_current_week_revenue() - total_current_week_expenses()
  
     mth=calendar.month_name[current_month]
     context={
-            'day':datetime.now().today,
+            'years':years,
+            'day':today,
             'week':week_of_month(current_month), 
             'month':today.strftime('%B'),
             'total_monthly_expenses':total_current_month_expenses(),
@@ -3188,5 +3191,100 @@ def expenditures_api(request):
     results = Expenditures.objects.all()
     serializer  = ExpendituresSerializer(results, many=True)
     return Response(serializer.data)
-  
-    
+
+
+
+from django.shortcuts import render
+from .models import Revenues, Expenditures
+import datetime
+
+def yearly_comparison(request, year):
+    # Retrieve the revenue and expenditure data from the database
+    revenue_list = Revenues.objects.all().values('Date', 'Amount','Building_Amount','Love_Offering_Amount','Thanks_Giving_Amount','Bills_Amount','Seed_Amount','Envag_Or_Missions_Amount','Tithe_Amount', 'General_Offering_Amount',)
+     
+    expenditure_list = Expenditures.objects.all().values('Date', 'Amount', 'Allowances_Amount','Love_Offering_Amount','Help_Amount', 'Bills_Amount', 'Tithe_Of_Tithes_Amount', 'Savings_Amount', 'Seed_Amount', 'Other_Expenses_Amount', 'Transport', 'Lunch', 'Data_or_airtime', 'Renovation', 'Stationery')
+     
+    salary_paid_list = SalariesPaid.objects.all().values('Date_of_paying_salary', 'Salary_Amount',)
+    # Filter the revenue and expenditure data for the specified year
+    salary_paid_list = [salary for salary in salary_paid_list if salary['Date_of_paying_salary'].year == year]
+    revenue_list = [revenue for revenue in revenue_list if revenue['Date'].year == year]
+    expenditure_list = [expenditure for expenditure in expenditure_list if expenditure['Date'].year == year]
+
+    # Create a dictionary to store the monthly revenue and expenditure totals
+    monthly_data = {}
+
+    # Loop through each month of the year to calculate the revenue and expenditure totals
+    for month in range(1, 13):
+        monthly_data[month] = {
+            'salary': sum([salary['Salary_Amount'] or 0 for salary in salary_paid_list if salary['Date_of_paying_salary'].month == month]), 
+            
+            'revenue': sum([revenue['Amount'] or 0 for revenue in revenue_list if revenue['Date'].month == month]),
+            
+            'building_amount': sum([revenue['Building_Amount'] or 0 for revenue in revenue_list if revenue['Date'].month == month]),
+            
+            'love_offering_amount': sum([revenue['Love_Offering_Amount'] or 0 for revenue in revenue_list if revenue['Date'].month == month]),
+            
+            'thanks_giving_amount': sum([revenue['Thanks_Giving_Amount'] or 0 for revenue in revenue_list if revenue['Date'].month == month]),
+            
+            'bills_amount': sum([revenue['Bills_Amount'] or 0 for revenue in revenue_list if revenue['Date'].month == month]),
+            
+            'seed_amount': sum([revenue['Seed_Amount'] or 0 for revenue in revenue_list if revenue['Date'].month == month]),
+            
+            'envag_or_missions_amount': sum([revenue['Envag_Or_Missions_Amount'] or 0 for revenue in revenue_list if revenue['Date'].month == month]),
+            
+            'tithe_amount': sum([revenue['Tithe_Amount'] or 0 for revenue in revenue_list if revenue['Date'].month == month]),
+            
+            'general_offering_amount': sum([revenue['General_Offering_Amount'] or 0 for revenue in revenue_list if revenue['Date'].month == month]),
+            
+            
+            
+            
+            'expenditure': sum([expenditure['Amount'] or 0 for expenditure in expenditure_list if expenditure['Date'].month == month]),
+            
+            'allowances_amount': sum([expenditure['Allowances_Amount'] or 0 for expenditure in expenditure_list if expenditure['Date'].month == month]),
+            
+            'love_offering_amount_expenditure': sum([expenditure['Love_Offering_Amount'] or 0 for expenditure in expenditure_list if expenditure['Date'].month == month]),
+            
+            'help_amount': sum([expenditure['Help_Amount'] or 0 for expenditure in expenditure_list if expenditure['Date'].month == month]),
+            
+            'Bills_Amount': sum([expenditure['Bills_Amount'] or 0 for expenditure in expenditure_list if expenditure['Date'].month == month]),
+            
+            'Tithe_Of_Tithes_Amount': sum([expenditure['Tithe_Of_Tithes_Amount'] or 0 for expenditure in expenditure_list if expenditure['Date'].month == month]),
+            
+            'Savings_Amount': sum([expenditure['Savings_Amount'] or 0 for expenditure in expenditure_list if expenditure['Date'].month == month]),
+            
+            'Seed_Amount': sum([expenditure['Seed_Amount'] or 0 for expenditure in expenditure_list if expenditure['Date'].month == month]),
+            
+            'Other_Expenses_Amount': sum([expenditure['Other_Expenses_Amount'] or 0 for expenditure in expenditure_list if expenditure['Date'].month == month]),
+            
+            'Transport': sum([expenditure['Transport'] or 0 for expenditure in expenditure_list if expenditure['Date'].month == month]),
+            
+            'Lunch': sum([expenditure['Lunch'] or 0 for expenditure in expenditure_list if expenditure['Date'].month == month]),
+            
+            'Data_or_airtime': sum([expenditure['Data_or_airtime'] or 0 for expenditure in expenditure_list if expenditure['Date'].month == month]),
+            
+            'Renovation': sum([expenditure['Renovation'] or 0 for expenditure in expenditure_list if expenditure['Date'].month == month]),
+            
+            'Stationery': sum([expenditure['Stationery'] or 0 for expenditure in expenditure_list if expenditure['Date'].month == month]),
+            
+            
+            
+        }
+
+    # Create a list of labels for the X-axis of the bar chart
+    labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+    # Create a list of revenue and expenditure data for the Y-axis of the bar chart
+    revenue_data = [monthly_data[month]['revenue'] for month in range(1, 13)]
+    expenditure_data = [monthly_data[month]['expenditure'] for month in range(1, 13)]
+
+    # Create a context dictionary containing the revenue and expenditure data, as well as the labels for the X-axis
+    context = {
+        'revenue_data': revenue_data,
+        'expenditure_data': expenditure_data,
+        'labels': labels,
+        'year': year,
+    }
+
+    # Render the template with the context dictionary
+    return render(request, 'yearly_comparison.html', context)

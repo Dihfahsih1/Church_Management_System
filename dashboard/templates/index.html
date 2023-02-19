@@ -91,6 +91,9 @@
                     </li>
                 </ul>
                 {%endif%} 
+                {% for year in years %}
+                <h2><a  style="display: block;" href="{% url 'yearly_comparison' year=year %}">{{year}} Report</a> </h2>
+                {% endfor %}
                 
                 <!-- /top tiles -->
                 <script>
