@@ -1,10 +1,6 @@
-from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
-from django.contrib.messages.views import SuccessMessageMixin
-from django.utils.dateformat import DateFormat
-from django.utils.formats import get_format
+from django.views.generic import CreateView, UpdateView, ListView
 from datetime import datetime, timedelta   
-from django.contrib import messages
-from django.conf import settings
+from django.contrib import messages 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.views import View
@@ -35,11 +31,11 @@ import calendar
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
-year=datetime.now().year
+today = datetime.now()
+YEAR=today.year
 current_month = datetime.now().month
 month=calendar.month_name[current_month]
-today = datetime.now()
+
 
 
 def view_404(request, exception=None):
@@ -85,7 +81,7 @@ def web(request):
         pass
     try:
         
-        date= datetime.now()
+        date= today
         month = date.month
         year = date.year
         #da= date.day
@@ -236,7 +232,7 @@ def paid_salary(request):
 @login_required          
 def current_month_salary_paid(request):
     current_month = datetime.now().month
-    current_year = datetime.now().year
+    current_year = YEAR
     salaries = SalariesPaid.objects.filter(Archived_Status='NOT-ARCHIVED', Date_of_paying_salary__year=current_year, Date_of_paying_salary__month=current_month)
     if request.method=='POST':
         for item in salaries:
@@ -244,7 +240,7 @@ def current_month_salary_paid(request):
             item.save()
         messages.success(request, f'All Salaries Paid have been Archived')
         return redirect('current-month-salaries')
-    years = datetime.now().year
+    years = YEAR
     today = timezone.now()
     day=datetime.now()
     total = salaries.aggregate(totals=models.Sum("Salary_Amount"))
@@ -263,8 +259,8 @@ def delete_salary_paid(request,pk):
 
 @login_required
 def salariespaidarchivessearch(request):
-    today = datetime.now()
-    years=today.year
+    
+    years=YEAR
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
@@ -584,8 +580,8 @@ def Building_Renovation_report(request):
             item.save()
         messages.success(request, f'All Building Collections have been Archived')
         return redirect('Building-Renovation-report')
-    today = datetime.now()
-    years=today.year
+    
+    years=YEAR
     context={}
     items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED",Revenue_filter='build').order_by('-id')
     context['items']=items
@@ -600,13 +596,13 @@ def BuildingRenovationarchivessearch(request):
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
         archived_reports = Revenues.objects.filter(Archived_Status='ARCHIVED',Revenue_filter='build', Date__month=report_month, Date__year=report_year)
-        years = datetime.now().year
-        today = datetime.now()
+        years = YEAR
+        
         context = {'archived_reports': archived_reports,'years': years,
                   'today': today,'report_year': report_year,'report_month': report_month
                    }
         return render(request, "BuildingRenovation/buildingarchive.html", context)
-    years = datetime.now().year
+    years =YEAR
     context = {'years': years,}
     return render(request, "BuildingRenovation/buildingarchive.html", context)
 
@@ -637,13 +633,13 @@ def Offeringsreport (request):
         return redirect('Offeringsreport')
  
     context={}
-    year=datetime.now().year
+    year=YEAR
     
-    # qs1 = Revenues.objects.filter(Date__year=year,Revenue_filter='offering')
-    # qs2=Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=year,General_Offering_Amount__gte=1)
+    # qs1 = Revenues.objects.filter(Date__year=YEAR,Revenue_filter='offering')
+    # qs2=Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=YEAR,General_Offering_Amount__gte=1)
     
-    qs = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=year, Date__month=current_month, Revenue_filter='offering')
-    # qs2=Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=year, Date__month=current_month, General_Offering_Amount__gte=1)
+    qs = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=YEAR, Date__month=current_month, Revenue_filter='offering')
+    # qs2=Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=YEAR, Date__month=current_month, General_Offering_Amount__gte=1)
     
     
     # qs=qs1.union(qs2)
@@ -655,10 +651,10 @@ def Offeringsreport (request):
     
 def individual_offerings(request):
     context={}
-    qs=Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=year, Date__month=current_month, General_Offering_Amount__gte=1)
+    qs=Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=YEAR, Date__month=current_month, General_Offering_Amount__gte=1)
     context['items']=qs
     context['total']=qs.aggregate(Sum('General_Offering_Amount'))['General_Offering_Amount__sum']
-    context['years']=year
+    context['years']=YEAR
     context['today']=today
     return render(request, 'Offerings/individual_offerings_report.html', context)
 
@@ -699,8 +695,8 @@ def edit_offerings(request, pk):
 #search for the archived offerings
 @login_required
 def offeringsarchivessearch(request):
-    today = datetime.now()
-    years=today.year
+    
+    years=YEAR
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
@@ -718,7 +714,7 @@ class offeringsarchivepdf(View):
     def get(self, request, report_year, report_month):
         month=strptime(report_month, '%B').tm_mon
         archived_offerings = Revenues.objects.filter(Date__month=month, Date__year=report_year, Archived_Status='ARCHIVED').order_by('-Date')
-        today = datetime.now()
+        
         month=today.strftime('%B')
         total = archived_offerings.aggregate(totals=models.Sum("General_Offering_Amount"))
         total_amount = total["totals"]
@@ -737,7 +733,7 @@ class offeringspdf(View):
     def get(self, request):
         current_month = datetime.now().month
         offerings = Revenues.objects.filter(Archived_Status='NOT-ARCHIVED').order_by('-Date')
-        today = datetime.now()
+        
         month = today.strftime('%B')
         totalexpense = 0
         for instance in offerings:
@@ -775,8 +771,8 @@ def Seedsreport (request):
             item.save()
         messages.success(request, f'Seeds Offerings Report has been Archived')
         return redirect('Seeds-report')
-    today = datetime.now()
-    years=today.year
+    
+    years=YEAR
     context={}
     items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED")
     context['items']=items
@@ -786,8 +782,8 @@ def Seedsreport (request):
 
 @login_required
 def seedsarchivessearch(request):
-    today = datetime.now()
-    years=today.year
+    
+    years=YEAR
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
@@ -817,7 +813,7 @@ def edit_seed(request, pk):
 class seed_offering_receipt(View):
     def get(self, request, pk):
         seeds= get_object_or_404(Revenues,pk=pk)
-        today = datetime.now()
+        
         context = { 'today': today,'seeds': seeds,'request': request,}
         return Render.render('Seeds/seed_offerings_receipt.html', context)
 
@@ -846,8 +842,8 @@ def Supportreport (request):
         messages.success(request, f'Support Report has been Archived')
         return redirect('Supportreport')
     month = datetime.now().month
-    years=datetime.now().year
-    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=years).order_by('-Date')
+    years=YEAR
+    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=YEAR).order_by('-Date')
 
     context['items']=items
     context['years']=years
@@ -911,16 +907,16 @@ def Tithesreport (request):
         messages.success(request, f'Tithes Report has been Archived')
         return redirect('Tithesreport')
     #month = datetime.now().month
-    year=datetime.now().year
+    year=YEAR
     
-    service_tithes = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=year, Date__month=current_month, Revenue_filter='tithes')
+    service_tithes = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=YEAR, Date__month=current_month, Revenue_filter='tithes')
     
     
-    member_tithes=Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=year, Date__month=current_month, Tithe_Amount__gte=1)
+    member_tithes=Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=YEAR, Date__month=current_month, Tithe_Amount__gte=1)
     
-    # qs1 = Revenues.objects.filter(Date__year=year, Revenue_filter='tithes')
+    # qs1 = Revenues.objects.filter(Date__year=YEAR, Revenue_filter='tithes')
     
-    # qs2=Revenues.objects.filter(Date__year=year, Tithe_Amount__gte=1)
+    # qs2=Revenues.objects.filter(Date__year=YEAR, Tithe_Amount__gte=1)
     # qs=qs1.union(qs2)
     context['sunday']=service_tithes
     context['total']=service_tithes.aggregate(Sum('Amount'))['Amount__sum']
@@ -943,7 +939,7 @@ def monthly_tithes(request):
 
 @login_required
 def Annual_Tithes(request):
-    current_year = datetime.now().year
+    current_year = YEAR
     get_all_members=Members.objects.filter(is_active=True)
     results = Revenues.objects.filter(Date__year=current_year).aggregate(totals=models.Sum("Tithe_Amount"))
     if (results['totals']):
@@ -957,10 +953,10 @@ def Annual_Tithes(request):
 #generate individual annual tithe report
 class member_annual_tithes_pdf(View):
     def get(self, request, pk):
-        today = datetime.now()
-        year=today.year
+        
+        year=year
         get_member_name = get_object_or_404(Members, pk=pk)
-        tithes = Revenues.objects.filter(Member_Id = pk, Date__year=year).order_by('-Date')
+        tithes = Revenues.objects.filter(Member_Id = pk, Date__year=YEAR).order_by('-Date')
         month=today.strftime('%B')
         total = tithes.aggregate(totals=models.Sum("Tithe_Amount"))
         total_amount = total["totals"]
@@ -970,8 +966,8 @@ class member_annual_tithes_pdf(View):
 #retrieve archived tithes after search
 @login_required
 def tithesarchivessearch(request):
-    today = datetime.now()
-    years=today.year
+    
+    years=YEAR
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
@@ -992,10 +988,10 @@ def tithesarchivessearch(request):
 #create a tithe report pdf
 class tithespdf(View):
     def get(self, request):
-        today = datetime.now()
+        
         mth=today.month
-        year=today.year
-        tithes = Revenues.objects.filter(Date__month=mth, Date__year=year).order_by('-Date')
+        year=YEAR
+        tithes = Revenues.objects.filter(Date__month=mth, Date__year=YEAR).order_by('-Date')
         month=today.strftime('%B')
         total = tithes.aggregate(totals=models.Sum("Tithe_Amount"))
         total_amount = total["totals"]
@@ -1016,7 +1012,7 @@ class tithesarchivepdf(View):
     def get(self, request, report_month, report_year):        
         month=strptime(report_month, '%B').tm_mon
         archived_tithes = Revenues.objects.filter(Archived_Status='ARCHIVED',Date__month=month, Date__year=report_year)
-        today = datetime.now()
+        
         total = archived_tithes.aggregate(totals=models.Sum("Tithe_Amount"))
         total_amount = total["totals"]
         tithescontext = {'report_month': report_month,'report_year':report_year,'today': today,'total_amount': total_amount,
@@ -1026,8 +1022,8 @@ class tithesarchivepdf(View):
 #aggregated annual member tithes
 @login_required
 def member_annual_tithes(request, pk):
-    years = timezone.now().year
-    tithes=Revenues.objects.filter(Member_Id=pk, Date__year=years).order_by('-pk')
+    years =YEAR
+    tithes=Revenues.objects.filter(Member_Id=pk, Date__year=YEAR).order_by('-pk')
     total = tithes.aggregate(totals=models.Sum("Tithe_Amount"))
     total_amount = total["totals"]
     members=Members.objects.filter(id=pk)
@@ -1046,7 +1042,7 @@ def record_thanks_giving(request):
             return redirect('thanks-giving-report')
     else:
         form=RevenuesForm()
-        today = datetime.now()
+        
         month = today.strftime('%b')
         context={'form':form, 'month':month}
         return render(request, 'ThanksGiving/record_thanks_giving.html',context)
@@ -1061,11 +1057,11 @@ def thanks_giving_report(request):
             item.save()
         messages.success(request, f'Thanks Giving Report has been Archived')
         return redirect('thanks-giving-report')
-    today = datetime.now()
+    
     month = today.month
-    years=today.year
+    years=YEAR
     context={}
-    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=years)
+    items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED", Date__year=YEAR)
     context['items']=items
     context['years']=years
     context['today']=today
@@ -1086,8 +1082,8 @@ def edit_thanks_giving(request, pk):
 
 @login_required
 def thanksgivingarchivessearch(request):
-    today = datetime.now()
-    years=today.year
+    
+    years=YEAR
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
@@ -1122,8 +1118,8 @@ def donations_report(request):
             item.save()
         messages.success(request, f'Other Sources Of Revenue Report has been Archived')
         return redirect('donations-report')
-    today = datetime.now()
-    years=today.year
+    
+    years=YEAR
     context={}
     items = Revenues.objects.filter(Archived_Status="NOT-ARCHIVED",Revenue_filter='others')
     context['items']=items
@@ -1139,7 +1135,7 @@ def edit_donation(request, pk):
             form.save()
             return redirect('donations-report')
     else:
-        today = datetime.now()
+        
         month = today.strftime('%B')
         form = RevenuesForm(instance=item)        
         context={'form':form, 'month':month}
@@ -1147,8 +1143,8 @@ def edit_donation(request, pk):
 
 @login_required
 def donationsarchivessearch(request):
-    today = datetime.now()
-    years=today.year
+    
+    years=YEAR
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
@@ -1187,8 +1183,8 @@ def edit_general_expense(request, pk):
 
 @login_required
 def general_expenses_archives_search(request):
-    today = datetime.now()
-    years=today.year
+    
+    years=YEAR
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
@@ -1205,7 +1201,7 @@ class general_expenses_archived_pdf(View):
     def get(self, request, report_month, report_year):        
         month=strptime(report_month, '%B').tm_mon
         archived = Expenditures.objects.filter(Archived_Status='ARCHIVED', Reason_filtering='general',Date__month=month, Date__year=report_year)
-        today = datetime.now()
+        
         total = archived.aggregate(totals=models.Sum("Amount"))
         total_amount = total["totals"]
         context = {'report_month': report_month,'report_year':report_year,'today': today,
@@ -1221,8 +1217,8 @@ def general_expenses_report (request):
             item.save()
         messages.success(request, f'All General Expenses have been Archived')
         return redirect('general-expenses-report')
-    today = datetime.now()
-    years=today.year
+    
+    years=YEAR
     context={}
     items = Expenditures.objects.filter(Reason_filtering='general')
     context['items']=items
@@ -1287,28 +1283,28 @@ def main_expenses_report (request):
             item.save()
         messages.success(request, f'All Main Expenses have been Archived')
         return redirect('expenditurereport')
-    today = datetime.now()
+    
     context={}
-    items = Expenditures.objects.filter(Archived_Status='NOT-ARCHIVED', Date__year=year, Date__month=current_month)
+    items = Expenditures.objects.filter(Archived_Status='NOT-ARCHIVED', Date__year=YEAR, Date__month=current_month)
     context['items']=items
-    context['year']=today.year
+    context['year']=YEAR
     context['month']=month
     return render(request, 'Expenses/Main_Expenses_report.html', context)
     
 def weekly_main_expenses (request):
-    today = datetime.now()
-    years=today.year
+    
+    years=YEAR
     context={}
     items = Expenditures.objects.filter(Reason_filtering='main', Archived_Status="NOT-ARCHIVED")
     context['items']=items
-    context['year']=today.year
+    context['year']=YEAR
     context['month']=month
     return render(request, 'Expenses/weekly_main_expenses.html', context)
 
 @login_required
 def main_expenses_archives_search(request):
-    today = datetime.now()
-    years=today.year
+    
+    years=YEAR
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
@@ -1326,7 +1322,7 @@ class main_expenses_archived_pdf(View):
         month=strptime(report_month, '%B').tm_mon
         archived = Expenditures.objects.filter(Archived_Status='ARCHIVED',
         Date__month=month, Date__year=report_year)
-        today = datetime.now()
+        
         total = archived.aggregate(totals=models.Sum("Amount"))
         total_amount = total["totals"]
         context = {'report_month': report_month,'report_year':report_year,'today': today,
@@ -1338,7 +1334,7 @@ class petty_expenses_archived_pdf(View):
         month=strptime(report_month, '%B').tm_mon
         archived = Expenditures.objects.filter(Archived_Status='ARCHIVED', Reason_filtering='petty',\
         Date__month=month, Date__year=report_year)
-        today = datetime.now()
+        
         total = archived.aggregate(totals=models.Sum("Amount"))
         total_amount = total["totals"]
         context = {'report_month': report_month,'report_year':report_year,'today': today,
@@ -1353,10 +1349,10 @@ def petty_cash_report (request):
             item.save()
         messages.success(request, f'All Petty Cash have been Archived')
         return redirect('sundryreport')
-    today = datetime.now()
-    years=today.year
+    
+    years=YEAR
     context={}
-    items = Expenditures.objects.filter(Archived_Status='NOT-ARCHIVED', Date__year=year, Date__month=current_month, Reason_filtering='petty').order_by('-Date')
+    items = Expenditures.objects.filter(Archived_Status='NOT-ARCHIVED', Date__year=YEAR, Date__month=current_month, Reason_filtering='petty').order_by('-Date')
     context['total']=items.aggregate(Sum('Amount'))['Amount__sum']
     context['items']=items
     context['years']=years
@@ -1365,8 +1361,8 @@ def petty_cash_report (request):
     
 @login_required
 def petty_cash_archives_search(request):
-    today = datetime.now()
-    years=today.year
+    
+    years=YEAR
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
@@ -1382,11 +1378,11 @@ def petty_cash_archives_search(request):
 class main_expenditure_report_pdf(View):
     def get(self, request):
         current_month = datetime.now().month
-        current_year = datetime.now().year
+        current_year = YEAR
         expenses = Expenditures.objects.filter(Archived_Status='NOT-ARCHIVED'\
         ,Date__year=current_year)
-        today = datetime.now()
-        year=today.year
+        
+        year=YEAR
         month = today.strftime('%B')
         totalexpense = 0
         for instance in expenses:
@@ -1398,11 +1394,11 @@ class main_expenditure_report_pdf(View):
 class general_expenditure_report_pdf(View):
     def get(self, request):
         current_month = datetime.now().month
-        current_year = datetime.now().year
+        current_year = YEAR
         expenses = Expenditures.objects.filter(Archived_Status='NOT-ARCHIVED', Reason_filtering='general'\
         ,Date__year=current_year)
-        today = datetime.now()
-        year=today.year
+        
+        year=year
         month = today.strftime('%B')
         totalexpense = 0
         for instance in expenses:
@@ -1414,11 +1410,11 @@ class general_expenditure_report_pdf(View):
 class petty_expenditure_report_pdf(View):
     def get(self, request):
         current_month = datetime.now().month
-        current_year = datetime.now().year
+        current_year = YEAR
         expenses = Expenditures.objects.filter(Archived_Status='NOT-ARCHIVED', Reason_filtering='petty'\
         ,Date__year=current_year)
-        today = datetime.now()
-        year=today.year
+        
+        year=year
         month = today.strftime('%B')
         totalexpense = 0
         for instance in expenses:
@@ -1462,8 +1458,8 @@ def allowancereport(request):
             item.save()
         messages.success(request, f'All Allowances Given Out have been Archived')
         return redirect('allowancereport')
-    today = datetime.now()
-    years=today.year
+     
+    years=YEAR
     context={}
     items = Expenditures.objects.filter(Reason_filtering='allowance')
     context['items']=items
@@ -1474,10 +1470,9 @@ def allowancereport(request):
 class allowancespdf(View):
     def get(self, request):
         current_month = datetime.today().month
-        current_year = datetime.today().year
-        allowances = Expenditures.objects.filter(Archived_Status='NOT-ARCHIVED',Date__month=current_month,Date__year=current_year).order_by('-Date')
-        today = datetime.now()
-        year=today.year
+        current_year = YEAR
+        allowances = Expenditures.objects.filter(Archived_Status='NOT-ARCHIVED',Date__month=current_month,Date__year=current_year).order_by('-Date') 
+        year=year
         month = today.strftime('%b')
         totalAllowance = 0
         for instance in allowances:
@@ -1494,8 +1489,7 @@ class allowancespdf(View):
 
 @login_required
 def allowancearchivessearch(request):
-    today = datetime.now()
-    years=today.yearsu
+    years=YEAR
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
@@ -1512,7 +1506,7 @@ class allowances_archived_pdf(View):
     def get(self, request, report_month, report_year):        
         month=strptime(report_month, '%B').tm_mon
         archived = Expenditures.objects.filter(Archived_Status='ARCHIVED', Reason_filtering='allowance',Date__month=month, Date__year=report_year)
-        today = datetime.now()
+        
         total = archived.aggregate(totals=models.Sum("Amount"))
         total_amount = total["totals"]
         allowancecontext = {'report_month': report_month,'report_year':report_year,'today': today,
@@ -1522,7 +1516,7 @@ class allowances_archived_pdf(View):
 class allowancereceipt(View):
     def get(self, request, pk):
         data= get_object_or_404(Expenditures,pk=pk)
-        today = datetime.now()
+        
         context = {
             'today': today,
             'data': data,
@@ -1554,7 +1548,7 @@ def add_Pledge_Items(request):
         return redirect('add-pledge-item')   
     else:
         form=PledgeItemsForm()
-        current_year=datetime.now().year
+        current_year=YEAR
         items = PledgeItem.objects.filter(Date__year=current_year, Archived_Status='NOT-ARCHIVED')
         context={'form':form, 'items':items, 'current_year':current_year}
         return render(request, 'Pledges/add_pledge_item.html',context)
@@ -1572,7 +1566,7 @@ def list_of_pledge_items(request):
                 item.save()
         messages.success(request, f'All Pledges have been Archived')
         return redirect('list-of-pledge-items')
-    current_year=datetime.now().year
+    current_year=YEAR
     items = PledgeItem.objects.filter(Archived_Status='NOT-ARCHIVED').order_by('-Date')
     context ={'items': items}
     return render(request, 'Pledges/list_of_pledge_items.html',context)
@@ -1674,9 +1668,8 @@ def edit_pledges(request, pk):
 
 class pledgespdf(View):
     def get(self, request):
-        current_month = datetime.now().month
+        current_month = today.month
         ple = Pledges.objects.filter(Archived_Status='NOT-ARCHIVED').order_by('-Date')
-        today = datetime.now().now()
         month = today.strftime('%B')
         expense=ple.aggregate(y=models.Sum('Amount_Paid'))
         bal=ple.aggregate(x=models.Sum('Balance'))
@@ -1690,7 +1683,7 @@ class pledgespdf(View):
 class pledgesreceipt(View):
     def get(self, request, pk):
         pledges= get_object_or_404(Pledges,pk=pk)
-        today = datetime.now()
+        
         context = {
             'today': today,
             'pledges': pledges,
@@ -1707,8 +1700,8 @@ def Pledgesreport(request):
             i.save()  
             messages.success(request, f'All Pledges Paid have been Archived')
             return redirect('Pledgesreport')
-    today = datetime.now()
-    years=today.year
+    
+    years=YEAR
     context={}
     items = list(Pledges.objects.filter(Archived_Status="NOT-ARCHIVED").order_by('-Date'))
     context['items']=items
@@ -1718,8 +1711,8 @@ def Pledgesreport(request):
 
 @login_required
 def pledgesarchivessearch(request):
-    today = datetime.now()
-    years=today.year 
+    
+    years=YEAR 
     if request.method == 'POST':
         report_year = request.POST['report_year']
         report_month = request.POST['report_month']
@@ -1736,7 +1729,7 @@ class pledgesarchivepdf(View):
     def get(self, request, report_month, report_year):
         month=strptime(report_month, '%B').tm_mon
         archived_pledges = Pledges.objects.filter(Archived_Status='ARCHIVED', Date__year=report_year, Date__month=month)
-        today = datetime.now()
+        
         total = archived_pledges.aggregate(totals=models.Sum("Amount_Paid"))
         total_amount = total["totals"]
         pledgescontext = {'today': today,'total_amount': total_amount,'request': request, 'archived_pledges': archived_pledges,
@@ -1746,7 +1739,7 @@ class pledgesarchivepdf(View):
 class pledge_debt_invoice(View):
     def get(self, request, pk):
         debt = Pledges.objects.get(Q(Status='UNPAID') | Q(Status='PARTIAL'), id=pk)
-        today = datetime.now()
+        
         debtcontext = { 'today': today, 'debt': debt, 'request': request,
         }
         return Render.render('Pledges/pledge_debt_invoice.html', debtcontext) 
@@ -1755,7 +1748,7 @@ class pledge_debt_invoice(View):
 class pledge_made_invoice(View):
     def get(self, request, pk):
         pledge = Pledges.objects.get(Q(Status='UNPAID') | Q(Status='PARTIAL'), id=pk)
-        today = datetime.now()
+        
         debtcontext = {
             'today': today,
             'pledge': pledge,
@@ -1767,7 +1760,7 @@ class pledge_made_invoice(View):
 @login_required
 def airtime_data_report(request):
     mth = datetime.now().day
-    today = datetime.now()
+    
     get_airtime=Expenditures.objects.filter(Petty_Cash_Reason='Airtime/Data', Date__day=mth)
     total = Expenditures.objects.filter(Petty_Cash_Reason='Airtime/Data',Date__day=mth).aggregate(totals=models.Sum("Amount"))
     total_amount = total["totals"]
@@ -2625,7 +2618,7 @@ def ministry_detail(request, ministry_pk):
 
 
 ########========================>DASHBOARD DATA CALCULATIONS<=====================#######
-current_year = datetime.now().year #Annual
+current_year = YEAR #Annual
 current_month = datetime.now().month #Monthly
 
 one_week_ago = datetime.today() - timedelta(days=7) #Weekly
@@ -2683,7 +2676,7 @@ def week_of_month(date):
         date -= timedelta(days=7)
     return week
 
-current_year = today.year #Annual
+current_year = YEAR #Annual
 current_month = today.month #Monthly
 week=week_of_month(current_month) #Weekly
 
@@ -2699,7 +2692,7 @@ def current_month_balances():
      
 @login_required
 def index(request):
-    current_year = today.year
+    current_year = YEAR
     years = list(range(2023, current_year + 1))
     weekly_balances=total_current_week_revenue() - total_current_week_expenses()
  
@@ -2742,7 +2735,7 @@ def index(request):
 #All monthly revenues not yet archived
 def total_revenues(request):
     current_month = datetime.now().month #Monthly
-    current_year = datetime.now().year
+    current_year = YEAR
     total_revenues = Revenues.objects.filter(Date__month=current_month, Archived_Status='NOT-ARCHIVED').exclude(Revenue_filter='build')\
     .values('Date','Revenue_filter').annotate(Amount=Sum('Amount'))
     total = total_revenues.aggregate(total_amount=models.Sum("Amount"))
@@ -2765,7 +2758,7 @@ def total_revenues(request):
 
 #All monthly expenditures not archived
 def total_expenses(request):
-    current_year = datetime.now().year
+    current_year = YEAR
     current_month = datetime.now().month #Monthly
     total_expenses = Expenditures.objects.filter(Archived_Status='NOT-ARCHIVED')\
     .values('Date','Reason_filtering','Member_Name', 'Member_Name__First_Name','Member_Name__Second_Name','Payment_Made_To').annotate(Amount=Sum('Amount'))
@@ -2957,7 +2950,7 @@ def lwakiolimulamu_wall(request):
 def lwakiolimulamu_archives(request, year):
     
     year = request.GET.get('year')
-    get_all_details = LwakiOliMulamu.objects.filter(date__year=year)
+    get_all_details = LwakiOliMulamu.objects.filter(Date__year=YEAR)
     get_all_years = LwakiOliMulamu.objects.extra(select={'year': 'extract( year from date )'}).values('year').annotate(dcount=Count('date'))
     paginator = Paginator(get_all_details, 7) 
     page = request.GET.get('page')
@@ -3191,8 +3184,6 @@ def expenditures_api(request):
     results = Expenditures.objects.all()
     serializer  = ExpendituresSerializer(results, many=True)
     return Response(serializer.data)
-
-import datetime
 
 def yearly_comparison(request, year):
     # Retrieve the revenue and expenditure data from the database
