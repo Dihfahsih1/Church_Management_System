@@ -2455,7 +2455,8 @@ def event_delete(request, event_pk):
                                              request=request,
                                              )
     return JsonResponse(data)
-# #######################################===>CHURCH MODULE<===######################################
+
+#######===>CHURCH MODULE<===#######
 def churchCreateView(request):
     if request.method == "POST":
         form = churchForm(request.POST, request.FILES)
@@ -2480,7 +2481,6 @@ def churchUpdateView(request, church_pk):
         form = churchForm(instance=item)
         context={'form':form, 'item':item}
         return render(request, 'church/update_church.html', context)
-
 
 class churchListView(ListView):
     model = Church
@@ -2532,8 +2532,7 @@ def church_delete(request, church_pk):
                                              )
     return JsonResponse(data)
 
-
-###################===> MINISTRIES MODULE<===###################
+####===> MINISTRIES MODULE<===####
 
 class MinistryListView(ListView):
     model = Ministry
@@ -2689,9 +2688,12 @@ def current_month_balances():
     balance = revenues - expenses
     return balance 
     
-     
+from .archivetransactions import  archive_transactions 
 @login_required
 def index(request):
+     # Call the background task to archive transactions for the previous month
+    archive_transactions()
+    
     current_year = YEAR
     years = list(range(2023, current_year + 1))
     weekly_balances=total_current_week_revenue() - total_current_week_expenses()

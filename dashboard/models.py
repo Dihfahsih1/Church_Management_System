@@ -19,11 +19,21 @@ services = (('Sunday First Service','Sunday First Service'),('Sunday Second Serv
         ('Home Cell Service','Home Cell Service'),('Youth Service','Youth Service'),('Wednesday Service','Wednesday Service'),
         ('Bible Study Service','Bible Study Service'),('Friday Overnight','Friday Overnight')
         )
+
 cell=(
-    ('Church Zone','Church Zone'),('Kabira Zone','Kabira Zone'),('Katuba Zone','Katuba Zone'),('Kafunda Zone','Kafunda Zone'),('Lugoba Zone','Lugoba Zone') ,('Katooke Zone','Katooke Zone'),
-    ('Kazo Zone','Kazo Zone'),('Gombolola Zone','Gombolola Zone'),('Kawaala Zone','Kawaala Zone'),('Bombo Rd Zone','Bombo Rd Zone'),
+    ('Church Zone','Church Zone'),
+    ('Kabira Zone','Kabira Zone'),
+    ('Katuba Zone','Katuba Zone'),
+    ('Kafunda Zone','Kafunda Zone'),
+    ('Lugoba Zone','Lugoba Zone'),
+    ('Katooke Zone','Katooke Zone'),
+    ('Kazo Zone','Kazo Zone'),
+    ('Gombolola Zone','Gombolola Zone'),
+    ('Kawaala Zone','Kawaala Zone'),
+    ('Bombo Rd Zone','Bombo Rd Zone'),
     ('Kampala Metropolitan','Kampala Metropolitan')
     )
+
     
 ministries=(
     ('Pastoral', 'Pastoral'),
@@ -37,7 +47,14 @@ ministries=(
     ('Intercession Ministry', 'Intercession Ministry'),
     ('Teens', 'Teens'),)
     
-education=(('Masters','Master'),('Degree','Degree'),('Diploma','Diploma'),('A_Level_Graduate','A_Level_Graduate'),('O_Level_Graduate','O_Level_Graduate'),('Primary_Graduate','Primary_Graduate'),('Still_Studying','Still_Studying'),('None','None'))
+education=(('Masters','Master'),
+           ('Degree','Degree'),
+           ('Diploma','Diploma'),
+           ('A_Level_Graduate','A_Level_Graduate'),
+           ('O_Level_Graduate','O_Level_Graduate'),
+           ('Primary_Graduate','Primary_Graduate'),
+           ('Still_Studying','Still_Studying'),
+           ('None','None'))
 OPTIONS = (('Yes', 'Yes'),
            ('No', 'No'))
 ROLE_CHOICES = (
@@ -64,16 +81,29 @@ archive = (
     ('NOT-ARCHIVED', 'NOT-ARCHIVED'),)
 
 petty=(
-        ('Lunch','Lunch'),('Breakfast','Breakfast'),('Upkeep','Upkeep'),('Airtime or Data','Airtime or Data'),('Other','Other')     
+        ('Lunch','Lunch'),
+        ('Breakfast','Breakfast'),
+        ('Upkeep','Upkeep'),
+        ('Airtime or Data','Airtime or Data'),
+        ('Other','Other')     
     )
 main=(
-        ('Water Bills','Water Bills'),('Yaka Bills','Yaka Bills'),
-        ('Transport','Transport'), ('Love Offering','Love Offering'),('Medical Bills','Medical Bills'),('Rent','Rent'),
-        ('Help','Help'),('Savings','Savings'),
+        ('Water Bills','Water Bills'),
+        ('Yaka Bills','Yaka Bills'),
+        ('Transport','Transport'), 
+        ('Love Offering','Love Offering'),
+        ('Medical Bills','Medical Bills'),
+        ('Rent','Rent'),
+        ('Help','Help'),
+        ('Savings','Savings'),
         ('Evangelism','Evangelism'),
         #General
-        ('Tithe of Tithes','Tithe of Tithes'),('Generator Mechanic','Generator Mechanic'),('Instruments','Servicing Music Instruments'),('Condolences','Condolences'),
-        ('Stationery','Stationery'),('Repair','Any Other Repair'),
+        ('Tithe of Tithes','Tithe of Tithes'),
+        ('Generator Mechanic','Generator Mechanic'),
+        ('Instruments','Servicing Music Instruments'),
+        ('Condolences','Condolences'),
+        ('Stationery','Stationery'),
+        ('Repair','Any Other Repair'),
         ('Renovations','Renovations')
     )
 
