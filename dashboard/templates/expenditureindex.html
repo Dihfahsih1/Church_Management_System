@@ -62,15 +62,13 @@
                                   <td><a href="{% url 'expensereceipt' item.id %}" target="_new"><button class="btn btn-info">Print Receipt</button></a> |
                                   <a href="{% url 'edit_payment' pk=item.id %}" ><button class="btn btn-warning">Edit Payment</button></a></td>
                                {% endfor %}
-
-                               </tr>
-                             <tr><td><b>Total Amount:</b> </td> <td>______________ </td> <td>______________  </td><td><b>{{ total_amount}}</b></td></tr>
                                
                              </tbody>
-                             <tr><td><a href="{% url 'expenditurepdf' %} " target="_new" class="btn btn-info bt-sm" role="button">Print Report</a></td>
-                             <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Archive Expenses</button></td>
-                               </tr>
+                            
+                               
                             </table>
+                             <a href="{% url 'expenditurepdf' %} " target="_new" class="btn btn-info bt-sm" role="button">Print Report</a>
+                             <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Archive Expenses</button>
                           </div>
                  <!-- Button trigger modal -->
 

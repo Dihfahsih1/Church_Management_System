@@ -79,7 +79,7 @@ class PaidPledgesForm(forms.ModelForm):
 class TithesForm(forms.ModelForm):
     class Meta:
         model=Tithes
-        fields = ('Date','Tithe_Made_By','Amount')
+        fields = ('Date','Tithe_Made_By','Amount','Service')
         widgets = {
             'Date': DatePickerInput(),
         } 

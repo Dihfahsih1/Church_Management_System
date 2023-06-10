@@ -15,7 +15,8 @@ from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 def index(request):
     current_month = datetime.now().month
     total_current_offerings = Offerings.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Total_Offering"))
-    if (total_current_offerings['totals']):
+  
+    if (total_current_offerings['totals'])!=None:
         int(total_current_offerings["totals"])
         offerings=total_current_offerings["totals"]
     else:
@@ -23,7 +24,8 @@ def index(request):
         offerings = 0
 
     total_current_tithes = Tithes.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
-    if (total_current_tithes['totals']):
+    print(total_current_tithes)
+    if (total_current_tithes['totals'])!=None:
         int(total_current_tithes["totals"])
         tithes=total_current_tithes["totals"]
     else:
@@ -31,14 +33,16 @@ def index(request):
         tithes = 0
 
     total_current_pledges = PaidPledges.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount_Paid"))
-    if (total_current_pledges['totals']):
+    print(total_current_pledges)
+    if (total_current_pledges['totals'])!=None:
         int(total_current_pledges["totals"])
         pledges=total_current_pledges["totals"]
     else:
         total_current_pledges = 0
         pledges = 0
     total_main_expenses = Spend.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
-    if (total_main_expenses['totals']):
+    print(total_main_expenses)
+    if (total_main_expenses['totals'])!=None:
         int(total_main_expenses["totals"])
         expenses=total_main_expenses["totals"]
     else:
@@ -46,30 +50,46 @@ def index(request):
         expenses = 0
 
     total_allowances = Allowance.objects.filter(Date__month=current_month).aggregate(totals=models.Sum("Amount"))
-    if (total_allowances['totals']):
+    print(total_allowances)
+    if (total_allowances['totals'])!=None:
         int(total_allowances["totals"])
         allowances=total_allowances["totals"]
+        
     else:
         total_allowances = 0
         allowances=0
-    if (total_current_tithes, total_current_offerings,total_current_offerings,total_current_pledges,total_allowances,total_main_expenses) == 0:   
-        total_monthly_incomes =  total_current_tithes["totals"]+ itotal_current_offerings["totals"]+ total_current_pledges["totals"]
-        total_monthly_expenditure =  total_allowances["totals"] + total_main_expenses["totals"]
-        net_income = total_monthly_incomes - total_monthly_expenditure
-        today = timezone.now()
-        month = today.strftime('%B')
-        context={'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
-        'allowances':allowances, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
-        return render(request,'index.html', context)
-    else:
+    if (total_current_tithes, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== None:
         total_monthly_incomes = 0
         total_monthly_expenditure =  0
+        pledges = 0
         net_income = total_monthly_incomes - total_monthly_expenditure
         today = timezone.now()
         month = today.strftime('%B')
         context={'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
         'allowances':allowances, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
         return render(request,'index.html', context)
+
+    elif (total_current_tithes, total_current_offerings,total_current_pledges,total_allowances,total_main_expenses)== 0:
+        total_monthly_incomes = 0
+        total_monthly_expenditure =  0
+        pledges = 0
+        net_income = total_monthly_incomes - total_monthly_expenditure
+        today = timezone.now()
+        month = today.strftime('%B')
+        context={'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
+        'allowances':allowances, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
+        return render(request,'index.html', context)
+
+    else:
+        total_monthly_incomes =  tithes+ offerings+ pledges
+        total_monthly_expenditure =  allowances + expenses
+        net_income = total_monthly_incomes - total_monthly_expenditure
+        today = timezone.now()
+        month = today.strftime('%B')
+        context={'total_monthly_incomes':total_monthly_incomes,'total_monthly_expenditure':total_monthly_expenditure, 'month': month,
+        'allowances':allowances, 'expenses':expenses,'tithes':tithes, 'offerings':offerings, 'pledges':pledges, 'net_income':net_income}
+        return render(request,'index.html', context)
+
     
 
 
@@ -609,6 +629,7 @@ class offeringsarchivepdf(View):
      ###################################################
 @login_required
 def Enter_Tithes(request):
+    
     if request.method=="POST":
         form=TithesForm(request.POST)
         if form.is_valid():
@@ -616,7 +637,10 @@ def Enter_Tithes(request):
             return redirect('Tithesreport')
     else:
         form=TithesForm()
-        return render(request, 'record_tithes.html',{'form':form})
+        today = timezone.now()
+        month = today.strftime('%B')
+        context={'form':form, 'month':month}
+        return render(request, 'Tithes/record_tithes.html',context)
 
 def edit_tithes(request, pk):
     item = get_object_or_404(Tithes, pk=pk)
@@ -626,8 +650,11 @@ def edit_tithes(request, pk):
             form.save()
             return redirect('Tithesreport')
     else:
+        today = timezone.now()
+        month = today.strftime('%B')
+        context={'form':form, 'month':month}
         form = TithesForm(instance=item)
-    return render(request, 'record_tithes.html', {'form': form})
+    return render(request, 'record_tithes.html', context)
 
 class tithespdf(View):
     def get(self, request):
@@ -702,7 +729,7 @@ def Tithesreport (request):
         'years':years,
         'current_month':current_month
     }
-    return render(request, 'tithesindex.html', context)
+    return render(request, 'Tithes/tithesindex.html', context)
 
 @login_required
 def tithesarchivessearch(request):
@@ -728,7 +755,7 @@ def tithesarchivessearch(request):
                    'report_year': report_year,
                    'report_month': report_month
                    }
-        return render(request, "tithesarchive.html", context)
+        return render(request, "Tithes/tithesarchive.html", context)
 
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
               'August', 'September', 'October', 'November', 'November', 'December']
@@ -739,7 +766,7 @@ def tithesarchivessearch(request):
     context = {'months': months,
                'years': years,
                'tithes': tithes}
-    return render(request, "tithesarchive.html", context)
+    return render(request, "Tithes/tithesarchive.html", context)
 
 class tithesarchivepdf(View):
     def get(self, request, report_month, report_year):
@@ -753,7 +780,7 @@ class tithesarchivepdf(View):
             'request': request,
             'archived_tithes': archived_tithes,
         }
-        return Render.render('tithesarchivepdf.html', tithescontext)
+        return Render.render('Tithes/tithesarchivepdf.html', tithescontext)
 
                 #########################################
                 #          ALLOWANCES MODULE            #
